@@ -1,7 +1,7 @@
 /************************************************************
- -----BEGIN PGP SIGNED MESSAGE-----
- Hash: SHA256
- 
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
  *                 M O N E Y C H A N G E R
  *
  *   http://wiki.github.com/FellowTraveler/Moneychanger/wiki
@@ -70,25 +70,23 @@
  *   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
  *   PURPOSE.  See the GNU General Public License for more
  *   details.
- 
- -----BEGIN PGP SIGNATURE-----
- wsFVAwUBTbFZUwMIAO35UbuOAQjDRBAAmIUJBi5/WC1KpI4TNAWdQNh6g59qYS6w
- SI6mTMbnP0DUVOrmJdNR7/n1sRlnWzyjKLcKkRtXwRWGC+jE16jijxek9Ome5Qid
- bDqjHSuFvqnsD3+0tbENf+kVrbAReU3YvWk+xFvVc6I2NpS+lEIdjHIWm85jSmew
- Ydx+4KpELkO59thkcKgSYsTSyTP3l9GOTtJlq45XiamoEvso4jFUC1y5KMQsz1KH
- DTE32m5FPZqJqUw9loAmrni3dIMpXKC5yLhdqSMXHK0MAPEIexsuaZjrjKJQSjwV
- eDjwJcMn2WZVvcIr9IEoKEU/2j9wHNZv5Xuj78A/78AkjqEUwrY1M9ht0r/QbusW
- ZT7MlxNCq4DFstrjyKi03yZQGR+m8eJFHE7GvF8Vzg/ap0/CUJzeoXg5wACXGfJj
- k6y8ZBriQO08JECki2sy6oTitDoi7FmzgAIxPGB1qA4HMur/LuzrxAj2V7XkZQlk
- VfAda6Ff9bmStNut+zbsQ0pnIeL/URwWifI8Wq81c7DEIvA5SH/bU9Hws1FMO8PU
- BcDmzadU+syJBTxoP/mHZcLfwHDhcZyBeHX7sHfpHweEunzWjcHjqVCutQMO4dii
- yrsc64WTfAqd4s12SfKMgVFLeL/FUYH7MNqpfgjgwX5co817m9VvCntU6njIuYtV
- 6+G/TuSViH8=
- =/jIC
- -----END PGP SIGNATURE-----
+
+-----BEGIN PGP SIGNATURE-----
+wsFVAwUBTbFZUwMIAO35UbuOAQjDRBAAmIUJBi5/WC1KpI4TNAWdQNh6g59qYS6w
+SI6mTMbnP0DUVOrmJdNR7/n1sRlnWzyjKLcKkRtXwRWGC+jE16jijxek9Ome5Qid
+bDqjHSuFvqnsD3+0tbENf+kVrbAReU3YvWk+xFvVc6I2NpS+lEIdjHIWm85jSmew
+Ydx+4KpELkO59thkcKgSYsTSyTP3l9GOTtJlq45XiamoEvso4jFUC1y5KMQsz1KH
+DTE32m5FPZqJqUw9loAmrni3dIMpXKC5yLhdqSMXHK0MAPEIexsuaZjrjKJQSjwV
+eDjwJcMn2WZVvcIr9IEoKEU/2j9wHNZv5Xuj78A/78AkjqEUwrY1M9ht0r/QbusW
+ZT7MlxNCq4DFstrjyKi03yZQGR+m8eJFHE7GvF8Vzg/ap0/CUJzeoXg5wACXGfJj
+k6y8ZBriQO08JECki2sy6oTitDoi7FmzgAIxPGB1qA4HMur/LuzrxAj2V7XkZQlk
+VfAda6Ff9bmStNut+zbsQ0pnIeL/URwWifI8Wq81c7DEIvA5SH/bU9Hws1FMO8PU
+BcDmzadU+syJBTxoP/mHZcLfwHDhcZyBeHX7sHfpHweEunzWjcHjqVCutQMO4dii
+yrsc64WTfAqd4s12SfKMgVFLeL/FUYH7MNqpfgjgwX5co817m9VvCntU6njIuYtV
+6+G/TuSViH8=
+=/jIC
+-----END PGP SIGNATURE-----
  **************************************************************/
-
-
 package com.wrapper.core;
 
 import com.wrapper.core.dataobjects.CashPurseDetails;
@@ -283,7 +281,7 @@ public class CashPurseAccount extends Account {
                     System.out.println("IN processCashPurse,OT_API_Purse_Peek returned null... Skipping this record");
                     continue;
                 }
-
+                otapi.OT_API_Token_ChangeOwner(serverID, assetID, token, nymID, recepientNymID);
                 String str = otapi.OT_API_Purse_Push(serverID, assetID, recepientNymID, newPurse, token);
                 if (str == null) {
                     System.out.println("IN processCashPurse,OT_API_Purse_Push returned null... Skipping this record");
@@ -320,12 +318,12 @@ public class CashPurseAccount extends Account {
             String tempPurse = oldPurse;
             for (int i = 0; i < count; i++) {
                 String token = otapi.OT_API_Purse_Peek(serverID, assetID, nymID, tempPurse);
-
                 if (token == null) {
                     System.out.println("IN processCashPurse,OT_API_Purse_Peek returned null... Skipping this record");
                     continue;
                 }
                 String tokenID = otapi.OT_API_Token_GetID(serverID, assetID, token);
+                otapi.OT_API_Token_ChangeOwner(serverID, assetID, token, nymID, recepientNymID);
                 if (selectedTokens.contains(tokenID)) {
 
                     String str = otapi.OT_API_Purse_Push(serverID, assetID, nymID, newPurseSelectedTokens, token);
@@ -398,11 +396,18 @@ public class CashPurseAccount extends Account {
                 }
             }
 
-        if (recepientPubKey == null) {
-            System.out.println("recepientPubKey is null");
-            return null;
+            if (recepientPubKey == null) {
+                System.out.println("recepientPubKey is null");
+                return null;
+            }
         }
+        if(selectedTokens.size()==1){
+            //String token = otapi.OT_API_Purse_Peek(serverID, assetID, nymID, oldPurse);
+            String token = otapi.OT_API_Purse_Pop(serverID, assetID, nymID, oldPurse);
+            otapi.OT_API_Token_ChangeOwner(serverID, assetID, token, nymID, recepientNymID);
+            return token;
         }
+        
         String newPurse = processCashPurse(serverID, assetID, nymID, oldPurse, selectedTokens, recepientNymID);
         return newPurse;
     }
