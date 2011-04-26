@@ -90,7 +90,7 @@ From a separate terminal:
 
 ```xml
 
-Moneychanger v0.01 (Initial Release)
+Moneychanger v0.02 (running pretty smooth...)
 
 /************************************************************
 -----BEGIN PGP SIGNED MESSAGE-----

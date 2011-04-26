@@ -300,7 +300,7 @@ public class NYM {
                 String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
                 System.out.println("IN send message,OT_API_IsNym_RegisteredAtServer serverResponseMessage " + serverResponseMessage);
 
-                if (serverResponseMessage == null) {
+                if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
                     return false;
                } else if (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
                     return false;
@@ -309,7 +309,7 @@ public class NYM {
                     otapi.OT_API_getRequest(serverID, nymID);
                     Thread.sleep(Configuration.getWaitTime());
                     serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-                    if (serverResponseMessage == null) {
+                    if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
                         return false;
                     }
                 }

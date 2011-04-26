@@ -323,7 +323,11 @@ public class CashPurseAccount extends Account {
                     continue;
                 }
                 String tokenID = otapi.OT_API_Token_GetID(serverID, assetID, token);
-                otapi.OT_API_Token_ChangeOwner(serverID, assetID, token, nymID, recepientNymID);
+                token = otapi.OT_API_Token_ChangeOwner(serverID, assetID, token, nymID, recepientNymID);
+                if (token == null) {
+                        System.out.println("IN processCashPurse,OT_API_Token_ChangeOwner returned null... Skipping this record");
+                        continue;
+                    }
                 if (selectedTokens.contains(tokenID)) {
 
                     String str = otapi.OT_API_Purse_Push(serverID, assetID, nymID, newPurseSelectedTokens, token);
@@ -364,7 +368,9 @@ public class CashPurseAccount extends Account {
 
     public String exportCashPurse(String serverID, String assetID, String nymID, String oldPurse, ArrayList selectedTokens, String recepientNymID, boolean isPasted) {
         System.out.println("exportCashPurse starts, selectedTokens:" + selectedTokens);
-        if (isPasted) {
+        if(recepientNymID == null || recepientNymID.length()==0)
+            recepientNymID = nymID;
+        if (isPasted && !recepientNymID.equalsIgnoreCase(nymID)) {
             String recepientPubKey = otapi.OT_API_LoadPubkey(recepientNymID);
             System.out.println("recepientPubKey:" + recepientPubKey);
             if (recepientPubKey == null) {
@@ -404,7 +410,7 @@ public class CashPurseAccount extends Account {
         if(selectedTokens.size()==1){
             //String token = otapi.OT_API_Purse_Peek(serverID, assetID, nymID, oldPurse);
             String token = otapi.OT_API_Purse_Pop(serverID, assetID, nymID, oldPurse);
-            otapi.OT_API_Token_ChangeOwner(serverID, assetID, token, nymID, recepientNymID);
+            token = otapi.OT_API_Token_ChangeOwner(serverID, assetID, token, nymID, recepientNymID);
             return token;
         }
         
@@ -432,16 +438,16 @@ public class CashPurseAccount extends Account {
 
         String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
         System.out.println("IN depositCashPurse, server response:" + serverResponseMessage);
-        if (serverResponseMessage == null) {
+         if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
             getRequestNumber(serverID, nymID);
             serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-            if (serverResponseMessage == null) {
+            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
                 return false;
             } else {
                 otapi.OT_API_notarizeDeposit(serverID, nymID, accountID, newPurse);
                 Thread.sleep(Configuration.getWaitTime());
                 serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-                if (serverResponseMessage == null) {
+                if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
                     return false;
                 }
             }
@@ -477,16 +483,16 @@ public class CashPurseAccount extends Account {
 
         String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
         System.out.println("IN Exchange cash, cashpurse, server response:" + serverResponseMessage);
-        if (serverResponseMessage == null) {
+        if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
             getRequestNumber(serverID, nymID);
             serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-            if (serverResponseMessage == null) {
+            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
                 return false;
             } else {
                 otapi.OT_API_exchangePurse(serverID, assetID, nymID, newPurse);
                 Thread.sleep(Configuration.getWaitTime());
                 serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-                if (serverResponseMessage == null) {
+                if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
                     return false;
                 }
             }

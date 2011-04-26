@@ -1,7 +1,7 @@
 /************************************************************
- -----BEGIN PGP SIGNED MESSAGE-----
- Hash: SHA256
- 
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
  *                 M O N E Y C H A N G E R
  *
  *   http://wiki.github.com/FellowTraveler/Moneychanger/wiki
@@ -70,25 +70,23 @@
  *   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
  *   PURPOSE.  See the GNU General Public License for more
  *   details.
- 
- -----BEGIN PGP SIGNATURE-----
- wsFVAwUBTbFZUwMIAO35UbuOAQjDRBAAmIUJBi5/WC1KpI4TNAWdQNh6g59qYS6w
- SI6mTMbnP0DUVOrmJdNR7/n1sRlnWzyjKLcKkRtXwRWGC+jE16jijxek9Ome5Qid
- bDqjHSuFvqnsD3+0tbENf+kVrbAReU3YvWk+xFvVc6I2NpS+lEIdjHIWm85jSmew
- Ydx+4KpELkO59thkcKgSYsTSyTP3l9GOTtJlq45XiamoEvso4jFUC1y5KMQsz1KH
- DTE32m5FPZqJqUw9loAmrni3dIMpXKC5yLhdqSMXHK0MAPEIexsuaZjrjKJQSjwV
- eDjwJcMn2WZVvcIr9IEoKEU/2j9wHNZv5Xuj78A/78AkjqEUwrY1M9ht0r/QbusW
- ZT7MlxNCq4DFstrjyKi03yZQGR+m8eJFHE7GvF8Vzg/ap0/CUJzeoXg5wACXGfJj
- k6y8ZBriQO08JECki2sy6oTitDoi7FmzgAIxPGB1qA4HMur/LuzrxAj2V7XkZQlk
- VfAda6Ff9bmStNut+zbsQ0pnIeL/URwWifI8Wq81c7DEIvA5SH/bU9Hws1FMO8PU
- BcDmzadU+syJBTxoP/mHZcLfwHDhcZyBeHX7sHfpHweEunzWjcHjqVCutQMO4dii
- yrsc64WTfAqd4s12SfKMgVFLeL/FUYH7MNqpfgjgwX5co817m9VvCntU6njIuYtV
- 6+G/TuSViH8=
- =/jIC
- -----END PGP SIGNATURE-----
+
+-----BEGIN PGP SIGNATURE-----
+wsFVAwUBTbFZUwMIAO35UbuOAQjDRBAAmIUJBi5/WC1KpI4TNAWdQNh6g59qYS6w
+SI6mTMbnP0DUVOrmJdNR7/n1sRlnWzyjKLcKkRtXwRWGC+jE16jijxek9Ome5Qid
+bDqjHSuFvqnsD3+0tbENf+kVrbAReU3YvWk+xFvVc6I2NpS+lEIdjHIWm85jSmew
+Ydx+4KpELkO59thkcKgSYsTSyTP3l9GOTtJlq45XiamoEvso4jFUC1y5KMQsz1KH
+DTE32m5FPZqJqUw9loAmrni3dIMpXKC5yLhdqSMXHK0MAPEIexsuaZjrjKJQSjwV
+eDjwJcMn2WZVvcIr9IEoKEU/2j9wHNZv5Xuj78A/78AkjqEUwrY1M9ht0r/QbusW
+ZT7MlxNCq4DFstrjyKi03yZQGR+m8eJFHE7GvF8Vzg/ap0/CUJzeoXg5wACXGfJj
+k6y8ZBriQO08JECki2sy6oTitDoi7FmzgAIxPGB1qA4HMur/LuzrxAj2V7XkZQlk
+VfAda6Ff9bmStNut+zbsQ0pnIeL/URwWifI8Wq81c7DEIvA5SH/bU9Hws1FMO8PU
+BcDmzadU+syJBTxoP/mHZcLfwHDhcZyBeHX7sHfpHweEunzWjcHjqVCutQMO4dii
+yrsc64WTfAqd4s12SfKMgVFLeL/FUYH7MNqpfgjgwX5co817m9VvCntU6njIuYtV
+6+G/TuSViH8=
+=/jIC
+-----END PGP SIGNATURE-----
  **************************************************************/
-
-
 package com.wrapper.core;
 
 import com.wrapper.core.jni.otapi;
@@ -192,6 +190,31 @@ public class Contract {
 
     public boolean issueAssetType(String serverID, String nymID, String contract) throws InterruptedException {
 
+        if (otapi.OT_API_IsNym_RegisteredAtServer(nymID, serverID) == 0) {
+
+            otapi.OT_API_FlushMessageBuffer();
+            otapi.OT_API_createUserAccount(serverID, nymID);
+            Thread.sleep(Configuration.getWaitTime());
+            String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
+            System.out.println("IN issueAssetType,OT_API_IsNym_RegisteredAtServer serverResponseMessage " + serverResponseMessage);
+            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
+                return false;
+            } else if (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
+                return false;
+            } else if (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 1) {
+
+                otapi.OT_API_FlushMessageBuffer();
+                otapi.OT_API_getRequest(serverID, nymID);
+                Thread.sleep(Configuration.getWaitTime());
+                serverResponseMessage = otapi.OT_API_PopMessageBuffer();
+                if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
+                    System.out.println("IN issueAssetType, during nym registration, getrequestNumber failed . serverResponseMessage - " + serverResponseMessage);
+                    return false;
+                }
+            }
+        }
+
+
         otapi.OT_API_FlushMessageBuffer();
         otapi.OT_API_issueAssetType(serverID, nymID, contract);
 
@@ -199,14 +222,14 @@ public class Contract {
 
         String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
         System.out.println("IN issueAssetType " + serverResponseMessage);
-        if (serverResponseMessage == null) {
+        if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
             otapi.OT_API_FlushMessageBuffer();
             otapi.OT_API_getRequest(serverID, nymID);
             Thread.sleep(Configuration.getWaitTime());
             otapi.OT_API_issueAssetType(serverID, nymID, contract);
             Thread.sleep(Configuration.getWaitTime());
             serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-            if ((serverResponseMessage == null)) {
+            if ((serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0)) {
                 return false;
             }
         }
