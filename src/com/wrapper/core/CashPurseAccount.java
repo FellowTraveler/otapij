@@ -325,9 +325,9 @@ public class CashPurseAccount extends Account {
                 String tokenID = otapi.OT_API_Token_GetID(serverID, assetID, token);
                 token = otapi.OT_API_Token_ChangeOwner(serverID, assetID, token, nymID, recepientNymID);
                 if (token == null) {
-                        System.out.println("IN processCashPurse,OT_API_Token_ChangeOwner returned null... Skipping this record");
-                        continue;
-                    }
+                    System.out.println("IN processCashPurse,OT_API_Token_ChangeOwner returned null... Skipping this record");
+                    continue;
+                }
                 if (selectedTokens.contains(tokenID)) {
 
                     String str = otapi.OT_API_Purse_Push(serverID, assetID, nymID, newPurseSelectedTokens, token);
@@ -368,9 +368,11 @@ public class CashPurseAccount extends Account {
 
     public String exportCashPurse(String serverID, String assetID, String nymID, String oldPurse, ArrayList selectedTokens, String recepientNymID, boolean isPasted) {
         System.out.println("exportCashPurse starts, selectedTokens:" + selectedTokens);
-        if(recepientNymID == null || recepientNymID.length()==0)
+        Utility.setObj(null);
+        if (recepientNymID == null || recepientNymID.length() == 0) {
             recepientNymID = nymID;
-        if (isPasted && !recepientNymID.equalsIgnoreCase(nymID)) {
+        }
+        if (isPasted && !recepientNymID.equals(nymID)) {
             String recepientPubKey = otapi.OT_API_LoadPubkey(recepientNymID);
             System.out.println("recepientPubKey:" + recepientPubKey);
             if (recepientPubKey == null) {
@@ -382,7 +384,7 @@ public class CashPurseAccount extends Account {
                     ex.printStackTrace();
                 }
                 String serverResponse = otapi.OT_API_PopMessageBuffer();
-                if (serverResponse != null) {
+                if (serverResponse != null && otapi.OT_API_Message_GetSuccess(serverResponse) == 1) {
                     recepientPubKey = otapi.OT_API_LoadPubkey(recepientNymID);
                 } else {
                     System.out.println("Error : Response fromserver " + serverResponse);
@@ -407,13 +409,44 @@ public class CashPurseAccount extends Account {
                 return null;
             }
         }
-        if(selectedTokens.size()==1){
+        String token = null;
+        String exportedToken = null;
+        if (selectedTokens.size() == 1) {
             //String token = otapi.OT_API_Purse_Peek(serverID, assetID, nymID, oldPurse);
-            String token = otapi.OT_API_Purse_Pop(serverID, assetID, nymID, oldPurse);
-            token = otapi.OT_API_Token_ChangeOwner(serverID, assetID, token, nymID, recepientNymID);
-            return token;
+            String newPurse = otapi.OT_API_CreatePurse(serverID, assetID, nymID);
+            if (newPurse == null) {
+                System.out.println("OT_API_CreatePurse returned null");
+                return null;
+            }
+            int count = otapi.OT_API_Purse_Count(serverID, assetID, oldPurse);
+            String tempPurse = oldPurse;
+            for (int i = 0; i < count; i++) {
+                token = otapi.OT_API_Purse_Peek(serverID, assetID, nymID, tempPurse);
+                if (token == null) {
+                    System.out.println("IN export cash,OT_API_Purse_Peek returned null... Skipping this record");
+                    continue;
+                }
+
+                String tokenID = otapi.OT_API_Token_GetID(serverID, assetID, token);
+
+                if (selectedTokens.contains(tokenID)) {
+                    exportedToken = otapi.OT_API_Token_ChangeOwner(serverID, assetID, token, nymID, recepientNymID);
+                                       
+                }else{
+                newPurse = otapi.OT_API_Purse_Push(serverID, assetID, nymID, newPurse, token);
+                }
+                tempPurse = otapi.OT_API_Purse_Pop(serverID, assetID, nymID, tempPurse);
+            }
+
+            if (otapi.OT_API_SavePurse(serverID, assetID, nymID, newPurse) == 0) {
+                        Utility.setObj(oldPurse);
+                        return null;
+                    }
+
+
+            return exportedToken;
         }
-        
+
         String newPurse = processCashPurse(serverID, assetID, nymID, oldPurse, selectedTokens, recepientNymID);
         return newPurse;
     }
@@ -438,7 +471,7 @@ public class CashPurseAccount extends Account {
 
         String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
         System.out.println("IN depositCashPurse, server response:" + serverResponseMessage);
-         if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
+        if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
             getRequestNumber(serverID, nymID);
             serverResponseMessage = otapi.OT_API_PopMessageBuffer();
             if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {

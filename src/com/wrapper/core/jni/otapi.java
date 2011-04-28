@@ -95,7 +95,9 @@ public class otapi {
   public static int OT_API_Init(String szClientPath) {
     return otapiJNI.OT_API_Init(szClientPath);
   }
-
+public static String OT_API_Wallet_ImportNym(String name,String key){
+    return otapiJNI.OT_API_Wallet_ImportNym(name,key);
+}
   public static int OT_API_LoadWallet(String szPath) {
     return otapiJNI.OT_API_LoadWallet(szPath);
   }

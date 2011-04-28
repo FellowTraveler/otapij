@@ -39,7 +39,11 @@
                       <Component id="jTextField2" alignment="0" max="32767" attributes="1"/>
                       <Component id="jTextField1" alignment="0" pref="305" max="32767" attributes="1"/>
                       <Component id="jScrollPane1" alignment="0" max="32767" attributes="1"/>
-                      <Component id="jComboBox1" alignment="0" min="-2" pref="153" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="1">
+                          <Component id="jComboBox1" min="-2" pref="153" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="jButton2" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
               <EmptySpace pref="37" max="32767" attributes="0"/>
@@ -53,6 +57,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -160,6 +165,15 @@
         <Property name="text" type="java.lang.String" resourceKey="jLabel4.text"/>
         <Property name="name" type="java.lang.String" value="jLabel4" noResource="true"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButton2">
+      <Properties>
+        <Property name="text" type="java.lang.String" resourceKey="jButton2.text"/>
+        <Property name="name" type="java.lang.String" value="jButton2" noResource="true"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

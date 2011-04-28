@@ -365,4 +365,10 @@ public class NYM {
         System.out.println("Is Nym Deleted :" + deleteNym);
         return deleteNym;
     }
+
+    public String importNYM(String name,String key) {
+        String nymID = null;
+        otapi.OT_API_Wallet_ImportNym(name,key);
+        return nymID;
+    }
 }

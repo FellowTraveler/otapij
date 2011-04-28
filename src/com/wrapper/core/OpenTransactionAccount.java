@@ -250,8 +250,8 @@ public class OpenTransactionAccount extends Account {
 
         for (int i = 0; i < count; i++) {
             String accountID = otapi.OT_API_GetAccountWallet_ID(i);
-            if (assetID.equalsIgnoreCase(otapi.OT_API_GetAccountWallet_AssetTypeID(accountID))
-                    && serverID.equalsIgnoreCase(otapi.OT_API_GetAccountWallet_ServerID(accountID))) {
+            if (assetID.equals(otapi.OT_API_GetAccountWallet_AssetTypeID(accountID))
+                    && serverID.equals(otapi.OT_API_GetAccountWallet_ServerID(accountID))) {
                 account.put((i), new String[]{otapi.OT_API_GetAccountWallet_Name(accountID), accountID});
             }
         }
@@ -267,18 +267,18 @@ public class OpenTransactionAccount extends Account {
             String accountID = otapi.OT_API_GetAccountWallet_ID(i);
 
             if (!"ALL".equalsIgnoreCase(assetID)) {
-                if (assetID == null || !assetID.equalsIgnoreCase(otapi.OT_API_GetAccountWallet_AssetTypeID(accountID))) {
+                if (assetID == null || !assetID.equals(otapi.OT_API_GetAccountWallet_AssetTypeID(accountID))) {
                     continue;
                 }
             }
 
             if (!"ALL".equalsIgnoreCase(serverID)) {
-                if (serverID == null || !serverID.equalsIgnoreCase(otapi.OT_API_GetAccountWallet_ServerID(accountID))) {
+                if (serverID == null || !serverID.equals(otapi.OT_API_GetAccountWallet_ServerID(accountID))) {
                     continue;
                 }
             }
             if (!"ALL".equalsIgnoreCase(nymID)) {
-                if (nymID != null && nymID.equalsIgnoreCase(otapi.OT_API_GetAccountWallet_NymID(accountID))) {
+                if (nymID != null && nymID.equals(otapi.OT_API_GetAccountWallet_NymID(accountID))) {
                     key = accountID;
                     label = otapi.OT_API_GetAccountWallet_Name(accountID);
                     amount = otapi.OT_API_GetAccountWallet_Balance(accountID);

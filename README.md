@@ -16,6 +16,7 @@ Bitcoin integration is also coming soon.
 See wikis for more screenshots and diagrams.
 
 [Moneychanger wiki](https://github.com/FellowTraveler/Moneychanger/wiki)
+
 [Open-Transactions wiki](https://github.com/FellowTraveler/Open-Transactions/wiki)
 
 Radio interview about Open Transactions, Moneychanger (and Bitcoin):
@@ -27,6 +28,8 @@ THIS IS ONLY EXPERIMENTAL SOFTWARE AND IS NOT YET READY FOR PRIME TIME.
 ## INSTALLATION
 
 [(Open-Transactions Install Instructions)](https://github.com/FellowTraveler/Open-Transactions/wiki/Install)
+
+[Troubleshooting](https://github.com/FellowTraveler/Moneychanger/wiki/Troubleshooting)
 
 First, [download Open-Transactions](https://github.com/FellowTraveler/Open-Transactions/):
 
@@ -44,16 +47,18 @@ Build Open-Transactions for the Java API:
 
      $ make java
 
-If you have a special, local version of OpenSSL (must be in the same folder as the Open-Transactions folder) then use:
+If you have a special, local version of OpenSSL 1.0.0 just for OT, then name its folder "openssl" (all lowercase) and place it inside the Open-Transactions folder. (As in, "Open-Transactions/openssl" is where it will be.) Then:
 
      $ make DSP=1 java
 
-Download Moneychanger:
+The DSP option causes Open Transactions to look for an 'openssl' folder inside the Open-Transactions main folder.
+
+Download Moneychanger source code:
 
      $ cd ..
      $ git clone git://github.com/FellowTraveler/Moneychanger.git
 
-The jar, lib, and src are also posted at:
+The jar, lib, and src are posted at:
 
      http://ft.vm.to/files/moneychanger/src.zip
      http://ft.vm.to/files/moneychanger/lib.zip
@@ -61,13 +66,21 @@ The jar, lib, and src are also posted at:
 
 To download those versions, you can do this:
 
+     $ mkdir Moneychanger (ONLY DO THIS LINE IF YOU DIDN'T GIT.)
+     $ cd Moneychanger 
      $ wget http://ft.vm.to/files/moneychanger/lib.zip
      $ wget http://ft.vm.to/files/moneychanger/JavaWrapper.jar
 
-Copy the Moneychanger lib directory, and JavaWrapper.jar, to the Open-Transactions/testwallet directory:
+If wget fails with "Command not found", try this:
 
-     $ cp -r Moneychanger/lib Open-Transactions/testwallet
-     $ cp Moneychanger/JavaWrapper.jar Open-Transactions/testwallet
+     $ curl http://ft.vm.to/files/moneychanger/lib.zip >lib.zip
+     $ curl http://ft.vm.to/files/moneychanger/JavaWrapper.jar >JavaWrapper.jar
+
+From within the Moneychanger folder, unzip the lib.zip, then copy it and JavaWrapper.jar to the Open-Transactions/testwallet directory:
+
+     $ unzip lib.zip
+     $ cp -r lib ../Open-Transactions/testwallet
+     $ cp JavaWrapper.jar Open-Transactions/testwallet
 
 ## TO RUN OPEN TRANSACTIONS SERVER
 

@@ -93,6 +93,7 @@ package com.wrapper.core.jni;
 
 class otapiJNI {
   public final static native int OT_API_Init(String jarg1);
+  public final static native String OT_API_Wallet_ImportNym(String jarg1, String jarg2);
   public final static native int OT_API_LoadWallet(String jarg1);
   public final static native int OT_API_SwitchWallet(String jarg1, String jarg2);
   public final static native int OT_API_GetMemlogSize();

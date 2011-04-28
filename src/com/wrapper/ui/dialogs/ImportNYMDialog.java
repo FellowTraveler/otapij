@@ -1,42 +1,42 @@
 /************************************************************
  -----BEGIN PGP SIGNED MESSAGE-----
  Hash: SHA256
- 
+
  *                 M O N E Y C H A N G E R
  *
  *   http://wiki.github.com/FellowTraveler/Moneychanger/wiki
  *
  *  Open Transactions:
  *       Financial Cryptography and Digital Cash
- *       Library, Protocol, API, Server, and GUI 
- *    
+ *       Library, Protocol, API, Server, and GUI
+ *
  *    	 -- Anonymous Numbered Accounts.
  *    	 -- Untraceable Digital Cash.
  *    	 -- Triple-Signed Receipts.
  *    	 -- Cheques, Vouchers, Transfers, Inboxes.
  *    	 -- Basket Currencies, Markets, Payment Plans.
  *    	 -- Signed, XML, Ricardian-style Contracts.
- *    
+ *
  *  Copyright (C) 2010-2011 by "Fellow Traveler" (A pseudonym)
  *
  *  EMAIL:
  *  FellowTraveler@rayservers.net --- SEE PGP KEY BELOW.
  *  F3llowTraveler@gmail.com --- (not preferred.)
- *  
+ *
  *  FINGERPRINT:
  *  9DD5 90EB 9292 4B48 0484  7910 0308 00ED F951 BB8E
  *
  *  BITCOIN:  1NtTPVVjDsUfDWybS4BwvHpG2pdS9RnYyQ
  *
  *  OFFICIAL PROJECT WIKI:
- *  http://wiki.github.com/FellowTraveler/Open-Transactions/wiki 
+ *  http://wiki.github.com/FellowTraveler/Open-Transactions/wiki
  *
  *  WEBSITE:
  *  http://www.OpenTransactions.org/
- *    
+ *
  *  Components and licensing:
  *   -- Moneychanger..A Java client GUI.....LICENSE:.....GPLv3
- *   -- OTLib.........A class library.......LICENSE:...LAGPLv3 
+ *   -- OTLib.........A class library.......LICENSE:...LAGPLv3
  *   -- OT-API........A client API..........LICENSE:...LAGPLv3
  *   -- testwallet....Command-line client...LICENSE:...LAGPLv3
  *   -- OT-Server.....Server Application....LICENSE:....AGPLv3
@@ -63,14 +63,14 @@
  *   software license, please contact FellowTraveler.
  *   (Unfortunately many will run anonymously and untraceably,
  *   so who could really stop them?)
- *   
+ *
  *   DISCLAIMER:
  *   This program is distributed in the hope that it will be
  *   useful, but WITHOUT ANY WARRANTY; without even the implied
  *   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
  *   PURPOSE.  See the GNU General Public License for more
  *   details.
- 
+
  -----BEGIN PGP SIGNATURE-----
  wsFVAwUBTbFZUwMIAO35UbuOAQjDRBAAmIUJBi5/WC1KpI4TNAWdQNh6g59qYS6w
  SI6mTMbnP0DUVOrmJdNR7/n1sRlnWzyjKLcKkRtXwRWGC+jE16jijxek9Ome5Qid
@@ -88,53 +88,22 @@
  -----END PGP SIGNATURE-----
  **************************************************************/
 
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * ExportCashToDialog.java
- *
- * Created on 22 Apr, 2011, 9:09:06 PM
- */
-
 package com.wrapper.ui.dialogs;
 
-import com.wrapper.core.CashPurseAccount;
 import com.wrapper.core.NYM;
-import com.wrapper.core.dataobjects.CashPurseDetails;
 import com.wrapper.core.util.Utility;
-import com.wrapper.ui.MainPage;
-import com.wrapper.ui.panels.CashPurseAccountBottomPanel;
-import com.wrapper.ui.panels.CashPurseAccountTopPanel;
-import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
-import java.util.ArrayList;
-import java.util.Map;
+import javax.swing.JOptionPane;
 
-/**
- *
- * @author Vicky C
- */
-public class ExportCashToDialog extends javax.swing.JDialog {
-    private final Map nymMap;
-    private static CashPurseDetails details;
-    private static ArrayList selectedIndices;
+public class ImportNYMDialog extends javax.swing.JDialog {
 
-
-    /** Creates new form ExportCashToDialog */
-    public ExportCashToDialog(java.awt.Frame parent, boolean modal,CashPurseDetails cashDetails,ArrayList selectedIndices1) {
+    /** Creates new form ImportNYMDialog */
+    public ImportNYMDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        details = cashDetails;
-        selectedIndices = selectedIndices1;
-        nymMap = new NYM().loadNYM();
         setLocation(Utility.getLocation(this.getSize()));
-        Utility.populateCombo(nymMap, jComboBox2);
     }
 
     /** This method is called from within the constructor to
@@ -146,34 +115,33 @@ public class ExportCashToDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox2 = new com.wrapper.ui.custom.SteppedComboBox();
-        jLabel6 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(app.ApplicationLauncher.class).getContext().getResourceMap(ExportCashToDialog.class);
-        setTitle(resourceMap.getString("Form.title")); // NOI18N
-        setAlwaysOnTop(true);
         setName("Form"); // NOI18N
 
-        jTextField1.setName("jTextField1"); // NOI18N
-
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(app.ApplicationLauncher.class).getContext().getResourceMap(ImportNYMDialog.class);
         jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
         jLabel1.setName("jLabel1"); // NOI18N
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Select or Paste ID" }));
-        jComboBox2.setName("jComboBox2"); // NOI18N
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
-            }
-        });
+        jTextField1.setText(resourceMap.getString("jTextField1.text")); // NOI18N
+        jTextField1.setName("jTextField1"); // NOI18N
 
-        jLabel6.setText(resourceMap.getString("jLabel6.text")); // NOI18N
-        jLabel6.setName("jLabel6"); // NOI18N
+        jLabel2.setText(resourceMap.getString("jLabel2.text")); // NOI18N
+        jLabel2.setName("jLabel2"); // NOI18N
+
+        jScrollPane1.setName("jScrollPane1"); // NOI18N
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jTextArea1.setName("jTextArea1"); // NOI18N
+        jScrollPane1.setViewportView(jTextArea1);
 
         jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
         jButton1.setName("jButton1"); // NOI18N
@@ -195,72 +163,55 @@ public class ExportCashToDialog extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(41, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel6))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2))
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(59, 59, 59))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 615, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(373, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(297, 297, 297))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(17, 17, 17))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
-        jTextField1.setBackground(Color.WHITE);
-        if (jComboBox2.getSelectedIndex() == 0) {
-            jTextField1.setText("");
-            jTextField1.setEditable(true);
-        } else {
-            jTextField1.setEditable(false);
-            jTextField1.setText(((String[]) nymMap.get((Integer) jComboBox2.getSelectedIndex() - 1))[1]);
-        }
-}//GEN-LAST:event_jComboBox2ActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        CashPurseAccount cashPurseAccount = new CashPurseAccount();
-        boolean isPasted = true;
-        if(jComboBox2.getSelectedIndex()>0)
-            isPasted = false;
+        NYM nym = new NYM();
+
         try{
-            setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-            String purse = cashPurseAccount.exportCashPurse(details.getServerID(), details.getAssetID(), details.getNymID(), details.getPurse(), selectedIndices,jTextField1.getText(),isPasted);
-            if(purse!=null){
-                CashPurseDetails cashDetails = new CashPurseAccount().getCashPurseDetails(details.getServerID()+":"+details.getAssetID()+":"+details.getNymID());
-                CashPurseAccountBottomPanel.populateCashPurseDetails(cashDetails);
-                CashPurseAccountTopPanel.populateCashPurseDetails(cashDetails, cashDetails.getBalance());
-                MainPage.reLoadAccount();
-                //((CashPurseTableModel) jTable5.getModel()).setValue(cashPurseAccount.refreshGridData(details.getServerID(), details.getAssetID(), details.getNymID()), jTable5);
-            }
-            if(Utility.getObj()!=null){
-                new CashPurseExportDetails(null, true,purse,false).setVisible(true);
-            }else{
-            new CashPurseExportDetails(null, true,purse,true).setVisible(true);
-            }
+        setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        String importedNymID = nym.importNYM(jTextField1.getText(),jTextArea1.getText());
+        if(importedNymID!=null){
+            JOptionPane.showMessageDialog(null, "Nym Imported Successfully. NYM ID:"+importedNymID,"Import Success",JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            JOptionPane.showMessageDialog(null, "Nym Import Failed","Error",JOptionPane.ERROR_MESSAGE);
+        }
         }catch(Exception e){
             e.printStackTrace();
         }finally{
@@ -270,7 +221,6 @@ public class ExportCashToDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
         Transferable clipboardContent = getToolkit().getSystemClipboard().getContents(this);
 
         if ((clipboardContent != null)
@@ -278,7 +228,7 @@ public class ExportCashToDialog extends javax.swing.JDialog {
             try {
                 String tempString;
                 tempString = (String) clipboardContent.getTransferData(DataFlavor.stringFlavor);
-                jTextField1.setText(tempString);
+                jTextArea1.setText(tempString);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -291,7 +241,7 @@ public class ExportCashToDialog extends javax.swing.JDialog {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ExportCashToDialog dialog = new ExportCashToDialog(new javax.swing.JFrame(), true,null,null);
+                ImportNYMDialog dialog = new ImportNYMDialog(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -305,9 +255,10 @@ public class ExportCashToDialog extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 

@@ -104,6 +104,7 @@ package com.wrapper.ui.dialogs;
 
 import com.wrapper.core.CashPurseAccount;
 import com.wrapper.core.dataobjects.CashPurseDetails;
+import com.wrapper.core.util.Utility;
 import com.wrapper.ui.MainPage;
 import com.wrapper.ui.panels.CashPurseAccountBottomPanel;
 import com.wrapper.ui.panels.CashPurseAccountTopPanel;
@@ -128,6 +129,7 @@ public class ImportCashPurse extends javax.swing.JDialog {
     public ImportCashPurse(java.awt.Frame parent, boolean modal,String serverID,String nymID,String assetID,String purse) {
         super(parent, modal);
         initComponents();
+        setLocation(Utility.getLocation(this.getSize()));
         this.serverID= serverID;
         this.purse = purse;
         this.assetID = assetID;
