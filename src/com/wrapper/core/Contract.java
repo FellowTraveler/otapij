@@ -232,6 +232,10 @@ public class Contract {
             if ((serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0)) {
                 return false;
             }
+            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
+            if ((serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0)) {
+                return false;
+            }
         }
 
         return (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 1 ? true : false);

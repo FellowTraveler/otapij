@@ -96,22 +96,21 @@
 
 package com.wrapper.ui.model;
 
-import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
  * @author Vicky C
  */
 public class BitcoinSentTableModel  extends AbstractTableModel implements WrapperTableModel {
-        private String[] columnNames = {"Send Address","Receive Address","Amount", "Timestamp"};
-        private Object[][] data = {
-	    {"Sent 1","Receive 1","1000","11/11/2010 12:30:12"},
-	    {"Sent 2","Receive 2","100","11/12/2010 11:30:12"}
-	       };
+        private String[] columnNames = {"Status","Date","Amount", "To Address","Comments","ID"};
+        private Object[][] data = null;
 
         public int getColumnCount() {
             return columnNames.length;
@@ -122,6 +121,14 @@ public class BitcoinSentTableModel  extends AbstractTableModel implements Wrappe
                 return 0;
             return data.length;
         }
+
+        @Override
+    public void setValueAt(Object aValue, int row, int column) {
+        if(row<0 || column<0)
+            return;
+        data[row][column] = aValue;
+        fireTableCellUpdated(row, column);
+    }
 
         public String getColumnName(int col) {
             return columnNames[col];
@@ -158,7 +165,7 @@ public class BitcoinSentTableModel  extends AbstractTableModel implements Wrappe
          */
         public boolean isCellEditable(int row, int col) {
 
-                return true;
+                return false;
 
         }
 
@@ -177,8 +184,32 @@ public class BitcoinSentTableModel  extends AbstractTableModel implements Wrappe
         fireTableDataChanged();
     }
 
-    public void setValue(Map values, JTable jtable) {
-        
+    public void setValue(Map values, JTable sentTable) {
+
+       clearValue();
+       System.out.println("values.size():"+values.size());
+       Set set = values.keySet();
+       Iterator iterator = set.iterator();
+       int i=0;
+       data = new Object[values.size()][];
+       while(iterator.hasNext()){
+           String key = (String)iterator.next();
+           String[] row = (String[])values.get(key);
+           data[i] = row;
+           i++;
+       }
+
+       /*RowSorter<TableModel> sorter =
+             new TableRowSorter<TableModel>(this);
+           accountTable.setRowSorter(sorter);*/
+
+      TableColumnModel tcm = sentTable.getColumnModel();
+      System.out.println("sentTable.getColumn()"+tcm.getColumnCount());
+      if(tcm.getColumnCount()==6){
+        sentTable.removeColumn(tcm.getColumn(5));
+      }
+      
+      fireTableDataChanged();
     }
 
 

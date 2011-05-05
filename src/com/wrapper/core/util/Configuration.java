@@ -105,6 +105,42 @@ public class Configuration {
     private static long waitTime   = 100;
     private static int  retryCount = 1;
     private static int  nbrTransactionCount = 10;
+    private static String hostBitcoin ="localhost";
+    private static int portBitcoin =8332;
+    private static String userBitcoin ="testuser";
+    private static String pwdBitcoin ="testpassword";
+
+    public static String getHostBitcoin() {
+        return hostBitcoin;
+    }
+
+    public static void setHostBitcoin(String hostBitcoin) {
+        Configuration.hostBitcoin = hostBitcoin;
+    }
+
+    public static int getPortBitcoin() {
+        return portBitcoin;
+    }
+
+    public static void setPortBitcoin(int portBitcoin) {
+        Configuration.portBitcoin = portBitcoin;
+    }
+
+    public static String getPwdBitcoin() {
+        return pwdBitcoin;
+    }
+
+    public static void setPwdBitcoin(String pwdBitcoin) {
+        Configuration.pwdBitcoin = pwdBitcoin;
+    }
+
+    public static String getUserBitcoin() {
+        return userBitcoin;
+    }
+
+    public static void setUserBitcoin(String userBitcoin) {
+        Configuration.userBitcoin = userBitcoin;
+    }
 
     public static int getNbrTransactionCount() {
         return nbrTransactionCount;

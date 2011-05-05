@@ -96,52 +96,57 @@
 package com.wrapper.ui.model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
  * @author Vicky C
  */
 public class BitcoinReceivedTableModel extends AbstractTableModel implements WrapperTableModel {
+        private String[] columnNames = {"Status","Date","Amount", "Receiving Address","Comments","ID"};
+        private Object[][] data = null;
 
-    private String[] columnNames = {"Send Address", "Receive Address", "Amount", "Timestamp"};
-    private Object[][] data = {
-        {"Sent 3", "Receive 1", "1000", "11/11/2010 12:30:12"},
-        {"Sent 4", "Receive 2", "100", "11/12/2010 11:30:12"}
-    };
-
-    public int getColumnCount() {
-        return columnNames.length;
-    }
-
-    public int getRowCount() {
-        if (data == null) {
-            return 0;
+        public int getColumnCount() {
+            return columnNames.length;
         }
-        return data.length;
-    }
 
-    public String getColumnName(int col) {
-        return columnNames[col];
-    }
-
-    public Object getValueAt(int row, int col) {
-        if (data == null) {
-            return null;
+        public int getRowCount() {
+            if(data==null)
+                return 0;
+            return data.length;
         }
-        return data[row][col];
+
+        @Override
+    public void setValueAt(Object aValue, int row, int column) {
+        if(row<0 || column<0)
+            return;
+        data[row][column] = aValue;
+        fireTableCellUpdated(row, column);
     }
 
-    /*
-     * JTable uses this method to determine the default renderer/
-     * editor for each cell.  If we didn't implement this method,
-     * then the last column would contain text ("true"/"false"),
-     * rather than a check box.
-     */
-    @Override
+        public String getColumnName(int col) {
+            return columnNames[col];
+        }
+
+        public Object getValueAt(int row, int col) {
+            if(data==null)
+                return null;
+            return data[row][col];
+        }
+
+        /*
+         * JTable uses this method to determine the default renderer/
+         * editor for each cell.  If we didn't implement this method,
+         * then the last column would contain text ("true"/"false"),
+         * rather than a check box.
+         */
+        @Override
         public Class getColumnClass(int column) {
                Class returnValue;
                if ((column >= 0) && (column < getColumnCount())) {
@@ -154,21 +159,21 @@ public class BitcoinReceivedTableModel extends AbstractTableModel implements Wra
                return returnValue;
              }
 
-    /*
-     * Don't need to implement this method unless your table's
-     * editable.
-     */
-    public boolean isCellEditable(int row, int col) {
+        /*
+         * Don't need to implement this method unless your table's
+         * editable.
+         */
+        public boolean isCellEditable(int row, int col) {
 
-        return false;
+                return false;
 
-    }
+        }
 
     public void setValue(List values) {
         data = new Object[values.size()][];
-        for (int i = 0; i < values.size(); i++) {
+        for(int i=0;i<values.size();i++){
             String[] row = (String[]) values.get(i);
-            data[i] = row;
+            data [i] = row;
         }
 
         fireTableDataChanged();
@@ -179,6 +184,35 @@ public class BitcoinReceivedTableModel extends AbstractTableModel implements Wra
         fireTableDataChanged();
     }
 
-    public void setValue(Map values, JTable jtable) {
+    public void setValue(Map values, JTable receivedTable) {
+
+       clearValue();
+       System.out.println("values.size():"+values.size());
+       Set set = values.keySet();
+       Iterator iterator = set.iterator();
+       int i=0;
+       data = new Object[values.size()][];
+       while(iterator.hasNext()){
+           String key = (String)iterator.next();
+           String[] row = (String[])values.get(key);
+           data[i] = row;
+           i++;
+       }
+
+       /*RowSorter<TableModel> sorter =
+             new TableRowSorter<TableModel>(this);
+           accountTable.setRowSorter(sorter);*/
+
+      TableColumnModel tcm = receivedTable.getColumnModel();
+      System.out.println("receivedTable.getColumn()"+tcm.getColumnCount());
+      if(tcm.getColumnCount()==6){
+        receivedTable.removeColumn(tcm.getColumn(5));
+      }
+
+      fireTableDataChanged();
     }
+
+
+
 }
+

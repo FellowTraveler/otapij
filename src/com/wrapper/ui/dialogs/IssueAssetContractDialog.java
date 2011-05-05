@@ -105,6 +105,7 @@ package com.wrapper.ui.dialogs;
 import com.wrapper.core.Contract;
 import com.wrapper.core.NYM;
 import com.wrapper.core.util.Utility;
+import com.wrapper.ui.MainPage;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.util.Map;
@@ -118,12 +119,18 @@ public class IssueAssetContractDialog extends javax.swing.JDialog {
     private Map serverMap;
     private String contractString;
     private Map nymMap;
+    private final String assetID;
+    private final String serverID;
+    private final String nymID;
 
     /** Creates new form IssueAssetContractDialog */
-    public IssueAssetContractDialog(java.awt.Frame parent, boolean modal,String contractString) {
+    public IssueAssetContractDialog(java.awt.Frame parent, boolean modal,String contractString,String assetID,String serverID,String nymID) {
         super(parent, modal);
         initComponents();
         this.contractString = contractString;
+        this.assetID = assetID;
+        this.serverID = serverID;
+        this.nymID = nymID;
         initValues();
         setLocation(Utility.getLocation(this.getSize()));
     }
@@ -251,8 +258,12 @@ public class IssueAssetContractDialog extends javax.swing.JDialog {
         try{
         setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         boolean success = new Contract().issueAssetType(jTextField2.getText(), jTextField1.getText(), contractString);
-        if(success)
+        if(success){
             JOptionPane.showMessageDialog(this, "Asset issued successfully","Issue Asset",JOptionPane.INFORMATION_MESSAGE);
+            MainPage.loadAccount(assetID, serverID, nymID);
+           
+            // refresh
+            }
         else
             JOptionPane.showMessageDialog(this, "Error in Asset issuence","Asset Issuence Failure",JOptionPane.ERROR_MESSAGE);
         }catch(Exception e){
@@ -291,7 +302,7 @@ public class IssueAssetContractDialog extends javax.swing.JDialog {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                IssueAssetContractDialog dialog = new IssueAssetContractDialog(new javax.swing.JFrame(), true,"");
+                IssueAssetContractDialog dialog = new IssueAssetContractDialog(new javax.swing.JFrame(), true,"","","","");
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);

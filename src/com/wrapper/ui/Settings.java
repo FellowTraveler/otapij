@@ -1,7 +1,7 @@
 /************************************************************
- -----BEGIN PGP SIGNED MESSAGE-----
- Hash: SHA256
- 
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
  *                 M O N E Y C H A N G E R
  *
  *   http://wiki.github.com/FellowTraveler/Moneychanger/wiki
@@ -70,25 +70,23 @@
  *   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
  *   PURPOSE.  See the GNU General Public License for more
  *   details.
- 
- -----BEGIN PGP SIGNATURE-----
- wsFVAwUBTbFZUwMIAO35UbuOAQjDRBAAmIUJBi5/WC1KpI4TNAWdQNh6g59qYS6w
- SI6mTMbnP0DUVOrmJdNR7/n1sRlnWzyjKLcKkRtXwRWGC+jE16jijxek9Ome5Qid
- bDqjHSuFvqnsD3+0tbENf+kVrbAReU3YvWk+xFvVc6I2NpS+lEIdjHIWm85jSmew
- Ydx+4KpELkO59thkcKgSYsTSyTP3l9GOTtJlq45XiamoEvso4jFUC1y5KMQsz1KH
- DTE32m5FPZqJqUw9loAmrni3dIMpXKC5yLhdqSMXHK0MAPEIexsuaZjrjKJQSjwV
- eDjwJcMn2WZVvcIr9IEoKEU/2j9wHNZv5Xuj78A/78AkjqEUwrY1M9ht0r/QbusW
- ZT7MlxNCq4DFstrjyKi03yZQGR+m8eJFHE7GvF8Vzg/ap0/CUJzeoXg5wACXGfJj
- k6y8ZBriQO08JECki2sy6oTitDoi7FmzgAIxPGB1qA4HMur/LuzrxAj2V7XkZQlk
- VfAda6Ff9bmStNut+zbsQ0pnIeL/URwWifI8Wq81c7DEIvA5SH/bU9Hws1FMO8PU
- BcDmzadU+syJBTxoP/mHZcLfwHDhcZyBeHX7sHfpHweEunzWjcHjqVCutQMO4dii
- yrsc64WTfAqd4s12SfKMgVFLeL/FUYH7MNqpfgjgwX5co817m9VvCntU6njIuYtV
- 6+G/TuSViH8=
- =/jIC
- -----END PGP SIGNATURE-----
+
+-----BEGIN PGP SIGNATURE-----
+wsFVAwUBTbFZUwMIAO35UbuOAQjDRBAAmIUJBi5/WC1KpI4TNAWdQNh6g59qYS6w
+SI6mTMbnP0DUVOrmJdNR7/n1sRlnWzyjKLcKkRtXwRWGC+jE16jijxek9Ome5Qid
+bDqjHSuFvqnsD3+0tbENf+kVrbAReU3YvWk+xFvVc6I2NpS+lEIdjHIWm85jSmew
+Ydx+4KpELkO59thkcKgSYsTSyTP3l9GOTtJlq45XiamoEvso4jFUC1y5KMQsz1KH
+DTE32m5FPZqJqUw9loAmrni3dIMpXKC5yLhdqSMXHK0MAPEIexsuaZjrjKJQSjwV
+eDjwJcMn2WZVvcIr9IEoKEU/2j9wHNZv5Xuj78A/78AkjqEUwrY1M9ht0r/QbusW
+ZT7MlxNCq4DFstrjyKi03yZQGR+m8eJFHE7GvF8Vzg/ap0/CUJzeoXg5wACXGfJj
+k6y8ZBriQO08JECki2sy6oTitDoi7FmzgAIxPGB1qA4HMur/LuzrxAj2V7XkZQlk
+VfAda6Ff9bmStNut+zbsQ0pnIeL/URwWifI8Wq81c7DEIvA5SH/bU9Hws1FMO8PU
+BcDmzadU+syJBTxoP/mHZcLfwHDhcZyBeHX7sHfpHweEunzWjcHjqVCutQMO4dii
+yrsc64WTfAqd4s12SfKMgVFLeL/FUYH7MNqpfgjgwX5co817m9VvCntU6njIuYtV
+6+G/TuSViH8=
+=/jIC
+-----END PGP SIGNATURE-----
  **************************************************************/
-
-
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -101,6 +99,9 @@
  */
 package com.wrapper.ui;
 
+import com.wrapper.core.jni.JavaCallback;
+import com.wrapper.core.jni.OTCallback;
+import com.wrapper.core.jni.OTCaller;
 import com.wrapper.core.jni.otapi;
 import com.wrapper.core.util.Configuration;
 import com.wrapper.core.util.Utility;
@@ -150,8 +151,6 @@ public class Settings extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new com.wrapper.ui.custom.CustomMenu("Look & Feel");
 
@@ -219,12 +218,6 @@ public class Settings extends javax.swing.JFrame {
         jLabel6.setText(resourceMap.getString("jLabel6.text")); // NOI18N
         jLabel6.setName("jLabel6"); // NOI18N
 
-        jLabel7.setText(resourceMap.getString("jLabel7.text")); // NOI18N
-        jLabel7.setName("jLabel7"); // NOI18N
-
-        jPasswordField1.setText(resourceMap.getString("jPasswordField1.text")); // NOI18N
-        jPasswordField1.setName("jPasswordField1"); // NOI18N
-
         jMenuBar1.setName("jMenuBar1"); // NOI18N
 
         jMenu1.setText(resourceMap.getString("jMenu1.text")); // NOI18N
@@ -245,11 +238,9 @@ public class Settings extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addComponent(jLabel5)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel7))
+                            .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPasswordField1)
                             .addComponent(jTextField4)
                             .addComponent(jTextField3)
                             .addComponent(jTextField2)
@@ -268,13 +259,8 @@ public class Settings extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
@@ -293,74 +279,91 @@ public class Settings extends javax.swing.JFrame {
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2)
                     .addComponent(jLabel4))
-                .addGap(18, 18, 18)
+                .addGap(26, 26, 26)
                 .addComponent(jButton3)
-                .addGap(43, 43, 43))
+                .addGap(35, 35, 35))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        
+
         try {
-        boolean check = true;
-        long waitTime=Configuration.getWaitTime();
-        if(!check){
-        Utility.addDirToRuntime("C:\\~\\Open-Transactions\\testwallet");
-        Utility.setDataFolder("C:\\~\\Open-Transactions\\testwallet\\data_folder");
-        System.loadLibrary("otapi");
-        otapi.OT_API_Init("C:\\~\\Open-Transactions\\testwallet\\data_folder");
-        otapi.OT_API_LoadWallet("wallet.xml");
-            }else{
-           try{
-        try{
-         waitTime = Long.parseLong(jTextField4.getText());
-            }catch(NumberFormatException nfe){
-                
-               JOptionPane.showMessageDialog(this, "Please enter valid timeout","Initialization Error",JOptionPane.ERROR_MESSAGE);
-               return;
+           /* OTCaller g_theCaller = new OTCaller();
+            OTCallback g_theCallback = new JavaCallback();
+            Utility.setG_theCallback(g_theCallback);
+            Utility.setG_theCaller(g_theCaller);*/
+            boolean check = true;
+            long waitTime = Configuration.getWaitTime();
+            if (!check) {
+                Utility.addDirToRuntime("C:\\~\\Open-Transactions\\testwallet");
+                Utility.setDataFolder("C:\\~\\Open-Transactions\\testwallet\\data_folder");
+                System.loadLibrary("otapi");
+                otapi.OT_API_Init("C:\\~\\Open-Transactions\\testwallet\\data_folder");
+
+            OTCaller g_theCaller = new OTCaller();
+            OTCallback g_theCallback = new JavaCallback();
+                g_theCaller.setCallback(g_theCallback);
+                otapi.OT_API_Set_PasswordCallback(g_theCaller);
+
+                otapi.OT_API_LoadWallet("wallet.xml");
+            } else {
+                try {
+                    try {
+                        waitTime = Long.parseLong(jTextField4.getText());
+                    } catch (NumberFormatException nfe) {
+
+                        JOptionPane.showMessageDialog(this, "Please enter valid timeout", "Initialization Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                    if (waitTime < 1) {
+                        JOptionPane.showMessageDialog(this, "Timeout should be >0", "Initialization Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                    Utility.addDirToRuntime(jTextField3.getText(), true);
+
+                    System.loadLibrary("otapi");
+                    boolean success = otapi.OT_API_Init(jTextField1.getText()) == 1 ? true : false;
+
+                    if (!success) {
+                        JOptionPane.showMessageDialog(this, "Invalid Data Folder", "Initialization Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+
+                    }
+
+            OTCaller g_theCaller = new OTCaller();
+            OTCallback g_theCallback = new JavaCallback();
+                    g_theCaller.setCallback(g_theCallback);
+                    otapi.OT_API_Set_PasswordCallback(g_theCaller);
+
+                    success = otapi.OT_API_LoadWallet(jTextField2.getText()) == 1 ? true : false;
+
+                    if (!success) {
+                        JOptionPane.showMessageDialog(this, "Invalid Wallet File", "Initialization Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (java.lang.UnsatisfiedLinkError use) {
+                    JOptionPane.showMessageDialog(this, "Invalid library path", "Initialization Error", JOptionPane.ERROR_MESSAGE);
+                    use.printStackTrace();
+                    return;
+                }
+                Utility.setDataFolder(jTextField1.getText());
+
             }
-        if(waitTime<1){
-           JOptionPane.showMessageDialog(this, "Timeout should be >0","Initialization Error",JOptionPane.ERROR_MESSAGE);
-           return;
-       }
-        Utility.addDirToRuntime(jTextField3.getText(), true);
-        
-        System.loadLibrary("otapi");
-        boolean success = otapi.OT_API_Init(jTextField1.getText())==1?true:false;
+            Configuration.setWaitTime(waitTime);
+            //Utility.setDataFolder(jTextField1.getText());
+            this.dispose();
+            /*Utility.addDirToRuntime("/opt/local/lib");
+            Utility.addDirToRuntime("/Users/Chris/Projects/Open-Transactions/testwallet");
+            System.loadLibrary("otapi");
+            otapi.OT_API_Init("/Users/Chris/Projects/Open-Transactions/testwallet/data_folder");
+            otapi.OT_API_LoadWallet("wallet.xml");*/
 
-        if(!success){
-            JOptionPane.showMessageDialog(this, "Invalid Data Folder","Initialization Error",JOptionPane.ERROR_MESSAGE);
-            return;
-
-        }
-        success = otapi.OT_API_LoadWallet(jTextField2.getText())==1?true:false;
-
-        if(!success){
-            JOptionPane.showMessageDialog(this, "Invalid Wallet File","Initialization Error",JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        } catch (IOException ex) {
-            Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
-        }catch(java.lang.UnsatisfiedLinkError use){
-            JOptionPane.showMessageDialog(this, "Invalid library path","Initialization Error",JOptionPane.ERROR_MESSAGE);
-            use.printStackTrace();
-            return;
-        }
-           Utility.setDataFolder(jTextField1.getText());
-            }
-        Configuration.setWaitTime(waitTime);
-        //Utility.setDataFolder(jTextField1.getText());
-        this.dispose();
-        /*Utility.addDirToRuntime("/opt/local/lib");
-        Utility.addDirToRuntime("/Users/Chris/Projects/Open-Transactions/testwallet");
-        System.loadLibrary("otapi");
-        otapi.OT_API_Init("/Users/Chris/Projects/Open-Transactions/testwallet/data_folder");
-        otapi.OT_API_LoadWallet("wallet.xml");*/
-        
-        new MainPage().setVisible(true);
-        }catch(Exception e){
+            new MainPage().setVisible(true);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -380,7 +383,7 @@ public class Settings extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        new PathDialog(this, true,jTextField3.getText()).setVisible(true);
+        new PathDialog(this, true, jTextField3.getText()).setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -404,10 +407,8 @@ public class Settings extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private static javax.swing.JTextField jTextField3;
@@ -422,7 +423,7 @@ public class Settings extends javax.swing.JFrame {
         jTextField4.setText(String.valueOf(Configuration.getWaitTime()));
     }
 
-    public static void setPath(String path){
+    public static void setPath(String path) {
         jTextField3.setText(path);
     }
 }

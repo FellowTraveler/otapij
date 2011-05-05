@@ -1,7 +1,7 @@
 /************************************************************
- -----BEGIN PGP SIGNED MESSAGE-----
- Hash: SHA256
- 
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
  *                 M O N E Y C H A N G E R
  *
  *   http://wiki.github.com/FellowTraveler/Moneychanger/wiki
@@ -70,40 +70,35 @@
  *   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
  *   PURPOSE.  See the GNU General Public License for more
  *   details.
- 
- -----BEGIN PGP SIGNATURE-----
- wsFVAwUBTbFZUwMIAO35UbuOAQjDRBAAmIUJBi5/WC1KpI4TNAWdQNh6g59qYS6w
- SI6mTMbnP0DUVOrmJdNR7/n1sRlnWzyjKLcKkRtXwRWGC+jE16jijxek9Ome5Qid
- bDqjHSuFvqnsD3+0tbENf+kVrbAReU3YvWk+xFvVc6I2NpS+lEIdjHIWm85jSmew
- Ydx+4KpELkO59thkcKgSYsTSyTP3l9GOTtJlq45XiamoEvso4jFUC1y5KMQsz1KH
- DTE32m5FPZqJqUw9loAmrni3dIMpXKC5yLhdqSMXHK0MAPEIexsuaZjrjKJQSjwV
- eDjwJcMn2WZVvcIr9IEoKEU/2j9wHNZv5Xuj78A/78AkjqEUwrY1M9ht0r/QbusW
- ZT7MlxNCq4DFstrjyKi03yZQGR+m8eJFHE7GvF8Vzg/ap0/CUJzeoXg5wACXGfJj
- k6y8ZBriQO08JECki2sy6oTitDoi7FmzgAIxPGB1qA4HMur/LuzrxAj2V7XkZQlk
- VfAda6Ff9bmStNut+zbsQ0pnIeL/URwWifI8Wq81c7DEIvA5SH/bU9Hws1FMO8PU
- BcDmzadU+syJBTxoP/mHZcLfwHDhcZyBeHX7sHfpHweEunzWjcHjqVCutQMO4dii
- yrsc64WTfAqd4s12SfKMgVFLeL/FUYH7MNqpfgjgwX5co817m9VvCntU6njIuYtV
- 6+G/TuSViH8=
- =/jIC
- -----END PGP SIGNATURE-----
+
+-----BEGIN PGP SIGNATURE-----
+wsFVAwUBTbFZUwMIAO35UbuOAQjDRBAAmIUJBi5/WC1KpI4TNAWdQNh6g59qYS6w
+SI6mTMbnP0DUVOrmJdNR7/n1sRlnWzyjKLcKkRtXwRWGC+jE16jijxek9Ome5Qid
+bDqjHSuFvqnsD3+0tbENf+kVrbAReU3YvWk+xFvVc6I2NpS+lEIdjHIWm85jSmew
+Ydx+4KpELkO59thkcKgSYsTSyTP3l9GOTtJlq45XiamoEvso4jFUC1y5KMQsz1KH
+DTE32m5FPZqJqUw9loAmrni3dIMpXKC5yLhdqSMXHK0MAPEIexsuaZjrjKJQSjwV
+eDjwJcMn2WZVvcIr9IEoKEU/2j9wHNZv5Xuj78A/78AkjqEUwrY1M9ht0r/QbusW
+ZT7MlxNCq4DFstrjyKi03yZQGR+m8eJFHE7GvF8Vzg/ap0/CUJzeoXg5wACXGfJj
+k6y8ZBriQO08JECki2sy6oTitDoi7FmzgAIxPGB1qA4HMur/LuzrxAj2V7XkZQlk
+VfAda6Ff9bmStNut+zbsQ0pnIeL/URwWifI8Wq81c7DEIvA5SH/bU9Hws1FMO8PU
+BcDmzadU+syJBTxoP/mHZcLfwHDhcZyBeHX7sHfpHweEunzWjcHjqVCutQMO4dii
+yrsc64WTfAqd4s12SfKMgVFLeL/FUYH7MNqpfgjgwX5co817m9VvCntU6njIuYtV
+6+G/TuSViH8=
+=/jIC
+-----END PGP SIGNATURE-----
  **************************************************************/
-
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * BitcoinAccountBottomPanel.java
- *
- * Created on 18 Mar, 2011, 8:11:17 AM
- */
-
 package com.wrapper.ui.panels;
 
+import com.wrapper.core.BitcoinAccount;
+import com.wrapper.core.dataobjects.BitcoinDetails;
+import com.wrapper.ui.dialogs.BitcoinTrnDetailsDialog;
 import com.wrapper.ui.model.BitcoinReceivedTableModel;
+import com.wrapper.ui.model.BitcoinReceivingAddrTableModel;
 import com.wrapper.ui.model.BitcoinSentTableModel;
+import java.util.Map;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -111,9 +106,14 @@ import com.wrapper.ui.model.BitcoinSentTableModel;
  */
 public class BitcoinAccountBottomPanel extends javax.swing.JPanel {
 
+    private static Map sentBoxMap;
+    private static Map receivedBoxMap;
+    private static Map receivedAddressBoxMap;
+
     /** Creates new form BitcoinAccountBottomPanel */
     public BitcoinAccountBottomPanel() {
         initComponents();
+        initvalues();
     }
 
     /** This method is called from within the constructor to
@@ -128,57 +128,47 @@ public class BitcoinAccountBottomPanel extends javax.swing.JPanel {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane12 = new javax.swing.JScrollPane();
-        jTable5 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        jTable5 = new com.wrapper.ui.custom.CustomTable();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane13 = new javax.swing.JScrollPane();
-        jTable6 = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
+        jTable6 = new com.wrapper.ui.custom.CustomTable();
+        jScrollPane14 = new javax.swing.JScrollPane();
+        jTable7 = new com.wrapper.ui.custom.CustomTable();
+        jButton1 = new javax.swing.JButton();
 
         setName("Form"); // NOI18N
 
         jTabbedPane1.setName("jTabbedPane1"); // NOI18N
+        jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jTabbedPane1StateChanged(evt);
+            }
+        });
 
         jPanel1.setName("jPanel1"); // NOI18N
 
         jScrollPane12.setName("jScrollPane12"); // NOI18N
 
         jTable5.setModel(new com.wrapper.ui.model.BitcoinSentTableModel());
+        jTable5.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jTable5.setName("jTable5"); // NOI18N
-        jScrollPane12.setViewportView(jTable5);
-
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(app.ApplicationLauncher.class).getContext().getResourceMap(BitcoinAccountBottomPanel.class);
-        jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
-        jButton1.setName("jButton1"); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        jTable5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTable5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable5MouseClicked(evt);
             }
         });
+        jScrollPane12.setViewportView(jTable5);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(252, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(222, 222, 222))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 532, Short.MAX_VALUE)
-                    .addContainerGap()))
+            .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 697, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(151, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(34, Short.MAX_VALUE)))
+            .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("SENT", jPanel1);
@@ -188,82 +178,215 @@ public class BitcoinAccountBottomPanel extends javax.swing.JPanel {
         jScrollPane13.setName("jScrollPane13"); // NOI18N
 
         jTable6.setModel(new com.wrapper.ui.model.BitcoinReceivedTableModel());
+        jTable6.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jTable6.setName("jTable6"); // NOI18N
+        jTable6.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTable6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable6MouseClicked(evt);
+            }
+        });
         jScrollPane13.setViewportView(jTable6);
-
-        jButton2.setName("jButton2"); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(236, 236, 236)
-                .addComponent(jButton2)
-                .addContainerGap(273, Short.MAX_VALUE))
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane13, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE))
+            .addComponent(jScrollPane13, javax.swing.GroupLayout.DEFAULT_SIZE, 697, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(158, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(21, Short.MAX_VALUE)))
+            .addComponent(jScrollPane13, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("RECEIVED", jPanel3);
+
+        jScrollPane14.setName("jScrollPane14"); // NOI18N
+
+        jTable7.setModel(new com.wrapper.ui.model.BitcoinReceivingAddrTableModel());
+        jTable7.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jTable7.setName("jTable7"); // NOI18N
+        jTable7.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTable7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable7MouseClicked(evt);
+            }
+        });
+        jScrollPane14.setViewportView(jTable7);
+
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(app.ApplicationLauncher.class).getContext().getResourceMap(BitcoinAccountBottomPanel.class);
+        jTabbedPane1.addTab(resourceMap.getString("jScrollPane14.TabConstraints.tabTitle"), jScrollPane14); // NOI18N
+
+        jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
+        jButton1.setToolTipText(resourceMap.getString("jButton1.toolTipText")); // NOI18N
+        jButton1.setName("jButton1");
+        jButton1.setVisible(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 547, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 702, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(317, 317, 317)
+                        .addComponent(jButton1)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addGap(23, 23, 23))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void jTable5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable5MouseClicked
+        System.out.println("Count:" + evt.getClickCount());
+        if (evt.getClickCount() == 2) {
+            String key = (String) jTable5.getModel().getValueAt(jTable5.getSelectedRow(), 5);
+            System.out.println("In Sent box double clcik, key:" + key);
+            System.out.println("sentBoxMap keys:"+sentBoxMap);
+            String[] row = (String[]) sentBoxMap.get(key);
+            if (row != null) {
+                new BitcoinTrnDetailsDialog(null, true,new BitcoinAccount().getLabel(row[3]),key,row[4]).setVisible(true);
+            }
+        }
+    }//GEN-LAST:event_jTable5MouseClicked
 
+    private void jTable6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable6MouseClicked
+        System.out.println("Count:" + evt.getClickCount());
+        if (evt.getClickCount() == 2) {
+            String key = (String) jTable6.getModel().getValueAt(jTable6.getSelectedRow(), 5);
+            System.out.println("In Received box double clcik, key:" + key);
+            System.out.println("receivedBoxMap keys:"+receivedBoxMap);
+            String[] row = (String[]) receivedBoxMap.get(key);
+            if (row != null) {
+                new BitcoinTrnDetailsDialog(null, true,new BitcoinAccount().getLabel(row[3]),key,row[4]).setVisible(true);
+            }
+        }
+    }//GEN-LAST:event_jTable6MouseClicked
+
+    private void jTable7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable7MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable7MouseClicked
+
+    private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
+        JTabbedPane pane = (JTabbedPane) evt.getSource();
+        int sel = pane.getSelectedIndex();
+        System.out.println("State changed:" + sel);
+        if (sel == 1) {
+            jButton1.setVisible(true);
+            repaint();
+        } else {
+            jButton1.setVisible(false);
+            repaint();
+        }
+    }//GEN-LAST:event_jTabbedPane1StateChanged
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        receivedBoxMap = new BitcoinAccount().getReceivedBoxData("");
+        ((BitcoinReceivedTableModel) jTable6.getModel()).setValue(receivedBoxMap,jTable6);
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane12;
     private javax.swing.JScrollPane jScrollPane13;
+    private javax.swing.JScrollPane jScrollPane14;
     private javax.swing.JTabbedPane jTabbedPane1;
     private static javax.swing.JTable jTable5;
     private static javax.swing.JTable jTable6;
+    private static javax.swing.JTable jTable7;
     // End of variables declaration//GEN-END:variables
 
-    public static void clearPanel(){
-        if(jTable5!=null && jTable6!=null){
-        ((BitcoinSentTableModel)jTable5.getModel())
-                .clearValue();
-        ((BitcoinReceivedTableModel)jTable6.getModel())
-                .clearValue();
+    public static void clearPanel() {
+        if (jTable5 != null && jTable6 != null && jTable7 != null) {
+            ((BitcoinSentTableModel) jTable5.getModel()).clearValue();
+            ((BitcoinReceivedTableModel) jTable6.getModel()).clearValue();
+            ((BitcoinReceivingAddrTableModel) jTable7.getModel()).clearValue();
         }
     }
 
-    public static void populateBitcoinDetails(Object details) {
+    public static void populateBitcoinDetails(BitcoinDetails details) {
+        System.out.println("populateBitcoinDetails");
+        if (details != null) {
+            sentBoxMap = details.getSentboxData();
+            receivedBoxMap = details.getReceivedboxData();
+            receivedAddressBoxMap = details.getReceivedAddrboxData();
+            ((BitcoinSentTableModel) jTable5.getModel()).setValue(sentBoxMap, jTable5);
+            ((BitcoinReceivedTableModel) jTable6.getModel()).setValue(receivedBoxMap,jTable6);
+            ((BitcoinReceivingAddrTableModel) jTable7.getModel()).setValue(receivedAddressBoxMap,jTable7);
+        }
+    }
 
-        //((BitcoinSentTableModel) jTable5.getModel()).setValue(details.getSentBox());
-        //((BitcoinReceivedTableModel) jTable6.getModel()).setValue(details.getreceivedBox());
+    public static void setReceivingAddrTable(String account){
+        receivedAddressBoxMap = new BitcoinAccount().getRecevingAddrBoxData(account);
+        ((BitcoinReceivingAddrTableModel) jTable7.getModel()).setValue(receivedAddressBoxMap,jTable7);
+    }
+
+    public static void setSentBoxTable(String account){
+        sentBoxMap = new BitcoinAccount().getSentBoxData(account);
+        ((BitcoinSentTableModel) jTable5.getModel()).setValue(sentBoxMap, jTable5);
+    }
+
+    private void initvalues() {
+
+        jTable5.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        jTable6.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+        TableColumn col = jTable5.getColumnModel().getColumn(0);
+
+        col.setPreferredWidth(120);
+
+        col = jTable5.getColumnModel().getColumn(1);
+        col.setPreferredWidth(160);
+
+        col = jTable5.getColumnModel().getColumn(2);
+        col.setPreferredWidth(50);
+
+        col = jTable5.getColumnModel().getColumn(3);
+        col.setPreferredWidth(240);
+
+        col = jTable5.getColumnModel().getColumn(4);
+        col.setPreferredWidth(200);
+
+        col = jTable6.getColumnModel().getColumn(0);
+
+        col.setPreferredWidth(120);
+
+        col = jTable6.getColumnModel().getColumn(1);
+        col.setPreferredWidth(180);
+
+        col = jTable6.getColumnModel().getColumn(2);
+        col.setPreferredWidth(50);
+
+        col = jTable6.getColumnModel().getColumn(3);
+        col.setPreferredWidth(240);
+
+        col = jTable6.getColumnModel().getColumn(4);
+        col.setPreferredWidth(220);
         
+        col = jTable7.getColumnModel().getColumn(0);
+        col.setPreferredWidth(360);
+        
+        col = jTable7.getColumnModel().getColumn(1);
+        col.setPreferredWidth(255);
+        
+        col = jTable7.getColumnModel().getColumn(2);
+        col.setPreferredWidth(60);
+
+
     }
 }

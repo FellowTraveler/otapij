@@ -38,11 +38,6 @@ First, [download Open-Transactions](https://github.com/FellowTraveler/Open-Trans
 
 [Get OpenSSL 1.0.0](https://github.com/FellowTraveler/Open-Transactions/wiki/Install-OpenSSL) if you don't have it already. You don't have to install it system-wide, but you still need to download it and build it. (If you are using 64-bit Linux, MAKE SURE you configure OpenSSL explicitly for this before building, as it will not build that way by default.)
 
-(Probably already done for you) Do a search-and-replace on one file:
-* Open this file: Open-Transactions/testwallet/OTAPI_java.c
-* Search and replace. Search for this string: Java_otapiJNI
-* Replace (entire file): Java_com_wrapper_core_jni_otapiJNI
-
 Build Open-Transactions for the Java API:
 
      $ make java

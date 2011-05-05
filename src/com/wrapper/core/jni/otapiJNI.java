@@ -1,42 +1,42 @@
 /************************************************************
- -----BEGIN PGP SIGNED MESSAGE-----
- Hash: SHA256
- 
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
  *                 M O N E Y C H A N G E R
  *
  *   http://wiki.github.com/FellowTraveler/Moneychanger/wiki
  *
  *  Open Transactions:
  *       Financial Cryptography and Digital Cash
- *       Library, Protocol, API, Server, and GUI 
- *    
+ *       Library, Protocol, API, Server, and GUI
+ *
  *    	 -- Anonymous Numbered Accounts.
  *    	 -- Untraceable Digital Cash.
  *    	 -- Triple-Signed Receipts.
  *    	 -- Cheques, Vouchers, Transfers, Inboxes.
  *    	 -- Basket Currencies, Markets, Payment Plans.
  *    	 -- Signed, XML, Ricardian-style Contracts.
- *    
+ *
  *  Copyright (C) 2010-2011 by "Fellow Traveler" (A pseudonym)
  *
  *  EMAIL:
  *  FellowTraveler@rayservers.net --- SEE PGP KEY BELOW.
  *  F3llowTraveler@gmail.com --- (not preferred.)
- *  
+ *
  *  FINGERPRINT:
  *  9DD5 90EB 9292 4B48 0484  7910 0308 00ED F951 BB8E
  *
  *  BITCOIN:  1NtTPVVjDsUfDWybS4BwvHpG2pdS9RnYyQ
  *
  *  OFFICIAL PROJECT WIKI:
- *  http://wiki.github.com/FellowTraveler/Open-Transactions/wiki 
+ *  http://wiki.github.com/FellowTraveler/Open-Transactions/wiki
  *
  *  WEBSITE:
  *  http://www.OpenTransactions.org/
- *    
+ *
  *  Components and licensing:
  *   -- Moneychanger..A Java client GUI.....LICENSE:.....GPLv3
- *   -- OTLib.........A class library.......LICENSE:...LAGPLv3 
+ *   -- OTLib.........A class library.......LICENSE:...LAGPLv3
  *   -- OT-API........A client API..........LICENSE:...LAGPLv3
  *   -- testwallet....Command-line client...LICENSE:...LAGPLv3
  *   -- OT-Server.....Server Application....LICENSE:....AGPLv3
@@ -63,37 +63,52 @@
  *   software license, please contact FellowTraveler.
  *   (Unfortunately many will run anonymously and untraceably,
  *   so who could really stop them?)
- *   
+ *
  *   DISCLAIMER:
  *   This program is distributed in the hope that it will be
  *   useful, but WITHOUT ANY WARRANTY; without even the implied
  *   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
  *   PURPOSE.  See the GNU General Public License for more
  *   details.
- 
- -----BEGIN PGP SIGNATURE-----
- wsFVAwUBTbFZUwMIAO35UbuOAQjDRBAAmIUJBi5/WC1KpI4TNAWdQNh6g59qYS6w
- SI6mTMbnP0DUVOrmJdNR7/n1sRlnWzyjKLcKkRtXwRWGC+jE16jijxek9Ome5Qid
- bDqjHSuFvqnsD3+0tbENf+kVrbAReU3YvWk+xFvVc6I2NpS+lEIdjHIWm85jSmew
- Ydx+4KpELkO59thkcKgSYsTSyTP3l9GOTtJlq45XiamoEvso4jFUC1y5KMQsz1KH
- DTE32m5FPZqJqUw9loAmrni3dIMpXKC5yLhdqSMXHK0MAPEIexsuaZjrjKJQSjwV
- eDjwJcMn2WZVvcIr9IEoKEU/2j9wHNZv5Xuj78A/78AkjqEUwrY1M9ht0r/QbusW
- ZT7MlxNCq4DFstrjyKi03yZQGR+m8eJFHE7GvF8Vzg/ap0/CUJzeoXg5wACXGfJj
- k6y8ZBriQO08JECki2sy6oTitDoi7FmzgAIxPGB1qA4HMur/LuzrxAj2V7XkZQlk
- VfAda6Ff9bmStNut+zbsQ0pnIeL/URwWifI8Wq81c7DEIvA5SH/bU9Hws1FMO8PU
- BcDmzadU+syJBTxoP/mHZcLfwHDhcZyBeHX7sHfpHweEunzWjcHjqVCutQMO4dii
- yrsc64WTfAqd4s12SfKMgVFLeL/FUYH7MNqpfgjgwX5co817m9VvCntU6njIuYtV
- 6+G/TuSViH8=
- =/jIC
- -----END PGP SIGNATURE-----
- **************************************************************/
 
+-----BEGIN PGP SIGNATURE-----
+wsFVAwUBTbFZUwMIAO35UbuOAQjDRBAAmIUJBi5/WC1KpI4TNAWdQNh6g59qYS6w
+SI6mTMbnP0DUVOrmJdNR7/n1sRlnWzyjKLcKkRtXwRWGC+jE16jijxek9Ome5Qid
+bDqjHSuFvqnsD3+0tbENf+kVrbAReU3YvWk+xFvVc6I2NpS+lEIdjHIWm85jSmew
+Ydx+4KpELkO59thkcKgSYsTSyTP3l9GOTtJlq45XiamoEvso4jFUC1y5KMQsz1KH
+DTE32m5FPZqJqUw9loAmrni3dIMpXKC5yLhdqSMXHK0MAPEIexsuaZjrjKJQSjwV
+eDjwJcMn2WZVvcIr9IEoKEU/2j9wHNZv5Xuj78A/78AkjqEUwrY1M9ht0r/QbusW
+ZT7MlxNCq4DFstrjyKi03yZQGR+m8eJFHE7GvF8Vzg/ap0/CUJzeoXg5wACXGfJj
+k6y8ZBriQO08JECki2sy6oTitDoi7FmzgAIxPGB1qA4HMur/LuzrxAj2V7XkZQlk
+VfAda6Ff9bmStNut+zbsQ0pnIeL/URwWifI8Wq81c7DEIvA5SH/bU9Hws1FMO8PU
+BcDmzadU+syJBTxoP/mHZcLfwHDhcZyBeHX7sHfpHweEunzWjcHjqVCutQMO4dii
+yrsc64WTfAqd4s12SfKMgVFLeL/FUYH7MNqpfgjgwX5co817m9VvCntU6njIuYtV
+6+G/TuSViH8=
+=/jIC
+-----END PGP SIGNATURE-----
+ **************************************************************/
 
 package com.wrapper.core.jni;
 
-class otapiJNI {
+public class otapiJNI {
+  public final static native long new_OTCallback();
+  public final static native void delete_OTCallback(long jarg1);
+  public final static native String OTCallback_runOne(long jarg1, OTCallback jarg1_);
+  public final static native String OTCallback_runOneSwigExplicitOTCallback(long jarg1, OTCallback jarg1_);
+  public final static native String OTCallback_runTwo(long jarg1, OTCallback jarg1_);
+  public final static native String OTCallback_runTwoSwigExplicitOTCallback(long jarg1, OTCallback jarg1_);
+  public final static native void OTCallback_director_connect(OTCallback obj, long cptr, boolean mem_own, boolean weak_global);
+  public final static native void OTCallback_change_ownership(OTCallback obj, long cptr, boolean take_or_release);
+  public final static native long new_OTCaller();
+  public final static native void delete_OTCaller(long jarg1);
+  public final static native String OTCaller_GetPassword(long jarg1, OTCaller jarg1_);
+  public final static native void OTCaller_delCallback(long jarg1, OTCaller jarg1_);
+  public final static native void OTCaller_setCallback(long jarg1, OTCaller jarg1_, long jarg2, OTCallback jarg2_);
+  public final static native boolean OTCaller_isCallbackSet(long jarg1, OTCaller jarg1_);
+  public final static native void OTCaller_callOne(long jarg1, OTCaller jarg1_);
+  public final static native void OTCaller_callTwo(long jarg1, OTCaller jarg1_);
+  public final static native boolean OT_API_Set_PasswordCallback(long jarg1, OTCaller jarg1_);
   public final static native int OT_API_Init(String jarg1);
-  public final static native String OT_API_Wallet_ImportNym(String jarg1, String jarg2);
   public final static native int OT_API_LoadWallet(String jarg1);
   public final static native int OT_API_SwitchWallet(String jarg1, String jarg2);
   public final static native int OT_API_GetMemlogSize();
@@ -146,6 +161,7 @@ class otapiJNI {
   public final static native int OT_API_Wallet_RemoveNym(String jarg1);
   public final static native int OT_API_Wallet_CanRemoveAccount(String jarg1);
   public final static native int OT_API_Wallet_RemoveAccount(String jarg1);
+  public final static native String OT_API_Wallet_ImportNym(String jarg1, String jarg2);
   public final static native int OT_API_SetNym_Name(String jarg1, String jarg2, String jarg3);
   public final static native int OT_API_SetAccountWallet_Name(String jarg1, String jarg2, String jarg3);
   public final static native int OT_API_SetAssetType_Name(String jarg1, String jarg2);
@@ -245,4 +261,16 @@ class otapiJNI {
   public final static native String OT_API_Message_GetNewAcctID(String jarg1);
   public final static native int OT_API_ConnectServer(String jarg1, String jarg2, String jarg3, String jarg4, String jarg5);
   public final static native int OT_API_ProcessSockets();
+
+  public static String SwigDirector_OTCallback_runOne(OTCallback self) {
+    return self.runOne();
+  }
+  public static String SwigDirector_OTCallback_runTwo(OTCallback self) {
+    return self.runTwo();
+  }
+
+  private final static native void swig_module_init();
+  static {
+    swig_module_init();
+  }
 }

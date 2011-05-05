@@ -98,6 +98,8 @@ package com.wrapper.core.util;
 import com.wrapper.core.Account;
 import com.wrapper.core.OpenTransactionAccount;
 import com.wrapper.core.dataobjects.OTDetails;
+import com.wrapper.core.jni.OTCallback;
+import com.wrapper.core.jni.OTCaller;
 import com.wrapper.core.jni.otapi;
 import com.wrapper.ui.MainPage;
 import com.wrapper.ui.model.AccountTableModel;
@@ -115,6 +117,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
+import java.text.DecimalFormat;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -134,6 +137,24 @@ public class Utility {
     public static Object otDepositCash;
     private static String dataFolder;
     private static LookAndFeel defautLAF;
+    private static OTCaller g_theCaller;
+    private static OTCallback g_theCallback;
+
+    public static OTCallback getG_theCallback() {
+        return g_theCallback;
+    }
+
+    public static void setG_theCallback(OTCallback g_theCallback) {
+        Utility.g_theCallback = g_theCallback;
+    }
+
+    public static OTCaller getG_theCaller() {
+        return g_theCaller;
+    }
+
+    public static void setG_theCaller(OTCaller g_theCaller) {
+        Utility.g_theCaller = g_theCaller;
+    }
 
     public static LookAndFeel getDefautLAF() {
         return defautLAF;
@@ -185,7 +206,10 @@ public class Utility {
         }
         return null;
     }
-
+public static double roundTwoDecimals(double d) {
+        	DecimalFormat twoDForm = new DecimalFormat("#.##");
+		return Double.valueOf(twoDForm.format(d));
+}
     public static void addDirToRuntime(String s, boolean mutiple) throws IOException {
         try {
             String[] path = null;
