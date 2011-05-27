@@ -146,4 +146,9 @@ public class PKTPAccount extends Account{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
+    public void setServerID(String serverID){
+        //setBTCClient(serverID);
+    }
+
 }

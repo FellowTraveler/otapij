@@ -1,42 +1,42 @@
 /************************************************************
  -----BEGIN PGP SIGNED MESSAGE-----
  Hash: SHA256
- 
+
  *                 M O N E Y C H A N G E R
  *
  *   http://wiki.github.com/FellowTraveler/Moneychanger/wiki
  *
  *  Open Transactions:
  *       Financial Cryptography and Digital Cash
- *       Library, Protocol, API, Server, and GUI 
- *    
+ *       Library, Protocol, API, Server, and GUI
+ *
  *    	 -- Anonymous Numbered Accounts.
  *    	 -- Untraceable Digital Cash.
  *    	 -- Triple-Signed Receipts.
  *    	 -- Cheques, Vouchers, Transfers, Inboxes.
  *    	 -- Basket Currencies, Markets, Payment Plans.
  *    	 -- Signed, XML, Ricardian-style Contracts.
- *    
+ *
  *  Copyright (C) 2010-2011 by "Fellow Traveler" (A pseudonym)
  *
  *  EMAIL:
  *  FellowTraveler@rayservers.net --- SEE PGP KEY BELOW.
  *  F3llowTraveler@gmail.com --- (not preferred.)
- *  
+ *
  *  FINGERPRINT:
  *  9DD5 90EB 9292 4B48 0484  7910 0308 00ED F951 BB8E
  *
  *  BITCOIN:  1NtTPVVjDsUfDWybS4BwvHpG2pdS9RnYyQ
  *
  *  OFFICIAL PROJECT WIKI:
- *  http://wiki.github.com/FellowTraveler/Open-Transactions/wiki 
+ *  http://wiki.github.com/FellowTraveler/Open-Transactions/wiki
  *
  *  WEBSITE:
  *  http://www.OpenTransactions.org/
- *    
+ *
  *  Components and licensing:
  *   -- Moneychanger..A Java client GUI.....LICENSE:.....GPLv3
- *   -- OTLib.........A class library.......LICENSE:...LAGPLv3 
+ *   -- OTLib.........A class library.......LICENSE:...LAGPLv3
  *   -- OT-API........A client API..........LICENSE:...LAGPLv3
  *   -- testwallet....Command-line client...LICENSE:...LAGPLv3
  *   -- OT-Server.....Server Application....LICENSE:....AGPLv3
@@ -63,14 +63,14 @@
  *   software license, please contact FellowTraveler.
  *   (Unfortunately many will run anonymously and untraceably,
  *   so who could really stop them?)
- *   
+ *
  *   DISCLAIMER:
  *   This program is distributed in the hope that it will be
  *   useful, but WITHOUT ANY WARRANTY; without even the implied
  *   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
  *   PURPOSE.  See the GNU General Public License for more
  *   details.
- 
+
  -----BEGIN PGP SIGNATURE-----
  wsFVAwUBTbFZUwMIAO35UbuOAQjDRBAAmIUJBi5/WC1KpI4TNAWdQNh6g59qYS6w
  SI6mTMbnP0DUVOrmJdNR7/n1sRlnWzyjKLcKkRtXwRWGC+jE16jijxek9Ome5Qid
@@ -88,25 +88,43 @@
  -----END PGP SIGNATURE-----
  **************************************************************/
 
+package com.wrapper.core.dataobjects;
 
-/*
-*To change this template, choose Tools | Templates
-*and open the template in the editor.
- */
+public class ContactDetails {
 
-package com.wrapper.ui.test;
+    public String getEmail() {
+        return email;
+    }
 
-import javax.swing.JOptionPane;
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-/**
- *
- * @author Vicky C
- */
-public class NewClass {
-public static void main(String l[]){
-    int selected = JOptionPane.showConfirmDialog(null, "This will deposit all of the tokens in the purse", "Warning", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-    System.out.println(selected);
-    if(selected==1)
-                    return;
-}
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
+
+    public String getPublicKey() {
+        return publicKey;
+    }
+
+    public void setPublicKey(String publicKey) {
+        this.publicKey = publicKey;
+    }
+private String label;
+private String email;
+private String publicKey;
+private String memo;
 }

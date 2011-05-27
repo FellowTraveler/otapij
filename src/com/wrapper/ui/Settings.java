@@ -102,11 +102,14 @@ package com.wrapper.ui;
 import com.wrapper.core.jni.JavaCallback;
 import com.wrapper.core.jni.OTCallback;
 import com.wrapper.core.jni.OTCaller;
+import com.wrapper.core.jni.PackType;
+import com.wrapper.core.jni.StorageType;
 import com.wrapper.core.jni.otapi;
 import com.wrapper.core.util.Configuration;
 import com.wrapper.core.util.Utility;
 import com.wrapper.ui.custom.CustomMenu;
 import com.wrapper.ui.dialogs.PathDialog;
+import java.awt.Cursor;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -299,13 +302,17 @@ public class Settings extends javax.swing.JFrame {
             if (!check) {
                 Utility.addDirToRuntime("C:\\~\\Open-Transactions\\testwallet");
                 Utility.setDataFolder("C:\\~\\Open-Transactions\\testwallet\\data_folder");
+                System.loadLibrary("libzmq");
                 System.loadLibrary("otapi");
                 otapi.OT_API_Init("C:\\~\\Open-Transactions\\testwallet\\data_folder");
+                //otapi.InitDefaultStorage(StorageType.STORE_FILESYSTEM, PackType.PACK_PROTOCOL_BUFFERS, "C:\\~\\Open-Transactions\\testwallet\\data_folder", "wallet.xml");
 
-            OTCaller g_theCaller = new OTCaller();
-            OTCallback g_theCallback = new JavaCallback();
+                OTCaller g_theCaller = new OTCaller();
+                OTCallback g_theCallback = new JavaCallback();
                 g_theCaller.setCallback(g_theCallback);
                 otapi.OT_API_Set_PasswordCallback(g_theCaller);
+                Utility.setG_theCallback(g_theCallback);
+                Utility.setG_theCaller(g_theCaller);
 
                 otapi.OT_API_LoadWallet("wallet.xml");
             } else {
@@ -322,20 +329,25 @@ public class Settings extends javax.swing.JFrame {
                         return;
                     }
                     Utility.addDirToRuntime(jTextField3.getText(), true);
-
+                    System.out.println("PATH:"+System.getProperty("java.library.path"));
+                    //System.loadLibrary("libzmq");
+                    System.out.println(" Before otapi load");
                     System.loadLibrary("otapi");
+                    System.out.println(" After otapi load");
                     boolean success = otapi.OT_API_Init(jTextField1.getText()) == 1 ? true : false;
-
-                    if (!success) {
+                    // Uncomment below after fix
+                    /*if (!success) {
                         JOptionPane.showMessageDialog(this, "Invalid Data Folder", "Initialization Error", JOptionPane.ERROR_MESSAGE);
                         return;
 
-                    }
+                    }*/
 
-            OTCaller g_theCaller = new OTCaller();
-            OTCallback g_theCallback = new JavaCallback();
-                    g_theCaller.setCallback(g_theCallback);
-                    otapi.OT_API_Set_PasswordCallback(g_theCaller);
+                OTCaller g_theCaller = new OTCaller();
+                OTCallback g_theCallback = new JavaCallback();
+                g_theCaller.setCallback(g_theCallback);
+                otapi.OT_API_Set_PasswordCallback(g_theCaller);
+                Utility.setG_theCallback(g_theCallback);
+                Utility.setG_theCaller(g_theCaller);
 
                     success = otapi.OT_API_LoadWallet(jTextField2.getText()) == 1 ? true : false;
 
@@ -354,8 +366,10 @@ public class Settings extends javax.swing.JFrame {
 
             }
             Configuration.setWaitTime(waitTime);
+
             //Utility.setDataFolder(jTextField1.getText());
-            this.dispose();
+            Utility.setSettingsObj(this);
+            //this.dispose();
             /*Utility.addDirToRuntime("/opt/local/lib");
             Utility.addDirToRuntime("/Users/Chris/Projects/Open-Transactions/testwallet");
             System.loadLibrary("otapi");

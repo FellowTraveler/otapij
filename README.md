@@ -9,9 +9,9 @@ Moneychanger is a simple Java client GUI built on top of [Open Transactions](htt
 
 Moneychanger can be used to create pseudonyms, issue currencies, open accounts, withdraw cash, deposit cash, write and deposit cheques, and purchase vouchers ("cashier's cheques" aka "banker's cheques").
 
-Soon, Moneychanger will also be able to use basket currencies, set up payment plans, and trade on markets. (The Open Transactions library already supports these features.)
+Soon, Moneychanger will also be able to use basket currencies, set up payment plans, and trade on markets. (The Open Transactions library _already_ supports these features.)
 
-Bitcoin integration is also coming soon.
+Bitcoin is now supported (via bitcoind) and soon, bail in/out between Bitcoin and Open Transactions will also be supported.
 
 See wikis for more screenshots and diagrams.
 
@@ -31,22 +31,40 @@ THIS IS ONLY EXPERIMENTAL SOFTWARE AND IS NOT YET READY FOR PRIME TIME.
 
 [Troubleshooting](https://github.com/FellowTraveler/Moneychanger/wiki/Troubleshooting)
 
-First, [download Open-Transactions](https://github.com/FellowTraveler/Open-Transactions/):
+
+[Get OpenSSL 1.0.0](https://github.com/FellowTraveler/Open-Transactions/wiki/Install-OpenSSL) if you don't have it already. You don't have to install it system-wide, but you still need to download it and build it. (If you are using 64-bit Linux, MAKE SURE you configure OpenSSL explicitly for this before building, as it will not build that way by default. Use "./configure -m64 shared" in the openssl folder BEFORE building OpenSSL.)
+
+INSTALL: Message Pack, [available here.](http://msgpack.org/)
+[install instructions.](http://wiki.msgpack.org/display/MSGPACK/QuickStart+for+C+Language)
+To install from command line: 
+
+     $ port install msgpack   (OR)
+     $ brew install msgpack
+
+INSTALL: Google's Protocol Buffers library (another data packer.) [Available here.](http://code.google.com/p/protobuf/downloads/list)
+
+INSTALL: Zero MQ (transport library)
+[Available here.](http://www.zeromq.org/intro:get-the-software) 
+OT now uses this library for all transport.
+
+[Download Open-Transactions](https://github.com/FellowTraveler/Open-Transactions/):
 
      $ git clone git://github.com/FellowTraveler/Open-Transactions.git
-     $ cd Open-Transactions
 
-[Get OpenSSL 1.0.0](https://github.com/FellowTraveler/Open-Transactions/wiki/Install-OpenSSL) if you don't have it already. You don't have to install it system-wide, but you still need to download it and build it. (If you are using 64-bit Linux, MAKE SURE you configure OpenSSL explicitly for this before building, as it will not build that way by default.)
+If you have a special, local version of OpenSSL 1.0.0 just for OT, then name its folder "openssl" (all lowercase) and place it next to the Open-Transactions folder. (As in, the "Open-Transactions" and "openssl" folders will both reside within the same parent folder.) 
+
+You will also need to create a link to that same openssl folder from INSIDE the Open-Transactions folder. Like this:
+
+     $ cd Open-Transactions
+     $ ln -s ../openssl .
 
 Build Open-Transactions for the Java API:
 
      $ make java
+     OR:
+     $ make java DSP=1
 
-If you have a special, local version of OpenSSL 1.0.0 just for OT, then name its folder "openssl" (all lowercase) and place it inside the Open-Transactions folder. (As in, "Open-Transactions/openssl" is where it will be.) Then:
-
-     $ make DSP=1 java
-
-The DSP option causes Open Transactions to look for an 'openssl' folder inside the Open-Transactions main folder.
+(The DSP=1 option causes Open Transactions to look for an 'openssl' folder inside the Open-Transactions main folder, instead of using the system-wide installation of openssl. This way you can build a special version of OpenSSL 1.0.0 just for OT, and use it, without having to install it for your entire system.)
 
 Download Moneychanger source code:
 
@@ -98,7 +116,7 @@ From a separate terminal:
 
 ```xml
 
-Moneychanger v0.02 (running pretty smooth...)
+Moneychanger v0.04 (running pretty smooth...)
 
 /************************************************************
 -----BEGIN PGP SIGNED MESSAGE-----

@@ -94,6 +94,7 @@ import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 import org.apache.commons.httpclient.Credentials;
@@ -154,6 +155,31 @@ public class BitcoinClient
       throw new BitcoinClientException("Got incorrect JSON for this label: " + label, e);
     }
   }
+
+  public List getAccountList(){
+      List accounts = new ArrayList();
+    try
+    {
+      JSONObject request = createRequest("listaccounts");
+      JSONObject response = this.session.sendAndReceive(request);
+      System.out.println("Accc:"+response.getJSONObject("result"));
+
+      JSONObject accountObject = response.getJSONObject("result");
+      Iterator keys = accountObject.keys();
+      while(keys.hasNext()){
+          String data[] = new String[2];
+          String key = (String)keys.next();
+          data[0] = key;
+          data[1] = String.valueOf((Double)accountObject.get(key));
+          accounts.add(data);
+      }
+   
+    } catch (JSONException e) {
+      throw new BitcoinClientException("Exception when getting account list", e);
+    }
+      return accounts;
+  }
+
 
   public List<String> getAddressesByAccount(String account)
   {

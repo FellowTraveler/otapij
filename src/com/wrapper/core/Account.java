@@ -101,6 +101,7 @@ public abstract class Account {
     protected String amount;
     protected String key;
     protected static  Map    accountList = new HashMap();
+    protected static  Map    accountListOT = new HashMap();
 
 
     public static final String[] allAccounts;
@@ -116,14 +117,25 @@ public abstract class Account {
 
     public abstract  void editAccount();
 
-    public abstract void loadAccount(String assetID,String serverID,String nymID);
+    public abstract void loadAccount(String assetID,String serverID,String nymID) throws Exception;
 
     public abstract Object getAccountDetails(String accountID);
 
     public abstract boolean editLabel(String accountID,String newLabel);
 
+    public void setServerID(String serverID){
+
+    }
+
     public Map getAccountList(){
         return accountList;
+    }
+    public Map getOTAccountList(){
+        return accountListOT;
+    }
+
+    public void clearOTAccountList(){
+        accountListOT.clear();
     }
 
     public void clearAccountList(){

@@ -109,6 +109,7 @@ public class BitcoinAccountBottomPanel extends javax.swing.JPanel {
     private static Map sentBoxMap;
     private static Map receivedBoxMap;
     private static Map receivedAddressBoxMap;
+    private static String serverID;
 
     /** Creates new form BitcoinAccountBottomPanel */
     public BitcoinAccountBottomPanel() {
@@ -164,7 +165,7 @@ public class BitcoinAccountBottomPanel extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 697, Short.MAX_VALUE)
+            .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 713, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,7 +193,7 @@ public class BitcoinAccountBottomPanel extends javax.swing.JPanel {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane13, javax.swing.GroupLayout.DEFAULT_SIZE, 697, Short.MAX_VALUE)
+            .addComponent(jScrollPane13, javax.swing.GroupLayout.DEFAULT_SIZE, 713, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -232,12 +233,10 @@ public class BitcoinAccountBottomPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 702, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(317, 317, 317)
-                        .addComponent(jButton1)))
-                .addContainerGap())
+                .addGap(317, 317, 317)
+                .addComponent(jButton1)
+                .addContainerGap(330, Short.MAX_VALUE))
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 718, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -257,7 +256,7 @@ public class BitcoinAccountBottomPanel extends javax.swing.JPanel {
             System.out.println("sentBoxMap keys:"+sentBoxMap);
             String[] row = (String[]) sentBoxMap.get(key);
             if (row != null) {
-                new BitcoinTrnDetailsDialog(null, true,new BitcoinAccount().getLabel(row[3]),key,row[4]).setVisible(true);
+                new BitcoinTrnDetailsDialog(null, true,new BitcoinAccount(serverID).getLabel(row[3]),key,row[4]).setVisible(true);
             }
         }
     }//GEN-LAST:event_jTable5MouseClicked
@@ -270,7 +269,7 @@ public class BitcoinAccountBottomPanel extends javax.swing.JPanel {
             System.out.println("receivedBoxMap keys:"+receivedBoxMap);
             String[] row = (String[]) receivedBoxMap.get(key);
             if (row != null) {
-                new BitcoinTrnDetailsDialog(null, true,new BitcoinAccount().getLabel(row[3]),key,row[4]).setVisible(true);
+                new BitcoinTrnDetailsDialog(null, true,new BitcoinAccount(serverID).getLabel(row[3]),key,row[4]).setVisible(true);
             }
         }
     }//GEN-LAST:event_jTable6MouseClicked
@@ -293,7 +292,7 @@ public class BitcoinAccountBottomPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        receivedBoxMap = new BitcoinAccount().getReceivedBoxData("");
+        receivedBoxMap = new BitcoinAccount(serverID).getReceivedBoxData("");
         ((BitcoinReceivedTableModel) jTable6.getModel()).setValue(receivedBoxMap,jTable6);
 
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -325,6 +324,7 @@ public class BitcoinAccountBottomPanel extends javax.swing.JPanel {
             sentBoxMap = details.getSentboxData();
             receivedBoxMap = details.getReceivedboxData();
             receivedAddressBoxMap = details.getReceivedAddrboxData();
+            serverID = details.getServerID();
             ((BitcoinSentTableModel) jTable5.getModel()).setValue(sentBoxMap, jTable5);
             ((BitcoinReceivedTableModel) jTable6.getModel()).setValue(receivedBoxMap,jTable6);
             ((BitcoinReceivingAddrTableModel) jTable7.getModel()).setValue(receivedAddressBoxMap,jTable7);
@@ -332,12 +332,12 @@ public class BitcoinAccountBottomPanel extends javax.swing.JPanel {
     }
 
     public static void setReceivingAddrTable(String account){
-        receivedAddressBoxMap = new BitcoinAccount().getRecevingAddrBoxData(account);
+        receivedAddressBoxMap = new BitcoinAccount(serverID).getRecevingAddrBoxData(account);
         ((BitcoinReceivingAddrTableModel) jTable7.getModel()).setValue(receivedAddressBoxMap,jTable7);
     }
 
     public static void setSentBoxTable(String account){
-        sentBoxMap = new BitcoinAccount().getSentBoxData(account);
+        sentBoxMap = new BitcoinAccount(serverID).getSentBoxData(account);
         ((BitcoinSentTableModel) jTable5.getModel()).setValue(sentBoxMap, jTable5);
     }
 

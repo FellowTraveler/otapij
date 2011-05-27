@@ -112,6 +112,7 @@ import javax.swing.JTable;
  * @author Vicky C
  */
 public class BitcoinAccountTopPanel extends javax.swing.JPanel {
+    private static String serverID;
 
     /** Creates new form BitcoinAccountTopPanel */
     public BitcoinAccountTopPanel() {
@@ -127,15 +128,12 @@ public class BitcoinAccountTopPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField4 = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
@@ -148,17 +146,6 @@ public class BitcoinAccountTopPanel extends javax.swing.JPanel {
         setName("Form"); // NOI18N
 
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(app.ApplicationLauncher.class).getContext().getResourceMap(BitcoinAccountTopPanel.class);
-        jTextField4.setBackground(resourceMap.getColor("jTextField4.background")); // NOI18N
-        jTextField4.setName("jTextField4"); // NOI18N
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
-            }
-        });
-
-        jLabel6.setText(resourceMap.getString("jLabel6.text")); // NOI18N
-        jLabel6.setName("jLabel6"); // NOI18N
-
         jLabel7.setText(resourceMap.getString("jLabel7.text")); // NOI18N
         jLabel7.setName("jLabel7"); // NOI18N
 
@@ -186,14 +173,6 @@ public class BitcoinAccountTopPanel extends javax.swing.JPanel {
         jTextField2.setEditable(false);
         jTextField2.setText(resourceMap.getString("jTextField2.text")); // NOI18N
         jTextField2.setName("jTextField2"); // NOI18N
-
-        jButton2.setText(resourceMap.getString("jButton2.text")); // NOI18N
-        jButton2.setName("jButton2"); // NOI18N
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.setName("jPanel1"); // NOI18N
@@ -273,7 +252,7 @@ public class BitcoinAccountTopPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -283,7 +262,6 @@ public class BitcoinAccountTopPanel extends javax.swing.JPanel {
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel1))
                                 .addComponent(jLabel7))
-                            .addComponent(jLabel6)
                             .addComponent(jLabel3))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -291,24 +269,15 @@ public class BitcoinAccountTopPanel extends javax.swing.JPanel {
                             .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton2))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton6)))))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2)
-                    .addComponent(jLabel6))
-                .addGap(18, 18, 18)
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
@@ -328,52 +297,37 @@ public class BitcoinAccountTopPanel extends javax.swing.JPanel {
                     .addComponent(jButton6))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
-        // TODO add your handling code here:
-}//GEN-LAST:event_jTextField4ActionPerformed
 
     private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        new BitcoinSendFundDialog(null, true, jTextField2.getText()).setVisible(true);
+        new BitcoinSendFundDialog(null, true, jTextField2.getText(),serverID).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        BitcoinAccount btcAcct = new BitcoinAccount();
+        BitcoinAccount btcAcct = new BitcoinAccount(serverID);
         String balance = String.valueOf(btcAcct.checkBalance(jTextField2.getText()));
         jTextField1.setText(balance);
-        JOptionPane.showMessageDialog(null, "Your current balance is " + balance);
+        JOptionPane.showMessageDialog(null, "Your total balance is " + balance);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        new BitcoinCreateAddressDialog(null, true, jTextField2.getText()).setVisible(true);
+        new BitcoinCreateAddressDialog(null, true, jTextField2.getText(),serverID).setVisible(true);
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        BitcoinAccount btcAcct = new BitcoinAccount();
-        try {
-            btcAcct.setLabelForAddress(jTextField5.getText(), jTextField4.getText());
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error in updating label", "Error", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
-        }
-        JOptionPane.showMessageDialog(null, "Label updated successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        BitcoinAccount btcAcct = new BitcoinAccount();
+        BitcoinAccount btcAcct = new BitcoinAccount(serverID);
         jTextField3.setText(btcAcct.getBlockNumber());
     }//GEN-LAST:event_jButton6ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
@@ -381,13 +335,11 @@ public class BitcoinAccountTopPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private static javax.swing.JTextField jTextField1;
     private static javax.swing.JTextField jTextField2;
     private static javax.swing.JTextField jTextField3;
-    private static javax.swing.JTextField jTextField4;
     private static javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
 
@@ -399,17 +351,19 @@ public class BitcoinAccountTopPanel extends javax.swing.JPanel {
         if (details != null) {
             JTable jtable = MainPage.getAccountTable();
             jtable.getModel().setValueAt(details.getBalance(), jtable.getSelectedRow(), 1);
+            System.out.println("jTextField1"+jTextField1);
             jTextField1.setText(details.getBalance());
             jTextField2.setText(details.getAccount());
-            jTextField4.setText(details.getName());
+         
             jTextField5.setText(details.getAddress());
+            serverID = details.getServerID();
             jTextField3.setText(String.valueOf(details.getCurrentBlockNumber()));
         }
     }
 
     public static void setValues(String newAddress, String label) {
         jTextField5.setText(newAddress);
-        jTextField4.setText(label);
+     
     }
 
     public static void setBalance(String balance) {
@@ -419,8 +373,8 @@ public class BitcoinAccountTopPanel extends javax.swing.JPanel {
     }
 
     public static void clearPanel() {
-        if (jTextField4 != null && jTextField5 != null && jTextField1 != null && jTextField3 != null && jTextField2 != null) {
-            jTextField4.setText("");
+        if (jTextField5 != null && jTextField1 != null && jTextField3 != null && jTextField2 != null) {
+          
             jTextField5.setText("");
             jTextField1.setText("");
             jTextField2.setText("");

@@ -155,7 +155,7 @@ public class CashPurseAccount extends Account {
 
     public void getCashPurseList(String assetID, String serverID, String nymID) {
 
-        /*accountList.put(serverID + ":" + assetID + ":" + nymID, new String[]{"cashp", "100", type, serverID + ":" + assetID + ":" + nymID});
+        /*accountListOT.put(serverID + ":" + assetID + ":" + nymID, new String[]{"cashp", "100", type, serverID + ":" + assetID + ":" + nymID});
         if (true) {
         return;
         }*/
@@ -204,7 +204,7 @@ public class CashPurseAccount extends Account {
                                 key = serverID + ":" + assetID + ":" + nymID;
                                 label = otapi.OT_API_GetAssetType_Name(assetID);
                                 amount = otapi.OT_API_Purse_GetTotalValue(serverID, assetID, cashPurse);
-                                accountList.put(key, new String[]{label, amount, type, key});
+                                accountListOT.put(key, new String[]{label, amount, type, key});
 
                             } catch (Exception nfe) {
                                 nfe.printStackTrace();

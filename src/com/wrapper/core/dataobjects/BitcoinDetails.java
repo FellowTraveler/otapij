@@ -13,6 +13,23 @@ import java.util.Map;
 public class BitcoinDetails {
 
     private String name;
+    String serverID;
+    String label;
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+    public String getServerID() {
+        return serverID;
+    }
+
+    public void setServerID(String serverID) {
+        this.serverID = serverID;
+    }
 
     public Map getReceivedboxData() {
         return receivedboxData;

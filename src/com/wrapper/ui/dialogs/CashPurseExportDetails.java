@@ -102,6 +102,7 @@
 
 package com.wrapper.ui.dialogs;
 
+import com.wrapper.core.util.Utility;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.ClipboardOwner;
 import java.awt.datatransfer.StringSelection;
@@ -123,6 +124,7 @@ public class CashPurseExportDetails extends javax.swing.JDialog implements Clipb
         }
         jTextArea1.setText(purse);
         jTextArea1.setCaretPosition(0);
+        setLocation(Utility.getLocation(this.getSize()));
     }
 
     /** This method is called from within the constructor to

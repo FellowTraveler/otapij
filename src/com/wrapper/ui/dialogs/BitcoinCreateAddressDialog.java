@@ -23,13 +23,15 @@ import javax.swing.JOptionPane;
 public class BitcoinCreateAddressDialog extends javax.swing.JDialog {
 
     private final String account;
+    private final String serverID;
 
     /** Creates new form BitcoinCreateAddressDialog */
-    public BitcoinCreateAddressDialog(java.awt.Frame parent, boolean modal, String account) {
+    public BitcoinCreateAddressDialog(java.awt.Frame parent, boolean modal, String account,String serverID) {
         super(parent, modal);
         initComponents();
         setLocation(Utility.getLocation(this.getSize()));
         this.account = account;
+        this.serverID = serverID;
     }
 
     /** This method is called from within the constructor to
@@ -102,7 +104,7 @@ public class BitcoinCreateAddressDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        BitcoinAccount btcAcct = new BitcoinAccount();
+        BitcoinAccount btcAcct = new BitcoinAccount(serverID);
         String newAddress = btcAcct.createNewAddress(jTextField1.getText(), account);
         if (newAddress != null) {
             JOptionPane.showMessageDialog(this, "New address created successfully - " + newAddress);
@@ -122,7 +124,7 @@ public class BitcoinCreateAddressDialog extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                BitcoinCreateAddressDialog dialog = new BitcoinCreateAddressDialog(new javax.swing.JFrame(), true, "");
+                BitcoinCreateAddressDialog dialog = new BitcoinCreateAddressDialog(new javax.swing.JFrame(), true, "","");
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     public void windowClosing(java.awt.event.WindowEvent e) {

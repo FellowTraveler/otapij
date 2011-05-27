@@ -103,13 +103,15 @@ import javax.swing.JTable;
 
 public class BitcoinSendFundDialog extends javax.swing.JDialog {
     private final String account;
+    private final String serverID;
 
     /** Creates new form BitcoinSendFundDialog */
-    public BitcoinSendFundDialog(java.awt.Frame parent, boolean modal,String account) {
+    public BitcoinSendFundDialog(java.awt.Frame parent, boolean modal,String account,String serverID) {
         super(parent, modal);
         initComponents();
         setLocation(Utility.getLocation(this.getSize()));
         this.account = account;
+        this.serverID = serverID;
     }
 
     /** This method is called from within the constructor to
@@ -238,7 +240,7 @@ public class BitcoinSendFundDialog extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         double amount = 0;
-        BitcoinAccount btcAcct = new BitcoinAccount();
+        BitcoinAccount btcAcct = new BitcoinAccount(serverID);
         boolean isSuccess = btcAcct.validateAddress(jTextField1.getText());
         if(!isSuccess){
             JOptionPane.showMessageDialog(this, "Please enter valid address","Error",JOptionPane.ERROR_MESSAGE);
@@ -276,7 +278,7 @@ public class BitcoinSendFundDialog extends javax.swing.JDialog {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                BitcoinSendFundDialog dialog = new BitcoinSendFundDialog(new javax.swing.JFrame(), true,"");
+                BitcoinSendFundDialog dialog = new BitcoinSendFundDialog(new javax.swing.JFrame(), true,"","");
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);

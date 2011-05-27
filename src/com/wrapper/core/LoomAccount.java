@@ -141,4 +141,9 @@ public class LoomAccount extends Account {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
+    public void setServerID(String serverID){
+        //setBTCClient(serverID);
+    }
+
 }

@@ -90,11 +90,6 @@
 
 
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
  * AccountAdditionDialog.java
  *
  * Created on 19 Mar, 2011, 8:54:40 AM
@@ -117,9 +112,10 @@ public class AccountAdditionDialog extends javax.swing.JDialog {
     private String nymID;
     private String assetID;
     private String serverID;
+    
 
     /** Creates new form AccountAdditionDialog */
-    public AccountAdditionDialog(java.awt.Frame parent, boolean modal,String nymID,String assetID,String serverID) {
+    public AccountAdditionDialog(java.awt.Frame parent, boolean modal,String nymID,String assetID,String serverID,String type) {
         super(parent, modal);
         this.parent = parent;
         this.serverID = serverID;
@@ -127,7 +123,7 @@ public class AccountAdditionDialog extends javax.swing.JDialog {
         this.assetID = assetID ;
         setTitle("Account Addition");
         initComponents();
-        initvalues();
+        initValues(type);
         setLocation(Utility.getLocation(this.getSize()));
     }
 
@@ -244,7 +240,7 @@ public class AccountAdditionDialog extends javax.swing.JDialog {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                AccountAdditionDialog dialog = new AccountAdditionDialog(new javax.swing.JFrame(), true,"","","");
+                AccountAdditionDialog dialog = new AccountAdditionDialog(new javax.swing.JFrame(), true,"","","","");
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -266,13 +262,17 @@ public class AccountAdditionDialog extends javax.swing.JDialog {
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
-    private void initvalues() {
+    private void initValues(String type) {
 
-        jComboBox2.addItem(new ComboObject("Open Transaction"));
+        if("OT".equalsIgnoreCase(type))
+            jComboBox2.addItem(new ComboObject("Open Transaction"));
+        else{
         jComboBox2.addItem(new ComboObject("Bitcoin"));
         jComboBox2.addItem(new ComboObject("Loom"));
-        jComboBox2.addItem(new ComboObject("Truledger"));
+        jComboBox2.addItem(new ComboObject("Ripple"));
         jComboBox2.addItem(new ComboObject("PKTP"));
+        jComboBox2.addItem(new ComboObject("Truledger"));
+        }
 
     }
 

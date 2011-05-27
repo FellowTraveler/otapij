@@ -1,7 +1,7 @@
 /************************************************************
- -----BEGIN PGP SIGNED MESSAGE-----
- Hash: SHA256
- 
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
  *                 M O N E Y C H A N G E R
  *
  *   http://wiki.github.com/FellowTraveler/Moneychanger/wiki
@@ -70,25 +70,23 @@
  *   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
  *   PURPOSE.  See the GNU General Public License for more
  *   details.
- 
- -----BEGIN PGP SIGNATURE-----
- wsFVAwUBTbFZUwMIAO35UbuOAQjDRBAAmIUJBi5/WC1KpI4TNAWdQNh6g59qYS6w
- SI6mTMbnP0DUVOrmJdNR7/n1sRlnWzyjKLcKkRtXwRWGC+jE16jijxek9Ome5Qid
- bDqjHSuFvqnsD3+0tbENf+kVrbAReU3YvWk+xFvVc6I2NpS+lEIdjHIWm85jSmew
- Ydx+4KpELkO59thkcKgSYsTSyTP3l9GOTtJlq45XiamoEvso4jFUC1y5KMQsz1KH
- DTE32m5FPZqJqUw9loAmrni3dIMpXKC5yLhdqSMXHK0MAPEIexsuaZjrjKJQSjwV
- eDjwJcMn2WZVvcIr9IEoKEU/2j9wHNZv5Xuj78A/78AkjqEUwrY1M9ht0r/QbusW
- ZT7MlxNCq4DFstrjyKi03yZQGR+m8eJFHE7GvF8Vzg/ap0/CUJzeoXg5wACXGfJj
- k6y8ZBriQO08JECki2sy6oTitDoi7FmzgAIxPGB1qA4HMur/LuzrxAj2V7XkZQlk
- VfAda6Ff9bmStNut+zbsQ0pnIeL/URwWifI8Wq81c7DEIvA5SH/bU9Hws1FMO8PU
- BcDmzadU+syJBTxoP/mHZcLfwHDhcZyBeHX7sHfpHweEunzWjcHjqVCutQMO4dii
- yrsc64WTfAqd4s12SfKMgVFLeL/FUYH7MNqpfgjgwX5co817m9VvCntU6njIuYtV
- 6+G/TuSViH8=
- =/jIC
- -----END PGP SIGNATURE-----
+
+-----BEGIN PGP SIGNATURE-----
+wsFVAwUBTbFZUwMIAO35UbuOAQjDRBAAmIUJBi5/WC1KpI4TNAWdQNh6g59qYS6w
+SI6mTMbnP0DUVOrmJdNR7/n1sRlnWzyjKLcKkRtXwRWGC+jE16jijxek9Ome5Qid
+bDqjHSuFvqnsD3+0tbENf+kVrbAReU3YvWk+xFvVc6I2NpS+lEIdjHIWm85jSmew
+Ydx+4KpELkO59thkcKgSYsTSyTP3l9GOTtJlq45XiamoEvso4jFUC1y5KMQsz1KH
+DTE32m5FPZqJqUw9loAmrni3dIMpXKC5yLhdqSMXHK0MAPEIexsuaZjrjKJQSjwV
+eDjwJcMn2WZVvcIr9IEoKEU/2j9wHNZv5Xuj78A/78AkjqEUwrY1M9ht0r/QbusW
+ZT7MlxNCq4DFstrjyKi03yZQGR+m8eJFHE7GvF8Vzg/ap0/CUJzeoXg5wACXGfJj
+k6y8ZBriQO08JECki2sy6oTitDoi7FmzgAIxPGB1qA4HMur/LuzrxAj2V7XkZQlk
+VfAda6Ff9bmStNut+zbsQ0pnIeL/URwWifI8Wq81c7DEIvA5SH/bU9Hws1FMO8PU
+BcDmzadU+syJBTxoP/mHZcLfwHDhcZyBeHX7sHfpHweEunzWjcHjqVCutQMO4dii
+yrsc64WTfAqd4s12SfKMgVFLeL/FUYH7MNqpfgjgwX5co817m9VvCntU6njIuYtV
+6+G/TuSViH8=
+=/jIC
+-----END PGP SIGNATURE-----
  **************************************************************/
-
-
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -102,17 +100,25 @@
 package com.wrapper.ui;
 //Recurring, Deed/Title, Escrow, Ripple, Settings, Credits
 import com.wrapper.core.Account;
+import com.wrapper.core.BitcoinAccount;
 import com.wrapper.core.Contract;
 import com.wrapper.core.NYM;
 import com.wrapper.core.OpenTransactionAccount;
 import com.wrapper.core.dataobjects.BitcoinDetails;
 import com.wrapper.core.dataobjects.CashPurseDetails;
 import com.wrapper.core.dataobjects.OTDetails;
+import com.wrapper.core.datastore.StorageHelper;
+import com.wrapper.core.jni.BitcoinServer;
+import com.wrapper.core.jni.ServerInfo;
+import com.wrapper.core.jni.StorageType;
+import com.wrapper.core.jni.StoredObjectType;
+import com.wrapper.core.jni.WalletData;
 import com.wrapper.core.util.ComboObject;
 import com.wrapper.core.util.Configuration;
 import com.wrapper.core.util.Utility;
 import com.wrapper.ui.dialogs.AccountAdditionDialog;
 import com.wrapper.ui.dialogs.AccountEditDialog;
+import com.wrapper.ui.dialogs.AddressBookDialog;
 import com.wrapper.ui.dialogs.AssetContractEditDialog;
 import com.wrapper.ui.dialogs.ContractAdditionDialog;
 import com.wrapper.ui.dialogs.ImportNYMDialog;
@@ -120,6 +126,10 @@ import com.wrapper.ui.dialogs.IssueAssetContractDialog;
 import com.wrapper.ui.dialogs.NYMAdditionDialog;
 import com.wrapper.ui.dialogs.NYMEditDialog;
 import com.wrapper.ui.dialogs.NymBoxDetailsDialog;
+import com.wrapper.ui.dialogs.OTAccountAdditionDialog;
+import com.wrapper.ui.dialogs.OtherTabAccountEditDialog;
+import com.wrapper.ui.dialogs.OtherTabServerAddDialog;
+import com.wrapper.ui.dialogs.OtherTabServerEditDialog;
 import com.wrapper.ui.dialogs.SendMessageDialog;
 import com.wrapper.ui.dialogs.ServerContractEditDialog;
 import com.wrapper.ui.model.AccountTableModel;
@@ -130,9 +140,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
 import com.wrapper.ui.model.NYMTableModel;
+import com.wrapper.ui.model.OtherTabAccountModel;
+import com.wrapper.ui.model.OtherTabServerTableModel;
 import com.wrapper.ui.model.ServerContractTableModel;
 import com.wrapper.ui.panels.BitcoinAccountBottomPanel;
 import com.wrapper.ui.panels.BitcoinAccountTopPanel;
+import com.wrapper.ui.panels.BlankPanel;
 import com.wrapper.ui.panels.CashPurseAccountBottomPanel;
 import com.wrapper.ui.panels.CashPurseAccountTopPanel;
 import com.wrapper.ui.panels.OpenTransactionAccountBottomPanel;
@@ -141,7 +154,9 @@ import com.wrapper.ui.test.BitcoinDemo;
 import java.awt.CardLayout;
 import java.awt.Cursor;
 import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -163,17 +178,25 @@ public class MainPage extends javax.swing.JFrame {
     /** Creates new form MainPage */
     public MainPage() {
         // this.setExtendedState(MAXIMIZED_BOTH);
+        try {
 
-        setTitle("Moneychanger");
-        initComponents();
-        initMainTab();
-        initNYMSTab();
-        initContractsTab();
-        initSettingsTab();
-        initCreditsTab();
-        setResizable(false);
-        setLocation(Utility.getLocation(this.getSize()));
-        repaint();
+            setTitle("Moneychanger");
+            initComponents();
+            initMainTab();
+            initOtherTab();
+            initNYMSTab();
+            initContractsTab();
+            initSettingsTab();
+            initCreditsTab();
+            setResizable(false);
+            setLocation(Utility.getLocation(this.getSize()));
+            repaint();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ((JFrame) Utility.getSettingsObj()).dispose();
+            setCursor(Cursor.getDefaultCursor());
+        }
     }
 
     /** This method is called from within the constructor to
@@ -270,8 +293,25 @@ public class MainPage extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel30 = new javax.swing.JLabel();
+        jPanel29 = new javax.swing.JPanel();
+        jScrollPane19 = new javax.swing.JScrollPane();
+        jTable12 = new javax.swing.JTable();
+        jPanel30 = new javax.swing.JPanel();
+        jPanel31 = new javax.swing.JPanel();
+        jButton26 = new javax.swing.JButton();
+        jButton27 = new javax.swing.JButton();
+        jButton28 = new javax.swing.JButton();
+        jScrollPane21 = new javax.swing.JScrollPane();
+        jTable13 = new com.wrapper.ui.custom.CustomTable();
+        jSeparator8 = new javax.swing.JSeparator();
+        jScrollPane23 = new javax.swing.JScrollPane();
+        jTable14 = new com.wrapper.ui.custom.CustomTable();
+        jComboBox5 = new javax.swing.JComboBox();
+        jLabel24 = new javax.swing.JLabel();
+        jTabbedPane3 = new javax.swing.JTabbedPane();
+        jPanel32 = new javax.swing.JPanel();
+        jScrollPane22 = new javax.swing.JScrollPane();
+        jTable16 = new com.wrapper.ui.custom.CustomTable();
         jPanel18 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -305,11 +345,20 @@ public class MainPage extends javax.swing.JFrame {
         jButton22 = new javax.swing.JButton();
         jButton23 = new javax.swing.JButton();
         jButton24 = new javax.swing.JButton();
+        jSeparator6 = new javax.swing.JSeparator();
+        jSeparator7 = new javax.swing.JSeparator();
+        jScrollPane17 = new javax.swing.JScrollPane();
+        jPanel27 = new javax.swing.JPanel();
+        jScrollPane18 = new javax.swing.JScrollPane();
+        jPanel28 = new javax.swing.JPanel();
         jPanel22 = new javax.swing.JPanel();
-        jLabel14 = new javax.swing.JLabel();
+        jPanel33 = new javax.swing.JPanel();
         jTextField5 = new javax.swing.JTextField();
-        jLabel15 = new javax.swing.JLabel();
         jButton18 = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jPanel34 = new javax.swing.JPanel();
+        jButton25 = new javax.swing.JButton();
         jPanel23 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -1266,31 +1315,221 @@ public class MainPage extends javax.swing.JFrame {
 
         jPanel6.setName("jPanel6"); // NOI18N
 
-        jLabel3.setText(resourceMap.getString("jLabel3.text")); // NOI18N
-        jLabel3.setName("jLabel3"); // NOI18N
+        jPanel29.setName("jPanel29"); // NOI18N
 
-        jLabel30.setText(resourceMap.getString("jLabel30.text")); // NOI18N
-        jLabel30.setName("jLabel30"); // NOI18N
+        jScrollPane19.setName("jScrollPane19"); // NOI18N
+
+        jTable12.setModel(new ServerContractTableModel());
+        jTable12.setName("jTable12"); // NOI18N
+        jTable12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable12MouseClicked(evt);
+            }
+        });
+        jScrollPane19.setViewportView(jTable12);
+
+        jPanel30.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        jPanel30.setName("jPanel30"); // NOI18N
+
+        javax.swing.GroupLayout jPanel30Layout = new javax.swing.GroupLayout(jPanel30);
+        jPanel30.setLayout(jPanel30Layout);
+        jPanel30Layout.setHorizontalGroup(
+            jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 765, Short.MAX_VALUE)
+        );
+        jPanel30Layout.setVerticalGroup(
+            jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 310, Short.MAX_VALUE)
+        );
+
+        jPanel31.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel31.setName("jPanel31"); // NOI18N
+
+        jButton26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/wrapper/ui/images/pencil.jpg"))); // NOI18N
+        jButton26.setName("jButton26"); // NOI18N
+        jButton26.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton26ActionPerformed(evt);
+            }
+        });
+
+        jButton27.setText(resourceMap.getString("jButton27.text")); // NOI18N
+        jButton27.setToolTipText("Add");
+        jButton27.setName("jButton27"); // NOI18N
+        jButton27.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton27ActionPerformed(evt);
+            }
+        });
+
+        jButton28.setText(resourceMap.getString("jButton28.text")); // NOI18N
+        jButton28.setName("jButton28"); // NOI18N
+        jButton28.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton28ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel31Layout = new javax.swing.GroupLayout(jPanel31);
+        jPanel31.setLayout(jPanel31Layout);
+        jPanel31Layout.setHorizontalGroup(
+            jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel31Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton27, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton26, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton28, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel31Layout.setVerticalGroup(
+            jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel31Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton26, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton27)
+                        .addComponent(jButton28)))
+                .addContainerGap())
+        );
+
+        jScrollPane21.setName("jScrollPane21"); // NOI18N
+
+        jTable13.setModel(new com.wrapper.ui.model.MarketTableModel());
+        jTable13.setName("jTable13"); // NOI18N
+        jTable13.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTable13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable13MouseClicked(evt);
+            }
+        });
+        jScrollPane21.setViewportView(jTable13);
+
+        jSeparator8.setName("jSeparator8"); // NOI18N
+
+        jScrollPane23.setName("jScrollPane23"); // NOI18N
+
+        jTable14.setName("jTable14"); // NOI18N
+        jTable14.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTable14.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable14MouseClicked(evt);
+            }
+        });
+        jScrollPane23.setViewportView(jTable14);
+
+        jComboBox5.setToolTipText(resourceMap.getString("jComboBox5.toolTipText")); // NOI18N
+        jComboBox5.setName("jComboBox5"); // NOI18N
+
+        jLabel24.setText(resourceMap.getString("jLabel24.text")); // NOI18N
+        jLabel24.setName("jLabel24"); // NOI18N
+
+        jTabbedPane3.setName("jTabbedPane3"); // NOI18N
+
+        jPanel32.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel32.setName("jPanel32"); // NOI18N
+
+        javax.swing.GroupLayout jPanel32Layout = new javax.swing.GroupLayout(jPanel32);
+        jPanel32.setLayout(jPanel32Layout);
+        jPanel32Layout.setHorizontalGroup(
+            jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 752, Short.MAX_VALUE)
+        );
+        jPanel32Layout.setVerticalGroup(
+            jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 237, Short.MAX_VALUE)
+        );
+
+        jTabbedPane3.addTab(resourceMap.getString("jPanel32.TabConstraints.tabTitle"), jPanel32); // NOI18N
+
+        jScrollPane22.setName("jScrollPane22"); // NOI18N
+
+        jTable16.setToolTipText(resourceMap.getString("jTable16.toolTipText")); // NOI18N
+        jTable16.setName("jTable16"); // NOI18N
+        jTable16.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane22.setViewportView(jTable16);
+
+        jTabbedPane3.addTab(resourceMap.getString("jScrollPane22.TabConstraints.tabTitle"), jScrollPane22); // NOI18N
+
+        javax.swing.GroupLayout jPanel29Layout = new javax.swing.GroupLayout(jPanel29);
+        jPanel29.setLayout(jPanel29Layout);
+        jPanel29Layout.setHorizontalGroup(
+            jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel29Layout.createSequentialGroup()
+                .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel29Layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(jScrollPane19, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel29Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jPanel31, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane21, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)))
+                    .addGroup(jPanel29Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane23, 0, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel29Layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel29Layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 761, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(26, 26, 26))
+            .addComponent(jSeparator8, javax.swing.GroupLayout.DEFAULT_SIZE, 1043, Short.MAX_VALUE)
+            .addGroup(jPanel29Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jComboBox5, 0, 153, Short.MAX_VALUE)
+                .addGap(830, 830, 830))
+        );
+        jPanel29Layout.setVerticalGroup(
+            jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel29Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel24))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel29Layout.createSequentialGroup()
+                        .addComponent(jScrollPane21, 0, 0, Short.MAX_VALUE)
+                        .addGap(11, 11, 11)
+                        .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTabbedPane3, 0, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane23, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE))
+                .addGap(414, 414, 414)
+                .addComponent(jScrollPane19, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 776, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 1003, Short.MAX_VALUE))
-                .addContainerGap())
+            .addGap(0, 1023, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel6Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel30)
-                .addContainerGap(650, Short.MAX_VALUE))
+            .addGap(0, 1084, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel6Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         jTabbedPane1.addTab(resourceMap.getString("jPanel6.TabConstraints.tabTitle"), jPanel6); // NOI18N
@@ -1469,7 +1708,7 @@ public class MainPage extends javax.swing.JFrame {
 
         jScrollPane3.setName("jScrollPane3"); // NOI18N
 
-        jTable3.setModel(new NYMTableModel());
+        jTable3.setModel(new com.wrapper.ui.model.OtherTabAccountModel());
         jTable3.setName("jTable3"); // NOI18N
         jTable3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTable3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1535,7 +1774,7 @@ public class MainPage extends javax.swing.JFrame {
 
         jScrollPane5.setName("jScrollPane5"); // NOI18N
 
-        jTable4.setModel(new NYMTableModel());
+        jTable4.setModel(new com.wrapper.ui.model.OtherTabServerTableModel());
         jTable4.setName("jTable4"); // NOI18N
         jTable4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTable4.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1599,6 +1838,47 @@ public class MainPage extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jSeparator6.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jSeparator6.setName("jSeparator6"); // NOI18N
+
+        jSeparator7.setName("jSeparator7"); // NOI18N
+
+        jScrollPane17.setName("jScrollPane17"); // NOI18N
+
+        jPanel27.setName("jPanel27"); // NOI18N
+        jPanel27.setVisible(false);
+
+        javax.swing.GroupLayout jPanel27Layout = new javax.swing.GroupLayout(jPanel27);
+        jPanel27.setLayout(jPanel27Layout);
+        jPanel27Layout.setHorizontalGroup(
+            jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 738, Short.MAX_VALUE)
+        );
+        jPanel27Layout.setVerticalGroup(
+            jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 374, Short.MAX_VALUE)
+        );
+
+        jScrollPane17.setViewportView(jPanel27);
+
+        jScrollPane18.setName("jScrollPane18"); // NOI18N
+
+        jPanel28.setName("jPanel28"); // NOI18N
+        jPanel28.setVisible(false);
+
+        javax.swing.GroupLayout jPanel28Layout = new javax.swing.GroupLayout(jPanel28);
+        jPanel28.setLayout(jPanel28Layout);
+        jPanel28Layout.setHorizontalGroup(
+            jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 730, Short.MAX_VALUE)
+        );
+        jPanel28Layout.setVerticalGroup(
+            jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 310, Short.MAX_VALUE)
+        );
+
+        jScrollPane18.setViewportView(jPanel28);
+
         javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
         jPanel21.setLayout(jPanel21Layout);
         jPanel21Layout.setHorizontalGroup(
@@ -1606,45 +1886,69 @@ public class MainPage extends javax.swing.JFrame {
             .addGroup(jPanel21Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
                     .addGroup(jPanel21Layout.createSequentialGroup()
                         .addComponent(jLabel23)
                         .addGap(18, 18, 18)
                         .addComponent(jComboBox4, 0, 128, Short.MAX_VALUE))
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
-                    .addComponent(jPanel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
-                    .addComponent(jPanel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(810, 810, 810))
+                    .addComponent(jPanel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel21Layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 777, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel21Layout.createSequentialGroup()
+                        .addComponent(jScrollPane17, javax.swing.GroupLayout.PREFERRED_SIZE, 724, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel21Layout.createSequentialGroup()
+                        .addComponent(jScrollPane18, javax.swing.GroupLayout.PREFERRED_SIZE, 724, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19))))
+            .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel21Layout.createSequentialGroup()
+                    .addGap(248, 248, 248)
+                    .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(767, Short.MAX_VALUE)))
         );
         jPanel21Layout.setVerticalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel21Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel23)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel21Layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel23))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane5, 0, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32))
+                    .addGroup(jPanel21Layout.createSequentialGroup()
+                        .addComponent(jScrollPane17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
+            .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jSeparator6, javax.swing.GroupLayout.DEFAULT_SIZE, 743, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab(resourceMap.getString("jPanel21.TabConstraints.tabTitle"), jPanel21); // NOI18N
 
         jPanel22.setName("jPanel22"); // NOI18N
 
-        jLabel14.setText(resourceMap.getString("jLabel14.text")); // NOI18N
-        jLabel14.setName("jLabel14"); // NOI18N
+        jPanel33.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel33.border.title"))); // NOI18N
+        jPanel33.setName("jPanel33"); // NOI18N
 
         jTextField5.setName("jTextField5"); // NOI18N
-
-        jLabel15.setText(resourceMap.getString("jLabel15.text")); // NOI18N
-        jLabel15.setName("jLabel15"); // NOI18N
 
         jButton18.setText(resourceMap.getString("jButton18.text")); // NOI18N
         jButton18.setName("jButton18"); // NOI18N
@@ -1654,35 +1958,93 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
 
+        jLabel14.setText(resourceMap.getString("jLabel14.text")); // NOI18N
+        jLabel14.setName("jLabel14"); // NOI18N
+
+        jLabel15.setText(resourceMap.getString("jLabel15.text")); // NOI18N
+        jLabel15.setName("jLabel15"); // NOI18N
+
+        javax.swing.GroupLayout jPanel33Layout = new javax.swing.GroupLayout(jPanel33);
+        jPanel33.setLayout(jPanel33Layout);
+        jPanel33Layout.setHorizontalGroup(
+            jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel33Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel33Layout.createSequentialGroup()
+                        .addComponent(jButton18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel33Layout.createSequentialGroup()
+                        .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel14)
+                        .addGap(6, 6, 6)))
+                .addContainerGap())
+        );
+        jPanel33Layout.setVerticalGroup(
+            jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel33Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel14))
+                .addGap(18, 18, 18)
+                .addComponent(jButton18)
+                .addContainerGap())
+        );
+
+        jPanel34.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel34.border.title"))); // NOI18N
+        jPanel34.setName("jPanel34"); // NOI18N
+
+        jButton25.setText(resourceMap.getString("jButton25.text")); // NOI18N
+        jButton25.setName("jButton25"); // NOI18N
+        jButton25.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton25ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel34Layout = new javax.swing.GroupLayout(jPanel34);
+        jPanel34.setLayout(jPanel34Layout);
+        jPanel34Layout.setHorizontalGroup(
+            jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel34Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton25)
+                .addContainerGap())
+        );
+        jPanel34Layout.setVerticalGroup(
+            jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel34Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton25)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
         jPanel22.setLayout(jPanel22Layout);
         jPanel22Layout.setHorizontalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel22Layout.createSequentialGroup()
-                .addGap(68, 68, 68)
-                .addComponent(jLabel15)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel22Layout.createSequentialGroup()
-                        .addComponent(jButton18)
-                        .addContainerGap())
-                    .addGroup(jPanel22Layout.createSequentialGroup()
-                        .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel14)
-                        .addGap(717, 717, 717))))
+                .addGap(57, 57, 57)
+                .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49)
+                .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(495, Short.MAX_VALUE))
         );
         jPanel22Layout.setVerticalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel22Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel15))
-                .addGap(26, 26, 26)
-                .addComponent(jButton18)
-                .addContainerGap(622, Short.MAX_VALUE))
+                .addGap(40, 40, 40)
+                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel22Layout.createSequentialGroup()
+                        .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(579, 579, 579))
         );
 
         jTabbedPane1.addTab(resourceMap.getString("jPanel22.TabConstraints.tabTitle"), jPanel22); // NOI18N
@@ -1756,7 +2118,6 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField6ActionPerformed
 
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
-       
 }//GEN-LAST:event_jTable2MouseClicked
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -1879,7 +2240,7 @@ public class MainPage extends javax.swing.JFrame {
             serverID = ((String[]) serverMap.get((Integer) jComboBox2.getSelectedIndex() - 1))[1];
         }
 
-        new AccountAdditionDialog(this, true, nymID, assetID, serverID).setVisible(true);
+        new AccountAdditionDialog(this, true, nymID, assetID, serverID, "OT").setVisible(true);
         System.out.print("assetID:" + assetID);
         System.out.print("serverID:" + serverID);
         System.out.print("nymiiidL:" + nymID);
@@ -2062,7 +2423,7 @@ public class MainPage extends javax.swing.JFrame {
         System.out.print(":" + nymID);
         System.out.print("serverID:" + serverID);
         System.out.print("assetID:" + assetID);
-        new IssueAssetContractDialog(this, true, jTextArea6.getText(),assetID,serverID,nymID).setVisible(true);
+        new IssueAssetContractDialog(this, true, jTextArea6.getText(), assetID, serverID, nymID).setVisible(true);
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -2071,7 +2432,7 @@ public class MainPage extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please select NYM", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        new SendMessageDialog(this, true, jTextField4.getText(),jTable10).setVisible(true);
+        new SendMessageDialog(this, true, jTextField4.getText(), jTable10).setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -2137,7 +2498,6 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     private void jTable8MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable8MouseEntered
-
 }//GEN-LAST:event_jTable8MouseEntered
 
     private void jTable8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable8MouseClicked
@@ -2155,14 +2515,14 @@ public class MainPage extends javax.swing.JFrame {
 }//GEN-LAST:event_jTable8MouseClicked
 
     private void jTable10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable10MouseClicked
-       System.out.println("Count:" + evt.getClickCount());
+        System.out.println("Count:" + evt.getClickCount());
         if (evt.getClickCount() == 2) {
             String key = (String) jTable10.getModel().getValueAt(jTable10.getSelectedRow(), 3);
             String subject = (String) jTable10.getModel().getValueAt(jTable10.getSelectedRow(), 0);
             System.out.println("In NYM out BOX double clcik, key:" + key);
             String[] row = (String[]) nymOutBox.get(key);
-            System.out.println("nymOutBox:"+nymOutBox.entrySet());
-            System.out.println("row:"+row);
+            System.out.println("nymOutBox:" + nymOutBox.entrySet());
+            System.out.println("row:" + row);
             if (row != null) {
                 NymBoxDetailsDialog nymDialog = new NymBoxDetailsDialog(this, true, row[7] == "true" ? "Verified" : "Not Verified", row[6], subject);
                 nymDialog.setVisible(true);
@@ -2171,7 +2531,6 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable10MouseClicked
 
     private void jTable10MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable10MouseEntered
-        
     }//GEN-LAST:event_jTable10MouseEntered
 
     private void jTabbedPane2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane2StateChanged
@@ -2188,24 +2547,24 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jTabbedPane2StateChanged
 
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
-       long waitTime = Configuration.getWaitTime();
-        try{
-         waitTime = Long.parseLong(jTextField5.getText());
-            }catch(NumberFormatException nfe){
-              JOptionPane.showMessageDialog(this, "Please enter valid timeout","Timeout Setting Error",JOptionPane.ERROR_MESSAGE);
-               return;
-            }
+        long waitTime = Configuration.getWaitTime();
+        try {
+            waitTime = Long.parseLong(jTextField5.getText());
+        } catch (NumberFormatException nfe) {
+            JOptionPane.showMessageDialog(this, "Please enter valid timeout", "Timeout Setting Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-        if(waitTime<1){
-           JOptionPane.showMessageDialog(this, "Timeout should be >0","Timeout Setting Error",JOptionPane.ERROR_MESSAGE);
-           return;
-       }
-       Configuration.setWaitTime(waitTime);
-       JOptionPane.showMessageDialog(this, "Timeout applied successfully","Timeout change",JOptionPane.INFORMATION_MESSAGE);
+        if (waitTime < 1) {
+            JOptionPane.showMessageDialog(this, "Timeout should be >0", "Timeout Setting Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        Configuration.setWaitTime(waitTime);
+        JOptionPane.showMessageDialog(this, "Timeout applied successfully", "Timeout change", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jButton18ActionPerformed
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
-                if (jTable11.getSelectedRow() < 0) {
+        if (jTable11.getSelectedRow() < 0) {
             JOptionPane.showMessageDialog(this, "Please select Server Contract to delete", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -2225,7 +2584,7 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton15ActionPerformed
 
     private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
-        new ImportNYMDialog(this,true).setVisible(true);
+        new ImportNYMDialog(this, true).setVisible(true);
     }//GEN-LAST:event_jButton17ActionPerformed
 
     private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseClicked
@@ -2233,32 +2592,94 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable3MouseClicked
 
     private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
-        // TODO add your handling code here:
+        try {
+            //server id at 2
+            if (jTable4.getSelectedRow() < 0) {
+                JOptionPane.showMessageDialog(this, "Please select server to edit label", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            new OtherTabServerEditDialog(this, true, (String) jTable4.getModel().getValueAt(jTable4.getSelectedRow(), 0), (String) jTable4.getModel().getValueAt(jTable4.getSelectedRow(), 2)).setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_jButton19ActionPerformed
 
     private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton20ActionPerformed
-        // TODO add your handling code here:
+        new OtherTabServerAddDialog(this, true).setVisible(true);
     }//GEN-LAST:event_jButton20ActionPerformed
 
     private void jButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton21ActionPerformed
-        // TODO add your handling code here:
+        try {
+            if (jTable4.getSelectedRow() < 0) {
+                JOptionPane.showMessageDialog(this, "Please select server to delete", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            int userSelection = JOptionPane.showConfirmDialog(this, "Deleting server will remove all accounts associated with server.\nAre you sure you want to delete server", "Warning", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            System.out.println("userSelection:" + userSelection);
+
+            if (userSelection == 0) {
+                boolean status = StorageHelper.removeOtherTabServer((String) jTable4.getModel().getValueAt(jTable4.getSelectedRow(), 2));
+                if (status) {
+                    JOptionPane.showMessageDialog(null, "Server deleted successfully", "Server Delete Success", JOptionPane.INFORMATION_MESSAGE);
+                    loadOtherTabServers();
+                    ((OtherTabAccountModel) jTable3.getModel()).clearValue();
+                    CardLayout topLayout = (CardLayout) (jPanel27.getLayout());
+                    CardLayout bottomlayout = (CardLayout) (jPanel28.getLayout());
+                    topLayout.show(jPanel27, "BlankTop");
+                    bottomlayout.show(jPanel28, "BlankBottom");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Server could not be changed because of storage failure", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_jButton21ActionPerformed
 
     private void jTable4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable4MouseClicked
-        // TODO add your handling code here:
     }//GEN-LAST:event_jTable4MouseClicked
 
     private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton22ActionPerformed
-        // TODO add your handling code here:
+        new OtherTabAccountEditDialog(this, true, (String) jTable3.getModel().getValueAt(jTable3.getSelectedRow(), 0), jTable3.getSelectedRow(), (String) jTable3.getModel().getValueAt(jTable3.getSelectedRow(), 3), (String) jTable3.getModel().getValueAt(jTable3.getSelectedRow(), 2)).setVisible(true);
     }//GEN-LAST:event_jButton22ActionPerformed
 
     private void jButton23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton23ActionPerformed
-        // TODO add your handling code here:
+        // TODO addling code here:
     }//GEN-LAST:event_jButton23ActionPerformed
 
     private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton24ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton24ActionPerformed
+
+    private void jTable12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable12MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable12MouseClicked
+
+    private void jButton26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton26ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton26ActionPerformed
+
+    private void jButton27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton27ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton27ActionPerformed
+
+    private void jButton28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton28ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton28ActionPerformed
+
+    private void jTable13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable13MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable13MouseClicked
+
+    private void jTable14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable14MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable14MouseClicked
+
+    private void jButton25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton25ActionPerformed
+       new AddressBookDialog(this, true, 3).setVisible(true);
+    }//GEN-LAST:event_jButton25ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2297,6 +2718,10 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JButton jButton22;
     private javax.swing.JButton jButton23;
     private javax.swing.JButton jButton24;
+    private javax.swing.JButton jButton25;
+    private javax.swing.JButton jButton26;
+    private javax.swing.JButton jButton27;
+    private javax.swing.JButton jButton28;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
@@ -2308,6 +2733,7 @@ public class MainPage extends javax.swing.JFrame {
     private static javax.swing.JComboBox jComboBox2;
     private static javax.swing.JComboBox jComboBox3;
     private static javax.swing.JComboBox jComboBox4;
+    private static javax.swing.JComboBox jComboBox5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2324,10 +2750,9 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
@@ -2360,7 +2785,15 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel24;
     private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel26;
+    private static javax.swing.JPanel jPanel27;
+    private static javax.swing.JPanel jPanel28;
+    private javax.swing.JPanel jPanel29;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel30;
+    private javax.swing.JPanel jPanel31;
+    private javax.swing.JPanel jPanel32;
+    private javax.swing.JPanel jPanel33;
+    private javax.swing.JPanel jPanel34;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
@@ -2375,7 +2808,13 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane14;
     private javax.swing.JScrollPane jScrollPane15;
     private javax.swing.JScrollPane jScrollPane16;
+    private javax.swing.JScrollPane jScrollPane17;
+    private javax.swing.JScrollPane jScrollPane18;
+    private javax.swing.JScrollPane jScrollPane19;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane21;
+    private javax.swing.JScrollPane jScrollPane22;
+    private javax.swing.JScrollPane jScrollPane23;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
@@ -2388,13 +2827,21 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JSeparator jSeparator8;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTable jTable10;
     private javax.swing.JTable jTable11;
+    private javax.swing.JTable jTable12;
+    private javax.swing.JTable jTable13;
+    private static javax.swing.JTable jTable14;
+    private static javax.swing.JTable jTable16;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable4;
+    private static javax.swing.JTable jTable3;
+    private static javax.swing.JTable jTable4;
     private static javax.swing.JTable jTable5;
     private javax.swing.JTable jTable7;
     private static javax.swing.JTable jTable8;
@@ -2414,31 +2861,11 @@ public class MainPage extends javax.swing.JFrame {
     private static Map assetMap;
     private static Map serverMap;
 
-    public static void setNymOutbox(Map nymOutboxData){
+    public static void setNymOutbox(Map nymOutboxData) {
         nymOutBox = nymOutboxData;
     }
 
     private void initMainTab() {
-
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-
-                    /**
-                     * Comment below 2 lines to restore the default
-                     * look and feel.
-                     */
-                    SubstanceLookAndFeel laf = new SubstanceMistAquaLookAndFeel();
-                    //UIManager.setLookAndFeel(laf);
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-            }
-        });
 
 
         jPanel8.setLayout(new CardLayout());
@@ -2488,13 +2915,10 @@ public class MainPage extends javax.swing.JFrame {
                                     if ("OpenTransactionAccount".equalsIgnoreCase(type)) {
                                         OTDetails otDetails = (OTDetails) details;
                                         Utility.populateOTDetails(otDetails);
-                                        ((AccountTableModel)jTable5.getModel()).setValueAt(otDetails.getBalance(), jTable5.getSelectedRow(), 1);
+                                        ((AccountTableModel) jTable5.getModel()).setValueAt(otDetails.getBalance(), jTable5.getSelectedRow(), 1);
                                     } else if ("CashPurseAccount".equalsIgnoreCase(type)) {
                                         CashPurseDetails cashDetails = (CashPurseDetails) details;
-                                        populateCashPurseDetails(cashDetails,cashDetails.getBalance());
-                                    } else if ("BitcoinAccount".equalsIgnoreCase(type)) {
-                                        BitcoinDetails btcDetails = (BitcoinDetails) details;
-                                        populateBitcoinDetails(btcDetails);
+                                        populateCashPurseDetails(cashDetails, cashDetails.getBalance());
                                     }
 
                                     break;
@@ -2518,24 +2942,6 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
 
-        /*JPanel bitcoinAccount = new BitcoinAccountTopPanel();
-        jPanel8.add(bitcoinAccount,"BitcoinTop");
-
-        JPanel openTransactionAccount = new OpenTransactionAccountTopPanel();
-        jPanel8.add(openTransactionAccount,"OpenTransactionTop");
-
-        JPanel cashPurseAccount = new CashPurseAccountTopPanel();
-        jPanel8.add(cashPurseAccount,"CashPurseTop");
-
-        JPanel bitcoinGrid = new BitcoinAccountBottomPanel();
-        jPanel15.add(bitcoinGrid,"BitcoinBottom");
-
-        JPanel otGrid = new OpenTransactionAccountBottomPanel();
-        jPanel15.add(otGrid,"OpenTransactionBottom");
-
-        JPanel cashPurseGrid = new CashPurseAccountBottomPanel();
-        jPanel15.add(cashPurseGrid,"CashPurseBottom");
-         */
         nymMap = new NYM().loadNYM();
 
         jComboBox1.addItem(new ComboObject("ALL"));
@@ -2557,20 +2963,25 @@ public class MainPage extends javax.swing.JFrame {
         for (int i = 0; i < Account.allAccounts.length; i++) {
             try {
 
-                Class obj = Class.forName("com.wrapper.core." + Account.allAccounts[i]);
-                account = (Account) obj.newInstance();
-                account.loadAccount("ALL", "ALL", "ALL");
+                if ("OpenTransactionAccount".equals(Account.allAccounts[i]) || "CashPurseAccount".equals(Account.allAccounts[i])) {
 
-                Class obj1 = Class.forName("com.wrapper.ui.panels." + Account.allAccounts[i] + "TopPanel");
-                JPanel topPanel = (JPanel) obj1.newInstance();
-                jPanel8.add(topPanel, Account.allAccounts[i] + "TopPanel");
+                    Class obj = Class.forName("com.wrapper.core." + Account.allAccounts[i]);
+                    account = (Account) obj.newInstance();
+                    try {
+                        account.loadAccount("ALL", "ALL", "ALL");
+                    } catch (Exception ex) {
+                        Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+                    }
 
-                Class obj2 = Class.forName("com.wrapper.ui.panels." + Account.allAccounts[i] + "BottomPanel");
-                JPanel bottomPanel = (JPanel) obj2.newInstance();
-                // Setting the account account to retrieve in bottom panel
+                    Class obj1 = Class.forName("com.wrapper.ui.panels." + Account.allAccounts[i] + "TopPanel");
+                    JPanel topPanel = (JPanel) obj1.newInstance();
+                    jPanel8.add(topPanel, Account.allAccounts[i] + "TopPanel");
 
-                jPanel15.add(bottomPanel, Account.allAccounts[i] + "BottomPanel");
+                    Class obj2 = Class.forName("com.wrapper.ui.panels." + Account.allAccounts[i] + "BottomPanel");
+                    JPanel bottomPanel = (JPanel) obj2.newInstance();
 
+                    jPanel15.add(bottomPanel, Account.allAccounts[i] + "BottomPanel");
+                }
 
             } catch (InstantiationException ex) {
                 //Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
@@ -2582,12 +2993,179 @@ public class MainPage extends javax.swing.JFrame {
         }
     }
 
+    private void initOtherTab() {
+        try {
+            jPanel27.setLayout(new CardLayout());
+            jPanel28.setLayout(new CardLayout());
+            System.out.println("in initOtherTab");
+
+            //load servers here
+
+            loadOtherTabServers();
+
+            jTable4.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+                public void valueChanged(ListSelectionEvent e) {
+                    if (e.getValueIsAdjusting()) {
+                        return;
+                    }
+                    System.out.println("selectedRow:" + jTable4.getSelectedRow());
+                    if (jTable4.getSelectedRow() >= 0) {
+                        String serverID = (String) jTable4.getModel().getValueAt(jTable4.getSelectedRow(), 2);
+                        String type = (String) jTable4.getModel().getValueAt(jTable4.getSelectedRow(), 1);
+                        System.out.println("selected serverID:" + serverID + " type:" + type);
+                        setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                        Account account = null;
+                        try {
+                            try {
+                                account = (Account) (Class.forName("com.wrapper.core." + type)).newInstance();
+                                account.setServerID(serverID);
+                            } catch (InstantiationException ex) {
+                                Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (IllegalAccessException ex) {
+                                Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        } catch (ClassNotFoundException ex) {
+                            Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        /*if (type.contains("Bitcoin")) {
+                        account = new BitcoinAccount(serverID);
+                        }*/
+                        try {
+                            account.loadAccount("", serverID, "");
+                            ((OtherTabAccountModel) jTable3.getModel()).setValue(account.getAccountList(), jTable3);
+
+                        } catch (Exception ex) {
+                            System.out.println("In BTC load exception:" + ex);
+                            JOptionPane.showMessageDialog(null, "Cannot connect to bitcoin service - Connection refused", "Connection Error", JOptionPane.ERROR_MESSAGE);
+                        } finally {
+                            setCursor(Cursor.getDefaultCursor());
+                        }
+
+                    }
+                }
+            });
+            //((OtherTabServerTableModel) jTable4.getModel()).setValue(new NYM().loadNYM(), jTable4);
+
+            jTable3.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+                public void valueChanged(ListSelectionEvent e) {
+                    if (e.getValueIsAdjusting()) {
+                        return;
+                    }
+                    System.out.println("valueChanged Action Listener :" + jTable3.getSelectedRow() + "e:" + e.getSource());
+                    if (jTable3.getSelectedRow() >= 0) {
+                        try {
+
+                            jPanel27.setVisible(true);
+                            jPanel28.setVisible(true);
+
+                            CardLayout topLayout = (CardLayout) (jPanel27.getLayout());
+                            CardLayout bottomlayout = (CardLayout) (jPanel28.getLayout());
+
+                            String type = null;
+                            String accountID = null;
+
+                            type = (String) jTable3.getModel().getValueAt(jTable3.getSelectedRow(), 2);
+                            accountID = (String) jTable3.getModel().getValueAt(jTable3.getSelectedRow(), 3);
+
+                            System.out.println("Type:" + type);
+
+                            setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+
+                            for (int i = 0; i < Account.allAccounts.length; i++) {
+
+                                if (Account.allAccounts[i].equalsIgnoreCase(type)) {
+                                    try {
+                                        topLayout.show(jPanel27, type + "TopPanel");
+                                        bottomlayout.show(jPanel28, type + "BottomPanel");
+                                        Class obj = Class.forName("com.wrapper.core." + type);
+
+                                        /*if ("BitcoinAccount".equalsIgnoreCase(type)) {
+
+                                        Account account = new BitcoinAccount((String) jTable4.getModel().getValueAt(jTable4.getSelectedRow(), 2));
+
+                                        Object details = account.getAccountDetails(accountID);
+                                        BitcoinDetails btcDetails = (BitcoinDetails) details;
+                                        populateBitcoinDetails(btcDetails);
+                                        break;
+                                        } else {*/
+                                        Account account = (Account) obj.newInstance();
+                                        account.setServerID((String) jTable4.getModel().getValueAt(jTable4.getSelectedRow(), 2));
+                                        Object details = account.getAccountDetails(accountID);
+                                        if (details == null) {
+                                            JOptionPane.showMessageDialog(null, "Error loading details", "Details Error", JOptionPane.ERROR_MESSAGE);
+                                            break;
+                                        }
+                                        if ("BitcoinAccount".equalsIgnoreCase(type)) {
+                                            BitcoinDetails btcDetails = (BitcoinDetails) details;
+                                            populateBitcoinDetails(btcDetails);
+                                        }
+                                        //}
+
+
+                                    } catch (InstantiationException ex) {
+                                        Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+                                    } catch (IllegalAccessException ex) {
+                                        Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+                                    } catch (ClassNotFoundException ex) {
+                                        Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
+                                    repaint();
+                                }
+
+                            }
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        } finally {
+                            setCursor(Cursor.getDefaultCursor());
+                        }
+                    }
+                }
+            });
+          
+            jPanel27.add(new BlankPanel(),"BlankTop");
+            jPanel28.add(new BlankPanel(),"BlankBottom");
+            for (int i = 0; i < Account.allAccounts.length; i++) {
+                try {
+                    System.out.println("in initOtherTabloop");
+                    if (!"OpenTransactionAccount".equals(Account.allAccounts[i]) && !"CashPurseAccount".equals(Account.allAccounts[i])) {
+                        System.out.println("initOtherTabloop --- Account.allAccounts[i]:" + Account.allAccounts[i]);
+
+                        Class obj1 = Class.forName("com.wrapper.ui.panels." + Account.allAccounts[i] + "TopPanel");
+                        JPanel topPanel = (JPanel) obj1.newInstance();
+                        jPanel27.add(topPanel, Account.allAccounts[i] + "TopPanel");
+
+                        Class obj2 = Class.forName("com.wrapper.ui.panels." + Account.allAccounts[i] + "BottomPanel");
+                        JPanel bottomPanel = (JPanel) obj2.newInstance();
+                        // Setting the account account to retrieve in bottom panel
+
+                        jPanel28.add(bottomPanel, Account.allAccounts[i] + "BottomPanel");
+
+                    }
+                } catch (InstantiationException ex) {
+                    //Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IllegalAccessException ex) {
+                    ///Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    //Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            // TODO might need to uncomment
+            //loadOtherTabAccount("");
+            ((OtherTabAccountModel) jTable3.getModel()).removeCols(jTable3);
+            ((OtherTabServerTableModel) jTable4.getModel()).removeCols(jTable4);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void populateCashPurseDetails(CashPurseDetails cashDetails, String balance) {
         if (cashDetails == null) {
             return;
         }
-        ((AccountTableModel)jTable5.getModel()).setValueAt(balance, jTable5.getSelectedRow(), 1);
-        CashPurseAccountTopPanel.populateCashPurseDetails(cashDetails,balance);
+        ((AccountTableModel) jTable5.getModel()).setValueAt(balance, jTable5.getSelectedRow(), 1);
+        CashPurseAccountTopPanel.populateCashPurseDetails(cashDetails, balance);
         CashPurseAccountBottomPanel.populateCashPurseDetails(cashDetails);
 
     }
@@ -2597,12 +3175,12 @@ public class MainPage extends javax.swing.JFrame {
         BitcoinAccountBottomPanel.populateBitcoinDetails(details);
     }
 
-    public static void reLoadAccount(){
-        
+    public static void reLoadAccount() {
+
         String nymID = "ALL";
         String assetID = "ALL";
         String serverID = "ALL";
-        String selectedAccount = (String)jTable5.getModel().getValueAt(jTable5.getSelectedRow(), 3);
+        String selectedAccount = (String) jTable5.getModel().getValueAt(jTable5.getSelectedRow(), 3);
         if (nymMap != null && nymMap.size() > 0 && jComboBox1.getSelectedIndex() > 0) {
             nymID = ((String[]) nymMap.get((Integer) jComboBox1.getSelectedIndex() - 1))[1];
         }
@@ -2615,53 +3193,86 @@ public class MainPage extends javax.swing.JFrame {
             serverID = ((String[]) serverMap.get((Integer) jComboBox2.getSelectedIndex() - 1))[1];
         }
 
-        System.out.print("reLoadAccount , nymID :" + nymID+" assetID:"+assetID+" serverID:"+serverID);
+        System.out.print("reLoadAccount , nymID :" + nymID + " assetID:" + assetID + " serverID:" + serverID);
 
         loadAccount(assetID, serverID, nymID);
         boolean isAccountPresent = false;
-        for(int i=0;i<jTable5.getRowCount();i++){
-            String accountID = (String)jTable5.getModel().getValueAt(i, 3);
-            if(selectedAccount.equals(accountID)){
+        for (int i = 0; i < jTable5.getRowCount(); i++) {
+            String accountID = (String) jTable5.getModel().getValueAt(i, 3);
+            if (selectedAccount.equals(accountID)) {
                 isAccountPresent = true;
                 jTable5.setRowSelectionInterval(i, i);
             }
         }
 
-        if(!isAccountPresent)
+        if (!isAccountPresent) {
             clearDetailPage();
+        }
     }
 
     public static void loadAccount(String assetID, String serverID, String nymID) {
         Account account = null;
         for (int i = 0; i < Account.allAccounts.length; i++) {
             try {
+                if ("OpenTransactionAccount".equals(Account.allAccounts[i]) || "CashPurseAccount".equals(Account.allAccounts[i])) {
+                    Class obj = Class.forName("com.wrapper.core." + Account.allAccounts[i]);
 
-                Class obj = Class.forName("com.wrapper.core." + Account.allAccounts[i]);
-                account = (Account) obj.newInstance();
-                if (i == 0) {
-                    account.clearAccountList();
+                    account = (Account) obj.newInstance();
+                    if (i == 0) {
+                        account.clearOTAccountList();
 
+                    }
+                    account.loadAccount(assetID, serverID, nymID);
                 }
-                account.loadAccount(assetID, serverID, nymID);
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
         }
 
-        ((AccountTableModel) jTable5.getModel()).setValue(account.getAccountList(), jTable5);
+        ((AccountTableModel) jTable5.getModel()).setValue(account.getOTAccountList(), jTable5);
 
+    }
+
+    public static void loadOtherTabAccount(String serverID) {
+        Account account = null;
+        for (int i = 0; i < Account.allAccounts.length; i++) {
+            try {
+                if (!"OpenTransactionAccount".equals(Account.allAccounts[i]) && !"CashPurseAccount".equals(Account.allAccounts[i])) {
+                    Class obj = Class.forName("com.wrapper.core." + Account.allAccounts[i]);
+
+                    account = (Account) obj.newInstance();
+                    if (i == 0) {
+                        account.clearAccountList();
+                    }
+                    account.loadAccount("", serverID, "");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        ((OtherTabAccountModel) jTable3.getModel()).setValue(account.getAccountList(), jTable3);
+
+    }
+
+    private static void clearOtherTabDetailPage() {
+
+        BitcoinAccountTopPanel.clearPanel();
+
+        BitcoinAccountBottomPanel.clearPanel();
     }
 
     private static void clearDetailPage() {
 
         CashPurseAccountTopPanel.clearPanel();
         OpenTransactionAccountTopPanel.clearPanel();
-        BitcoinAccountTopPanel.clearPanel();
+        //BitcoinAccountTopPanel.clearPanel();
 
         CashPurseAccountBottomPanel.clearPanel();
         OpenTransactionAccountBottomPanel.clearPanel();
-        BitcoinAccountBottomPanel.clearPanel();
+        //BitcoinAccountBottomPanel.clearPanel();
     }
 
     private void initNYMSTab() {
@@ -2680,8 +3291,8 @@ public class MainPage extends javax.swing.JFrame {
                     nymBox = nym.loadNymBox(nymID);
                     nymOutBox = nym.loadNymOutBox(nymID);
                     System.out.println("loadNymBox loadNymOutBox data loaded");
-                    populateNYMDetails(nymID, nym.getRawFileData(nymID), nymBox,nymOutBox);
-               }
+                    populateNYMDetails(nymID, nym.getRawFileData(nymID), nymBox, nymOutBox);
+                }
             }
         });
         ((NYMTableModel) jTable2.getModel()).setValue(new NYM().loadNYM(), jTable2);
@@ -2720,11 +3331,11 @@ public class MainPage extends javax.swing.JFrame {
     }
 
     private void populateNYMDetails(String id, String rawData, Map nymBox, Map nymOutBox) {
-        System.out.println("populateNYMDetails nymID:"+id+" rawData:"+rawData);
+        System.out.println("populateNYMDetails nymID:" + id + " rawData:" + rawData);
         jTextField4.setText(id);
         jTextArea3.setText(rawData);
         jTextArea3.setCaretPosition(0);
-        System.out.println("populateNYMDetails before setting grids,nymBox:"+nymBox.entrySet()+"----nymOutBox:"+nymOutBox.entrySet());
+        System.out.println("populateNYMDetails before setting grids,nymBox:" + nymBox.entrySet() + "----nymOutBox:" + nymOutBox.entrySet());
         ((NYMBoxTableModel) jTable8.getModel()).setValue(nymBox, jTable8);
         ((NYMOutboxTableModel) jTable10.getModel()).setValue(nymOutBox, jTable10);
         System.out.println("populateNYMDetails Ends");
@@ -2780,9 +3391,21 @@ public class MainPage extends javax.swing.JFrame {
     }
 
     private void initCreditsTab() {
-        final String fileName ="LICENSE-AND-CREDITS.txt";
-        System.out.println("PAth:"+Utility.getDataFolder()+File.separator+fileName);
-        jTextArea1.setText(Utility.fileToString(new File(Utility.getDataFolder()+File.separator+fileName)));
+        final String fileName = "LICENSE-AND-CREDITS.txt";
+        System.out.println("PAth:" + Utility.getDataFolder() + File.separator + fileName);
+        jTextArea1.setText(Utility.fileToString(new File(Utility.getDataFolder() + File.separator + fileName)));
         jTextArea1.setCaretPosition(0);
+    }
+
+    public static void loadOtherTabServers() {
+
+        ((OtherTabServerTableModel) jTable4.getModel()).setValue(StorageHelper.getOtherTabServerList(), jTable4);
+
+    }
+
+    public static void setOtherTabAccountLabel(String newLabel, int row) {
+        jTable3.getModel().setValueAt(newLabel, row, 0);
+        ((OtherTabAccountModel) jTable3.getModel()).fireTableDataChanged();
+
     }
 }

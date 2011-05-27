@@ -282,13 +282,13 @@ public class OpenTransactionAccount extends Account {
                     key = accountID;
                     label = otapi.OT_API_GetAccountWallet_Name(accountID);
                     amount = otapi.OT_API_GetAccountWallet_Balance(accountID);
-                    accountList.put(key, new String[]{label, amount, type, key});
+                    accountListOT.put(key, new String[]{label, amount, type, key});
                 }
             } else {
                 key = accountID;
                 label = otapi.OT_API_GetAccountWallet_Name(accountID);
                 amount = otapi.OT_API_GetAccountWallet_Balance(accountID);
-                accountList.put(key, new String[]{label, amount, type, key});
+                accountListOT.put(key, new String[]{label, amount, type, key});
             }
 
         }
@@ -363,10 +363,10 @@ public class OpenTransactionAccount extends Account {
     @Override
     public void loadAccount(String assetID, String serverID, String nymID) {
 
-        //accountList.put("OT1", new String[] {"otlabel1","3000","OpenTransactionAccount","OT1"});
+        //accountListOT.put("OT1", new String[] {"otlabel1","3000","OpenTransactionAccount","OT1"});
         System.out.println("In OT load");
         getOTAccountList(assetID, serverID, nymID);
-        System.out.println("-----------accountList:" + accountList.entrySet());
+        System.out.println("-----------accountList:" + accountListOT.entrySet());
 
     }
 
