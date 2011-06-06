@@ -38,10 +38,10 @@ public class WalletData extends Storable {
     super.delete();
   }
 // ------------------------
-	/*@SWIG:OTAPI.i,329,OT_CONTAINER_TYPE_MEMBERS@*/
+	/*@SWIG:OTAPI.i,344,OT_CONTAINER_TYPE_MEMBERS@*/
 private List elementList = new ArrayList();
 /*@SWIG@*/
-	/*@SWIG:OTAPI.i,416,OT_ADD_ELEMENT@*/  // THIS BLOCK CONTAINS JAVA CODE.
+	/*@SWIG:OTAPI.i,431,OT_ADD_ELEMENT@*/  // THIS BLOCK CONTAINS JAVA CODE.
 private long removeRefBitcoinServer(long lIndex) {
 	// 
 	// loop through the elements in the actual container, in order to find the one
@@ -101,7 +101,7 @@ private long getCPtrAddRefBitcoinServer(BitcoinServer element) {
 	return BitcoinServer.getCPtr(element);
 }	// Hope I get away with overloading this for every type. Otherwise,
 /*@SWIG@*/
-	/*@SWIG:OTAPI.i,416,OT_ADD_ELEMENT@*/  // THIS BLOCK CONTAINS JAVA CODE.
+	/*@SWIG:OTAPI.i,431,OT_ADD_ELEMENT@*/  // THIS BLOCK CONTAINS JAVA CODE.
 private long removeRefBitcoinAcct(long lIndex) {
 	// 
 	// loop through the elements in the actual container, in order to find the one
@@ -168,8 +168,8 @@ private long getCPtrAddRefBitcoinAcct(BitcoinAcct element) {
     return (cPtr == 0) ? null : new BitcoinServer(cPtr, false);
   }
 
-  public boolean RemoveBitcoinServer(long nIndexToRemove) {
-    return otapiJNI.WalletData_RemoveBitcoinServer(swigCPtr, this, removeRefBitcoinServer(nIndexToRemove));
+  public boolean RemoveBitcoinServer(long nIndexBitcoinServer) {
+    return otapiJNI.WalletData_RemoveBitcoinServer(swigCPtr, this, removeRefBitcoinServer(nIndexBitcoinServer));
   }
 
   public boolean AddBitcoinServer(BitcoinServer disownObject) {
@@ -183,8 +183,8 @@ private long getCPtrAddRefBitcoinAcct(BitcoinAcct element) {
     return (cPtr == 0) ? null : new BitcoinAcct(cPtr, false);
   }
 
-  public boolean RemoveBitcoinAcct(long nIndexToRemove) {
-    return otapiJNI.WalletData_RemoveBitcoinAcct(swigCPtr, this, removeRefBitcoinAcct(nIndexToRemove));
+  public boolean RemoveBitcoinAcct(long nIndexBitcoinAcct) {
+    return otapiJNI.WalletData_RemoveBitcoinAcct(swigCPtr, this, removeRefBitcoinAcct(nIndexBitcoinAcct));
   }
 
   public boolean AddBitcoinAcct(BitcoinAcct disownObject) {

@@ -763,10 +763,16 @@ public class OpenTransactionAccount extends Account {
 
     public boolean depositCash(String serverID, String nymID, String accountID, String purse, boolean isToken) throws InterruptedException {
 
-        System.out.println("In depositCash serverID:" + serverID + " nymID:" + nymID + " acount ID:" + accountID);
+        System.out.println("In depositCash serverID:" + serverID + " nymID:" + nymID + " acount ID:" + accountID+" isToken:"+isToken);
         Utility.setOtDepositCash(null);
+        String oldPurse = purse;
         if (isToken) {
-            purse = getNewPurse(serverID, nymID, accountID, purse);
+            purse = getNewPurse(purse, serverID, nymID, accountID);
+            System.out.println("purse after getting from push purse:"+purse);
+            if(purse == null){
+            Utility.setOtDepositCash(oldPurse);
+            return false;
+            }
         }
 
         if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < 10) {
@@ -776,13 +782,15 @@ public class OpenTransactionAccount extends Account {
         otapi.OT_API_notarizeDeposit(serverID, nymID, accountID, purse);
         Thread.sleep(Configuration.getWaitTime());
         String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-        System.out.println("IN depositCash --- " + serverResponseMessage);
+        System.out.println("IN depositCash server response for notarize deposit --- " + serverResponseMessage);
         if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
             getRequestNumber(serverID, nymID, Configuration.getWaitTime());
             otapi.OT_API_notarizeDeposit(serverID, nymID, accountID, purse);
             Thread.sleep(Configuration.getWaitTime());
             serverResponseMessage = otapi.OT_API_PopMessageBuffer();
+            System.out.println("IN depositCash server response for notarize deposit after doing getrequestNumber--- " + serverResponseMessage);
             if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
+                System.out.println("IN depositCash, even after getting request number, failure, returning null");
                 return false;
             } else {
                 System.out.println("after retry, OT_API_Message_GetSuccess:" + (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 1 ? true : false));
@@ -791,6 +799,7 @@ public class OpenTransactionAccount extends Account {
                     otapi.OT_API_notarizeDeposit(serverID, nymID, accountID, purse);
                     Thread.sleep(Configuration.getWaitTime());
                     serverResponseMessage = otapi.OT_API_PopMessageBuffer();
+                    System.out.println("IN depositCash After getInboxAccount and OT_API_notarizeDeposit call,serverResponseMessage:"+serverResponseMessage);
                     if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
                         return false;
                     }
@@ -798,6 +807,7 @@ public class OpenTransactionAccount extends Account {
                 boolean isSuccess = otapi.OT_API_Message_GetTransactionSuccess(serverID, nymID, accountID, serverResponseMessage) == 1 ? true : false;
                 System.out.println("depositCash OT ends, status:" + isSuccess);
                 if (!isSuccess && isToken) {
+                    System.out.println("IN depositCash, failed action for single token");
                     String assetID = otapi.OT_API_GetAccountWallet_AssetTypeID(accountID);
                     boolean importStatus = otapi.OT_API_Wallet_ImportPurse(serverID, assetID, nymID, purse) == 1 ? true : false;
                     System.out.println("Since failure of depositCashPurse, OT_API_Wallet_ImportPurse called, status of import:" + importStatus);
@@ -1101,9 +1111,11 @@ public class OpenTransactionAccount extends Account {
         String assetID = otapi.OT_API_GetAccountWallet_AssetTypeID(accountID);
         String newPurse = otapi.OT_API_CreatePurse(serverID, assetID, nymID);
         if (newPurse == null) {
+            System.out.println("getNewPurse , OT_API_CreatePurse returns null, hence passing back same purse");
             return updatedPurse;
         }
         updatedPurse = otapi.OT_API_Purse_Push(serverID, assetID, nymID, newPurse, purse);
+        System.out.println("getNewPurse ,updatedPurse");
         return updatedPurse;
 
     }

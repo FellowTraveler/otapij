@@ -90,7 +90,39 @@
 
 package com.wrapper.core.dataobjects;
 
+import com.wrapper.core.jni.Contact;
+import java.util.List;
+import java.util.Map;
+
 public class ContactDetails {
+
+    private List contactNyms;
+    private List contactAccts;
+    private Contact contact;
+
+    public Contact getContact() {
+        return contact;
+    }
+
+    public void setContact(Contact contact) {
+        this.contact = contact;
+    }
+
+    public List getContactAccts() {
+        return contactAccts;
+    }
+
+    public void setContactAccts(List contactAccts) {
+        this.contactAccts = contactAccts;
+    }
+
+    public List getContactNyms() {
+        return contactNyms;
+    }
+
+    public void setContactNyms(List contactNyms) {
+        this.contactNyms = contactNyms;
+    }
 
     public String getEmail() {
         return email;

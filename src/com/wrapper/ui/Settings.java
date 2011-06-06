@@ -330,7 +330,11 @@ public class Settings extends javax.swing.JFrame {
                     }
                     Utility.addDirToRuntime(jTextField3.getText(), true);
                     System.out.println("PATH:"+System.getProperty("java.library.path"));
-                    //System.loadLibrary("libzmq");
+                    if(System.getProperty("os.name")!=null && (System.getProperty("os.name").startsWith("windows")
+                            || System.getProperty("os.name").startsWith("Windows"))){
+
+                    System.loadLibrary("libzmq");
+                    }
                     System.out.println(" Before otapi load");
                     System.loadLibrary("otapi");
                     System.out.println(" After otapi load");

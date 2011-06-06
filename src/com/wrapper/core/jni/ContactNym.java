@@ -37,7 +37,7 @@ public class ContactNym extends Displayable {
     }
     super.delete();
   }
-/*@SWIG:OTAPI.i,392,OT_CAN_BE_CONTAINED_BY@*/
+/*@SWIG:OTAPI.i,407,OT_CAN_BE_CONTAINED_BY@*/
 	// Ensure that the GC doesn't collect any OT_CONTAINER instance set from Java
 	private Contact containerRefContact;
 	// ----------------	
@@ -47,10 +47,10 @@ public class ContactNym extends Displayable {
 	// ----------------
 /*@SWIG@*/
 	// ------------------------
-	/*@SWIG:OTAPI.i,329,OT_CONTAINER_TYPE_MEMBERS@*/
+	/*@SWIG:OTAPI.i,344,OT_CONTAINER_TYPE_MEMBERS@*/
 private List elementList = new ArrayList();
 /*@SWIG@*/
-	/*@SWIG:OTAPI.i,416,OT_ADD_ELEMENT@*/  // THIS BLOCK CONTAINS JAVA CODE.
+	/*@SWIG:OTAPI.i,431,OT_ADD_ELEMENT@*/  // THIS BLOCK CONTAINS JAVA CODE.
 private long removeRefServerInfo(long lIndex) {
 	// 
 	// loop through the elements in the actual container, in order to find the one
@@ -157,8 +157,8 @@ private long getCPtrAddRefServerInfo(ServerInfo element) {
     return (cPtr == 0) ? null : new ServerInfo(cPtr, false);
   }
 
-  public boolean RemoveServerInfo(long nIndexToRemove) {
-    return otapiJNI.ContactNym_RemoveServerInfo(swigCPtr, this, removeRefServerInfo(nIndexToRemove));
+  public boolean RemoveServerInfo(long nIndexServerInfo) {
+    return otapiJNI.ContactNym_RemoveServerInfo(swigCPtr, this, removeRefServerInfo(nIndexServerInfo));
   }
 
   public boolean AddServerInfo(ServerInfo disownObject) {

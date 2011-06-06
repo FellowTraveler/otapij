@@ -89,7 +89,9 @@ yrsc64WTfAqd4s12SfKMgVFLeL/FUYH7MNqpfgjgwX5co817m9VvCntU6njIuYtV
  **************************************************************/
 package com.wrapper.core.datastore;
 
+import com.wrapper.core.dataobjects.ContactAcctDetails;
 import com.wrapper.core.dataobjects.ContactDetails;
+import com.wrapper.core.dataobjects.ContactNymDetails;
 import com.wrapper.core.jni.AddressBook;
 import com.wrapper.core.jni.Contact;
 import com.wrapper.core.jni.ContactAcct;
@@ -100,23 +102,33 @@ import com.wrapper.core.jni.StoredObjectType;
 import com.wrapper.core.jni.otapi;
 import com.wrapper.core.util.Utility;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AddressBookHelper {
 
     public static String createContact(String name, String email, String publicKey, String memo) {
 
         String contactID = "error";
-
+        System.out.println("in createContact");
         AddressBook addressBook = Utility.getAddressBook();
         if (addressBook == null) {
             System.out.println("createContact - addressBook returns null");
             return contactID;
         }
-        Storable storable = otapi.CreateObject(StoredObjectType.STORED_OBJ_CONTACT_ACCT);
+        System.out.println("in createContact,addressBook:"+addressBook);
+        Storable storable = otapi.CreateObject(StoredObjectType.STORED_OBJ_CONTACT);
+        System.out.println("in createContact, storable:"+storable);
         if (storable != null) {
             Contact contact = Contact.ot_dynamic_cast(storable);
+            System.out.println("contact:"+contact);
             if (contact != null) {
+                contact.setContact_id(Utility.generateID());
+                contact.setEmail(email);
+                contact.setGui_label(name);
+                contact.setMemo(memo);
+                contact.setPublic_key(publicKey);
                 boolean status = addressBook.AddContact(contact);
                 System.out.println("status addressBook.AddContact:" + status);
                 if (!status) {
@@ -174,6 +186,7 @@ public class AddressBookHelper {
                             ServerInfo serverInfo = ServerInfo.ot_dynamic_cast(storable1);
                             if (serverInfo != null) {
                                 serverInfo.setServer_id(serverID[j]);
+                                System.out.println("serverType[j]:"+serverType[j]);
                                 serverInfo.setServer_type(serverType[j]);
                                 contactNYM.AddServerInfo(serverInfo);
 
@@ -194,7 +207,7 @@ public class AddressBookHelper {
     }
 
     public static boolean createContactAccount(int index, String contactID, String label, String nymID, String acctID, String assetID, String serverID, String serverType, String publickey, String memo) {
-
+        System.out.println("createContactAccount contactID:"+contactID);
         boolean status = false;
         AddressBook addressBook = Utility.getAddressBook();
         if (addressBook == null) {
@@ -208,15 +221,17 @@ public class AddressBookHelper {
                 continue;
             }
             if (contactID.equals(contact.getContact_id())) {
-                System.out.println("createContactAccount - contactID matches");
+                System.out.println("createContactAccount - contactID matches, index="+index);
                 ContactAcct contactAcct = null;
                 if (index == -1) {
+                    System.out.println("createContactAccount new obj");
                     Storable storable = otapi.CreateObject(StoredObjectType.STORED_OBJ_CONTACT_ACCT);
                     if (storable != null) {
                         contactAcct = ContactAcct.ot_dynamic_cast(storable);
                     }
                 } else {
                     contactAcct = contact.GetContactAcct(index);
+                    System.out.println("createContactAccount old obj, contactAcct :"+contactAcct);
                 }
                 if (contactAcct != null) {
                     contactAcct.setGui_label(label);
@@ -330,6 +345,7 @@ public class AddressBookHelper {
             String [] row = new String[2];
 
             row[0] = contact.getGui_label()==null?"":contact.getGui_label();
+            System.out.println("contact.getGui_label():"+contact.getGui_label());
             row[1] = contact.getContact_id()==null?"":contact.getContact_id();
             contactList.add(row);
         }
@@ -337,9 +353,111 @@ public class AddressBookHelper {
         return contactList;
     }
 
-    public static ContactDetails getContactDetails(String contactID){
-        ContactDetails contactDetails = new ContactDetails();
+    public static ContactDetails getContactDetails(String contactID,int mode){
+        ContactDetails contactDetails = null;
+        AddressBook addressBook = Utility.getAddressBook();
+        if (addressBook == null) {
+            System.out.println("getContactDetails - addressBook returns null");
+            return null;
+        }
+        for(int i=0;i<addressBook.GetContactCount();i++){
+            Contact contact = addressBook.GetContact(i);
+            if(contact==null)
+                continue;
+            if(contactID.equals(contact.getContact_id())){
+                contactDetails = new ContactDetails();
+                contactDetails.setEmail(contact.getEmail());
+                contactDetails.setLabel(contact.getGui_label());
+                contactDetails.setPublicKey(contact.getPublic_key());
+                contactDetails.setMemo(contact.getMemo());
+                contactDetails.setContact(contact);
+                List data = new ArrayList();
+                System.out.println("mode:"+mode+" contact.GetContactAcctCount():"+contact.GetContactAcctCount());
+                if(mode==1){
+                    for(int j=0;j<contact.GetContactAcctCount();j++){
+                        if(contact.GetContactAcct(j)==null)
+                            continue;
+                        
+                        data.add(new String[]{contact.GetContactAcct(j).getGui_label()});
+                    }
+                    contactDetails.setContactAccts(data);
+                }else{
+                    for(int j=0;j<contact.GetContactNymCount();j++){
+                        if(contact.GetContactNym(j)==null)
+                            continue;
+                        data.add(new String[]{contact.GetContactNym(j).getGui_label()});
+                    }
+                    contactDetails.setContactNyms(data);
+                }
+                break;
+            }
+        }
+        return contactDetails;
+    }
+
+    public static ContactNymDetails getContactNymDetails(Contact contact,int index){
+
+            ContactNymDetails data = new ContactNymDetails();
+            List serverList = new ArrayList();
+            if(contact!=null && index>-1){
+            ContactNym contactNYM = contact.GetContactNym(index);
+            if(contactNYM==null){
+                System.out.println("getContactNymDetails contact.GetContactNym(index) returned null");
+                return null;
+            }
+            data.setLabel(contactNYM.getGui_label());
+            data.setMemo(contactNYM.getMemo());
+            data.setNymID(contactNYM.getNym_id());
+            data.setNymType(contactNYM.getNym_type());
+            data.setPublicKey(contactNYM.getPublic_key());
+
+            for(int i=0;i<contactNYM.GetServerInfoCount();i++){
+                String [] servers = new String[2];
+                if(contactNYM.GetServerInfo(i)==null)
+                    continue;
+                servers [0] = contactNYM.GetServerInfo(i).getServer_id();
+                servers [0] = contactNYM.GetServerInfo(i).getServer_type();
+                serverList.add(servers);
+            }
+            data.setServerList(serverList);
+        }
         
-        return null;
+        return data;
+    }
+
+    public static ContactAcctDetails getContactAccDetails(Contact contact,int index){
+        AddressBook addressBook = Utility.getAddressBook();
+        if (addressBook == null) {
+            System.out.println("getContactAccDetails - addressBook returns null");
+            return null;
+        }
+
+        for(int i=0;i<addressBook.GetContactCount();i++){
+            Contact newContact = addressBook.GetContact(i);
+            if(contact==null)
+                continue;
+            if(newContact.getContact_id().equals(contact.getContact_id())){
+                contact = newContact;
+                break;
+            }
+        }
+        ContactAcctDetails data = new ContactAcctDetails();
+           if(contact!=null && index>-1){
+            ContactAcct contactAcct = contact.GetContactAcct(index);
+            if(contactAcct==null){
+                System.out.println("getContactNymDetails contact.getContactAccDetails(index) returned null");
+                return null;
+            }
+            data.setLabel(contactAcct.getGui_label());
+            data.setMemo(contactAcct.getMemo());
+            data.setNymID(contactAcct.getNym_id());
+            data.setAcctID(contactAcct.getAcct_id());
+            data.setAssetID(contactAcct.getAsset_type_id());
+            data.setServerID(contactAcct.getServer_id());
+            data.setServerType(contactAcct.getServer_type());
+            data.setPublicKey(contactAcct.getPublic_key());
+
+        }
+        return data;
     }
 }

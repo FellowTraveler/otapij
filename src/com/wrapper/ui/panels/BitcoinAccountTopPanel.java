@@ -312,7 +312,7 @@ public class BitcoinAccountTopPanel extends javax.swing.JPanel {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         BitcoinAccount btcAcct = new BitcoinAccount(serverID);
         String balance = String.valueOf(btcAcct.checkBalance(jTextField2.getText()));
-        jTextField1.setText(balance);
+        //jTextField1.setText(balance);
         JOptionPane.showMessageDialog(null, "Your total balance is " + balance);
     }//GEN-LAST:event_jButton4ActionPerformed
 

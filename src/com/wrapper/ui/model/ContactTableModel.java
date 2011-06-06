@@ -91,6 +91,7 @@ yrsc64WTfAqd4s12SfKMgVFLeL/FUYH7MNqpfgjgwX5co817m9VvCntU6njIuYtV
 package com.wrapper.ui.model;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javax.swing.JTable;
@@ -105,6 +106,17 @@ public class ContactTableModel extends DefaultTableModel implements WrapperTable
 	    {"Server2","200"},
 	    {"Server3","300"}
 	       };*/
+
+      public void setValue(List values) {
+        clearValue();
+        data = new Object[values.size()][];
+        for (int i = 0; i < values.size(); i++) {
+            String[] row = (String[]) values.get(i);
+            data[i] = row;
+        }
+
+        fireTableDataChanged();
+    }
 
       public void setValue(Map values,JTable contactTable){
 

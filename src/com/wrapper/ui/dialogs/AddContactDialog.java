@@ -87,17 +87,16 @@ yrsc64WTfAqd4s12SfKMgVFLeL/FUYH7MNqpfgjgwX5co817m9VvCntU6njIuYtV
 =/jIC
 -----END PGP SIGNATURE-----
  **************************************************************/
-
-
 package com.wrapper.ui.dialogs;
 
 import com.wrapper.core.datastore.AddressBookHelper;
 import com.wrapper.core.datastore.StorageHelper;
 import com.wrapper.core.util.Utility;
+import javax.swing.JOptionPane;
 
 public class AddContactDialog extends javax.swing.JDialog {
-    private String contactID;
 
+    private String contactID;
 
     /** Creates new form AddContactDialog */
     public AddContactDialog(java.awt.Frame parent, boolean modal) {
@@ -276,25 +275,34 @@ public class AddContactDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        new AddContactAccountDialog(null, true,contactID,-1).setVisible(true);
+        new AddContactAccountDialog(null, true, contactID, -1).setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        new AddContactNYMDialog(null, true,contactID,-1).setVisible(true);
+        new AddContactNYMDialog(null, true, contactID, -1).setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        contactID = AddressBookHelper.createContact(jTextField1.getText(),jTextField2.getText(),jTextArea1.getText(),jTextArea2.getText());
+        contactID = AddressBookHelper.createContact(jTextField1.getText(), jTextField2.getText(), jTextArea1.getText(), jTextArea2.getText());
+        if (contactID.equalsIgnoreCase("error")) {
+            JOptionPane.showMessageDialog(null, "Cannot create contact", "Contact Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Contact created successfully", "Contact Creation Success", JOptionPane.INFORMATION_MESSAGE);
+            AddressBookDialog.setContactList();
+        }
+        dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 AddContactDialog dialog = new AddContactDialog(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
                     }
@@ -303,7 +311,6 @@ public class AddContactDialog extends javax.swing.JDialog {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -320,5 +327,4 @@ public class AddContactDialog extends javax.swing.JDialog {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
-
 }

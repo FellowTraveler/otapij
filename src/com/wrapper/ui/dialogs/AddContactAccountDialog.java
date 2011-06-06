@@ -93,6 +93,7 @@ package com.wrapper.ui.dialogs;
 import com.wrapper.core.datastore.AddressBookHelper;
 import com.wrapper.core.datastore.StorageHelper;
 import com.wrapper.core.util.Utility;
+import javax.swing.JOptionPane;
 
 public class AddContactAccountDialog extends javax.swing.JDialog {
     private final String contactID;
@@ -299,8 +300,15 @@ public class AddContactAccountDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        AddressBookHelper.createContactAccount(index,contactID, jTextField1.getText(), jTextField6.getText(), jTextField2.getText(),jTextField5.getText(), jTextField4.getText(), jTextField3.getText(), jTextArea1.getText(),jTextArea2.getText());
-        
+        boolean status = AddressBookHelper.createContactAccount(index,contactID, jTextField1.getText(), jTextField6.getText(), jTextField2.getText(),jTextField5.getText(), jTextField4.getText(), jTextField3.getText(), jTextArea1.getText(),jTextArea2.getText());
+        if (!status) {
+            JOptionPane.showMessageDialog(null, "Cannot create account for contact", "Contact Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Contact Account created successfully", "Contact Creation Success", JOptionPane.INFORMATION_MESSAGE);
+            // Add to contactacct table
+            //AddressBookDialog.setContactList();
+        }
+        dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

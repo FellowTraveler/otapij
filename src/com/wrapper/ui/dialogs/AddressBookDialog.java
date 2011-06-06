@@ -89,15 +89,28 @@ yrsc64WTfAqd4s12SfKMgVFLeL/FUYH7MNqpfgjgwX5co817m9VvCntU6njIuYtV
  **************************************************************/
 package com.wrapper.ui.dialogs;
 
+import com.wrapper.core.dataobjects.ContactDetails;
+import com.wrapper.core.datastore.AddressBookHelper;
 import com.wrapper.core.util.Utility;
+import com.wrapper.ui.model.ContactDetailsTableModel;
+import com.wrapper.ui.model.ContactNymTableModel;
 import com.wrapper.ui.model.ContactTableModel;
+import com.wrapper.ui.panels.BlankPanel;
+import com.wrapper.ui.panels.ContactAcctPanel;
+import com.wrapper.ui.panels.ContactNymPanel;
+import java.awt.CardLayout;
+import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 public class AddressBookDialog extends javax.swing.JDialog {
 
-    private final int mode;
+    private int mode;
+    private String contactID;
+    private ContactDetails contactDetails;
 
     /** Creates new form AddressBookDialog */
     /**
@@ -152,6 +165,9 @@ public class AddressBookDialog extends javax.swing.JDialog {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jPanel3 = new javax.swing.JPanel();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -166,6 +182,11 @@ public class AddressBookDialog extends javax.swing.JDialog {
         btnGroup.add(jRadioButton1);
         jRadioButton1.setText(resourceMap.getString("jRadioButton1.text")); // NOI18N
         jRadioButton1.setName("jRadioButton1"); // NOI18N
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -259,8 +280,7 @@ public class AddressBookDialog extends javax.swing.JDialog {
 
         jScrollPane13.setName("jScrollPane13"); // NOI18N
 
-        jTable6.setModel(new com.wrapper.ui.model.BitcoinSentTableModel());
-        jTable6.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jTable6.setModel(new com.wrapper.ui.model.ContactDetailsTableModel());
         jTable6.setName("jTable6"); // NOI18N
         jTable6.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTable6.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -318,6 +338,8 @@ public class AddressBookDialog extends javax.swing.JDialog {
         });
 
         jButton2.setText(resourceMap.getString("jButton2.text")); // NOI18N
+        jButton2.setToolTipText(resourceMap.getString("jButton2.toolTipText")); // NOI18N
+        jButton2.setEnabled(false);
         jButton2.setName("jButton2"); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -326,7 +348,14 @@ public class AddressBookDialog extends javax.swing.JDialog {
         });
 
         jButton3.setText(resourceMap.getString("jButton3.text")); // NOI18N
+        jButton3.setToolTipText(resourceMap.getString("jButton3.toolTipText")); // NOI18N
+        jButton3.setEnabled(false);
         jButton3.setName("jButton3"); // NOI18N
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -352,6 +381,31 @@ public class AddressBookDialog extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
+        jScrollPane3.setName("jScrollPane3"); // NOI18N
+
+        jPanel3.setName("jPanel3"); // NOI18N
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 609, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 326, Short.MAX_VALUE)
+        );
+
+        jScrollPane3.setViewportView(jPanel3);
+
+        jButton4.setText(resourceMap.getString("jButton4.text")); // NOI18N
+        jButton4.setName("jButton4"); // NOI18N
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -372,33 +426,41 @@ public class AddressBookDialog extends javax.swing.JDialog {
                                     .addComponent(jLabel3))
                                 .addGap(19, 19, 19)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE))
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE))
                                 .addGap(32, 32, 32)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel2)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE))
+                                        .addComponent(jTextField2))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel4)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(jScrollPane13, javax.swing.GroupLayout.DEFAULT_SIZE, 681, Short.MAX_VALUE))
-                        .addGap(18, 18, 18))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(259, 259, 259)
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(68, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane13, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(53, 53, 53)
+                                        .addComponent(jButton4)))
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 595, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(26, 26, 26))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addGap(249, 249, 249))))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(248, 248, 248)
                     .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(715, Short.MAX_VALUE)))
+                    .addContainerGap(817, Short.MAX_VALUE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap(243, Short.MAX_VALUE)
-                    .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 730, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(252, Short.MAX_VALUE)
+                    .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 823, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -429,18 +491,23 @@ public class AddressBookDialog extends javax.swing.JDialog {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
                                     .addComponent(jLabel4))))
-                        .addGap(18, 18, 18)
+                        .addGap(22, 22, 22)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(59, 59, 59)
-                        .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(13, Short.MAX_VALUE))
+                        .addGap(53, 53, 53)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton4)))
+                        .addGap(26, 26, 26))))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jSeparator6, javax.swing.GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE))
+                .addComponent(jSeparator6, javax.swing.GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(345, 345, 345)
-                    .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(268, Short.MAX_VALUE)))
+                    .addGap(343, 343, 343)
+                    .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(340, Short.MAX_VALUE)))
         );
 
         pack();
@@ -452,9 +519,9 @@ public class AddressBookDialog extends javax.swing.JDialog {
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // Edit will be done onclick of table
         /*if (jTable5.getSelectedRow() > -1) {
-            
+
         } else {
-            JOptionPane.showMessageDialog(this, "Please select contact to edit label", "Contact Edit Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Please select contact to edit label", "Contact Edit Error", JOptionPane.ERROR_MESSAGE);
         }*/
 }//GEN-LAST:event_jButton10ActionPerformed
 
@@ -485,21 +552,53 @@ public class AddressBookDialog extends javax.swing.JDialog {
         }
 }//GEN-LAST:event_jButton12ActionPerformed
 
-    private void jTable6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable6MouseClicked
-        System.out.println("Count:" + evt.getClickCount());
-        if (evt.getClickCount() == 2) {
-            String key = (String) jTable5.getModel().getValueAt(jTable5.getSelectedRow(), 5);
-
-        }
-}//GEN-LAST:event_jTable6MouseClicked
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-     
+        System.out.println("GUI contactID------" + contactID);
+        new AddContactAccountDialog(null, true, contactID, -1).setVisible(true);
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        new AddContactNYMDialog(null, true, contactID, -1).setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jTable6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable6MouseClicked
+        contactID = (String) jTable5.getModel().getValueAt(jTable5.getSelectedRow(), 1);
+        int mode = -1;
+}//GEN-LAST:event_jTable6MouseClicked
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        String value = "account";
+        boolean status = false;
+        if (mode == 2) {
+            value = "nym";
+        }
+        if (jTable6.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(null, "Please select contact " + value, "Contact Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        List list = null;
+        if (mode == 1) {
+            status = AddressBookHelper.removeContactAcct(contactID, jTable6.getSelectedRow());
+            list = AddressBookHelper.getContactDetails(contactID, mode).getContactAccts();
+        } else if (mode == 2) {
+            status = AddressBookHelper.removeContactNym(contactID, jTable6.getSelectedRow());
+            list = AddressBookHelper.getContactDetails(contactID, mode).getContactNyms();
+        }
+        if (status) {
+            JOptionPane.showMessageDialog(null, "Contact " + value + " deleted successfull", "Contact Account", JOptionPane.INFORMATION_MESSAGE);
+            ((ContactDetailsTableModel) jTable6.getModel()).setValue(list);
+            clearDetails(mode);
+        } else {
+            JOptionPane.showMessageDialog(null, "Cannot delete contact " + value, "Contact Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -526,6 +625,7 @@ public class AddressBookDialog extends javax.swing.JDialog {
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -533,12 +633,14 @@ public class AddressBookDialog extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane12;
     private javax.swing.JScrollPane jScrollPane13;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
     private static javax.swing.JTable jTable5;
@@ -553,14 +655,119 @@ public class AddressBookDialog extends javax.swing.JDialog {
     private void initValues() {
         ContactTableModel.removeCols(jTable5);
         switch (mode) {
-            case 1:jRadioButton1.setSelected(true);
-                break;
-            case 2:jRadioButton2.setSelected(true);
-                break;
+            case 1: {
+                jRadioButton1.setSelected(true);
+                ((ContactDetailsTableModel) jTable6.getModel()).setColumnNames(new String[]{"Account List"});
+                System.out.println("In case1");
+
+            }
+            break;
+            case 2: {
+                jRadioButton2.setSelected(true);
+                ((ContactDetailsTableModel) jTable6.getModel()).setColumnNames(new String[]{"Nym List"});
+            }
+
+            break;
+
+
             case 3:
                 break;
             default:
                 break;
+        }
+        ((ContactTableModel) jTable5.getModel()).setValue(AddressBookHelper.getContactList());
+        jPanel3.setLayout(new CardLayout());
+        jPanel3.add(new BlankPanel(), "BlankPanel");
+        jPanel3.add(new ContactNymPanel(), "ContactNymPanel");
+        jPanel3.add(new ContactAcctPanel(), "ContactAcctPanel");
+
+
+        jTable6.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+            public void valueChanged(ListSelectionEvent e) {
+                if (e.getValueIsAdjusting()) {
+                    return;
+                }
+                if (jTable6.getSelectedRow() >= 0) {
+                    CardLayout cardLayout = (CardLayout) jPanel3.getLayout();
+                    if (mode == 1) {
+                        cardLayout.show(jPanel3, "ContactAcctPanel");
+                        contactDetails = AddressBookHelper.getContactDetails(contactID, mode);
+                        if (contactDetails != null) {
+                            ContactAcctPanel.setValues(jTable6.getSelectedRow(), contactID);
+                            ContactAcctPanel.populateDetails(AddressBookHelper.getContactAccDetails(contactDetails.getContact(), jTable6.getSelectedRow()));
+                        }
+                        // Set details panel here
+                    } else if (mode == 2) {
+                        cardLayout.show(jPanel3, "ContactNymPanel");
+                        contactDetails = AddressBookHelper.getContactDetails(contactID, mode);
+                        if (contactDetails != null) {
+                            ContactNymPanel.setValues(jTable6.getSelectedRow(), contactID);
+                            ContactNymPanel.populateDetails(AddressBookHelper.getContactNymDetails(contactDetails.getContact(), jTable6.getSelectedRow()));
+                        }
+
+                    } else {
+                        cardLayout.show(jPanel3, "BlankPanel");
+                    }
+                }
+            }
+        });
+
+        jTable5.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+            public void valueChanged(ListSelectionEvent e) {
+                if (e.getValueIsAdjusting()) {
+                    return;
+                }
+                if (jTable5.getSelectedRow() >= 0) {
+                    if (!jRadioButton1.isSelected() && !jRadioButton2.isSelected()) {
+                        JOptionPane.showMessageDialog(null, "Please select mode", "Mode Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                    if (jRadioButton2.isSelected()) {
+                        jButton2.setEnabled(false);
+                        jButton3.setEnabled(true);
+                        ((ContactDetailsTableModel) jTable6.getModel()).setColumnNames(new String[]{"Nym List"});
+                        mode = 2;
+                    } else if (jRadioButton1.isSelected()) {
+                        jButton2.setEnabled(true);
+                        jButton3.setEnabled(false);
+                        ((ContactDetailsTableModel) jTable6.getModel()).setColumnNames(new String[]{"Account List"});
+                        mode = 1;
+                    }
+
+                    contactID = (String) jTable5.getModel().getValueAt(jTable5.getSelectedRow(), 1);
+                    ContactDetails contactDetails = AddressBookHelper.getContactDetails(contactID, mode);
+                    populateContactDetails(contactDetails, mode);
+                }
+            }
+        });
+
+    }
+
+    private void populateContactDetails(ContactDetails contactDetails, int mode) {
+        this.contactDetails = contactDetails;
+        if (contactDetails != null) {
+            jTextField1.setText(contactDetails.getLabel());
+            jTextField2.setText(contactDetails.getEmail());
+            jTextArea1.setText(contactDetails.getPublicKey());
+            jTextArea2.setText(contactDetails.getMemo());
+            List list = mode == 1 ? contactDetails.getContactAccts() : contactDetails.getContactNyms();
+            ((ContactDetailsTableModel) jTable6.getModel()).setValue(list);
+        }
+    }
+
+    public static void setContactList() {
+        ((ContactTableModel) jTable5.getModel()).setValue(AddressBookHelper.getContactList());
+
+    }
+
+    private void clearDetails(int mode) {
+        if (mode == 1) {
+            ContactAcctPanel.clearDetails();
+        }
+        if (mode == 2) {
+            ContactNymPanel.clearDetails();
         }
     }
 }

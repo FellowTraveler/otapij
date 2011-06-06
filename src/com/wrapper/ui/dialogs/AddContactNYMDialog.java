@@ -91,7 +91,9 @@ yrsc64WTfAqd4s12SfKMgVFLeL/FUYH7MNqpfgjgwX5co817m9VvCntU6njIuYtV
 
 package com.wrapper.ui.dialogs;
 
+import com.wrapper.core.datastore.AddressBookHelper;
 import com.wrapper.core.util.Utility;
+import javax.swing.JOptionPane;
 
 public class AddContactNYMDialog extends javax.swing.JDialog {
     private final String contactID;
@@ -195,6 +197,11 @@ public class AddContactNYMDialog extends javax.swing.JDialog {
 
         jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
         jButton1.setName("jButton1"); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -276,6 +283,18 @@ public class AddContactNYMDialog extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+      boolean status =  AddressBookHelper.createContactNym(index,contactID, jTextField1.getText(), jTextField4.getText(), jTextField3.getText(),new String[]{jTextField6.getText()}, new String[]{jTextField5.getText()}, jTextArea1.getText(),jTextArea2.getText());
+      if (!status) {
+            JOptionPane.showMessageDialog(null, "NYM contact cannot be created", "Contact Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "NYM Contact created successfully", "Contact Creation Success", JOptionPane.INFORMATION_MESSAGE);
+            // Add to nym table
+            //AddressBookDialog.setContactList();
+        }
+      dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
     * @param args the command line arguments

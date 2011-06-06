@@ -660,17 +660,17 @@ public class otapi {
 
   public static Storage CreateStorageContext(int eStoreType, int ePackType) {
     long cPtr = otapiJNI.CreateStorageContext__SWIG_0(eStoreType, ePackType);
-    return (cPtr == 0) ? null : new Storage(cPtr, true);
+    return (cPtr == 0) ? null : new Storage(cPtr, false);
   }
 
   public static Storage CreateStorageContext(int eStoreType) {
     long cPtr = otapiJNI.CreateStorageContext__SWIG_1(eStoreType);
-    return (cPtr == 0) ? null : new Storage(cPtr, true);
+    return (cPtr == 0) ? null : new Storage(cPtr, false);
   }
 
   public static Storable CreateObject(int eType) {
     long cPtr = otapiJNI.CreateObject(eType);
-    return (cPtr == 0) ? null : new Storable(cPtr, true);
+    return (cPtr == 0) ? null : new Storable(cPtr, false);
   }
 
   public static boolean Exists(String strFolder, String oneStr, String twoStr, String threeStr) {
@@ -771,22 +771,22 @@ public class otapi {
 
   public static Storable QueryObject(int theObjectType, String strFolder, String oneStr, String twoStr, String threeStr) {
     long cPtr = otapiJNI.QueryObject__SWIG_0(theObjectType, strFolder, oneStr, twoStr, threeStr);
-    return (cPtr == 0) ? null : new Storable(cPtr, true);
+    return (cPtr == 0) ? null : new Storable(cPtr, false);
   }
 
   public static Storable QueryObject(int theObjectType, String strFolder, String oneStr, String twoStr) {
     long cPtr = otapiJNI.QueryObject__SWIG_1(theObjectType, strFolder, oneStr, twoStr);
-    return (cPtr == 0) ? null : new Storable(cPtr, true);
+    return (cPtr == 0) ? null : new Storable(cPtr, false);
   }
 
   public static Storable QueryObject(int theObjectType, String strFolder, String oneStr) {
     long cPtr = otapiJNI.QueryObject__SWIG_2(theObjectType, strFolder, oneStr);
-    return (cPtr == 0) ? null : new Storable(cPtr, true);
+    return (cPtr == 0) ? null : new Storable(cPtr, false);
   }
 
   public static Storable QueryObject(int theObjectType, String strFolder) {
     long cPtr = otapiJNI.QueryObject__SWIG_3(theObjectType, strFolder);
-    return (cPtr == 0) ? null : new Storable(cPtr, true);
+    return (cPtr == 0) ? null : new Storable(cPtr, false);
   }
 
 }

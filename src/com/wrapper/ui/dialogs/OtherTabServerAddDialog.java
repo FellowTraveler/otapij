@@ -121,7 +121,7 @@ public class OtherTabServerAddDialog extends javax.swing.JDialog {
         setTitle(resourceMap.getString("Form.title")); // NOI18N
         setName("Form"); // NOI18N
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Bitcoin", "Loom", "PKTP", "Ripple", "Truledger" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Bitcoin", "Loom", "PKTP", "Ripple", "Truledger", "OpenCoin" }));
         jComboBox2.setToolTipText(resourceMap.getString("jComboBox2.toolTipText")); // NOI18N
         jComboBox2.setName("jComboBox2"); // NOI18N
 
