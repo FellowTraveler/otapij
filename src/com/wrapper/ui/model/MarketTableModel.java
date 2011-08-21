@@ -98,7 +98,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
 public class MarketTableModel extends DefaultTableModel implements WrapperTableModel {
-        private String[] columnNames = {"Asset","Currency","Granularity","servertype","ID"};
+        private String[] columnNames = {"Name","ID"};
         private Object[][] data;
         /*private Object[][] data = {
 	    {"Asset1","100"},
@@ -106,7 +106,7 @@ public class MarketTableModel extends DefaultTableModel implements WrapperTableM
 	    {"Server3","300"}
 	       };*/
 
-      public void setValue(Map values,JTable accountTable){
+      public void setValue(Map values,JTable table){
 
        clearValue();
        System.out.println("values.size():"+values.size());
@@ -120,11 +120,6 @@ public class MarketTableModel extends DefaultTableModel implements WrapperTableM
            data[i] = row;
            i++;
        }
-
-       /*RowSorter<TableModel> sorter =
-             new TableRowSorter<TableModel>(this);
-           accountTable.setRowSorter(sorter);*/
-
 
       fireTableDataChanged();
         }
@@ -196,13 +191,9 @@ public class MarketTableModel extends DefaultTableModel implements WrapperTableM
 
         TableColumnModel tcm = marketTable.getColumnModel();
         System.out.println("getColumnCount:" + tcm.getColumnCount());
-        if (tcm.getColumnCount() == 5) {
-            marketTable.removeColumn(tcm.getColumn(4));
+        if (tcm.getColumnCount() == 2) {
+            marketTable.removeColumn(tcm.getColumn(1));
         }
-        if (tcm.getColumnCount() == 4) {
-            marketTable.removeColumn(tcm.getColumn(3));
-        }
-
     }
 }
 

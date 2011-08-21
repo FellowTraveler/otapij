@@ -153,12 +153,7 @@ public class BTCServerAdditionDialog extends javax.swing.JDialog {
       
         String serverID = StorageHelper.addBitcoinServer(label,jTextField2.getText(),jTextField1.getText(),jPasswordField1.getText(),jTextField3.getText());
         if (serverID != null) {
-            HashMap data = new HashMap();
-            String[] row = new String[3];
-            row[0] = label;
-            row[1] = "BitcoinAccount";
-            row[2] = serverID;
-            data.put(row[2], row);
+            JOptionPane.showMessageDialog(null, "Bitcoin server added successflly","Bitcoin Server Addition",JOptionPane.INFORMATION_MESSAGE);
             MainPage.loadOtherTabServers();
         } else {
             JOptionPane.showMessageDialog(null, "Error creating bitcoin server", "Datastore error", JOptionPane.ERROR_MESSAGE);

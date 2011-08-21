@@ -97,15 +97,17 @@ import javax.swing.JOptionPane;
 public class OtherTabServerEditDialog extends javax.swing.JDialog {
 
     private final String serverID;
+    private final String type;
  
 
     /** Creates new form OtherTabServerEditDialog */
-    public OtherTabServerEditDialog(java.awt.Frame parent, boolean modal,String currentLabel,String serverID) {
+    public OtherTabServerEditDialog(java.awt.Frame parent, boolean modal,String currentLabel,String serverID,String type) {
         super(parent, modal);
         initComponents();
         jTextField1.setText(currentLabel);
         setLocation(Utility.getLocation(this.getSize()));
         this.serverID = serverID;
+        this.type = type;
       
     }
 
@@ -174,7 +176,7 @@ public class OtherTabServerEditDialog extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            boolean status = StorageHelper.editOtherTabServerLabel(serverID, jTextField1.getText());
+            boolean status = StorageHelper.editOtherTabServerLabel(serverID, jTextField1.getText(),type);
             if (status) {
                 JOptionPane.showMessageDialog(null, "Server label changed successfully", "Label Edit Success", JOptionPane.INFORMATION_MESSAGE);
                 MainPage.loadOtherTabServers();
@@ -195,7 +197,7 @@ public class OtherTabServerEditDialog extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                OtherTabServerEditDialog dialog = new OtherTabServerEditDialog(new javax.swing.JFrame(), true,"", "");
+                OtherTabServerEditDialog dialog = new OtherTabServerEditDialog(new javax.swing.JFrame(), true,"","", "");
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     public void windowClosing(java.awt.event.WindowEvent e) {

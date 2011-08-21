@@ -125,14 +125,16 @@ public class OTAccountAdditionDialog extends javax.swing.JDialog {
     private String nymIDMainPage;
     private String assetIDMainPage;
     private String serverIDMainPage;
+    private String selectedID;
 
     /** Creates new form OTAccountAdditionDialog */
-    public OTAccountAdditionDialog(java.awt.Frame parent, boolean modal,String label,String nymID,String assetID,String serverID) {
+    public OTAccountAdditionDialog(java.awt.Frame parent, boolean modal,String label,String nymID,String assetID,String serverID,String selectedID) {
         super(parent, modal);
         this.label = label;
         this.serverIDMainPage = serverID;
         this.nymIDMainPage = nymID ;
         this.assetIDMainPage = assetID ;
+        this.selectedID = selectedID;
         initComponents();
         initValues();
         setLocation(Utility.getLocation(this.getSize()));
@@ -275,7 +277,7 @@ public class OTAccountAdditionDialog extends javax.swing.JDialog {
             this.setCursor(Cursor.getDefaultCursor());
             if(result){
                 JOptionPane.showMessageDialog(this, "Account created successfully", "Account Creation", JOptionPane.INFORMATION_MESSAGE);
-                MainPage.loadAccount(assetIDMainPage, serverIDMainPage, nymIDMainPage);
+                MainPage.loadAccount(assetIDMainPage, serverIDMainPage, nymIDMainPage,selectedID);
             }
                 else
                 JOptionPane.showMessageDialog(this, "Account creation failed", "Account Creation", JOptionPane.ERROR_MESSAGE);
@@ -294,7 +296,7 @@ public class OTAccountAdditionDialog extends javax.swing.JDialog {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                OTAccountAdditionDialog dialog = new OTAccountAdditionDialog(new javax.swing.JFrame(), true,"","","","");
+                OTAccountAdditionDialog dialog = new OTAccountAdditionDialog(new javax.swing.JFrame(), true,"","","","","");
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);

@@ -300,11 +300,13 @@ public class Settings extends javax.swing.JFrame {
             boolean check = true;
             long waitTime = Configuration.getWaitTime();
             if (!check) {
-                Utility.addDirToRuntime("C:\\~\\Open-Transactions\\testwallet");
+                /*Utility.addDirToRuntime("C:\\~\\Open-Transactions\\testwallet");
                 Utility.setDataFolder("C:\\~\\Open-Transactions\\testwallet\\data_folder");
-                System.loadLibrary("libzmq");
+                System.loadLibrary("libzmq");*/
+                Utility.addDirToRuntime("/Users/administrator/Open-Transactions/testwallet");
+                Utility.setDataFolder("/Users/administrator/Open-Transactions/testwallet/data_folder");
                 System.loadLibrary("otapi");
-                otapi.OT_API_Init("C:\\~\\Open-Transactions\\testwallet\\data_folder");
+                otapi.OT_API_Init("/Users/administrator/Open-Transactions/testwallet/data_folder");
                 //otapi.InitDefaultStorage(StorageType.STORE_FILESYSTEM, PackType.PACK_PROTOCOL_BUFFERS, "C:\\~\\Open-Transactions\\testwallet\\data_folder", "wallet.xml");
 
                 OTCaller g_theCaller = new OTCaller();

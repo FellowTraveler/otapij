@@ -95,6 +95,7 @@ import com.wrapper.core.jni.BitcoinServer;
 import com.wrapper.core.jni.Contact;
 import com.wrapper.core.jni.ContactAcct;
 import com.wrapper.core.jni.ContactNym;
+import com.wrapper.core.jni.RippleServer;
 import com.wrapper.core.jni.ServerInfo;
 import com.wrapper.core.jni.Storable;
 import com.wrapper.core.jni.StoredObjectType;
@@ -126,6 +127,7 @@ public class StorageHelper {
                 btcServer.setServer_port(port);
                 btcServer.setGui_label(label);
                 btcServer.setServer_id(serverID);
+                btcServer.setServer_type("Bitcoin");
                 boolean status = walletData.AddBitcoinServer(btcServer);
                 System.out.println("status walletData.AddBitcoinServer:" + status);
                 status = otapi.StoreObject(walletData, "moneychanger", "gui_wallet.dat");
@@ -135,8 +137,40 @@ public class StorageHelper {
         }
         return serverID;
     }
+    //Ripple,Loom
 
-    public static Map getOtherTabServerList() {
+    public static String addRippleServer(String label, String url, String user, String pwd, String userTextID, String pwdTextID) {
+        String serverID = Utility.generateID();
+        WalletData walletData = Utility.getWalletData();
+
+        if (walletData == null) {
+            System.out.println("addRippleServer - walletData returns null");
+            return null;
+        }
+        RippleServer rippleServer = null;
+        Storable storable = otapi.CreateObject(StoredObjectType.STORED_OBJ_RIPPLE_SERVER);
+        if (storable != null) {
+            rippleServer = RippleServer.ot_dynamic_cast(storable);
+            if (rippleServer != null) {
+                rippleServer.setServer_host(url);
+                rippleServer.setRipple_password(pwd);
+                rippleServer.setRipple_username(user);
+                rippleServer.setNamefield_id(userTextID);
+                rippleServer.setPassfield_id(pwdTextID);
+                rippleServer.setGui_label(label);
+                rippleServer.setServer_id(serverID);
+                rippleServer.setServer_type("Ripple");
+                boolean status = walletData.AddRippleServer(rippleServer);
+                System.out.println("status walletData.AddRippleServer:" + status);
+                status = otapi.StoreObject(walletData, "moneychanger", "gui_wallet.dat");
+                System.out.println("status otapi.StoreObject:" + status);
+                System.out.println("addRippleServer - serverID:" + serverID);
+            }
+        }
+        return serverID;
+    }
+
+    public static Map getOtherTabServerList(String type) {
 
         WalletData walletData = Utility.getWalletData();
         HashMap dataMap = new HashMap();
@@ -145,6 +179,42 @@ public class StorageHelper {
             System.out.println("getOtherTabServerList walletData returns null");
             return dataMap;
         }
+
+        if ("Bitcoin".equalsIgnoreCase(type)) {
+            getBitcoinServerList(walletData, dataMap);
+        }
+
+        if ("Ripple".equalsIgnoreCase(type)) {
+            getRippleServerList(walletData, dataMap);
+        }
+
+        if ("ALL".equalsIgnoreCase(type)) {
+            getBitcoinServerList(walletData, dataMap);
+            getRippleServerList(walletData, dataMap);
+        }
+
+        return dataMap;
+    }
+
+    private static void getRippleServerList(WalletData walletData, HashMap dataMap) {
+
+        long count = walletData.GetRippleServerCount();
+
+        for (int i = 0; i < count; i++) {
+            RippleServer rippleServer = walletData.GetRippleServer(i);
+            if (rippleServer == null) {
+                continue;
+            }
+            String[] data = new String[3];
+            data[0] = rippleServer.getGui_label();
+            data[1] = "RippleAccount";
+            data[2] = rippleServer.getServer_id();
+            dataMap.put(data[2], data);
+        }
+    }
+
+    private static void getBitcoinServerList(WalletData walletData, HashMap dataMap) {
+
         long count = walletData.GetBitcoinServerCount();
 
         for (int i = 0; i < count; i++) {
@@ -158,11 +228,9 @@ public class StorageHelper {
             data[2] = btcServer.getServer_id();
             dataMap.put(data[2], data);
         }
-
-        return dataMap;
     }
 
-    public static boolean editOtherTabServerLabel(String serverID, String newLabel) {
+    public static boolean editOtherTabServerLabel(String serverID, String newLabel, String type) {
 
         boolean status = false;
         WalletData walletData = Utility.getWalletData();
@@ -170,6 +238,21 @@ public class StorageHelper {
             System.out.println("editOtherTabServerLabel - walletData returns null");
             return false;
         }
+
+        System.out.println("TYPE:" + type);
+
+        if ("BitcoinAccount".equalsIgnoreCase(type)) {
+            status = editBitcoinServerLabel(walletData, serverID, newLabel);
+        }
+        if ("RippleAccount".equalsIgnoreCase(type)) {
+            status = editRippleServerLabel(walletData, serverID, newLabel);
+        }
+        return status;
+
+    }
+
+    private static boolean editBitcoinServerLabel(WalletData walletData, String serverID, String newLabel) {
+        boolean status = false;
         for (int i = 0; i < walletData.GetBitcoinServerCount(); i++) {
             BitcoinServer btcServer = walletData.GetBitcoinServer(i);
             if (btcServer == null) {
@@ -186,7 +269,7 @@ public class StorageHelper {
 
     }
 
-    public static boolean removeOtherTabServer(String serverID) {
+    public static boolean removeOtherTabServer(String serverID, String type) {
 
         boolean status = false;
         WalletData walletData = Utility.getWalletData();
@@ -194,6 +277,22 @@ public class StorageHelper {
             System.out.println("removeOtherTabServer - walletData returns null");
             return false;
         }
+        System.out.println("TYPE:" + type);
+        if ("BitcoinAccount".equalsIgnoreCase(type)) {
+            status = removeBitcoinServer(walletData, serverID);
+        }
+
+        if ("RippleAccount".equalsIgnoreCase(type)) {
+            status = removeRippleServer(walletData, serverID);
+        }
+
+        return status;
+
+    }
+
+    private static boolean removeBitcoinServer(WalletData walletData, String serverID) {
+
+        boolean status = false;
         for (int i = 0; i < walletData.GetBitcoinServerCount(); i++) {
             BitcoinServer btcServer = walletData.GetBitcoinServer(i);
             if (btcServer == null) {
@@ -232,5 +331,40 @@ public class StorageHelper {
 
     }
 
-    
+    private static boolean removeRippleServer(WalletData walletData, String serverID) {
+
+        boolean status = false;
+        for (int i = 0; i < walletData.GetRippleServerCount(); i++) {
+            RippleServer rippleServer = walletData.GetRippleServer(i);
+            if (rippleServer == null) {
+                continue;
+            }
+            if (serverID.equals(rippleServer.getServer_id())) {
+                walletData.RemoveRippleServer(i);
+                status = otapi.StoreObject(walletData, "moneychanger", "gui_wallet.dat");
+                System.out.println("removeOtherTabServer status otapi.StoreObject:" + status);
+                break;
+            }
+        }
+        return status;
+
+    }
+
+    private static boolean editRippleServerLabel(WalletData walletData, String serverID, String newLabel) {
+        boolean status = false;
+        for (int i = 0; i < walletData.GetRippleServerCount(); i++) {
+            RippleServer rippleServer = walletData.GetRippleServer(i);
+            if (rippleServer == null) {
+                continue;
+            }
+            if (serverID.equals(rippleServer.getServer_id())) {
+                rippleServer.setGui_label(newLabel);
+                status = otapi.StoreObject(walletData, "moneychanger", "gui_wallet.dat");
+                System.out.println("editOtherTabServerLabel status otapi.StoreObject:" + status);
+                break;
+            }
+        }
+        return status;
+
+    }
 }

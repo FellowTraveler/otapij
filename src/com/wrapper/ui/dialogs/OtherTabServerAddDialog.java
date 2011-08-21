@@ -181,6 +181,9 @@ public class OtherTabServerAddDialog extends javax.swing.JDialog {
 
         if((jComboBox2.getSelectedItem().toString()).equalsIgnoreCase("Bitcoin"))
             new BTCServerAdditionDialog(null, true,jTextField1.getText()).setVisible(true);
+
+        if((jComboBox2.getSelectedItem().toString()).equalsIgnoreCase("Ripple"))
+            new RippleServerAddDialog(null, true,jTextField1.getText()).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 

@@ -112,15 +112,17 @@ public class AccountAdditionDialog extends javax.swing.JDialog {
     private String nymID;
     private String assetID;
     private String serverID;
+    private String selectedID;
     
 
     /** Creates new form AccountAdditionDialog */
-    public AccountAdditionDialog(java.awt.Frame parent, boolean modal,String nymID,String assetID,String serverID,String type) {
+    public AccountAdditionDialog(java.awt.Frame parent, boolean modal,String nymID,String assetID,String serverID,String type,String selectedID) {
         super(parent, modal);
         this.parent = parent;
         this.serverID = serverID;
         this.nymID = nymID ;
         this.assetID = assetID ;
+        this.selectedID = selectedID;
         setTitle("Account Addition");
         initComponents();
         initValues(type);
@@ -139,7 +141,7 @@ public class AccountAdditionDialog extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox();
+        jComboBox2 = new com.wrapper.ui.custom.SteppedComboBox();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -189,10 +191,9 @@ public class AccountAdditionDialog extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-                        .addComponent(jComboBox2, 0, 0, Short.MAX_VALUE)))
-                .addContainerGap(71, Short.MAX_VALUE))
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,7 +209,7 @@ public class AccountAdditionDialog extends javax.swing.JDialog {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -229,7 +230,7 @@ public class AccountAdditionDialog extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
        if(((ComboObject)jComboBox2.getSelectedItem()).toString().equalsIgnoreCase("Open Transaction"))
-            new OTAccountAdditionDialog(parent, true,jTextField1.getText(),nymID,assetID,serverID).setVisible(true);
+            new OTAccountAdditionDialog(parent, true,jTextField1.getText(),nymID,assetID,serverID,selectedID).setVisible(true);
         this.dispose();
 
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -240,7 +241,7 @@ public class AccountAdditionDialog extends javax.swing.JDialog {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                AccountAdditionDialog dialog = new AccountAdditionDialog(new javax.swing.JFrame(), true,"","","","");
+                AccountAdditionDialog dialog = new AccountAdditionDialog(new javax.swing.JFrame(), true,"","","","","");
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -253,7 +254,7 @@ public class AccountAdditionDialog extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox jComboBox2;
+    private static javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

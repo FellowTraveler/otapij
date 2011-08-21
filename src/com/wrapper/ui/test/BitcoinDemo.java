@@ -90,19 +90,8 @@ yrsc64WTfAqd4s12SfKMgVFLeL/FUYH7MNqpfgjgwX5co817m9VvCntU6njIuYtV
 
 package com.wrapper.ui.test;
 
-import com.wrapper.core.helper.bitcoin.TransactionInfo;
-import java.net.Authenticator;
-import java.net.PasswordAuthentication;
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.UUID;
-import org.apache.commons.httpclient.Credentials;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.UsernamePasswordCredentials;
-import org.apache.commons.httpclient.auth.AuthScope;
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 import ru.paradoxs.bitcoin.client.ServerInfo;
 import ru.paradoxs.bitcoin.http.HttpSession;
 
@@ -116,7 +105,7 @@ public class BitcoinDemo {
    private static HttpSession session;
 
 public static void main(String[] a) throws URISyntaxException, JSONException{
-    BitcoinClient bcc= new BitcoinClient("127.0.0.1", "testuser", "testpassword");
+    BitcoinClient bcc= new BitcoinClient("108.56.153.131", "test", "test");
   // ru.paradoxs.bitcoin.client.TransactionInfo info = (ru.paradoxs.bitcoin.client.TransactionInfo) bcc.getTransaction("d9d87d0bdf38a426fe35f91e11b54992a7083357b6334deeefc933fb57520e9d");
     bcc.getAccountList();
   ServerInfo serv = (ServerInfo)  bcc.getServerInfo();

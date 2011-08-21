@@ -107,7 +107,7 @@ public abstract class Account {
     public static final String[] allAccounts;
 
     static{
-        allAccounts = new String[]{"BitcoinAccount","OpenTransactionAccount","CashPurseAccount","LoomAccount","TruledgerAccount","PKTPAccount"};
+        allAccounts = new String[]{"OpenTransactionAccount","CashPurseAccount","BitcoinAccount","LoomAccount","RippleAccount","TruledgerAccount","PKTPAccount"};
     }
 
     

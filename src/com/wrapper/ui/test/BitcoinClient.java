@@ -124,6 +124,7 @@ public class BitcoinClient
       Credentials credentials = new UsernamePasswordCredentials(login, password);
       URI uri = new URI("http", null, host, port, null, null, null);
       this.session = new HttpSession(uri, credentials);
+     
     } catch (URISyntaxException e) {
       throw new BitcoinClientException("This host probably doesn't have correct syntax: " + host, e);
     }
@@ -131,7 +132,7 @@ public class BitcoinClient
 
   public BitcoinClient(String host, String login, String password)
   {
-    this(host, login, password, 8332);
+    this(host, login, password, 8333);
   }
 
   @Deprecated

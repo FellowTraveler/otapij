@@ -7,13 +7,9 @@ Moneychanger -- A wallet built on Open Transactions
 
 Moneychanger is a simple Java client GUI built on top of [Open Transactions](https://github.com/FellowTraveler/Open-Transactions/wiki).
 
-Moneychanger can be used to create pseudonyms, issue currencies, open accounts, withdraw cash, deposit cash, write and deposit cheques, and purchase vouchers ("cashier's cheques" aka "banker's cheques").
+Moneychanger can be used to create pseudonyms, issue currencies, open accounts, withdraw cash, deposit cash, write and deposit cheques, and purchase vouchers ("cashier's cheques" aka "banker's cheques"). New: Markets are now functional!
 
-Soon, Moneychanger will also be able to use basket currencies, set up payment plans, and trade on markets. (The Open Transactions library _already_ supports these features.)
-
-Bitcoin is now supported (via bitcoind) and soon, bail in/out between Bitcoin and Open Transactions will also be supported.
-
-See wikis for more screenshots and diagrams.
+Bitcoin is now supported (via bitcoind). Coming soon: safe Bitcoin storage in OT (through voting pools.) 
 
 [Moneychanger wiki](https://github.com/FellowTraveler/Moneychanger/wiki)
 
@@ -27,12 +23,11 @@ THIS IS ONLY EXPERIMENTAL SOFTWARE AND IS NOT YET READY FOR PRIME TIME.
 
 ## INSTALLATION
 
-[(Open-Transactions Install Instructions)](https://github.com/FellowTraveler/Open-Transactions/wiki/Install)
-
-[Troubleshooting](https://github.com/FellowTraveler/Moneychanger/wiki/Troubleshooting)
+From the [Open-Transactions Install Instructions.](https://github.com/FellowTraveler/Open-Transactions/wiki/Install) Also: [Troubleshooting](https://github.com/FellowTraveler/Moneychanger/wiki/Troubleshooting)
 
 
-[Get OpenSSL 1.0.0](https://github.com/FellowTraveler/Open-Transactions/wiki/Install-OpenSSL) if you don't have it already. You don't have to install it system-wide, but you still need to download it and build it. (If you are using 64-bit Linux, MAKE SURE you configure OpenSSL explicitly for this before building, as it will not build that way by default. Use "./configure -m64 shared" in the openssl folder BEFORE building OpenSSL.)
+[Get OpenSSL 1.0.0](https://github.com/FellowTraveler/Open-Transactions/wiki/Install-OpenSSL) if you don't have it already. (You don't have to install it system-wide, but you still need to download it and build it.)
+NOTE for 64-bit Linux: MAKE SURE you configure OpenSSL explicitly for 64-bit and for shared binaries, then re-build it (OpenSSL). It does not come built that way by default. Again: For 64-bit Linux, use "./configure -m64 shared" in the openssl folder BEFORE building OpenSSL 1.0.0, and then it should work when you build and run Open-Transactions.)
 
 INSTALL: Message Pack, [available here.](http://msgpack.org/)
 [install instructions.](http://wiki.msgpack.org/display/MSGPACK/QuickStart+for+C+Language)
@@ -47,58 +42,36 @@ INSTALL: Zero MQ (transport library)
 [Available here.](http://www.zeromq.org/intro:get-the-software) 
 OT now uses this library for all transport.
 
-[Download Open-Transactions](https://github.com/FellowTraveler/Open-Transactions/):
+Clone into Open-Transactions:
 
      $ git clone git://github.com/FellowTraveler/Open-Transactions.git
 
-If you have a special, local version of OpenSSL 1.0.0 just for OT, then name its folder "openssl" (all lowercase) and place it next to the Open-Transactions folder. (As in, the "Open-Transactions" and "openssl" folders will both reside within the same parent folder.) 
+[YOU CAN DOWNLOAD BINARIES HERE](https://github.com/FellowTraveler/Open-Transactions/downloads)
+(You must download the code either way, because it includes the SAMPLE DATA FOLDERS.)
 
-You will also need to create a link to that same openssl folder from INSIDE the Open-Transactions folder. Like this:
+If you prefer to build OT yourself (in Java mode, for Moneychanger):
 
      $ cd Open-Transactions
-     $ ln -s ../openssl .
-
-Build Open-Transactions for the Java API:
-
      $ make java
-     OR:
-     $ make java DSP=1
 
-(The DSP=1 option causes Open Transactions to look for an 'openssl' folder inside the Open-Transactions main folder, instead of using the system-wide installation of openssl. This way you can build a special version of OpenSSL 1.0.0 just for OT, and use it, without having to install it for your entire system.)
-
-Download Moneychanger source code:
+To download the Moneychanger source code:
 
      $ cd ..
      $ git clone git://github.com/FellowTraveler/Moneychanger.git
 
-The jar, lib, and src are posted at:
+[Pre-Built Jarfiles for Moneychanger are available here.](https://github.com/FellowTraveler/Moneychanger/downloads)
 
-     http://ft.vm.to/files/moneychanger/src.zip
-     http://ft.vm.to/files/moneychanger/lib.zip
-     http://ft.vm.to/files/moneychanger/JavaWrapper.jar
+Uncompress the Moneychanger binaries into the Moneychanger folder, and into OT:
+     $ cd Moneychanger
 
-To download those versions, you can do this:
-
-     $ mkdir Moneychanger (ONLY DO THIS LINE IF YOU DIDN'T GIT.)
-     $ cd Moneychanger 
-     $ wget http://ft.vm.to/files/moneychanger/lib.zip
-     $ wget http://ft.vm.to/files/moneychanger/JavaWrapper.jar
-
-If wget fails with "Command not found", try this:
-
-     $ curl http://ft.vm.to/files/moneychanger/lib.zip >lib.zip
-     $ curl http://ft.vm.to/files/moneychanger/JavaWrapper.jar >JavaWrapper.jar
-
-From within the Moneychanger folder, unzip the lib.zip, then copy it and JavaWrapper.jar to the Open-Transactions/testwallet directory:
-
-     $ unzip lib.zip
+     $ tar -xzvf Moneychanger-64bit.tgz
      $ cp -r lib ../Open-Transactions/testwallet
      $ cp JavaWrapper.jar Open-Transactions/testwallet
 
 ## TO RUN OPEN TRANSACTIONS SERVER
 
      $ cd Open-Transactions/transaction
-     $ ./transaction.exe test <full path>/Open-Transactions/transaction/data_folder
+     $ ./transaction.exe
 
 ## TO RUN MONEYCHANGER 
 
@@ -109,14 +82,31 @@ From a separate terminal:
 
 --------------------------------------------------------
 
+## CREATE PSEUDONYMS
+<img src="http://ft.vm.to/blogimages/ot-nyms.png" alt="Pseudonyms aka Nyms screenshot" />
+
+## ISSUE CURRENCIES
+<img src="http://ft.vm.to/blogimages/ot-contracts.png" alt="Contracts screenshot" />
+
+## OPEN ACCOUNTS
+<img src="http://ft.vm.to/blogimages/ot-main.png" alt="Main Account screenshot" />
+
+## GO CASH-ONLY
 <img src="http://ft.vm.to/blogimages/ot-cash.gif" alt="Cash Purse screenshot" />
 
 <img src="http://ft.vm.to/blogimages/ot-cash2.gif" alt="Export Tokens from Purse screenshot" />
 
+## TRADE ON MARKETS
+<img src="http://ft.vm.to/blogimages/ot-markets.png" alt="Markets screenshot" />
+
+## BITCOIN INTEGRATION
+<img src="http://ft.vm.to/blogimages/workingBTC.gif" alt="OT Bitcoin screenshot" />
+
+(Of course, this is only a TEST GUI -- a real one would be a lot prettier.)
 
 ```xml
 
-Moneychanger v0.04 (running pretty smooth...)
+Moneychanger v0.05 (running pretty smooth...)
 
 /************************************************************
 -----BEGIN PGP SIGNED MESSAGE-----

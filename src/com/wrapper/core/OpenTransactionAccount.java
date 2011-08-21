@@ -247,16 +247,47 @@ public class OpenTransactionAccount extends Account {
 
         Map account = new HashMap();
         int count = otapi.OT_API_GetAccountCount();
-
+        int j = 0;
         for (int i = 0; i < count; i++) {
             String accountID = otapi.OT_API_GetAccountWallet_ID(i);
             if (assetID.equals(otapi.OT_API_GetAccountWallet_AssetTypeID(accountID))
                     && serverID.equals(otapi.OT_API_GetAccountWallet_ServerID(accountID))) {
-                account.put((i), new String[]{otapi.OT_API_GetAccountWallet_Name(accountID), accountID});
+                account.put((j), new String[]{otapi.OT_API_GetAccountWallet_Name(accountID), accountID});
+                j++;
             }
         }
 
         return account;
+    }
+
+    public Map getAccountID(String serverID, String nymID, String assetID) {
+
+        int count = otapi.OT_API_GetAccountCount();
+
+        Map accounts = new HashMap();
+
+        if(assetID == null && nymID == null && serverID == null){
+            return null;
+        }
+        int j = 0;
+        for (int i = 0; i < count; i++) {
+            String accountID = otapi.OT_API_GetAccountWallet_ID(i);
+
+            if (accountID == null) {
+                continue;
+            }
+            if(assetID.equals(otapi.OT_API_GetAccountWallet_AssetTypeID(accountID))
+                    && serverID.equals(otapi.OT_API_GetAccountWallet_ServerID(accountID))
+                    && nymID.equals(otapi.OT_API_GetAccountWallet_NymID(accountID))) {
+                accounts.put((j), new String[]{otapi.OT_API_GetAccountWallet_Name(accountID), accountID});
+                j++;
+            }
+
+        }
+
+        return accounts;
+
+
     }
 
     public void getOTAccountList(String assetID, String serverID, String nymID) {
@@ -265,7 +296,9 @@ public class OpenTransactionAccount extends Account {
 
         for (int i = 0; i < count; i++) {
             String accountID = otapi.OT_API_GetAccountWallet_ID(i);
-
+            if (accountID == null) {
+                continue;
+            }
             if (!"ALL".equalsIgnoreCase(assetID)) {
                 if (assetID == null || !assetID.equals(otapi.OT_API_GetAccountWallet_AssetTypeID(accountID))) {
                     continue;
@@ -385,7 +418,7 @@ public class OpenTransactionAccount extends Account {
         String nymID = otapi.OT_API_GetAccountWallet_NymID(accountID);
         String ledger = otapi.OT_API_LoadInbox(serverID, nymID, accountID);
 
-        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < 10) {
+        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
             Utility.getTransactionNumbers(serverID, nymID);
         }
 
@@ -628,7 +661,7 @@ public class OpenTransactionAccount extends Account {
             Logger.getLogger(OpenTransactionAccount.class.getName()).log(Level.SEVERE, null, ex);
         }
         String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-        if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0){
+        if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
             getRequestNumber(serverID, nymID, Configuration.getWaitTime());
             otapi.OT_API_getOutbox(serverID, nymID, accountID);
             Thread.sleep(Configuration.getWaitTime());
@@ -763,19 +796,19 @@ public class OpenTransactionAccount extends Account {
 
     public boolean depositCash(String serverID, String nymID, String accountID, String purse, boolean isToken) throws InterruptedException {
 
-        System.out.println("In depositCash serverID:" + serverID + " nymID:" + nymID + " acount ID:" + accountID+" isToken:"+isToken);
+        System.out.println("In depositCash serverID:" + serverID + " nymID:" + nymID + " acount ID:" + accountID + " isToken:" + isToken);
         Utility.setOtDepositCash(null);
         String oldPurse = purse;
         if (isToken) {
             purse = getNewPurse(purse, serverID, nymID, accountID);
-            System.out.println("purse after getting from push purse:"+purse);
-            if(purse == null){
-            Utility.setOtDepositCash(oldPurse);
-            return false;
+            System.out.println("purse after getting from push purse:" + purse);
+            if (purse == null) {
+                Utility.setOtDepositCash(oldPurse);
+                return false;
             }
         }
 
-        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < 10) {
+        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
             Utility.getTransactionNumbers(serverID, nymID);
         }
         otapi.OT_API_FlushMessageBuffer();
@@ -799,7 +832,7 @@ public class OpenTransactionAccount extends Account {
                     otapi.OT_API_notarizeDeposit(serverID, nymID, accountID, purse);
                     Thread.sleep(Configuration.getWaitTime());
                     serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-                    System.out.println("IN depositCash After getInboxAccount and OT_API_notarizeDeposit call,serverResponseMessage:"+serverResponseMessage);
+                    System.out.println("IN depositCash After getInboxAccount and OT_API_notarizeDeposit call,serverResponseMessage:" + serverResponseMessage);
                     if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
                         return false;
                     }
@@ -836,7 +869,7 @@ public class OpenTransactionAccount extends Account {
     public String withdrawVoucher(String serverID, String nymID, String accountID, String amount, String chequeMemo, String recepientNymID) throws InterruptedException {
 
         System.out.println("In withdrawVoucher serverID:" + serverID + " nymID:" + nymID + " acount ID:" + accountID);
-        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < 10) {
+        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
             Utility.getTransactionNumbers(serverID, nymID);
         }
         boolean isSuccess = false;
@@ -913,7 +946,7 @@ public class OpenTransactionAccount extends Account {
             }
             assetContract = otapi.OT_API_LoadAssetContract(assetID);
         }
-        
+
         if (assetContract == null) {
             System.out.println("OT_API_LoadAssetContract returned null even after OT_API_getContract ");
             return false;
@@ -936,12 +969,12 @@ public class OpenTransactionAccount extends Account {
             }
             mintFile = otapi.OT_API_LoadMint(serverID, assetID);
         }
-        
+
         if (mintFile == null) {
             System.out.println("OT_API_LoadMint returned null even after OT_API_getMint ");
             return false;
         }
-        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < 10) {
+        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
             Utility.getTransactionNumbers(serverID, nymID);
         }
         otapi.OT_API_FlushMessageBuffer();
@@ -989,7 +1022,7 @@ public class OpenTransactionAccount extends Account {
 
         boolean isSuccess = false;
         System.out.println("In sendTransfer serverID:" + serverID + " nymID:" + nymID + " acount ID:" + accountID);
-        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < 10) {
+        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
             Utility.getTransactionNumbers(serverID, nymID);
         }
         otapi.OT_API_FlushMessageBuffer();
@@ -1048,7 +1081,7 @@ public class OpenTransactionAccount extends Account {
     public boolean depositCheque(String serverID, String nymID, String accountID, String cheque) throws InterruptedException {
 
         System.out.println("In depositCheque serverID:" + serverID + " nymID:" + nymID + " acount ID:" + accountID);
-        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < 10) {
+        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
             Utility.getTransactionNumbers(serverID, nymID);
         }
         otapi.OT_API_FlushMessageBuffer();
@@ -1096,7 +1129,7 @@ public class OpenTransactionAccount extends Account {
     public String writeCheque(String serverID, String nymID, String accountID, String validFrom, String validTo, String memo, String recepientNymID, String amount) {
         String cheque = "";
         System.out.println("In writeCheque serverID:" + serverID + " nymID:" + nymID);
-        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < 10) {
+        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
             Utility.getTransactionNumbers(serverID, nymID);
 
         }

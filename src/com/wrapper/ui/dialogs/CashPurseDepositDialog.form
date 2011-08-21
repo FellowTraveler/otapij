@@ -28,7 +28,7 @@
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jTextField1" alignment="0" pref="296" max="32767" attributes="0"/>
+                  <Component id="jTextField1" alignment="0" pref="339" max="32767" attributes="0"/>
                   <Component id="jButton1" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jComboBox1" min="-2" pref="159" max="-2" attributes="1"/>

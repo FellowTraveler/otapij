@@ -102,45 +102,46 @@ package com.wrapper.core.util;
  */
 public class Configuration {
 
-    private static long waitTime   = 100;
-    private static int  retryCount = 1;
-    private static int  nbrTransactionCount = 10;
-    private static String hostBitcoin ="localhost";
-    private static int portBitcoin =8332;
-    private static String userBitcoin ="testuser";
-    private static String pwdBitcoin ="testpassword";
+    private static long   waitTime            = 100;
+    private static int    retryCount          = 1;
+    private static int    nbrTransactionCount = 10;
+    private static String rippleUsernameID    = "username";
+    private static String ripplePasswordID    = "password";
+    private static String loomPasswordID      = "passphrase";
 
-    public static String getHostBitcoin() {
-        return hostBitcoin;
+    public static String getLoomPasswordID() {
+        return loomPasswordID;
     }
 
-    public static void setHostBitcoin(String hostBitcoin) {
-        Configuration.hostBitcoin = hostBitcoin;
+    public static void setLoomPasswordID(String loomPasswordID) {
+        Configuration.loomPasswordID = loomPasswordID;
+    }
+    private static String marketMaxDepth      = "100";
+
+    public static String getMarketMaxDepth() {
+        return marketMaxDepth;
     }
 
-    public static int getPortBitcoin() {
-        return portBitcoin;
+    public static void setMarketMaxDepth(String marketMaxDepth) {
+        Configuration.marketMaxDepth = marketMaxDepth;
     }
 
-    public static void setPortBitcoin(int portBitcoin) {
-        Configuration.portBitcoin = portBitcoin;
+    public static String getRipplePasswordID() {
+        return ripplePasswordID;
     }
 
-    public static String getPwdBitcoin() {
-        return pwdBitcoin;
+    public static void setRipplePasswordID(String ripplePasswordID) {
+        Configuration.ripplePasswordID = ripplePasswordID;
     }
 
-    public static void setPwdBitcoin(String pwdBitcoin) {
-        Configuration.pwdBitcoin = pwdBitcoin;
+    public static String getRippleUsernameID() {
+        return rippleUsernameID;
     }
 
-    public static String getUserBitcoin() {
-        return userBitcoin;
+    public static void setRippleUsernameID(String rippleUsernameID) {
+        Configuration.rippleUsernameID = rippleUsernameID;
     }
-
-    public static void setUserBitcoin(String userBitcoin) {
-        Configuration.userBitcoin = userBitcoin;
-    }
+    
 
     public static int getNbrTransactionCount() {
         return nbrTransactionCount;
