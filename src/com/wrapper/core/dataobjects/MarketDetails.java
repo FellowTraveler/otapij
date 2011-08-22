@@ -89,6 +89,7 @@ yrsc64WTfAqd4s12SfKMgVFLeL/FUYH7MNqpfgjgwX5co817m9VvCntU6njIuYtV
  **************************************************************/
 package com.wrapper.core.dataobjects;
 
+import java.util.List;
 import java.util.Map;
 
 public class MarketDetails {
@@ -116,11 +117,11 @@ public class MarketDetails {
         this.marketBid = marketBid;
     }
 
-    public Map getMarketRecentTrades() {
+    public List getMarketRecentTrades() {
         return marketRecentTrades;
     }
 
-    public void setMarketRecentTrades(Map marketRecentTrades) {
+    public void setMarketRecentTrades(List marketRecentTrades) {
         this.marketRecentTrades = marketRecentTrades;
     }
 
@@ -133,7 +134,7 @@ public class MarketDetails {
     }
     private Map marketBid;
     private Map marketAsk;
-    private Map marketRecentTrades;
+    private List marketRecentTrades;
     private Map nymOffers;
     private Map nymTrades;
 

@@ -94,11 +94,14 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import javax.swing.JTable;
+import javax.swing.RowSorter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 public class MarketAskTableModel extends DefaultTableModel implements WrapperTableModel {
-        private String[] columnNames = {"Price","Amount","Multiple"};
+        private String[] columnNames = {"Price","Quantity","Multiple"};
         private Object[][] data;
         /*private Object[][] data = {
 	    {"Asset1","100"},
@@ -106,7 +109,7 @@ public class MarketAskTableModel extends DefaultTableModel implements WrapperTab
 	    {"Server3","300"}
 	       };*/
 
-      public void setValue(Map values,JTable accountTable){
+      public void setValue(Map values,JTable askTable){
 
        clearValue();
        System.out.println("values.size():"+values.size());
@@ -120,10 +123,11 @@ public class MarketAskTableModel extends DefaultTableModel implements WrapperTab
            data[i] = row;
            i++;
        }
-
-       /*RowSorter<TableModel> sorter =
+       if(values.size()>0){
+       RowSorter<TableModel> sorter =
              new TableRowSorter<TableModel>(this);
-           accountTable.setRowSorter(sorter);*/
+           askTable.setRowSorter(sorter);
+          }
 
 
       fireTableDataChanged();

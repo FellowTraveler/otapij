@@ -346,6 +346,7 @@ public class MainPage extends javax.swing.JFrame {
         jPanel31 = new javax.swing.JPanel();
         jButton27 = new javax.swing.JButton();
         jButton28 = new javax.swing.JButton();
+        jLabel51 = new javax.swing.JLabel();
         jPanel18 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -1725,6 +1726,9 @@ public class MainPage extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jLabel51.setText(resourceMap.getString("jLabel51.text")); // NOI18N
+        jLabel51.setName("jLabel51"); // NOI18N
+
         javax.swing.GroupLayout jPanel29Layout = new javax.swing.GroupLayout(jPanel29);
         jPanel29.setLayout(jPanel29Layout);
         jPanel29Layout.setHorizontalGroup(
@@ -1754,7 +1758,8 @@ public class MainPage extends javax.swing.JFrame {
                         .addGap(33, 33, 33)
                         .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jPanel31, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane23, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE))
+                            .addComponent(jScrollPane23, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                            .addComponent(jLabel51, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(14, 14, 14)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1799,7 +1804,9 @@ public class MainPage extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel29Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
+                        .addGap(7, 7, 7)
+                        .addComponent(jLabel51)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane23, 0, 0, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -3039,14 +3046,14 @@ public class MainPage extends javax.swing.JFrame {
                 Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            if (marketList != null){
+            if (marketList != null) {
                 ((MarketTableModel) jTable13.getModel()).setValue(marketList, jTable13);
             }
 
             if (marketList != null && marketList.size() > 0) {
                 String marketID = (String) jTable13.getModel().getValueAt(jTable13.getSelectedRow(), 1);
                 System.out.println("-----marketID----:" + marketID);
-                
+
                 boolean marketExists = false;
                 for (int i = 0; i < jTable13.getRowCount(); i++) {
                     if (marketID != null && jTable13.getModel().getValueAt(jTable13.getSelectedRow(), 1) != null
@@ -3091,7 +3098,7 @@ public class MainPage extends javax.swing.JFrame {
                 Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            if (marketList != null){
+            if (marketList != null) {
                 ((MarketTableModel) jTable13.getModel()).setValue(marketList, jTable13);
             }
 
@@ -3099,7 +3106,7 @@ public class MainPage extends javax.swing.JFrame {
             if (marketList != null && marketList.size() > 0) {
                 String marketID = (String) jTable13.getModel().getValueAt(jTable13.getSelectedRow(), 1);
                 System.out.println("-----marketID:" + marketID);
-                
+
                 boolean marketExists = false;
                 for (int i = 0; i < jTable13.getRowCount(); i++) {
                     if (marketID != null && jTable13.getModel().getValueAt(jTable13.getSelectedRow(), 1) != null
@@ -3192,10 +3199,10 @@ public class MainPage extends javax.swing.JFrame {
             marketList = Market.loadMarketList(serverID, nymID);
             offerList = Market.getNymOfferList(serverID, nymID);
 
-             if (marketList != null){
+            if (marketList != null) {
                 ((MarketTableModel) jTable13.getModel()).setValue(marketList, jTable13);
             }
-            if (offerList != null){
+            if (offerList != null) {
                 ((MarketOffersTableModel) jTable14.getModel()).setValue(offerList, jTable14);
             }
             if (marketList != null && marketList.size() > 0) {
@@ -3327,6 +3334,7 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
+    private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -3978,6 +3986,7 @@ public class MainPage extends javax.swing.JFrame {
         nymMap = new NYM().loadNYM();
 
         Utility.populateCombo(nymMap, jComboBox1);
+        Utility.populateComboWithoutAll(nymMap, jComboBox6);
     }
 
     private void refreshAssetContractList() {
@@ -3987,6 +3996,7 @@ public class MainPage extends javax.swing.JFrame {
         assetMap.clear();
         assetMap = contract.loadAssetContract();
         Utility.populateCombo(assetMap, jComboBox3);
+        Utility.populateComboWithoutAll(serverMap, jComboBox5);
     }
 
     private void refreshServerContractList() {
@@ -4028,6 +4038,15 @@ public class MainPage extends javax.swing.JFrame {
     }
 
     private void initMarketsTab() {
+
+        jLabel25.setText("");
+        jLabel46.setText("");
+        jLabel30.setText("");
+        jLabel27.setText("");
+        jLabel39.setText("");
+        jLabel32.setText("");
+        jLabel40.setText("");
+        jLabel41.setText("");
 
         MarketTableModel.removeCols(jTable13);
 

@@ -91,6 +91,7 @@ package com.wrapper.core;
 
 import com.wrapper.core.jni.otapi;
 import com.wrapper.core.util.Configuration;
+import com.wrapper.core.util.Utility;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -194,7 +195,7 @@ public class Contract {
 
             otapi.OT_API_FlushMessageBuffer();
             otapi.OT_API_createUserAccount(serverID, nymID);
-            Thread.sleep(Configuration.getWaitTime());
+            Utility.delay();
             String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
             System.out.println("IN issueAssetType,OT_API_IsNym_RegisteredAtServer serverResponseMessage " + serverResponseMessage);
             if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
@@ -205,7 +206,7 @@ public class Contract {
 
                 otapi.OT_API_FlushMessageBuffer();
                 otapi.OT_API_getRequest(serverID, nymID);
-                Thread.sleep(Configuration.getWaitTime());
+                Utility.delay();
                 serverResponseMessage = otapi.OT_API_PopMessageBuffer();
                 if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
                     System.out.println("IN issueAssetType, during nym registration, getrequestNumber failed . serverResponseMessage - " + serverResponseMessage);
@@ -218,16 +219,16 @@ public class Contract {
         otapi.OT_API_FlushMessageBuffer();
         otapi.OT_API_issueAssetType(serverID, nymID, contract);
 
-        Thread.sleep(Configuration.getWaitTime());
+        Utility.delay();
 
         String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
         System.out.println("IN issueAssetType " + serverResponseMessage);
         if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
             otapi.OT_API_FlushMessageBuffer();
             otapi.OT_API_getRequest(serverID, nymID);
-            Thread.sleep(Configuration.getWaitTime());
+            Utility.delay();
             otapi.OT_API_issueAssetType(serverID, nymID, contract);
-            Thread.sleep(Configuration.getWaitTime());
+            Utility.delay();
             serverResponseMessage = otapi.OT_API_PopMessageBuffer();
             if ((serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0)) {
                 return false;

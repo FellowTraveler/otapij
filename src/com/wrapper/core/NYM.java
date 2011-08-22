@@ -97,6 +97,7 @@ package com.wrapper.core;
 
 import com.wrapper.core.jni.otapi;
 import com.wrapper.core.util.Configuration;
+import com.wrapper.core.util.Utility;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -161,7 +162,7 @@ public class NYM {
         }
         System.out.println("Before wait");
         try {
-            Thread.sleep(Configuration.getWaitTime());
+            Utility.delay();
         } catch (InterruptedException ex) {
             Logger.getLogger(NYM.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -296,7 +297,7 @@ public class NYM {
 
                 otapi.OT_API_FlushMessageBuffer();
                 otapi.OT_API_createUserAccount(serverID, nymID);
-                Thread.sleep(Configuration.getWaitTime());
+                Utility.delay();
                 String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
                 System.out.println("IN send message,OT_API_IsNym_RegisteredAtServer serverResponseMessage " + serverResponseMessage);
 
@@ -307,7 +308,7 @@ public class NYM {
                 } else if (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 1) {
                     otapi.OT_API_FlushMessageBuffer();
                     otapi.OT_API_getRequest(serverID, nymID);
-                    Thread.sleep(Configuration.getWaitTime());
+                    Utility.delay();
                     serverResponseMessage = otapi.OT_API_PopMessageBuffer();
                     if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
                         return false;
@@ -321,7 +322,7 @@ public class NYM {
             otapi.OT_API_FlushMessageBuffer();
             otapi.OT_API_checkUser(serverID, nymID, recepientNymID);
             try {
-                Thread.sleep(Configuration.getWaitTime());
+                Utility.delay();
             } catch (InterruptedException ex) {
                 Logger.getLogger(NYM.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -333,7 +334,7 @@ public class NYM {
 
                 otapi.OT_API_getRequest(serverID, nymID);
                 try {
-                    Thread.sleep(Configuration.getWaitTime());
+                    Utility.delay();
                 } catch (InterruptedException ex) {
                     Logger.getLogger(NYM.class.getName()).log(Level.SEVERE, null, ex);
                 }

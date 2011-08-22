@@ -93,8 +93,11 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import javax.swing.JTable;
+import javax.swing.RowSorter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 public class MarketTradesTableModel extends DefaultTableModel implements WrapperTableModel {
 
@@ -115,11 +118,11 @@ public class MarketTradesTableModel extends DefaultTableModel implements Wrapper
             data[i] = row;
             i++;
         }
-
-        /*RowSorter<TableModel> sorter =
-        new TableRowSorter<TableModel>(this);
-        accountTable.setRowSorter(sorter);*/
-
+        if (values.size() > 0) {
+            RowSorter<TableModel> sorter =
+                    new TableRowSorter<TableModel>(this);
+            table.setRowSorter(sorter);
+        }
 
         fireTableDataChanged();
     }

@@ -203,6 +203,11 @@ public class Utility {
         Utility.obj = obj;
     }
 
+    public static void delay() throws InterruptedException{
+        //Thread.sleep(Configuration.getWaitTime());
+        return;
+    }
+
     public static String getKey(Map map, String value) {
 
         if ("All".equalsIgnoreCase(value)) {

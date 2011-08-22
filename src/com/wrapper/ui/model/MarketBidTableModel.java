@@ -1,4 +1,3 @@
-
 /************************************************************
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA256
@@ -88,112 +87,122 @@ yrsc64WTfAqd4s12SfKMgVFLeL/FUYH7MNqpfgjgwX5co817m9VvCntU6njIuYtV
 =/jIC
 -----END PGP SIGNATURE-----
  **************************************************************/
-
 package com.wrapper.ui.model;
 
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import javax.swing.JTable;
+import javax.swing.RowSorter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 public class MarketBidTableModel extends DefaultTableModel implements WrapperTableModel {
-        private String[] columnNames = {"Price","Amount","Multiple"};
-        private Object[][] data;
-        /*private Object[][] data = {
-	    {"Asset1","100"},
-	    {"Server2","200"},
-	    {"Server3","300"}
-	       };*/
 
-      public void setValue(Map values,JTable accountTable){
+    private String[] columnNames = {"Price", "Quantity", "Multiple"};
+    private Object[][] data;
+    /*private Object[][] data = {
+    {"Asset1","100"},
+    {"Server2","200"},
+    {"Server3","300"}
+    };*/
 
-       clearValue();
-       System.out.println("values.size():"+values.size());
-       Set set = values.keySet();
-       Iterator iterator = set.iterator();
-       int i=0;
-       data = new Object[values.size()][];
-       while(iterator.hasNext()){
-           String key = (String)iterator.next();
-           String[] row = (String[])values.get(key);
-           data[i] = row;
-           i++;
-       }
+    public void setValue(Map values, JTable bidTable) {
 
-       /*RowSorter<TableModel> sorter =
-             new TableRowSorter<TableModel>(this);
-           accountTable.setRowSorter(sorter);*/
-
-
-      fireTableDataChanged();
+        clearValue();
+        System.out.println("values.size():" + values.size());
+        Set set = values.keySet();
+        Iterator iterator = set.iterator();
+        int i = 0;
+        data = new Object[values.size()][];
+        while (iterator.hasNext()) {
+            String key = (String) iterator.next();
+            String[] row = (String[]) values.get(key);
+            data[i] = row;
+            i++;
         }
+        if (values.size() > 0) {
+            RowSorter<TableModel> sorter =
+                    new TableRowSorter<TableModel>(this);
+            bidTable.setRowSorter(sorter);
+
+        }
+
+        fireTableDataChanged();
+    }
+
     @Override
     public void setValueAt(Object aValue, int row, int column) {
-        if(row<0 || column<0)
+        if (row < 0 || column < 0) {
             return;
+        }
         data[row][column] = aValue;
         fireTableCellUpdated(row, column);
     }
-        public int getColumnCount() {
-            return columnNames.length;
-        }
 
-        public int getRowCount() {
-            if(data!=null)
+    public int getColumnCount() {
+        return columnNames.length;
+    }
+
+    public int getRowCount() {
+        if (data != null) {
             return data.length;
-            else
-                return 0;
+        } else {
+            return 0;
         }
+    }
 
-        public String getColumnName(int col) {
-            return columnNames[col];
+    public String getColumnName(int col) {
+        return columnNames[col];
+    }
+
+    public Object getValueAt(int row, int col) {
+
+        if (row > -1 && col > -1 && data != null) {
+            return data[row][col];
+        } else {
+            return null;
         }
+    }
 
-        public Object getValueAt(int row, int col) {
-
-            if(row>-1 && col>-1 && data!=null)
-                return data[row][col];
-            else
-                return null;
-        }
-
-        /*
-         * JTable uses this method to determine the default renderer/
-         * editor for each cell.  If we didn't implement this method,
-         * then the last column would contain text ("true"/"false"),
-         * rather than a check box.
-         */
-
+    /*
+     * JTable uses this method to determine the default renderer/
+     * editor for each cell.  If we didn't implement this method,
+     * then the last column would contain text ("true"/"false"),
+     * rather than a check box.
+     */
     @Override
-        public Class getColumnClass(int column) {
-               Class returnValue;
-               if ((column >= 0) && (column < getColumnCount())) {
-                 if(getValueAt(0, column)==null)
-                     return String.class;
-                 returnValue = getValueAt(0, column).getClass();
-               } else {
-                 returnValue = Object.class;
-               }
-               return returnValue;
-             }
-        /*
-         * Don't need to implement this method unless your table's
-         * editable.
-         */
-        public boolean isCellEditable(int row, int col) {
-
-                return false;
-
+    public Class getColumnClass(int column) {
+        Class returnValue;
+        if ((column >= 0) && (column < getColumnCount())) {
+            if (getValueAt(0, column) == null) {
+                return String.class;
+            }
+            returnValue = getValueAt(0, column).getClass();
+        } else {
+            returnValue = Object.class;
         }
+        return returnValue;
+    }
+    /*
+     * Don't need to implement this method unless your table's
+     * editable.
+     */
+
+    public boolean isCellEditable(int row, int col) {
+
+        return false;
+
+    }
 
     public void clearValue() {
         data = null;
         fireTableDataChanged();
     }
 
-    public static void removeCols(JTable marketTable){
+    public static void removeCols(JTable marketTable) {
 
         TableColumnModel tcm = marketTable.getColumnModel();
         System.out.println("getColumnCount:" + tcm.getColumnCount());
@@ -202,5 +211,3 @@ public class MarketBidTableModel extends DefaultTableModel implements WrapperTab
         }
     }
 }
-
-

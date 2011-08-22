@@ -1668,6 +1668,7 @@
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                       <Component id="jPanel31" alignment="0" min="0" max="32767" attributes="1"/>
                                       <Component id="jScrollPane23" alignment="0" pref="187" max="32767" attributes="1"/>
+                                      <Component id="jLabel51" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                               </Group>
@@ -1729,7 +1730,9 @@
                                   <Component id="jTabbedPane3" min="-2" pref="293" max="-2" attributes="1"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                                  <Component id="jLabel51" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jScrollPane23" min="0" pref="0" max="32767" attributes="1"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jPanel31" min="-2" max="-2" attributes="0"/>
@@ -2470,6 +2473,12 @@
                     </Component>
                   </SubComponents>
                 </Container>
+                <Component class="javax.swing.JLabel" name="jLabel51">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" resourceKey="jLabel51.text"/>
+                    <Property name="name" type="java.lang.String" value="jLabel51" noResource="true"/>
+                  </Properties>
+                </Component>
               </SubComponents>
             </Container>
           </SubComponents>

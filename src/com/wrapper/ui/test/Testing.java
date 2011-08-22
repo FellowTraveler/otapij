@@ -90,16 +90,27 @@ yrsc64WTfAqd4s12SfKMgVFLeL/FUYH7MNqpfgjgwX5co817m9VvCntU6njIuYtV
 
 package com.wrapper.ui.test;
 
+import com.wrapper.core.util.Utility;
 import com.wrapper.ui.dialogs.OTPasswordDialog;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class Testing {
 public static void main(String a[]){
 
+
+        System.out.println("Hi1111.......");
+        try {
+            Utility.delay();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Testing.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("H21111.......");
+
        // Get this string from a modal.
-       String strPassword = null;
+       /*String strPassword = null;
        new OTPasswordDialog(null, true).setVisible(true);
-       strPassword = OTPasswordDialog.getPassword();
-       System.out.println("strPassword:"+strPassword);
+       strPassword = OTPasswordDialog.getPassword();*/
 }
 }

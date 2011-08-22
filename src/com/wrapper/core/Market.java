@@ -106,8 +106,10 @@ import com.wrapper.core.jni.TradeListNym;
 import com.wrapper.core.jni.otapi;
 import com.wrapper.core.util.Configuration;
 import com.wrapper.core.util.Utility;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Market {
@@ -115,19 +117,16 @@ public class Market {
     public static Map loadMarketList(String serverID, String nymID) throws InterruptedException {
 
         System.out.println("In loadMarketList, serverID:" + serverID + " nymID:" + nymID+" otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID):"+otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID));
-        System.out.println(" Load market:"+Configuration.getNbrTransactionCount());
 
         if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
             Utility.getTransactionNumbers(serverID, nymID);
         }
 
-        System.out.println("otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID):"+otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID));
-
         Map marketListMap = new HashMap();
 
         otapi.OT_API_FlushMessageBuffer();
         otapi.OT_API_getMarketList(serverID, nymID);
-        Thread.sleep(Configuration.getWaitTime());
+        Utility.delay();
         String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
         System.out.println("IN loadMarketList " + serverResponseMessage);
 
@@ -135,7 +134,7 @@ public class Market {
 
             otapi.OT_API_FlushMessageBuffer();
             otapi.OT_API_getRequest(serverID, nymID);
-            Thread.sleep(Configuration.getWaitTime());
+            Utility.delay();
             serverResponseMessage = otapi.OT_API_PopMessageBuffer();
             System.out.println("IN getRequestNumber " + serverResponseMessage);
 
@@ -143,7 +142,7 @@ public class Market {
                 return null;
             } else {
                 otapi.OT_API_getMarketList(serverID, nymID);
-                Thread.sleep(Configuration.getWaitTime());
+                Utility.delay();
                 serverResponseMessage = otapi.OT_API_PopMessageBuffer();
             }
 
@@ -231,7 +230,7 @@ public class Market {
 
         otapi.OT_API_FlushMessageBuffer();
         otapi.OT_API_issueMarketOffer(serverID, nymID, assetTypeID, assetAcctID, currencyTypeID, currencyAcctID, scale, minIncrement, quantity, price, selling);
-        Thread.sleep(Configuration.getWaitTime());
+        Utility.delay();
         String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
         System.out.println("IN createOrder,OT_API_issueMarketOffer " + serverResponseMessage);
 
@@ -239,7 +238,7 @@ public class Market {
 
             otapi.OT_API_FlushMessageBuffer();
             otapi.OT_API_getRequest(serverID, nymID);
-            Thread.sleep(Configuration.getWaitTime());
+            Utility.delay();
             serverResponseMessage = otapi.OT_API_PopMessageBuffer();
             System.out.println("IN getRequestNumber,OT_API_issueMarketOffer " + serverResponseMessage);
 
@@ -248,7 +247,7 @@ public class Market {
                 return false;
             } else {
                 otapi.OT_API_issueMarketOffer(serverID, nymID, assetTypeID, assetAcctID, currencyTypeID, currencyAcctID, scale, minIncrement, quantity, price, selling);
-                Thread.sleep(Configuration.getWaitTime());
+                Utility.delay();
                 serverResponseMessage = otapi.OT_API_PopMessageBuffer();
                 System.out.println(" after getting request number,serverResponseMessage:" + serverResponseMessage);
             }
@@ -271,7 +270,7 @@ public class Market {
 
         otapi.OT_API_FlushMessageBuffer();
         otapi.OT_API_cancelNymMarketOffer(serverID, nymID, marketID, transactionID);
-        Thread.sleep(Configuration.getWaitTime());
+        Utility.delay();
         String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
         System.out.println("IN cancelOrder,OT_API_cancelNymMarketOffer " + serverResponseMessage);
 
@@ -279,7 +278,7 @@ public class Market {
 
             otapi.OT_API_FlushMessageBuffer();
             otapi.OT_API_getRequest(serverID, nymID);
-            Thread.sleep(Configuration.getWaitTime());
+            Utility.delay();
             serverResponseMessage = otapi.OT_API_PopMessageBuffer();
             System.out.println("IN getRequestNumber,OT_API_cancelNymMarketOffer " + serverResponseMessage);
 
@@ -288,7 +287,7 @@ public class Market {
                 return false;
             } else {
                 otapi.OT_API_cancelNymMarketOffer(serverID, nymID, marketID, transactionID);
-                Thread.sleep(Configuration.getWaitTime());
+                Utility.delay();
                 serverResponseMessage = otapi.OT_API_PopMessageBuffer();
             }
 
@@ -313,7 +312,7 @@ public class Market {
 
         otapi.OT_API_FlushMessageBuffer();
         otapi.OT_API_getNym_MarketOffers(serverID, nymID);
-        Thread.sleep(Configuration.getWaitTime());
+        Utility.delay();
         String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
         System.out.println("IN getNymOfferList,OT_API_getNym_MarketOffers " + serverResponseMessage);
 
@@ -321,7 +320,7 @@ public class Market {
 
             otapi.OT_API_FlushMessageBuffer();
             otapi.OT_API_getRequest(serverID, nymID);
-            Thread.sleep(Configuration.getWaitTime());
+            Utility.delay();
             serverResponseMessage = otapi.OT_API_PopMessageBuffer();
             System.out.println("IN getRequestNumber,OT_API_getNym_MarketOffers " + serverResponseMessage);
 
@@ -330,7 +329,7 @@ public class Market {
                 return null;
             } else {
                 otapi.OT_API_getNym_MarketOffers(serverID, nymID);
-                Thread.sleep(Configuration.getWaitTime());
+                Utility.delay();
                 serverResponseMessage = otapi.OT_API_PopMessageBuffer();
             }
 
@@ -386,7 +385,8 @@ public class Market {
         Map bidGridData = new HashMap();
         Map nymGridData = new HashMap();
         Map tradeNymData = new HashMap();
-        Map tradeMarketData = new HashMap();
+        //Map tradeMarketData = new HashMap();
+        List tradeMarketData = new ArrayList();
 
         MarketList marketList = Utility.getMarketList(serverID);
         MarketDetails marketDetails = null;
@@ -438,7 +438,7 @@ public class Market {
 
                 otapi.OT_API_FlushMessageBuffer();
                 otapi.OT_API_getMarketOffers(serverID, nymID, marketID, Configuration.getMarketMaxDepth());
-                Thread.sleep(Configuration.getWaitTime());
+                Utility.delay();
                 String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
                 System.out.println("IN getMarketDetails " + serverResponseMessage);
 
@@ -446,7 +446,7 @@ public class Market {
 
                     otapi.OT_API_FlushMessageBuffer();
                     otapi.OT_API_getRequest(serverID, nymID);
-                    Thread.sleep(Configuration.getWaitTime());
+                    Utility.delay();
                     serverResponseMessage = otapi.OT_API_PopMessageBuffer();
                     System.out.println("IN getRequestNumber " + serverResponseMessage);
 
@@ -455,7 +455,7 @@ public class Market {
                         return null;
                     } else {
                         otapi.OT_API_getMarketOffers(serverID, nymID, marketID, Configuration.getMarketMaxDepth());
-                        Thread.sleep(Configuration.getWaitTime());
+                        Utility.delay();
                         serverResponseMessage = otapi.OT_API_PopMessageBuffer();
                     }
 
@@ -517,7 +517,7 @@ public class Market {
                 }
                 otapi.OT_API_FlushMessageBuffer();
                 otapi.OT_API_getMarketRecentTrades(serverID, nymID, marketID);
-                Thread.sleep(Configuration.getWaitTime());
+                Utility.delay();
                 serverResponseMessage = otapi.OT_API_PopMessageBuffer();
                 System.out.println("IN getMarketDetails,OT_API_getMarketRecentTrades " + serverResponseMessage);
 
@@ -525,7 +525,7 @@ public class Market {
 
                     otapi.OT_API_FlushMessageBuffer();
                     otapi.OT_API_getRequest(serverID, nymID);
-                    Thread.sleep(Configuration.getWaitTime());
+                    Utility.delay();
                     serverResponseMessage = otapi.OT_API_PopMessageBuffer();
                     System.out.println("IN getRequestNumber,OT_API_getMarketRecentTrades " + serverResponseMessage);
 
@@ -534,7 +534,7 @@ public class Market {
                         return null;
                     } else {
                         otapi.OT_API_getMarketRecentTrades(serverID, nymID, marketID);
-                        Thread.sleep(Configuration.getWaitTime());
+                        Utility.delay();
                         serverResponseMessage = otapi.OT_API_PopMessageBuffer();
                     }
 
@@ -553,7 +553,6 @@ public class Market {
                         System.out.println("getMarketDetails - tradeListMarket returns null");
                         return null;
                     }
-
 
                     for (int j = 0; j < tradeListMarket.GetTradeDataMarketCount(); j++) {
                         TradeDataMarket tradeDataMarket = tradeListMarket.GetTradeDataMarket(j);
@@ -578,14 +577,15 @@ public class Market {
                         tradeDataRow[1] = tradeDataMarket.getPrice()==null?"":tradeDataMarket.getPrice();
                         tradeDataRow[0] = tradeDataMarket.getTransaction_id()==null?"":tradeDataMarket.getTransaction_id();
 
-                        tradeMarketData.put(tradeDataMarket.getTransaction_id(), tradeDataRow);
+                        tradeMarketData.add(tradeDataRow);
+
 
                     }
                 }
 
                 otapi.OT_API_FlushMessageBuffer();
                 otapi.OT_API_getNym_MarketOffers(serverID, nymID);
-                Thread.sleep(Configuration.getWaitTime());
+                Utility.delay();
                 serverResponseMessage = otapi.OT_API_PopMessageBuffer();
                 System.out.println("IN getMarketDetails,OT_API_getNym_MarketOffers " + serverResponseMessage);
 
@@ -593,7 +593,7 @@ public class Market {
 
                     otapi.OT_API_FlushMessageBuffer();
                     otapi.OT_API_getRequest(serverID, nymID);
-                    Thread.sleep(Configuration.getWaitTime());
+                    Utility.delay();
                     serverResponseMessage = otapi.OT_API_PopMessageBuffer();
                     System.out.println("IN getRequestNumber,OT_API_getNym_MarketOffers " + serverResponseMessage);
 
@@ -602,7 +602,7 @@ public class Market {
                         return null;
                     } else {
                         otapi.OT_API_getNym_MarketOffers(serverID, nymID);
-                        Thread.sleep(Configuration.getWaitTime());
+                        Utility.delay();
                         serverResponseMessage = otapi.OT_API_PopMessageBuffer();
                     }
 
@@ -710,7 +710,7 @@ public class Market {
 
         otapi.OT_API_FlushMessageBuffer();
         otapi.OT_API_getMarketList(serverID, nymID);
-        Thread.sleep(Configuration.getWaitTime());
+        Utility.delay();
         String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
         System.out.println("IN getTicker " + serverResponseMessage);
 
@@ -718,7 +718,7 @@ public class Market {
 
             otapi.OT_API_FlushMessageBuffer();
             otapi.OT_API_getRequest(serverID, nymID);
-            Thread.sleep(Configuration.getWaitTime());
+            Utility.delay();
             serverResponseMessage = otapi.OT_API_PopMessageBuffer();
             System.out.println("IN getRequestNumber " + serverResponseMessage);
 
@@ -726,7 +726,7 @@ public class Market {
                 return null;
             } else {
                 otapi.OT_API_getMarketList(serverID, nymID);
-                Thread.sleep(Configuration.getWaitTime());
+                Utility.delay();
                 serverResponseMessage = otapi.OT_API_PopMessageBuffer();
             }
 

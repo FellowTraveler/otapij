@@ -379,7 +379,7 @@ public class CashPurseAccount extends Account {
                 otapi.OT_API_FlushMessageBuffer();
                 otapi.OT_API_checkUser(serverID, nymID, recepientNymID);
                 try {
-                    Thread.sleep(Configuration.getWaitTime());
+                    Utility.delay();
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
@@ -391,7 +391,7 @@ public class CashPurseAccount extends Account {
 
                     otapi.OT_API_getRequest(serverID, nymID);
                     try {
-                        Thread.sleep(Configuration.getWaitTime());
+                        Utility.delay();
                     } catch (InterruptedException ex) {
                         ex.printStackTrace();
                     }
@@ -467,7 +467,7 @@ public class CashPurseAccount extends Account {
         otapi.OT_API_FlushMessageBuffer();
         otapi.OT_API_notarizeDeposit(serverID, nymID, accountID, newPurse);
 
-        Thread.sleep(Configuration.getWaitTime());
+        Utility.delay();
 
         String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
         System.out.println("IN depositCashPurse, server response:" + serverResponseMessage);
@@ -478,7 +478,7 @@ public class CashPurseAccount extends Account {
                 return false;
             } else {
                 otapi.OT_API_notarizeDeposit(serverID, nymID, accountID, newPurse);
-                Thread.sleep(Configuration.getWaitTime());
+                Utility.delay();
                 serverResponseMessage = otapi.OT_API_PopMessageBuffer();
                 if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
                     return false;
@@ -512,7 +512,7 @@ public class CashPurseAccount extends Account {
         otapi.OT_API_FlushMessageBuffer();
         otapi.OT_API_exchangePurse(serverID, assetID, nymID, newPurse);
 
-        Thread.sleep(Configuration.getWaitTime());
+        Utility.delay();
 
         String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
         System.out.println("IN Exchange cash, cashpurse, server response:" + serverResponseMessage);
@@ -523,7 +523,7 @@ public class CashPurseAccount extends Account {
                 return false;
             } else {
                 otapi.OT_API_exchangePurse(serverID, assetID, nymID, newPurse);
-                Thread.sleep(Configuration.getWaitTime());
+                Utility.delay();
                 serverResponseMessage = otapi.OT_API_PopMessageBuffer();
                 if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
                     return false;
@@ -547,7 +547,7 @@ public class CashPurseAccount extends Account {
 
         otapi.OT_API_FlushMessageBuffer();
         otapi.OT_API_getRequest(serverID, nymID);
-        Thread.sleep(Configuration.getWaitTime());
+        Utility.delay();
         System.out.println("Type:CashPurseAccount, IN getRequestNumber " + otapi.OT_API_PopMessageBuffer());
 
     }

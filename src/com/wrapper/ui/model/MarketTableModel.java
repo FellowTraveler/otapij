@@ -98,7 +98,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
 public class MarketTableModel extends DefaultTableModel implements WrapperTableModel {
-        private String[] columnNames = {"Name","ID"};
+        private String[] columnNames = {"Markets","ID"};
         private Object[][] data;
         /*private Object[][] data = {
 	    {"Asset1","100"},

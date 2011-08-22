@@ -131,7 +131,7 @@ public class OpenTransactionAccount extends Account {
 
         otapi.OT_API_FlushMessageBuffer();
         otapi.OT_API_getRequest(serverID, nymID);
-        Thread.sleep(waitTime);
+        Utility.delay();
         System.out.println("IN getRequestNumber " + otapi.OT_API_PopMessageBuffer());
 
     }
@@ -140,7 +140,7 @@ public class OpenTransactionAccount extends Account {
 
         otapi.OT_API_FlushMessageBuffer();
         otapi.OT_API_createAssetAccount(serverID, nymID, assetID);
-        Thread.sleep(waitTime);
+        Utility.delay();
         String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
         System.out.println("IN createAssetAccount " + serverResponseMessage);
         if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
@@ -150,7 +150,7 @@ public class OpenTransactionAccount extends Account {
                 return false;
             } else {
                 otapi.OT_API_createAssetAccount(serverID, nymID, assetID);
-                Thread.sleep(waitTime);
+                Utility.delay();
             }
 
         }
@@ -164,7 +164,7 @@ public class OpenTransactionAccount extends Account {
             otapi.OT_API_SetAccountWallet_Name(otapi.OT_API_Message_GetNewAcctID(serverResponseMessage), nymID, label);
             otapi.OT_API_getOutbox(serverID, nymID, otapi.OT_API_Message_GetNewAcctID(serverResponseMessage));
             try {
-                Thread.sleep(waitTime);
+                Utility.delay();
             } catch (InterruptedException ex) {
                 Logger.getLogger(OpenTransactionAccount.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -186,7 +186,7 @@ public class OpenTransactionAccount extends Account {
 
                 otapi.OT_API_FlushMessageBuffer();
                 otapi.OT_API_createUserAccount(serverID, nymID);
-                Thread.sleep(waitTime);
+                Utility.delay();
                 String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
                 System.out.println("IN createAccount,OT_API_IsNym_RegisteredAtServer serverResponseMessage " + serverResponseMessage);
                 if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
@@ -197,7 +197,7 @@ public class OpenTransactionAccount extends Account {
 
                     otapi.OT_API_FlushMessageBuffer();
                     otapi.OT_API_getRequest(serverID, nymID);
-                    Thread.sleep(waitTime);
+                    Utility.delay();
                     serverResponseMessage = otapi.OT_API_PopMessageBuffer();
                     if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
                         System.out.println("IN createAccount, during nym registration, getrequestNumber failed . serverResponseMessage - " + serverResponseMessage);
@@ -458,13 +458,13 @@ public class OpenTransactionAccount extends Account {
 
         otapi.OT_API_FlushMessageBuffer();
         otapi.OT_API_processInbox(serverID, nymID, accountID, accountLedger);
-        Thread.sleep(Configuration.getWaitTime());
+        Utility.delay();
         String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
         System.out.println("IN processInbox --- " + serverResponseMessage);
         if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
             getRequestNumber(serverID, nymID, Configuration.getWaitTime());
             otapi.OT_API_processInbox(serverID, nymID, accountID, accountLedger);
-            Thread.sleep(Configuration.getWaitTime());
+            Utility.delay();
             serverResponseMessage = otapi.OT_API_PopMessageBuffer();
             if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
                 System.out.println("Return False - OT_API_processInbox call failed");
@@ -495,7 +495,7 @@ public class OpenTransactionAccount extends Account {
         otapi.OT_API_getAccount(serverID, nymID, accountID);
         otapi.OT_API_getOutbox(serverID, nymID, accountID);
 
-        Thread.sleep(Configuration.getWaitTime());
+        Utility.delay();
 
         String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
         if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
@@ -508,7 +508,7 @@ public class OpenTransactionAccount extends Account {
                 otapi.OT_API_getInbox(serverID, nymID, accountID);
                 otapi.OT_API_getAccount(serverID, nymID, accountID);
                 otapi.OT_API_getOutbox(serverID, nymID, accountID);
-                Thread.sleep(Configuration.getWaitTime());
+                Utility.delay();
                 serverResponseMessage = otapi.OT_API_PopMessageBuffer();
             }
         }
@@ -537,7 +537,7 @@ public class OpenTransactionAccount extends Account {
         otapi.OT_API_getInbox(serverID, nymID, accountID);
         otapi.OT_API_getAccount(serverID, nymID, accountID);
 
-        Thread.sleep(Configuration.getWaitTime());
+        Utility.delay();
 
         String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
         if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
@@ -549,7 +549,7 @@ public class OpenTransactionAccount extends Account {
 
                 otapi.OT_API_getInbox(serverID, nymID, accountID);
                 otapi.OT_API_getAccount(serverID, nymID, accountID);
-                Thread.sleep(Configuration.getWaitTime());
+                Utility.delay();
                 serverResponseMessage = otapi.OT_API_PopMessageBuffer();
             }
         }
@@ -656,7 +656,7 @@ public class OpenTransactionAccount extends Account {
         otapi.OT_API_getOutbox(serverID, nymID, accountID);
 
         try {
-            Thread.sleep(Configuration.getWaitTime());
+            Utility.delay();
         } catch (InterruptedException ex) {
             Logger.getLogger(OpenTransactionAccount.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -664,7 +664,7 @@ public class OpenTransactionAccount extends Account {
         if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
             getRequestNumber(serverID, nymID, Configuration.getWaitTime());
             otapi.OT_API_getOutbox(serverID, nymID, accountID);
-            Thread.sleep(Configuration.getWaitTime());
+            Utility.delay();
             serverResponseMessage = otapi.OT_API_PopMessageBuffer();
             if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
                 System.out.println("Failed loading OT_API_getOutbox");
@@ -813,13 +813,13 @@ public class OpenTransactionAccount extends Account {
         }
         otapi.OT_API_FlushMessageBuffer();
         otapi.OT_API_notarizeDeposit(serverID, nymID, accountID, purse);
-        Thread.sleep(Configuration.getWaitTime());
+        Utility.delay();
         String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
         System.out.println("IN depositCash server response for notarize deposit --- " + serverResponseMessage);
         if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
             getRequestNumber(serverID, nymID, Configuration.getWaitTime());
             otapi.OT_API_notarizeDeposit(serverID, nymID, accountID, purse);
-            Thread.sleep(Configuration.getWaitTime());
+            Utility.delay();
             serverResponseMessage = otapi.OT_API_PopMessageBuffer();
             System.out.println("IN depositCash server response for notarize deposit after doing getrequestNumber--- " + serverResponseMessage);
             if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
@@ -830,7 +830,7 @@ public class OpenTransactionAccount extends Account {
                 if (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 1 && otapi.OT_API_Message_GetTransactionSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) {
                     getInboxAccount(serverID, nymID, accountID);
                     otapi.OT_API_notarizeDeposit(serverID, nymID, accountID, purse);
-                    Thread.sleep(Configuration.getWaitTime());
+                    Utility.delay();
                     serverResponseMessage = otapi.OT_API_PopMessageBuffer();
                     System.out.println("IN depositCash After getInboxAccount and OT_API_notarizeDeposit call,serverResponseMessage:" + serverResponseMessage);
                     if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
@@ -856,7 +856,7 @@ public class OpenTransactionAccount extends Account {
         if (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 1 && otapi.OT_API_Message_GetTransactionSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) {
             getInboxAccount(serverID, nymID, accountID);
             otapi.OT_API_notarizeDeposit(serverID, nymID, accountID, purse);
-            Thread.sleep(Configuration.getWaitTime());
+            Utility.delay();
             serverResponseMessage = otapi.OT_API_PopMessageBuffer();
             if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
                 return false;
@@ -875,14 +875,14 @@ public class OpenTransactionAccount extends Account {
         boolean isSuccess = false;
         otapi.OT_API_FlushMessageBuffer();
         otapi.OT_API_withdrawVoucher(serverID, nymID, accountID, recepientNymID, chequeMemo, amount);
-        Thread.sleep(Configuration.getWaitTime());
+        Utility.delay();
         String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
         System.out.println("IN withdrawVoucher, serverResponseMessage -- " + serverResponseMessage);
         System.out.println("serverResponseMessage ends ");
         if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
             getRequestNumber(serverID, nymID, Configuration.getWaitTime());
             otapi.OT_API_withdrawVoucher(serverID, nymID, accountID, recepientNymID, chequeMemo, amount);
-            Thread.sleep(Configuration.getWaitTime());
+            Utility.delay();
             serverResponseMessage = otapi.OT_API_PopMessageBuffer();
             if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
                 return null;
@@ -897,7 +897,7 @@ public class OpenTransactionAccount extends Account {
             if (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 1) {
                 getInboxAccount(serverID, nymID, accountID);
                 otapi.OT_API_withdrawVoucher(serverID, nymID, accountID, recepientNymID, chequeMemo, amount);
-                Thread.sleep(Configuration.getWaitTime());
+                Utility.delay();
                 serverResponseMessage = otapi.OT_API_PopMessageBuffer();
                 if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
                     return null;
@@ -933,12 +933,12 @@ public class OpenTransactionAccount extends Account {
         if (assetContract == null) {
             otapi.OT_API_FlushMessageBuffer();
             otapi.OT_API_getContract(serverID, nymID, assetID);
-            Thread.sleep(Configuration.getWaitTime());
+            Utility.delay();
             serverResponseMessage = otapi.OT_API_PopMessageBuffer();
             if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
                 getRequestNumber(serverID, nymID, Configuration.getWaitTime());
                 otapi.OT_API_getContract(serverID, nymID, assetID);
-                Thread.sleep(Configuration.getWaitTime());
+                Utility.delay();
                 serverResponseMessage = otapi.OT_API_PopMessageBuffer();
                 if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
                     return false;
@@ -956,12 +956,12 @@ public class OpenTransactionAccount extends Account {
 
             otapi.OT_API_FlushMessageBuffer();
             otapi.OT_API_getMint(serverID, nymID, assetID);
-            Thread.sleep(Configuration.getWaitTime());
+            Utility.delay();
             serverResponseMessage = otapi.OT_API_PopMessageBuffer();
             if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
                 getRequestNumber(serverID, nymID, Configuration.getWaitTime());
                 otapi.OT_API_getMint(serverID, nymID, assetID);
-                Thread.sleep(Configuration.getWaitTime());
+                Utility.delay();
                 serverResponseMessage = otapi.OT_API_PopMessageBuffer();
                 if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
                     return false;
@@ -979,13 +979,13 @@ public class OpenTransactionAccount extends Account {
         }
         otapi.OT_API_FlushMessageBuffer();
         otapi.OT_API_notarizeWithdrawal(serverID, nymID, accountID, amount);
-        Thread.sleep(Configuration.getWaitTime());
+        Utility.delay();
         serverResponseMessage = otapi.OT_API_PopMessageBuffer();
         System.out.println("IN withdrawCash --- " + serverResponseMessage);
         if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
             getRequestNumber(serverID, nymID, Configuration.getWaitTime());
             otapi.OT_API_notarizeWithdrawal(serverID, nymID, accountID, amount);
-            Thread.sleep(Configuration.getWaitTime());
+            Utility.delay();
             serverResponseMessage = otapi.OT_API_PopMessageBuffer();
             if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
                 return false;
@@ -994,7 +994,7 @@ public class OpenTransactionAccount extends Account {
                 if (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 1 && otapi.OT_API_Message_GetTransactionSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) {
                     getInboxAccount(serverID, nymID, accountID);
                     otapi.OT_API_notarizeWithdrawal(serverID, nymID, accountID, amount);
-                    Thread.sleep(Configuration.getWaitTime());
+                    Utility.delay();
                     serverResponseMessage = otapi.OT_API_PopMessageBuffer();
                     if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
                         return false;
@@ -1007,7 +1007,7 @@ public class OpenTransactionAccount extends Account {
         if (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 1 && otapi.OT_API_Message_GetTransactionSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) {
             getInboxAccount(serverID, nymID, accountID);
             otapi.OT_API_notarizeWithdrawal(serverID, nymID, accountID, amount);
-            Thread.sleep(Configuration.getWaitTime());
+            Utility.delay();
             serverResponseMessage = otapi.OT_API_PopMessageBuffer();
             if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
                 return false;
@@ -1027,13 +1027,13 @@ public class OpenTransactionAccount extends Account {
         }
         otapi.OT_API_FlushMessageBuffer();
         otapi.OT_API_notarizeTransfer(serverID, nymID, accountID, recepientAccountID, amount, note);
-        Thread.sleep(Configuration.getWaitTime());
+        Utility.delay();
         String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
         System.out.println("IN sendTransfer,serverResponseMessage --- " + serverResponseMessage);
         if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
             getRequestNumber(serverID, nymID, Configuration.getWaitTime());
             otapi.OT_API_notarizeTransfer(serverID, nymID, accountID, recepientAccountID, amount, note);
-            Thread.sleep(Configuration.getWaitTime());
+            Utility.delay();
             serverResponseMessage = otapi.OT_API_PopMessageBuffer();
             if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
                 return false;
@@ -1043,7 +1043,7 @@ public class OpenTransactionAccount extends Account {
                 if (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 1 && otapi.OT_API_Message_GetTransactionSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) {
                     getInboxAccount(serverID, nymID, accountID);
                     otapi.OT_API_notarizeTransfer(serverID, nymID, accountID, recepientAccountID, amount, note);
-                    Thread.sleep(Configuration.getWaitTime());
+                    Utility.delay();
                     serverResponseMessage = otapi.OT_API_PopMessageBuffer();
                     if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
                         return false;
@@ -1057,7 +1057,7 @@ public class OpenTransactionAccount extends Account {
         if (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 1 && otapi.OT_API_Message_GetTransactionSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) {
             getInboxAccount(serverID, nymID, accountID);
             otapi.OT_API_notarizeTransfer(serverID, nymID, accountID, recepientAccountID, amount, note);
-            Thread.sleep(Configuration.getWaitTime());
+            Utility.delay();
             serverResponseMessage = otapi.OT_API_PopMessageBuffer();
             if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
                 return false;
@@ -1068,7 +1068,7 @@ public class OpenTransactionAccount extends Account {
         if (isSuccess) {
             otapi.OT_API_getOutbox(serverID, nymID, accountID);
             try {
-                Thread.sleep(Configuration.getWaitTime());
+                Utility.delay();
             } catch (InterruptedException ex) {
                 Logger.getLogger(OpenTransactionAccount.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -1086,13 +1086,13 @@ public class OpenTransactionAccount extends Account {
         }
         otapi.OT_API_FlushMessageBuffer();
         otapi.OT_API_depositCheque(serverID, nymID, accountID, cheque);
-        Thread.sleep(Configuration.getWaitTime());
+        Utility.delay();
         String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
         System.out.println("IN depositCheque --- " + serverResponseMessage);
         if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
             getRequestNumber(serverID, nymID, Configuration.getWaitTime());
             otapi.OT_API_depositCheque(serverID, nymID, accountID, cheque);
-            Thread.sleep(Configuration.getWaitTime());
+            Utility.delay();
             serverResponseMessage = otapi.OT_API_PopMessageBuffer();
             if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
                 return false;
@@ -1102,7 +1102,7 @@ public class OpenTransactionAccount extends Account {
                 if (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 1 && otapi.OT_API_Message_GetTransactionSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) {
                     getInboxAccount(serverID, nymID, accountID);
                     otapi.OT_API_depositCheque(serverID, nymID, accountID, cheque);
-                    Thread.sleep(Configuration.getWaitTime());
+                    Utility.delay();
                     serverResponseMessage = otapi.OT_API_PopMessageBuffer();
                     if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
                         return false;
@@ -1117,7 +1117,7 @@ public class OpenTransactionAccount extends Account {
         if (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 1 && otapi.OT_API_Message_GetTransactionSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) {
             getInboxAccount(serverID, nymID, accountID);
             otapi.OT_API_depositCheque(serverID, nymID, accountID, cheque);
-            Thread.sleep(Configuration.getWaitTime());
+            Utility.delay();
             serverResponseMessage = otapi.OT_API_PopMessageBuffer();
             if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
                 return false;
