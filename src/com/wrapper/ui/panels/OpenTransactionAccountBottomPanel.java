@@ -334,6 +334,7 @@ public class OpenTransactionAccountBottomPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Inbox processed successfully","Processing Success",JOptionPane.INFORMATION_MESSAGE);
             Utility.reloadOTDetails(accountID);
             MainPage.reLoadAccount();
+            Utility.setLoadNymTrades(true);
         }else
             JOptionPane.showMessageDialog(this, "Error in processing Inbox","Server Error",JOptionPane.ERROR_MESSAGE);
         

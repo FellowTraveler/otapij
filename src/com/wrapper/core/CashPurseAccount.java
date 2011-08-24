@@ -266,115 +266,227 @@ public class CashPurseAccount extends Account {
 
         String newPurse = null;
         //oldPurse = otapi.OT_API_LoadPurse(serverID, assetID, nymID);
-        if (selectedTokens == null || selectedTokens.size() < 1) {
+
+        // By this point, we know that "selected tokens" has a size of 0, or MORE THAN ONE. (But NOT 1 exactly.)
+        // (At least, if this function was called by exportCashPurse.)
+
+
+        // This block handles cases where NO TOKENS ARE SELECTED.
+        // (Meaning "PROCESS" THEM ALL.)
+        //
+        if ((selectedTokens == null) || (selectedTokens.size() < 1)) {
             System.out.println("IN Entire Cash Purse");
-            newPurse = otapi.OT_API_CreatePurse(serverID, assetID, nymID);
+
+            // newPurse is created, OWNED BY RECIPIENT.
+            //
+            newPurse = otapi.OT_API_CreatePurse(serverID, assetID, recepientNymID);
+
             if (newPurse == null) {
                 System.out.println("IN processCashPurse, OT_API_CreatePurse returned null");
                 return null;
             }
+
+            // Iterate through the OLD PURSE. (as tempPurse.)
+            //
             int count = otapi.OT_API_Purse_Count(serverID, assetID, oldPurse);
             String tempPurse = oldPurse;
-            for (int i = 0; i < count; i++) {
-                String token = otapi.OT_API_Purse_Peek(serverID, assetID, nymID, tempPurse);
-                if (token == null) {
-                    System.out.println("IN processCashPurse,OT_API_Purse_Peek returned null... Skipping this record");
-                    continue;
-                }
-                otapi.OT_API_Token_ChangeOwner(serverID, assetID, token, nymID, recepientNymID);
-                String str = otapi.OT_API_Purse_Push(serverID, assetID, recepientNymID, newPurse, token);
-                if (str == null) {
-                    System.out.println("IN processCashPurse,OT_API_Purse_Push returned null... Skipping this record");
-                    continue;
-                }
 
-                newPurse = str;
+            for (int i = 0; i < count; i++) {
+                // Peek into TOKEN, from the top token on the stack. (And it's STILL on top after this call.)
+                //
+                String token = otapi.OT_API_Purse_Peek(serverID, assetID, nymID, tempPurse);
+
+                // Now pop the token off of tempPurse (our iterator for the old purse).
+                // Store updated copy of purse (sans token) into "str1".
+                //
                 String str1 = otapi.OT_API_Purse_Pop(serverID, assetID, nymID, tempPurse);
 
-                if (str1 == null) {
-                    System.out.println("IN processCashPurse,OT_API_Purse_Push returned null... Skipping this record");
-                    continue;
+                if ((token == null) || (str1 == null)) {
+                    System.out.println("IN processCashPurse,OT_API_Purse_Peek or OT_API_Purse_Pop returned null... SHOULD NEVER HAPPEN. Returning null.");
+                    return null;
                 }
+
+                // Since pop succeeded, copy the output to tempPurse (for next iteration, in case any continue's happen below.)
+                // Now tempPurse contains what it did before, MINUS ONE TOKEN. (The exported one.)
+                //
                 tempPurse = str1;
 
+                // -----------------------
+
+                // Change the OWNER on token, from NymID to RECIPIENT.
+                // (In this block, we change ALL the tokens in the purse.)
+                //
+                String exportedToken = otapi.OT_API_Token_ChangeOwner(serverID, assetID, token, nymID, recepientNymID);
+
+                // If change failed, then continue.
+                if (exportedToken == null) {
+                    System.out.println("IN processCashPurse,OT_API_Token_ChangeOwner returned null...(should never happen) Returning null.");
+                    return null;
+                }
+
+                // PUSH the EXPORTED TOKEN (new owner) into the new purse (again, recipient is new owner) and save results in "str".
+                // Results are, FYI, newPurse+exportedToken.
+                //
+                String str = otapi.OT_API_Purse_Push(serverID, assetID, recepientNymID, newPurse, exportedToken);
+
+                // If push failed, then continue.
+                if (str == null) {
+                    System.out.println("IN processCashPurse,OT_API_Purse_Push returned null... (should never happen) Returning null.");
+                    return null;
+                }
+
+                // Since push succeeded, copy "str" (containing newPurse+exportedToken) into newPurse.
+                newPurse = str;
+            } // for
+
+            // Save tempPurse to local storage. (For OLD Owner.)
+            // By now, all of the tokens have been popped off of this purse, so it is EMPTY.
+            // We're now saving the empty purse, since the user exported all of the tokens.
+            //
+            // THERE MAYBE SHOULD BE AN EXTRA MODAL HERE, that says,
+            // "Moneychanger will now save your purse, EMPTY, back to local storage. Are you sure you want to do this?"
+            //
+            
+            if (otapi.OT_API_SavePurse(serverID, assetID, nymID, tempPurse) == 0) // if FAILURE.
+            {
+                // No error message if saving fails??
+                // No modal?
+                //
+                // FT: adding log.
+                System.out.println("IN processCashPurse,IF block OT_API_SavePurse FAILED. SHOULD NEVER HAPPEN!!!!!!");
             }
-            otapi.OT_API_SavePurse(serverID, assetID, nymID, tempPurse);
-
-
-        } else {
+        } // -------------------------------------------------------------------------------------
+        // Else, SPECIFIC TOKENS were selected, so process them...
+        else {
             System.out.println("Tokens in Cash Purse being processed");
-            String newPurseSelectedTokens = otapi.OT_API_CreatePurse(serverID, assetID, nymID);
-            if (newPurseSelectedTokens == null) {
-                System.out.println("IN processCashPurse,1st OT_API_CreatePurse returned null");
-                return null;
-            }
+
+            // ----------------------------------------------------------
+            // newPurseSelectedTokens is created (CORRECTLY) with recepientNymID as owner.
+            // newPurseUnSelectedTokens is created (CORRECTLY) with NymID as owner. (Unselected tokens aren't being exported...)
+            //
+            String newPurseSelectedTokens = otapi.OT_API_CreatePurse(serverID, assetID, recepientNymID);
             String newPurseUnSelectedTokens = otapi.OT_API_CreatePurse(serverID, assetID, nymID);
-            if (newPurseUnSelectedTokens == null) {
-                System.out.println("IN processCashPurse,2nd OT_API_CreatePurse returned null");
+
+            if ((newPurseSelectedTokens == null) || (newPurseUnSelectedTokens == null)) {
+                System.out.println("IN processCashPurse,1st or 2nd OT_API_CreatePurse returned null");
                 return null;
             }
 
+            // ----------------------------------------------------------
+            // Iterate through oldPurse, using tempPurse as iterator.
+            //
             int count = otapi.OT_API_Purse_Count(serverID, assetID, oldPurse);
             String tempPurse = oldPurse;
-            for (int i = 0; i < count; i++) {
-                String token = otapi.OT_API_Purse_Peek(serverID, assetID, nymID, tempPurse);
-                if (token == null) {
-                    System.out.println("IN processCashPurse,OT_API_Purse_Peek returned null... Skipping this record");
-                    continue;
-                }
-                String tokenID = otapi.OT_API_Token_GetID(serverID, assetID, token);
-                token = otapi.OT_API_Token_ChangeOwner(serverID, assetID, token, nymID, recepientNymID);
-                if (token == null) {
-                    System.out.println("IN processCashPurse,OT_API_Token_ChangeOwner returned null... Skipping this record");
-                    continue;
-                }
-                if (selectedTokens.contains(tokenID)) {
 
-                    String str = otapi.OT_API_Purse_Push(serverID, assetID, nymID, newPurseSelectedTokens, token);
-                    if (str == null) {
-                        System.out.println("IN processCashPurse,OT_API_Purse_Push newPurseSelectedTokens returned null... Skipping this record");
-                        continue;
+            for (int i = 0; i < count; i++) {
+                // Peek at the token on top of the stack.
+                // (Without removing it.)
+                //
+                String token = otapi.OT_API_Purse_Peek(serverID, assetID, nymID, tempPurse);
+
+                // Remove the top token from the stack, and return the updated stack in "str1".
+                //
+                String str1 = otapi.OT_API_Purse_Pop(serverID, assetID, nymID, tempPurse);
+
+                if ((str1 == null) || (token == null)) {
+                    System.out.println("IN processCashPurse,OT_API_Purse_Peek or OT_API_Purse_Pop returned null... returning Null. (SHOULD NEVER HAPPEN.)");
+                    return null;
+                }
+
+                // Putting updated purse into iterator, so any subsequent "continue"s will work properly.
+                //
+                tempPurse = str1;
+
+                // ----------------------------------------
+
+                // Grab the TokenID for that token. (Token still has OLD OWNER.)
+                //
+                String tokenID = otapi.OT_API_Token_GetID(serverID, assetID, token);
+
+                if (tokenID == null) {
+                    System.out.println("IN processCashPurse, OT_API_Token_GetID returned null... SHOULD NEVER HAPPEN. Returning now.");
+                    return null;
+                }
+
+                // ----------------------------------------
+
+                // At this point, we check TokenID (identifying the current token) to see if it's on the SELECTED LIST.
+                //
+                if (selectedTokens.contains(tokenID)) // We ARE exporting this token. (Its ID was on the list.)
+                {
+                    // CHANGE OWNER from NYM to RECIPIENT
+                    // "token" now contains EXPORTED TOKEN, with NEW OWNER.
+                    //
+                    String exportedToken = otapi.OT_API_Token_ChangeOwner(serverID, assetID, token, nymID, recepientNymID);
+
+                    if (exportedToken == null) {
+                        System.out.println("IN processCashPurse, OT_API_Token_GetID or OT_API_Token_ChangeOwner returned null... SHOULD NEVER HAPPEN. Returning now.");
+                        return null;
                     }
 
-                    newPurseSelectedTokens = str;
-                } else {
-                    String str = otapi.OT_API_Purse_Push(serverID, assetID, recepientNymID, newPurseUnSelectedTokens, token);
+                    // Thus, push exported version of token into new purse for recipient (for selected tokens.)
+                    //
+                    String str = otapi.OT_API_Purse_Push(serverID, assetID, recepientNymID, newPurseSelectedTokens, exportedToken);
                     if (str == null) {
-                        System.out.println("IN processCashPurse,OT_API_Purse_Push newPurseUnSelectedTokens returned null... Skipping this record");
-                        continue;
+                        System.out.println("IN processCashPurse,OT_API_Purse_Push newPurseSelectedTokens returned null... SHOULD NEVER HAPPEN (returning.)");
+                        return null;
+                    }
+                    newPurseSelectedTokens = str;
+                } else // The token, this iteration, is NOT being exported, but is remaining with the original owner.
+                {
+                    String str = otapi.OT_API_Purse_Push(serverID, assetID, nymID, newPurseUnSelectedTokens, token);
+
+                    if (str == null) {
+                        System.out.println("IN processCashPurse,OT_API_Purse_Push newPurseUnSelectedTokens returned null... SHOULD NEVER HAPPEN. Returning null.");
+                        return null;
                     }
 
                     newPurseUnSelectedTokens = str;
                 }
-                String str1 = otapi.OT_API_Purse_Pop(serverID, assetID, nymID, tempPurse);
+            } // for
 
-                if (str1 == null) {
-                    System.out.println("IN processCashPurse,OT_API_Purse_Pop returned null... Skipping this record");
-                    continue;
-                }
-                tempPurse = str1;
-
+            // We SAVE newPurseUnSelectedTokens... These remain as the Nym's purse, in local storage.
+            //
+            if (otapi.OT_API_SavePurse(serverID, assetID, nymID, newPurseUnSelectedTokens) == 0) // if FAILURE.
+            {
+                // No error message if saving fails??
+                // No modal?
+                //
+                // FT: adding log.
+                System.out.println("IN processCashPurse, OT_API_SavePurse FAILED. SHOULD NEVER HAPPEN!!!!!!");
             }
 
-            if (otapi.OT_API_SavePurse(serverID, assetID, nymID, newPurseUnSelectedTokens) == 0) {
-                return null;
-            }
+            // The SELECTED ones (with Recipient as owner of purse AND tokens within) are returned as the "newPurse".
+            //
             newPurse = newPurseSelectedTokens;
-
         }
 
         return newPurse;
     }
 
+    // Input: server ID, assetID, Nym of current owner, existing purse, list of selected tokens, Nym of Recipient, and bool isPasted.
+    // Returns: "new Purse"
+    //
     public String exportCashPurse(String serverID, String assetID, String nymID, String oldPurse, ArrayList selectedTokens, String recepientNymID, boolean isPasted) {
         System.out.println("exportCashPurse starts, selectedTokens:" + selectedTokens);
         Utility.setObj(null);
+
+        // If no recipient, then recipient == Nym.
+        //
         if (recepientNymID == null || recepientNymID.length() == 0) {
+            System.out.println("exportCashPurse: recepientNym empty--using NymID for recipient instead: " + nymID);
             recepientNymID = nymID;
         }
+
+        // if "isPasted" AND recipientNymID IS NOT EQUAL TO NymID,
+        // Question: meaning of isPasted ?
+        //
         if (isPasted && !recepientNymID.equals(nymID)) {
             String recepientPubKey = otapi.OT_API_LoadPubkey(recepientNymID);
             System.out.println("recepientPubKey:" + recepientPubKey);
+
+            // This whole block is all just about loading the pubkey for the recipient, (if I don't already have it.)
+            //
             if (recepientPubKey == null) {
                 otapi.OT_API_FlushMessageBuffer();
                 otapi.OT_API_checkUser(serverID, nymID, recepientNymID);
@@ -383,6 +495,7 @@ public class CashPurseAccount extends Account {
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
+
                 String serverResponse = otapi.OT_API_PopMessageBuffer();
                 if (serverResponse != null && otapi.OT_API_Message_GetSuccess(serverResponse) == 1) {
                     recepientPubKey = otapi.OT_API_LoadPubkey(recepientNymID);
@@ -395,7 +508,9 @@ public class CashPurseAccount extends Account {
                     } catch (InterruptedException ex) {
                         ex.printStackTrace();
                     }
+
                     serverResponse = otapi.OT_API_PopMessageBuffer();
+
                     if (serverResponse == null) {
                         return null;
                     } else {
@@ -409,45 +524,105 @@ public class CashPurseAccount extends Account {
                 return null;
             }
         }
+
+        // --------------------------------------------------
+
+        // By this point, we have verified that we can load the public key for the recipient.
+        // (At least, as long as "isPasted" is true.)
+
         String token = null;
         String exportedToken = null;
+
+        // If a single token is selected, then execute this block.
+        // Otherwise, go below, and processCashPurse.
+        //
         if (selectedTokens.size() == 1) {
-            //String token = otapi.OT_API_Purse_Peek(serverID, assetID, nymID, oldPurse);
+            // New Purse is created with Nym as the owner (NOT!!!!!! recipient.)
+            //
             String newPurse = otapi.OT_API_CreatePurse(serverID, assetID, nymID);
             if (newPurse == null) {
                 System.out.println("OT_API_CreatePurse returned null");
                 return null;
             }
+
+            // "int count" starts out containing the count of the tokens in OLD PURSE.
+            //
             int count = otapi.OT_API_Purse_Count(serverID, assetID, oldPurse);
-            String tempPurse = oldPurse;
-            for (int i = 0; i < count; i++) {
-                token = otapi.OT_API_Purse_Peek(serverID, assetID, nymID, tempPurse);
-                if (token == null) {
-                    System.out.println("IN export cash,OT_API_Purse_Peek returned null... Skipping this record");
-                    continue;
+
+            String tempPurse = oldPurse; // tempPurse now contains a COPY of OLD PURSE. (From old owner...)
+
+            for (int i = 0; i < count; i++) // iterate through tempPurse, all the tokens.
+            {
+                // "token" now contains the token for this iteration.
+                token = otapi.OT_API_Purse_Peek(serverID, assetID, nymID, tempPurse); // DOESN'T POP!! Only peeks.
+
+                // Here we explicitly "pop" as well, so we are positioned in case of any "continue"s.
+                //
+                String returnStringVal = otapi.OT_API_Purse_Pop(serverID, assetID, nymID, tempPurse);
+
+                if ((token == null) || (returnStringVal == null)) // this should never happen
+                {
+                    System.out.println("IN export cash, OT_API_Purse_Peek returned null... (should never happen.) ");
+                    return null;
                 }
 
+                // tempPurse now contains its former contents, MINUS the token being EXPORTED.
+                //
+                tempPurse = returnStringVal;
+
+                // -----------------------------------
+
+                // We read the token's ID, so we can see if it is on the list of SELECTED tokens (to be exported...)
                 String tokenID = otapi.OT_API_Token_GetID(serverID, assetID, token);
 
+                // If the Token was selected for export, CHANGE OWNER from NYM to RECIPIENT.
+                // "exportedToken" will contain the output version.
+                //
                 if (selectedTokens.contains(tokenID)) {
                     exportedToken = otapi.OT_API_Token_ChangeOwner(serverID, assetID, token, nymID, recepientNymID);
-                                       
-                }else{
-                newPurse = otapi.OT_API_Purse_Push(serverID, assetID, nymID, newPurse, token);
-                }
-                tempPurse = otapi.OT_API_Purse_Pop(serverID, assetID, nymID, tempPurse);
-            }
-
-            if (otapi.OT_API_SavePurse(serverID, assetID, nymID, newPurse) == 0) {
-                        Utility.setObj(oldPurse);
+                    // Normally I'd "break" here, since we were only looking to export a single token.
+                    // However, I still need to iterate the rest of the tokens onto the NEW PURSE, and then SAVE IT.
+                    // That's why I don't break here, and instead allow the loop to continue.
+                } // If the token was NOT selected for export, just push it onto the new purse (for OLD owner, since he still owns it.)
+                else // This will happen with ALL TOKENS except ONE.
+                {
+                    returnStringVal = otapi.OT_API_Purse_Push(serverID, assetID, nymID, newPurse, token);
+                    if (returnStringVal == null) // this should never happen
+                    {
+                        System.out.println("IN export cash, OT_API_Purse_Push returned null... (should never happen.) Returning null.");
                         return null;
                     }
+                    newPurse = returnStringVal;
+                }
+            }
 
+            // By this point, we looped through all tokens in tempPurse (containing a copy of oldPurse), and we
+            // removed the ONE token being exported, and we called ChangeOwner for that token, and as we looped,
+            // we added all the other tokens (NOT being exported) to "newPurse".
 
-            return exportedToken;
+            // Therefore now we save newPurse, which overwrites the oldPurse that was previously stored there,
+            // and contains the remaining, non-exported tokens of the old owner.
+            //
+            if (otapi.OT_API_SavePurse(serverID, assetID, nymID, newPurse) == 0) {
+                // If SAVE FAILS (==0) then set Utility obj to OLD PURSE.
+                Utility.setObj(oldPurse);   // Displays on screen??
+                return null;
+            }
+
+            // This is either null, or contains the "change owner"d (exported) token.
+            //
+            return exportedToken; // This means a token is sometimes returned (here), and sometimes a purse (below.)
         }
 
+        // By this point, we know that "selected tokens" has a size of 0, or MORE THAN ONE.
+
+        // Next I create another "newPurse" by calling this function.
+        // I pass it the server, asset, NYM ID, OLD PURSE, the selected tokens, and the RECIPIENT NYM.
+        //
         String newPurse = processCashPurse(serverID, assetID, nymID, oldPurse, selectedTokens, recepientNymID);
+
+        // Whatever is returned from that function, I return here also. Presumably a purse...
+        //
         return newPurse;
     }
 

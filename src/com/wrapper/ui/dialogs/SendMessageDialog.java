@@ -329,6 +329,7 @@ public class SendMessageDialog extends javax.swing.JDialog {
             Map nymOutbox = new NYM().loadNymOutBox(nymID);
             ((NYMOutboxTableModel) outbox.getModel()).setValue(nymOutbox, outbox);
             MainPage.setNymOutbox(nymOutbox);
+            MainPage.refreshMarketNym(jTextField2.getText());
         }else{
             JOptionPane.showMessageDialog(this, "Message sending failed!","Error",JOptionPane.ERROR_MESSAGE);
         }

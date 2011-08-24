@@ -141,6 +141,15 @@ public class Utility {
 
     public static Object obj;
     private static Object settingsObj;
+    private static boolean loadNymTrades = false;
+
+    public static boolean isLoadNymTrades() {
+        return loadNymTrades;
+    }
+
+    public static void setLoadNymTrades(boolean loadNymTrades) {
+        Utility.loadNymTrades = loadNymTrades;
+    }
 
     public static Object getSettingsObj() {
         return settingsObj;

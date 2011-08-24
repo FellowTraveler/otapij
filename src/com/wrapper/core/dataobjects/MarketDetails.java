@@ -136,15 +136,6 @@ public class MarketDetails {
     private Map marketAsk;
     private List marketRecentTrades;
     private Map nymOffers;
-    private Map nymTrades;
-
-    public Map getNymTrades() {
-        return nymTrades;
-    }
-
-    public void setNymTrades(Map nymTrades) {
-        this.nymTrades = nymTrades;
-    }
 
     public String getAssetTypeID() {
         return assetTypeID;

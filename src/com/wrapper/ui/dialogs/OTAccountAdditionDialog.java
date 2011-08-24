@@ -278,6 +278,7 @@ public class OTAccountAdditionDialog extends javax.swing.JDialog {
             if(result){
                 JOptionPane.showMessageDialog(this, "Account created successfully", "Account Creation", JOptionPane.INFORMATION_MESSAGE);
                 MainPage.loadAccount(assetIDMainPage, serverIDMainPage, nymIDMainPage,selectedID);
+                MainPage.refreshMarketNym(serverIDMainPage);
             }
                 else
                 JOptionPane.showMessageDialog(this, "Account creation failed", "Account Creation", JOptionPane.ERROR_MESSAGE);

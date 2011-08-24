@@ -116,7 +116,7 @@ public class Market {
 
     public static Map loadMarketList(String serverID, String nymID) throws InterruptedException {
 
-        System.out.println("In loadMarketList, serverID:" + serverID + " nymID:" + nymID+" otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID):"+otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID));
+        System.out.println("In loadMarketList, serverID:" + serverID + " nymID:" + nymID + " otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID):" + otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID));
 
         if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
             Utility.getTransactionNumbers(serverID, nymID);
@@ -147,8 +147,6 @@ public class Market {
             }
 
         }
-
-
 
         if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
             System.out.println("loadMarketList OT_API_Message_GetSuccess returned false:");
@@ -384,7 +382,7 @@ public class Market {
         Map askGridData = new HashMap();
         Map bidGridData = new HashMap();
         Map nymGridData = new HashMap();
-        Map tradeNymData = new HashMap();
+        
         //Map tradeMarketData = new HashMap();
         List tradeMarketData = new ArrayList();
 
@@ -483,11 +481,20 @@ public class Market {
                             continue;
                         }
 
-                        String[] askRow = new String[3];
+                        String[] askRow = new String[4];
 
                         askRow[0] = askData.getPrice_per_scale();
                         askRow[1] = askData.getAvailable_assets();
                         askRow[2] = askData.getMinimum_increment();
+
+                        try {
+                            askRow[2] = String.valueOf(Double.parseDouble(askRow[0]) * Double.parseDouble(askRow[1]));
+
+                        } catch (NumberFormatException nfe) {
+                            nfe.printStackTrace();
+                            System.out.println("Invalid number returned");
+                            askRow[2] = "";
+                        }
 
                         askGridData.put(askData.getTransaction_id(), askRow);
 
@@ -502,11 +509,21 @@ public class Market {
                             continue;
                         }
 
-                        String[] bidRow = new String[3];
+                        String[] bidRow = new String[4];
 
                         bidRow[0] = bidData.getPrice_per_scale();
                         bidRow[1] = bidData.getAvailable_assets();
-                        bidRow[2] = bidData.getMinimum_increment();
+                        bidRow[3] = bidData.getMinimum_increment();
+
+                        try {
+                            bidRow[2] = String.valueOf(Double.parseDouble(bidRow[0]) * Double.parseDouble(bidRow[1]));
+
+                        } catch (NumberFormatException nfe) {
+                            nfe.printStackTrace();
+                            System.out.println("Invalid number returned");
+                            bidRow[2] = "";
+                        }
+
 
                         bidGridData.put(bidData.getTransaction_id(), bidRow);
 
@@ -560,22 +577,31 @@ public class Market {
                             continue;
                         }
 
-                        String[] tradeDataRow = new String[4];
+                        String[] tradeDataRow = new String[5];
 
-                        tradeDataRow[2] = tradeDataMarket.getAmount_sold()==null?"":tradeDataMarket.getAmount_sold();
-                        tradeDataRow[3] = tradeDataMarket.getDate() == null ? "" : tradeDataMarket.getDate();
-                        if (!tradeDataRow[3].equals("")) {
+                        tradeDataRow[2] = tradeDataMarket.getAmount_sold() == null ? "" : tradeDataMarket.getAmount_sold();
+                        tradeDataRow[4] = tradeDataMarket.getDate() == null ? "" : tradeDataMarket.getDate();
 
-                            try {
-                                tradeDataRow[3] = String.valueOf(new Date(Long.parseLong(tradeDataRow[3]) * 1000));
-                            } catch (NumberFormatException nfe) {
-                                nfe.printStackTrace();
-                                System.out.println("Invalid number returned by timestmp:" + tradeDataRow[3]);
-                                tradeDataRow[3] = "";
-                            }
+                        try {
+                            tradeDataRow[4] = String.valueOf(new Date(Long.parseLong(tradeDataRow[4]) * 1000));
+
+                        } catch (NumberFormatException nfe) {
+                            nfe.printStackTrace();
+                            System.out.println("Invalid number returned by timestmp:" + tradeDataRow[4]);
+                            tradeDataRow[4] = "";
                         }
-                        tradeDataRow[1] = tradeDataMarket.getPrice()==null?"":tradeDataMarket.getPrice();
-                        tradeDataRow[0] = tradeDataMarket.getTransaction_id()==null?"":tradeDataMarket.getTransaction_id();
+
+                        tradeDataRow[1] = tradeDataMarket.getPrice() == null ? "" : tradeDataMarket.getPrice();
+                        tradeDataRow[0] = tradeDataMarket.getTransaction_id() == null ? "" : tradeDataMarket.getTransaction_id();
+
+                        try {
+                            tradeDataRow[3] = String.valueOf(Double.parseDouble(tradeDataRow[2]) * Double.parseDouble(tradeDataRow[1]));
+
+                        } catch (NumberFormatException nfe) {
+                            nfe.printStackTrace();
+                            System.out.println("Invalid number returned by timestmp:" + tradeDataRow[3]);
+                            tradeDataRow[3] = "";
+                        }
 
                         tradeMarketData.add(tradeDataRow);
 
@@ -640,10 +666,29 @@ public class Market {
 
                 }
 
-                TradeListNym tradeListNym = Utility.getNYMTrades(serverID, nymID);
+                marketDetails.setMarketAsk(askGridData);
+                marketDetails.setMarketBid(bidGridData);
+                marketDetails.setMarketRecentTrades(tradeMarketData);
+                marketDetails.setNymOffers(nymGridData);
+                
+                break;
+
+            }
+
+
+        }
+
+        return marketDetails;
+    }
+
+    public static Map getNymTrades(String serverID, String nymID){
+
+        Map tradeNymData = new HashMap();
+
+        TradeListNym tradeListNym = Utility.getNYMTrades(serverID, nymID);
 
                 if (tradeListNym == null) {
-                    System.out.println("getMarketDetails - tradeListNym returns null");
+                    System.out.println("getNymTrades - tradeListNym returns null");
                     return null;
                 }
 
@@ -656,50 +701,28 @@ public class Market {
 
                     String[] tradeDataRow = new String[5];
 
-                    System.out.println("tradeDataNym.getTransaction_id():"+tradeDataNym.getTransaction_id());
-                    System.out.println("tradeDataNym.getPrice():"+tradeDataNym.getPrice());
-                    System.out.println("tradeDataNym.getAmount_sold():"+tradeDataNym.getAmount_sold());
-                    System.out.println("tradeDataNym.getCompleted_count():"+tradeDataNym.getCompleted_count());
-                    System.out.println("tradeDataNym.getDate():"+tradeDataNym.getDate());
-
-
-
-                    tradeDataRow[0] = tradeDataNym.getTransaction_id()==null?"":tradeDataNym.getTransaction_id();
-                    tradeDataRow[1] = tradeDataNym.getPrice()==null?"":tradeDataNym.getPrice();
-                    tradeDataRow[2] = tradeDataNym.getAmount_sold()==null?"":tradeDataNym.getAmount_sold();
-                    tradeDataRow[3] = tradeDataNym.getCompleted_count()==null?"":tradeDataNym.getCompleted_count();
-                    tradeDataRow[4] = tradeDataNym.getDate()==null?"":tradeDataNym.getDate();
+                    tradeDataRow[0] = tradeDataNym.getTransaction_id() == null ? "" : tradeDataNym.getTransaction_id();
+                    tradeDataRow[1] = tradeDataNym.getPrice() == null ? "" : tradeDataNym.getPrice();
+                    tradeDataRow[2] = tradeDataNym.getAmount_sold() == null ? "" : tradeDataNym.getAmount_sold();
+                    tradeDataRow[3] = tradeDataNym.getCompleted_count() == null ? "" : tradeDataNym.getCompleted_count();
+                    tradeDataRow[4] = tradeDataNym.getDate() == null ? "" : tradeDataNym.getDate();
 
                     if (!tradeDataRow[4].equals("")) {
 
-                            try {
-                                tradeDataRow[4] = String.valueOf(new Date(Long.parseLong(tradeDataRow[4]) * 1000));
-                            } catch (NumberFormatException nfe) {
-                                nfe.printStackTrace();
-                                System.out.println("Invalid number returned by timestmp:" + tradeDataRow[4]);
-                                tradeDataRow[4] = "";
-                            }
+                        try {
+                            tradeDataRow[4] = String.valueOf(new Date(Long.parseLong(tradeDataRow[4]) * 1000));
+                        } catch (NumberFormatException nfe) {
+                            nfe.printStackTrace();
+                            System.out.println("Invalid number returned by timestmp:" + tradeDataRow[4]);
+                            tradeDataRow[4] = "";
                         }
+                    }
 
                     tradeNymData.put(tradeDataNym.getTransaction_id(), tradeDataRow);
 
                 }
 
-
-                marketDetails.setMarketAsk(askGridData);
-                marketDetails.setMarketBid(bidGridData);
-                marketDetails.setMarketRecentTrades(tradeMarketData);
-                marketDetails.setNymOffers(nymGridData);
-                marketDetails.setNymTrades(tradeNymData);
-
-                break;
-
-            }
-
-
-        }
-
-        return marketDetails;
+        return tradeNymData;
     }
 
     public static MarketTicker getTicker(String marketID, String serverID, String nymID) throws InterruptedException {

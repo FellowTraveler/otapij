@@ -1,7 +1,7 @@
 /************************************************************
- -----BEGIN PGP SIGNED MESSAGE-----
- Hash: SHA256
- 
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
  *                 M O N E Y C H A N G E R
  *
  *   http://wiki.github.com/FellowTraveler/Moneychanger/wiki
@@ -70,25 +70,23 @@
  *   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
  *   PURPOSE.  See the GNU General Public License for more
  *   details.
- 
- -----BEGIN PGP SIGNATURE-----
- wsFVAwUBTbFZUwMIAO35UbuOAQjDRBAAmIUJBi5/WC1KpI4TNAWdQNh6g59qYS6w
- SI6mTMbnP0DUVOrmJdNR7/n1sRlnWzyjKLcKkRtXwRWGC+jE16jijxek9Ome5Qid
- bDqjHSuFvqnsD3+0tbENf+kVrbAReU3YvWk+xFvVc6I2NpS+lEIdjHIWm85jSmew
- Ydx+4KpELkO59thkcKgSYsTSyTP3l9GOTtJlq45XiamoEvso4jFUC1y5KMQsz1KH
- DTE32m5FPZqJqUw9loAmrni3dIMpXKC5yLhdqSMXHK0MAPEIexsuaZjrjKJQSjwV
- eDjwJcMn2WZVvcIr9IEoKEU/2j9wHNZv5Xuj78A/78AkjqEUwrY1M9ht0r/QbusW
- ZT7MlxNCq4DFstrjyKi03yZQGR+m8eJFHE7GvF8Vzg/ap0/CUJzeoXg5wACXGfJj
- k6y8ZBriQO08JECki2sy6oTitDoi7FmzgAIxPGB1qA4HMur/LuzrxAj2V7XkZQlk
- VfAda6Ff9bmStNut+zbsQ0pnIeL/URwWifI8Wq81c7DEIvA5SH/bU9Hws1FMO8PU
- BcDmzadU+syJBTxoP/mHZcLfwHDhcZyBeHX7sHfpHweEunzWjcHjqVCutQMO4dii
- yrsc64WTfAqd4s12SfKMgVFLeL/FUYH7MNqpfgjgwX5co817m9VvCntU6njIuYtV
- 6+G/TuSViH8=
- =/jIC
- -----END PGP SIGNATURE-----
+
+-----BEGIN PGP SIGNATURE-----
+wsFVAwUBTbFZUwMIAO35UbuOAQjDRBAAmIUJBi5/WC1KpI4TNAWdQNh6g59qYS6w
+SI6mTMbnP0DUVOrmJdNR7/n1sRlnWzyjKLcKkRtXwRWGC+jE16jijxek9Ome5Qid
+bDqjHSuFvqnsD3+0tbENf+kVrbAReU3YvWk+xFvVc6I2NpS+lEIdjHIWm85jSmew
+Ydx+4KpELkO59thkcKgSYsTSyTP3l9GOTtJlq45XiamoEvso4jFUC1y5KMQsz1KH
+DTE32m5FPZqJqUw9loAmrni3dIMpXKC5yLhdqSMXHK0MAPEIexsuaZjrjKJQSjwV
+eDjwJcMn2WZVvcIr9IEoKEU/2j9wHNZv5Xuj78A/78AkjqEUwrY1M9ht0r/QbusW
+ZT7MlxNCq4DFstrjyKi03yZQGR+m8eJFHE7GvF8Vzg/ap0/CUJzeoXg5wACXGfJj
+k6y8ZBriQO08JECki2sy6oTitDoi7FmzgAIxPGB1qA4HMur/LuzrxAj2V7XkZQlk
+VfAda6Ff9bmStNut+zbsQ0pnIeL/URwWifI8Wq81c7DEIvA5SH/bU9Hws1FMO8PU
+BcDmzadU+syJBTxoP/mHZcLfwHDhcZyBeHX7sHfpHweEunzWjcHjqVCutQMO4dii
+yrsc64WTfAqd4s12SfKMgVFLeL/FUYH7MNqpfgjgwX5co817m9VvCntU6njIuYtV
+6+G/TuSViH8=
+=/jIC
+-----END PGP SIGNATURE-----
  **************************************************************/
-
-
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -114,25 +112,43 @@ public class NYM {
     public Map loadNYM() {
 
         mapNYMAccountList.clear();
-        /*if(true){
-        mapNYMAccountList.put("nymID1", "NYMlabel1");
-        mapNYMAccountList.put("nymID2", "NYMlabel2");
-        mapNYMAccountList.put("nymID3", "NYMlabel3");
-        return mapNYMAccountList;
-        }*/
+
         int count = otapi.OT_API_GetNymCount();
         for (int i = 0; i < count; i++) {
             String key = otapi.OT_API_GetNym_ID(i);
             String label = otapi.OT_API_GetNym_Name(key);
-            //mapNYMAccountList.put(key, label);
             mapNYMAccountList.put((i), new String[]{label, key});
         }
 
         return mapNYMAccountList;
     }
 
+    public Map loadRegisteredNYM(String serverID) {
+
+        Map mapNYMList = new HashMap();
+
+        if ("ALL".equalsIgnoreCase(serverID)) {
+            return mapNYMList;
+        }
+
+        int count = 0;
+        for (int i = 0; i < otapi.OT_API_GetNymCount(); i++) {
+            String key = otapi.OT_API_GetNym_ID(i);
+            if (key == null) {
+                continue;
+            }
+            if (otapi.OT_API_IsNym_RegisteredAtServer(key, serverID) == 1) {
+                String label = otapi.OT_API_GetNym_Name(key);
+                mapNYMList.put(count, new String[]{label, key});
+                count++;
+            }
+
+        }
+
+        return mapNYMList;
+    }
+
     public String getRawFileData(String nymID) {
-        //return "RRRRRRaqq";
         return otapi.OT_API_GetNym_Stats(nymID);
     }
 
@@ -144,6 +160,61 @@ public class NYM {
     public boolean deleteOutboxMail(String nymID, int index) {
         return otapi.OT_API_Nym_RemoveOutmailByIndex(nymID, index) == 1 ? true : false;
 
+    }
+
+    public int registerNym(String serverID, String nymID) throws InterruptedException {
+
+        System.out.println("IN registerNYm,serverID:" + serverID+" nymID:"+nymID);
+
+        int status = 2;
+
+        if (otapi.OT_API_IsNym_RegisteredAtServer(nymID, serverID) == 1) {
+            status = 1;
+        } else {
+
+            otapi.OT_API_FlushMessageBuffer();
+            otapi.OT_API_createUserAccount(serverID, nymID);
+            Utility.delay();
+            String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
+            System.out.println("IN registerNYm " + serverResponseMessage);
+
+            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
+
+                otapi.OT_API_FlushMessageBuffer();
+                otapi.OT_API_getRequest(serverID, nymID);
+                Utility.delay();
+                serverResponseMessage = otapi.OT_API_PopMessageBuffer();
+                System.out.println("IN getRequestNumber " + serverResponseMessage);
+
+                if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
+                    return status;
+                } else {
+                    otapi.OT_API_createUserAccount(serverID, nymID);
+                    Utility.delay();
+                    serverResponseMessage = otapi.OT_API_PopMessageBuffer();
+                }
+
+            }
+
+            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
+                System.out.println("registerNYm OT_API_Message_GetSuccess returned false:");
+                return status;
+            }
+                otapi.OT_API_FlushMessageBuffer();
+                otapi.OT_API_getRequest(serverID, nymID);
+                Utility.delay();
+                serverResponseMessage = otapi.OT_API_PopMessageBuffer();
+                System.out.println("IN getRequestNumber " + serverResponseMessage);
+
+                if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
+                    return status;
+                }
+                
+            status = 0;
+            System.out.println("registerNYm otapi.OT_API_IsNym_RegisteredAtServer(nymID, serverID):"+otapi.OT_API_IsNym_RegisteredAtServer(nymID, serverID));
+            
+        }
+        return status;
     }
 
     public Map downloadNymBox(String nymID) {
@@ -175,13 +246,6 @@ public class NYM {
         System.out.println("loadNymBox starts");
         Map nymBox = new HashMap();
 
-
-        /*nymBox.put("0", new String[]{"Subject iii","Nym","Server","0","BIDYYYYYYYYYYY","true","dsffdgdfg","fffffffff"});
-        nymBox.put("1", new String[]{"Subject iii","Nym","Server","1","BIDYYYYYYYYYYY","true","dfghf","fgfghgf"});
-        nymBox.put("2", new String[]{"Subject iii","Nym","Server","2","BIDYYYYYYYYYYY","true","nnnn","fffffffff"});
-
-        if(true)
-        return nymBox;*/
         int count = otapi.OT_API_GetNym_MailCount(nymID);
 
         for (int i = 0; i < count; i++) {
@@ -227,11 +291,6 @@ public class NYM {
 
         Map nymOutBox = new HashMap();
 
-        /*nymOutBox.put("0", new String[]{"Subject iii","Nym","Server","0","BIDYYYYYYYYYYY","true","dsffdgdfg","fffffffff"});
-        nymOutBox.put("1", new String[]{"Subject iii","Nym","Server","1","BIDYYYYYYYYYYY","true","dfghf","fgfghgf"});
-        nymOutBox.put("2", new String[]{"Subject iii","Nym","Server","2","BIDYYYYYYYYYYY","true","nnnn","fffffffff"});
-        if(true)
-        return nymOutBox;*/
         int count = otapi.OT_API_GetNym_OutmailCount(nymID);
 
         for (int i = 0; i < count; i++) {
@@ -285,36 +344,32 @@ public class NYM {
         return nymID;
     }
 
-    public void registerNym(String serverID, String nymID) {
-        otapi.OT_API_createUserAccount(serverID, nymID);
-    }
-
     public boolean sendMessage(String serverID, String nymID, String recepientNymID, String message) throws InterruptedException {
 
         System.out.println("Send message starts recepientNymID:" + recepientNymID + " nymID:" + nymID + " serverID:" + serverID);
 
         if (otapi.OT_API_IsNym_RegisteredAtServer(nymID, serverID) == 0) {
 
-                otapi.OT_API_FlushMessageBuffer();
-                otapi.OT_API_createUserAccount(serverID, nymID);
-                Utility.delay();
-                String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-                System.out.println("IN send message,OT_API_IsNym_RegisteredAtServer serverResponseMessage " + serverResponseMessage);
+            otapi.OT_API_FlushMessageBuffer();
+            otapi.OT_API_createUserAccount(serverID, nymID);
+            Utility.delay();
+            String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
+            System.out.println("IN send message,OT_API_IsNym_RegisteredAtServer serverResponseMessage " + serverResponseMessage);
 
+            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
+                return false;
+            } else if (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
+                return false;
+            } else if (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 1) {
+                otapi.OT_API_FlushMessageBuffer();
+                otapi.OT_API_getRequest(serverID, nymID);
+                Utility.delay();
+                serverResponseMessage = otapi.OT_API_PopMessageBuffer();
                 if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
                     return false;
-               } else if (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                    return false;
-                } else if (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 1) {
-                    otapi.OT_API_FlushMessageBuffer();
-                    otapi.OT_API_getRequest(serverID, nymID);
-                    Utility.delay();
-                    serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-                    if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                        return false;
-                    }
                 }
             }
+        }
 
         String recepientPubKey = otapi.OT_API_LoadPubkey(recepientNymID);
         System.out.println("recepientPubKey:" + recepientPubKey);
@@ -367,9 +422,9 @@ public class NYM {
         return deleteNym;
     }
 
-    public String importNYM(String name,String key) {
+    public String importNYM(String name, String key) {
         String nymID = null;
-        otapi.OT_API_Wallet_ImportNym(name,key);
+        otapi.OT_API_Wallet_ImportNym(name, key);
         return nymID;
     }
 }

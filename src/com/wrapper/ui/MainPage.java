@@ -129,6 +129,7 @@ import com.wrapper.ui.dialogs.NymBoxDetailsDialog;
 import com.wrapper.ui.dialogs.OtherTabAccountEditDialog;
 import com.wrapper.ui.dialogs.OtherTabServerAddDialog;
 import com.wrapper.ui.dialogs.OtherTabServerEditDialog;
+import com.wrapper.ui.dialogs.RegisterNYMDialog;
 import com.wrapper.ui.dialogs.SendMessageDialog;
 import com.wrapper.ui.dialogs.ServerContractEditDialog;
 import com.wrapper.ui.model.AccountTableModel;
@@ -175,6 +176,19 @@ import javax.swing.event.ListSelectionListener;
  * @author Vicky C
  */
 public class MainPage extends javax.swing.JFrame {
+
+    public static void refreshMarketNym(String serverID) {
+        System.out.println("In refreshMarketNym, serverID:"+serverID);
+        String currentServerID = "ALL";
+
+        if (serverMap != null && serverMap.size() > 0 && jComboBox5.getSelectedIndex() > -1) {
+            currentServerID = ((String[]) serverMap.get((Integer) jComboBox5.getSelectedIndex()))[1];
+        }
+        if(serverID!=null && serverID.equals(currentServerID)){
+        nymRegisteredMap = new NYM().loadRegisteredNYM(serverID);
+        Utility.populateComboWithoutAll(nymRegisteredMap, jComboBox6);
+        }
+    }
 
     private Map nymBox;
     private static Map nymOutBox;
@@ -266,6 +280,7 @@ public class MainPage extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         jButton16 = new javax.swing.JButton();
         jButton17 = new javax.swing.JButton();
+        jButton26 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane11 = new javax.swing.JScrollPane();
         jTable9 = new javax.swing.JTable();
@@ -455,6 +470,12 @@ public class MainPage extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("Form"); // NOI18N
+
+        jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jTabbedPane1StateChanged(evt);
+            }
+        });
 
         jPanel1.setName("jPanel1"); // NOI18N
 
@@ -931,6 +952,14 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
 
+        jButton26.setText(resourceMap.getString("jButton26.text")); // NOI18N
+        jButton26.setName("jButton26"); // NOI18N
+        jButton26.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton26ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -944,8 +973,10 @@ public class MainPage extends javax.swing.JFrame {
                                 .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(65, 65, 65)
-                                .addComponent(jButton17)))
+                                .addGap(15, 15, 15)
+                                .addComponent(jButton17)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton26)))
                         .addGap(67, 67, 67)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 683, Short.MAX_VALUE)
@@ -976,7 +1007,9 @@ public class MainPage extends javax.swing.JFrame {
                         .addGap(30, 30, 30)
                         .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton17))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton17)
+                            .addComponent(jButton26)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(58, 58, 58)
@@ -3033,8 +3066,11 @@ public class MainPage extends javax.swing.JFrame {
 
         System.out.println("Mrkets tab - nym selected index - " + jComboBox6.getSelectedIndex());
 
-        if (nymMap != null && nymMap.size() > 0 && jComboBox6.getSelectedIndex() > -1) {
-            nymID = ((String[]) nymMap.get((Integer) jComboBox6.getSelectedIndex()))[1];
+        nymRegisteredMap = new NYM().loadRegisteredNYM(serverID);
+        Utility.populateComboWithoutAll(nymRegisteredMap, jComboBox6);
+
+        if (nymRegisteredMap != null && nymRegisteredMap.size() > 0 && jComboBox6.getSelectedIndex() > -1) {
+            nymID = ((String[]) nymRegisteredMap.get((Integer) jComboBox6.getSelectedIndex()))[1];
         }
 
         System.out.println("Mrkets tab, serverID:" + serverID + " nymID:" + nymID);
@@ -3077,6 +3113,8 @@ public class MainPage extends javax.swing.JFrame {
 
     private void jComboBox6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox6ActionPerformed
 
+        // SInce market list does not depend on nym, hence on nym change market list wont be refreshed
+
         String serverID = "ALL";
         String nymID = "ALL";
 
@@ -3084,8 +3122,8 @@ public class MainPage extends javax.swing.JFrame {
             serverID = ((String[]) serverMap.get((Integer) jComboBox5.getSelectedIndex()))[1];
         }
 
-        if (nymMap != null && nymMap.size() > 0 && jComboBox6.getSelectedIndex() > -1) {
-            nymID = ((String[]) nymMap.get((Integer) jComboBox6.getSelectedIndex()))[1];
+        if (nymRegisteredMap != null && nymRegisteredMap.size() > 0 && jComboBox6.getSelectedIndex() > -1) {
+            nymID = ((String[]) nymRegisteredMap.get((Integer) jComboBox6.getSelectedIndex()))[1];
         }
 
         System.out.println("Mrkets tab, nym combo serverID:" + serverID + " nymID:" + nymID);
@@ -3137,15 +3175,15 @@ public class MainPage extends javax.swing.JFrame {
                 serverID = ((String[]) serverMap.get((Integer) jComboBox5.getSelectedIndex()))[1];
             }
 
-            if (nymMap != null && nymMap.size() > 0 && jComboBox6.getSelectedIndex() > -1) {
-                nymID = ((String[]) nymMap.get((Integer) jComboBox6.getSelectedIndex()))[1];
+            if (nymRegisteredMap != null && nymRegisteredMap.size() > 0 && jComboBox6.getSelectedIndex() > -1) {
+                nymID = ((String[]) nymRegisteredMap.get((Integer) jComboBox6.getSelectedIndex()))[1];
             }
-
+            if(!"ALL".equalsIgnoreCase(nymID)){
             MarketTicker marketTicker = Market.getTicker((String) jTable13.getModel().getValueAt(jTable13.getSelectedRow(), 1), serverID, nymID);
             if (marketTicker != null) {
                 jLabel3.setText("Last:" + marketTicker.getLastPrice() + "          Bid:" + marketTicker.getHighestBid() + "          Ask:" + marketTicker.getLowestAsk());
             }
-
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -3160,8 +3198,8 @@ public class MainPage extends javax.swing.JFrame {
                 serverID = ((String[]) serverMap.get((Integer) jComboBox5.getSelectedIndex()))[1];
             }
 
-            if (nymMap != null && nymMap.size() > 0 && jComboBox6.getSelectedIndex() > -1) {
-                nymID = ((String[]) nymMap.get((Integer) jComboBox6.getSelectedIndex()))[1];
+            if (nymRegisteredMap != null && nymRegisteredMap.size() > 0 && jComboBox6.getSelectedIndex() > -1) {
+                nymID = ((String[]) nymRegisteredMap.get((Integer) jComboBox6.getSelectedIndex()))[1];
             }
 
             if (jTable14.getSelectedRow() < 0) {
@@ -3224,8 +3262,12 @@ public class MainPage extends javax.swing.JFrame {
                 serverID = ((String[]) serverMap.get((Integer) jComboBox5.getSelectedIndex()))[1];
             }
 
-            if (nymMap != null && nymMap.size() > 0 && jComboBox6.getSelectedIndex() > -1) {
-                nymID = ((String[]) nymMap.get((Integer) jComboBox6.getSelectedIndex()))[1];
+            if (nymRegisteredMap != null && nymRegisteredMap.size() > 0 && jComboBox6.getSelectedIndex() > -1) {
+                nymID = ((String[]) nymRegisteredMap.get((Integer) jComboBox6.getSelectedIndex()))[1];
+            }
+            if("ALL".equalsIgnoreCase(nymID)){
+                JOptionPane.showMessageDialog(this, "NYM is required to create market offer", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
             }
             new CreateMarketOrder(this, true, serverID, nymID).setVisible(true);
         } catch (Exception e) {
@@ -3233,6 +3275,41 @@ public class MainPage extends javax.swing.JFrame {
         }
 
 }//GEN-LAST:event_jButton27ActionPerformed
+
+    private void jButton26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton26ActionPerformed
+
+        if (jTable2.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "Please select NYM to register", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        new RegisterNYMDialog(this, true, (String) jTable2.getModel().getValueAt(jTable2.getSelectedRow(), 1)).setVisible(true);
+
+    }//GEN-LAST:event_jButton26ActionPerformed
+
+    private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
+
+        JTabbedPane pane = (JTabbedPane) evt.getSource();
+        int sel = pane.getSelectedIndex();
+        System.out.println("Mainpage tab eventState changed:" + sel);
+        if (sel == 4 && Utility.isLoadNymTrades()) {
+            String serverID = "ALL";
+            String nymID = "ALL";
+
+            if (serverMap != null && serverMap.size() > 0 && jComboBox5.getSelectedIndex() > -1) {
+                serverID = ((String[]) serverMap.get((Integer) jComboBox5.getSelectedIndex()))[1];
+            }
+            if (nymRegisteredMap != null && nymRegisteredMap.size() > 0 && jComboBox6.getSelectedIndex() > -1) {
+                nymID = ((String[]) nymRegisteredMap.get((Integer) jComboBox6.getSelectedIndex()))[1];
+            }
+            if(!"ALL".equalsIgnoreCase(nymID)){
+            Map nymTrades = Market.getNymTrades(serverID, nymID);
+            if (nymTrades != null) {
+                ((MarketTradesTableModel) jTable16.getModel()).setValue(nymTrades, jTable16);
+            }
+            Utility.setLoadNymTrades(false);
+            }
+        }
+    }//GEN-LAST:event_jTabbedPane1StateChanged
 
     /**
      * @param args the command line arguments
@@ -3272,6 +3349,7 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JButton jButton23;
     private javax.swing.JButton jButton24;
     private javax.swing.JButton jButton25;
+    private javax.swing.JButton jButton26;
     private javax.swing.JButton jButton27;
     private javax.swing.JButton jButton28;
     private javax.swing.JButton jButton29;
@@ -3287,7 +3365,7 @@ public class MainPage extends javax.swing.JFrame {
     private static javax.swing.JComboBox jComboBox3;
     private static javax.swing.JComboBox jComboBox4;
     private static javax.swing.JComboBox jComboBox5;
-    private javax.swing.JComboBox jComboBox6;
+    private static javax.swing.JComboBox jComboBox6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -3441,6 +3519,7 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField8;
     // End of variables declaration//GEN-END:variables
     private static Map nymMap;
+    private static Map nymRegisteredMap;
     private static Map assetMap;
     private static Map serverMap;
 
@@ -3985,8 +4064,16 @@ public class MainPage extends javax.swing.JFrame {
         ((NYMTableModel) jTable2.getModel()).setValue(new NYM().loadNYM(), jTable2);
         nymMap = new NYM().loadNYM();
 
+        String serverID = "ALL";
+
+        if (serverMap != null && serverMap.size() > 0 && jComboBox5.getSelectedIndex() > -1) {
+            serverID = ((String[]) serverMap.get((Integer) jComboBox5.getSelectedIndex()))[1];
+        }
+
+        nymRegisteredMap = new NYM().loadRegisteredNYM(serverID);
+
         Utility.populateCombo(nymMap, jComboBox1);
-        Utility.populateComboWithoutAll(nymMap, jComboBox6);
+        Utility.populateComboWithoutAll(nymRegisteredMap, jComboBox6);
     }
 
     private void refreshAssetContractList() {
@@ -3996,7 +4083,7 @@ public class MainPage extends javax.swing.JFrame {
         assetMap.clear();
         assetMap = contract.loadAssetContract();
         Utility.populateCombo(assetMap, jComboBox3);
-        Utility.populateComboWithoutAll(serverMap, jComboBox5);
+
     }
 
     private void refreshServerContractList() {
@@ -4006,6 +4093,7 @@ public class MainPage extends javax.swing.JFrame {
         serverMap = contract.loadServerContract();
         System.out.println("serverv" + serverMap.entrySet());
         Utility.populateCombo(serverMap, jComboBox2);
+        Utility.populateComboWithoutAll(serverMap, jComboBox5);
 
     }
 
@@ -4051,7 +4139,16 @@ public class MainPage extends javax.swing.JFrame {
         MarketTableModel.removeCols(jTable13);
 
         Utility.populateComboWithoutAll(serverMap, jComboBox5);
-        Utility.populateComboWithoutAll(nymMap, jComboBox6);
+
+        String serverID = "ALL";
+        String nymID = "ALL";
+
+        if (serverMap != null && serverMap.size() > 0 && jComboBox5.getSelectedIndex() > -1) {
+            serverID = ((String[]) serverMap.get((Integer) jComboBox5.getSelectedIndex()))[1];
+        }
+
+        nymRegisteredMap = new NYM().loadRegisteredNYM(serverID);
+        Utility.populateComboWithoutAll(nymRegisteredMap, jComboBox6);
 
         jTable14.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
@@ -4083,6 +4180,16 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
 
+        if (nymRegisteredMap != null && nymRegisteredMap.size() > 0 && jComboBox6.getSelectedIndex() > -1) {
+            nymID = ((String[]) nymRegisteredMap.get((Integer) jComboBox6.getSelectedIndex()))[1];
+        }
+        if (!"ALL".equalsIgnoreCase(nymID)) {
+            Map nymTrades = Market.getNymTrades(serverID, nymID);
+            if (nymTrades != null) {
+                ((MarketTradesTableModel) jTable16.getModel()).setValue(nymTrades, jTable16);
+            }
+        }
+
 
     }
 
@@ -4094,9 +4201,10 @@ public class MainPage extends javax.swing.JFrame {
             if (serverMap != null && serverMap.size() > 0 && jComboBox5.getSelectedIndex() > -1) {
                 serverID = ((String[]) serverMap.get((Integer) jComboBox5.getSelectedIndex()))[1];
             }
-            if (nymMap != null && nymMap.size() > 0 && jComboBox6.getSelectedIndex() > -1) {
-                nymID = ((String[]) nymMap.get((Integer) jComboBox6.getSelectedIndex()))[1];
+            if (nymRegisteredMap != null && nymRegisteredMap.size() > 0 && jComboBox6.getSelectedIndex() > -1) {
+                nymID = ((String[]) nymRegisteredMap.get((Integer) jComboBox6.getSelectedIndex()))[1];
             }
+            if (!"ALL".equalsIgnoreCase(nymID)) {
             NymOfferDetails nymOfferDetails = Market.getNymOfferDetails(serverID, nymID, (String) jTable14.getModel().getValueAt(jTable14.getSelectedRow(), 0));
             jLabel47.setVisible(true);
             jLabel48.setVisible(true);
@@ -4107,7 +4215,7 @@ public class MainPage extends javax.swing.JFrame {
             jLabel48.setText(nymOfferDetails.getMinIncrement());
             jLabel49.setText(nymOfferDetails.getTotalAssetsOnOffer());
             jLabel50.setText(nymOfferDetails.getAssetsStillOnOffer());
-
+            }
         } catch (Exception ex) {
             Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -4120,9 +4228,10 @@ public class MainPage extends javax.swing.JFrame {
             if (serverMap != null && serverMap.size() > 0 && jComboBox5.getSelectedIndex() > -1) {
                 serverID = ((String[]) serverMap.get((Integer) jComboBox5.getSelectedIndex()))[1];
             }
-            if (nymMap != null && nymMap.size() > 0 && jComboBox6.getSelectedIndex() > -1) {
-                nymID = ((String[]) nymMap.get((Integer) jComboBox6.getSelectedIndex()))[1];
+            if (nymRegisteredMap != null && nymRegisteredMap.size() > 0 && jComboBox6.getSelectedIndex() > -1) {
+                nymID = ((String[]) nymRegisteredMap.get((Integer) jComboBox6.getSelectedIndex()))[1];
             }
+            if (!"ALL".equalsIgnoreCase(nymID)) {
             MarketDetails marketDetails = Market.getMarketDetails((String) jTable13.getModel().getValueAt(jTable13.getSelectedRow(), 1), serverID, nymID);
             System.out.println("marketDetails:" + marketDetails);
             if (marketDetails != null) {
@@ -4160,7 +4269,7 @@ public class MainPage extends javax.swing.JFrame {
                     jTable14.setRowSelectionInterval(0, 0);
                     nymOfferClick();
                 }
-                ((MarketTradesTableModel) jTable16.getModel()).setValue(marketDetails.getNymTrades(), jTable16);
+                }
             }
         } catch (Exception ex) {
             Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);

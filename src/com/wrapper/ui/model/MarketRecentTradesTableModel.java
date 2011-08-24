@@ -103,7 +103,7 @@ import javax.swing.table.TableRowSorter;
 
 public class MarketRecentTradesTableModel extends DefaultTableModel implements WrapperTableModel {
 
-    private String[] columnNames = {"Txn ID", "Price", "Quantity", "Date"};
+    private String[] columnNames = {"Txn ID", "Price", "Quantity","Total","Date"};
     private Object[][] data;
     /*private Object[][] data = {
     {"Asset1","100"},

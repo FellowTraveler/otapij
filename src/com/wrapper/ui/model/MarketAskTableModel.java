@@ -101,7 +101,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 public class MarketAskTableModel extends DefaultTableModel implements WrapperTableModel {
-        private String[] columnNames = {"Price","Quantity","Multiple"};
+        private String[] columnNames = {"Price","Quantity", "Total","Multiple"};
         private Object[][] data;
         /*private Object[][] data = {
 	    {"Asset1","100"},
