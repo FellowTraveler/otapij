@@ -1,10 +1,8 @@
 /************************************************************
- -----BEGIN PGP SIGNED MESSAGE-----
- Hash: SHA256
- 
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
  *                 M O N E Y C H A N G E R
- *
- *   http://wiki.github.com/FellowTraveler/Moneychanger/wiki
  *
  *  Open Transactions:
  *       Financial Cryptography and Digital Cash
@@ -17,11 +15,10 @@
  *    	 -- Basket Currencies, Markets, Payment Plans.
  *    	 -- Signed, XML, Ricardian-style Contracts.
  *    
- *  Copyright (C) 2010-2011 by "Fellow Traveler" (A pseudonym)
+ *  Copyright (C) 2010-2012 by "Fellow Traveler" (A pseudonym)
  *
  *  EMAIL:
- *  FellowTraveler@rayservers.net --- SEE PGP KEY BELOW.
- *  F3llowTraveler@gmail.com --- (not preferred.)
+ *  FellowTraveler@rayservers.net
  *  
  *  FINGERPRINT:
  *  9DD5 90EB 9292 4B48 0484  7910 0308 00ED F951 BB8E
@@ -29,7 +26,8 @@
  *  BITCOIN:  1NtTPVVjDsUfDWybS4BwvHpG2pdS9RnYyQ
  *
  *  OFFICIAL PROJECT WIKI:
- *  http://wiki.github.com/FellowTraveler/Open-Transactions/wiki 
+ *  https://github.com/FellowTraveler/Moneychanger
+ *  https://github.com/FellowTraveler/Open-Transactions/wiki
  *
  *  WEBSITE:
  *  http://www.OpenTransactions.org/
@@ -71,23 +69,24 @@
  *   PURPOSE.  See the GNU General Public License for more
  *   details.
  
- -----BEGIN PGP SIGNATURE-----
- wsFVAwUBTbFZUwMIAO35UbuOAQjDRBAAmIUJBi5/WC1KpI4TNAWdQNh6g59qYS6w
- SI6mTMbnP0DUVOrmJdNR7/n1sRlnWzyjKLcKkRtXwRWGC+jE16jijxek9Ome5Qid
- bDqjHSuFvqnsD3+0tbENf+kVrbAReU3YvWk+xFvVc6I2NpS+lEIdjHIWm85jSmew
- Ydx+4KpELkO59thkcKgSYsTSyTP3l9GOTtJlq45XiamoEvso4jFUC1y5KMQsz1KH
- DTE32m5FPZqJqUw9loAmrni3dIMpXKC5yLhdqSMXHK0MAPEIexsuaZjrjKJQSjwV
- eDjwJcMn2WZVvcIr9IEoKEU/2j9wHNZv5Xuj78A/78AkjqEUwrY1M9ht0r/QbusW
- ZT7MlxNCq4DFstrjyKi03yZQGR+m8eJFHE7GvF8Vzg/ap0/CUJzeoXg5wACXGfJj
- k6y8ZBriQO08JECki2sy6oTitDoi7FmzgAIxPGB1qA4HMur/LuzrxAj2V7XkZQlk
- VfAda6Ff9bmStNut+zbsQ0pnIeL/URwWifI8Wq81c7DEIvA5SH/bU9Hws1FMO8PU
- BcDmzadU+syJBTxoP/mHZcLfwHDhcZyBeHX7sHfpHweEunzWjcHjqVCutQMO4dii
- yrsc64WTfAqd4s12SfKMgVFLeL/FUYH7MNqpfgjgwX5co817m9VvCntU6njIuYtV
- 6+G/TuSViH8=
- =/jIC
- -----END PGP SIGNATURE-----
- **************************************************************/
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.11 (Darwin)
 
+iQIcBAEBCAAGBQJOj7gfAAoJEAMIAO35UbuOs3sP/2rrjSdYu/AsXcgLK9/9CP4a
+lIJfw3KLvybKZjZW5r5j+4xUlCYIqPZSI66PGDChGPMPFcZQN6M4Ddpn9kbctymS
+sdTXvbdFhpbV6k2wSa1Fz97ygfXJc/7MDTmHYbZ53hVV8AoUBrCHWtVttkQD31o3
+Pn/qGmy+jOgTvjEXhjEpV66pDkMWze1SiI1MArHUziCYoxItuM45x0EfzwQIqlo3
+ku2R7rRTtqm47Dgea12psWrjbPS5XRL1Q8Hs38Z1J0JdFlfn6cJYe52Iiluzof6M
+kCLhy6FH8QfIADfrKkFP48EIhnVquDlkV9AlJ1r217K3cpK2jEjlZUnGBECMAMEo
+pSXXk1BLNgxsa4yaXCgHY92/MhgtcdCMLkcCq6MWUTGZsLGiWIiQGmO9mwBfNIlY
+SawlIviuS5DiE/D16A290Byxhha/5e144cIiKm27fSQra8eogUXNfZdZeuv6n69v
+t8QjeBjoLhe5/KnRNoGLpSXhPphsWLRSJBru77ZU2msHfmkNfcP2UoEUCfNTfTbE
+XpyRfeyRVowVKeKunV9KUSHgdD5wa6RUeyodAbaHvWrFpIpNkaFIP9OwhRULpjx0
+arwVNYucbX1qb2I8HBm2u+IRWQTONp74TFFjU0/CVAXu2DeJKY5mL4zDej35c5j9
+AK+ZirdWhhoHeWR1tAkN
+=RcXP
+-----END PGP SIGNATURE-----
+ **************************************************************/
 
 /*
  * To change this template, choose Tools | Templates
@@ -99,18 +98,20 @@
  *
  * Created on 18 Mar, 2011, 7:40:38 AM
  */
-
 package com.wrapper.ui.panels;
 
 import com.wrapper.core.OpenTransactionAccount;
 import com.wrapper.core.dataobjects.OTDetails;
 import com.wrapper.ui.dialogs.DepositCashDialog;
 import com.wrapper.ui.dialogs.DepositChequeDialog;
+import com.wrapper.ui.dialogs.ExchangeBasketDialog;
 import com.wrapper.ui.dialogs.OTWriteCheque;
 import com.wrapper.ui.dialogs.SendTransferDialog;
 import com.wrapper.ui.dialogs.WithdrawCashDialog;
 import com.wrapper.ui.dialogs.WithdrawVoucherDialog;
 import java.awt.Cursor;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -160,6 +161,11 @@ public class OpenTransactionAccountTopPanel extends javax.swing.JPanel {
         jTextField8 = new javax.swing.JTextField();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jButton9 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setName("Form"); // NOI18N
 
@@ -276,7 +282,7 @@ public class OpenTransactionAccountTopPanel extends javax.swing.JPanel {
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
                     .addComponent(jButton3))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -297,7 +303,7 @@ public class OpenTransactionAccountTopPanel extends javax.swing.JPanel {
                     .addComponent(jButton5)
                     .addComponent(jButton2)
                     .addComponent(jButton4))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTextField9.setEditable(false);
@@ -363,6 +369,64 @@ public class OpenTransactionAccountTopPanel extends javax.swing.JPanel {
             }
         });
 
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel2.border.title"))); // NOI18N
+        jPanel2.setName("jPanel2"); // NOI18N
+        jPanel2.setVisible(false);
+
+        jButton9.setText(resourceMap.getString("jButton9.text")); // NOI18N
+        jButton9.setName("jButton9"); // NOI18N
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+
+        jButton10.setText(resourceMap.getString("jButton10.text")); // NOI18N
+        jButton10.setName("jButton10"); // NOI18N
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
+        jLabel1.setName("jLabel1"); // NOI18N
+
+        jLabel2.setText(resourceMap.getString("jLabel2.text")); // NOI18N
+        jLabel2.setName("jLabel2"); // NOI18N
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1)
+                        .addGap(8, 8, 8))))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton9)
+                    .addComponent(jButton10))
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -370,42 +434,44 @@ public class OpenTransactionAccountTopPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton8))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextField8)
+                            .addComponent(jTextField7)
+                            .addComponent(jTextField6)
+                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel13))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField6, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
-                                    .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
-                                    .addComponent(jTextField8, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
-                                    .addComponent(jTextField7, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel12)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jLabel14)
-                                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(4, 4, 4)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jTextField11)
-                                        .addComponent(jTextField12)
-                                        .addComponent(jTextField10, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE))
-                                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton8)))))
-                .addContainerGap())
+                            .addComponent(jTextField12, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
+                            .addComponent(jTextField10, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
+                            .addComponent(jTextField11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
+                            .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(84, 84, 84))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -416,9 +482,14 @@ public class OpenTransactionAccountTopPanel extends javax.swing.JPanel {
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton7)
                     .addComponent(jButton8))
-                .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -446,8 +517,8 @@ public class OpenTransactionAccountTopPanel extends javax.swing.JPanel {
                             .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel13))
+                            .addComponent(jLabel13)
+                            .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel14)
@@ -491,64 +562,95 @@ public class OpenTransactionAccountTopPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField12ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        new DepositChequeDialog(null, true,jTextField11.getText(),jTextField12.getText(),jTextField9.getText()).setVisible(true);
+        new DepositChequeDialog(null, true, jTextField11.getText(), jTextField12.getText(), jTextField9.getText()).setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-         new WithdrawCashDialog(null, true,jTextField11.getText(),jTextField12.getText(),jTextField9.getText()).setVisible(true);
+        new WithdrawCashDialog(null, true, jTextField11.getText(), jTextField12.getText(), jTextField9.getText()).setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-         String[] purseDetails = new OpenTransactionAccount().getPurseBalance(jTextField11.getText(), jTextField10.getText(), jTextField12.getText());
-           /*if(purseDetails==null){
-                 JOptionPane.showMessageDialog(this, "Error in cash deposit. Empty purse","Error",JOptionPane.ERROR_MESSAGE);
-                 return;
-            }*/
-        new DepositCashDialog(null, true,purseDetails,jTextField11.getText(),jTextField12.getText(),jTextField9.getText()).setVisible(true);
+        String[] purseDetails = new OpenTransactionAccount().getPurseBalance(jTextField11.getText(), jTextField10.getText(), jTextField12.getText());
+        /*if(purseDetails==null){
+        JOptionPane.showMessageDialog(this, "Error in cash deposit. Empty purse","Error",JOptionPane.ERROR_MESSAGE);
+        return;
+        }*/
+        new DepositCashDialog(null, true, purseDetails, jTextField11.getText(), jTextField12.getText(), jTextField9.getText()).setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        new WithdrawVoucherDialog(null, true,jTextField11.getText(),jTextField12.getText(),jTextField9.getText()).setVisible(true);
+        new WithdrawVoucherDialog(null, true, jTextField11.getText(), jTextField12.getText(), jTextField9.getText()).setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        new OTWriteCheque(null,true,jTextField11.getText(),jTextField12.getText(),jTextField9.getText()).setVisible(true);
+        new OTWriteCheque(null, true, jTextField11.getText(), jTextField12.getText(), jTextField9.getText()).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-         new SendTransferDialog(null, true,jTextField11.getText(),jTextField12.getText(),jTextField9.getText()).setVisible(true);
+        new SendTransferDialog(null, true, jTextField11.getText(), jTextField12.getText(), jTextField9.getText()).setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         String accountID = jTextField9.getText();
-        try{
+        try {
             OpenTransactionAccount openTransaction = new OpenTransactionAccount();
             setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
             boolean isSuccess = openTransaction.getInboxOutboxAccount(accountID);
-            if(isSuccess){
-                JOptionPane.showMessageDialog(this, "Files downloaded successfully","Processing Success",JOptionPane.INFORMATION_MESSAGE);
+            if (isSuccess) {
+                JOptionPane.showMessageDialog(this, "Files downloaded successfully", "Processing Success", JOptionPane.INFORMATION_MESSAGE);
                 OpenTransactionAccountBottomPanel.setOTTables(openTransaction.getInboxData(accountID), openTransaction.getOutboxData(accountID));
-            }else
-                JOptionPane.showMessageDialog(this, "Error in downloading latest account files","Server Error",JOptionPane.ERROR_MESSAGE);
-        }catch(Exception e){
+            } else {
+                JOptionPane.showMessageDialog(this, "Error in downloading latest account files", "Server Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally{
+        } finally {
             setCursor(Cursor.getDefaultCursor());
         }
 }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         OpenTransactionAccount otAccount = new OpenTransactionAccount();
-        boolean isSuccess = otAccount.verifyFiles(jTextField11.getText(),jTextField12.getText(),jTextField9.getText());
-        if(isSuccess)
-            JOptionPane.showMessageDialog(null, "The intermediary files for this account have all been VERIFIED against the last signed receipt","Verified",JOptionPane.INFORMATION_MESSAGE);
-        else
-            JOptionPane.showMessageDialog(null, "The intermediary files for this account have FAILED to verify against the last signed receipt","Error",JOptionPane.ERROR_MESSAGE);
+        int isSuccess = otAccount.verifyFiles(jTextField11.getText(), jTextField12.getText(), jTextField9.getText());
+        if (isSuccess == 0) {
+            JOptionPane.showMessageDialog(null, "The intermediary files for this account have all been VERIFIED against the last signed receipt", "Verified", JOptionPane.INFORMATION_MESSAGE);
+        } else if (isSuccess == 1) {
+            JOptionPane.showMessageDialog(null, "The intermediary files for this account have FAILED to verify against the last signed receipt", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (isSuccess == 2) {
+            JOptionPane.showMessageDialog(null, "There is no receipt for this account", "Empty", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_jButton8ActionPerformed
 
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        try {
+            OpenTransactionAccount otAccount = new OpenTransactionAccount();
+            String basket = otAccount.showBasket(jTextField11.getText(), jTextField12.getText(), jTextField10.getText());
+            if (basket != null && basket.length() > 0) {
+                new ExchangeBasketDialog(null, true, basket, true, jTextField11.getText(), jTextField12.getText(), jTextField9.getText(), jTextField10.getText()).setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Error getting basket curreny list", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (InterruptedException ex) {
+            Logger.getLogger(OpenTransactionAccountTopPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton9ActionPerformed
 
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        try {
+            OpenTransactionAccount otAccount = new OpenTransactionAccount();
+            String basket = otAccount.showBasket(jTextField11.getText(), jTextField12.getText(), jTextField10.getText());
+            if (basket != null && basket.length() > 0) {
+                new ExchangeBasketDialog(null, true, basket, false, jTextField11.getText(), jTextField12.getText(), jTextField9.getText(), jTextField10.getText()).setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Error getting basket curreny list", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (InterruptedException ex) {
+            Logger.getLogger(OpenTransactionAccountTopPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton10ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -556,16 +658,20 @@ public class OpenTransactionAccountTopPanel extends javax.swing.JPanel {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private static javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private static javax.swing.JPanel jPanel2;
     private static javax.swing.JTextField jTextField10;
     private static javax.swing.JTextField jTextField11;
     private static javax.swing.JTextField jTextField12;
@@ -578,7 +684,7 @@ public class OpenTransactionAccountTopPanel extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     public static void populateOTDetails(OTDetails otDetails) {
-       
+
         jTextField4.setText(otDetails.getBalance());
         jTextField9.setText(otDetails.getAccountID());
         jTextField10.setText(otDetails.getAssetID());
@@ -589,28 +695,43 @@ public class OpenTransactionAccountTopPanel extends javax.swing.JPanel {
         jTextField7.setText(otDetails.getAssetName());
         jTextField8.setText(otDetails.getNymName());
 
-        
+        if (otDetails.getBasketName() != null) {
+            System.out.println("otDetails.getBasketName():"+otDetails.getBasketName());
+            jPanel2.setVisible(true);
+            jLabel2.setToolTipText(otDetails.getBasketName());
+            jLabel2.setText(otDetails.getBasketName());
+        } else {
+            jPanel2.setVisible(false);
+        }
+
+        jTextField4.setCaretPosition(0);
+        jTextField9.setCaretPosition(0);
+        jTextField10.setCaretPosition(0);
+        jTextField11.setCaretPosition(0);
+        jTextField12.setCaretPosition(0);
+        jTextField5.setCaretPosition(0);
+        jTextField6.setCaretPosition(0);
+        jTextField7.setCaretPosition(0);
+        jTextField8.setCaretPosition(0);
+
+
+
     }
 
-    public static void clearPanel(){
+    public static void clearPanel() {
 
-        if(jTextField4!=null && jTextField5!=null && jTextField6!=null
-                && jTextField7!=null && jTextField8!=null && jTextField9!=null
-                && jTextField10!=null && jTextField11!=null && jTextField12!=null
-                ){
-        jTextField4.setText("");
-        jTextField5.setText("");
-        jTextField6.setText("");
-        jTextField7.setText("");
-        jTextField8.setText("");
-        jTextField9.setText("");
-        jTextField10.setText("");
-        jTextField11.setText("");
-        jTextField12.setText("");
+        if (jTextField4 != null && jTextField5 != null && jTextField6 != null
+                && jTextField7 != null && jTextField8 != null && jTextField9 != null
+                && jTextField10 != null && jTextField11 != null && jTextField12 != null) {
+            jTextField4.setText("");
+            jTextField5.setText("");
+            jTextField6.setText("");
+            jTextField7.setText("");
+            jTextField8.setText("");
+            jTextField9.setText("");
+            jTextField10.setText("");
+            jTextField11.setText("");
+            jTextField12.setText("");
         }
     }
-
- 
-
-
 }

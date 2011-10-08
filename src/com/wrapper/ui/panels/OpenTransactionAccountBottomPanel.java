@@ -1,10 +1,8 @@
 /************************************************************
- -----BEGIN PGP SIGNED MESSAGE-----
- Hash: SHA256
- 
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
  *                 M O N E Y C H A N G E R
- *
- *   http://wiki.github.com/FellowTraveler/Moneychanger/wiki
  *
  *  Open Transactions:
  *       Financial Cryptography and Digital Cash
@@ -17,11 +15,10 @@
  *    	 -- Basket Currencies, Markets, Payment Plans.
  *    	 -- Signed, XML, Ricardian-style Contracts.
  *    
- *  Copyright (C) 2010-2011 by "Fellow Traveler" (A pseudonym)
+ *  Copyright (C) 2010-2012 by "Fellow Traveler" (A pseudonym)
  *
  *  EMAIL:
- *  FellowTraveler@rayservers.net --- SEE PGP KEY BELOW.
- *  F3llowTraveler@gmail.com --- (not preferred.)
+ *  FellowTraveler@rayservers.net
  *  
  *  FINGERPRINT:
  *  9DD5 90EB 9292 4B48 0484  7910 0308 00ED F951 BB8E
@@ -29,7 +26,8 @@
  *  BITCOIN:  1NtTPVVjDsUfDWybS4BwvHpG2pdS9RnYyQ
  *
  *  OFFICIAL PROJECT WIKI:
- *  http://wiki.github.com/FellowTraveler/Open-Transactions/wiki 
+ *  https://github.com/FellowTraveler/Moneychanger
+ *  https://github.com/FellowTraveler/Open-Transactions/wiki
  *
  *  WEBSITE:
  *  http://www.OpenTransactions.org/
@@ -71,23 +69,24 @@
  *   PURPOSE.  See the GNU General Public License for more
  *   details.
  
- -----BEGIN PGP SIGNATURE-----
- wsFVAwUBTbFZUwMIAO35UbuOAQjDRBAAmIUJBi5/WC1KpI4TNAWdQNh6g59qYS6w
- SI6mTMbnP0DUVOrmJdNR7/n1sRlnWzyjKLcKkRtXwRWGC+jE16jijxek9Ome5Qid
- bDqjHSuFvqnsD3+0tbENf+kVrbAReU3YvWk+xFvVc6I2NpS+lEIdjHIWm85jSmew
- Ydx+4KpELkO59thkcKgSYsTSyTP3l9GOTtJlq45XiamoEvso4jFUC1y5KMQsz1KH
- DTE32m5FPZqJqUw9loAmrni3dIMpXKC5yLhdqSMXHK0MAPEIexsuaZjrjKJQSjwV
- eDjwJcMn2WZVvcIr9IEoKEU/2j9wHNZv5Xuj78A/78AkjqEUwrY1M9ht0r/QbusW
- ZT7MlxNCq4DFstrjyKi03yZQGR+m8eJFHE7GvF8Vzg/ap0/CUJzeoXg5wACXGfJj
- k6y8ZBriQO08JECki2sy6oTitDoi7FmzgAIxPGB1qA4HMur/LuzrxAj2V7XkZQlk
- VfAda6Ff9bmStNut+zbsQ0pnIeL/URwWifI8Wq81c7DEIvA5SH/bU9Hws1FMO8PU
- BcDmzadU+syJBTxoP/mHZcLfwHDhcZyBeHX7sHfpHweEunzWjcHjqVCutQMO4dii
- yrsc64WTfAqd4s12SfKMgVFLeL/FUYH7MNqpfgjgwX5co817m9VvCntU6njIuYtV
- 6+G/TuSViH8=
- =/jIC
- -----END PGP SIGNATURE-----
- **************************************************************/
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.11 (Darwin)
 
+iQIcBAEBCAAGBQJOj7gfAAoJEAMIAO35UbuOs3sP/2rrjSdYu/AsXcgLK9/9CP4a
+lIJfw3KLvybKZjZW5r5j+4xUlCYIqPZSI66PGDChGPMPFcZQN6M4Ddpn9kbctymS
+sdTXvbdFhpbV6k2wSa1Fz97ygfXJc/7MDTmHYbZ53hVV8AoUBrCHWtVttkQD31o3
+Pn/qGmy+jOgTvjEXhjEpV66pDkMWze1SiI1MArHUziCYoxItuM45x0EfzwQIqlo3
+ku2R7rRTtqm47Dgea12psWrjbPS5XRL1Q8Hs38Z1J0JdFlfn6cJYe52Iiluzof6M
+kCLhy6FH8QfIADfrKkFP48EIhnVquDlkV9AlJ1r217K3cpK2jEjlZUnGBECMAMEo
+pSXXk1BLNgxsa4yaXCgHY92/MhgtcdCMLkcCq6MWUTGZsLGiWIiQGmO9mwBfNIlY
+SawlIviuS5DiE/D16A290Byxhha/5e144cIiKm27fSQra8eogUXNfZdZeuv6n69v
+t8QjeBjoLhe5/KnRNoGLpSXhPphsWLRSJBru77ZU2msHfmkNfcP2UoEUCfNTfTbE
+XpyRfeyRVowVKeKunV9KUSHgdD5wa6RUeyodAbaHvWrFpIpNkaFIP9OwhRULpjx0
+arwVNYucbX1qb2I8HBm2u+IRWQTONp74TFFjU0/CVAXu2DeJKY5mL4zDej35c5j9
+AK+ZirdWhhoHeWR1tAkN
+=RcXP
+-----END PGP SIGNATURE-----
+ **************************************************************/
 
 /*
  * To change this template, choose Tools | Templates
@@ -110,7 +109,9 @@ import com.wrapper.ui.model.OTInboxTableModel;
 import com.wrapper.ui.model.OTOutboxTableModel;
 import com.wrapper.ui.model.OTReceiptTableModel;
 import java.awt.Cursor;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -311,40 +312,55 @@ public class OpenTransactionAccountBottomPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jTable6MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try{
-        OpenTransactionAccount openTransaction = new OpenTransactionAccount();
-        Map selectedIndices = new HashMap();
-        for(int i=0;i<jTable6.getRowCount();i++){
-            String key = (String) jTable6.getModel().getValueAt(i, 9);
-            if((Boolean)jTable6.getModel().getValueAt(i, 7)){
-                selectedIndices.put(key, true);
+        try {
+            OpenTransactionAccount openTransaction = new OpenTransactionAccount();
+            Map selectedIndices = new HashMap();
+            List finalReceiptRefNo = new ArrayList();
+            for (int i = 0; i < jTable6.getRowCount(); i++) {
+                String key = (String) jTable6.getModel().getValueAt(i, 9);
+                if ((Boolean) jTable6.getModel().getValueAt(i, 7)) {
+                    selectedIndices.put(key, true);
+                }
+                if ((Boolean) jTable6.getModel().getValueAt(i, 8)) {
+                    selectedIndices.put(key, false);
+                }
+                if ("finalReceipt".equalsIgnoreCase((String) jTable6.getModel().getValueAt(i, 3)) && (Boolean) jTable6.getModel().getValueAt(i, 7)) {
+                    finalReceiptRefNo.add((String) jTable6.getModel().getValueAt(i, 1));
+                }
             }
-            if((Boolean)jTable6.getModel().getValueAt(i, 8)){
-                selectedIndices.put(key, false);
+            System.out.println("selectedIndices:" + selectedIndices.entrySet());
+            if (jTable6.getRowCount() < 1 || selectedIndices.size() < 1) {
+                JOptionPane.showMessageDialog(this, "Please check some transactions to process", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
             }
-        }
-        System.out.println("selectedIndices:"+selectedIndices.entrySet());
-        if(jTable6.getRowCount()<1 || selectedIndices.size()<1){
-            JOptionPane.showMessageDialog(this, "Please check some transactions to process","Error",JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        boolean success = openTransaction.processInbox(accountID, selectedIndices);
-        if(success){
-            JOptionPane.showMessageDialog(this, "Inbox processed successfully","Processing Success",JOptionPane.INFORMATION_MESSAGE);
-            Utility.reloadOTDetails(accountID);
-            MainPage.reLoadAccount();
-            Utility.setLoadNymTrades(true);
-        }else
-            JOptionPane.showMessageDialog(this, "Error in processing Inbox","Server Error",JOptionPane.ERROR_MESSAGE);
-        
-        }catch(Exception e){
+
+            for (int j = 0; j < finalReceiptRefNo.size(); j++) {
+                String referenceNo = (String) finalReceiptRefNo.get(j);
+                for (int i = 0; i < jTable6.getRowCount(); i++) {
+                    if (referenceNo.equals((String) jTable6.getModel().getValueAt(i, 1)) && !(Boolean) jTable6.getModel().getValueAt(i, 7)) {
+                        JOptionPane.showMessageDialog(this, "To close a finalReceipt, you must also close the other receipts that have the same reference number", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+
+                    }
+                }
+            }
+            setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            boolean success = openTransaction.processInbox(accountID, selectedIndices);
+            if (success) {
+                JOptionPane.showMessageDialog(this, "Inbox processed successfully", "Processing Success", JOptionPane.INFORMATION_MESSAGE);
+                Utility.reloadOTDetails(accountID);
+                MainPage.reLoadAccount();
+                Utility.setLoadNymTrades(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "Error in processing Inbox", "Server Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally{
+        } finally {
             setCursor(Cursor.getDefaultCursor());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton8;
@@ -402,14 +418,14 @@ public class OpenTransactionAccountBottomPanel extends javax.swing.JPanel {
     }
 
     public static void clearPanel() {
-        if(jTable6!=null && jTable7!=null && jTable8!=null){
-        ((OTInboxTableModel) jTable6.getModel()).clearValue();
-        ((OTOutboxTableModel) jTable7.getModel()).clearValue();
-        ((OTReceiptTableModel) jTable8.getModel()).clearValue();
+        if (jTable6 != null && jTable7 != null && jTable8 != null) {
+            ((OTInboxTableModel) jTable6.getModel()).clearValue();
+            ((OTOutboxTableModel) jTable7.getModel()).clearValue();
+            ((OTReceiptTableModel) jTable8.getModel()).clearValue();
         }
     }
 
-    public static void setOTTables(Map inboxData,Map outboxData) {
+    public static void setOTTables(Map inboxData, Map outboxData) {
 
         inbox = inboxData;
         outbox = outboxData;

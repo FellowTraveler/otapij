@@ -1,10 +1,8 @@
 /************************************************************
- -----BEGIN PGP SIGNED MESSAGE-----
- Hash: SHA256
- 
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
  *                 M O N E Y C H A N G E R
- *
- *   http://wiki.github.com/FellowTraveler/Moneychanger/wiki
  *
  *  Open Transactions:
  *       Financial Cryptography and Digital Cash
@@ -17,11 +15,10 @@
  *    	 -- Basket Currencies, Markets, Payment Plans.
  *    	 -- Signed, XML, Ricardian-style Contracts.
  *    
- *  Copyright (C) 2010-2011 by "Fellow Traveler" (A pseudonym)
+ *  Copyright (C) 2010-2012 by "Fellow Traveler" (A pseudonym)
  *
  *  EMAIL:
- *  FellowTraveler@rayservers.net --- SEE PGP KEY BELOW.
- *  F3llowTraveler@gmail.com --- (not preferred.)
+ *  FellowTraveler@rayservers.net
  *  
  *  FINGERPRINT:
  *  9DD5 90EB 9292 4B48 0484  7910 0308 00ED F951 BB8E
@@ -29,7 +26,8 @@
  *  BITCOIN:  1NtTPVVjDsUfDWybS4BwvHpG2pdS9RnYyQ
  *
  *  OFFICIAL PROJECT WIKI:
- *  http://wiki.github.com/FellowTraveler/Open-Transactions/wiki 
+ *  https://github.com/FellowTraveler/Moneychanger
+ *  https://github.com/FellowTraveler/Open-Transactions/wiki
  *
  *  WEBSITE:
  *  http://www.OpenTransactions.org/
@@ -71,23 +69,24 @@
  *   PURPOSE.  See the GNU General Public License for more
  *   details.
  
- -----BEGIN PGP SIGNATURE-----
- wsFVAwUBTbFZUwMIAO35UbuOAQjDRBAAmIUJBi5/WC1KpI4TNAWdQNh6g59qYS6w
- SI6mTMbnP0DUVOrmJdNR7/n1sRlnWzyjKLcKkRtXwRWGC+jE16jijxek9Ome5Qid
- bDqjHSuFvqnsD3+0tbENf+kVrbAReU3YvWk+xFvVc6I2NpS+lEIdjHIWm85jSmew
- Ydx+4KpELkO59thkcKgSYsTSyTP3l9GOTtJlq45XiamoEvso4jFUC1y5KMQsz1KH
- DTE32m5FPZqJqUw9loAmrni3dIMpXKC5yLhdqSMXHK0MAPEIexsuaZjrjKJQSjwV
- eDjwJcMn2WZVvcIr9IEoKEU/2j9wHNZv5Xuj78A/78AkjqEUwrY1M9ht0r/QbusW
- ZT7MlxNCq4DFstrjyKi03yZQGR+m8eJFHE7GvF8Vzg/ap0/CUJzeoXg5wACXGfJj
- k6y8ZBriQO08JECki2sy6oTitDoi7FmzgAIxPGB1qA4HMur/LuzrxAj2V7XkZQlk
- VfAda6Ff9bmStNut+zbsQ0pnIeL/URwWifI8Wq81c7DEIvA5SH/bU9Hws1FMO8PU
- BcDmzadU+syJBTxoP/mHZcLfwHDhcZyBeHX7sHfpHweEunzWjcHjqVCutQMO4dii
- yrsc64WTfAqd4s12SfKMgVFLeL/FUYH7MNqpfgjgwX5co817m9VvCntU6njIuYtV
- 6+G/TuSViH8=
- =/jIC
- -----END PGP SIGNATURE-----
- **************************************************************/
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.11 (Darwin)
 
+iQIcBAEBCAAGBQJOj7gfAAoJEAMIAO35UbuOs3sP/2rrjSdYu/AsXcgLK9/9CP4a
+lIJfw3KLvybKZjZW5r5j+4xUlCYIqPZSI66PGDChGPMPFcZQN6M4Ddpn9kbctymS
+sdTXvbdFhpbV6k2wSa1Fz97ygfXJc/7MDTmHYbZ53hVV8AoUBrCHWtVttkQD31o3
+Pn/qGmy+jOgTvjEXhjEpV66pDkMWze1SiI1MArHUziCYoxItuM45x0EfzwQIqlo3
+ku2R7rRTtqm47Dgea12psWrjbPS5XRL1Q8Hs38Z1J0JdFlfn6cJYe52Iiluzof6M
+kCLhy6FH8QfIADfrKkFP48EIhnVquDlkV9AlJ1r217K3cpK2jEjlZUnGBECMAMEo
+pSXXk1BLNgxsa4yaXCgHY92/MhgtcdCMLkcCq6MWUTGZsLGiWIiQGmO9mwBfNIlY
+SawlIviuS5DiE/D16A290Byxhha/5e144cIiKm27fSQra8eogUXNfZdZeuv6n69v
+t8QjeBjoLhe5/KnRNoGLpSXhPphsWLRSJBru77ZU2msHfmkNfcP2UoEUCfNTfTbE
+XpyRfeyRVowVKeKunV9KUSHgdD5wa6RUeyodAbaHvWrFpIpNkaFIP9OwhRULpjx0
+arwVNYucbX1qb2I8HBm2u+IRWQTONp74TFFjU0/CVAXu2DeJKY5mL4zDej35c5j9
+AK+ZirdWhhoHeWR1tAkN
+=RcXP
+-----END PGP SIGNATURE-----
+ **************************************************************/
 
 /*
  * To change this template, choose Tools | Templates
@@ -128,7 +127,7 @@ public class OTInboxTableModel extends DefaultTableModel implements WrapperTable
     JCheckBox checkBoxReject = new JCheckBox();
     CheckBoxEditor editorAccept = new CheckBoxEditor(checkBoxAccept);
     CheckBoxEditor editorReject = new CheckBoxEditor(checkBoxReject);
-    private String[] columnNames = {"Txn #", "Reference #", "Amount", "Type", "User From/To", "Account From/To", "Timestamp", "Accept", "Reject", "ID","NYM ID","Account ID"};
+    private String[] columnNames = {"Txn #", "Reference #", "Amount", "Type", "User From/To", "Account From/To", "Timestamp", "Accept", "Reject", "ID", "NYM ID", "Account ID"};
     private Object[][] data = null;
 
     public int getColumnCount() {
@@ -147,12 +146,14 @@ public class OTInboxTableModel extends DefaultTableModel implements WrapperTable
     }
 
     public Object getValueAt(int row, int col) {
-             if(data==null)
-                return null;
-            if(col>=columnNames.length || col<0 || row<0)
-                return null;
-            return data[row][col];
+        if (data == null) {
+            return null;
         }
+        if (col >= columnNames.length || col < 0 || row < 0) {
+            return null;
+        }
+        return data[row][col];
+    }
 
     /*
      * JTable uses this method to determine the default renderer/
@@ -164,17 +165,18 @@ public class OTInboxTableModel extends DefaultTableModel implements WrapperTable
     return getValueAt(0, c).getClass();
     }*/
     @Override
-        public Class getColumnClass(int column) {
-               Class returnValue;
-               if ((column >= 0) && (column < getColumnCount())) {
-                 if(getValueAt(0, column)==null)
-                     return Object.class;
-                 returnValue = getValueAt(0, column).getClass();
-               } else {
-                 returnValue = Object.class;
-               }
-               return returnValue;
-             }
+    public Class getColumnClass(int column) {
+        Class returnValue;
+        if ((column >= 0) && (column < getColumnCount())) {
+            if (getValueAt(0, column) == null) {
+                return Object.class;
+            }
+            returnValue = getValueAt(0, column).getClass();
+        } else {
+            returnValue = Object.class;
+        }
+        return returnValue;
+    }
     /*
      * Don't need to implement this method unless your table's
      * editable.
@@ -247,21 +249,22 @@ public class OTInboxTableModel extends DefaultTableModel implements WrapperTable
         }
 
 
-       /*RowSorter<TableModel> sorter =
-             new TableRowSorter<TableModel>(this);
-           inbox.setRowSorter(sorter);*/
+        /*RowSorter<TableModel> sorter =
+        new TableRowSorter<TableModel>(this);
+        inbox.setRowSorter(sorter);*/
 
         TableColumnModel tcm = inbox.getColumnModel();
         System.out.println("inbox:" + tcm.getColumnCount());
-        
-        if(tcm.getColumnCount()==12)
-        inbox.removeColumn(tcm.getColumn(11));
-      if(tcm.getColumnCount()==11){
-          inbox.removeColumn(tcm.getColumn(10));
-      }
-      if(tcm.getColumnCount()==10){
-          inbox.removeColumn(tcm.getColumn(9));
-      }
+
+        if (tcm.getColumnCount() == 12) {
+            inbox.removeColumn(tcm.getColumn(11));
+        }
+        if (tcm.getColumnCount() == 11) {
+            inbox.removeColumn(tcm.getColumn(10));
+        }
+        if (tcm.getColumnCount() == 10) {
+            inbox.removeColumn(tcm.getColumn(9));
+        }
 
         tcm.getColumn(7).setCellEditor(editorAccept);
         // tcm.getColumn(7).setMaxWidth(20);
@@ -271,8 +274,32 @@ public class OTInboxTableModel extends DefaultTableModel implements WrapperTable
                 System.out.println("In acion");
                 if (checkBoxAccept.isSelected()) {
                     setValueAt(false, inbox.getSelectedRow(), 8);
+                    fireTableCellUpdated(inbox.getSelectedRow(), 8);
+                    //implement finalreceipt Changes here by looping thru data
+                    // finalReceipt
+                    if ("finalReceipt".equalsIgnoreCase((String) getValueAt(inbox.getSelectedRow(), 3))) {
+                        String finalReceiptRefNo = (String) getValueAt(inbox.getSelectedRow(), 1);
+                        for (int i = 0; i < data.length; i++) {
+                            Object[] row = (Object[]) data[i];
+                            if (finalReceiptRefNo.equals(row[1].toString())) {
+                                setValueAt(true, i, 7);
+                                fireTableCellUpdated(i, 7);
+                            }
+                        }
+                    }
+                } else {
+                    if ("finalReceipt".equalsIgnoreCase((String) getValueAt(inbox.getSelectedRow(), 3))) {
+                        String finalReceiptRefNo = (String) getValueAt(inbox.getSelectedRow(), 1);
+                        for (int i = 0; i < data.length; i++) {
+                            Object[] row = (Object[]) data[i];
+                            if (finalReceiptRefNo.equals(row[1].toString())) {
+                                setValueAt(false, i, 7);
+                                fireTableCellUpdated(i, 7);
+                            }
+                        }
+                    }
                 }
-                fireTableCellUpdated(inbox.getSelectedRow(), 8);
+                
             }
         });
 

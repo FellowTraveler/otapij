@@ -221,10 +221,6 @@ public class otapi {
     return otapiJNI.OT_API_Wallet_CanRemoveAccount(ACCOUNT_ID);
   }
 
-  public static int OT_API_Wallet_RemoveAccount(String ACCOUNT_ID) {
-    return otapiJNI.OT_API_Wallet_RemoveAccount(ACCOUNT_ID);
-  }
-
   public static String OT_API_Wallet_ImportNym(String DISPLAY_NAME, String KEY_FILE_CONTENTS) {
     return otapiJNI.OT_API_Wallet_ImportNym(DISPLAY_NAME, KEY_FILE_CONTENTS);
   }
@@ -253,8 +249,12 @@ public class otapi {
     return otapiJNI.OT_API_WriteCheque(SERVER_ID, CHEQUE_AMOUNT, VALID_FROM, VALID_TO, SENDER_ACCT_ID, SENDER_USER_ID, CHEQUE_MEMO, RECIPIENT_USER_ID);
   }
 
-  public static String OT_API_WritePaymentPlan(String SERVER_ID, String VALID_FROM, String VALID_TO, String SENDER_ACCT_ID, String SENDER_USER_ID, String PLAN_CONSIDERATION, String RECIPIENT_ACCT_ID, String RECIPIENT_USER_ID, String INITIAL_PAYMENT_AMOUNT, String INITIAL_PAYMENT_DELAY, String PAYMENT_PLAN_AMOUNT, String PAYMENT_PLAN_DELAY, String PAYMENT_PLAN_PERIOD, String PAYMENT_PLAN_LENGTH, String PAYMENT_PLAN_MAX_PAYMENTS) {
-    return otapiJNI.OT_API_WritePaymentPlan(SERVER_ID, VALID_FROM, VALID_TO, SENDER_ACCT_ID, SENDER_USER_ID, PLAN_CONSIDERATION, RECIPIENT_ACCT_ID, RECIPIENT_USER_ID, INITIAL_PAYMENT_AMOUNT, INITIAL_PAYMENT_DELAY, PAYMENT_PLAN_AMOUNT, PAYMENT_PLAN_DELAY, PAYMENT_PLAN_PERIOD, PAYMENT_PLAN_LENGTH, PAYMENT_PLAN_MAX_PAYMENTS);
+  public static String OT_API_ProposePaymentPlan(String SERVER_ID, String VALID_FROM, String VALID_TO, String SENDER_ACCT_ID, String SENDER_USER_ID, String PLAN_CONSIDERATION, String RECIPIENT_ACCT_ID, String RECIPIENT_USER_ID, String INITIAL_PAYMENT_AMOUNT, String INITIAL_PAYMENT_DELAY, String PAYMENT_PLAN_AMOUNT, String PAYMENT_PLAN_DELAY, String PAYMENT_PLAN_PERIOD, String PAYMENT_PLAN_LENGTH, String PAYMENT_PLAN_MAX_PAYMENTS) {
+    return otapiJNI.OT_API_ProposePaymentPlan(SERVER_ID, VALID_FROM, VALID_TO, SENDER_ACCT_ID, SENDER_USER_ID, PLAN_CONSIDERATION, RECIPIENT_ACCT_ID, RECIPIENT_USER_ID, INITIAL_PAYMENT_AMOUNT, INITIAL_PAYMENT_DELAY, PAYMENT_PLAN_AMOUNT, PAYMENT_PLAN_DELAY, PAYMENT_PLAN_PERIOD, PAYMENT_PLAN_LENGTH, PAYMENT_PLAN_MAX_PAYMENTS);
+  }
+
+  public static String OT_API_ConfirmPaymentPlan(String SERVER_ID, String SENDER_USER_ID, String SENDER_ACCT_ID, String RECIPIENT_USER_ID, String PAYMENT_PLAN) {
+    return otapiJNI.OT_API_ConfirmPaymentPlan(SERVER_ID, SENDER_USER_ID, SENDER_ACCT_ID, RECIPIENT_USER_ID, PAYMENT_PLAN);
   }
 
   public static String OT_API_LoadUserPubkey(String USER_ID) {
@@ -283,6 +283,10 @@ public class otapi {
 
   public static String OT_API_LoadServerContract(String SERVER_ID) {
     return otapiJNI.OT_API_LoadServerContract(SERVER_ID);
+  }
+
+  public static int OT_API_Mint_IsStillGood(String SERVER_ID, String USER_ID, String ASSET_TYPE_ID) {
+    return otapiJNI.OT_API_Mint_IsStillGood(SERVER_ID, USER_ID, ASSET_TYPE_ID);
   }
 
   public static int OT_API_IsBasketCurrency(String ASSET_TYPE_ID) {
@@ -359,6 +363,10 @@ public class otapi {
 
   public static int OT_API_Transaction_GetSuccess(String SERVER_ID, String USER_ID, String ACCOUNT_ID, String THE_TRANSACTION) {
     return otapiJNI.OT_API_Transaction_GetSuccess(SERVER_ID, USER_ID, ACCOUNT_ID, THE_TRANSACTION);
+  }
+
+  public static int OT_API_Transaction_GetBalanceAgreementSuccess(String SERVER_ID, String USER_ID, String ACCOUNT_ID, String THE_TRANSACTION) {
+    return otapiJNI.OT_API_Transaction_GetBalanceAgreementSuccess(SERVER_ID, USER_ID, ACCOUNT_ID, THE_TRANSACTION);
   }
 
   public static String OT_API_Transaction_GetDateSigned(String SERVER_ID, String USER_ID, String ACCOUNT_ID, String THE_TRANSACTION) {
@@ -467,6 +475,14 @@ public class otapi {
 
   public static void OT_API_createUserAccount(String SERVER_ID, String USER_ID) {
     otapiJNI.OT_API_createUserAccount(SERVER_ID, USER_ID);
+  }
+
+  public static void OT_API_deleteUserAccount(String SERVER_ID, String USER_ID) {
+    otapiJNI.OT_API_deleteUserAccount(SERVER_ID, USER_ID);
+  }
+
+  public static void OT_API_deleteAssetAccount(String SERVER_ID, String USER_ID, String ACCOUNT_ID) {
+    otapiJNI.OT_API_deleteAssetAccount(SERVER_ID, USER_ID, ACCOUNT_ID);
   }
 
   public static void OT_API_checkUser(String SERVER_ID, String USER_ID, String USER_ID_CHECK) {
@@ -597,8 +613,12 @@ public class otapi {
     otapiJNI.OT_API_getNym_MarketOffers(SERVER_ID, USER_ID);
   }
 
-  public static void OT_API_cancelNymMarketOffer(String SERVER_ID, String USER_ID, String MARKET_ID, String TRANSACTION_NUMBER) {
-    otapiJNI.OT_API_cancelNymMarketOffer(SERVER_ID, USER_ID, MARKET_ID, TRANSACTION_NUMBER);
+  public static void OT_API_cancelMarketOffer(String SERVER_ID, String USER_ID, String ASSET_ACCT_ID, String TRANSACTION_NUMBER) {
+    otapiJNI.OT_API_cancelMarketOffer(SERVER_ID, USER_ID, ASSET_ACCT_ID, TRANSACTION_NUMBER);
+  }
+
+  public static void OT_API_cancelPaymentPlan(String SERVER_ID, String USER_ID, String FROM_ACCT_ID, String TRANSACTION_NUMBER) {
+    otapiJNI.OT_API_cancelPaymentPlan(SERVER_ID, USER_ID, FROM_ACCT_ID, TRANSACTION_NUMBER);
   }
 
   public static String OT_API_PopMessageBuffer() {
@@ -623,6 +643,10 @@ public class otapi {
 
   public static int OT_API_Message_GetTransactionSuccess(String SERVER_ID, String USER_ID, String ACCOUNT_ID, String THE_MESSAGE) {
     return otapiJNI.OT_API_Message_GetTransactionSuccess(SERVER_ID, USER_ID, ACCOUNT_ID, THE_MESSAGE);
+  }
+
+  public static int OT_API_Message_GetBalanceAgreementSuccess(String SERVER_ID, String USER_ID, String ACCOUNT_ID, String THE_MESSAGE) {
+    return otapiJNI.OT_API_Message_GetBalanceAgreementSuccess(SERVER_ID, USER_ID, ACCOUNT_ID, THE_MESSAGE);
   }
 
   public static String OT_API_Message_GetLedger(String THE_MESSAGE) {

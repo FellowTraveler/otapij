@@ -4,8 +4,6 @@ Hash: SHA256
 
  *                 M O N E Y C H A N G E R
  *
- *   http://wiki.github.com/FellowTraveler/Moneychanger/wiki
- *
  *  Open Transactions:
  *       Financial Cryptography and Digital Cash
  *       Library, Protocol, API, Server, and GUI 
@@ -17,11 +15,10 @@ Hash: SHA256
  *    	 -- Basket Currencies, Markets, Payment Plans.
  *    	 -- Signed, XML, Ricardian-style Contracts.
  *    
- *  Copyright (C) 2010-2011 by "Fellow Traveler" (A pseudonym)
+ *  Copyright (C) 2010-2012 by "Fellow Traveler" (A pseudonym)
  *
  *  EMAIL:
- *  FellowTraveler@rayservers.net --- SEE PGP KEY BELOW.
- *  F3llowTraveler@gmail.com --- (not preferred.)
+ *  FellowTraveler@rayservers.net
  *  
  *  FINGERPRINT:
  *  9DD5 90EB 9292 4B48 0484  7910 0308 00ED F951 BB8E
@@ -29,7 +26,8 @@ Hash: SHA256
  *  BITCOIN:  1NtTPVVjDsUfDWybS4BwvHpG2pdS9RnYyQ
  *
  *  OFFICIAL PROJECT WIKI:
- *  http://wiki.github.com/FellowTraveler/Open-Transactions/wiki 
+ *  https://github.com/FellowTraveler/Moneychanger
+ *  https://github.com/FellowTraveler/Open-Transactions/wiki
  *
  *  WEBSITE:
  *  http://www.OpenTransactions.org/
@@ -70,23 +68,26 @@ Hash: SHA256
  *   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
  *   PURPOSE.  See the GNU General Public License for more
  *   details.
-
+ 
 -----BEGIN PGP SIGNATURE-----
-wsFVAwUBTbFZUwMIAO35UbuOAQjDRBAAmIUJBi5/WC1KpI4TNAWdQNh6g59qYS6w
-SI6mTMbnP0DUVOrmJdNR7/n1sRlnWzyjKLcKkRtXwRWGC+jE16jijxek9Ome5Qid
-bDqjHSuFvqnsD3+0tbENf+kVrbAReU3YvWk+xFvVc6I2NpS+lEIdjHIWm85jSmew
-Ydx+4KpELkO59thkcKgSYsTSyTP3l9GOTtJlq45XiamoEvso4jFUC1y5KMQsz1KH
-DTE32m5FPZqJqUw9loAmrni3dIMpXKC5yLhdqSMXHK0MAPEIexsuaZjrjKJQSjwV
-eDjwJcMn2WZVvcIr9IEoKEU/2j9wHNZv5Xuj78A/78AkjqEUwrY1M9ht0r/QbusW
-ZT7MlxNCq4DFstrjyKi03yZQGR+m8eJFHE7GvF8Vzg/ap0/CUJzeoXg5wACXGfJj
-k6y8ZBriQO08JECki2sy6oTitDoi7FmzgAIxPGB1qA4HMur/LuzrxAj2V7XkZQlk
-VfAda6Ff9bmStNut+zbsQ0pnIeL/URwWifI8Wq81c7DEIvA5SH/bU9Hws1FMO8PU
-BcDmzadU+syJBTxoP/mHZcLfwHDhcZyBeHX7sHfpHweEunzWjcHjqVCutQMO4dii
-yrsc64WTfAqd4s12SfKMgVFLeL/FUYH7MNqpfgjgwX5co817m9VvCntU6njIuYtV
-6+G/TuSViH8=
-=/jIC
+Version: GnuPG v1.4.11 (Darwin)
+
+iQIcBAEBCAAGBQJOj7gfAAoJEAMIAO35UbuOs3sP/2rrjSdYu/AsXcgLK9/9CP4a
+lIJfw3KLvybKZjZW5r5j+4xUlCYIqPZSI66PGDChGPMPFcZQN6M4Ddpn9kbctymS
+sdTXvbdFhpbV6k2wSa1Fz97ygfXJc/7MDTmHYbZ53hVV8AoUBrCHWtVttkQD31o3
+Pn/qGmy+jOgTvjEXhjEpV66pDkMWze1SiI1MArHUziCYoxItuM45x0EfzwQIqlo3
+ku2R7rRTtqm47Dgea12psWrjbPS5XRL1Q8Hs38Z1J0JdFlfn6cJYe52Iiluzof6M
+kCLhy6FH8QfIADfrKkFP48EIhnVquDlkV9AlJ1r217K3cpK2jEjlZUnGBECMAMEo
+pSXXk1BLNgxsa4yaXCgHY92/MhgtcdCMLkcCq6MWUTGZsLGiWIiQGmO9mwBfNIlY
+SawlIviuS5DiE/D16A290Byxhha/5e144cIiKm27fSQra8eogUXNfZdZeuv6n69v
+t8QjeBjoLhe5/KnRNoGLpSXhPphsWLRSJBru77ZU2msHfmkNfcP2UoEUCfNTfTbE
+XpyRfeyRVowVKeKunV9KUSHgdD5wa6RUeyodAbaHvWrFpIpNkaFIP9OwhRULpjx0
+arwVNYucbX1qb2I8HBm2u+IRWQTONp74TFFjU0/CVAXu2DeJKY5mL4zDej35c5j9
+AK+ZirdWhhoHeWR1tAkN
+=RcXP
 -----END PGP SIGNATURE-----
  **************************************************************/
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -293,7 +294,7 @@ public class Settings extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 
         try {
-           /* OTCaller g_theCaller = new OTCaller();
+            /* OTCaller g_theCaller = new OTCaller();
             OTCallback g_theCallback = new JavaCallback();
             Utility.setG_theCallback(g_theCallback);
             Utility.setG_theCaller(g_theCaller);*/
@@ -304,9 +305,14 @@ public class Settings extends javax.swing.JFrame {
                 Utility.setDataFolder("C:\\~\\Open-Transactions\\testwallet\\data_folder");
                 System.loadLibrary("libzmq");*/
                 Utility.addDirToRuntime("/Users/administrator/Open-Transactions/testwallet");
-                Utility.setDataFolder("/Users/administrator/Open-Transactions/testwallet/data_folder");
+                //Utility.setDataFolder("/Users/Administrator/.ot/client_data");
+                Utility.setDataFolder("~/.ot/client_data");
                 System.loadLibrary("otapi");
-                otapi.OT_API_Init("/Users/administrator/Open-Transactions/testwallet/data_folder");
+
+                otapi.OT_API_Init("~/.ot/client_data");
+                //otapi.OT_API_Init("/Users/Administrator/.ot/client_data");
+
+                //otapi.OT_API_Init("/Users/administrator/Open-Transactions/testwallet/data_folder");
                 //otapi.InitDefaultStorage(StorageType.STORE_FILESYSTEM, PackType.PACK_PROTOCOL_BUFFERS, "C:\\~\\Open-Transactions\\testwallet\\data_folder", "wallet.xml");
 
                 OTCaller g_theCaller = new OTCaller();
@@ -331,11 +337,11 @@ public class Settings extends javax.swing.JFrame {
                         return;
                     }
                     Utility.addDirToRuntime(jTextField3.getText(), true);
-                    System.out.println("PATH:"+System.getProperty("java.library.path"));
-                    if(System.getProperty("os.name")!=null && (System.getProperty("os.name").startsWith("windows")
-                            || System.getProperty("os.name").startsWith("Windows"))){
+                    System.out.println("PATH:" + System.getProperty("java.library.path"));
+                    if (System.getProperty("os.name") != null && (System.getProperty("os.name").startsWith("windows")
+                            || System.getProperty("os.name").startsWith("Windows"))) {
 
-                    System.loadLibrary("libzmq");
+                        System.loadLibrary("libzmq");
                     }
                     System.out.println(" Before otapi load");
                     System.loadLibrary("otapi");
@@ -343,17 +349,17 @@ public class Settings extends javax.swing.JFrame {
                     boolean success = otapi.OT_API_Init(jTextField1.getText()) == 1 ? true : false;
                     // Uncomment below after fix
                     /*if (!success) {
-                        JOptionPane.showMessageDialog(this, "Invalid Data Folder", "Initialization Error", JOptionPane.ERROR_MESSAGE);
-                        return;
+                    JOptionPane.showMessageDialog(this, "Invalid Data Folder", "Initialization Error", JOptionPane.ERROR_MESSAGE);
+                    return;
 
                     }*/
 
-                OTCaller g_theCaller = new OTCaller();
-                OTCallback g_theCallback = new JavaCallback();
-                g_theCaller.setCallback(g_theCallback);
-                otapi.OT_API_Set_PasswordCallback(g_theCaller);
-                Utility.setG_theCallback(g_theCallback);
-                Utility.setG_theCaller(g_theCaller);
+                    OTCaller g_theCaller = new OTCaller();
+                    OTCallback g_theCallback = new JavaCallback();
+                    g_theCaller.setCallback(g_theCallback);
+                    otapi.OT_API_Set_PasswordCallback(g_theCaller);
+                    Utility.setG_theCallback(g_theCallback);
+                    Utility.setG_theCaller(g_theCaller);
 
                     success = otapi.OT_API_LoadWallet(jTextField2.getText()) == 1 ? true : false;
 
@@ -436,7 +442,17 @@ public class Settings extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void initFileChooser() {
+
+        if (System.getProperty("os.name") != null && (System.getProperty("os.name").startsWith("windows")
+                || System.getProperty("os.name").startsWith("Windows"))) {
+
+            jTextField1.setText("C:\\~\\Open-Transactions");
+        } else {
+            jTextField1.setText("~/.ot/client_data");
+        }
+
         dataFolderChooser = new JFileChooser();
+        dataFolderChooser.setFileHidingEnabled(false);
         dataFolderChooser.setCurrentDirectory(new java.io.File("."));
         dataFolderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         jMenu1 = new CustomMenu("Look & Feel");

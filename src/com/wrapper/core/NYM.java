@@ -4,8 +4,6 @@ Hash: SHA256
 
  *                 M O N E Y C H A N G E R
  *
- *   http://wiki.github.com/FellowTraveler/Moneychanger/wiki
- *
  *  Open Transactions:
  *       Financial Cryptography and Digital Cash
  *       Library, Protocol, API, Server, and GUI 
@@ -17,11 +15,10 @@ Hash: SHA256
  *    	 -- Basket Currencies, Markets, Payment Plans.
  *    	 -- Signed, XML, Ricardian-style Contracts.
  *    
- *  Copyright (C) 2010-2011 by "Fellow Traveler" (A pseudonym)
+ *  Copyright (C) 2010-2012 by "Fellow Traveler" (A pseudonym)
  *
  *  EMAIL:
- *  FellowTraveler@rayservers.net --- SEE PGP KEY BELOW.
- *  F3llowTraveler@gmail.com --- (not preferred.)
+ *  FellowTraveler@rayservers.net
  *  
  *  FINGERPRINT:
  *  9DD5 90EB 9292 4B48 0484  7910 0308 00ED F951 BB8E
@@ -29,7 +26,8 @@ Hash: SHA256
  *  BITCOIN:  1NtTPVVjDsUfDWybS4BwvHpG2pdS9RnYyQ
  *
  *  OFFICIAL PROJECT WIKI:
- *  http://wiki.github.com/FellowTraveler/Open-Transactions/wiki 
+ *  https://github.com/FellowTraveler/Moneychanger
+ *  https://github.com/FellowTraveler/Open-Transactions/wiki
  *
  *  WEBSITE:
  *  http://www.OpenTransactions.org/
@@ -70,23 +68,26 @@ Hash: SHA256
  *   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
  *   PURPOSE.  See the GNU General Public License for more
  *   details.
-
+ 
 -----BEGIN PGP SIGNATURE-----
-wsFVAwUBTbFZUwMIAO35UbuOAQjDRBAAmIUJBi5/WC1KpI4TNAWdQNh6g59qYS6w
-SI6mTMbnP0DUVOrmJdNR7/n1sRlnWzyjKLcKkRtXwRWGC+jE16jijxek9Ome5Qid
-bDqjHSuFvqnsD3+0tbENf+kVrbAReU3YvWk+xFvVc6I2NpS+lEIdjHIWm85jSmew
-Ydx+4KpELkO59thkcKgSYsTSyTP3l9GOTtJlq45XiamoEvso4jFUC1y5KMQsz1KH
-DTE32m5FPZqJqUw9loAmrni3dIMpXKC5yLhdqSMXHK0MAPEIexsuaZjrjKJQSjwV
-eDjwJcMn2WZVvcIr9IEoKEU/2j9wHNZv5Xuj78A/78AkjqEUwrY1M9ht0r/QbusW
-ZT7MlxNCq4DFstrjyKi03yZQGR+m8eJFHE7GvF8Vzg/ap0/CUJzeoXg5wACXGfJj
-k6y8ZBriQO08JECki2sy6oTitDoi7FmzgAIxPGB1qA4HMur/LuzrxAj2V7XkZQlk
-VfAda6Ff9bmStNut+zbsQ0pnIeL/URwWifI8Wq81c7DEIvA5SH/bU9Hws1FMO8PU
-BcDmzadU+syJBTxoP/mHZcLfwHDhcZyBeHX7sHfpHweEunzWjcHjqVCutQMO4dii
-yrsc64WTfAqd4s12SfKMgVFLeL/FUYH7MNqpfgjgwX5co817m9VvCntU6njIuYtV
-6+G/TuSViH8=
-=/jIC
+Version: GnuPG v1.4.11 (Darwin)
+
+iQIcBAEBCAAGBQJOj7gfAAoJEAMIAO35UbuOs3sP/2rrjSdYu/AsXcgLK9/9CP4a
+lIJfw3KLvybKZjZW5r5j+4xUlCYIqPZSI66PGDChGPMPFcZQN6M4Ddpn9kbctymS
+sdTXvbdFhpbV6k2wSa1Fz97ygfXJc/7MDTmHYbZ53hVV8AoUBrCHWtVttkQD31o3
+Pn/qGmy+jOgTvjEXhjEpV66pDkMWze1SiI1MArHUziCYoxItuM45x0EfzwQIqlo3
+ku2R7rRTtqm47Dgea12psWrjbPS5XRL1Q8Hs38Z1J0JdFlfn6cJYe52Iiluzof6M
+kCLhy6FH8QfIADfrKkFP48EIhnVquDlkV9AlJ1r217K3cpK2jEjlZUnGBECMAMEo
+pSXXk1BLNgxsa4yaXCgHY92/MhgtcdCMLkcCq6MWUTGZsLGiWIiQGmO9mwBfNIlY
+SawlIviuS5DiE/D16A290Byxhha/5e144cIiKm27fSQra8eogUXNfZdZeuv6n69v
+t8QjeBjoLhe5/KnRNoGLpSXhPphsWLRSJBru77ZU2msHfmkNfcP2UoEUCfNTfTbE
+XpyRfeyRVowVKeKunV9KUSHgdD5wa6RUeyodAbaHvWrFpIpNkaFIP9OwhRULpjx0
+arwVNYucbX1qb2I8HBm2u+IRWQTONp74TFFjU0/CVAXu2DeJKY5mL4zDej35c5j9
+AK+ZirdWhhoHeWR1tAkN
+=RcXP
 -----END PGP SIGNATURE-----
  **************************************************************/
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -97,7 +98,9 @@ import com.wrapper.core.jni.otapi;
 import com.wrapper.core.util.Configuration;
 import com.wrapper.core.util.Utility;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -164,7 +167,7 @@ public class NYM {
 
     public int registerNym(String serverID, String nymID) throws InterruptedException {
 
-        System.out.println("IN registerNYm,serverID:" + serverID+" nymID:"+nymID);
+        System.out.println("IN registerNYm,serverID:" + serverID + " nymID:" + nymID);
 
         int status = 2;
 
@@ -200,19 +203,19 @@ public class NYM {
                 System.out.println("registerNYm OT_API_Message_GetSuccess returned false:");
                 return status;
             }
-                otapi.OT_API_FlushMessageBuffer();
-                otapi.OT_API_getRequest(serverID, nymID);
-                Utility.delay();
-                serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-                System.out.println("IN getRequestNumber " + serverResponseMessage);
+            otapi.OT_API_FlushMessageBuffer();
+            otapi.OT_API_getRequest(serverID, nymID);
+            Utility.delay();
+            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
+            System.out.println("IN getRequestNumber " + serverResponseMessage);
 
-                if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                    return status;
-                }
-                
+            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
+                return status;
+            }
+
             status = 0;
-            System.out.println("registerNYm otapi.OT_API_IsNym_RegisteredAtServer(nymID, serverID):"+otapi.OT_API_IsNym_RegisteredAtServer(nymID, serverID));
-            
+            System.out.println("registerNYm otapi.OT_API_IsNym_RegisteredAtServer(nymID, serverID):" + otapi.OT_API_IsNym_RegisteredAtServer(nymID, serverID));
+
         }
         return status;
     }
@@ -410,8 +413,8 @@ public class NYM {
         return true;
     }
 
-    public boolean deleteNym(String nymID) {
-        System.out.println("deleteNym....nymID -- " + nymID);
+    public boolean deleteWalletNym(String nymID) {
+        System.out.println("deleteUnregisteredNym....nymID -- " + nymID);
         boolean deleteNym = otapi.OT_API_Wallet_CanRemoveNym(nymID) == 1 ? true : false;
         System.out.println("deleteNym:" + deleteNym);
         if (!deleteNym) {
@@ -426,5 +429,64 @@ public class NYM {
         String nymID = null;
         otapi.OT_API_Wallet_ImportNym(name, key);
         return nymID;
+    }
+
+    public Map registeredServers(String nymID) {
+        Map registeredServers = new HashMap();
+        Map serverMap = new Contract().loadServerContract();
+        int count = 0;
+        Set set = serverMap.keySet();
+        Iterator iterator = set.iterator();
+
+        while (iterator.hasNext()) {
+            Integer key = (Integer) iterator.next();
+            if (serverMap.get(key) != null) {
+                String serverID = ((String[]) serverMap.get(key))[1];
+                if (otapi.OT_API_IsNym_RegisteredAtServer(nymID, serverID) == 1) {
+                    registeredServers.put((count), new String[]{otapi.OT_API_GetServer_Name(serverID), serverID});
+                    count++;
+                }
+            }
+        }
+
+
+        return registeredServers;
+    }
+
+    public boolean deleteNym(String nymID, String serverID, boolean deleteWalletNym) throws InterruptedException {
+
+        otapi.OT_API_FlushMessageBuffer();
+        otapi.OT_API_deleteUserAccount(serverID, nymID);
+        Utility.delay();
+        String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
+        System.out.println("IN deleteNym " + serverResponseMessage);
+
+        if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
+
+            otapi.OT_API_FlushMessageBuffer();
+            otapi.OT_API_getRequest(serverID, nymID);
+            Utility.delay();
+            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
+            System.out.println("IN deleteNym getRequestNumber " + serverResponseMessage);
+
+            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
+                return false;
+            } else {
+                otapi.OT_API_deleteUserAccount(serverID, nymID);
+                Utility.delay();
+                serverResponseMessage = otapi.OT_API_PopMessageBuffer();
+            }
+
+        }
+
+        if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
+            System.out.println("deleteNym OT_API_Message_GetSuccess returned false:");
+            return false;
+        }
+        if (deleteWalletNym) {
+            return deleteWalletNym(nymID);
+        } else {
+            return true;
+        }
     }
 }

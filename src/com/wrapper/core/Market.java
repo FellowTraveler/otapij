@@ -4,39 +4,37 @@ Hash: SHA256
 
  *                 M O N E Y C H A N G E R
  *
- *   http://wiki.github.com/FellowTraveler/Moneychanger/wiki
- *
  *  Open Transactions:
  *       Financial Cryptography and Digital Cash
- *       Library, Protocol, API, Server, and GUI
- *
+ *       Library, Protocol, API, Server, and GUI 
+ *    
  *    	 -- Anonymous Numbered Accounts.
  *    	 -- Untraceable Digital Cash.
  *    	 -- Triple-Signed Receipts.
  *    	 -- Cheques, Vouchers, Transfers, Inboxes.
  *    	 -- Basket Currencies, Markets, Payment Plans.
  *    	 -- Signed, XML, Ricardian-style Contracts.
- *
- *  Copyright (C) 2010-2011 by "Fellow Traveler" (A pseudonym)
+ *    
+ *  Copyright (C) 2010-2012 by "Fellow Traveler" (A pseudonym)
  *
  *  EMAIL:
- *  FellowTraveler@rayservers.net --- SEE PGP KEY BELOW.
- *  F3llowTraveler@gmail.com --- (not preferred.)
- *
+ *  FellowTraveler@rayservers.net
+ *  
  *  FINGERPRINT:
  *  9DD5 90EB 9292 4B48 0484  7910 0308 00ED F951 BB8E
  *
  *  BITCOIN:  1NtTPVVjDsUfDWybS4BwvHpG2pdS9RnYyQ
  *
  *  OFFICIAL PROJECT WIKI:
- *  http://wiki.github.com/FellowTraveler/Open-Transactions/wiki
+ *  https://github.com/FellowTraveler/Moneychanger
+ *  https://github.com/FellowTraveler/Open-Transactions/wiki
  *
  *  WEBSITE:
  *  http://www.OpenTransactions.org/
- *
+ *    
  *  Components and licensing:
  *   -- Moneychanger..A Java client GUI.....LICENSE:.....GPLv3
- *   -- OTLib.........A class library.......LICENSE:...LAGPLv3
+ *   -- OTLib.........A class library.......LICENSE:...LAGPLv3 
  *   -- OT-API........A client API..........LICENSE:...LAGPLv3
  *   -- testwallet....Command-line client...LICENSE:...LAGPLv3
  *   -- OT-Server.....Server Application....LICENSE:....AGPLv3
@@ -63,30 +61,33 @@ Hash: SHA256
  *   software license, please contact FellowTraveler.
  *   (Unfortunately many will run anonymously and untraceably,
  *   so who could really stop them?)
- *
+ *   
  *   DISCLAIMER:
  *   This program is distributed in the hope that it will be
  *   useful, but WITHOUT ANY WARRANTY; without even the implied
  *   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
  *   PURPOSE.  See the GNU General Public License for more
  *   details.
-
+ 
 -----BEGIN PGP SIGNATURE-----
-wsFVAwUBTbFZUwMIAO35UbuOAQjDRBAAmIUJBi5/WC1KpI4TNAWdQNh6g59qYS6w
-SI6mTMbnP0DUVOrmJdNR7/n1sRlnWzyjKLcKkRtXwRWGC+jE16jijxek9Ome5Qid
-bDqjHSuFvqnsD3+0tbENf+kVrbAReU3YvWk+xFvVc6I2NpS+lEIdjHIWm85jSmew
-Ydx+4KpELkO59thkcKgSYsTSyTP3l9GOTtJlq45XiamoEvso4jFUC1y5KMQsz1KH
-DTE32m5FPZqJqUw9loAmrni3dIMpXKC5yLhdqSMXHK0MAPEIexsuaZjrjKJQSjwV
-eDjwJcMn2WZVvcIr9IEoKEU/2j9wHNZv5Xuj78A/78AkjqEUwrY1M9ht0r/QbusW
-ZT7MlxNCq4DFstrjyKi03yZQGR+m8eJFHE7GvF8Vzg/ap0/CUJzeoXg5wACXGfJj
-k6y8ZBriQO08JECki2sy6oTitDoi7FmzgAIxPGB1qA4HMur/LuzrxAj2V7XkZQlk
-VfAda6Ff9bmStNut+zbsQ0pnIeL/URwWifI8Wq81c7DEIvA5SH/bU9Hws1FMO8PU
-BcDmzadU+syJBTxoP/mHZcLfwHDhcZyBeHX7sHfpHweEunzWjcHjqVCutQMO4dii
-yrsc64WTfAqd4s12SfKMgVFLeL/FUYH7MNqpfgjgwX5co817m9VvCntU6njIuYtV
-6+G/TuSViH8=
-=/jIC
+Version: GnuPG v1.4.11 (Darwin)
+
+iQIcBAEBCAAGBQJOj7gfAAoJEAMIAO35UbuOs3sP/2rrjSdYu/AsXcgLK9/9CP4a
+lIJfw3KLvybKZjZW5r5j+4xUlCYIqPZSI66PGDChGPMPFcZQN6M4Ddpn9kbctymS
+sdTXvbdFhpbV6k2wSa1Fz97ygfXJc/7MDTmHYbZ53hVV8AoUBrCHWtVttkQD31o3
+Pn/qGmy+jOgTvjEXhjEpV66pDkMWze1SiI1MArHUziCYoxItuM45x0EfzwQIqlo3
+ku2R7rRTtqm47Dgea12psWrjbPS5XRL1Q8Hs38Z1J0JdFlfn6cJYe52Iiluzof6M
+kCLhy6FH8QfIADfrKkFP48EIhnVquDlkV9AlJ1r217K3cpK2jEjlZUnGBECMAMEo
+pSXXk1BLNgxsa4yaXCgHY92/MhgtcdCMLkcCq6MWUTGZsLGiWIiQGmO9mwBfNIlY
+SawlIviuS5DiE/D16A290Byxhha/5e144cIiKm27fSQra8eogUXNfZdZeuv6n69v
+t8QjeBjoLhe5/KnRNoGLpSXhPphsWLRSJBru77ZU2msHfmkNfcP2UoEUCfNTfTbE
+XpyRfeyRVowVKeKunV9KUSHgdD5wa6RUeyodAbaHvWrFpIpNkaFIP9OwhRULpjx0
+arwVNYucbX1qb2I8HBm2u+IRWQTONp74TFFjU0/CVAXu2DeJKY5mL4zDej35c5j9
+AK+ZirdWhhoHeWR1tAkN
+=RcXP
 -----END PGP SIGNATURE-----
  **************************************************************/
+
 package com.wrapper.core;
 
 import com.wrapper.core.dataobjects.MarketDetails;
@@ -115,12 +116,6 @@ import java.util.Map;
 public class Market {
 
     public static Map loadMarketList(String serverID, String nymID) throws InterruptedException {
-
-        System.out.println("In loadMarketList, serverID:" + serverID + " nymID:" + nymID + " otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID):" + otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID));
-
-        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
-            Utility.getTransactionNumbers(serverID, nymID);
-        }
 
         Map marketListMap = new HashMap();
 
@@ -226,6 +221,11 @@ public class Market {
             Utility.getTransactionNumbers(serverID, nymID);
         }
 
+        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
+            System.out.println("IN createOrder , failed to get transaction numbers, OT_API_GetNym_TransactionNumCount:" + otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID));
+            return false;
+        }
+
         otapi.OT_API_FlushMessageBuffer();
         otapi.OT_API_issueMarketOffer(serverID, nymID, assetTypeID, assetAcctID, currencyTypeID, currencyAcctID, scale, minIncrement, quantity, price, selling);
         Utility.delay();
@@ -257,17 +257,83 @@ public class Market {
             return false;
         }
 
+        if (otapi.OT_API_Message_GetBalanceAgreementSuccess(serverID, nymID, assetAcctID, serverResponseMessage) == 0) // Failure
+        {
+
+            otapi.OT_API_FlushMessageBuffer();
+            otapi.OT_API_getNymbox(serverID, nymID); // The failure might have been due to a finalReceipt waiting in my Nymbox.
+            Utility.delay();    // So let's update the Nymbox and then try again.
+            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
+            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
+                System.out.println("IN createOrder, OT_API_getNymbox returned false");
+                return false;
+            }
+            // <====== TRYING AGAIN (THIRD TIME)
+            otapi.OT_API_FlushMessageBuffer();
+            otapi.OT_API_issueMarketOffer(serverID, nymID, assetTypeID, assetAcctID, currencyTypeID, currencyAcctID, scale, minIncrement, quantity, price, selling);
+
+            Utility.longDelay();
+
+            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
+
+            // Balance agreement STILL FAILURE <=========
+            //
+            if (serverResponseMessage == null) {
+                System.out.println("OT_API_getNymbox serverResponseMessage is null after retry after balance agreement failure. ");
+                return false;
+            } else if (otapi.OT_API_Message_GetBalanceAgreementSuccess(serverID, nymID, assetAcctID, serverResponseMessage) == 0) // Failure
+            {
+                System.out.println(" createOrder OT_API_getNymbox serverResponseMessage is still FAILURE after retry after balance agreement failure. ");
+                return false;
+            }
+            System.out.println("after balance agreement retry, ");
+        }
+
+        if (otapi.OT_API_Message_GetTransactionSuccess(serverID, nymID, assetAcctID, serverResponseMessage) == 0) // Failure.
+        {
+            // Maybe we have an old Inbox.
+            //
+            if(!OpenTransactionAccount.getInboxAccount(serverID, nymID, assetAcctID)){
+                System.out.println("createOrder getInboxAccount returned false");
+                return false;
+            }
+            Utility.delay();
+
+            otapi.OT_API_issueMarketOffer(serverID, nymID, assetTypeID, assetAcctID, currencyTypeID, currencyAcctID, scale, minIncrement, quantity, price, selling);
+            Utility.longDelay();
+
+            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
+
+            if (serverResponseMessage == null) {
+                System.out.println("serverResponseMessage is null after retry after transaction failure and retry. ");
+                return false;
+            }
+            if (otapi.OT_API_Message_GetTransactionSuccess(serverID, nymID, assetAcctID, serverResponseMessage) == 0) // Transaction failed.
+            {
+                System.out.println("serverResponseMessage is still a failure after retry after transaction failure. ");
+                return false;
+            }
+            System.out.println("after transaction retry, ");
+        }
+
+
         return true;
     }
 
-    public static boolean cancelOrder(String serverID, String nymID, String marketID, String transactionID) throws InterruptedException {
+    public static boolean cancelOrder(String serverID, String nymID, String assetAccountID, String transactionID) throws InterruptedException {
 
         if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
             Utility.getTransactionNumbers(serverID, nymID);
         }
 
+        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
+            System.out.println("IN cancelOrder , failed to get transaction numbers, OT_API_GetNym_TransactionNumCount:" + otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID));
+            return false;
+        }
+
         otapi.OT_API_FlushMessageBuffer();
-        otapi.OT_API_cancelNymMarketOffer(serverID, nymID, marketID, transactionID);
+        otapi.OT_API_cancelMarketOffer(serverID, nymID, assetAccountID, transactionID);
+
         Utility.delay();
         String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
         System.out.println("IN cancelOrder,OT_API_cancelNymMarketOffer " + serverResponseMessage);
@@ -284,7 +350,7 @@ public class Market {
                 System.out.println("OT_API_Message_GetSuccess returned false");
                 return false;
             } else {
-                otapi.OT_API_cancelNymMarketOffer(serverID, nymID, marketID, transactionID);
+                otapi.OT_API_cancelMarketOffer(serverID, nymID, assetAccountID, transactionID);
                 Utility.delay();
                 serverResponseMessage = otapi.OT_API_PopMessageBuffer();
             }
@@ -296,15 +362,69 @@ public class Market {
             return false;
         }
 
+        if (otapi.OT_API_Message_GetBalanceAgreementSuccess(serverID, nymID, assetAccountID, serverResponseMessage) == 0) // Failure
+        {
+
+
+            otapi.OT_API_FlushMessageBuffer();
+            otapi.OT_API_getNymbox(serverID, nymID); // The failure might have been due to a finalReceipt waiting in my Nymbox.
+            Utility.delay();    // So let's update the Nymbox and then try again.
+            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
+            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
+                System.out.println("IN cancelOrder, OT_API_getNymbox returned false");
+                return false;
+            }
+            // <====== TRYING AGAIN (THIRD TIME)
+            otapi.OT_API_FlushMessageBuffer();
+            otapi.OT_API_cancelMarketOffer(serverID, nymID, assetAccountID, transactionID);
+
+            Utility.longDelay();
+
+            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
+
+            // Balance agreement STILL FAILURE <=========
+            //
+            if (serverResponseMessage == null) {
+                System.out.println("cancelOrder OT_API_getNymbox serverResponseMessage is null after retry after balance agreement failure. ");
+                return false;
+            } else if (otapi.OT_API_Message_GetBalanceAgreementSuccess(serverID, nymID, assetAccountID, serverResponseMessage) == 0) // Failure
+            {
+                System.out.println("cancelOrder OT_API_getNymbox serverResponseMessage is still FAILURE after retry after balance agreement failure. ");
+                return false;
+            }
+            System.out.println("cancelOrder after balance agreement retry, ");
+        }
+
+        if (otapi.OT_API_Message_GetTransactionSuccess(serverID, nymID, assetAccountID, serverResponseMessage) == 0) // Failure.
+        {
+            // Maybe we have an old Inbox.
+            //
+            if(!OpenTransactionAccount.getInboxAccount(serverID, nymID, assetAccountID)){
+                System.out.println("cancelOrder getInboxAccount returned false");
+                return false;
+            }
+
+            otapi.OT_API_cancelMarketOffer(serverID, nymID, assetAccountID, transactionID);
+            Utility.longDelay();
+
+            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
+
+            if (serverResponseMessage == null) {
+                System.out.println("cancelOrder serverResponseMessage is null after retry after transaction failure and retry. ");
+                return false;
+            }
+            if (otapi.OT_API_Message_GetTransactionSuccess(serverID, nymID, assetAccountID, serverResponseMessage) == 0) // Transaction failed.
+            {
+                System.out.println("cancelOrder serverResponseMessage is still a failure after retry after transaction failure. ");
+                return false;
+            }
+            System.out.println("cancelOrder after transaction retry, ");
+        }
 
         return true;
     }
 
     public static Map getNymOfferList(String serverID, String nymID) throws InterruptedException {
-
-        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
-            Utility.getTransactionNumbers(serverID, nymID);
-        }
 
         Map nymOffersData = new HashMap();
 
@@ -355,10 +475,11 @@ public class Market {
                 continue;
             }
 
-            String[] nymDataRow = new String[2];
+            String[] nymDataRow = new String[3];
             //offerDataNym.getSelling()
             nymDataRow[0] = offerDataNym.getTransaction_id();
             nymDataRow[1] = offerDataNym.getSelling() == true ? "Ask" : "Bid";
+            nymDataRow[2] = offerDataNym.getAsset_acct_id();
 
             nymOffersData.put(offerDataNym.getTransaction_id(), nymDataRow);
 
@@ -374,15 +495,10 @@ public class Market {
             return null;
         }
 
-        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
-            Utility.getTransactionNumbers(serverID, nymID);
-        }
-
-
         Map askGridData = new HashMap();
         Map bidGridData = new HashMap();
         Map nymGridData = new HashMap();
-        
+
         //Map tradeMarketData = new HashMap();
         List tradeMarketData = new ArrayList();
 
@@ -433,6 +549,9 @@ public class Market {
                     marketDetails.setCurrencyName(otapi.OT_API_GetAssetType_Name(marketDetails.getCurrencyID()));
                 }
 
+                marketDetails.setNbrAsks(marketData.getNumber_asks() == null ? "" : marketData.getNumber_asks());
+                marketDetails.setNbrBids(marketData.getNumber_bids() == null ? "" : marketData.getNumber_bids());
+                marketDetails.setTotalAssets(marketData.getTotal_assets() == null ? "" : marketData.getTotal_assets());
 
                 otapi.OT_API_FlushMessageBuffer();
                 otapi.OT_API_getMarketOffers(serverID, nymID, marketID, Configuration.getMarketMaxDepth());
@@ -485,7 +604,7 @@ public class Market {
 
                         askRow[0] = askData.getPrice_per_scale();
                         askRow[1] = askData.getAvailable_assets();
-                        askRow[2] = askData.getMinimum_increment();
+                        askRow[3] = askData.getMinimum_increment();
 
                         try {
                             askRow[2] = String.valueOf(Double.parseDouble(askRow[0]) * Double.parseDouble(askRow[1]));
@@ -529,9 +648,7 @@ public class Market {
 
                     }
                 }
-                if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
-                    Utility.getTransactionNumbers(serverID, nymID);
-                }
+
                 otapi.OT_API_FlushMessageBuffer();
                 otapi.OT_API_getMarketRecentTrades(serverID, nymID, marketID);
                 Utility.delay();
@@ -655,10 +772,11 @@ public class Market {
                             continue;
                         }
 
-                        String[] nymDataRow = new String[2];
+                        String[] nymDataRow = new String[3];
                         //offerDataNym.getSelling()
                         nymDataRow[0] = offerDataNym.getTransaction_id();
                         nymDataRow[1] = offerDataNym.getSelling() == true ? "Ask" : "Bid";
+                        nymDataRow[2] = offerDataNym.getAsset_acct_id();
 
                         nymGridData.put(offerDataNym.getTransaction_id(), nymDataRow);
 
@@ -670,7 +788,7 @@ public class Market {
                 marketDetails.setMarketBid(bidGridData);
                 marketDetails.setMarketRecentTrades(tradeMarketData);
                 marketDetails.setNymOffers(nymGridData);
-                
+
                 break;
 
             }
@@ -681,55 +799,52 @@ public class Market {
         return marketDetails;
     }
 
-    public static Map getNymTrades(String serverID, String nymID){
+    public static Map getNymTrades(String serverID, String nymID) {
 
         Map tradeNymData = new HashMap();
 
         TradeListNym tradeListNym = Utility.getNYMTrades(serverID, nymID);
 
-                if (tradeListNym == null) {
-                    System.out.println("getNymTrades - tradeListNym returns null");
-                    return null;
+        if (tradeListNym == null) {
+            System.out.println("getNymTrades - tradeListNym returns null");
+            return null;
+        }
+
+        for (int j = 0; j < tradeListNym.GetTradeDataNymCount(); j++) {
+
+            TradeDataNym tradeDataNym = tradeListNym.GetTradeDataNym(j);
+            if (tradeDataNym == null) {
+                continue;
+            }
+
+            String[] tradeDataRow = new String[5];
+
+            tradeDataRow[0] = tradeDataNym.getTransaction_id() == null ? "" : tradeDataNym.getTransaction_id();
+            tradeDataRow[1] = tradeDataNym.getPrice() == null ? "" : tradeDataNym.getPrice();
+            tradeDataRow[2] = tradeDataNym.getAmount_sold() == null ? "" : tradeDataNym.getAmount_sold();
+            tradeDataRow[3] = tradeDataNym.getCompleted_count() == null ? "" : tradeDataNym.getCompleted_count();
+            tradeDataRow[4] = tradeDataNym.getDate() == null ? "" : tradeDataNym.getDate();
+
+            if (!tradeDataRow[4].equals("")) {
+
+                try {
+                    tradeDataRow[4] = String.valueOf(new Date(Long.parseLong(tradeDataRow[4]) * 1000));
+                } catch (NumberFormatException nfe) {
+                    nfe.printStackTrace();
+                    System.out.println("Invalid number returned by timestmp:" + tradeDataRow[4]);
+                    tradeDataRow[4] = "";
                 }
+            }
 
-                for (int j = 0; j < tradeListNym.GetTradeDataNymCount(); j++) {
+            tradeNymData.put(tradeDataNym.getTransaction_id(), tradeDataRow);
 
-                    TradeDataNym tradeDataNym = tradeListNym.GetTradeDataNym(j);
-                    if (tradeDataNym == null) {
-                        continue;
-                    }
-
-                    String[] tradeDataRow = new String[5];
-
-                    tradeDataRow[0] = tradeDataNym.getTransaction_id() == null ? "" : tradeDataNym.getTransaction_id();
-                    tradeDataRow[1] = tradeDataNym.getPrice() == null ? "" : tradeDataNym.getPrice();
-                    tradeDataRow[2] = tradeDataNym.getAmount_sold() == null ? "" : tradeDataNym.getAmount_sold();
-                    tradeDataRow[3] = tradeDataNym.getCompleted_count() == null ? "" : tradeDataNym.getCompleted_count();
-                    tradeDataRow[4] = tradeDataNym.getDate() == null ? "" : tradeDataNym.getDate();
-
-                    if (!tradeDataRow[4].equals("")) {
-
-                        try {
-                            tradeDataRow[4] = String.valueOf(new Date(Long.parseLong(tradeDataRow[4]) * 1000));
-                        } catch (NumberFormatException nfe) {
-                            nfe.printStackTrace();
-                            System.out.println("Invalid number returned by timestmp:" + tradeDataRow[4]);
-                            tradeDataRow[4] = "";
-                        }
-                    }
-
-                    tradeNymData.put(tradeDataNym.getTransaction_id(), tradeDataRow);
-
-                }
+        }
 
         return tradeNymData;
     }
 
     public static MarketTicker getTicker(String marketID, String serverID, String nymID) throws InterruptedException {
 
-        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
-            Utility.getTransactionNumbers(serverID, nymID);
-        }
 
         otapi.OT_API_FlushMessageBuffer();
         otapi.OT_API_getMarketList(serverID, nymID);
