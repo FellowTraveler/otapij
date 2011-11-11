@@ -1,0 +1,31 @@
+libs.absolutelayout.classpath=\
+    ${base}/absolutelayout/AbsoluteLayout.jar
+libs.CopyLibs.classpath=\
+    ${base}/CopyLibs/org-netbeans-modules-java-j2seproject-copylibstask.jar
+libs.DJNativeSwing.classpath=\
+    ${base}/DJNativeSwing/DJNativeSwing.jar:\
+    ${base}/DJNativeSwing/DJNativeSwing-SWTAPI.jar:\
+    ${base}/DJNativeSwing/DJNativeSwing-SWTCore.jar
+libs.JGoodies.classpath=\
+    ${base}/JGoodies/looks.jar:\
+    ${base}/JGoodies/jgoodies-common.jar:\
+    ${base}/JGoodies/jgoodies-looks-win.jar:\
+    ${base}/JGoodies/jgoodies-looks.jar:\
+    ${base}/JGoodies/jgoodies-plastic.jar
+libs.jna.classpath=\
+    ${base}/jna/jna-platform.jar:\
+    ${base}/jna/jna.jar
+libs.junit.classpath=\
+    ${base}/junit/junit.jar
+libs.junit_4.classpath=\
+    ${base}/junit_4/junit4.jar
+libs.substance.classpath=\
+    ${base}/substance/substance-tst.jar:\
+    ${base}/substance/substance.jar
+libs.swing-app-framework.classpath=\
+    ${base}/swing-app-framework/appframework-1.0.3.jar:\
+    ${base}/swing-app-framework/swing-worker-1.1.jar
+libs.swing-layout.classpath=\
+    ${base}/swing-layout/swing-layout-1.0.4.jar
+libs.swt.classpath=\
+    ${base}/swt/swt.jar
