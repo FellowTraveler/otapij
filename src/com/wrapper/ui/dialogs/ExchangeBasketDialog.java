@@ -100,7 +100,7 @@ AK+ZirdWhhoHeWR1tAkN
  */
 package com.wrapper.ui.dialogs;
 
-import com.sun.codemodel.internal.JOp;
+//import com.sun.codemodel.internal.JOp;
 import com.wrapper.core.OpenTransactionAccount;
 import com.wrapper.core.jni.otapi;
 import com.wrapper.core.util.Configuration;

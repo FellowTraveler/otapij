@@ -441,15 +441,29 @@ public class Settings extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
 
+    
+            private static String defaultDirectory()
+{
+    String OS = System.getProperty("os.name").toUpperCase();
+    if (OS.contains("WIN"))
+        return System.getenv("APPDATA");
+    else if (OS.contains("MAC"))
+        return System.getProperty("user.home") + "/Library/Application "
+                + "Support";
+    else if (OS.contains("NUX"))
+        return System.getProperty("user.home");
+    return System.getProperty("user.dir");
+}
+    
+    
     private void initFileChooser() {
 
-        if (System.getProperty("os.name") != null && (System.getProperty("os.name").startsWith("windows")
-                || System.getProperty("os.name").startsWith("Windows"))) {
-
-            jTextField1.setText("C:\\~\\Open-Transactions");
-        } else {
-            jTextField1.setText("~/.ot/client_data");
-        }
+        StringBuilder sb = new StringBuilder();
+        
+        sb.append(defaultDirectory());
+        sb.append("/.ot/client_data");
+        
+        jTextField1.setText(sb.toString());
 
         dataFolderChooser = new JFileChooser();
         dataFolderChooser.setFileHidingEnabled(false);
