@@ -102,7 +102,7 @@ AK+ZirdWhhoHeWR1tAkN
  */
 package com.wrapper.ui.dialogs;
 
-import com.theotherbell.ui.DateField;
+//import com.theotherbell.ui.DateField; - JavaDatePicker (bad)
 import com.wrapper.core.NYM;
 import com.wrapper.core.OpenTransactionAccount;
 import com.wrapper.core.util.Utility;
@@ -316,7 +316,7 @@ public class OTWriteCheque extends javax.swing.JDialog  {
         try {
             OpenTransactionAccount openTransactionAccount = new OpenTransactionAccount();
             String validFrom = String.valueOf(System.currentTimeMillis()/1000);
-            String validTo = String.valueOf(dateField.getDate().getTime()/1000);
+            String validTo = String.valueOf(dateField);
             /*if(dateField.getDate().getTime()<=System.currentTimeMillis()){
                 JOptionPane.showMessageDialog(null , "Expiration date should be greater than today","Date error",JOptionPane.ERROR_MESSAGE);
                 return;
@@ -395,16 +395,16 @@ public class OTWriteCheque extends javax.swing.JDialog  {
     private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
     
-    DateField dateField;
+    String dateField;
 
     public static void setDate(String date) {
     }
 
     private void initDateComponent() {
 
-        dateField = new DateField();
-        dateField.setBounds(0,-10, 250, 30);
-        jPanel1.add(dateField);
+        dateField = new String();
+ //       dateField.setBounds(0,-10, 250, 30);
+        jPanel1.add(new javax.swing.JTextField() );
         jPanel1.setBorder(null);
         repaint();
         SwingUtilities.invokeLater(new Runnable() {

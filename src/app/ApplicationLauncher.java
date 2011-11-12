@@ -130,9 +130,9 @@ public class ApplicationLauncher extends SingleFrameApplication {
                          * look and feel.
                          */
                
-                        SubstanceLookAndFeel laf = new SubstanceModerateLookAndFeel();
-                        UIManager.setLookAndFeel(laf);
-                        Utility.setObj(laf);
+              //          SubstanceLookAndFeel laf = new SubstanceModerateLookAndFeel();
+                //        UIManager.setLookAndFeel(laf);
+             //           Utility.setObj(laf);
 
                         new Settings().setVisible(true);
                     } catch (Exception e) {
