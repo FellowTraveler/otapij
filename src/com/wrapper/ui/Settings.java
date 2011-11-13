@@ -108,7 +108,6 @@ import com.wrapper.core.jni.StorageType;
 import com.wrapper.core.jni.otapi;
 import com.wrapper.core.util.Configuration;
 import com.wrapper.core.util.Utility;
-import com.wrapper.ui.LoadExceptions;
 import com.wrapper.ui.custom.CustomMenu;
 import com.wrapper.ui.dialogs.PathDialog;
 import java.awt.Cursor;
@@ -120,26 +119,40 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Vicky C
+ * @author Vicky C anc Cameron
  */
+// <editor-fold desc="MainClass">>
 public class Settings extends javax.swing.JFrame {
 
     private JFileChooser dataFolderChooser;
+    private static Load.JavaPaths javaPaths;
 
     /** Creates new form Settings */
     public Settings() {
         try {
             Load.loadOTAPI();
-        } catch (LoadExceptions.NoApiException e) {
-            loadSettings();
-        }
-        try {
             Load.loadAppData();
-        } catch (LoadExceptions.NoAppDataException e) {
-            loadSettings();
-        }
-        try {
+            Load.setTimeout();
             new MainPage().setVisible(true);
+        } catch (Load.ApiNotLoadedException e) {
+            StringBuilder error = new StringBuilder();
+            error.append("Autoload of from the Java Path failed!: ");
+            error.append(System.getProperty("line.separator"));
+            error.append(e.getError());
+            JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
+            loadSettings();
+        } catch (Load.AppDataNotLoadedException e) {
+            StringBuilder error = new StringBuilder();
+            error.append("AutoLoad of your MoneyChanger user data failed; Choose the location here:");
+            error.append(e.getError().replace(":", System.getProperty("line.separator")));
+            JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
+            loadSettings();
+        } catch (Load.InvalidTimeOutException e) {
+            StringBuilder error = new StringBuilder();
+            error.append("Auto-Timout is invalid; you should never see this message: please contact us for support!");
+            error.append(e.getError());
+            JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
+            loadSettings();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -305,6 +318,35 @@ public class Settings extends javax.swing.JFrame {
 
     private void jButton_LoadWalletActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_LoadWalletActionPerformed
 
+
+
+
+
+
+        try {
+            Load.loadOTAPI();
+            Load.loadAppData();
+            Load.setTimeout();
+            new MainPage().setVisible(true);
+        } catch (Load.ApiNotLoadedException e) {
+            loadSettings();
+        } catch (Load.AppDataNotLoadedException e) {
+            loadSettings();
+        } catch (Load.InvalidTimeOutException e) {
+            loadSettings();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+
+
+
+
+
         try {
             /* OTCaller g_theCaller = new OTCaller();
             OTCallback g_theCallback = new JavaCallback();
@@ -338,20 +380,6 @@ public class Settings extends javax.swing.JFrame {
             } else {
                 try {
 
-
-
-
-                    //Wait Time
-                    try {
-                        waitTime = Long.parseLong(jTextField_Timeout.getText());
-                    } catch (NumberFormatException nfe) {
-                        JOptionPane.showMessageDialog(this, "Please enter valid timeout", "Initialization Error", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-                    if (waitTime < 1) {
-                        JOptionPane.showMessageDialog(this, "Timeout should be > 1", "Initialization Error", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
 
                     //Java Path
                     Utility.addDirToRuntime(jTextField_JavaPath.getText(), true);
@@ -427,7 +455,7 @@ public class Settings extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_DataFolderActionPerformed
 
     private void jButton_JavaPathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_JavaPathActionPerformed
-        new PathDialog(this, true, jTextField_JavaPath.getText()).setVisible(true);
+        new PathDialog(this, true, javaPaths).setVisible(true);
     }//GEN-LAST:event_jButton_JavaPathActionPerformed
 
     /**
@@ -459,30 +487,11 @@ public class Settings extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField_WalletFile;
     // End of variables declaration//GEN-END:variables
 
-    private static StringBuilder appdataDirectory() {
-        StringBuilder appdataDirectory = new StringBuilder();
-        String OS = System.getProperty("os.name").toUpperCase();
-        if (OS.contains("WIN")) {
-            appdataDirectory.append(System.getenv("APPDATA"));
-            return appdataDirectory;
-        } else if (OS.contains("MAC")) {
-            appdataDirectory.append(System.getProperty("user.home"));
-            appdataDirectory.append("/Library/Application ");
-            appdataDirectory.append("Support");
-            return appdataDirectory;
-        } else if (OS.contains("NUX")) {
-            appdataDirectory.append(System.getProperty("user.home"));
-            return appdataDirectory;
-        }
-        appdataDirectory.append(System.getProperty("user.dir"));
-        return appdataDirectory;
-    }
-
     private void initFileChooser() {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append(appdataDirectory());
+        sb.append(Load.appdataDirectory(Load.getOS()));
         sb.append("/.ot/client_data");
 
         jTextField_DataFolder.setText(sb.toString());
@@ -495,13 +504,17 @@ public class Settings extends javax.swing.JFrame {
         jTextField_Timeout.setText(String.valueOf(Configuration.getWaitTime()));
     }
 
-    public static void setPath(String path) {
-        jTextField_JavaPath.setText(path);
+    public static void setPath() {
+        jTextField_JavaPath.setText(javaPaths.toString());
     }
 
     private void loadSettings() {
+        javaPaths = new Load.JavaPaths();
+        javaPaths.addDefultPath(Load.getOS());
         initComponents();
         Utility.setObj(this);
         setLocation(Utility.getLocation(this.getSize()));
+        initFileChooser();
     }
 }
+  // </editor-fold>

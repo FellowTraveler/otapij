@@ -68,7 +68,7 @@ Hash: SHA256
  *   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
  *   PURPOSE.  See the GNU General Public License for more
  *   details.
- 
+
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.11 (Darwin)
 
@@ -87,9 +87,6 @@ AK+ZirdWhhoHeWR1tAkN
 =RcXP
 -----END PGP SIGNATURE-----
  **************************************************************/
-
-
-
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -103,26 +100,26 @@ AK+ZirdWhhoHeWR1tAkN
 package com.wrapper.ui.dialogs;
 
 import com.wrapper.core.util.Utility;
+import com.wrapper.ui.Load;
 import com.wrapper.ui.Settings;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.ListModel;
 
 /**
  *
- * @author Vicky C
+ * @author Vicky C and Cameron
  */
 public class PathDialog extends javax.swing.JDialog {
 
     private JFileChooser pathFolderChooser;
-    private final String selectedPath;
+    //  private final String selectedPath;
+    private Load.JavaPaths javaPaths;
 
     /** Creates new form PathDialog */
-    public PathDialog(java.awt.Frame parent, boolean modal,String selectedPath) {
+    public PathDialog(java.awt.Frame parent, boolean modal, Load.JavaPaths javaPaths) {
         super(parent, modal);
+        this.javaPaths = javaPaths;
         initComponents();
-        this.selectedPath = selectedPath;
         initValues();
         setLocation(Utility.getLocation(this.getSize()));
     }
@@ -139,8 +136,7 @@ public class PathDialog extends javax.swing.JDialog {
         jScrollPanel_Paths = new javax.swing.JScrollPane();
         jList_Paths = new javax.swing.JList();
         jButton_Add = new javax.swing.JButton();
-        jButton_Remove = new javax.swing.JButton();
-        jButton_Ok = new javax.swing.JButton();
+        jButton_Close = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(PathDialog.class);
@@ -162,19 +158,12 @@ public class PathDialog extends javax.swing.JDialog {
             }
         });
 
-        jButton_Remove.setText(resourceMap.getString("jButton_Remove.text")); // NOI18N
-        jButton_Remove.setName("jButton_Remove"); // NOI18N
-        jButton_Remove.addActionListener(new java.awt.event.ActionListener() {
+        jButton_Close.setText(resourceMap.getString("jButton_Close.text")); // NOI18N
+        jButton_Close.setActionCommand(resourceMap.getString("jButton_Close.actionCommand")); // NOI18N
+        jButton_Close.setName("jButton_Close"); // NOI18N
+        jButton_Close.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_RemoveActionPerformed(evt);
-            }
-        });
-
-        jButton_Ok.setText(resourceMap.getString("jButton_Ok.text")); // NOI18N
-        jButton_Ok.setName("jButton_Ok"); // NOI18N
-        jButton_Ok.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_OkActionPerformed(evt);
+                jButton_CloseActionPerformed(evt);
             }
         });
 
@@ -182,32 +171,26 @@ public class PathDialog extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(42, Short.MAX_VALUE)
-                .addComponent(jScrollPanel_Paths, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton_Add, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton_Remove))
-                .addGap(29, 29, 29))
             .addGroup(layout.createSequentialGroup()
-                .addGap(176, 176, 176)
-                .addComponent(jButton_Ok)
-                .addContainerGap(272, Short.MAX_VALUE))
+                .addGap(61, 61, 61)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton_Close)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton_Add))
+                    .addComponent(jScrollPanel_Paths, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(29, Short.MAX_VALUE)
+                .addContainerGap(35, Short.MAX_VALUE)
+                .addComponent(jScrollPanel_Paths, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPanel_Paths, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton_Add)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton_Remove)))
-                .addGap(27, 27, 27)
-                .addComponent(jButton_Ok)
-                .addGap(30, 30, 30))
+                    .addComponent(jButton_Close)
+                    .addComponent(jButton_Add))
+                .addGap(33, 33, 33))
         );
 
         pack();
@@ -220,33 +203,18 @@ public class PathDialog extends javax.swing.JDialog {
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             // file = contractFileChooser.getSelectedFile();
             //This is where a real application would open the file.
-            ((DefaultListModel) jList_Paths.getModel()).addElement(pathFolderChooser.getSelectedFile().getPath());
-            jButton_Remove.setEnabled(true);
+            
+            javaPaths.addPath(pathFolderChooser.getSelectedFile().getPath());
+            
         } else {
             System.out.println("Cancelled");
         }
     }//GEN-LAST:event_jButton_AddActionPerformed
 
-    private void jButton_RemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_RemoveActionPerformed
-        if(jList_Paths.getSelectedIndex()<0){
-            JOptionPane.showMessageDialog(this, "Please select path to remove","Error",JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        ((DefaultListModel) jList_Paths.getModel()).removeElement(jList_Paths.getSelectedValue());
-        if (((DefaultListModel) jList_Paths.getModel()).size() < 1) {
-            jButton_Remove.setEnabled(false);
-        }
-    }//GEN-LAST:event_jButton_RemoveActionPerformed
-
-    private void jButton_OkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_OkActionPerformed
-        String path="";
-        for(int i=0;i<((DefaultListModel)jList_Paths.getModel()).size();i++){
-        path += ((DefaultListModel)jList_Paths.getModel()).getElementAt(i)+";";
-
-        }
-        Settings.setPath(path);
+    private void jButton_CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CloseActionPerformed
+        Settings.setPath();
         this.dispose();
-    }//GEN-LAST:event_jButton_OkActionPerformed
+    }//GEN-LAST:event_jButton_CloseActionPerformed
 
     /**
      * @param args the command line arguments
@@ -255,9 +223,10 @@ public class PathDialog extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                PathDialog dialog = new PathDialog(new javax.swing.JFrame(), true,"");
+                PathDialog dialog = new PathDialog(new javax.swing.JFrame(), true, new Load.JavaPaths());
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
+                    @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
                     }
@@ -268,21 +237,13 @@ public class PathDialog extends javax.swing.JDialog {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_Add;
-    private javax.swing.JButton jButton_Ok;
-    private javax.swing.JButton jButton_Remove;
+    private javax.swing.JButton jButton_Close;
     private javax.swing.JList jList_Paths;
     private javax.swing.JScrollPane jScrollPanel_Paths;
     // End of variables declaration//GEN-END:variables
 
     private void initValues() {
-        if(!"".equalsIgnoreCase(selectedPath) && selectedPath.contains(";")){
-            String [] path = selectedPath.split(";");
-            for(int i=0;i<path.length;i++)
-                ((DefaultListModel) jList_Paths.getModel()).addElement(path[i]);
-        }
-        if (((DefaultListModel) jList_Paths.getModel()).size() < 1) {
-            jButton_Remove.setEnabled(false);
-        }
+        jList_Paths.setModel(javaPaths);
         pathFolderChooser = new JFileChooser();
         pathFolderChooser.setCurrentDirectory(new java.io.File("."));
         pathFolderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
