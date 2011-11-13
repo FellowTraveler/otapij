@@ -68,7 +68,7 @@ Hash: SHA256
  *   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
  *   PURPOSE.  See the GNU General Public License for more
  *   details.
- 
+
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.11 (Darwin)
 
@@ -108,6 +108,7 @@ import com.wrapper.core.jni.StorageType;
 import com.wrapper.core.jni.otapi;
 import com.wrapper.core.util.Configuration;
 import com.wrapper.core.util.Utility;
+import com.wrapper.ui.LoadExceptions;
 import com.wrapper.ui.custom.CustomMenu;
 import com.wrapper.ui.dialogs.PathDialog;
 import java.awt.Cursor;
@@ -127,10 +128,21 @@ public class Settings extends javax.swing.JFrame {
 
     /** Creates new form Settings */
     public Settings() {
-        initComponents();
-        initFileChooser();
-        Utility.setObj(this);
-        setLocation(Utility.getLocation(this.getSize()));
+        try {
+            Load.loadOTAPI();
+        } catch (LoadExceptions.NoApiException e) {
+            loadSettings();
+        }
+        try {
+            Load.loadAppData();
+        } catch (LoadExceptions.NoAppDataException e) {
+            loadSettings();
+        }
+        try {
+            new MainPage().setVisible(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /** This method is called from within the constructor to
@@ -142,93 +154,93 @@ public class Settings extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        jLabel_SettingTitle = new javax.swing.JLabel();
+        jLabel_Timeout = new javax.swing.JLabel();
+        jTextField_Timeout = new javax.swing.JTextField();
+        jLabel_TimoutUnit = new javax.swing.JLabel();
+        jLabel_DataFolder = new javax.swing.JLabel();
+        jTextField_DataFolder = new javax.swing.JTextField();
+        jButton_DataFolder = new javax.swing.JButton();
+        jLabel_WalletFile = new javax.swing.JLabel();
+        jTextField_WalletFile = new javax.swing.JTextField();
+        jLabel_JavaPath = new javax.swing.JLabel();
+        jTextField_JavaPath = new javax.swing.JTextField();
+        jButton_JavaPath = new javax.swing.JButton();
+        jButton_LoadWallet = new javax.swing.JButton();
+        jMenuBar_Setting = new javax.swing.JMenuBar();
         jMenu1 = new com.wrapper.ui.custom.CustomMenu("Look & Feel");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(app.ApplicationLauncher.class).getContext().getResourceMap(Settings.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(Settings.class);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
         setName("Form"); // NOI18N
 
-        jLabel1.setFont(resourceMap.getFont("jLabel1.font")); // NOI18N
-        jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
-        jLabel1.setName("jLabel1"); // NOI18N
+        jLabel_SettingTitle.setFont(resourceMap.getFont("jLabel_SettingTitle.font")); // NOI18N
+        jLabel_SettingTitle.setText(resourceMap.getString("jLabel_SettingTitle.text")); // NOI18N
+        jLabel_SettingTitle.setName("jLabel_SettingTitle"); // NOI18N
 
-        jLabel2.setText(resourceMap.getString("jLabel2.text")); // NOI18N
-        jLabel2.setName("jLabel2"); // NOI18N
+        jLabel_Timeout.setText(resourceMap.getString("jLabel_Timeout.text")); // NOI18N
+        jLabel_Timeout.setName("jLabel_Timeout"); // NOI18N
 
-        jTextField1.setBackground(resourceMap.getColor("jTextField1.background")); // NOI18N
-        jTextField1.setEditable(false);
-        jTextField1.setText(resourceMap.getString("jTextField1.text")); // NOI18N
-        jTextField1.setName("jTextField1"); // NOI18N
+        jTextField_Timeout.setText(resourceMap.getString("jTextField_Timeout.text")); // NOI18N
+        jTextField_Timeout.setName("jTextField_Timeout"); // NOI18N
 
-        jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
-        jButton1.setName("jButton1"); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jLabel_TimoutUnit.setText(resourceMap.getString("jLabel_TimoutUnit.text")); // NOI18N
+        jLabel_TimoutUnit.setName("jLabel_TimoutUnit"); // NOI18N
+
+        jLabel_DataFolder.setText(resourceMap.getString("jLabel_DataFolder.text")); // NOI18N
+        jLabel_DataFolder.setName("jLabel_DataFolder"); // NOI18N
+
+        jTextField_DataFolder.setBackground(resourceMap.getColor("jTextField_DataFolder.background")); // NOI18N
+        jTextField_DataFolder.setEditable(false);
+        jTextField_DataFolder.setText(resourceMap.getString("jTextField_DataFolder.text")); // NOI18N
+        jTextField_DataFolder.setName("jTextField_DataFolder"); // NOI18N
+
+        jButton_DataFolder.setText(resourceMap.getString("jButton_DataFolder.text")); // NOI18N
+        jButton_DataFolder.setName("jButton_DataFolder"); // NOI18N
+        jButton_DataFolder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButton_DataFolderActionPerformed(evt);
             }
         });
 
-        jLabel3.setText(resourceMap.getString("jLabel3.text")); // NOI18N
-        jLabel3.setName("jLabel3"); // NOI18N
+        jLabel_WalletFile.setText(resourceMap.getString("jLabel_WalletFile.text")); // NOI18N
+        jLabel_WalletFile.setName("jLabel_WalletFile"); // NOI18N
 
-        jTextField2.setText(resourceMap.getString("jTextField2.text")); // NOI18N
-        jTextField2.setName("jTextField2"); // NOI18N
+        jTextField_WalletFile.setText(resourceMap.getString("jTextField_WalletFile.text")); // NOI18N
+        jTextField_WalletFile.setName("jTextField_WalletFile"); // NOI18N
 
-        jLabel4.setText(resourceMap.getString("jLabel4.text")); // NOI18N
-        jLabel4.setName("jLabel4"); // NOI18N
+        jLabel_JavaPath.setText(resourceMap.getString("jLabel_JavaPath.text")); // NOI18N
+        jLabel_JavaPath.setName("jLabel_JavaPath"); // NOI18N
 
-        jTextField3.setBackground(resourceMap.getColor("jTextField3.background")); // NOI18N
-        jTextField3.setEditable(false);
-        jTextField3.setText(resourceMap.getString("jTextField3.text")); // NOI18N
-        jTextField3.setName("jTextField3"); // NOI18N
+        jTextField_JavaPath.setBackground(resourceMap.getColor("jTextField_JavaPath.background")); // NOI18N
+        jTextField_JavaPath.setEditable(false);
+        jTextField_JavaPath.setText(resourceMap.getString("jTextField_JavaPath.text")); // NOI18N
+        jTextField_JavaPath.setName("jTextField_JavaPath"); // NOI18N
 
-        jButton2.setText(resourceMap.getString("jButton2.text")); // NOI18N
-        jButton2.setName("jButton2"); // NOI18N
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButton_JavaPath.setText(resourceMap.getString("jButton_JavaPath.text")); // NOI18N
+        jButton_JavaPath.setName("jButton_JavaPath"); // NOI18N
+        jButton_JavaPath.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButton_JavaPathActionPerformed(evt);
             }
         });
 
-        jButton3.setText(resourceMap.getString("jButton3.text")); // NOI18N
-        jButton3.setName("jButton3"); // NOI18N
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jButton_LoadWallet.setText(resourceMap.getString("jButton_LoadWallet.text")); // NOI18N
+        jButton_LoadWallet.setName("jButton_LoadWallet"); // NOI18N
+        jButton_LoadWallet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jButton_LoadWalletActionPerformed(evt);
             }
         });
 
-        jLabel5.setText(resourceMap.getString("jLabel5.text")); // NOI18N
-        jLabel5.setName("jLabel5"); // NOI18N
-
-        jTextField4.setText(resourceMap.getString("jTextField4.text")); // NOI18N
-        jTextField4.setName("jTextField4"); // NOI18N
-
-        jLabel6.setText(resourceMap.getString("jLabel6.text")); // NOI18N
-        jLabel6.setName("jLabel6"); // NOI18N
-
-        jMenuBar1.setName("jMenuBar1"); // NOI18N
+        jMenuBar_Setting.setName("jMenuBar_Setting"); // NOI18N
 
         jMenu1.setText(resourceMap.getString("jMenu1.text")); // NOI18N
         jMenu1.setName("jMenu1"); // NOI18N
-        jMenuBar1.add(jMenu1);
+        jMenuBar_Setting.add(jMenu1);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(jMenuBar_Setting);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -239,59 +251,59 @@ public class Settings extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
+                            .addComponent(jLabel_DataFolder)
+                            .addComponent(jLabel_Timeout)
+                            .addComponent(jLabel_WalletFile)
+                            .addComponent(jLabel_JavaPath))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField4)
-                            .addComponent(jTextField3)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-                            .addComponent(jButton3))
+                            .addComponent(jTextField_Timeout)
+                            .addComponent(jTextField_JavaPath)
+                            .addComponent(jTextField_WalletFile)
+                            .addComponent(jTextField_DataFolder, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                            .addComponent(jButton_LoadWallet))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2)
-                            .addComponent(jButton1)
-                            .addComponent(jLabel6)))
+                            .addComponent(jButton_JavaPath)
+                            .addComponent(jButton_DataFolder)
+                            .addComponent(jLabel_TimoutUnit)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(161, 161, 161)
-                        .addComponent(jLabel1)))
+                        .addComponent(jLabel_SettingTitle)))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jLabel1)
+                .addComponent(jLabel_SettingTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel5))
+                    .addComponent(jTextField_Timeout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_TimoutUnit)
+                    .addComponent(jLabel_Timeout))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jLabel2))
+                    .addComponent(jTextField_DataFolder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton_DataFolder)
+                    .addComponent(jLabel_DataFolder))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(jTextField_WalletFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_WalletFile))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2)
-                    .addComponent(jLabel4))
+                    .addComponent(jTextField_JavaPath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton_JavaPath)
+                    .addComponent(jLabel_JavaPath))
                 .addGap(26, 26, 26)
-                .addComponent(jButton3)
+                .addComponent(jButton_LoadWallet)
                 .addGap(35, 35, 35))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jButton_LoadWalletActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_LoadWalletActionPerformed
 
         try {
             /* OTCaller g_theCaller = new OTCaller();
@@ -325,18 +337,24 @@ public class Settings extends javax.swing.JFrame {
                 otapi.OT_API_LoadWallet("wallet.xml");
             } else {
                 try {
-                    try {
-                        waitTime = Long.parseLong(jTextField4.getText());
-                    } catch (NumberFormatException nfe) {
 
+
+
+
+                    //Wait Time
+                    try {
+                        waitTime = Long.parseLong(jTextField_Timeout.getText());
+                    } catch (NumberFormatException nfe) {
                         JOptionPane.showMessageDialog(this, "Please enter valid timeout", "Initialization Error", JOptionPane.ERROR_MESSAGE);
                         return;
                     }
                     if (waitTime < 1) {
-                        JOptionPane.showMessageDialog(this, "Timeout should be >0", "Initialization Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Timeout should be > 1", "Initialization Error", JOptionPane.ERROR_MESSAGE);
                         return;
                     }
-                    Utility.addDirToRuntime(jTextField3.getText(), true);
+
+                    //Java Path
+                    Utility.addDirToRuntime(jTextField_JavaPath.getText(), true);
                     System.out.println("PATH:" + System.getProperty("java.library.path"));
                     if (System.getProperty("os.name") != null && (System.getProperty("os.name").startsWith("windows")
                             || System.getProperty("os.name").startsWith("Windows"))) {
@@ -346,12 +364,12 @@ public class Settings extends javax.swing.JFrame {
                     System.out.println(" Before otapi load");
                     System.loadLibrary("otapi");
                     System.out.println(" After otapi load");
-                    boolean success = otapi.OT_API_Init(jTextField1.getText()) == 1 ? true : false;
+                    boolean success = otapi.OT_API_Init(jTextField_DataFolder.getText()) == 1 ? true : false;
                     // Uncomment below after fix
                     /*if (!success) {
                     JOptionPane.showMessageDialog(this, "Invalid Data Folder", "Initialization Error", JOptionPane.ERROR_MESSAGE);
                     return;
-
+                    
                     }*/
 
                     OTCaller g_theCaller = new OTCaller();
@@ -361,7 +379,7 @@ public class Settings extends javax.swing.JFrame {
                     Utility.setG_theCallback(g_theCallback);
                     Utility.setG_theCaller(g_theCaller);
 
-                    success = otapi.OT_API_LoadWallet(jTextField2.getText()) == 1 ? true : false;
+                    success = otapi.OT_API_LoadWallet(jTextField_WalletFile.getText()) == 1 ? true : false;
 
                     if (!success) {
                         JOptionPane.showMessageDialog(this, "Invalid Wallet File", "Initialization Error", JOptionPane.ERROR_MESSAGE);
@@ -374,7 +392,7 @@ public class Settings extends javax.swing.JFrame {
                     use.printStackTrace();
                     return;
                 }
-                Utility.setDataFolder(jTextField1.getText());
+                Utility.setDataFolder(jTextField_DataFolder.getText());
 
             }
             Configuration.setWaitTime(waitTime);
@@ -392,25 +410,25 @@ public class Settings extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jButton_LoadWalletActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton_DataFolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_DataFolderActionPerformed
 
         int returnVal = dataFolderChooser.showOpenDialog(this);
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             // file = contractFileChooser.getSelectedFile();
             //This is where a real application would open the file.
-            jTextField1.setText(dataFolderChooser.getSelectedFile().getPath());
+            jTextField_DataFolder.setText(dataFolderChooser.getSelectedFile().getPath());
 
         } else {
             System.out.println("Cancelled");
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButton_DataFolderActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        new PathDialog(this, true, jTextField3.getText()).setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void jButton_JavaPathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_JavaPathActionPerformed
+        new PathDialog(this, true, jTextField_JavaPath.getText()).setVisible(true);
+    }//GEN-LAST:event_jButton_JavaPathActionPerformed
 
     /**
      * @param args the command line arguments
@@ -424,56 +442,66 @@ public class Settings extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JButton jButton_DataFolder;
+    private javax.swing.JButton jButton_JavaPath;
+    private javax.swing.JButton jButton_LoadWallet;
+    private javax.swing.JLabel jLabel_DataFolder;
+    private javax.swing.JLabel jLabel_JavaPath;
+    private javax.swing.JLabel jLabel_SettingTitle;
+    private javax.swing.JLabel jLabel_Timeout;
+    private javax.swing.JLabel jLabel_TimoutUnit;
+    private javax.swing.JLabel jLabel_WalletFile;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private static javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JMenuBar jMenuBar_Setting;
+    private javax.swing.JTextField jTextField_DataFolder;
+    private static javax.swing.JTextField jTextField_JavaPath;
+    private javax.swing.JTextField jTextField_Timeout;
+    private javax.swing.JTextField jTextField_WalletFile;
     // End of variables declaration//GEN-END:variables
 
-    
-            private static String defaultDirectory()
-{
-    String OS = System.getProperty("os.name").toUpperCase();
-    if (OS.contains("WIN"))
-        return System.getenv("APPDATA");
-    else if (OS.contains("MAC"))
-        return System.getProperty("user.home") + "/Library/Application "
-                + "Support";
-    else if (OS.contains("NUX"))
-        return System.getProperty("user.home");
-    return System.getProperty("user.dir");
-}
-    
-    
+    private static StringBuilder appdataDirectory() {
+        StringBuilder appdataDirectory = new StringBuilder();
+        String OS = System.getProperty("os.name").toUpperCase();
+        if (OS.contains("WIN")) {
+            appdataDirectory.append(System.getenv("APPDATA"));
+            return appdataDirectory;
+        } else if (OS.contains("MAC")) {
+            appdataDirectory.append(System.getProperty("user.home"));
+            appdataDirectory.append("/Library/Application ");
+            appdataDirectory.append("Support");
+            return appdataDirectory;
+        } else if (OS.contains("NUX")) {
+            appdataDirectory.append(System.getProperty("user.home"));
+            return appdataDirectory;
+        }
+        appdataDirectory.append(System.getProperty("user.dir"));
+        return appdataDirectory;
+    }
+
     private void initFileChooser() {
 
         StringBuilder sb = new StringBuilder();
-        
-        sb.append(defaultDirectory());
+
+        sb.append(appdataDirectory());
         sb.append("/.ot/client_data");
-        
-        jTextField1.setText(sb.toString());
+
+        jTextField_DataFolder.setText(sb.toString());
 
         dataFolderChooser = new JFileChooser();
         dataFolderChooser.setFileHidingEnabled(false);
         dataFolderChooser.setCurrentDirectory(new java.io.File("."));
         dataFolderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         jMenu1 = new CustomMenu("Look & Feel");
-        jTextField4.setText(String.valueOf(Configuration.getWaitTime()));
+        jTextField_Timeout.setText(String.valueOf(Configuration.getWaitTime()));
     }
 
     public static void setPath(String path) {
-        jTextField3.setText(path);
+        jTextField_JavaPath.setText(path);
+    }
+
+    private void loadSettings() {
+        initComponents();
+        Utility.setObj(this);
+        setLocation(Utility.getLocation(this.getSize()));
     }
 }
