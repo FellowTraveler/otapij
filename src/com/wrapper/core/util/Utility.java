@@ -1,3 +1,4 @@
+// <editor-fold defaultstate="collapsed" desc="Hedders" > 
 /************************************************************
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA256
@@ -87,6 +88,7 @@ AK+ZirdWhhoHeWR1tAkN
 =RcXP
 -----END PGP SIGNATURE-----
  **************************************************************/
+// </editor-fold>
 
 /*
  * To change this template, choose Tools | Templates
@@ -94,6 +96,7 @@ AK+ZirdWhhoHeWR1tAkN
  */
 package com.wrapper.core.util;
 
+// <editor-fold defaultstate="collapsed" desc="Imports" > 
 import com.wrapper.core.Account;
 import com.wrapper.core.OpenTransactionAccount;
 import com.wrapper.core.dataobjects.OTDetails;
@@ -140,37 +143,15 @@ import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.LookAndFeel;
+    // </editor-fold>
 
 /**
  *
- * @author Vicky C
+ * @author Vicky C and Cameron
  */
 public class Utility {
-    // <editor-fold defaultstate="collapsed" desc="BasketX" >
-    private static String basketXAcct;
-    private static boolean basketXCancelled;
-    public static boolean isBasketXCancelled() {
-        return basketXCancelled;
-    }
-    public static void setBasketXCancelled(boolean basketXCancelled) {
-        Utility.basketXCancelled = basketXCancelled;
-    }
-    public static String getBasketXAcct() {
-        return basketXAcct;
-    }
-    public static void setBasketXAcct(String basketXAcct) {
-        Utility.basketXAcct = basketXAcct;
-    }
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="NymTrades" > 
-    private static boolean loadNymTrades = false;
-    public static boolean isLoadNymTrades() {
-        return loadNymTrades;
-    }
-    public static void setLoadNymTrades(boolean loadNymTrades) {
-        Utility.loadNymTrades = loadNymTrades;
-    }
-    // </editor-fold>
+    
+    // Common Helpers
     // <editor-fold defaultstate="collapsed" desc="Settings" > 
     private static Object settingsObj;
     public static Object getSettingsObj() {
@@ -178,33 +159,6 @@ public class Utility {
     }
     public static void setSettingsObj(Object settingsObj) {
         Utility.settingsObj = settingsObj;
-    }
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="The Callback" > 
-    private static OTCallback g_theCallback;
-    public static OTCallback getG_theCallback() {
-        return g_theCallback;
-    }
-    public static void setG_theCallback(OTCallback g_theCallback) {
-        Utility.g_theCallback = g_theCallback;
-    }
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="The Caller" > 
-    private static OTCaller g_theCaller;
-    public static OTCaller getG_theCaller() {
-        return g_theCaller;
-    }
-    public static void setG_theCaller(OTCaller g_theCaller) {
-        Utility.g_theCaller = g_theCaller;
-    }
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="DefautLAF" >
-    private static LookAndFeel defautLAF;
-    public static LookAndFeel getDefautLAF() {
-        return defautLAF;
-    }
-    public static void setDefautLAF(LookAndFeel defautLAF) {
-        Utility.defautLAF = defautLAF;
     }
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Data Folder" > 
@@ -216,66 +170,6 @@ public class Utility {
         Utility.dataFolder = dataFolder;
     }
     // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Deposit Cash" > 
-    public static Object otDepositCash;
-    public static Object getOtDepositCash() {
-        return otDepositCash;
-    }
-    public static void setOtDepositCash(Object otDepositCash) {
-        Utility.otDepositCash = otDepositCash;
-    }
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Oject Utility" >
-    public static Object obj;
-    public static Object getObj() {
-        return obj;
-    }
-    public static void setObj(Object obj) {
-        Utility.obj = obj;
-    }
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Delay" > 
-    public static void delay() throws InterruptedException {
-        if (Configuration.getWaitTime() > 0) {
-            Thread.sleep(Configuration.getWaitTime());
-        }
-        return;
-    }
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Get Key" > 
-    public static String getKey(Map map, String value) {
-
-        if ("All".equalsIgnoreCase(value)) {
-            return "ALL";
-        }
-
-        if (value == null) {
-            return null;
-        }
-
-        for (Iterator i = map.keySet().iterator(); i.hasNext();) {
-            String key = (String) i.next();
-            if (map.get(key).equals(value)) {
-                return key;
-            }
-        }
-        return null;
-    }
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Round Two Decimals" > 
-    public static double roundTwoDecimals(double d) {
-        DecimalFormat twoDForm = new DecimalFormat("#.##");
-        return Double.valueOf(twoDForm.format(d));
-    }
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Replace To Lower" > 
-    public static void replaceToLower(List<String> strings) {
-        ListIterator<String> iterator = strings.listIterator();
-        while (iterator.hasNext()) {
-            iterator.set(iterator.next().toLowerCase());
-        }
-    }
-// </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Add Directory To Runtime" > 
     public static void addDirToRuntime(Load.JavaPaths javaPaths) throws IOException {
         List<String> pathsSet = new ArrayList<String>();
@@ -362,6 +256,313 @@ public class Utility {
 //    }
 // </editor-fold>
 // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Oject Utility" >
+    public static Object obj;
+    public static Object getObj() {
+        return obj;
+    }
+    public static void setObj(Object obj) {
+        Utility.obj = obj;
+    }
+    // </editor-fold>
+    
+    // OT Helpers
+    // <editor-fold defaultstate="collapsed" desc="OT Detials" > 
+    public static void reloadOTDetails(String accountID) {
+        Account account = new OpenTransactionAccount();
+        Object details = account.getAccountDetails(accountID);
+        OTDetails otDetails = (OTDetails) details;
+        populateOTDetails(otDetails);
+
+        JTable table = MainPage.getAccountTable();
+        ((AccountTableModel) table.getModel()).setValueAt(otDetails.getBalance(), table.getSelectedRow(), 1);
+    }
+    public static void populateOTDetails(OTDetails otDetails) {
+        if (otDetails == null) {
+            return;
+        }
+        OpenTransactionAccountTopPanel.populateOTDetails(otDetails);
+        OpenTransactionAccountBottomPanel.populateOTDetails(otDetails);
+
+        System.out.println("IN populateOTDetails");
+
+    }
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="BasketX" >
+    private static String basketXAcct;
+    private static boolean basketXCancelled;
+    public static boolean isBasketXCancelled() {
+        return basketXCancelled;
+    }
+    public static void setBasketXCancelled(boolean basketXCancelled) {
+        Utility.basketXCancelled = basketXCancelled;
+    }
+    public static String getBasketXAcct() {
+        return basketXAcct;
+    }
+    public static void setBasketXAcct(String basketXAcct) {
+        Utility.basketXAcct = basketXAcct;
+    }
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="NymTrades" > 
+    private static boolean loadNymTrades = false;
+    public static boolean isLoadNymTrades() {
+        return loadNymTrades;
+    }
+    public static void setLoadNymTrades(boolean loadNymTrades) {
+        Utility.loadNymTrades = loadNymTrades;
+    }
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="The Callback" > 
+    private static OTCallback g_theCallback;
+    public static OTCallback getG_theCallback() {
+        return g_theCallback;
+    }
+    public static void setG_theCallback(OTCallback g_theCallback) {
+        Utility.g_theCallback = g_theCallback;
+    }
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="The Caller" > 
+    private static OTCaller g_theCaller;
+    public static OTCaller getG_theCaller() {
+        return g_theCaller;
+    }
+    public static void setG_theCaller(OTCaller g_theCaller) {
+        Utility.g_theCaller = g_theCaller;
+    }
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Deposit Cash" > 
+    public static Object otDepositCash;
+    public static Object getOtDepositCash() {
+        return otDepositCash;
+    }
+    public static void setOtDepositCash(Object otDepositCash) {
+        Utility.otDepositCash = otDepositCash;
+    }
+    // </editor-fold>
+    
+    // Get Helpers:
+    // <editor-fold defaultstate="collapsed" desc="Get Key" > 
+    public static String getKey(Map map, String value) {
+
+        if ("All".equalsIgnoreCase(value)) {
+            return "ALL";
+        }
+
+        if (value == null) {
+            return null;
+        }
+
+        for (Iterator i = map.keySet().iterator(); i.hasNext();) {
+            String key = (String) i.next();
+            if (map.get(key).equals(value)) {
+                return key;
+            }
+        }
+        return null;
+    }
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Get Transaction Numbers" > 
+    public static void getTransactionNumbers(String serverID, String nymID) {
+
+        for (int i = 0; i < Configuration.getNbrTransactionCount(); i++) {
+            otapi.OT_API_getTransactionNumber(serverID, nymID);
+        }
+
+        otapi.OT_API_getNymbox(serverID, nymID);
+
+        try {
+            Thread.sleep(Configuration.getWaitTime());
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }
+    }
+        // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Get Credits File" > 
+    public static String getCreditsFile(String fileName) {
+        return otapi.QueryPlainString(fileName);
+    }
+        // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Get Location" > 
+    public static Point getLocation(Dimension componentDimension) {
+
+        Point center = new Point(0, 0);
+        Dimension toolkitDimension = Toolkit.getDefaultToolkit().getScreenSize();
+        center.x = center.x + (toolkitDimension.width - componentDimension.width) / 2;
+        center.y = center.y + (toolkitDimension.height - componentDimension.height) / 2;
+
+        return center;
+    }
+        // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Get Key From Name" > 
+    public static void getKeyFromName(String name) {
+    }
+        // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Get Wallet Data" > 
+    public static WalletData getWalletData() {
+
+        WalletData walletData = null;
+        Storable storable = null;
+        if (otapi.Exists("moneychanger", "gui_wallet.dat")) {
+            storable = otapi.QueryObject(StoredObjectType.STORED_OBJ_WALLET_DATA, "moneychanger", "gui_wallet.dat");
+            if (storable == null) {
+                return null;
+            }
+            walletData = WalletData.ot_dynamic_cast(storable);
+        } else {
+            storable = otapi.CreateObject(StoredObjectType.STORED_OBJ_WALLET_DATA);
+            if (storable == null) {
+                return null;
+            }
+            walletData = WalletData.ot_dynamic_cast(storable);
+        }
+
+        return walletData;
+    }
+        // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Get Market List" > 
+    public static MarketList getMarketList(String serverID) {
+
+        MarketList marketList = null;
+        Storable storable = null;
+        if (otapi.Exists("markets", serverID, "market_data.bin")) {
+            storable = otapi.QueryObject(StoredObjectType.STORED_OBJ_MARKET_LIST, "markets", serverID, "market_data.bin");
+            if (storable == null) {
+                return null;
+            }
+            marketList = MarketList.ot_dynamic_cast(storable);
+        } else {
+            storable = otapi.CreateObject(StoredObjectType.STORED_OBJ_MARKET_LIST);
+            if (storable == null) {
+                return null;
+            }
+            marketList = MarketList.ot_dynamic_cast(storable);
+        }
+
+        return marketList;
+    }
+        // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Get Market Offer" > 
+    public static OfferListMarket getMarketOffer(String serverID, String marketID) {
+
+        OfferListMarket offerListMarket = null;
+        Storable storable = null;
+        if (otapi.Exists("markets", serverID, "offers", marketID + ".bin")) {
+            storable = otapi.QueryObject(StoredObjectType.STORED_OBJ_OFFER_LIST_MARKET, "markets", serverID, "offers", marketID + ".bin");
+            if (storable == null) {
+                return null;
+            }
+            offerListMarket = OfferListMarket.ot_dynamic_cast(storable);
+        } else {
+            storable = otapi.CreateObject(StoredObjectType.STORED_OBJ_OFFER_LIST_MARKET);
+            if (storable == null) {
+                return null;
+            }
+            offerListMarket = OfferListMarket.ot_dynamic_cast(storable);
+        }
+
+        return offerListMarket;
+    }
+        // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Get NYM Trades" >
+    public static TradeListNym getNYMTrades(String serverID, String nymID) {
+
+        TradeListNym tradeListNym = null;
+        Storable storable = null;
+        if (otapi.Exists("nyms", "trades", serverID, nymID)) {
+            storable = otapi.QueryObject(StoredObjectType.STORED_OBJ_TRADE_LIST_NYM, "nyms", "trades", serverID, nymID);
+            if (storable == null) {
+                return null;
+            }
+            tradeListNym = TradeListNym.ot_dynamic_cast(storable);
+        } else {
+            storable = otapi.CreateObject(StoredObjectType.STORED_OBJ_TRADE_LIST_NYM);
+            if (storable == null) {
+                return null;
+            }
+            tradeListNym = TradeListNym.ot_dynamic_cast(storable);
+        }
+
+        return tradeListNym;
+    }
+        // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Get NYM Offer" > 
+    public static OfferListNym getNYMOffer(String serverID, String nymID) {
+
+        OfferListNym offerListNym = null;
+        Storable storable = null;
+        if (otapi.Exists("nyms", serverID, "offers", nymID + ".bin")) {
+            storable = otapi.QueryObject(StoredObjectType.STORED_OBJ_OFFER_LIST_NYM, "nyms", serverID, "offers", nymID + ".bin");
+            if (storable == null) {
+                return null;
+            }
+            offerListNym = OfferListNym.ot_dynamic_cast(storable);
+        } else {
+            storable = otapi.CreateObject(StoredObjectType.STORED_OBJ_OFFER_LIST_NYM);
+            if (storable == null) {
+                return null;
+            }
+            offerListNym = OfferListNym.ot_dynamic_cast(storable);
+        }
+
+        return offerListNym;
+    }
+        // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Get Market Trade List" > 
+    public static TradeListMarket getMarketTradeList(String serverID, String marketID) {
+
+        TradeListMarket tradeListMarket = null;
+        Storable storable = null;
+        if (otapi.Exists("markets", serverID, "recent", marketID + ".bin")) {
+            storable = otapi.QueryObject(StoredObjectType.STORED_OBJ_TRADE_LIST_MARKET, "markets", serverID, "recent", marketID + ".bin");
+            if (storable == null) {
+                return null;
+            }
+            tradeListMarket = TradeListMarket.ot_dynamic_cast(storable);
+        } else {
+            storable = otapi.CreateObject(StoredObjectType.STORED_OBJ_TRADE_LIST_MARKET);
+            if (storable == null) {
+                return null;
+            }
+            tradeListMarket = TradeListMarket.ot_dynamic_cast(storable);
+        }
+
+        return tradeListMarket;
+    }
+        // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Get Address Book" > 
+    public static AddressBook getAddressBook() {
+
+        AddressBook addressBook = null;
+        Storable storable = null;
+        if (otapi.Exists("moneychanger", "gui_contacts.dat")) {
+            storable = otapi.QueryObject(StoredObjectType.STORED_OBJ_ADDRESS_BOOK, "moneychanger", "gui_contacts.dat");
+            if (storable == null) {
+                return null;
+            }
+            addressBook = AddressBook.ot_dynamic_cast(storable);
+        } else {
+            storable = otapi.CreateObject(StoredObjectType.STORED_OBJ_ADDRESS_BOOK);
+            if (storable == null) {
+                return null;
+            }
+            addressBook = AddressBook.ot_dynamic_cast(storable);
+        }
+
+        return addressBook;
+    }
+        // </editor-fold>
+    
+    // Generic Helpers
+    // <editor-fold defaultstate="collapsed" desc="Defaut Look and Feel" >
+    private static LookAndFeel defautLAF;
+    public static LookAndFeel getDefautLAF() {
+        return defautLAF;
+    }
+    public static void setDefautLAF(LookAndFeel defautLAF) {
+        Utility.defautLAF = defautLAF;
+    }
+    // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="File to String" > 
     public static String fileToString(File file) {
         String fileText = "";
@@ -380,6 +581,20 @@ public class Utility {
             Logger.getLogger(Utility.class.getName()).log(Level.SEVERE, null, ex);
         }
         return fileText;
+    }
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Replace To Lower" > 
+    public static void replaceToLower(List<String> strings) {
+        ListIterator<String> iterator = strings.listIterator();
+        while (iterator.hasNext()) {
+            iterator.set(iterator.next().toLowerCase());
+        }
+    }
+// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Round Two Decimals" > 
+    public static double roundTwoDecimals(double d) {
+        DecimalFormat twoDForm = new DecimalFormat("#.##");
+        return Double.valueOf(twoDForm.format(d));
     }
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Populate Combo" > 
@@ -441,218 +656,19 @@ public class Utility {
         return true;
     }
     // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="OT Detials" > 
-    public static void reloadOTDetails(String accountID) {
-        Account account = new OpenTransactionAccount();
-        Object details = account.getAccountDetails(accountID);
-        OTDetails otDetails = (OTDetails) details;
-        populateOTDetails(otDetails);
-
-        JTable table = MainPage.getAccountTable();
-        ((AccountTableModel) table.getModel()).setValueAt(otDetails.getBalance(), table.getSelectedRow(), 1);
-    }
-    public static void populateOTDetails(OTDetails otDetails) {
-        if (otDetails == null) {
-            return;
+    // <editor-fold defaultstate="collapsed" desc="Delay" > 
+    public static void delay() throws InterruptedException {
+        if (Configuration.getWaitTime() > 0) {
+            Thread.sleep(Configuration.getWaitTime());
         }
-        OpenTransactionAccountTopPanel.populateOTDetails(otDetails);
-        OpenTransactionAccountBottomPanel.populateOTDetails(otDetails);
-
-        System.out.println("IN populateOTDetails");
-
+        return;
     }
     // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Get Helpers" >
-        // <editor-fold defaultstate="collapsed" desc="Get Transaction Numbers" > 
-    public static void getTransactionNumbers(String serverID, String nymID) {
-
-        for (int i = 0; i < Configuration.getNbrTransactionCount(); i++) {
-            otapi.OT_API_getTransactionNumber(serverID, nymID);
-        }
-
-        otapi.OT_API_getNymbox(serverID, nymID);
-
-        try {
-            Thread.sleep(Configuration.getWaitTime());
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
-        }
+    // <editor-fold defaultstate="collapsed" desc="Long Delay" > 
+    public static void longDelay() throws InterruptedException {
+        Thread.sleep(Configuration.getWaitTime() + 200);
+        return;
     }
-        // </editor-fold>
-        // <editor-fold defaultstate="collapsed" desc="Get Credits File" > 
-    public static String getCreditsFile(String fileName) {
-        return otapi.QueryPlainString(fileName);
-    }
-        // </editor-fold>
-        // <editor-fold defaultstate="collapsed" desc="Get Location" > 
-    public static Point getLocation(Dimension componentDimension) {
-
-        Point center = new Point(0, 0);
-        Dimension toolkitDimension = Toolkit.getDefaultToolkit().getScreenSize();
-        center.x = center.x + (toolkitDimension.width - componentDimension.width) / 2;
-        center.y = center.y + (toolkitDimension.height - componentDimension.height) / 2;
-
-        return center;
-    }
-        // </editor-fold>
-        // <editor-fold defaultstate="collapsed" desc="Get Key From Name" > 
-    public static void getKeyFromName(String name) {
-    }
-        // </editor-fold>
-        // <editor-fold defaultstate="collapsed" desc="Get Wallet Data" > 
-    public static WalletData getWalletData() {
-
-        WalletData walletData = null;
-        Storable storable = null;
-        if (otapi.Exists("moneychanger", "gui_wallet.dat")) {
-            storable = otapi.QueryObject(StoredObjectType.STORED_OBJ_WALLET_DATA, "moneychanger", "gui_wallet.dat");
-            if (storable == null) {
-                return null;
-            }
-            walletData = WalletData.ot_dynamic_cast(storable);
-        } else {
-            storable = otapi.CreateObject(StoredObjectType.STORED_OBJ_WALLET_DATA);
-            if (storable == null) {
-                return null;
-            }
-            walletData = WalletData.ot_dynamic_cast(storable);
-        }
-
-        return walletData;
-    }
-        // </editor-fold>
-        // <editor-fold defaultstate="collapsed" desc="Get Market List" > 
-    public static MarketList getMarketList(String serverID) {
-
-        MarketList marketList = null;
-        Storable storable = null;
-        if (otapi.Exists("markets", serverID, "market_data.bin")) {
-            storable = otapi.QueryObject(StoredObjectType.STORED_OBJ_MARKET_LIST, "markets", serverID, "market_data.bin");
-            if (storable == null) {
-                return null;
-            }
-            marketList = MarketList.ot_dynamic_cast(storable);
-        } else {
-            storable = otapi.CreateObject(StoredObjectType.STORED_OBJ_MARKET_LIST);
-            if (storable == null) {
-                return null;
-            }
-            marketList = MarketList.ot_dynamic_cast(storable);
-        }
-
-        return marketList;
-    }
-        // </editor-fold>
-        // <editor-fold defaultstate="collapsed" desc="Get Market Offer" > 
-    public static OfferListMarket getMarketOffer(String serverID, String marketID) {
-
-        OfferListMarket offerListMarket = null;
-        Storable storable = null;
-        if (otapi.Exists("markets", serverID, "offers", marketID + ".bin")) {
-            storable = otapi.QueryObject(StoredObjectType.STORED_OBJ_OFFER_LIST_MARKET, "markets", serverID, "offers", marketID + ".bin");
-            if (storable == null) {
-                return null;
-            }
-            offerListMarket = OfferListMarket.ot_dynamic_cast(storable);
-        } else {
-            storable = otapi.CreateObject(StoredObjectType.STORED_OBJ_OFFER_LIST_MARKET);
-            if (storable == null) {
-                return null;
-            }
-            offerListMarket = OfferListMarket.ot_dynamic_cast(storable);
-        }
-
-        return offerListMarket;
-    }
-        // </editor-fold>
-        // <editor-fold defaultstate="collapsed" desc="Get NYM Trades" >
-    public static TradeListNym getNYMTrades(String serverID, String nymID) {
-
-        TradeListNym tradeListNym = null;
-        Storable storable = null;
-        if (otapi.Exists("nyms", "trades", serverID, nymID)) {
-            storable = otapi.QueryObject(StoredObjectType.STORED_OBJ_TRADE_LIST_NYM, "nyms", "trades", serverID, nymID);
-            if (storable == null) {
-                return null;
-            }
-            tradeListNym = TradeListNym.ot_dynamic_cast(storable);
-        } else {
-            storable = otapi.CreateObject(StoredObjectType.STORED_OBJ_TRADE_LIST_NYM);
-            if (storable == null) {
-                return null;
-            }
-            tradeListNym = TradeListNym.ot_dynamic_cast(storable);
-        }
-
-        return tradeListNym;
-    }
-        // </editor-fold>
-        // <editor-fold defaultstate="collapsed" desc="Get NYM Offer" > 
-    public static OfferListNym getNYMOffer(String serverID, String nymID) {
-
-        OfferListNym offerListNym = null;
-        Storable storable = null;
-        if (otapi.Exists("nyms", serverID, "offers", nymID + ".bin")) {
-            storable = otapi.QueryObject(StoredObjectType.STORED_OBJ_OFFER_LIST_NYM, "nyms", serverID, "offers", nymID + ".bin");
-            if (storable == null) {
-                return null;
-            }
-            offerListNym = OfferListNym.ot_dynamic_cast(storable);
-        } else {
-            storable = otapi.CreateObject(StoredObjectType.STORED_OBJ_OFFER_LIST_NYM);
-            if (storable == null) {
-                return null;
-            }
-            offerListNym = OfferListNym.ot_dynamic_cast(storable);
-        }
-
-        return offerListNym;
-    }
-        // </editor-fold>
-        // <editor-fold defaultstate="collapsed" desc="Get Market Trade List" > 
-    public static TradeListMarket getMarketTradeList(String serverID, String marketID) {
-
-        TradeListMarket tradeListMarket = null;
-        Storable storable = null;
-        if (otapi.Exists("markets", serverID, "recent", marketID + ".bin")) {
-            storable = otapi.QueryObject(StoredObjectType.STORED_OBJ_TRADE_LIST_MARKET, "markets", serverID, "recent", marketID + ".bin");
-            if (storable == null) {
-                return null;
-            }
-            tradeListMarket = TradeListMarket.ot_dynamic_cast(storable);
-        } else {
-            storable = otapi.CreateObject(StoredObjectType.STORED_OBJ_TRADE_LIST_MARKET);
-            if (storable == null) {
-                return null;
-            }
-            tradeListMarket = TradeListMarket.ot_dynamic_cast(storable);
-        }
-
-        return tradeListMarket;
-    }
-        // </editor-fold>
-        // <editor-fold defaultstate="collapsed" desc="Get Address Book" > 
-    public static AddressBook getAddressBook() {
-
-        AddressBook addressBook = null;
-        Storable storable = null;
-        if (otapi.Exists("moneychanger", "gui_contacts.dat")) {
-            storable = otapi.QueryObject(StoredObjectType.STORED_OBJ_ADDRESS_BOOK, "moneychanger", "gui_contacts.dat");
-            if (storable == null) {
-                return null;
-            }
-            addressBook = AddressBook.ot_dynamic_cast(storable);
-        } else {
-            storable = otapi.CreateObject(StoredObjectType.STORED_OBJ_ADDRESS_BOOK);
-            if (storable == null) {
-                return null;
-            }
-            addressBook = AddressBook.ot_dynamic_cast(storable);
-        }
-
-        return addressBook;
-    }
-        // </editor-fold>
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Generate ID" > 
     public static String generateID() {
@@ -663,10 +679,5 @@ public class Utility {
         System.out.println(generateID());
     }
     // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Long Delay" > 
-    public static void longDelay() throws InterruptedException {
-        Thread.sleep(Configuration.getWaitTime() + 200);
-        return;
-    }
-    // </editor-fold>
+
 }
