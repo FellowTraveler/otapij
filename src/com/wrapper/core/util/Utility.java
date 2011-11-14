@@ -147,104 +147,103 @@ import javax.swing.LookAndFeel;
  */
 public class Utility {
 
-    public static Object obj;
-    private static Object settingsObj;
-    private static boolean loadNymTrades = false;
+    // <editor-fold defaultstate="collapsed" desc="BasketX" >
     private static String basketXAcct;
     private static boolean basketXCancelled;
-
     public static boolean isBasketXCancelled() {
         return basketXCancelled;
     }
-
     public static void setBasketXCancelled(boolean basketXCancelled) {
         Utility.basketXCancelled = basketXCancelled;
     }
-
     public static String getBasketXAcct() {
         return basketXAcct;
     }
-
     public static void setBasketXAcct(String basketXAcct) {
         Utility.basketXAcct = basketXAcct;
     }
-
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="NymTrades" > 
+    private static boolean loadNymTrades = false;
     public static boolean isLoadNymTrades() {
         return loadNymTrades;
     }
-
     public static void setLoadNymTrades(boolean loadNymTrades) {
         Utility.loadNymTrades = loadNymTrades;
     }
-
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Settings" > 
+    private static Object settingsObj;
     public static Object getSettingsObj() {
         return settingsObj;
     }
-
     public static void setSettingsObj(Object settingsObj) {
         Utility.settingsObj = settingsObj;
     }
-    public static Object otDepositCash;
-    private static String dataFolder;
-    private static LookAndFeel defautLAF;
-    private static OTCaller g_theCaller;
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="The Callback" > 
     private static OTCallback g_theCallback;
-
     public static OTCallback getG_theCallback() {
         return g_theCallback;
     }
-
     public static void setG_theCallback(OTCallback g_theCallback) {
         Utility.g_theCallback = g_theCallback;
     }
-
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="The Caller" > 
+    private static OTCaller g_theCaller;
     public static OTCaller getG_theCaller() {
         return g_theCaller;
     }
-
     public static void setG_theCaller(OTCaller g_theCaller) {
         Utility.g_theCaller = g_theCaller;
     }
-
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="DefautLAF" >
+    private static LookAndFeel defautLAF;
     public static LookAndFeel getDefautLAF() {
         return defautLAF;
     }
-
     public static void setDefautLAF(LookAndFeel defautLAF) {
         Utility.defautLAF = defautLAF;
     }
-
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Data Folder" > 
+    private static String dataFolder;
     public static String getDataFolder() {
         return Utility.dataFolder;
     }
-
     public static void setDataFolder(String dataFolder) {
         Utility.dataFolder = dataFolder;
     }
-
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Deposit Cash" > 
+    public static Object otDepositCash;
     public static Object getOtDepositCash() {
         return otDepositCash;
     }
-
     public static void setOtDepositCash(Object otDepositCash) {
         Utility.otDepositCash = otDepositCash;
     }
-
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Oject Utility" >
+    public static Object obj;
     public static Object getObj() {
         return obj;
     }
-
     public static void setObj(Object obj) {
         Utility.obj = obj;
     }
-
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Delay" > 
     public static void delay() throws InterruptedException {
         if (Configuration.getWaitTime() > 0) {
             Thread.sleep(Configuration.getWaitTime());
         }
         return;
     }
-
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Get Key" > 
     public static String getKey(Map map, String value) {
 
         if ("All".equalsIgnoreCase(value)) {
@@ -263,19 +262,22 @@ public class Utility {
         }
         return null;
     }
-
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Round Two Decimals" > 
     public static double roundTwoDecimals(double d) {
         DecimalFormat twoDForm = new DecimalFormat("#.##");
         return Double.valueOf(twoDForm.format(d));
     }
-
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Replace To Lower" > 
     public static void replaceToLower(List<String> strings) {
         ListIterator<String> iterator = strings.listIterator();
         while (iterator.hasNext()) {
             iterator.set(iterator.next().toLowerCase());
         }
     }
-
+// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Add Directory To Runtime" > 
     public static void addDirToRuntime(Load.JavaPaths javaPaths) throws IOException {
         List<String> pathsSet = new ArrayList<String>();
         StringBuilder pathsString = new StringBuilder();
@@ -306,7 +308,6 @@ public class Utility {
         }
 
     }
-
 // <editor-fold defaultstate="collapsed" desc="//Old Code" > 
 //    public static void addDirToRuntime(String s, boolean mutiple) throws IOException {
 //        try {
@@ -361,7 +362,8 @@ public class Utility {
 //        }
 //    }
 // </editor-fold>
-
+// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="File to String" > 
     public static String fileToString(File file) {
         String fileText = "";
         try {
@@ -380,7 +382,8 @@ public class Utility {
         }
         return fileText;
     }
-
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Populate Combo" > 
     public static void populateCombo(Map data, JComboBox component) {
 
         int count = 1;
@@ -405,7 +408,6 @@ public class Utility {
             ((com.wrapper.ui.custom.SteppedComboBox) component).setPopupWidth(d.width);
         }
     }
-
     public static void populateComboWithoutAll(Map data, JComboBox component) {
 
         while (component.getItemCount() > 0) {
@@ -428,7 +430,8 @@ public class Utility {
             ((com.wrapper.ui.custom.SteppedComboBox) component).setPopupWidth(d.width);
         }
     }
-
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Get Transaction Numbers" > 
     public static void getTransactionNumbers(String serverID, String nymID) {
 
         for (int i = 0; i < Configuration.getNbrTransactionCount(); i++) {
@@ -443,11 +446,13 @@ public class Utility {
             ex.printStackTrace();
         }
     }
-
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Get Credits File" > 
     public static String getCreditsFile(String fileName) {
         return otapi.QueryPlainString(fileName);
     }
-
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Is Valid Double" > 
     public static boolean isValidDouble(String text) {
         try {
             Double.parseDouble(text);
@@ -457,7 +462,8 @@ public class Utility {
         }
         return true;
     }
-
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="OT Detials" > 
     public static void reloadOTDetails(String accountID) {
         Account account = new OpenTransactionAccount();
         Object details = account.getAccountDetails(accountID);
@@ -467,7 +473,6 @@ public class Utility {
         JTable table = MainPage.getAccountTable();
         ((AccountTableModel) table.getModel()).setValueAt(otDetails.getBalance(), table.getSelectedRow(), 1);
     }
-
     public static void populateOTDetails(OTDetails otDetails) {
         if (otDetails == null) {
             return;
@@ -478,7 +483,9 @@ public class Utility {
         System.out.println("IN populateOTDetails");
 
     }
-
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Get Helpers" >
+        // <editor-fold defaultstate="collapsed" desc="Get Location" > 
     public static Point getLocation(Dimension componentDimension) {
 
         Point center = new Point(0, 0);
@@ -488,10 +495,10 @@ public class Utility {
 
         return center;
     }
-
+        // <editor-fold defaultstate="collapsed" desc="Get Key From Name" > 
     public static void getKeyFromName(String name) {
     }
-
+        // <editor-fold defaultstate="collapsed" desc="Get Wallet Data" > 
     public static WalletData getWalletData() {
 
         WalletData walletData = null;
@@ -512,7 +519,7 @@ public class Utility {
 
         return walletData;
     }
-
+        // <editor-fold defaultstate="collapsed" desc="Get Market List" > 
     public static MarketList getMarketList(String serverID) {
 
         MarketList marketList = null;
@@ -533,7 +540,7 @@ public class Utility {
 
         return marketList;
     }
-
+        // <editor-fold defaultstate="collapsed" desc="Get Market Offer" > 
     public static OfferListMarket getMarketOffer(String serverID, String marketID) {
 
         OfferListMarket offerListMarket = null;
@@ -554,7 +561,7 @@ public class Utility {
 
         return offerListMarket;
     }
-
+        // <editor-fold defaultstate="collapsed" desc="Get NYM Trades > 
     public static TradeListNym getNYMTrades(String serverID, String nymID) {
 
         TradeListNym tradeListNym = null;
@@ -575,7 +582,7 @@ public class Utility {
 
         return tradeListNym;
     }
-
+        // <editor-fold defaultstate="collapsed" desc="Get NYM Offer" > 
     public static OfferListNym getNYMOffer(String serverID, String nymID) {
 
         OfferListNym offerListNym = null;
@@ -596,7 +603,7 @@ public class Utility {
 
         return offerListNym;
     }
-
+        // <editor-fold defaultstate="collapsed" desc="Get Helpers" > 
     public static TradeListMarket getMarketTradeList(String serverID, String marketID) {
 
         TradeListMarket tradeListMarket = null;
@@ -617,7 +624,7 @@ public class Utility {
 
         return tradeListMarket;
     }
-
+        // <editor-fold defaultstate="collapsed" desc="Get Helpers" > 
     public static AddressBook getAddressBook() {
 
         AddressBook addressBook = null;
@@ -638,18 +645,20 @@ public class Utility {
 
         return addressBook;
     }
-
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Generate ID" > 
     public static String generateID() {
         SecureRandom random = new SecureRandom();
         return new BigInteger(130, random).toString(32);
     }
-
     public static void main(String a[]) {
         System.out.println(generateID());
     }
-
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Long Delay" > 
     public static void longDelay() throws InterruptedException {
         Thread.sleep(Configuration.getWaitTime() + 200);
         return;
     }
+    // </editor-fold>
 }

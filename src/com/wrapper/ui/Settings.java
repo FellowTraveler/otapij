@@ -134,19 +134,22 @@ public class Settings extends javax.swing.JFrame {
             error.append("Autoload of from the Java Path failed!: ");
             error.append(System.getProperty("line.separator"));
             error.append(e.getError());
-            JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println(error.toString());
+            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
             loadSettings();
         } catch (Load.AppDataNotLoadedException e) {
             StringBuilder error = new StringBuilder();
             error.append("AutoLoad of your MoneyChanger user data failed; Choose the location here:");
             error.append(e.getError().replace(":", System.getProperty("line.separator")));
-            JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println(error.toString());
+            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
             loadSettings();
         } catch (Load.InvalidTimeOutException e) {
             StringBuilder error = new StringBuilder();
             error.append("Auto-Timout is invalid; you should never see this message: please contact us for support!");
             error.append(e.getError());
-            JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println(error.toString());
+            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
             loadSettings();
         } catch (Exception e) {
             e.printStackTrace();
