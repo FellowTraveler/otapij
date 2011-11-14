@@ -68,7 +68,7 @@ Hash: SHA256
  *   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
  *   PURPOSE.  See the GNU General Public License for more
  *   details.
- 
+
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.11 (Darwin)
 
@@ -109,6 +109,7 @@ import com.wrapper.core.jni.TradeListMarket;
 import com.wrapper.core.jni.TradeListNym;
 import com.wrapper.core.jni.WalletData;
 import com.wrapper.core.jni.otapi;
+import com.wrapper.ui.Load;
 import com.wrapper.ui.MainPage;
 import com.wrapper.ui.model.AccountTableModel;
 import com.wrapper.ui.panels.OpenTransactionAccountBottomPanel;
@@ -125,7 +126,13 @@ import java.lang.reflect.Field;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
@@ -262,6 +269,45 @@ public class Utility {
         return Double.valueOf(twoDForm.format(d));
     }
 
+    public static void replaceToLower(List<String> strings) {
+        ListIterator<String> iterator = strings.listIterator();
+        while (iterator.hasNext()) {
+            iterator.set(iterator.next().toLowerCase());
+        }
+    }
+
+    public static void addDirToRuntime(Load.JavaPaths javaPaths) throws IOException {
+        List<String> pathsSet = new ArrayList<String>();
+        StringBuilder pathsString = new StringBuilder();
+
+        try {
+            Field field = ClassLoader.class.getDeclaredField("usr_paths");
+            field.setAccessible(true);
+
+            pathsSet.addAll(Arrays.asList((String[]) field.get(null)));
+            pathsSet.addAll(javaPaths.getPaths());
+
+            replaceToLower(pathsSet);
+
+            Collection<String> paths = new HashSet<String>(pathsSet);
+
+            field.set(null, paths.toArray(new String[0]));
+
+            for (String path : paths) {
+                pathsString.append(path);
+                pathsString.append(File.pathSeparator);
+            }
+
+            System.setProperty("java.library.path", pathsString.toString());
+        } catch (IllegalAccessException e) {
+            throw new IOException("Failed to get permissions to set library path");
+        } catch (NoSuchFieldException e) {
+            throw new IOException("Failed to get field handle to set library path");
+        }
+
+    }
+
+    
     public static void addDirToRuntime(String s, boolean mutiple) throws IOException {
         try {
             String[] path = null;

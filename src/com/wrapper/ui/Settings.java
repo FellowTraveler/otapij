@@ -318,126 +318,127 @@ public class Settings extends javax.swing.JFrame {
 
     private void jButton_LoadWalletActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_LoadWalletActionPerformed
 
-
-
-
-
-
         try {
-            Load.loadOTAPI();
-            Load.loadAppData();
-            Load.setTimeout();
+            Load.loadOTAPI(javaPaths);
+            Load.loadAppData(jTextField_DataFolder.getText(),jTextField_WalletFile.getText());
+            Load.setTimeout(jTextField_Timeout.getText());
+            Utility.setSettingsObj(this);
             new MainPage().setVisible(true);
         } catch (Load.ApiNotLoadedException e) {
-            loadSettings();
+            StringBuilder error = new StringBuilder();
+            error.append("Unable to load your Java Path!");
+            error.append(System.getProperty("line.separator"));
+            error.append(e.getError());
+            JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
+            return;
         } catch (Load.AppDataNotLoadedException e) {
-            loadSettings();
+            StringBuilder error = new StringBuilder();
+            error.append("Loading your MoneyChanger user data failed; Please Choose the correct location:");
+            error.append(e.getError().replace(":", System.getProperty("line.separator")));
+            JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
+            return;
         } catch (Load.InvalidTimeOutException e) {
-            loadSettings();
+            StringBuilder error = new StringBuilder();
+            error.append("Auto-Timout is invalid; you should never see this message: please contact us for support!");
+            error.append(e.getError());
+            JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
+            return;
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-
-
-
-
-
-
-
-
-        try {
-            /* OTCaller g_theCaller = new OTCaller();
-            OTCallback g_theCallback = new JavaCallback();
-            Utility.setG_theCallback(g_theCallback);
-            Utility.setG_theCaller(g_theCaller);*/
-            boolean check = true;
-            long waitTime = Configuration.getWaitTime();
-            if (!check) {
-                /*Utility.addDirToRuntime("C:\\~\\Open-Transactions\\testwallet");
-                Utility.setDataFolder("C:\\~\\Open-Transactions\\testwallet\\data_folder");
-                System.loadLibrary("libzmq");*/
-                Utility.addDirToRuntime("/Users/administrator/Open-Transactions/testwallet");
-                //Utility.setDataFolder("/Users/Administrator/.ot/client_data");
-                Utility.setDataFolder("~/.ot/client_data");
-                System.loadLibrary("otapi");
-
-                otapi.OT_API_Init("~/.ot/client_data");
-                //otapi.OT_API_Init("/Users/Administrator/.ot/client_data");
-
-                //otapi.OT_API_Init("/Users/administrator/Open-Transactions/testwallet/data_folder");
-                //otapi.InitDefaultStorage(StorageType.STORE_FILESYSTEM, PackType.PACK_PROTOCOL_BUFFERS, "C:\\~\\Open-Transactions\\testwallet\\data_folder", "wallet.xml");
-
-                OTCaller g_theCaller = new OTCaller();
-                OTCallback g_theCallback = new JavaCallback();
-                g_theCaller.setCallback(g_theCallback);
-                otapi.OT_API_Set_PasswordCallback(g_theCaller);
-                Utility.setG_theCallback(g_theCallback);
-                Utility.setG_theCaller(g_theCaller);
-
-                otapi.OT_API_LoadWallet("wallet.xml");
-            } else {
-                try {
-
-
-                    //Java Path
-                    Utility.addDirToRuntime(jTextField_JavaPath.getText(), true);
-                    System.out.println("PATH:" + System.getProperty("java.library.path"));
-                    if (System.getProperty("os.name") != null && (System.getProperty("os.name").startsWith("windows")
-                            || System.getProperty("os.name").startsWith("Windows"))) {
-
-                        System.loadLibrary("libzmq");
-                    }
-                    System.out.println(" Before otapi load");
-                    System.loadLibrary("otapi");
-                    System.out.println(" After otapi load");
-                    boolean success = otapi.OT_API_Init(jTextField_DataFolder.getText()) == 1 ? true : false;
-                    // Uncomment below after fix
-                    /*if (!success) {
-                    JOptionPane.showMessageDialog(this, "Invalid Data Folder", "Initialization Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                    
-                    }*/
-
-                    OTCaller g_theCaller = new OTCaller();
-                    OTCallback g_theCallback = new JavaCallback();
-                    g_theCaller.setCallback(g_theCallback);
-                    otapi.OT_API_Set_PasswordCallback(g_theCaller);
-                    Utility.setG_theCallback(g_theCallback);
-                    Utility.setG_theCaller(g_theCaller);
-
-                    success = otapi.OT_API_LoadWallet(jTextField_WalletFile.getText()) == 1 ? true : false;
-
-                    if (!success) {
-                        JOptionPane.showMessageDialog(this, "Invalid Wallet File", "Initialization Error", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-                } catch (IOException ex) {
-                    Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (java.lang.UnsatisfiedLinkError use) {
-                    JOptionPane.showMessageDialog(this, "Invalid library path", "Initialization Error", JOptionPane.ERROR_MESSAGE);
-                    use.printStackTrace();
-                    return;
-                }
-                Utility.setDataFolder(jTextField_DataFolder.getText());
-
-            }
-            Configuration.setWaitTime(waitTime);
-
-            //Utility.setDataFolder(jTextField1.getText());
-            Utility.setSettingsObj(this);
-            //this.dispose();
-            /*Utility.addDirToRuntime("/opt/local/lib");
-            Utility.addDirToRuntime("/Users/Chris/Projects/Open-Transactions/testwallet");
-            System.loadLibrary("otapi");
-            otapi.OT_API_Init("/Users/Chris/Projects/Open-Transactions/testwallet/data_folder");
-            otapi.OT_API_LoadWallet("wallet.xml");*/
-
-            new MainPage().setVisible(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+// <editor-fold desc="//Old Code"> defaultstate="collapsed">
+//        try {
+//            /* OTCaller g_theCaller = new OTCaller();
+//            OTCallback g_theCallback = new JavaCallback();
+//            Utility.setG_theCallback(g_theCallback);
+//            Utility.setG_theCaller(g_theCaller);*/
+//            boolean check = true;
+//            long waitTime = Configuration.getWaitTime();
+//            if (!check) {
+//                /*Utility.addDirToRuntime("C:\\~\\Open-Transactions\\testwallet");
+//                Utility.setDataFolder("C:\\~\\Open-Transactions\\testwallet\\data_folder");
+//                System.loadLibrary("libzmq");*/
+//                Utility.addDirToRuntime("/Users/administrator/Open-Transactions/testwallet");
+//                //Utility.setDataFolder("/Users/Administrator/.ot/client_data");
+//                Utility.setDataFolder("~/.ot/client_data");
+//                System.loadLibrary("otapi");
+//
+//                otapi.OT_API_Init("~/.ot/client_data");
+//                //otapi.OT_API_Init("/Users/Administrator/.ot/client_data");
+//
+//                //otapi.OT_API_Init("/Users/administrator/Open-Transactions/testwallet/data_folder");
+//                //otapi.InitDefaultStorage(StorageType.STORE_FILESYSTEM, PackType.PACK_PROTOCOL_BUFFERS, "C:\\~\\Open-Transactions\\testwallet\\data_folder", "wallet.xml");
+//
+//                OTCaller g_theCaller = new OTCaller();
+//                OTCallback g_theCallback = new JavaCallback();
+//                g_theCaller.setCallback(g_theCallback);
+//                otapi.OT_API_Set_PasswordCallback(g_theCaller);
+//                Utility.setG_theCallback(g_theCallback);
+//                Utility.setG_theCaller(g_theCaller);
+//
+//                otapi.OT_API_LoadWallet("wallet.xml");
+//            } else {
+//                try {
+//
+//
+//                    //Java Path
+//                    Utility.addDirToRuntime(jTextField_JavaPath.getText(), true);
+//                    System.out.println("PATH:" + System.getProperty("java.library.path"));
+//                    if (System.getProperty("os.name") != null && (System.getProperty("os.name").startsWith("windows")
+//                            || System.getProperty("os.name").startsWith("Windows"))) {
+//
+//                        System.loadLibrary("libzmq");
+//                    }
+//                    System.out.println(" Before otapi load");
+//                    System.loadLibrary("otapi");
+//                    System.out.println(" After otapi load");
+//                    boolean success = otapi.OT_API_Init(jTextField_DataFolder.getText()) == 1 ? true : false;
+//                    // Uncomment below after fix
+//                    /*if (!success) {
+//                    JOptionPane.showMessageDialog(this, "Invalid Data Folder", "Initialization Error", JOptionPane.ERROR_MESSAGE);
+//                    return;
+//                    
+//                    }*/
+//
+//                    OTCaller g_theCaller = new OTCaller();
+//                    OTCallback g_theCallback = new JavaCallback();
+//                    g_theCaller.setCallback(g_theCallback);
+//                    otapi.OT_API_Set_PasswordCallback(g_theCaller);
+//                    Utility.setG_theCallback(g_theCallback);
+//                    Utility.setG_theCaller(g_theCaller);
+//
+//                    success = otapi.OT_API_LoadWallet(jTextField_WalletFile.getText()) == 1 ? true : false;
+//
+//                    if (!success) {
+//                        JOptionPane.showMessageDialog(this, "Invalid Wallet File", "Initialization Error", JOptionPane.ERROR_MESSAGE);
+//                        return;
+//                    }
+//                } catch (IOException ex) {
+//                    Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
+//                } catch (java.lang.UnsatisfiedLinkError use) {
+//                    JOptionPane.showMessageDialog(this, "Invalid library path", "Initialization Error", JOptionPane.ERROR_MESSAGE);
+//                    use.printStackTrace();
+//                    return;
+//                }
+//                Utility.setDataFolder(jTextField_DataFolder.getText());
+//
+//            }
+//            Configuration.setWaitTime(waitTime);
+//
+//            //Utility.setDataFolder(jTextField1.getText());
+//            Utility.setSettingsObj(this);
+//            //this.dispose();
+//            /*Utility.addDirToRuntime("/opt/local/lib");
+//            Utility.addDirToRuntime("/Users/Chris/Projects/Open-Transactions/testwallet");
+//            System.loadLibrary("otapi");
+//            otapi.OT_API_Init("/Users/Chris/Projects/Open-Transactions/testwallet/data_folder");
+//            otapi.OT_API_LoadWallet("wallet.xml");*/
+//
+//            new MainPage().setVisible(true);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+// </editor-fold>
     }//GEN-LAST:event_jButton_LoadWalletActionPerformed
 
     private void jButton_DataFolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_DataFolderActionPerformed

@@ -28,9 +28,9 @@
               <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" alignment="0" attributes="1">
-                      <Component id="jButton_Close" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="jButton_Add" min="-2" max="-2" attributes="1"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jButton_Close" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jScrollPanel_Paths" alignment="0" min="-2" pref="309" max="-2" attributes="0"/>
               </Group>
@@ -41,12 +41,12 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="35" max="32767" attributes="0"/>
+              <EmptySpace pref="41" max="32767" attributes="0"/>
               <Component id="jScrollPanel_Paths" min="-2" pref="191" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jButton_Close" min="-2" max="-2" attributes="0"/>
                   <Component id="jButton_Add" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButton_Close" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
           </Group>
