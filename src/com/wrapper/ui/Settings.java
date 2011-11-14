@@ -119,7 +119,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Vicky C anc Cameron
+ * @author Vicky C and Cameron
  */
 // <editor-fold desc="MainClass">>
 public class Settings extends javax.swing.JFrame {
@@ -133,6 +133,7 @@ public class Settings extends javax.swing.JFrame {
             Load.loadOTAPI();
             Load.loadAppData();
             Load.setTimeout();
+            Utility.setSettingsObj(this);
             new MainPage().setVisible(true);
         } catch (Load.ApiNotLoadedException e) {
             StringBuilder error = new StringBuilder();
