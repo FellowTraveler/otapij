@@ -146,7 +146,6 @@ import javax.swing.LookAndFeel;
  * @author Vicky C
  */
 public class Utility {
-
     // <editor-fold defaultstate="collapsed" desc="BasketX" >
     private static String basketXAcct;
     private static boolean basketXCancelled;
@@ -431,27 +430,6 @@ public class Utility {
         }
     }
     // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Get Transaction Numbers" > 
-    public static void getTransactionNumbers(String serverID, String nymID) {
-
-        for (int i = 0; i < Configuration.getNbrTransactionCount(); i++) {
-            otapi.OT_API_getTransactionNumber(serverID, nymID);
-        }
-
-        otapi.OT_API_getNymbox(serverID, nymID);
-
-        try {
-            Thread.sleep(Configuration.getWaitTime());
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
-        }
-    }
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Get Credits File" > 
-    public static String getCreditsFile(String fileName) {
-        return otapi.QueryPlainString(fileName);
-    }
-    // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Is Valid Double" > 
     public static boolean isValidDouble(String text) {
         try {
@@ -485,6 +463,27 @@ public class Utility {
     }
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Get Helpers" >
+        // <editor-fold defaultstate="collapsed" desc="Get Transaction Numbers" > 
+    public static void getTransactionNumbers(String serverID, String nymID) {
+
+        for (int i = 0; i < Configuration.getNbrTransactionCount(); i++) {
+            otapi.OT_API_getTransactionNumber(serverID, nymID);
+        }
+
+        otapi.OT_API_getNymbox(serverID, nymID);
+
+        try {
+            Thread.sleep(Configuration.getWaitTime());
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }
+    }
+        // </editor-fold>
+        // <editor-fold defaultstate="collapsed" desc="Get Credits File" > 
+    public static String getCreditsFile(String fileName) {
+        return otapi.QueryPlainString(fileName);
+    }
+        // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Get Location" > 
     public static Point getLocation(Dimension componentDimension) {
 
@@ -495,9 +494,11 @@ public class Utility {
 
         return center;
     }
+        // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Get Key From Name" > 
     public static void getKeyFromName(String name) {
     }
+        // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Get Wallet Data" > 
     public static WalletData getWalletData() {
 
@@ -519,6 +520,7 @@ public class Utility {
 
         return walletData;
     }
+        // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Get Market List" > 
     public static MarketList getMarketList(String serverID) {
 
@@ -540,6 +542,7 @@ public class Utility {
 
         return marketList;
     }
+        // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Get Market Offer" > 
     public static OfferListMarket getMarketOffer(String serverID, String marketID) {
 
@@ -561,7 +564,8 @@ public class Utility {
 
         return offerListMarket;
     }
-        // <editor-fold defaultstate="collapsed" desc="Get NYM Trades > 
+        // </editor-fold>
+        // <editor-fold defaultstate="collapsed" desc="Get NYM Trades" >
     public static TradeListNym getNYMTrades(String serverID, String nymID) {
 
         TradeListNym tradeListNym = null;
@@ -582,6 +586,7 @@ public class Utility {
 
         return tradeListNym;
     }
+        // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Get NYM Offer" > 
     public static OfferListNym getNYMOffer(String serverID, String nymID) {
 
@@ -603,7 +608,8 @@ public class Utility {
 
         return offerListNym;
     }
-        // <editor-fold defaultstate="collapsed" desc="Get Helpers" > 
+        // </editor-fold>
+        // <editor-fold defaultstate="collapsed" desc="Get Market Trade List" > 
     public static TradeListMarket getMarketTradeList(String serverID, String marketID) {
 
         TradeListMarket tradeListMarket = null;
@@ -624,7 +630,8 @@ public class Utility {
 
         return tradeListMarket;
     }
-        // <editor-fold defaultstate="collapsed" desc="Get Helpers" > 
+        // </editor-fold>
+        // <editor-fold defaultstate="collapsed" desc="Get Address Book" > 
     public static AddressBook getAddressBook() {
 
         AddressBook addressBook = null;
@@ -645,6 +652,7 @@ public class Utility {
 
         return addressBook;
     }
+        // </editor-fold>
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Generate ID" > 
     public static String generateID() {
