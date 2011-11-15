@@ -128,7 +128,6 @@ public class Settings extends javax.swing.JFrame {
             Utility.setSettingsObj(this);
             new MainPage().setVisible(true);
         }
-        
         catch (Load.ApiNotLoadedException e) {
             StringBuilder error = new StringBuilder();
             error.append("Autoload of from the Java Path failed!: ");
@@ -165,47 +164,51 @@ public class Settings extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel_SettingTitle = new javax.swing.JLabel();
-        jLabel_Timeout = new javax.swing.JLabel();
-        jTextField_Timeout = new javax.swing.JTextField();
-        jLabel_TimoutUnit = new javax.swing.JLabel();
-        jLabel_DataFolder = new javax.swing.JLabel();
-        jTextField_DataFolder = new javax.swing.JTextField();
-        jButton_DataFolder = new javax.swing.JButton();
-        jLabel_WalletFile = new javax.swing.JLabel();
+        jLayeredPane1 = new javax.swing.JLayeredPane();
+        jPanel2 = new javax.swing.JPanel();
+        jButton_LoadWallet = new javax.swing.JButton();
+        jTextField_JavaPath = new javax.swing.JTextField();
         jTextField_WalletFile = new javax.swing.JTextField();
         jLabel_JavaPath = new javax.swing.JLabel();
-        jTextField_JavaPath = new javax.swing.JTextField();
-        jButton_JavaPath = new javax.swing.JButton();
-        jButton_LoadWallet = new javax.swing.JButton();
-        jMenuBar_Setting = new javax.swing.JMenuBar();
-        jMenu1 = new com.wrapper.ui.custom.CustomMenu("Look & Feel");
+        jButton_DataFolder = new javax.swing.JButton();
+        jLabel_WalletFile = new javax.swing.JLabel();
+        jLabel_DataFolder = new javax.swing.JLabel();
+        jTextField_DataFolder = new javax.swing.JTextField();
+        jLabel_TimoutUnit = new javax.swing.JLabel();
+        jTextField_Timeout = new javax.swing.JTextField();
+        jLabel_Timeout = new javax.swing.JLabel();
+        jLabel_SettingTitle = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(Settings.class);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
         setName("Form"); // NOI18N
+        setResizable(false);
 
-        jLabel_SettingTitle.setFont(resourceMap.getFont("jLabel_SettingTitle.font")); // NOI18N
-        jLabel_SettingTitle.setText(resourceMap.getString("jLabel_SettingTitle.text")); // NOI18N
-        jLabel_SettingTitle.setName("jLabel_SettingTitle"); // NOI18N
+        jLayeredPane1.setName("jLayeredPane1"); // NOI18N
 
-        jLabel_Timeout.setText(resourceMap.getString("jLabel_Timeout.text")); // NOI18N
-        jLabel_Timeout.setName("jLabel_Timeout"); // NOI18N
+        jPanel2.setName("jPanel_Settings"); // NOI18N
 
-        jTextField_Timeout.setText(resourceMap.getString("jTextField_Timeout.text")); // NOI18N
-        jTextField_Timeout.setName("jTextField_Timeout"); // NOI18N
+        jButton_LoadWallet.setText(resourceMap.getString("jButton_LoadWallet.text")); // NOI18N
+        jButton_LoadWallet.setName("jButton_LoadWallet"); // NOI18N
+        jButton_LoadWallet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_LoadWalletActionPerformed(evt);
+            }
+        });
 
-        jLabel_TimoutUnit.setText(resourceMap.getString("jLabel_TimoutUnit.text")); // NOI18N
-        jLabel_TimoutUnit.setName("jLabel_TimoutUnit"); // NOI18N
+        jTextField_JavaPath.setBackground(resourceMap.getColor("jTextField_JavaPath.background")); // NOI18N
+        jTextField_JavaPath.setEditable(false);
+        jTextField_JavaPath.setText(resourceMap.getString("jTextField_JavaPath.text")); // NOI18N
+        jTextField_JavaPath.setName("jTextField_JavaPath"); // NOI18N
 
-        jLabel_DataFolder.setText(resourceMap.getString("jLabel_DataFolder.text")); // NOI18N
-        jLabel_DataFolder.setName("jLabel_DataFolder"); // NOI18N
+        jTextField_WalletFile.setText(resourceMap.getString("jTextField_WalletFile.text")); // NOI18N
+        jTextField_WalletFile.setName("jTextField_WalletFile"); // NOI18N
 
-        jTextField_DataFolder.setBackground(resourceMap.getColor("jTextField_DataFolder.background")); // NOI18N
-        jTextField_DataFolder.setEditable(false);
-        jTextField_DataFolder.setText(resourceMap.getString("jTextField_DataFolder.text")); // NOI18N
-        jTextField_DataFolder.setName("jTextField_DataFolder"); // NOI18N
+        jLabel_JavaPath.setText(resourceMap.getString("jLabel_JavaPath.text")); // NOI18N
+        jLabel_JavaPath.setName("jLabel_JavaPath"); // NOI18N
 
         jButton_DataFolder.setText(resourceMap.getString("jButton_DataFolder.text")); // NOI18N
         jButton_DataFolder.setName("jButton_DataFolder"); // NOI18N
@@ -218,97 +221,113 @@ public class Settings extends javax.swing.JFrame {
         jLabel_WalletFile.setText(resourceMap.getString("jLabel_WalletFile.text")); // NOI18N
         jLabel_WalletFile.setName("jLabel_WalletFile"); // NOI18N
 
-        jTextField_WalletFile.setText(resourceMap.getString("jTextField_WalletFile.text")); // NOI18N
-        jTextField_WalletFile.setName("jTextField_WalletFile"); // NOI18N
+        jLabel_DataFolder.setText(resourceMap.getString("jLabel_DataFolder.text")); // NOI18N
+        jLabel_DataFolder.setName("jLabel_DataFolder"); // NOI18N
 
-        jLabel_JavaPath.setText(resourceMap.getString("jLabel_JavaPath.text")); // NOI18N
-        jLabel_JavaPath.setName("jLabel_JavaPath"); // NOI18N
+        jTextField_DataFolder.setBackground(resourceMap.getColor("jTextField_DataFolder.background")); // NOI18N
+        jTextField_DataFolder.setEditable(false);
+        jTextField_DataFolder.setText(resourceMap.getString("jTextField_DataFolder.text")); // NOI18N
+        jTextField_DataFolder.setName("jTextField_DataFolder"); // NOI18N
 
-        jTextField_JavaPath.setBackground(resourceMap.getColor("jTextField_JavaPath.background")); // NOI18N
-        jTextField_JavaPath.setEditable(false);
-        jTextField_JavaPath.setText(resourceMap.getString("jTextField_JavaPath.text")); // NOI18N
-        jTextField_JavaPath.setName("jTextField_JavaPath"); // NOI18N
+        jLabel_TimoutUnit.setText(resourceMap.getString("jLabel_TimoutUnit.text")); // NOI18N
+        jLabel_TimoutUnit.setName("jLabel_TimoutUnit"); // NOI18N
 
-        jButton_JavaPath.setText(resourceMap.getString("jButton_JavaPath.text")); // NOI18N
-        jButton_JavaPath.setName("jButton_JavaPath"); // NOI18N
-        jButton_JavaPath.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_JavaPathActionPerformed(evt);
-            }
-        });
+        jTextField_Timeout.setText(resourceMap.getString("jTextField_Timeout.text")); // NOI18N
+        jTextField_Timeout.setName("jTextField_Timeout"); // NOI18N
 
-        jButton_LoadWallet.setText(resourceMap.getString("jButton_LoadWallet.text")); // NOI18N
-        jButton_LoadWallet.setName("jButton_LoadWallet"); // NOI18N
-        jButton_LoadWallet.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_LoadWalletActionPerformed(evt);
-            }
-        });
+        jLabel_Timeout.setText(resourceMap.getString("jLabel_Timeout.text")); // NOI18N
+        jLabel_Timeout.setName("jLabel_Timeout"); // NOI18N
 
-        jMenuBar_Setting.setName("jMenuBar_Setting"); // NOI18N
+        jLabel_SettingTitle.setFont(resourceMap.getFont("jLabel_SettingTitle.font")); // NOI18N
+        jLabel_SettingTitle.setText(resourceMap.getString("jLabel_SettingTitle.text")); // NOI18N
+        jLabel_SettingTitle.setName("jLabel_SettingTitle"); // NOI18N
 
-        jMenu1.setText(resourceMap.getString("jMenu1.text")); // NOI18N
-        jMenu1.setName("jMenu1"); // NOI18N
-        jMenuBar_Setting.add(jMenu1);
-
-        setJMenuBar(jMenuBar_Setting);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap(50, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel_DataFolder)
                             .addComponent(jLabel_Timeout)
                             .addComponent(jLabel_WalletFile)
                             .addComponent(jLabel_JavaPath))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(jButton_DataFolder)
+                        .addGap(47, 47, 47)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel_SettingTitle)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTextField_Timeout)
                             .addComponent(jTextField_JavaPath)
                             .addComponent(jTextField_WalletFile)
                             .addComponent(jTextField_DataFolder, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
                             .addComponent(jButton_LoadWallet))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton_JavaPath)
-                            .addComponent(jButton_DataFolder)
-                            .addComponent(jLabel_TimoutUnit)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(161, 161, 161)
-                        .addComponent(jLabel_SettingTitle)))
-                .addContainerGap(35, Short.MAX_VALUE))
+                        .addComponent(jLabel_TimoutUnit)
+                        .addContainerGap())))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jLabel_SettingTitle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(32, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton_DataFolder)
+                    .addComponent(jLabel_SettingTitle))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField_Timeout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel_TimoutUnit)
                     .addComponent(jLabel_Timeout))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField_DataFolder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_DataFolder)
                     .addComponent(jLabel_DataFolder))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField_WalletFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel_WalletFile))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField_JavaPath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_JavaPath)
                     .addComponent(jLabel_JavaPath))
-                .addGap(26, 26, 26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton_LoadWallet)
-                .addGap(35, 35, 35))
+                .addContainerGap())
+        );
+
+        jPanel2.setBounds(20, 20, 397, 237);
+        jLayeredPane1.add(jPanel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jMenuBar1.setName("jMenuBar1"); // NOI18N
+
+        jMenu1.setLabel(resourceMap.getString("jMenu_Settings.label")); // NOI18N
+        jMenu1.setName("jMenu_Settings"); // NOI18N
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLayeredPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLayeredPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE))
         );
 
         pack();
@@ -454,10 +473,6 @@ public class Settings extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton_DataFolderActionPerformed
 
-    private void jButton_JavaPathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_JavaPathActionPerformed
-        new PathDialog(this, true, javaPaths).setVisible(true);
-    }//GEN-LAST:event_jButton_JavaPathActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -471,7 +486,6 @@ public class Settings extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_DataFolder;
-    private javax.swing.JButton jButton_JavaPath;
     private javax.swing.JButton jButton_LoadWallet;
     private javax.swing.JLabel jLabel_DataFolder;
     private javax.swing.JLabel jLabel_JavaPath;
@@ -479,8 +493,10 @@ public class Settings extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel_Timeout;
     private javax.swing.JLabel jLabel_TimoutUnit;
     private javax.swing.JLabel jLabel_WalletFile;
+    private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuBar jMenuBar_Setting;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTextField_DataFolder;
     private static javax.swing.JTextField jTextField_JavaPath;
     private javax.swing.JTextField jTextField_Timeout;
@@ -500,7 +516,7 @@ public class Settings extends javax.swing.JFrame {
         dataFolderChooser.setFileHidingEnabled(false);
         dataFolderChooser.setCurrentDirectory(new java.io.File("."));
         dataFolderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        jMenu1 = new CustomMenu("Look & Feel");
+//        jMenu_Settings = new CustomMenu("Look & Feel");
         jTextField_Timeout.setText(String.valueOf(Configuration.getWaitTime()));
     }
 
