@@ -1,0 +1,207 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+
+<Form version="1.5" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <NonVisualComponents>
+    <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="jMenuBar1" noResource="true"/>
+      </Properties>
+      <SubComponents>
+        <Menu class="javax.swing.JMenu" name="jMenu1">
+          <Properties>
+            <Property name="label" type="java.lang.String" resourceKey="jMenu_Settings.label"/>
+            <Property name="name" type="java.lang.String" value="jMenu_Settings" noResource="true"/>
+          </Properties>
+        </Menu>
+      </SubComponents>
+    </Menu>
+  </NonVisualComponents>
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="title" type="java.lang.String" resourceKey="Form.title"/>
+    <Property name="name" type="java.lang.String" value="Form" noResource="true"/>
+    <Property name="resizable" type="boolean" value="false"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBar1"/>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="2"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="179" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace pref="9" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel_DataFolder" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel_Timeout" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel_WalletFile" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel_JavaPath" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jButton_DataFolder" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="102" alignment="0" attributes="1">
+                      <Component id="jLabel_SettingTitle" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="112" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jTextField_Timeout" max="32767" attributes="1"/>
+                          <Component id="jTextField_JavaPath" max="32767" attributes="1"/>
+                          <Component id="jTextField_WalletFile" max="32767" attributes="1"/>
+                          <Component id="jTextField_DataFolder" alignment="0" pref="160" max="32767" attributes="1"/>
+                          <Component id="jButton_LoadWallet" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="jLabel_TimoutUnit" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace pref="318" max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jButton_DataFolder" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel_SettingTitle" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jTextField_Timeout" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel_TimoutUnit" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel_Timeout" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jTextField_DataFolder" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel_DataFolder" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jTextField_WalletFile" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel_WalletFile" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jTextField_JavaPath" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel_JavaPath" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Component id="jButton_LoadWallet" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="84" max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JButton" name="jButton_LoadWallet">
+      <Properties>
+        <Property name="text" type="java.lang.String" resourceKey="jButton_LoadWallet.text"/>
+        <Property name="name" type="java.lang.String" value="jButton_LoadWallet" noResource="true"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_LoadWalletActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTextField_Timeout">
+      <Properties>
+        <Property name="text" type="java.lang.String" resourceKey="jTextField_Timeout.text"/>
+        <Property name="name" type="java.lang.String" value="jTextField_Timeout" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel_SettingTitle">
+      <Properties>
+        <Property name="font" type="java.awt.Font" resourceKey="jLabel_SettingTitle.font"/>
+        <Property name="text" type="java.lang.String" resourceKey="jLabel_SettingTitle.text"/>
+        <Property name="name" type="java.lang.String" value="jLabel_SettingTitle" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel_Timeout">
+      <Properties>
+        <Property name="text" type="java.lang.String" resourceKey="jLabel_Timeout.text"/>
+        <Property name="name" type="java.lang.String" value="jLabel_Timeout" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTextField_JavaPath">
+      <Properties>
+        <Property name="background" type="java.awt.Color" resourceKey="jTextField_JavaPath.background"/>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="text" type="java.lang.String" resourceKey="jTextField_JavaPath.text"/>
+        <Property name="name" type="java.lang.String" value="jTextField_JavaPath" noResource="true"/>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTextField_WalletFile">
+      <Properties>
+        <Property name="text" type="java.lang.String" resourceKey="jTextField_WalletFile.text"/>
+        <Property name="name" type="java.lang.String" value="jTextField_WalletFile" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel_JavaPath">
+      <Properties>
+        <Property name="text" type="java.lang.String" resourceKey="jLabel_JavaPath.text"/>
+        <Property name="name" type="java.lang.String" value="jLabel_JavaPath" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButton_DataFolder">
+      <Properties>
+        <Property name="text" type="java.lang.String" resourceKey="jButton_DataFolder.text"/>
+        <Property name="name" type="java.lang.String" value="jButton_DataFolder" noResource="true"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_DataFolderActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel_WalletFile">
+      <Properties>
+        <Property name="text" type="java.lang.String" resourceKey="jLabel_WalletFile.text"/>
+        <Property name="name" type="java.lang.String" value="jLabel_WalletFile" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel_DataFolder">
+      <Properties>
+        <Property name="text" type="java.lang.String" resourceKey="jLabel_DataFolder.text"/>
+        <Property name="name" type="java.lang.String" value="jLabel_DataFolder" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTextField_DataFolder">
+      <Properties>
+        <Property name="background" type="java.awt.Color" resourceKey="jTextField_DataFolder.background"/>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="text" type="java.lang.String" resourceKey="jTextField_DataFolder.text"/>
+        <Property name="name" type="java.lang.String" value="jTextField_DataFolder" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel_TimoutUnit">
+      <Properties>
+        <Property name="text" type="java.lang.String" resourceKey="jLabel_TimoutUnit.text"/>
+        <Property name="name" type="java.lang.String" value="jLabel_TimoutUnit" noResource="true"/>
+      </Properties>
+    </Component>
+  </SubComponents>
+</Form>
