@@ -94,7 +94,7 @@ package app;
 import com.wrapper.core.jni.otapi;
 import com.wrapper.core.util.Utility;
 import com.wrapper.ui.MainPage;
-import com.wrapper.ui.Settings;
+import com.wrapper.ui.SettingsOld;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -134,7 +134,7 @@ public class ApplicationLauncher extends SingleFrameApplication {
                 //        UIManager.setLookAndFeel(laf);
              //           Utility.setObj(laf);
 
-                        new Settings().setVisible(true);
+                        new SettingsOld().setVisible(true);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

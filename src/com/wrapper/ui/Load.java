@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.wrapper.ui;
 
 import com.wrapper.core.jni.JavaCallback;
@@ -19,10 +15,57 @@ import javax.swing.AbstractListModel;
  * @author cameron
  */
 public class Load {
+    // <editor-fold defaultstate="collapsed" desc="Load">
+
+    public static void Load() throws LoadFailedException {
+        Load(new LoadData(), true);
+    }
+
+    public static void Load(LoadData loadData, boolean autoload) throws LoadFailedException {
+        try {
+            Load.loadOTAPI(loadData.GetJavaPaths());
+            Load.loadAppData(loadData.GetDataFolder(), loadData.GetWalletFilename());
+            Load.setTimeout(loadData.GetTimeOut());
+        } catch (Load.ApiNotLoadedException e) {
+            StringBuilder error = new StringBuilder();
+            if (autoload) {
+                error.append("Autoload: ");
+            }
+            error.append("The Java Path failed!: ");
+            error.append(System.getProperty("line.separator"));
+            error.append(e.getError());
+            error.append(System.getProperty("line.separator"));
+            System.out.println(error.toString());
+            throw new LoadFailedException(error.toString(), autoload);
+        } catch (Load.AppDataNotLoadedException e) {
+            StringBuilder error = new StringBuilder();
+            if (autoload) {
+                error.append("Autoload: ");
+            }
+            error.append("Your MoneyChanger user data failed; Choose the location here:");
+            error.append(e.getError().replace(":", System.getProperty("line.separator")));
+            System.out.println(error.toString());
+            throw new LoadFailedException(error.toString(), autoload);
+        } catch (Load.InvalidTimeOutException e) {
+            StringBuilder error = new StringBuilder();
+            error.append("Auto-Timout is invalid; you should never see this message: please contact us for support!");
+            if (autoload) {
+                error.append("Autoload: ");
+            }
+            error.append(e.getError());
+            System.out.println(error.toString());
+            throw new LoadFailedException(error.toString(), autoload);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Load API">
-    public static void loadOTAPI() throws ApiNotLoadedException {      
+
+    public static void loadOTAPI() throws ApiNotLoadedException {
         loadOTAPI(new JavaPaths());
     }
+
     public static void loadOTAPI(JavaPaths paths) throws ApiNotLoadedException {
         try {
             if (getOS() == typeOS.WIN) {
@@ -32,7 +75,9 @@ public class Load {
             throw new ApiNotLoadedException(buildPathErrorMessage("Unable load libzmq from:"));
         }
         try {
-            if (!paths.isEmpty()) Utility.addDirToRuntime(paths);
+            if (!paths.isEmpty()) {
+                Utility.addDirToRuntime(paths);
+            }
             System.loadLibrary("otapi-java");
         } catch (java.lang.UnsatisfiedLinkError e) {
             throw new ApiNotLoadedException(buildPathErrorMessage("Unable to load libotapi-java from:"));
@@ -42,6 +87,7 @@ public class Load {
     }
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Load AppData">
+
     public static void loadAppData() throws AppDataNotLoadedException {
         loadAppData(appdataDirectory(getOS()).append("/.ot/client_data").toString(), "wallet.xml");
     }
@@ -117,9 +163,8 @@ public class Load {
             }
             return pathList.toString();
         }
-        
-        public boolean isEmpty()
-        {
+
+        public boolean isEmpty() {
             return _paths.isEmpty();
         }
 
@@ -161,6 +206,60 @@ public class Load {
 
         public List<String> getPaths() {
             return _paths;
+        }
+    }
+
+    public static class LoadData {
+
+        private JavaPaths javaPaths_;
+        private String dataFolder_;
+        private String walletFilename_;
+        private String timeOut_;
+
+        public LoadData() {
+            javaPaths_ = new JavaPaths();
+        }
+
+        public LoadData(JavaPaths javaPaths, String dataFolder, String walletFilename, String timeOut) {
+            this.javaPaths_ = javaPaths;
+            this.dataFolder_ = dataFolder;
+            this.walletFilename_ = walletFilename;
+            this.timeOut_ = timeOut;
+        }
+
+        public void SetJavaPaths(JavaPaths javaPaths) {
+            this.javaPaths_ = javaPaths;
+        }
+
+        public JavaPaths GetJavaPaths() {
+            return this.javaPaths_;
+        }
+
+        public void SetDataFolder(String dataFolder) {
+            this.dataFolder_ = dataFolder;
+
+        }
+
+        public String GetDataFolder() {
+            return this.dataFolder_;
+        }
+
+        public void SetWalletFilename(String walletFilename) {
+            this.walletFilename_ = walletFilename;
+
+        }
+
+        public String GetWalletFilename() {
+            return this.walletFilename_;
+        }
+
+        public void SetTimeOut(String timeOut) {
+            this.timeOut_ = timeOut;
+
+        }
+
+        public String GetTimeOut() {
+            return this.timeOut_;
         }
     }
 
@@ -213,6 +312,51 @@ public class Load {
     }
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Exceptions">
+
+    static class LoadFailedException extends Exception {
+
+        private Exception e;
+        private String error_;
+        private boolean auto_;
+
+        public LoadFailedException() {
+            this.e = this;
+            this.error_ = "none";
+            this.auto_ = false;
+        }
+
+        public LoadFailedException(Exception e) {
+            super(e);
+            this.e = e;
+            this.error_ = "none";
+            this.auto_ = false;
+        }
+
+        public LoadFailedException(String err, boolean auto) {
+            super(err);     // call super class constructor
+            this.error_ = err;  // save message
+            this.auto_ = auto;
+        }
+
+        public LoadFailedException(Exception e, String err, boolean auto) {
+            super(e);     // call super class constructor
+            this.e = e;
+            this.error_ = err;  // save message
+            this.auto_ = auto;
+        }
+
+        public Exception getException() {
+            return this.e;
+        }
+
+        public String getError() {
+            return this.error_;
+        }
+
+        public boolean getAuto() {
+            return auto_;
+        }
+    }
 
     static class ApiNotLoadedException extends Exception {
 

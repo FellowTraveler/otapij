@@ -97,7 +97,7 @@ AK+ZirdWhhoHeWR1tAkN
 package com.wrapper.ui.custom;
 
 import com.wrapper.core.util.Utility;
-import com.wrapper.ui.Settings;
+import com.wrapper.ui.SettingsOld;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.logging.Level;
@@ -123,7 +123,7 @@ public class MenuListener implements ActionListener {
         try {
             Class obj = Class.forName(substanceClass);
             SubstanceLookAndFeel laf = (SubstanceLookAndFeel) obj.newInstance();
-            Settings utility = (Settings)Utility.getObj();
+            SettingsOld utility = (SettingsOld)Utility.getObj();
             
             UIManager.setLookAndFeel(laf);
             utility.repaint();

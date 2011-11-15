@@ -101,7 +101,7 @@ package com.wrapper.ui.dialogs;
 
 import com.wrapper.core.util.Utility;
 import com.wrapper.ui.Load;
-import com.wrapper.ui.Settings;
+import com.wrapper.ui.SettingsOld;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 
@@ -212,7 +212,7 @@ public class PathDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton_AddActionPerformed
 
     private void jButton_CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CloseActionPerformed
-        Settings.setPath();
+        SettingsOld.setPath();
         this.dispose();
     }//GEN-LAST:event_jButton_CloseActionPerformed
 
