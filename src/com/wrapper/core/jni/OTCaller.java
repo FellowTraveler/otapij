@@ -5,61 +5,62 @@
  * Do not make changes to this file unless you know what you are doing--modify
  * the SWIG interface file instead.
  * ----------------------------------------------------------------------------- */
+
 package com.wrapper.core.jni;
 
 public class OTCaller {
+  private long swigCPtr;
+  protected boolean swigCMemOwn;
 
-    private long swigCPtr;
-    protected boolean swigCMemOwn;
+  public OTCaller(long cPtr, boolean cMemoryOwn) {
+    swigCMemOwn = cMemoryOwn;
+    swigCPtr = cPtr;
+  }
 
-    public OTCaller() {
-        this(otapiJNI.new_OTCaller(), true);
+  public static long getCPtr(OTCaller obj) {
+    return (obj == null) ? 0 : obj.swigCPtr;
+  }
+
+  protected void finalize() {
+    delete();
+  }
+
+  public synchronized void delete() {
+    if (swigCPtr != 0) {
+      if (swigCMemOwn) {
+        swigCMemOwn = false;
+        otapiJNI.delete_OTCaller(swigCPtr);
+      }
+      swigCPtr = 0;
     }
+  }
 
-    public OTCaller(long cPtr, boolean cMemoryOwn) {
-        swigCMemOwn = cMemoryOwn;
-        swigCPtr = cPtr;
-    }
+  public OTCaller() {
+    this(otapiJNI.new_OTCaller(), true);
+  }
 
-    public static long getCPtr(OTCaller obj) {
-        return (obj == null) ? 0 : obj.swigCPtr;
-    }
+  public String GetPassword() {
+    return otapiJNI.OTCaller_GetPassword(swigCPtr, this);
+  }
 
-    protected void finalize() {
-        delete();
-    }
+  public void delCallback() {
+    otapiJNI.OTCaller_delCallback(swigCPtr, this);
+  }
 
-    public synchronized void delete() {
-        if (swigCPtr != 0) {
-            if (swigCMemOwn) {
-                swigCMemOwn = false;
-                otapiJNI.delete_OTCaller(swigCPtr);
-            }
-            swigCPtr = 0;
-        }
-    }
+  public void setCallback(OTCallback cb) {
+    otapiJNI.OTCaller_setCallback(swigCPtr, this, OTCallback.getCPtr(cb), cb);
+  }
 
-    public String GetPassword() {
-        return otapiJNI.OTCaller_GetPassword(swigCPtr, this);
-    }
+  public boolean isCallbackSet() {
+    return otapiJNI.OTCaller_isCallbackSet(swigCPtr, this);
+  }
 
-    public void delCallback() {
-        otapiJNI.OTCaller_delCallback(swigCPtr, this);
-    }
+  public void callOne() {
+    otapiJNI.OTCaller_callOne(swigCPtr, this);
+  }
 
-    public void setCallback(OTCallback cb) {
-        otapiJNI.OTCaller_setCallback(swigCPtr, this, OTCallback.getCPtr(cb), cb);
-    }
+  public void callTwo() {
+    otapiJNI.OTCaller_callTwo(swigCPtr, this);
+  }
 
-    public boolean isCallbackSet() {
-        return otapiJNI.OTCaller_isCallbackSet(swigCPtr, this);
-    }
-
-    public void callOne() {
-        otapiJNI.OTCaller_callOne(swigCPtr, this);
-    }
-
-    public void callTwo() {
-        otapiJNI.OTCaller_callTwo(swigCPtr, this);
-    }
 }
