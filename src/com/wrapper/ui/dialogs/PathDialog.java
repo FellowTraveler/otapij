@@ -101,6 +101,7 @@ package com.wrapper.ui.dialogs;
 
 import com.wrapper.core.util.Utility;
 import com.wrapper.ui.Load;
+import com.wrapper.ui.Settings;
 import com.wrapper.ui.SettingsOld;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
@@ -137,6 +138,7 @@ public class PathDialog extends javax.swing.JDialog {
         jList_Paths = new javax.swing.JList();
         jButton_Add = new javax.swing.JButton();
         jButton_Close = new javax.swing.JButton();
+        jButtonRemove = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(PathDialog.class);
@@ -167,6 +169,14 @@ public class PathDialog extends javax.swing.JDialog {
             }
         });
 
+        jButtonRemove.setText(resourceMap.getString("jButtonRemove.text")); // NOI18N
+        jButtonRemove.setName("jButtonRemove"); // NOI18N
+        jButtonRemove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRemoveActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -176,6 +186,8 @@ public class PathDialog extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton_Add)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonRemove)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton_Close))
                     .addComponent(jScrollPanel_Paths, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -188,7 +200,9 @@ public class PathDialog extends javax.swing.JDialog {
                 .addComponent(jScrollPanel_Paths, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton_Add)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton_Add)
+                        .addComponent(jButtonRemove))
                     .addComponent(jButton_Close))
                 .addGap(33, 33, 33))
         );
@@ -205,6 +219,7 @@ public class PathDialog extends javax.swing.JDialog {
             //This is where a real application would open the file.
             
             javaPaths.addPath(pathFolderChooser.getSelectedFile().getPath());
+            this.jButtonRemove.setEnabled(true);
             
         } else {
             System.out.println("Cancelled");
@@ -212,9 +227,14 @@ public class PathDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton_AddActionPerformed
 
     private void jButton_CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CloseActionPerformed
-        SettingsOld.setPath();
+        Settings.setPath();
         this.dispose();
     }//GEN-LAST:event_jButton_CloseActionPerformed
+
+private void jButtonRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveActionPerformed
+    javaPaths.remove(jList_Paths.getSelectedIndex());
+    if(javaPaths.isEmpty()) this.jButtonRemove.setEnabled(false);
+}//GEN-LAST:event_jButtonRemoveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -236,6 +256,7 @@ public class PathDialog extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonRemove;
     private javax.swing.JButton jButton_Add;
     private javax.swing.JButton jButton_Close;
     private javax.swing.JList jList_Paths;

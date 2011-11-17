@@ -142,7 +142,7 @@ public class Load {
 
     public static class JavaPaths extends AbstractListModel {
 
-        private List<String> _paths = new ArrayList<String>();
+        private Collection<String> _paths = new HashSet<String>();
 
         @Override
         public int getSize() {
@@ -151,7 +151,7 @@ public class Load {
 
         @Override
         public Object getElementAt(int index) {
-            return _paths.get(index);
+            return _paths.toArray()[index];
         }
 
         @Override
@@ -203,8 +203,19 @@ public class Load {
             _paths.add(path.toLowerCase());
             fireContentsChanged(this, 0, this.getSize());
         }
-
-        public List<String> getPaths() {
+      
+        
+        public void remove(String path){
+            _paths.remove(path.toLowerCase());
+            fireContentsChanged(this, 0, this.getSize());
+        }
+        
+        public void remove(int index){
+            _paths.remove(index);
+                        fireContentsChanged(this, 0, this.getSize());
+        }
+        
+        public Collection<String> getPaths(){
             return _paths;
         }
     }

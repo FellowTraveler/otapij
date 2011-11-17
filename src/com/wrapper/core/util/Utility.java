@@ -339,7 +339,7 @@ public class Utility {
     public static void setOtDepositCash(Object otDepositCash) {
         Utility.otDepositCash = otDepositCash;
     }
-    // </editor-fold>       
+    // </editor-fold>
     
     // Get Helpers:
     // <editor-fold defaultstate="collapsed" desc="Get Key" > 

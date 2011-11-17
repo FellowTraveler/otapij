@@ -20,7 +20,6 @@
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="title" type="java.lang.String" resourceKey="Form.title"/>
     <Property name="name" type="java.lang.String" value="Form" noResource="true"/>
-    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBar1"/>
@@ -52,13 +51,10 @@
                           <Component id="jLabel_WalletFile" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel_JavaPath" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="jButton_DataFolder" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="jButton_DataFolder" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" alignment="0" attributes="1">
                       <Component id="jLabel_SettingTitle" min="-2" max="-2" attributes="0"/>
