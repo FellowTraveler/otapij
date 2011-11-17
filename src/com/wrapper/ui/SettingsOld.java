@@ -102,7 +102,7 @@ package com.wrapper.ui;
 
 import com.wrapper.core.util.Configuration;
 import com.wrapper.core.util.Utility;
-import com.wrapper.ui.custom.CustomMenu;
+//import com.wrapper.ui.custom.CustomMenu;
 import com.wrapper.ui.dialogs.PathDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -159,7 +159,6 @@ public class SettingsOld extends javax.swing.JFrame {
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(SettingsOld.class);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
         setName("Form"); // NOI18N
-        setResizable(false);
 
         jButton_LoadWallet.setText(resourceMap.getString("jButton_LoadWallet.text")); // NOI18N
         jButton_LoadWallet.setName("jButton_LoadWallet"); // NOI18N
@@ -233,11 +232,9 @@ public class SettingsOld extends javax.swing.JFrame {
                             .addComponent(jLabel_DataFolder)
                             .addComponent(jLabel_Timeout)
                             .addComponent(jLabel_WalletFile)
-                            .addComponent(jLabel_JavaPath))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton_DataFolder)
-                        .addGap(47, 47, 47)))
+                            .addComponent(jLabel_JavaPath)))
+                    .addComponent(jButton_DataFolder))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel_SettingTitle)
