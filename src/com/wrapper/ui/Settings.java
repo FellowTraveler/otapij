@@ -10,6 +10,7 @@
  */
 package com.wrapper.ui;
 
+import com.ot.app.moneychanger.models.Load;
 import com.wrapper.core.util.Utility;
 import com.wrapper.ui.dialogs.PathDialog;
 import javax.swing.JFileChooser;
