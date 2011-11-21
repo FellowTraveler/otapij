@@ -100,9 +100,9 @@ AK+ZirdWhhoHeWR1tAkN
 package com.wrapper.ui.dialogs;
 
 import com.wrapper.core.util.Utility;
-import com.wrapper.ui.Load;
+import com.ot.app.moneychanger.models.Load;
 import com.wrapper.ui.Settings;
-import com.wrapper.ui.SettingsOld;
+//import com.wrapper.ui.SettingsOld;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 
@@ -133,12 +133,6 @@ public class PathDialog extends javax.swing.JDialog {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
-        jScrollPanel_Paths = new javax.swing.JScrollPane();
-        jList_Paths = new javax.swing.JList();
-        jButton_Add = new javax.swing.JButton();
-        jButton_Close = new javax.swing.JButton();
-        jButtonRemove = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(PathDialog.class);
@@ -220,8 +214,8 @@ public class PathDialog extends javax.swing.JDialog {
             
             javaPaths.addPath(pathFolderChooser.getSelectedFile().getPath());
             this.jButtonRemove.setEnabled(true);
-            
         } else {
+            
             System.out.println("Cancelled");
         }
     }//GEN-LAST:event_jButton_AddActionPerformed
@@ -256,11 +250,11 @@ private void jButtonRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonRemove;
-    private javax.swing.JButton jButton_Add;
-    private javax.swing.JButton jButton_Close;
-    private javax.swing.JList jList_Paths;
-    private javax.swing.JScrollPane jScrollPanel_Paths;
+    public final javax.swing.JButton jButtonRemove = new javax.swing.JButton();
+    public final javax.swing.JButton jButton_Add = new javax.swing.JButton();
+    public final javax.swing.JButton jButton_Close = new javax.swing.JButton();
+    public final javax.swing.JList jList_Paths = new javax.swing.JList();
+    public final javax.swing.JScrollPane jScrollPanel_Paths = new javax.swing.JScrollPane();
     // End of variables declaration//GEN-END:variables
 
     private void initValues() {

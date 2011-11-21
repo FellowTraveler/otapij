@@ -40,11 +40,11 @@ public class ConfigBean {
 //----------------------------------------------------------------------------
 
     //TimeOUt
-    public static String timeOutInfo() {
+    public String timeOutInfo() {
         return "Time to try connecting to the server before giving up.";
     }
 
-    public static String timeOutRegex() {
+    public String timeOutRegex() {
         return "[0-9]*";
     }
 
@@ -57,11 +57,11 @@ public class ConfigBean {
     }
     
     //OTPath
-    public static String OTPathInfo() {
+    public String OTPathInfo() {
         return "The directory that contains 'libotapi-java'.";
     }
 
-    public static String OTPathRegex() {
+    public String OTPathRegex() {
         return "[0-9a-zA-Z///.]*";
     }
 
@@ -74,11 +74,11 @@ public class ConfigBean {
     }
     
     //ZMQ PAth
-    public static String ZMQPathInfo() {
+    public String ZMQPathInfo() {
         return "The directory that contains 'libzmq'; for windows only.";
     }
 
-    public static String ZMQPathRegex() {
+    public String ZMQPathRegex() {
         return "[0-9a-zA-Z///.]*";
     }
 
@@ -91,11 +91,11 @@ public class ConfigBean {
     }
     
     //UserDataPath
-    public static String userDataPathInfo() {
+    public String userDataPathInfo() {
         return "The directory that contains the client data.";
     }
 
-    public static String userDataPathRegex() {
+    public String userDataPathRegex() {
         return "[0-9a-zA-Z///.]*";
     }
 
@@ -108,11 +108,11 @@ public class ConfigBean {
     }
     
     //WalletFilename
-    public static String walletFilenameInfo() {
+    public String walletFilenameInfo() {
         return "The name of the wallet file.";
     }
 
-    public static String walletFilenameRegex() {
+    public String walletFilenameRegex() {
         return "[0-9a-zA-Z/.]*";
     }
 
