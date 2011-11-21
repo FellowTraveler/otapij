@@ -20,6 +20,7 @@ import javax.swing.event.DocumentListener;
 import net.sf.swinglib.SwingUtil;
 import net.sf.swinglib.UIHelper;
 import net.sf.swinglib.actions.DocumentCheckReturn;
+import net.sf.swinglib.actions.ReturnAction;
 import net.sf.swinglib.field.DocumentWatcher;
 
 /**
@@ -32,9 +33,8 @@ public class TestDialogController {
     private JDialog _testDialog;
     private TestPanel _testPanel;
     private Set<DocumentListener> _documentListenerSet;
-    private Map<String,Boolean> _isReadyMap;
+    private Map<String, Boolean> _isReadyMap;
     private ConfigBean _prefs;
-    
     private OKAction _bOk;
 
     public TestDialogController(Concierge concierge) {
@@ -57,41 +57,51 @@ public class TestDialogController {
         TestPanel tp = new TestPanel();
         _testPanel = tp;
     }
-    
-    private void buildFields()
-    {
-        _isReadyMap = new HashMap<String,Boolean>();
+
+    private void buildFields() {
+        _isReadyMap = new HashMap<String, Boolean>();
         _documentListenerSet = new HashSet<DocumentListener>();
         _testPanel.jTextField_Test.setText(_concierge.getConfig().getTimeOut());
-        _documentListenerSet.add(testTextField(_testPanel.jTextField_Test,".+\\.test\\.com",_isReadyMap));
-        
+        _documentListenerSet.add(testTextField(_testPanel.jTextField_Test, ".+\\.test\\.com", _isReadyMap));
+
         _testPanel.jButton_Test.setAction(new OKAction());
     }
 
-    private DocumentListener testTextField(final JTextField field,final String regex, final Map<String,Boolean> isReady ){
-                DocumentCheckReturn testDocReturn = new DocumentCheckReturn() {
+    private DocumentListener testTextField(final JTextField field, final String regex, final Map<String, Boolean> isReady) {
+        DocumentCheckReturn testDocReturn = new DocumentCheckReturn() {
+
             @Override
-            public void ReturnIsValid(boolean isValid) {
-                if (!isValid) {
-                    field.setBackground(Color.YELLOW);
-                }
-                if (isValid) {
-                    field.setBackground(null);
-                }
-                isReady.put(field.getName(), isValid);
-                Refresh();
+            public void Valid() {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+
+            @Override
+            public void Invalid() {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+                
+        };
+        ReturnAction a =new ReturnAction() {
+
+            @Override
+            public void ReturnAction() {
+                throw new UnsupportedOperationException("Not supported yet.");
             }
         };
-        return new DocumentWatcher(field.getDocument(), testDocReturn, regex);
+        
+        return new DocumentWatcher(field.getDocument(), testDocReturn, regex,a );
     }
     
-    private void Refresh()
-    {
+       
+    
+    
+    private void Refresh() {
         boolean ready = true;
-        for (boolean b : _isReadyMap.values())
-        {
+        for (boolean b : _isReadyMap.values()) {
             ready = b;
-            if (!ready) break;
+            if (!ready) {
+                break;
+            }
         }
         _testPanel.jButton_Test.setEnabled(ready);
     }
@@ -99,7 +109,7 @@ public class TestDialogController {
     private void buildTestDialog() {
         _testDialog = UIHelper.newDialog(_concierge.getDialogOwner(), "Preferences", _testPanel);
     }
-    
+
     private class OKAction extends AbstractAction {
 
         public OKAction() {
@@ -113,5 +123,4 @@ public class TestDialogController {
             _testDialog.dispose();
         }
     }
-
 }

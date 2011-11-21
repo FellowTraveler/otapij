@@ -16,6 +16,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JList;
 import net.sf.swinglib.SwingUtil;
 import net.sf.swinglib.UIHelper;
+import net.sf.swinglib.actions.ReturnAction;
 
 /**
  *
@@ -30,7 +31,7 @@ public class PathsController {
     }
 
     public static class Dialog {
-
+        private static Actions _actions;
         private static JDialog _pathsDialog;
         private static PathsPanel _pathsPanel;
         private static ViewModel _model;
@@ -43,9 +44,11 @@ public class PathsController {
         }
 
         private void buildFields() {
+            
+            _actions = new Actions(_model);
             _pathsPanel.jButton_Close.setAction(new Actions.CancelAction());
             _pathsPanel.jButton_Add.setAction(new Actions.AddAction(Dialog.getDialog()));
-            _pathsPanel.jButton_Remove.setAction(new Actions.RemoveAction(getSelectedPath()));
+            _pathsPanel.jButton_Remove.setAction(new Actions.RemoveAction(_pathsPanel.jList_PathList));
             _pathsPanel.jList_PathList.setModel(_model.getModel());
         }
 
@@ -83,10 +86,10 @@ public class PathsController {
 
     private static class Actions {
 
-        private static ViewModel _model;
+        private static ViewModel _viewModel;
 
         public Actions(ViewModel model) {
-            this._model = model;
+            this._viewModel = model;
         }
 
         public static class CancelAction extends AbstractAction {
@@ -105,35 +108,37 @@ public class PathsController {
 
         public static class AddAction extends AbstractAction {
 
-            private static FolderBrowser f;
+            private static FolderBrowser _folderBrowser;
 
             public AddAction(JDialog dialog) {
                 super("Add Path");
-                f = new FolderBrowser(dialog);
+                _folderBrowser = new FolderBrowser(dialog);
             }
 
             @Override
             public void actionPerformed(ActionEvent ignored) {
                 // note: this dialog will be rarely used; no reason to leave
                 //       it around, consuming resources
-                _model.addPath(f.GetPath());
+                _viewModel.addPath(_folderBrowser.GetPath());
             }
         }
 
         public static class RemoveAction extends AbstractAction {
 
-            private Object _rem;
+            private JList _jList;
 
-            public RemoveAction(Object rem) {
-                super("Remove Path");
-                _rem = rem;
+            public RemoveAction(JList jList) {
+                super("Remove");
+                _jList = jList;
             }
 
             @Override
             public void actionPerformed(ActionEvent ignored) {
                 // note: this dialog will be rarely used; no reason to leave
                 //       it around, consuming resources
-                _model.removePath(_rem);
+                _viewModel.removePath(_jList.getSelectedValue());
+                _jList.setSelectedIndex(_jList.getLastVisibleIndex());
+                this.setEnabled(!_viewModel.getModel().isEmpty());
             }
         }
     }
@@ -142,15 +147,15 @@ public class PathsController {
 
         private JFileChooser _pathFolderChooser;
         private int _returnVal;
-        private JDialog _dialog;
 
         public FolderBrowser(JDialog dialog) {
-            _pathFolderChooser = new JFileChooser();
-            this._dialog = dialog;
+                            _pathFolderChooser = new JFileChooser();
+                _pathFolderChooser.setCurrentDirectory(new java.io.File("."));
+                _pathFolderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         }
 
         public String GetPath() {
-            _returnVal = _pathFolderChooser.showOpenDialog(_dialog);
+            _returnVal = _pathFolderChooser.showOpenDialog(this._pathFolderChooser);
             if (_returnVal == JFileChooser.APPROVE_OPTION) {
                 return _pathFolderChooser.getSelectedFile().getPath();
             } else {
@@ -163,25 +168,31 @@ public class PathsController {
     protected static class ViewModel {
 
         private static JavaPaths _pathsModel;
+        private static ReturnAction _returnAction;
 
-        public ViewModel(JavaPaths pathsModel) {
-            this._pathsModel = pathsModel;
+        public ViewModel(JavaPaths pathsModel, ReturnAction returnAction) {
+            ViewModel._pathsModel = pathsModel;
+            ViewModel._returnAction = returnAction;
         }
 
-        public ViewModel(String pathsString) {
+        public void addPathsString(String pathsString) {
             List<String> paths = Arrays.asList(pathsString.split(";"));
+            
             for (String path : paths) {
+                if (!path.equals(""))
                 _pathsModel.addPath(path);
             }
+            _returnAction.ReturnAction();
+            
         }
 
         public String getPathsString() {
-
             return _pathsModel.toString();
         }
 
         protected void setModel(JList list) {
             list.setModel(_pathsModel);
+            _returnAction.ReturnAction();
         }
 
         protected JavaPaths getModel() {
@@ -190,10 +201,12 @@ public class PathsController {
 
         protected void addPath(String path) {
             _pathsModel.addPath(path);
+            _returnAction.ReturnAction();
         }
 
         protected void removePath(Object path) {
             _pathsModel.remove(path);
+            _returnAction.ReturnAction();
         }
     }
 }

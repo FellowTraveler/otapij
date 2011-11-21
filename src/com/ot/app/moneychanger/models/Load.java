@@ -200,28 +200,33 @@ public class Load {
         }
 
         public void addPath(String path) {
-            _paths.add(path.toLowerCase());
+            if (path != null) {
+                _paths.add(path.toLowerCase());
+            }
             fireContentsChanged(this, 0, this.getSize());
         }
-      
-        
-        public void remove(String path){
-            _paths.remove(path.toLowerCase());
-            fireContentsChanged(this, 0, this.getSize());
+
+        public void remove(String path) {
+            if (path != null) {
+                _paths.remove(path.toLowerCase());
+                fireContentsChanged(this, 0, this.getSize());
+            }
         }
-        
-        public void remove(Object path)
-        {
-            _paths.remove(path);
-            fireContentsChanged(this, 0, this.getSize());
+
+        public void remove(Object path) {
+            if (path != null) {
+                _paths.remove(path);
+                fireContentsChanged(this, 0, this.getSize());
+            }
+
         }
-        
-        public void remove(int index){
+
+        public void remove(int index) {
             _paths.remove(index);
-                        fireContentsChanged(this, 0, this.getSize());
+            fireContentsChanged(this, 0, this.getSize());
         }
-        
-        public Collection<String> getPaths(){
+
+        public Collection<String> getPaths() {
             return _paths;
         }
     }
