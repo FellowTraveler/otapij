@@ -10,7 +10,6 @@
  */
 package com.wrapper.ui;
 
-import com.ot.app.moneychanger.models.Load;
 import com.wrapper.core.util.Utility;
 import com.wrapper.ui.dialogs.PathDialog;
 import javax.swing.JFileChooser;
@@ -23,8 +22,8 @@ import javax.swing.JOptionPane;
 public class Settings extends javax.swing.JFrame {
 
     private JFileChooser dataFolderChooser;
-    private static Load.JavaPaths javaPaths;
-    private static Load.LoadData loadData;
+//    private static Load.JavaPaths javaPaths;
+ //   private static Load.LoadData loadData;
     
     /** Creates new form Settings */
     public Settings() {
@@ -33,10 +32,10 @@ public class Settings extends javax.swing.JFrame {
     }
 
     private void loadSettings() {
-        javaPaths = new Load.JavaPaths();
-        javaPaths.addDefultPath(Load.getOS());
-        loadData = new Load.LoadData();
-        loadData.SetJavaPaths(javaPaths);
+        //javaPaths = new Load.JavaPaths();
+        //javaPaths.addDefultPath(Load.getOS());
+        //loadData = new Load.LoadData();
+//        loadData.SetJavaPaths(javaPaths);
         initComponents();
         Utility.setObj(this);
         setLocation(Utility.getLocation(this.getSize()));
@@ -48,7 +47,7 @@ public class Settings extends javax.swing.JFrame {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append(Load.appdataDirectory(Load.getOS()));
+        //sb.append(Load.appdataDirectory(Load.getOS()));
         sb.append("/.ot/client_data");
 
         //jTextField_DataFolder.setText(sb.toString());
@@ -196,12 +195,12 @@ public class Settings extends javax.swing.JFrame {
 
 private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
     String result = JOptionPane.showInputDialog(rootPane, null);
-    loadData.SetTimeOut(result);
+//    loadData.SetTimeOut(result);
 }//GEN-LAST:event_jMenuItem1ActionPerformed
 
 private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        PathDialog pathDialog = new PathDialog(this, true, javaPaths);
-        pathDialog.setVisible(true);
+//        PathDialog pathDialog = new PathDialog(this, true, javaPaths);
+   //     pathDialog.setVisible(true);
 }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**

@@ -5,17 +5,27 @@
 package com.ot.app.moneychanger.controlers;
 
 import com.ot.app.moneychanger.dialogs.panels.PathsPanel;
-import com.ot.app.moneychanger.models.Load.JavaPaths;
-import com.ot.moneychanger.main.Concierge;
+import com.ot.app.moneychanger.main.Concierge;
+import com.ot.app.moneychanger.main.helpers.OSType.typeOS;
+import com.ot.app.moneychanger.actions.AbstractActions;
+import com.ot.app.moneychanger.models.viewmodel.AbstractDialog;
+import com.ot.app.moneychanger.models.viewmodel.AbstractFields;
+import com.ot.app.moneychanger.models.viewmodel.AbstractViewModel;
+import com.ot.app.moneychanger.actions.IActions;
+import com.ot.app.moneychanger.models.viewmodel.IDialog;
+import com.ot.app.moneychanger.models.viewmodel.IFields;
 import java.awt.event.ActionEvent;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.EnumMap;
+import java.util.HashSet;
 import java.util.List;
 import javax.swing.AbstractAction;
-import javax.swing.JDialog;
+import javax.swing.AbstractListModel;
+import javax.swing.Action;
 import javax.swing.JFileChooser;
-import javax.swing.JList;
-import net.sf.swinglib.SwingUtil;
-import net.sf.swinglib.UIHelper;
+import javax.swing.text.Document;
+import net.sf.swing.document.DocWatcher;
 import net.sf.swinglib.actions.ReturnAction;
 
 /**
@@ -24,189 +34,234 @@ import net.sf.swinglib.actions.ReturnAction;
  */
 public class PathsController {
 
+    private static IDialog _dialog;
+    private Fields _fields;
+    private Actions _actions;
+    private PathsViewModel _pathsViewModel;
     private static Concierge _concierge;
-
-    public PathsController(Concierge concierge) {
+    private static PathsModel _pathsModel;
+    private static ReturnAction _returnAction;
+    
+    // <editor-fold defaultstate="collapsed" desc="PathsController Methods">
+    public PathsController(Concierge concierge, ReturnAction returnAction) {
         _concierge = concierge;
+        _returnAction = returnAction;
+
+        buildDialog();
     }
 
-    public static class Dialog {
-        private static Actions _actions;
-        private static JDialog _pathsDialog;
-        private static PathsPanel _pathsPanel;
-        private static ViewModel _model;
+    private void buildDialog() {
+        _pathsModel = new PathsModel();
+        _fields = new Fields();
+        _actions = new Actions(_fields);
+        _pathsViewModel = new PathsViewModel(_fields, _actions);
+        _dialog = new Dialog(_pathsViewModel);
+    }
 
-        public Dialog(ViewModel model) {
-            this._model = model;
-            buildPanel();
-            buildFields();
-            buildDialog();
-        }
+    public void show() {
+        _pathsModel.addPaths(_returnAction.getAction());
+        _dialog.show();
+    }
 
-        private void buildFields() {
-            
-            _actions = new Actions(_model);
-            _pathsPanel.jButton_Close.setAction(new Actions.CancelAction());
-            _pathsPanel.jButton_Add.setAction(new Actions.AddAction(Dialog.getDialog()));
-            _pathsPanel.jButton_Remove.setAction(new Actions.RemoveAction(_pathsPanel.jList_PathList));
-            _pathsPanel.jList_PathList.setModel(_model.getModel());
-        }
+    public void close() {
+        _dialog.close();
+    }
 
-        private void buildPanel() {
-            _pathsPanel = new PathsPanel();
+    public enum ActionKeys {
 
-        }
+        CLOSE, ADD, REMOVE
+    }
 
-        private void buildDialog() {
-            _pathsDialog = UIHelper.newDialog(_concierge.getDialogOwner(), "Preferences", _pathsPanel);
-        }
+    public enum FieldKeys {
+    };
 
-        private static void dispose() {
-            _pathsDialog.dispose();
-        }
-        
-        public static void show() {
-            _pathsDialog.pack();
-            SwingUtil.centerAndShow(_pathsDialog, _concierge.getDialogOwner());
-        }
-        
-        public static void hide()
-        {
-            _pathsDialog.setVisible(false);
-        }
+    // <editor-fold defaultstate="collapsed" desc="Dialog">
+    private static class Dialog extends AbstractDialog {
 
-        private static JDialog getDialog() {
-            return _pathsDialog;
-        }
-
-        private static Object getSelectedPath() {
-            return _pathsPanel.jList_PathList.getSelectedValue();
+        public Dialog(PathsViewModel prefsViewModel) {
+            super(new PathsPanel(prefsViewModel, _pathsModel), _concierge);
         }
     }
 
-    private static class Actions {
+    // <editor-fold defaultstate="collapsed" desc="Paths View Model">
+    private static class PathsViewModel extends AbstractViewModel<FieldKeys, ActionKeys> {
 
-        private static ViewModel _viewModel;
+        public PathsViewModel(IFields<FieldKeys> fields, IActions<ActionKeys> actions) {
+            super(fields, actions);
+        }
+    }
 
-        public Actions(ViewModel model) {
-            this._viewModel = model;
+    // <editor-fold defaultstate="collapsed" desc="Paths Model">
+    private static class PathsModel extends AbstractListModel {
+
+        private Collection<String> _paths = new HashSet<String>();
+
+        PathsModel() {
         }
 
-        public static class CancelAction extends AbstractAction {
+        @Override
+        public int getSize() {
+            return _paths.size();
+        }
 
-            public CancelAction() {
-                super("Cancel");
+        @Override
+        public Object getElementAt(int index) {
+            return _paths.toArray()[index];
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder pathList = new StringBuilder();
+            for (String path : _paths) {
+                pathList.append(path);
+                pathList.append(";");
+            }
+            return pathList.toString();
+        }
+
+        public boolean isEmpty() {
+            return _paths.isEmpty();
+        }
+
+        public PathsModel(List<String> paths) {
+            _paths.addAll(paths);
+        }
+
+        public void addDefultPath(typeOS os) {
+            switch (os) {
+                case WIN: {
+                    break;
+                }
+                case LINUX: {
+                    addPath("/usr/local/lib");
+                    break;
+                }
+                case MAC: {
+                    addPath("/usr/local/lib");
+                    break;
+                }
+                case UNIX: {
+                    addPath("/usr/local/lib");
+                    break;
+                }
+                case OTHER: {
+                    addPath("/usr/local/lib");
+                    break;
+                }
+            }
+        }
+
+        public void addPath(String path) {
+            if (path != null) {
+                _paths.add(path.toLowerCase());
+            }
+            fireContentsChanged(this, 0, this.getSize());
+            _returnAction.returnAction(this.toString());
+        }
+
+        public void addPaths(String paths) {
+            List<String> pathsList = Arrays.asList(paths.split(";"));
+            for (String path : pathsList) {
+                if (path != null) {
+                    _paths.add(path.toLowerCase());
+                }
+            }
+            fireContentsChanged(this, 0, this.getSize());
+            _returnAction.returnAction(this.toString());
+        }
+
+        public void remove(Object path) {
+            if (path != null) {
+                _paths.remove(path);
+                fireContentsChanged(this, 0, this.getSize());
+                _returnAction.returnAction(this.toString());
+            }
+        }
+
+        public Collection<String> getPaths() {
+            return _paths;
+        }
+    }
+
+    private static class Fields extends AbstractFields<FieldKeys> {
+
+        public Fields() {
+            super(new EnumMap<FieldKeys, Document>(FieldKeys.class),
+                    new EnumMap<FieldKeys, DocWatcher>(FieldKeys.class),
+                    new EnumMap<FieldKeys, Boolean>(FieldKeys.class));
+        }
+    }
+
+    private static class Actions extends AbstractActions<FieldKeys, ActionKeys> {
+
+        public Actions(IFields<FieldKeys> fields) {
+            super(fields, new EnumMap<ActionKeys, Action>(ActionKeys.class));
+            buildEndActions();
+        }
+
+        private void buildEndActions() {
+            _actionsMap.put(ActionKeys.CLOSE, new CloseAction());
+            _actionsMap.put(ActionKeys.ADD, new AddAction());
+            _actionsMap.put(ActionKeys.REMOVE, new RemoveAction());
+        }
+
+        @Override
+        public IDialog getDialog() {
+            return _dialog;
+        }
+
+        @Override
+        public void setConfig() {
+            //do nothing, no config to set.
+        }
+
+        public class CloseAction extends AbstractAction {
+
+            public CloseAction() {
+                super("Close");
             }
 
             @Override
             public void actionPerformed(ActionEvent ignored) {
-                // note: this dialog will be rarely used; no reason to leave
-                //       it around, consuming resources
-                Dialog.hide();
+                getDialog().close();
             }
         }
 
-        public static class AddAction extends AbstractAction {
+        public class RemoveAction extends AbstractAction {
 
-            private static FolderBrowser _folderBrowser;
-
-            public AddAction(JDialog dialog) {
-                super("Add Path");
-                _folderBrowser = new FolderBrowser(dialog);
-            }
-
-            @Override
-            public void actionPerformed(ActionEvent ignored) {
-                // note: this dialog will be rarely used; no reason to leave
-                //       it around, consuming resources
-                _viewModel.addPath(_folderBrowser.GetPath());
-            }
-        }
-
-        public static class RemoveAction extends AbstractAction {
-
-            private JList _jList;
-
-            public RemoveAction(JList jList) {
+            public RemoveAction() {
                 super("Remove");
-                _jList = jList;
             }
 
             @Override
-            public void actionPerformed(ActionEvent ignored) {
-                // note: this dialog will be rarely used; no reason to leave
-                //       it around, consuming resources
-                _viewModel.removePath(_jList.getSelectedValue());
-                _jList.setSelectedIndex(_jList.getLastVisibleIndex());
-                this.setEnabled(!_viewModel.getModel().isEmpty());
+            public void actionPerformed(ActionEvent e) {
+                setActionEnabled(ActionKeys.REMOVE, !_pathsModel.isEmpty());
             }
         }
-    }
 
-    private static class FolderBrowser {
+        public class AddAction extends AbstractAction {
 
-        private JFileChooser _pathFolderChooser;
-        private int _returnVal;
+            private JFileChooser pathFolderChooser;
 
-        public FolderBrowser(JDialog dialog) {
-                            _pathFolderChooser = new JFileChooser();
-                _pathFolderChooser.setCurrentDirectory(new java.io.File("."));
-                _pathFolderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        }
-
-        public String GetPath() {
-            _returnVal = _pathFolderChooser.showOpenDialog(this._pathFolderChooser);
-            if (_returnVal == JFileChooser.APPROVE_OPTION) {
-                return _pathFolderChooser.getSelectedFile().getPath();
-            } else {
-                return null;
+            public AddAction() {
+                super("Add");
+                pathFolderChooser = new JFileChooser();
+                pathFolderChooser.setCurrentDirectory(new java.io.File("."));
+                pathFolderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             }
 
-        }
-    }
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
-    protected static class ViewModel {
+                int returnVal = pathFolderChooser.showOpenDialog(pathFolderChooser);
 
-        private static JavaPaths _pathsModel;
-        private static ReturnAction _returnAction;
-
-        public ViewModel(JavaPaths pathsModel, ReturnAction returnAction) {
-            ViewModel._pathsModel = pathsModel;
-            ViewModel._returnAction = returnAction;
-        }
-
-        public void addPathsString(String pathsString) {
-            List<String> paths = Arrays.asList(pathsString.split(";"));
-            
-            for (String path : paths) {
-                if (!path.equals(""))
-                _pathsModel.addPath(path);
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    _pathsModel.addPath(pathFolderChooser.getSelectedFile().getPath());
+                } else {
+                    System.out.println("Cancelled");
+                }
+                setActionEnabled(ActionKeys.REMOVE, !_pathsModel.isEmpty());
             }
-            _returnAction.ReturnAction();
-            
-        }
-
-        public String getPathsString() {
-            return _pathsModel.toString();
-        }
-
-        protected void setModel(JList list) {
-            list.setModel(_pathsModel);
-            _returnAction.ReturnAction();
-        }
-
-        protected JavaPaths getModel() {
-            return _pathsModel;
-        }
-
-        protected void addPath(String path) {
-            _pathsModel.addPath(path);
-            _returnAction.ReturnAction();
-        }
-
-        protected void removePath(Object path) {
-            _pathsModel.remove(path);
-            _returnAction.ReturnAction();
         }
     }
 }

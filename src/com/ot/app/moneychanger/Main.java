@@ -6,11 +6,9 @@ package com.ot.app.moneychanger;
 
 //import com.ot.app.moneychanger.controlers.PrefsDialogController;
 import com.ot.app.moneychanger.controlers.PrefsController;
-import com.ot.app.moneychanger.controlers.TestDialogController;
-import com.ot.moneychanger.main.Concierge;
-import com.ot.moneychanger.main.ConfigBean;
-import com.ot.moneychanger.main.MainFrameController;
-import com.sun.xml.internal.ws.util.StringUtils;
+import com.ot.app.moneychanger.main.Concierge;
+import com.ot.app.moneychanger.main.ConfigBean;
+import com.ot.app.moneychanger.main.MainFrameController;
 import javax.swing.SwingUtilities;
 
 /**
@@ -28,8 +26,8 @@ public class Main {
 
                 new MainFrameController(concierge).buildAndShow();
                 
-                if (!concierge.getConfig().isConfigComplete())
-                    new PrefsController(concierge);
+                //if (!concierge.getConfig().isConfigComplete())
+                    new PrefsController(concierge).show();
                 
 
 //                if (StringUtils.isBlank(concierge.getConfig().getAmazonBucketName()))
