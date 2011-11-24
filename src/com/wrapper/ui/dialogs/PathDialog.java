@@ -100,7 +100,7 @@ AK+ZirdWhhoHeWR1tAkN
 package com.wrapper.ui.dialogs;
 
 import com.wrapper.core.util.Utility;
-import com.ot.app.moneychanger.models.Load;
+//import com.ot.app.moneychanger.models.Load;
 import com.wrapper.ui.Settings;
 //import com.wrapper.ui.SettingsOld;
 import javax.swing.DefaultListModel;
@@ -114,12 +114,12 @@ public class PathDialog extends javax.swing.JDialog {
 
     private JFileChooser pathFolderChooser;
     //  private final String selectedPath;
-    private Load.JavaPaths javaPaths;
+//    private Load.JavaPaths javaPaths;
 
     /** Creates new form PathDialog */
-    public PathDialog(java.awt.Frame parent, boolean modal, Load.JavaPaths javaPaths) {
+    public PathDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        this.javaPaths = javaPaths;
+     //   this.javaPaths = javaPaths;
         initComponents();
         initValues();
         setLocation(Utility.getLocation(this.getSize()));
@@ -212,7 +212,7 @@ public class PathDialog extends javax.swing.JDialog {
             // file = contractFileChooser.getSelectedFile();
             //This is where a real application would open the file.
             
-            javaPaths.addPath(pathFolderChooser.getSelectedFile().getPath());
+//            javaPaths.addPath(pathFolderChooser.getSelectedFile().getPath());
             this.jButtonRemove.setEnabled(true);
         } else {
             
@@ -226,8 +226,8 @@ public class PathDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton_CloseActionPerformed
 
 private void jButtonRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveActionPerformed
-    javaPaths.remove(jList_Paths.getSelectedIndex());
-    if(javaPaths.isEmpty()) this.jButtonRemove.setEnabled(false);
+//    javaPaths.remove(jList_Paths.getSelectedIndex());
+  //  if(javaPaths.isEmpty()) this.jButtonRemove.setEnabled(false);
 }//GEN-LAST:event_jButtonRemoveActionPerformed
 
     /**
@@ -237,7 +237,7 @@ private void jButtonRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                PathDialog dialog = new PathDialog(new javax.swing.JFrame(), true, new Load.JavaPaths());
+                PathDialog dialog = new PathDialog(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override
@@ -258,7 +258,7 @@ private void jButtonRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN
     // End of variables declaration//GEN-END:variables
 
     private void initValues() {
-        jList_Paths.setModel(javaPaths);
+//        jList_Paths.setModel(javaPaths);
         pathFolderChooser = new JFileChooser();
         pathFolderChooser.setCurrentDirectory(new java.io.File("."));
         pathFolderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);

@@ -5,7 +5,7 @@
 package com.ot.app.moneychanger.actions;
 
 //import com.ot.app.moneychanger.controlers.PrefsDialogController;
-import com.ot.moneychanger.main.Concierge;
+import com.ot.app.moneychanger.main.Concierge;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 

@@ -10,15 +10,37 @@
  */
 package com.ot.app.moneychanger.dialogs.panels;
 
+import com.ot.app.moneychanger.controlers.PathsController.ActionKeys;
+import com.ot.app.moneychanger.controlers.PathsController.FieldKeys;
+import com.ot.app.moneychanger.models.viewmodel.IViewModel;
+import javax.swing.AbstractListModel;
+
 /**
  *
  * @author cameron
  */
 public class PathsPanel extends javax.swing.JPanel {
 
+    private IViewModel<FieldKeys, ActionKeys> _viewModel;
+    private AbstractListModel _pathsModel;
+
     /** Creates new form PathsPanel */
-    public PathsPanel() {
+    public PathsPanel(IViewModel<FieldKeys, ActionKeys> viewModel, AbstractListModel pathsModel) {
+        _viewModel = viewModel;
+        _pathsModel = pathsModel;
         initComponents();
+        bindComponents();
+        setToolTips();
+    }
+
+    private void bindComponents() {
+        jButton_Close.setAction(_viewModel.getButtonAction(ActionKeys.CLOSE));
+        jButton_Add.setAction(_viewModel.getButtonAction(ActionKeys.ADD));
+        jButton_Remove.setAction(_viewModel.getButtonAction(ActionKeys.REMOVE));
+        jList_PathList.setModel(_pathsModel);
+    }
+
+    private void setToolTips() {
     }
 
     /** This method is called from within the constructor to
@@ -95,11 +117,11 @@ public class PathsPanel extends javax.swing.JPanel {
         add(jButton_Close, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public final javax.swing.JButton jButton_Add = new javax.swing.JButton();
-    public final javax.swing.JButton jButton_Close = new javax.swing.JButton();
-    public final javax.swing.JButton jButton_Remove = new javax.swing.JButton();
-    public final javax.swing.JLabel jLabel_Title = new javax.swing.JLabel();
+    private final javax.swing.JButton jButton_Add = new javax.swing.JButton();
+    private final javax.swing.JButton jButton_Close = new javax.swing.JButton();
+    private final javax.swing.JButton jButton_Remove = new javax.swing.JButton();
+    private final javax.swing.JLabel jLabel_Title = new javax.swing.JLabel();
     public final javax.swing.JList jList_PathList = new javax.swing.JList();
-    public final javax.swing.JScrollPane jScrollPane_PathList = new javax.swing.JScrollPane();
+    private final javax.swing.JScrollPane jScrollPane_PathList = new javax.swing.JScrollPane();
     // End of variables declaration//GEN-END:variables
 }

@@ -10,17 +10,76 @@
  */
 package com.ot.app.moneychanger.dialogs.panels;
 
+import com.ot.app.moneychanger.controlers.PrefsController.ActionKeys;
+import com.ot.app.moneychanger.controlers.PrefsController.FieldKeys;
+import com.ot.app.moneychanger.models.viewmodel.IViewModel;
+import java.awt.Color;
+import net.sf.swinglib.actions.FieldValidationChange;
+
 /**
  *
  * @author cameron
  */
 public class PrefsPanel extends javax.swing.JPanel {
-
+    
+    private IViewModel<FieldKeys,ActionKeys> _viewModel;
+    
     /** Creates new form PrefsPanel */
-    public PrefsPanel() {
+    public PrefsPanel(IViewModel<FieldKeys,ActionKeys> viewModel) {
+        _viewModel = viewModel;
         initComponents();
+        bindActions();
+        bindFields();
+        setToolTips();
     }
-
+    
+    private void bindActions()
+    {
+        jButton_OK.setAction(_viewModel.getButtonAction(ActionKeys.OK));
+        jButton_Cancel.setAction(_viewModel.getButtonAction(ActionKeys.CANCEL));
+        jButton_UserData.setAction(_viewModel.getButtonAction(ActionKeys.BROWSE));
+        jButton_Libraries.setAction(_viewModel.getButtonAction(ActionKeys.LIBRARIES));
+    }
+    
+    private void bindFields(){
+        _viewModel.bindValidatedDoc(FieldKeys.TIMEOUT, jTextField_TimeOut.getDocument(), new FieldValidationChange(){
+            @Override
+            public void fieldValidationState(boolean valid) {
+                if (valid)jTextField_TimeOut.setBackground(Color.white);
+                if (!valid)jTextField_TimeOut.setBackground(Color.yellow);
+            }
+        });
+        _viewModel.bindValidatedDoc(FieldKeys.USERDATA, jTextField_UserData.getDocument(), new FieldValidationChange(){
+            @Override
+            public void fieldValidationState(boolean valid) {
+                if (valid)jTextField_UserData.setBackground(Color.white);
+                if (!valid)jTextField_UserData.setBackground(Color.yellow);
+            }
+        });
+        _viewModel.bindValidatedDoc(FieldKeys.WALLET, jTextField_Wallet.getDocument(), new FieldValidationChange(){
+            @Override
+            public void fieldValidationState(boolean valid) {
+                if (valid)jTextField_Wallet.setBackground(Color.white);
+                if (!valid)jTextField_Wallet.setBackground(Color.yellow);
+            }
+        });
+        _viewModel.bindValidatedDoc(FieldKeys.OTLIB, jTextField_Libraries.getDocument(), new FieldValidationChange(){
+            @Override
+            public void fieldValidationState(boolean valid) {
+                if (valid)jTextField_Libraries.setBackground(Color.white);
+                if (!valid)jTextField_Libraries.setBackground(Color.yellow);
+            }
+        });
+    }
+    
+    private void setToolTips()
+    {
+        jTextField_TimeOut.setToolTipText(_viewModel.getFieldInfo(FieldKeys.TIMEOUT));
+        jTextField_Wallet.setToolTipText(_viewModel.getFieldInfo(FieldKeys.WALLET));
+        jTextField_UserData.setToolTipText(_viewModel.getFieldInfo(FieldKeys.USERDATA));
+        jTextField_Libraries.setToolTipText(_viewModel.getFieldInfo(FieldKeys.OTLIB));
+    }
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -177,18 +236,18 @@ public class PrefsPanel extends javax.swing.JPanel {
         add(jButton_OK, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public final javax.swing.JButton jButton_Cancel = new javax.swing.JButton();
-    public final javax.swing.JButton jButton_Libraries = new javax.swing.JButton();
-    public final javax.swing.JButton jButton_OK = new javax.swing.JButton();
-    public final javax.swing.JButton jButton_UserData = new javax.swing.JButton();
-    public final javax.swing.JLabel jLabel_Libraries = new javax.swing.JLabel();
-    public final javax.swing.JLabel jLabel_PrefPanel = new javax.swing.JLabel();
-    public final javax.swing.JLabel jLabel_TimeOut = new javax.swing.JLabel();
-    public final javax.swing.JLabel jLabel_UserData = new javax.swing.JLabel();
-    public final javax.swing.JLabel jLabel_Wallet = new javax.swing.JLabel();
-    public final javax.swing.JTextField jTextField_Libraries = new javax.swing.JTextField();
-    public final javax.swing.JTextField jTextField_TimeOut = new javax.swing.JTextField();
-    public final javax.swing.JTextField jTextField_UserData = new javax.swing.JTextField();
-    public final javax.swing.JTextField jTextField_Wallet = new javax.swing.JTextField();
+    private final javax.swing.JButton jButton_Cancel = new javax.swing.JButton();
+    private final javax.swing.JButton jButton_Libraries = new javax.swing.JButton();
+    private final javax.swing.JButton jButton_OK = new javax.swing.JButton();
+    private final javax.swing.JButton jButton_UserData = new javax.swing.JButton();
+    private final javax.swing.JLabel jLabel_Libraries = new javax.swing.JLabel();
+    private final javax.swing.JLabel jLabel_PrefPanel = new javax.swing.JLabel();
+    private final javax.swing.JLabel jLabel_TimeOut = new javax.swing.JLabel();
+    private final javax.swing.JLabel jLabel_UserData = new javax.swing.JLabel();
+    private final javax.swing.JLabel jLabel_Wallet = new javax.swing.JLabel();
+    private final javax.swing.JTextField jTextField_Libraries = new javax.swing.JTextField();
+    private final javax.swing.JTextField jTextField_TimeOut = new javax.swing.JTextField();
+    private final javax.swing.JTextField jTextField_UserData = new javax.swing.JTextField();
+    private final javax.swing.JTextField jTextField_Wallet = new javax.swing.JTextField();
     // End of variables declaration//GEN-END:variables
 }

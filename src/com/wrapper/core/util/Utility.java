@@ -112,7 +112,7 @@ import com.wrapper.core.jni.TradeListMarket;
 import com.wrapper.core.jni.TradeListNym;
 import com.wrapper.core.jni.WalletData;
 import com.wrapper.core.jni.otapi;
-import com.ot.app.moneychanger.models.Load;
+import com.wrapper.ui.Load;
 import com.wrapper.ui.MainPage;
 import com.wrapper.ui.model.AccountTableModel;
 import com.wrapper.ui.panels.OpenTransactionAccountBottomPanel;
