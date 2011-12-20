@@ -74,7 +74,11 @@ public class Load {
     }
 
     public static void loadAppData() throws AppDataNotLoadedException {
-        loadAppData(appdataDirectory(getOS()).append("/.ot/client_data").toString(), "wallet.xml");
+        StringBuffer strOSVers      = new StringBuffer("~"); // My appdataDirectory has a SPACE in it (/Users/au/Library/Application Support...)
+//      StringBuffer strOSVers      = new StringBuffer(appdataDirectory(getOS())); // Therefore I did this for now, so I could run the wallet again!
+        String strAppend            = strOSVers.append("/.ot/client_data").toString() ;
+//        String strSubstitute        = strAppend.replaceAll(" ", "\\ "); // Oh well, I tried.
+        loadAppData(strAppend, "wallet.xml");
     }
 
     public static void loadAppData(String appDataLocation, String walletLocation) throws AppDataNotLoadedException {

@@ -392,12 +392,14 @@ public class OpenTransactionAccount extends Account {
 
         if (otapi.OT_API_Message_GetBalanceAgreementSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) // Failure
         {
-            otapi.OT_API_FlushMessageBuffer();
-            otapi.OT_API_getNymbox(serverID, nymID); // The failure might have been due to a finalReceipt waiting in my Nymbox.
-            Utility.delay();    // So let's update the Nymbox and then try again.
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                System.out.println("exchangeBasket, OT_API_getNymbox returned false");
+            boolean b1 = Utility.getAndProcessNymbox(serverID, nymID);
+//            otapi.OT_API_FlushMessageBuffer();
+//            otapi.OT_API_getNymbox(serverID, nymID); // The failure might have been due to a finalReceipt waiting in my Nymbox.
+//            Utility.delay();    // So let's update the Nymbox and then try again.
+//            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
+//            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
+            if (false == b1) {
+                System.out.println("exchangeBasket, Utility.getAndProcessNymbox returned false");
                 return false;
             }
             // <====== TRYING AGAIN (THIRD TIME)
@@ -720,12 +722,15 @@ public class OpenTransactionAccount extends Account {
 
         if (otapi.OT_API_Message_GetBalanceAgreementSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) // Failure
         {
-            otapi.OT_API_FlushMessageBuffer();
-            otapi.OT_API_getNymbox(serverID, nymID); // The failure might have been due to a finalReceipt waiting in my Nymbox.
-            Utility.delay();    // So let's update the Nymbox and then try again.
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                System.out.println("Process Inbox, OT_API_getNymbox returned false");
+            boolean b1 = Utility.getAndProcessNymbox(serverID, nymID);
+                        
+//            otapi.OT_API_FlushMessageBuffer();
+//            otapi.OT_API_getNymbox(serverID, nymID); // The failure might have been due to a finalReceipt waiting in my Nymbox.
+//            Utility.delay();    // So let's update the Nymbox and then try again.
+//            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
+//            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
+            if (false == b1) {
+                System.out.println("Process Inbox, Utility.getAndProcessNymbox returned false");
                 return false;
             }
             // <====== TRYING AGAIN (THIRD TIME)
@@ -1144,12 +1149,15 @@ public class OpenTransactionAccount extends Account {
 
                 if (otapi.OT_API_Message_GetBalanceAgreementSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) // Failure
                 {
-                    otapi.OT_API_FlushMessageBuffer();
-                    otapi.OT_API_getNymbox(serverID, nymID); // The failure might have been due to a finalReceipt waiting in my Nymbox.
-                    Utility.delay();    // So let's update the Nymbox and then try again.
-                    serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-                    if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                        System.out.println("depositCash, OT_API_getNymbox returned false");
+                    boolean b1 = Utility.getAndProcessNymbox(serverID, nymID);
+                                
+//                    otapi.OT_API_FlushMessageBuffer();
+//                    otapi.OT_API_getNymbox(serverID, nymID); // The failure might have been due to a finalReceipt waiting in my Nymbox.
+//                    Utility.delay();    // So let's update the Nymbox and then try again.
+//                    serverResponseMessage = otapi.OT_API_PopMessageBuffer();
+//                    if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
+                    if (false == b1) {
+                        System.out.println("depositCash, Utility.getAndProcessNymbox returned false");
                         return false;
                     }
                     // <====== TRYING AGAIN (THIRD TIME)
@@ -1267,12 +1275,15 @@ public class OpenTransactionAccount extends Account {
 
             if (otapi.OT_API_Message_GetBalanceAgreementSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) // Failure
             {
-                otapi.OT_API_FlushMessageBuffer();
-                otapi.OT_API_getNymbox(serverID, nymID); // The failure might have been due to a finalReceipt waiting in my Nymbox.
-                Utility.delay();    // So let's update the Nymbox and then try again.
-                serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-                if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                    System.out.println("withdrawVoucher, OT_API_getNymbox returned false");
+                boolean b1 = Utility.getAndProcessNymbox(serverID, nymID);
+                
+//                otapi.OT_API_FlushMessageBuffer();
+//                otapi.OT_API_getNymbox(serverID, nymID); // The failure might have been due to a finalReceipt waiting in my Nymbox.
+//                Utility.delay();    // So let's update the Nymbox and then try again.
+//                serverResponseMessage = otapi.OT_API_PopMessageBuffer();
+//                if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
+                if (false == b1) {
+                    System.out.println("withdrawVoucher, Utility.getAndProcessNymbox returned false");
                     return null;
                 }
                 // <====== TRYING AGAIN (THIRD TIME)
@@ -1468,12 +1479,16 @@ public class OpenTransactionAccount extends Account {
         //
         if (otapi.OT_API_Message_GetBalanceAgreementSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) // Failure
         {
-            otapi.OT_API_FlushMessageBuffer();
-            otapi.OT_API_getNymbox(serverID, nymID); // The failure might have been due to a finalReceipt waiting in my Nymbox.
-            Utility.delay();    // So let's update the Nymbox and then try again.
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                System.out.println("withdrawCash, OT_API_getNymbox returned false");
+            boolean b1 = Utility.getAndProcessNymbox(serverID, nymID);
+            
+//            otapi.OT_API_FlushMessageBuffer();
+//            otapi.OT_API_getNymbox(serverID, nymID); // The failure might have been due to a finalReceipt waiting in my Nymbox.
+//            Utility.delay();    // So let's update the Nymbox and then try again.
+//            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
+//            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
+                
+            if (false == b1) {
+                System.out.println("withdrawCash, Utility.getAndProcessNymbox returned false");
                 return false;
             }
             // <====== TRYING AGAIN (THIRD TIME)
@@ -1608,12 +1623,15 @@ public class OpenTransactionAccount extends Account {
 
         if (otapi.OT_API_Message_GetBalanceAgreementSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) // Failure
         {
-            otapi.OT_API_FlushMessageBuffer();
-            otapi.OT_API_getNymbox(serverID, nymID); // The failure might have been due to a finalReceipt waiting in my Nymbox.
-            Utility.delay();    // So let's update the Nymbox and then try again.
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                System.out.println("sendTransfer, OT_API_getNymbox returned false");
+            boolean b1 = Utility.getAndProcessNymbox(serverID, nymID);
+            
+//            otapi.OT_API_FlushMessageBuffer();
+//            otapi.OT_API_getNymbox(serverID, nymID); // The failure might have been due to a finalReceipt waiting in my Nymbox.
+//            Utility.delay();    // So let's update the Nymbox and then try again.
+//            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
+//            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
+            if (false == b1) {
+                System.out.println("sendTransfer, Utility.getAndProcessNymbox returned false");
                 return false;
             }
             // <====== TRYING AGAIN (THIRD TIME)
@@ -1711,12 +1729,15 @@ public class OpenTransactionAccount extends Account {
 
         if (otapi.OT_API_Message_GetBalanceAgreementSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) // Failure
         {
-            otapi.OT_API_FlushMessageBuffer();
-            otapi.OT_API_getNymbox(serverID, nymID); // The failure might have been due to a finalReceipt waiting in my Nymbox.
-            Utility.delay();    // So let's update the Nymbox and then try again.
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                System.out.println("depositCheque, OT_API_getNymbox returned false");
+            boolean b1 = Utility.getAndProcessNymbox(serverID, nymID);
+
+//            otapi.OT_API_FlushMessageBuffer();
+//            otapi.OT_API_getNymbox(serverID, nymID); // The failure might have been due to a finalReceipt waiting in my Nymbox.
+//            Utility.delay();    // So let's update the Nymbox and then try again.
+//            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
+//            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
+            if (false == b1) {
+                System.out.println("depositCheque, Utility.getAndProcessNymbox returned false");
                 return false;
             }
             // <====== TRYING AGAIN (THIRD TIME)

@@ -428,21 +428,78 @@ public class Utility {
             ((com.wrapper.ui.custom.SteppedComboBox) component).setPopupWidth(d.width);
         }
     }
-
-    public static void getTransactionNumbers(String serverID, String nymID) {
-
-        for (int i = 0; i < Configuration.getNbrTransactionCount(); i++) {
-            otapi.OT_API_getTransactionNumber(serverID, nymID);
-        }
-
-        otapi.OT_API_getNymbox(serverID, nymID);
-
-        try {
-            Thread.sleep(Configuration.getWaitTime());
+    
+    public static boolean processNymbox(String serverID, String nymID) {
+        // ------------------------------------------
+        // Send message..
+        otapi.OT_API_FlushMessageBuffer();
+        otapi.OT_API_processNymbox(serverID, nymID);
+        // ------------------------------------------
+        try { // SLEEP
+            Utility.delay();
         } catch (InterruptedException ex) {
             ex.printStackTrace();
+        }        
+        // ------------------------------------------
+        // Pop the reply buffer and check for success. If so, send the next
+        // message (processNymbox).
+        String serverResponse = otapi.OT_API_PopMessageBuffer();
+        if (serverResponse != null && otapi.OT_API_Message_GetSuccess(serverResponse) == 1) {
+            return true;
+        } else {
+            System.out.println("Failure in processNymbox : Response from server " + serverResponse);
         }
+        return false;
     }
+
+
+    public static boolean getAndProcessNymbox(String serverID, String nymID) {
+        // ------------------------------------------
+        // Send message..
+        otapi.OT_API_FlushMessageBuffer();
+        otapi.OT_API_getNymbox(serverID, nymID);
+        // ------------------------------------------
+        try { // SLEEP
+            Utility.delay();
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }        
+        // ------------------------------------------
+        // Pop the reply buffer and check for success. If so, send the next
+        // message (processNymbox).
+        String serverResponse = otapi.OT_API_PopMessageBuffer();
+        if (serverResponse != null && otapi.OT_API_Message_GetSuccess(serverResponse) == 1) {
+            return Utility.processNymbox(serverID, nymID);
+        } else {
+            System.out.println("Failure in getAndProcessNymbox : Response from server " + serverResponse);
+        }
+        return false;
+    }
+
+    public static void getTransactionNumbers(String serverID, String nymID) {
+        boolean bSuccess = true;
+        otapi.OT_API_FlushMessageBuffer();
+        for (int i = 0; i < Configuration.getNbrTransactionCount(); i++) {
+            otapi.OT_API_getTransactionNumber(serverID, nymID);
+            String serverResponse = otapi.OT_API_PopMessageBuffer();
+            if (serverResponse != null && otapi.OT_API_Message_GetSuccess(serverResponse) == 0) {
+                System.out.println("Server refused my request for a new transaction number! (Maybe reached the limit?): " + serverResponse);
+                bSuccess = false;
+                break;
+            }
+        } // for
+        // -------------------------------
+        if (bSuccess) {
+            try {
+                Utility.delay();
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+            // ----------------------------------
+            
+            boolean b1 = Utility.getAndProcessNymbox(serverID, nymID); // already logs inside here, if failure.
+        } // (else already logs above.)
+     }
 
     public static String getCreditsFile(String fileName) {
         return otapi.QueryPlainString(fileName);

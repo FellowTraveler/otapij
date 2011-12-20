@@ -259,13 +259,16 @@ public class Market {
 
         if (otapi.OT_API_Message_GetBalanceAgreementSuccess(serverID, nymID, assetAcctID, serverResponseMessage) == 0) // Failure
         {
-
-            otapi.OT_API_FlushMessageBuffer();
-            otapi.OT_API_getNymbox(serverID, nymID); // The failure might have been due to a finalReceipt waiting in my Nymbox.
-            Utility.delay();    // So let's update the Nymbox and then try again.
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                System.out.println("IN createOrder, OT_API_getNymbox returned false");
+            boolean b1 = Utility.getAndProcessNymbox(serverID, nymID);
+            
+//            otapi.OT_API_FlushMessageBuffer();
+//            otapi.OT_API_getNymbox(serverID, nymID); // The failure might have been due to a finalReceipt waiting in my Nymbox.
+//            Utility.delay();    // So let's update the Nymbox and then try again.
+//            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
+//            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
+            if (false == b1) {
+                
+                System.out.println("IN createOrder, Utility.getAndProcessNymbox returned false");
                 return false;
             }
             // <====== TRYING AGAIN (THIRD TIME)
@@ -279,11 +282,11 @@ public class Market {
             // Balance agreement STILL FAILURE <=========
             //
             if (serverResponseMessage == null) {
-                System.out.println("OT_API_getNymbox serverResponseMessage is null after retry after balance agreement failure. ");
+                System.out.println("after calling OT_API_issueMarketOffer serverResponseMessage is null after retry after balance agreement failure. ");
                 return false;
             } else if (otapi.OT_API_Message_GetBalanceAgreementSuccess(serverID, nymID, assetAcctID, serverResponseMessage) == 0) // Failure
             {
-                System.out.println(" createOrder OT_API_getNymbox serverResponseMessage is still FAILURE after retry after balance agreement failure. ");
+                System.out.println(" createOrder OT_API_issueMarketOffer serverResponseMessage is still FAILURE after retry after balance agreement failure. ");
                 return false;
             }
             System.out.println("after balance agreement retry, ");
@@ -364,14 +367,10 @@ public class Market {
 
         if (otapi.OT_API_Message_GetBalanceAgreementSuccess(serverID, nymID, assetAccountID, serverResponseMessage) == 0) // Failure
         {
+            boolean b1 = Utility.getAndProcessNymbox(serverID, nymID);
 
-
-            otapi.OT_API_FlushMessageBuffer();
-            otapi.OT_API_getNymbox(serverID, nymID); // The failure might have been due to a finalReceipt waiting in my Nymbox.
-            Utility.delay();    // So let's update the Nymbox and then try again.
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                System.out.println("IN cancelOrder, OT_API_getNymbox returned false");
+            if (false == b1) {
+                System.out.println("IN cancelOrder, Utility.getAndProcessNymbox returned false");
                 return false;
             }
             // <====== TRYING AGAIN (THIRD TIME)
