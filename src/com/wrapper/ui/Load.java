@@ -100,7 +100,7 @@ public class Load {
     }
 
     public static void setTimeout() throws InvalidTimeOutException {
-        long waitTime = 1;
+        long waitTime = 50;
         Configuration.setWaitTime(waitTime);
     }
 

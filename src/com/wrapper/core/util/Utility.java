@@ -240,7 +240,7 @@ public class Utility {
 
     public static void delay() throws InterruptedException {
         if (Configuration.getWaitTime() > 0) {
-            Thread.sleep(Configuration.getWaitTime());
+        Thread.sleep(Configuration.getWaitTime());
         }
         return;
     }

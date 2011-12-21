@@ -606,7 +606,13 @@ public class Market {
                         askRow[3] = askData.getMinimum_increment();
 
                         try {
-                            askRow[2] = String.valueOf(Double.parseDouble(askRow[0]) * Double.parseDouble(askRow[1]));
+                            Long lScale       = Long.valueOf(marketDetails.getGranularity()); 
+                            Long lPrice       = Long.valueOf(askRow[0]);    // this price is "per scale"
+                            Long lQuantity    = Long.valueOf(askRow[1]);    // Total overall quantity available
+                            Long lScaleUnits  = Long.valueOf(lQuantity / lScale);   // Number of scale units available in total quanity. (120 total at scale of 10, is 12 units.)
+                            Long lTotalCost   = Long.valueOf(lPrice * lScaleUnits); // // Total value of available units is price times scale units. 
+                            askRow[2] = String.valueOf(lTotalCost);    // At $5 per scale, at 12 units, is $60 total for 120 total assets. (The number 60 goes here, plus the currency symbol todo.)
+//                          askRow[2] = String.valueOf(Double.parseDouble(askRow[0]) * Double.parseDouble(askRow[1]));
 
                         } catch (NumberFormatException nfe) {
                             nfe.printStackTrace();
@@ -634,7 +640,13 @@ public class Market {
                         bidRow[3] = bidData.getMinimum_increment();
 
                         try {
-                            bidRow[2] = String.valueOf(Double.parseDouble(bidRow[0]) * Double.parseDouble(bidRow[1]));
+                            Long lScale       = Long.valueOf(marketDetails.getGranularity()); 
+                            Long lPrice       = Long.valueOf(bidRow[0]);    // this price is "per scale"
+                            Long lQuantity    = Long.valueOf(bidRow[1]);    // Total overall quantity available
+                            Long lScaleUnits  = Long.valueOf(lQuantity / lScale);   // Number of scale units available in total quanity. (120 total at scale of 10, is 12 units.)
+                            Long lTotalCost   = Long.valueOf(lPrice * lScaleUnits); // // Total value of available units is price times scale units. 
+                            bidRow[2] = String.valueOf(lTotalCost);    // At $5 per scale, at 12 units, is $60 total for 120 total assets. (The number 60 goes here, plus the currency symbol todo.)
+//                          bidRow[2] = String.valueOf(Double.parseDouble(bidRow[0]) * Double.parseDouble(bidRow[1]));
 
                         } catch (NumberFormatException nfe) {
                             nfe.printStackTrace();
@@ -711,7 +723,13 @@ public class Market {
                         tradeDataRow[0] = tradeDataMarket.getTransaction_id() == null ? "" : tradeDataMarket.getTransaction_id();
 
                         try {
-                            tradeDataRow[3] = String.valueOf(Double.parseDouble(tradeDataRow[2]) * Double.parseDouble(tradeDataRow[1]));
+                            Long lScale       = Long.valueOf(marketDetails.getGranularity()); 
+                            Long lPrice       = Long.valueOf(tradeDataRow[1]);    // this price is "per scale"
+                            Long lQuantity    = Long.valueOf(tradeDataRow[2]);    // Total overall quantity available
+                            Long lScaleUnits  = Long.valueOf(lQuantity / lScale);   // Number of scale units available in total quanity. (120 total at scale of 10, is 12 units.)
+                            Long lTotalCost   = Long.valueOf(lPrice * lScaleUnits); // // Total value of available units is price times scale units. 
+                            tradeDataRow[3] = String.valueOf(lTotalCost);    // At $5 per scale, at 12 units, is $60 total for 120 total assets. (The number 60 goes here, plus the currency symbol todo.)
+//                          tradeDataRow[3] = String.valueOf(Double.parseDouble(tradeDataRow[2]) * Double.parseDouble(tradeDataRow[1]));
 
                         } catch (NumberFormatException nfe) {
                             nfe.printStackTrace();
@@ -720,8 +738,6 @@ public class Market {
                         }
 
                         tradeMarketData.add(tradeDataRow);
-
-
                     }
                 }
 
