@@ -230,7 +230,10 @@ public class NYM {
             if (serverID != null) {
                 if (otapi.OT_API_IsNym_RegisteredAtServer(nymID, serverID) == 1) {
                     System.out.println("nym is registered");
-                    otapi.OT_API_getNymbox(serverID, nymID);
+                    
+                    boolean b1 = Utility.getAndProcessNymbox(serverID, nymID);
+                    
+//                  otapi.OT_API_getNymbox(serverID, nymID);
                 }
             }
         }

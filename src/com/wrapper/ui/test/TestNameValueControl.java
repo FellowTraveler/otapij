@@ -124,7 +124,7 @@ public class TestNameValueControl extends javax.swing.JFrame {
 //        Utility.addDirToRuntime("C:\\~\\Open-Transactions\\testwallet");
 
         System.loadLibrary("otapi");
-        otapi.OT_API_Init("C:\\~\\Open-Transactions\\testwallet\\data_folder");
+        otapi.OT_API_Init("~/.ot/client_data");
         otapi.OT_API_LoadWallet("wallet.xml");
 
         initComponents();
