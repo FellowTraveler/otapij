@@ -572,7 +572,11 @@ public class CreateMarketOrder extends javax.swing.JDialog {
             setCursor(Cursor.getDefaultCursor());
             if (status) {
                 JOptionPane.showMessageDialog(this, "Order created successfully", "Order Creation", JOptionPane.INFORMATION_MESSAGE);
+                
+                Utility.longDelay();
+                
                 MainPage.refreshMarketOfferList(serverID, nymID);
+                // DEBUGGING: The above call is what happens after the order creation.
             } else {
                 JOptionPane.showMessageDialog(this, "Order cannot be created", "Order Creation", JOptionPane.ERROR_MESSAGE);
             }
@@ -581,7 +585,6 @@ public class CreateMarketOrder extends javax.swing.JDialog {
             e.printStackTrace();
         } finally {
             setCursor(Cursor.getDefaultCursor());
-
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

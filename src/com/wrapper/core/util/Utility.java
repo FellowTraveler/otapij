@@ -1,4 +1,3 @@
-// <editor-fold defaultstate="collapsed" desc="Hedders" > 
 /************************************************************
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA256
@@ -88,7 +87,6 @@ AK+ZirdWhhoHeWR1tAkN
 =RcXP
 -----END PGP SIGNATURE-----
  **************************************************************/
-// </editor-fold>
 
 /*
  * To change this template, choose Tools | Templates
@@ -96,7 +94,6 @@ AK+ZirdWhhoHeWR1tAkN
  */
 package com.wrapper.core.util;
 
-// <editor-fold defaultstate="collapsed" desc="Imports" > 
 import com.wrapper.core.Account;
 import com.wrapper.core.OpenTransactionAccount;
 import com.wrapper.core.dataobjects.OTDetails;
@@ -143,7 +140,6 @@ import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.LookAndFeel;
-// </editor-fold>
 
 /**
  *
@@ -151,8 +147,6 @@ import javax.swing.LookAndFeel;
  */
 public class Utility {
 
-    // Common Helpers
-    // <editor-fold defaultstate="collapsed" desc="Settings" > 
     private static Object settingsObj;
 
     public static Object getSettingsObj() {
@@ -162,8 +156,6 @@ public class Utility {
     public static void setSettingsObj(Object settingsObj) {
         Utility.settingsObj = settingsObj;
     }
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Data Folder" > 
     private static String dataFolder;
 
     public static String getDataFolder() {
@@ -173,8 +165,6 @@ public class Utility {
     public static void setDataFolder(String dataFolder) {
         Utility.dataFolder = dataFolder;
     }
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Add Directory To Runtime" > 
 
     public static void addDirToRuntime(Load.JavaPaths javaPaths) throws IOException {
         List<String> pathsSet = new ArrayList<String>();
@@ -206,7 +196,7 @@ public class Utility {
         }
 
     }
-// <editor-fold defaultstate="collapsed" desc="//Old Code" > 
+
 //    public static void addDirToRuntime(String s, boolean mutiple) throws IOException {
 //        try {
 //            String[] path = null;
@@ -259,9 +249,7 @@ public class Utility {
 //            throw new IOException("Failed to get field handle to set library path");
 //        }
 //    }
-// </editor-fold>
-// </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Oject Utility" >
+
     public static Object obj;
 
     public static Object getObj() {
@@ -271,10 +259,8 @@ public class Utility {
     public static void setObj(Object obj) {
         Utility.obj = obj;
     }
-    // </editor-fold>
 
     // OT Helpers
-    // <editor-fold defaultstate="collapsed" desc="OT Detials" > 
     public static void reloadOTDetails(String accountID) {
         Account account = new OpenTransactionAccount();
         Object details = account.getAccountDetails(accountID);
@@ -295,8 +281,7 @@ public class Utility {
         System.out.println("IN populateOTDetails");
 
     }
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="BasketX" >
+
     private static String basketXAcct;
     private static boolean basketXCancelled;
 
@@ -315,8 +300,7 @@ public class Utility {
     public static void setBasketXAcct(String basketXAcct) {
         Utility.basketXAcct = basketXAcct;
     }
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="NymTrades" > 
+ 
     private static boolean loadNymTrades = false;
 
     public static boolean isLoadNymTrades() {
@@ -326,8 +310,7 @@ public class Utility {
     public static void setLoadNymTrades(boolean loadNymTrades) {
         Utility.loadNymTrades = loadNymTrades;
     }
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="The Callback" > 
+
     private static OTCallback g_theCallback;
 
     public static OTCallback getG_theCallback() {
@@ -337,8 +320,7 @@ public class Utility {
     public static void setG_theCallback(OTCallback g_theCallback) {
         Utility.g_theCallback = g_theCallback;
     }
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="The Caller" > 
+
     private static OTCaller g_theCaller;
 
     public static OTCaller getG_theCaller() {
@@ -348,8 +330,7 @@ public class Utility {
     public static void setG_theCaller(OTCaller g_theCaller) {
         Utility.g_theCaller = g_theCaller;
     }
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Deposit Cash" > 
+
     public static Object otDepositCash;
 
     public static Object getOtDepositCash() {
@@ -359,10 +340,8 @@ public class Utility {
     public static void setOtDepositCash(Object otDepositCash) {
         Utility.otDepositCash = otDepositCash;
     }
-    // </editor-fold>
-
+ 
     // Get Helpers:
-    // <editor-fold defaultstate="collapsed" desc="Get Key" > 
     public static String getKey(Map map, String value) {
 
         if ("All".equalsIgnoreCase(value)) {
@@ -381,24 +360,21 @@ public class Utility {
         }
         return null;
     }
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Process NymBox" > 
-
+    
+    // No need to deal with getRequest here when failure, since the calling
+    // function already goes through that crap before we get here.
     public static boolean processNymbox(String serverID, String nymID) {
         // ------------------------------------------
         // Send message..
         otapi.OT_API_FlushMessageBuffer();
         otapi.OT_API_processNymbox(serverID, nymID);
         // ------------------------------------------
-        try { // SLEEP
-            Utility.delay();
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
-        }
+        Utility.delay();
         // ------------------------------------------
         // Pop the reply buffer and check for success. If so, send the next
         // message (processNymbox).
         String serverResponse = otapi.OT_API_PopMessageBuffer();
+        
         if (serverResponse != null && otapi.OT_API_Message_GetSuccess(serverResponse) == 1) {
             return true;
         } else {
@@ -406,66 +382,210 @@ public class Utility {
         }
         return false;
     }
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Get and Process NymBox" > 
 
-    public static boolean getAndProcessNymbox(String serverID, String nymID) {
+    // Called by the function below.
+    public static boolean getNymboxLowLevel(String serverID, String nymID) {
         // ------------------------------------------
         // Send message..
         otapi.OT_API_FlushMessageBuffer();
         otapi.OT_API_getNymbox(serverID, nymID);
         // ------------------------------------------
-        try { // SLEEP
-            Utility.delay();
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
-        }
+        Utility.delay();
         // ------------------------------------------
         // Pop the reply buffer and check for success. If so, send the next
         // message (processNymbox).
         String serverResponse = otapi.OT_API_PopMessageBuffer();
-        if (serverResponse != null && otapi.OT_API_Message_GetSuccess(serverResponse) == 1) {
-            return Utility.processNymbox(serverID, nymID);
-        } else {
-            System.out.println("Failure in getAndProcessNymbox : Response from server " + serverResponse);
+        if (serverResponse != null && otapi.OT_API_Message_GetSuccess(serverResponse) == 1) 
+            return true;
+        else {
+            System.out.println("Failure in getNymboxLowLevel : Response from server " + serverResponse);
         }
         return false;
     }
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Get Transaction Numbers" > 
 
-    public static void getTransactionNumbers(String serverID, String nymID) {
-        boolean bSuccess = true;
-        otapi.OT_API_FlushMessageBuffer();
-        for (int i = 0; i < Configuration.getNbrTransactionCount(); i++) {
-            otapi.OT_API_getTransactionNumber(serverID, nymID);
-            String serverResponse = otapi.OT_API_PopMessageBuffer();
-            if (serverResponse != null && otapi.OT_API_Message_GetSuccess(serverResponse) == 0) {
-                System.out.println("Server refused my request for a new transaction number! (Maybe reached the limit?): " + serverResponse);
-                bSuccess = false;
-                break;
-            }
-        } // for
-        // -------------------------------
-        if (bSuccess) {
-            try {
-                Utility.delay();
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
-            // ----------------------------------
-
-            boolean b1 = Utility.getAndProcessNymbox(serverID, nymID); // already logs inside here, if failure.
-        } // (else already logs above.)
+    public static boolean getAndProcessNymbox(String serverID, String nymID) 
+    {
+        // ------------------------------------------  
+        if (Utility.getNymboxLowLevel(serverID, nymID)) 
+            return Utility.processNymbox(serverID, nymID);
+        else if (Utility.getRequestNumber(serverID, nymID)) // this might be out of sync, if it failed... we'll re-sync, and re-try.
+        {
+            if (Utility.getNymboxLowLevel(serverID, nymID)) 
+                return Utility.processNymbox(serverID, nymID);
+            else
+                System.out.println("Utility.getAndProcessNymbox(): Utility.getNymboxLowLevel failed, then Utility.getRequestNumber succeeded, then Utility.getNymboxLowLevel failed again. (I give up.)");
+        }
+        else 
+            System.out.println("Utility.getAndProcessNymbox(): Utility.getNymboxLowLevel failed, then Utility.getRequestNumber failed. (I give up.)");
+        return false;
     }
 
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Get Credits File" > 
+    // If the transaction number requests fail, this function will try to resync
+    // the request number. But you still have to call getRequest() yourself if
+    // you have a failure in your own function, since you might already have
+    // enough transaction numbers, and thus this function will never get called,
+    // even if your request number IS out of sync. Sorry :-)
+    //
+    public static boolean getTransactionNumbers(String serverID, String nymID) {
+
+        boolean bSuccess = true;
+        otapi.OT_API_FlushMessageBuffer();
+        // -------------------------------------------
+        int nFailures = 0;
+        for (int i = 0; i < Configuration.getNbrTransactionCount(); i++)
+        {
+            otapi.OT_API_getTransactionNumber(serverID, nymID); // Request.
+            Utility.delay();
+            String serverResponse = otapi.OT_API_PopMessageBuffer();
+            if (serverResponse == null) {
+                System.out.println("Utility.getTransactionNumbers(): null server reply. Perhaps the receive_fail_ms in client.cfg needs to be set to a higher value?");
+                bSuccess = false;
+            }
+            // -----------------------------------------------------------
+            // REPLY: FAILURE
+            //
+            if (otapi.OT_API_Message_GetSuccess(serverResponse) == 0) {
+                System.out.println("Utility.getTransactionNumbers(): Server refused my request for a new transaction number! (Maybe reached the limit?): " + serverResponse);
+                bSuccess = false;
+            }
+
+            // We got the reply, but it failed.
+            // Or, it was null.
+            //
+            if (false == bSuccess)
+            {
+                ++nFailures; // Next time, won't be the first time anymore.
+
+                // If it failed, the first time we will call getRequest() and then
+                // try again (as normal.)
+                // But then if it failed AGAIN after that? We cannot recover, so
+                // in that case, we'll return.
+                //
+                if (1 == nFailures) // First failure
+                {
+                    // Resync success!
+                    if (true == Utility.getRequestNumber(serverID, nymID))
+                    {
+                        --i;    // Give this guy an extra round.     
+//                          --nFailures; // getRequest WORKED, so we set the failures counter back one.
+                        // I commented this out because we only get past this spot if success. Therefore
+                        // if the next call to OT_API_getTransactionNumber() (at the top of this loop)
+                        // fails AGAIN, even after getRequest() success, then I need to TRY SOMETHING ELSE.
+                        // No point succeeding, then failing, then succeeding, then failing, then succeeding,
+                        // then failing, then succeeding, then failing, 10 times before returning... right?
+                        bSuccess = true; // for now.
+                        continue;
+                        // Now that we got the request number, we'll go around the
+                        // loop and try to get the next transaction number...
+                    }
+                    else 
+                    {
+                        System.out.println("Utility.getTransactionNumbers(): OT_API_getTransactionNumber() failed, then my call to Utility.getRequestNumber() FAILED. (I don't know what else to do.)"); 
+                        return false;
+                    }
+                }
+                // At this point, I know that getRequestNumber() is SUCCEEDING,
+                // (since we would have returned on iteration 1 if it had failed.)
+                // yet that the getTransactionNumber() is STILL FAILING after that.
+                // The likely culprit is that I've reached my limit of #s. Meaning
+                // the server already put my limit into my nymbox already, and I
+                // can never resync unless I get and process all those #s out of my 
+                // Nymbox... And also I can't get any more numbers probably, until I
+                // use some of those new ones up first, that are sitting in my Nymbox.)
+                else if (2 == nFailures) // second failure
+                {                     
+                    if (Utility.getAndProcessNymbox(serverID, nymID))
+                    {
+                        // getAndProcessNymbox() worked. But we could still be at our max transaction #s,
+                        // so we might need to cut this loop short... I'll try to keep going... but if failures
+                        // keep happening, we'll just return after this. The caller probably checks the overall
+                        // count before and after calling this function, and even if I don't finish looping,
+                        // I might still have plenty of numbers now, due to processing my nymbox. Therefore,
+                        // if the third failure happens, it might STILL be a form of success. The caller might
+                        // STILL determine that I now have enough numbers to keep going, and he then continues
+                        // on to his next function call as if everything is a success.
+                        --i;    // Give this guy an extra round.                         
+                        bSuccess = true;
+                        continue;
+                    }
+                    else
+                    {
+                        System.out.println("Utility.getTransactionNumbers(): While Utility.getRequestNumber() worked, OT_API_getTransactionNumber() is STILL failing, so I called Utility.getAndProcessNymbox(), but it didn't work. I don't know what else to do.");
+                        return false;
+                    }
+                }
+                else    // third failure.
+                {
+                    // Here I cut things short and return. BUT we still might have enough numbers by this
+                    // point, from the processNymbox call. The caller will just count them again before
+                    // deciding whether to go on to his next call.
+                    //
+                    System.out.println("Utility.getTransactionNumbers(): OT_API_getTransactionNumber(): Returned success==false, meaning I probably have my limit of transaction numbers already signed out.");
+
+                    // This time we don't set --i since we're not doing any more rounds.
+                    // We also don't set bSuccess=true since we ALREADY processed Nymbox,
+                    // and we're immediately returning anyway. We don't continue because
+                    // we are now convinced that it will just keep failing. However,
+                    // there MIGHT be enough numbers now, so the caller might still be
+                    // happy!
+                }
+
+                // At this point, getTransactionNumber() failed, AND getRequestNumber() succeeded but then getTransactionNumber() failed again,
+                // then getAndProcessNymbox() was called, and SUCCEEDED, but then getTransactionNumber() failed AGAIN! However, at this point
+                // that could very well be because I have my max of numbers, so I can still RETURN TRUE here.
+                //
+                return true;      
+
+            } // if false==bSuccess
+        } // for loop
+        // ***************************************************************
+        // By this point, it means we iterated the loop above with no failures.
+        // If there were failures, we successfully recovered from them and finished
+        // out the entire set of Transaction numbers. Thus, now it's time to retrieve
+        // those numbers (sign-off on them), so we can actually use them for something.
+        // (For whatever the caller was planning to use them for.)
+        //
+        if (bSuccess) 
+        {
+            boolean b2 = Utility.getAndProcessNymbox(serverID, nymID); // already logs inside here, if failure.
+
+            if (false == b2)
+                System.out.println("Utility.getTransactionNumbers(): While all the calls to OT_API_getTransactionNumber() seemed to work, I was unable to get or process the nymbox at the end of it all.");
+
+            return b2;
+            // ----------------------------------           
+        } // (else already logs above.)
+         
+        return false;
+        // -------------------------------
+     }
+
+    public static boolean getRequestNumber(String serverID, String nymID) {
+        otapi.OT_API_FlushMessageBuffer();
+        otapi.OT_API_getRequest(serverID, nymID);
+        Utility.delay();
+        String strReply = otapi.OT_API_PopMessageBuffer();
+
+        System.out.println("IN getRequestNumber " + strReply);
+
+        if (strReply == null)
+        {
+            System.out.println("Utility.getRequestNumber(): null server reply. Perhaps the receive_fail_ms in client.cfg needs to be set to a higher value?");
+            return false;
+        }
+
+        if (otapi.OT_API_Message_GetSuccess(strReply) == 1)
+            return true;
+
+        // Hmm -- we got the reply, but it was a failure.
+        System.out.println("FAILURE in Utility.getRequestNumber(). Perhaps the receive_fail_ms in client.cfg needs to be set to a higher value?");
+
+        return false;
+    }
+
     public static String getCreditsFile(String fileName) {
         return otapi.QueryPlainString(fileName);
     }
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Get Location" > 
 
     public static Point getLocation(Dimension componentDimension) {
 
@@ -476,13 +596,9 @@ public class Utility {
 
         return center;
     }
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Get Key From Name" > 
 
     public static void getKeyFromName(String name) {
     }
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Get Wallet Data" > 
 
     public static WalletData getWalletData() {
 
@@ -504,8 +620,6 @@ public class Utility {
 
         return walletData;
     }
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Get Market List" > 
 
     public static MarketList getMarketList(String serverID) {
 
@@ -527,8 +641,6 @@ public class Utility {
 
         return marketList;
     }
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Get Market Offer" > 
 
     public static OfferListMarket getMarketOffer(String serverID, String marketID) {
 
@@ -550,8 +662,6 @@ public class Utility {
 
         return offerListMarket;
     }
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Get NYM Trades" >
 
     public static TradeListNym getNYMTrades(String serverID, String nymID) {
 
@@ -573,8 +683,6 @@ public class Utility {
 
         return tradeListNym;
     }
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Get NYM Offer" > 
 
     public static OfferListNym getNYMOffer(String serverID, String nymID) {
 
@@ -596,8 +704,6 @@ public class Utility {
 
         return offerListNym;
     }
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Get Market Trade List" > 
 
     public static TradeListMarket getMarketTradeList(String serverID, String marketID) {
 
@@ -619,8 +725,6 @@ public class Utility {
 
         return tradeListMarket;
     }
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Get Address Book" > 
 
     public static AddressBook getAddressBook() {
 
@@ -642,9 +746,7 @@ public class Utility {
 
         return addressBook;
     }
-    // </editor-fold>
-    // Generic Helpers
-    // <editor-fold defaultstate="collapsed" desc="Defaut Look and Feel" >
+
     private static LookAndFeel defautLAF;
 
     public static LookAndFeel getDefautLAF() {
@@ -654,8 +756,6 @@ public class Utility {
     public static void setDefautLAF(LookAndFeel defautLAF) {
         Utility.defautLAF = defautLAF;
     }
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="File to String" > 
 
     public static String fileToString(File file) {
         String fileText = "";
@@ -675,8 +775,6 @@ public class Utility {
         }
         return fileText;
     }
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Replace To Lower" > 
 
     public static void replaceToLower(List<String> strings) {
         ListIterator<String> iterator = strings.listIterator();
@@ -684,15 +782,11 @@ public class Utility {
             iterator.set(iterator.next().toLowerCase());
         }
     }
-// </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Round Two Decimals" > 
 
     public static double roundTwoDecimals(double d) {
         DecimalFormat twoDForm = new DecimalFormat("#.##");
         return Double.valueOf(twoDForm.format(d));
     }
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Populate Combo" > 
 
     public static void populateCombo(Map data, JComboBox component) {
 
@@ -741,8 +835,6 @@ public class Utility {
             ((com.wrapper.ui.custom.SteppedComboBox) component).setPopupWidth(d.width);
         }
     }
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Is Valid Double" > 
 
     public static boolean isValidDouble(String text) {
         try {
@@ -753,24 +845,28 @@ public class Utility {
         }
         return true;
     }
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Delay" > 
 
-    public static void delay() throws InterruptedException {
-        if (Configuration.getWaitTime() > 0) {
-            Thread.sleep(Configuration.getWaitTime());
-        }
-        return;
+    public static void delay()  {
+        try { // SLEEP
+            if (Configuration.getWaitTime() > 0) {
+                Thread.sleep(Configuration.getWaitTime());
+                }
+
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }        
     }
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Long Delay" > 
-
     public static void longDelay() throws InterruptedException {
-        Thread.sleep(Configuration.getWaitTime() + 200);
+        try { // SLEEP
+            if (Configuration.getWaitTime() > 0) {
+                Thread.sleep(Configuration.getWaitTime() + 200);
+                }
+
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }        
         return;
     }
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Generate ID" > 
 
     public static String generateID() {
         SecureRandom random = new SecureRandom();
@@ -780,5 +876,158 @@ public class Utility {
     public static void main(String a[]) {
         System.out.println(generateID());
     }
-    // </editor-fold>
+    
+    public static boolean getIntermediaryFiles(String serverID, String nymID, String accountID) {
+        
+        if (false == Utility.getInboxAccount(serverID, nymID, accountID))
+        {
+            System.out.println("getIntermediaryFiles: getInboxAccount failed. (Returning.)");
+            return false;
+        }
+        else if (false == Utility.getOutboxLowLevel(serverID, nymID, accountID))
+        {
+            System.out.println("getIntermediaryFiles: getOutboxLowLevel failed. (Returning.)");
+            return false;
+        }
+        
+        return true;
+    }
+
+    public static boolean getInboxOutboxAccount(String accountID)  {
+
+        String serverID = otapi.OT_API_GetAccountWallet_ServerID(accountID);
+        String nymID    = otapi.OT_API_GetAccountWallet_NymID(accountID);
+
+        if (false == Utility.getIntermediaryFiles(serverID, nymID, accountID))
+        {
+            System.out.println("getInboxOutboxAccount: getIntermediaryFiles failed. (Returning.)");
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean getInboxAccount(String serverID, String nymID, String accountID) {
+        
+        boolean bInbox   = false;
+        boolean bAccount = false;
+        
+        // ***************************************************
+        otapi.OT_API_FlushMessageBuffer();
+        System.out.println("getInboxAccount: Before getInbox Server call");
+        otapi.OT_API_getInbox(serverID, nymID, accountID);  // <==== FIRST ATTEMPT
+        Utility.delay();        
+        String inboxResponseMessage = otapi.OT_API_PopMessageBuffer();
+
+        // getInbox failed, for whatever reason.
+        //
+        if (inboxResponseMessage == null || otapi.OT_API_Message_GetSuccess(inboxResponseMessage) == 0)
+        {
+            if (Utility.getRequestNumber(serverID, nymID)) // re-sync request number.
+            {
+                otapi.OT_API_getInbox(serverID, nymID, accountID); // <==== SECOND ATTEMPT
+                Utility.delay();
+                inboxResponseMessage = otapi.OT_API_PopMessageBuffer();
+
+                if ((inboxResponseMessage == null) || otapi.OT_API_Message_GetSuccess(inboxResponseMessage) == 0)
+                {
+                    System.out.println("getInboxAccount: Failed re-trying OT_API_getInbox() after Utility.getRequestNumber().");
+                    return false;
+                }
+                // -----------------------
+                bInbox = true; // success
+            }
+            else
+            {
+                System.out.println("getInboxAccount: Failed calling Utility.getRequestNumber().");
+                return false;
+            }
+        }
+        else
+            bInbox = true; // success
+        // ***************************************************
+        // Inbox done. Account next:
+        // ***************************************************
+        otapi.OT_API_FlushMessageBuffer();
+        System.out.println("Before getAccount Server call");
+        otapi.OT_API_getAccount(serverID, nymID, accountID);  // <==== FIRST ATTEMPT
+        Utility.delay();        
+        String accountResponseMessage = otapi.OT_API_PopMessageBuffer();
+
+        // getAccount failed, for whatever reason.
+        //
+        if (accountResponseMessage == null || otapi.OT_API_Message_GetSuccess(accountResponseMessage) == 0)
+        {
+            if (Utility.getRequestNumber(serverID, nymID)) // re-sync request number.
+            {
+                otapi.OT_API_getAccount(serverID, nymID, accountID); // <==== SECOND ATTEMPT
+                Utility.delay();
+                accountResponseMessage = otapi.OT_API_PopMessageBuffer();
+
+                if ((accountResponseMessage == null) || otapi.OT_API_Message_GetSuccess(accountResponseMessage) == 0)
+                {
+                    System.out.println("getInboxAccount: Failed re-trying OT_API_getAccount() after Utility.getRequestNumber().");
+                    return false;
+                }
+                // -----------------------
+                bAccount = true; // success
+            }
+            else
+            {
+                System.out.println("getInboxAccount: Failed calling Utility.getRequestNumber().");
+                return false;
+            }
+        }
+        else
+            bAccount = true; // success
+        // ***************************************************
+
+        return (bInbox && bAccount);
+    }
+
+    public static boolean getOutboxLowLevel(String serverID, String nymID, String accountID) {
+
+        boolean bOutbox = false;
+
+        // ***************************************************
+        // Okay, the first two are done. Now let's finish up
+        // with the OUTBOX:
+        //
+        otapi.OT_API_FlushMessageBuffer();
+        System.out.println("Before getOutbox Server call");
+        otapi.OT_API_getOutbox(serverID, nymID, accountID);  // <==== FIRST ATTEMPT
+        Utility.delay();        
+        String outboxResponseMessage = otapi.OT_API_PopMessageBuffer();
+
+        // getOutbox failed, for whatever reason.
+        //
+        if (outboxResponseMessage == null || otapi.OT_API_Message_GetSuccess(outboxResponseMessage) == 0)
+        {
+            if (Utility.getRequestNumber(serverID, nymID)) // re-sync request number.
+            {
+                // Successfully re-synced the request number.
+                otapi.OT_API_getOutbox(serverID, nymID, accountID); // <==== SECOND ATTEMPT
+                Utility.delay();
+                outboxResponseMessage = otapi.OT_API_PopMessageBuffer();
+
+                if ((outboxResponseMessage == null) || otapi.OT_API_Message_GetSuccess(outboxResponseMessage) == 0)
+                {
+                    System.out.println("getOutboxLowLevel: Failed re-trying OT_API_getOutbox() after Utility.getRequestNumber().");
+                    return false;
+                }
+                // -----------------------
+                bOutbox = true; // success
+            }
+            else
+            {
+                System.out.println("getOutboxLowLevel: Failed calling Utility.getRequestNumber().");
+                return false;
+            }
+        }
+        else
+            bOutbox = true; // success
+        // ***************************************************
+
+         return bOutbox;
+    }
+
 }

@@ -103,7 +103,7 @@ package com.wrapper.core.util;
  */
 public class Configuration {
 
-    private static long   waitTime            = 50;
+    private static long   waitTime            = 1;
     private static int    retryCount          = 1;
     private static int    nbrTransactionCount = 10;
     private static String rippleUsernameID    = "username";

@@ -100,7 +100,7 @@ public class Load {
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Load setTimeOut">
     public static void setTimeout() throws InvalidTimeOutException {
-        long waitTime = 50;
+        long waitTime = 1;
         Configuration.setWaitTime(waitTime);
     }
     public static void setTimeout(String waitTimeTxt) throws InvalidTimeOutException {

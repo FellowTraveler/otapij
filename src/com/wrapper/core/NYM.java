@@ -95,14 +95,12 @@ AK+ZirdWhhoHeWR1tAkN
 package com.wrapper.core;
 
 import com.wrapper.core.jni.otapi;
-import com.wrapper.core.util.Configuration;
 import com.wrapper.core.util.Utility;
+import com.wrapper.core.util.OTAPI_Func;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -174,47 +172,28 @@ public class NYM {
         if (otapi.OT_API_IsNym_RegisteredAtServer(nymID, serverID) == 1) {
             status = 1;
         } else {
+            OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.CREATE_USER_ACCT, serverID, nymID);
+            String      strResponse  = OTAPI_Func.SendRequest(theRequest, "CREATE_USER_ACCT");
 
-            otapi.OT_API_FlushMessageBuffer();
-            otapi.OT_API_createUserAccount(serverID, nymID);
-            Utility.delay();
-            String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-            System.out.println("IN registerNYm " + serverResponseMessage);
-
-            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-
-                otapi.OT_API_FlushMessageBuffer();
-                otapi.OT_API_getRequest(serverID, nymID);
-                Utility.delay();
-                serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-                System.out.println("IN getRequestNumber " + serverResponseMessage);
-
-                if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
+            if (null == strResponse)
+            {
+                System.out.println("IN registerNym: OTAPI_Func.SendRequest() failed. (I give up.) ");
+                return status;
+            }
+            // -----------------------------------------
+            else // Since we just registered, let's sync the request number 
+                 // (for the first time.)
+            {
+                if (false == Utility.getRequestNumber(serverID, nymID))
+                {
+                    System.out.println("IN registerNym: Utility.getRequestNumber() failed. (The first one ever for this Nym on this server.) ");
                     return status;
-                } else {
-                    otapi.OT_API_createUserAccount(serverID, nymID);
-                    Utility.delay();
-                    serverResponseMessage = otapi.OT_API_PopMessageBuffer();
                 }
-
             }
-
-            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                System.out.println("registerNYm OT_API_Message_GetSuccess returned false:");
-                return status;
-            }
-            otapi.OT_API_FlushMessageBuffer();
-            otapi.OT_API_getRequest(serverID, nymID);
-            Utility.delay();
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-            System.out.println("IN getRequestNumber " + serverResponseMessage);
-
-            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                return status;
-            }
-
+ 
             status = 0;
-            System.out.println("registerNYm otapi.OT_API_IsNym_RegisteredAtServer(nymID, serverID):" + otapi.OT_API_IsNym_RegisteredAtServer(nymID, serverID));
+            System.out.println("registerNYm otapi.OT_API_IsNym_RegisteredAtServer(nymID, serverID):" + 
+                    otapi.OT_API_IsNym_RegisteredAtServer(nymID, serverID));
 
         }
         return status;
@@ -231,18 +210,14 @@ public class NYM {
                 if (otapi.OT_API_IsNym_RegisteredAtServer(nymID, serverID) == 1) {
                     System.out.println("nym is registered");
                     
-                    boolean b1 = Utility.getAndProcessNymbox(serverID, nymID);
-                    
-//                  otapi.OT_API_getNymbox(serverID, nymID);
+                    boolean b1 = Utility.getAndProcessNymbox(serverID, nymID);                    
                 }
             }
         }
         System.out.println("Before wait");
-        try {
-            Utility.delay();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(NYM.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
+        Utility.delay();
+
         System.out.println("After wait");
         return loadNymBox(nymID);
     }
@@ -350,69 +325,59 @@ public class NYM {
         return nymID;
     }
 
-    public boolean sendMessage(String serverID, String nymID, String recepientNymID, String message) throws InterruptedException {
+    public boolean sendMessage(String serverID, String nymID, String recipientNymID, String message) throws InterruptedException {
 
-        System.out.println("Send message starts recepientNymID:" + recepientNymID + " nymID:" + nymID + " serverID:" + serverID);
+        System.out.println("Send message starts recepientNymID:" + recipientNymID + " nymID:" + nymID + " serverID:" + serverID);
 
-        if (otapi.OT_API_IsNym_RegisteredAtServer(nymID, serverID) == 0) {
+        // If the Nym's not registered at the server, we do that first...
+        //
+        if (0 == otapi.OT_API_IsNym_RegisteredAtServer(nymID, serverID)) {
 
-            otapi.OT_API_FlushMessageBuffer();
-            otapi.OT_API_createUserAccount(serverID, nymID);
-            Utility.delay();
-            String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-            System.out.println("IN send message,OT_API_IsNym_RegisteredAtServer serverResponseMessage " + serverResponseMessage);
+            OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.CREATE_USER_ACCT, serverID, nymID);
+            String      strResponse  = OTAPI_Func.SendRequest(theRequest, "CREATE_USER_ACCT");
 
-            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
+            if (null == strResponse)
+            {
+                System.out.println("IN sendMessage: OTAPI_Func.SendRequest() failed. (I give up.) ");
                 return false;
-            } else if (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                return false;
-            } else if (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 1) {
-                otapi.OT_API_FlushMessageBuffer();
-                otapi.OT_API_getRequest(serverID, nymID);
-                Utility.delay();
-                serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-                if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                    return false;
-                }
             }
         }
+        // -----------------------------------------------
+        // Okay the Nym is definitely registered at the server        
+        
+        String recipientPubKey = otapi.OT_API_LoadPubkey(recipientNymID);
+        System.out.println("recepientPubKey:" + recipientPubKey);
+        // Download the recipient's pubkey since we don't already have it.
+        if (recipientPubKey == null) {
+            
+            // ----------------------------------------------------------
+            OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.CHECK_USER, serverID, nymID, recipientNymID);
+            String      strResponse  = OTAPI_Func.SendRequest(theRequest, "CHECK_USER");
 
-        String recepientPubKey = otapi.OT_API_LoadPubkey(recepientNymID);
-        System.out.println("recepientPubKey:" + recepientPubKey);
-        if (recepientPubKey == null) {
-            otapi.OT_API_FlushMessageBuffer();
-            otapi.OT_API_checkUser(serverID, nymID, recepientNymID);
-            try {
-                Utility.delay();
-            } catch (InterruptedException ex) {
-                Logger.getLogger(NYM.class.getName()).log(Level.SEVERE, null, ex);
+            if (null == strResponse)
+            {
+                System.out.println("IN sendMessage: OTAPI_Func.SendRequest() failed. (I give up.) ");
+                return false;
             }
-            String serverResponse = otapi.OT_API_PopMessageBuffer();
-            if (serverResponse != null) {
-                recepientPubKey = otapi.OT_API_LoadPubkey(recepientNymID);
-            } else {
-                System.out.println("Error : Response fromserver " + serverResponse);
-
-                otapi.OT_API_getRequest(serverID, nymID);
-                try {
-                    Utility.delay();
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(NYM.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                serverResponse = otapi.OT_API_PopMessageBuffer();
-                if (serverResponse == null) {
-                    return false;
-                } else {
-                    recepientPubKey = otapi.OT_API_LoadPubkey(recepientNymID);
-                }
-            }
+            // ----------------------------------------------------------
+            recipientPubKey = otapi.OT_API_LoadPubkey(recipientNymID);
         }
-        if (recepientPubKey == null) {
+        if (recipientPubKey == null) {
             System.out.println("recepientPubKey is null");
             return false;
         }
-        System.out.println("Just before api call recepientNymID:" + recepientNymID + " nymID:" + nymID + " serverID:" + serverID);
-        otapi.OT_API_sendUserMessage(serverID, nymID, recepientNymID, recepientPubKey, message);
+        System.out.println("Just before api call recepientNymID:" + recipientNymID + " nymID:" + nymID + " serverID:" + serverID);
+        // --------------------------------------------------------
+        
+        OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.SEND_USER_MESSAGE, serverID, nymID, recipientNymID, recipientPubKey, message);
+        String      strResponse  = OTAPI_Func.SendRequest(theRequest, "SEND_USER_MESSAGE");
+
+        if (null == strResponse)
+        {
+            System.out.println("IN sendMessage: OTAPI_Func.SendRequest() failed. (I give up.) ");
+            return false;
+        }
+        
         return true;
     }
 
@@ -456,40 +421,21 @@ public class NYM {
         return registeredServers;
     }
 
-    public boolean deleteNym(String nymID, String serverID, boolean deleteWalletNym) throws InterruptedException {
+    public boolean deleteNym(String nymID, String serverID, boolean deleteWalletNym) {
 
-        otapi.OT_API_FlushMessageBuffer();
-        otapi.OT_API_deleteUserAccount(serverID, nymID);
-        Utility.delay();
-        String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-        System.out.println("IN deleteNym " + serverResponseMessage);
+        OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.DELETE_USER_ACCT, serverID, nymID);
+        String      strResponse  = OTAPI_Func.SendRequest(theRequest, "DELETE_USER_ACCT");
 
-        if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-
-            otapi.OT_API_FlushMessageBuffer();
-            otapi.OT_API_getRequest(serverID, nymID);
-            Utility.delay();
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-            System.out.println("IN deleteNym getRequestNumber " + serverResponseMessage);
-
-            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                return false;
-            } else {
-                otapi.OT_API_deleteUserAccount(serverID, nymID);
-                Utility.delay();
-                serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-            }
-
-        }
-
-        if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-            System.out.println("deleteNym OT_API_Message_GetSuccess returned false:");
+        if (null == strResponse)
+        {
+            System.out.println("IN deleteNym: OTAPI_Func.SendRequest() failed. (I give up.) ");
             return false;
         }
+        
         if (deleteWalletNym) {
             return deleteWalletNym(nymID);
-        } else {
-            return true;
         }
+        
+        return true;
     }
 }
