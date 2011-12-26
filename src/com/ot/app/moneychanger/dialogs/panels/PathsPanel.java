@@ -12,8 +12,11 @@ package com.ot.app.moneychanger.dialogs.panels;
 
 import com.ot.app.moneychanger.controlers.PathsController.ActionKeys;
 import com.ot.app.moneychanger.controlers.PathsController.FieldKeys;
+import com.ot.app.moneychanger.controlers.PathsController.PathsModel;
 import com.ot.app.moneychanger.models.viewmodel.IViewModel;
 import javax.swing.AbstractListModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -22,10 +25,10 @@ import javax.swing.AbstractListModel;
 public class PathsPanel extends javax.swing.JPanel {
 
     private IViewModel<FieldKeys, ActionKeys> _viewModel;
-    private AbstractListModel _pathsModel;
+    private PathsModel _pathsModel;
 
     /** Creates new form PathsPanel */
-    public PathsPanel(IViewModel<FieldKeys, ActionKeys> viewModel, AbstractListModel pathsModel) {
+    public PathsPanel(IViewModel<FieldKeys, ActionKeys> viewModel, PathsModel pathsModel) {
         _viewModel = viewModel;
         _pathsModel = pathsModel;
         initComponents();
@@ -37,7 +40,14 @@ public class PathsPanel extends javax.swing.JPanel {
         jButton_Close.setAction(_viewModel.getButtonAction(ActionKeys.CLOSE));
         jButton_Add.setAction(_viewModel.getButtonAction(ActionKeys.ADD));
         jButton_Remove.setAction(_viewModel.getButtonAction(ActionKeys.REMOVE));
-        jList_PathList.setModel(_pathsModel);
+        jList_PathList.setModel(_pathsModel.GetAbstractListModel());
+        jList_PathList.addListSelectionListener(new ListSelectionListener() {
+
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                _pathsModel.setSelectedElement(e.getFirstIndex());
+            }
+        });
     }
 
     private void setToolTips() {
