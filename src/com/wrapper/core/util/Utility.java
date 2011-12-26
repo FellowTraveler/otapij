@@ -143,39 +143,11 @@ import javax.swing.LookAndFeel;
 
 /**
  *
- * @author Vicky C
+ * @author Vicky C and Cameron
  */
 public class Utility {
 
-    public static Object obj;
     private static Object settingsObj;
-    private static boolean loadNymTrades = false;
-    private static String basketXAcct;
-    private static boolean basketXCancelled;
-
-    public static boolean isBasketXCancelled() {
-        return basketXCancelled;
-    }
-
-    public static void setBasketXCancelled(boolean basketXCancelled) {
-        Utility.basketXCancelled = basketXCancelled;
-    }
-
-    public static String getBasketXAcct() {
-        return basketXAcct;
-    }
-
-    public static void setBasketXAcct(String basketXAcct) {
-        Utility.basketXAcct = basketXAcct;
-    }
-
-    public static boolean isLoadNymTrades() {
-        return loadNymTrades;
-    }
-
-    public static void setLoadNymTrades(boolean loadNymTrades) {
-        Utility.loadNymTrades = loadNymTrades;
-    }
 
     public static Object getSettingsObj() {
         return settingsObj;
@@ -184,35 +156,7 @@ public class Utility {
     public static void setSettingsObj(Object settingsObj) {
         Utility.settingsObj = settingsObj;
     }
-    public static Object otDepositCash;
     private static String dataFolder;
-    private static LookAndFeel defautLAF;
-    private static OTCaller g_theCaller;
-    private static OTCallback g_theCallback;
-
-    public static OTCallback getG_theCallback() {
-        return g_theCallback;
-    }
-
-    public static void setG_theCallback(OTCallback g_theCallback) {
-        Utility.g_theCallback = g_theCallback;
-    }
-
-    public static OTCaller getG_theCaller() {
-        return g_theCaller;
-    }
-
-    public static void setG_theCaller(OTCaller g_theCaller) {
-        Utility.g_theCaller = g_theCaller;
-    }
-
-    public static LookAndFeel getDefautLAF() {
-        return defautLAF;
-    }
-
-    public static void setDefautLAF(LookAndFeel defautLAF) {
-        Utility.defautLAF = defautLAF;
-    }
 
     public static String getDataFolder() {
         return Utility.dataFolder;
@@ -220,64 +164,6 @@ public class Utility {
 
     public static void setDataFolder(String dataFolder) {
         Utility.dataFolder = dataFolder;
-    }
-
-    public static Object getOtDepositCash() {
-        return otDepositCash;
-    }
-
-    public static void setOtDepositCash(Object otDepositCash) {
-        Utility.otDepositCash = otDepositCash;
-    }
-
-    public static Object getObj() {
-        return obj;
-    }
-
-    public static void setObj(Object obj) {
-        Utility.obj = obj;
-    }
-
-    public static void delay()  {
-        try { // SLEEP
-            if (Configuration.getWaitTime() > 0) {
-                Thread.sleep(Configuration.getWaitTime());
-                }
-
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
-        }        
-    }
-
-    public static String getKey(Map map, String value) {
-
-        if ("All".equalsIgnoreCase(value)) {
-            return "ALL";
-        }
-
-        if (value == null) {
-            return null;
-        }
-
-        for (Iterator i = map.keySet().iterator(); i.hasNext();) {
-            String key = (String) i.next();
-            if (map.get(key).equals(value)) {
-                return key;
-            }
-        }
-        return null;
-    }
-
-    public static double roundTwoDecimals(double d) {
-        DecimalFormat twoDForm = new DecimalFormat("#.##");
-        return Double.valueOf(twoDForm.format(d));
-    }
-
-    public static void replaceToLower(List<String> strings) {
-        ListIterator<String> iterator = strings.listIterator();
-        while (iterator.hasNext()) {
-            iterator.set(iterator.next().toLowerCase());
-        }
     }
 
     public static void addDirToRuntime(Load.JavaPaths javaPaths) throws IOException {
@@ -311,7 +197,6 @@ public class Utility {
 
     }
 
-// <editor-fold desc="//Old Code"> defaultstate="collapsed"> 
 //    public static void addDirToRuntime(String s, boolean mutiple) throws IOException {
 //        try {
 //            String[] path = null;
@@ -364,73 +249,116 @@ public class Utility {
 //            throw new IOException("Failed to get field handle to set library path");
 //        }
 //    }
-// </editor-fold>
 
-    public static String fileToString(File file) {
-        String fileText = "";
-        try {
-            FileInputStream fis = new FileInputStream(file);
-            StringBuffer sb = new StringBuffer();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(new java.io.BufferedInputStream(fis)));
-            //read the stream
-            int c = 0;
-            while ((c = reader.read()) != -1) {
-                sb.append((char) c);
+    public static Object obj;
+
+    public static Object getObj() {
+        return obj;
+    }
+
+    public static void setObj(Object obj) {
+        Utility.obj = obj;
+    }
+
+    // OT Helpers
+    public static void reloadOTDetails(String accountID) {
+        Account account = new OpenTransactionAccount();
+        Object details = account.getAccountDetails(accountID);
+        OTDetails otDetails = (OTDetails) details;
+        populateOTDetails(otDetails);
+
+        JTable table = MainPage.getAccountTable();
+        ((AccountTableModel) table.getModel()).setValueAt(otDetails.getBalance(), table.getSelectedRow(), 1);
+    }
+
+    public static void populateOTDetails(OTDetails otDetails) {
+        if (otDetails == null) {
+            return;
+        }
+        OpenTransactionAccountTopPanel.populateOTDetails(otDetails);
+        OpenTransactionAccountBottomPanel.populateOTDetails(otDetails);
+
+        System.out.println("IN populateOTDetails");
+
+    }
+
+    private static String basketXAcct;
+    private static boolean basketXCancelled;
+
+    public static boolean isBasketXCancelled() {
+        return basketXCancelled;
+    }
+
+    public static void setBasketXCancelled(boolean basketXCancelled) {
+        Utility.basketXCancelled = basketXCancelled;
+    }
+
+    public static String getBasketXAcct() {
+        return basketXAcct;
+    }
+
+    public static void setBasketXAcct(String basketXAcct) {
+        Utility.basketXAcct = basketXAcct;
+    }
+ 
+    private static boolean loadNymTrades = false;
+
+    public static boolean isLoadNymTrades() {
+        return loadNymTrades;
+    }
+
+    public static void setLoadNymTrades(boolean loadNymTrades) {
+        Utility.loadNymTrades = loadNymTrades;
+    }
+
+    private static OTCallback g_theCallback;
+
+    public static OTCallback getG_theCallback() {
+        return g_theCallback;
+    }
+
+    public static void setG_theCallback(OTCallback g_theCallback) {
+        Utility.g_theCallback = g_theCallback;
+    }
+
+    private static OTCaller g_theCaller;
+
+    public static OTCaller getG_theCaller() {
+        return g_theCaller;
+    }
+
+    public static void setG_theCaller(OTCaller g_theCaller) {
+        Utility.g_theCaller = g_theCaller;
+    }
+
+    public static Object otDepositCash;
+
+    public static Object getOtDepositCash() {
+        return otDepositCash;
+    }
+
+    public static void setOtDepositCash(Object otDepositCash) {
+        Utility.otDepositCash = otDepositCash;
+    }
+ 
+    // Get Helpers:
+    public static String getKey(Map map, String value) {
+
+        if ("All".equalsIgnoreCase(value)) {
+            return "ALL";
+        }
+
+        if (value == null) {
+            return null;
+        }
+
+        for (Iterator i = map.keySet().iterator(); i.hasNext();) {
+            String key = (String) i.next();
+            if (map.get(key).equals(value)) {
+                return key;
             }
-            fileText = sb.toString();
-
-        } catch (IOException ex) {
-            Logger.getLogger(Utility.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return fileText;
-    }
-
-    public static void populateCombo(Map data, JComboBox component) {
-
-        int count = 1;
-
-        while (component.getItemCount() > 1) {
-            component.removeItemAt(count);
-
-        }
-
-        Set set = data.keySet();
-        Iterator iterator = set.iterator();
-
-        while (iterator.hasNext()) {
-            Integer key = (Integer) iterator.next();
-            component.addItem(new ComboObject(((String[]) data.get(key))[0]));
-        }
-
-        if (component instanceof com.wrapper.ui.custom.SteppedComboBox) {
-
-            Dimension d = component.getPreferredSize();
-            component.setPreferredSize(new Dimension(100, d.height));
-            ((com.wrapper.ui.custom.SteppedComboBox) component).setPopupWidth(d.width);
-        }
-    }
-
-    public static void populateComboWithoutAll(Map data, JComboBox component) {
-
-        while (component.getItemCount() > 0) {
-            component.removeItemAt(0);
-
-        }
-
-        Set set = data.keySet();
-        Iterator iterator = set.iterator();
-
-        while (iterator.hasNext()) {
-            Integer key = (Integer) iterator.next();
-            component.addItem(new ComboObject(((String[]) data.get(key))[0]));
-        }
-
-        if (component instanceof com.wrapper.ui.custom.SteppedComboBox) {
-
-            Dimension d = component.getPreferredSize();
-            component.setPreferredSize(new Dimension(100, d.height));
-            ((com.wrapper.ui.custom.SteppedComboBox) component).setPopupWidth(d.width);
-        }
+        return null;
     }
     
     // No need to deal with getRequest here when failure, since the calling
@@ -659,37 +587,6 @@ public class Utility {
         return otapi.QueryPlainString(fileName);
     }
 
-    public static boolean isValidDouble(String text) {
-        try {
-            Double.parseDouble(text);
-        } catch (NumberFormatException nfe) {
-            nfe.printStackTrace();
-            return false;
-        }
-        return true;
-    }
-
-    public static void reloadOTDetails(String accountID) {
-        Account account = new OpenTransactionAccount();
-        Object details = account.getAccountDetails(accountID);
-        OTDetails otDetails = (OTDetails) details;
-        populateOTDetails(otDetails);
-
-        JTable table = MainPage.getAccountTable();
-        ((AccountTableModel) table.getModel()).setValueAt(otDetails.getBalance(), table.getSelectedRow(), 1);
-    }
-
-    public static void populateOTDetails(OTDetails otDetails) {
-        if (otDetails == null) {
-            return;
-        }
-        OpenTransactionAccountTopPanel.populateOTDetails(otDetails);
-        OpenTransactionAccountBottomPanel.populateOTDetails(otDetails);
-
-        System.out.println("IN populateOTDetails");
-
-    }
-
     public static Point getLocation(Dimension componentDimension) {
 
         Point center = new Point(0, 0);
@@ -850,6 +747,127 @@ public class Utility {
         return addressBook;
     }
 
+    private static LookAndFeel defautLAF;
+
+    public static LookAndFeel getDefautLAF() {
+        return defautLAF;
+    }
+
+    public static void setDefautLAF(LookAndFeel defautLAF) {
+        Utility.defautLAF = defautLAF;
+    }
+
+    public static String fileToString(File file) {
+        String fileText = "";
+        try {
+            FileInputStream fis = new FileInputStream(file);
+            StringBuffer sb = new StringBuffer();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(new java.io.BufferedInputStream(fis)));
+            //read the stream
+            int c = 0;
+            while ((c = reader.read()) != -1) {
+                sb.append((char) c);
+            }
+            fileText = sb.toString();
+
+        } catch (IOException ex) {
+            Logger.getLogger(Utility.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return fileText;
+    }
+
+    public static void replaceToLower(List<String> strings) {
+        ListIterator<String> iterator = strings.listIterator();
+        while (iterator.hasNext()) {
+            iterator.set(iterator.next().toLowerCase());
+        }
+    }
+
+    public static double roundTwoDecimals(double d) {
+        DecimalFormat twoDForm = new DecimalFormat("#.##");
+        return Double.valueOf(twoDForm.format(d));
+    }
+
+    public static void populateCombo(Map data, JComboBox component) {
+
+        int count = 1;
+
+        while (component.getItemCount() > 1) {
+            component.removeItemAt(count);
+
+        }
+
+        Set set = data.keySet();
+        Iterator iterator = set.iterator();
+
+        while (iterator.hasNext()) {
+            Integer key = (Integer) iterator.next();
+            component.addItem(new ComboObject(((String[]) data.get(key))[0]));
+        }
+
+        if (component instanceof com.wrapper.ui.custom.SteppedComboBox) {
+
+            Dimension d = component.getPreferredSize();
+            component.setPreferredSize(new Dimension(100, d.height));
+            ((com.wrapper.ui.custom.SteppedComboBox) component).setPopupWidth(d.width);
+        }
+    }
+
+    public static void populateComboWithoutAll(Map data, JComboBox component) {
+
+        while (component.getItemCount() > 0) {
+            component.removeItemAt(0);
+
+        }
+
+        Set set = data.keySet();
+        Iterator iterator = set.iterator();
+
+        while (iterator.hasNext()) {
+            Integer key = (Integer) iterator.next();
+            component.addItem(new ComboObject(((String[]) data.get(key))[0]));
+        }
+
+        if (component instanceof com.wrapper.ui.custom.SteppedComboBox) {
+
+            Dimension d = component.getPreferredSize();
+            component.setPreferredSize(new Dimension(100, d.height));
+            ((com.wrapper.ui.custom.SteppedComboBox) component).setPopupWidth(d.width);
+        }
+    }
+
+    public static boolean isValidDouble(String text) {
+        try {
+            Double.parseDouble(text);
+        } catch (NumberFormatException nfe) {
+            nfe.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public static void delay()  {
+        try { // SLEEP
+            if (Configuration.getWaitTime() > 0) {
+                Thread.sleep(Configuration.getWaitTime());
+                }
+
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }        
+    }
+    public static void longDelay() throws InterruptedException {
+        try { // SLEEP
+            if (Configuration.getWaitTime() > 0) {
+                Thread.sleep(Configuration.getWaitTime() + 200);
+                }
+
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }        
+        return;
+    }
+
     public static String generateID() {
         SecureRandom random = new SecureRandom();
         return new BigInteger(130, random).toString(32);
@@ -857,11 +875,6 @@ public class Utility {
 
     public static void main(String a[]) {
         System.out.println(generateID());
-    }
-
-    public static void longDelay() throws InterruptedException {
-        Thread.sleep(Configuration.getWaitTime() + 200);
-        return;
     }
     
     

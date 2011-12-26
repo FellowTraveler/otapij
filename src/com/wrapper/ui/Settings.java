@@ -100,20 +100,10 @@ AK+ZirdWhhoHeWR1tAkN
  */
 package com.wrapper.ui;
 
-import com.wrapper.core.jni.JavaCallback;
-import com.wrapper.core.jni.OTCallback;
-import com.wrapper.core.jni.OTCaller;
-import com.wrapper.core.jni.PackType;
-import com.wrapper.core.jni.StorageType;
-import com.wrapper.core.jni.otapi;
 import com.wrapper.core.util.Configuration;
 import com.wrapper.core.util.Utility;
 import com.wrapper.ui.custom.CustomMenu;
 import com.wrapper.ui.dialogs.PathDialog;
-import java.awt.Cursor;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -129,30 +119,37 @@ public class Settings extends javax.swing.JFrame {
 
     /** Creates new form Settings */
     public Settings() {
+        
+        //Try and load without settings dilogue:
         try {
             Load.loadOTAPI();
             Load.loadAppData();
             Load.setTimeout();
             Utility.setSettingsObj(this);
             new MainPage().setVisible(true);
-        } catch (Load.ApiNotLoadedException e) {
+        }
+        
+        catch (Load.ApiNotLoadedException e) {
             StringBuilder error = new StringBuilder();
             error.append("Autoload of from the Java Path failed!: ");
             error.append(System.getProperty("line.separator"));
             error.append(e.getError());
-            JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println(error.toString());
+            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
             loadSettings();
         } catch (Load.AppDataNotLoadedException e) {
             StringBuilder error = new StringBuilder();
             error.append("AutoLoad of your MoneyChanger user data failed; Choose the location here:");
             error.append(e.getError().replace(":", System.getProperty("line.separator")));
-            JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println(error.toString());
+            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
             loadSettings();
         } catch (Load.InvalidTimeOutException e) {
             StringBuilder error = new StringBuilder();
             error.append("Auto-Timout is invalid; you should never see this message: please contact us for support!");
             error.append(e.getError());
-            JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println(error.toString());
+            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
             loadSettings();
         } catch (Exception e) {
             e.printStackTrace();
@@ -318,14 +315,15 @@ public class Settings extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton_LoadWalletActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_LoadWalletActionPerformed
-
+        //Atempt to load with modifed settings:
         try {
             Load.loadOTAPI(javaPaths);
             Load.loadAppData(jTextField_DataFolder.getText(),jTextField_WalletFile.getText());
             Load.setTimeout(jTextField_Timeout.getText());
             Utility.setSettingsObj(this);
-            new MainPage().setVisible(true);
-        } catch (Load.ApiNotLoadedException e) {
+            new MainPage().setVisible(true);     
+        }
+        catch (Load.ApiNotLoadedException e) {
             StringBuilder error = new StringBuilder();
             error.append("Unable to load your Java Path!");
             error.append(System.getProperty("line.separator"));
@@ -347,7 +345,7 @@ public class Settings extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
-// <editor-fold desc="//Old Code"> defaultstate="collapsed">
+// <editor-fold defaultstate="collapsed" desc="//Old Code">
 //        try {
 //            /* OTCaller g_theCaller = new OTCaller();
 //            OTCallback g_theCallback = new JavaCallback();
@@ -517,6 +515,7 @@ public class Settings extends javax.swing.JFrame {
         Utility.setObj(this);
         setLocation(Utility.getLocation(this.getSize()));
         initFileChooser();
+        setPath();
     }
 }
   // </editor-fold>

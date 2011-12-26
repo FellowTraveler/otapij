@@ -585,7 +585,6 @@ public class CreateMarketOrder extends javax.swing.JDialog {
             e.printStackTrace();
         } finally {
             setCursor(Cursor.getDefaultCursor());
-
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

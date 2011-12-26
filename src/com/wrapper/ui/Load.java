@@ -19,7 +19,7 @@ import javax.swing.AbstractListModel;
  * @author cameron
  */
 public class Load {
-
+    // <editor-fold defaultstate="collapsed" desc="Load API">
     public static void loadOTAPI() throws ApiNotLoadedException {
         try {
             if (getOS() == typeOS.WIN) {
@@ -44,7 +44,6 @@ public class Load {
             throw new ApiNotLoadedException(errorMessage.toString());
         }
     }
-
     public static void loadOTAPI(JavaPaths paths) throws ApiNotLoadedException {
         try {
             if (getOS() == typeOS.WIN) {
@@ -72,7 +71,8 @@ public class Load {
             throw new ApiNotLoadedException("IO Error");
         }
     }
-
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Load AppData">
     public static void loadAppData() throws AppDataNotLoadedException {
         StringBuffer strOSVers      = new StringBuffer("~"); // My appdataDirectory has a SPACE in it (/Users/au/Library/Application Support...)
 //      StringBuffer strOSVers      = new StringBuffer(appdataDirectory(getOS())); // Therefore I did this for now, so I could run the wallet again!
@@ -80,7 +80,6 @@ public class Load {
 //        String strSubstitute        = strAppend.replaceAll(" ", "\\ "); // Oh well, I tried.
         loadAppData(strAppend, "wallet.xml");
     }
-
     public static void loadAppData(String appDataLocation, String walletLocation) throws AppDataNotLoadedException {
 
         if (otapi.OT_API_Init(appDataLocation) != 1) {
@@ -98,12 +97,12 @@ public class Load {
             throw new AppDataNotLoadedException("Unable To Load Wallet, Maybe Wrong Password?");
         }
     }
-
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Load setTimeOut">
     public static void setTimeout() throws InvalidTimeOutException {
-        long waitTime = 50;
+        long waitTime = 1;
         Configuration.setWaitTime(waitTime);
     }
-
     public static void setTimeout(String waitTimeTxt) throws InvalidTimeOutException {
         long waitTime;
         try {
@@ -116,8 +115,8 @@ public class Load {
         }
         Configuration.setWaitTime(waitTime);
     }
-
-    // <editor-fold desc="Helpers"> defaultstate="collapsed">
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Helpers">
     public static class JavaPaths extends AbstractListModel {
 
         private List<String> _paths = new ArrayList<String>();
@@ -182,12 +181,10 @@ public class Load {
             return _paths;
         }
     }
-
     public enum typeOS {
 
         WIN, LINUX, MAC, UNIX, ALL, OTHER
     }
-
     public static typeOS getOS() {
         String OS = System.getProperty("os.name").toUpperCase();
         if (OS.contains("WIN")) {
@@ -204,7 +201,6 @@ public class Load {
         }
         return typeOS.OTHER;
     }
-
     public static StringBuilder appdataDirectory(typeOS os) {
         StringBuilder appdataDirectory = new StringBuilder();
         switch (os) {
@@ -230,9 +226,8 @@ public class Load {
         appdataDirectory.append(System.getProperty("user.dir"));
         return appdataDirectory;
     }
-
     // </editor-fold>
-    // <editor-fold desc="Exceptions"> defaultstate="collapsed">
+    // <editor-fold defaultstate="collapsed" desc="Exceptions">
     static class ApiNotLoadedException extends Exception {
 
         private String locationsChecked;
@@ -251,7 +246,6 @@ public class Load {
             return locationsChecked;
         }
     }
-
     static class AppDataNotLoadedException extends Exception {
 
         private String locationsChecked;
@@ -270,7 +264,6 @@ public class Load {
             return locationsChecked;
         }
     }
-
     static class InvalidTimeOutException extends Exception {
 
         private String error;

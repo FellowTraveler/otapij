@@ -620,8 +620,6 @@ public class Market {
             tradeNymData.put(tradeDataNym.getTransaction_id(), tradeDataRow);
 
         }
-
         return tradeNymData;
     }
-
 }
