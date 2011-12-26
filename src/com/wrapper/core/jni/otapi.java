@@ -13,6 +13,10 @@ public class otapi {
     return otapiJNI.OT_API_Set_PasswordCallback(OTCaller.getCPtr(theCaller), theCaller);
   }
 
+  public static void OT_API_Output(int nLogLevel, String szOutput) {
+    otapiJNI.OT_API_Output(nLogLevel, szOutput);
+  }
+
   public static int OT_API_Init(String szClientPath) {
     return otapiJNI.OT_API_Init(szClientPath);
   }
@@ -249,12 +253,76 @@ public class otapi {
     return otapiJNI.OT_API_WriteCheque(SERVER_ID, CHEQUE_AMOUNT, VALID_FROM, VALID_TO, SENDER_ACCT_ID, SENDER_USER_ID, CHEQUE_MEMO, RECIPIENT_USER_ID);
   }
 
+  public static int OT_API_DiscardCheque(String SERVER_ID, String USER_ID, String ACCT_ID, String THE_CHEQUE) {
+    return otapiJNI.OT_API_DiscardCheque(SERVER_ID, USER_ID, ACCT_ID, THE_CHEQUE);
+  }
+
   public static String OT_API_ProposePaymentPlan(String SERVER_ID, String VALID_FROM, String VALID_TO, String SENDER_ACCT_ID, String SENDER_USER_ID, String PLAN_CONSIDERATION, String RECIPIENT_ACCT_ID, String RECIPIENT_USER_ID, String INITIAL_PAYMENT_AMOUNT, String INITIAL_PAYMENT_DELAY, String PAYMENT_PLAN_AMOUNT, String PAYMENT_PLAN_DELAY, String PAYMENT_PLAN_PERIOD, String PAYMENT_PLAN_LENGTH, String PAYMENT_PLAN_MAX_PAYMENTS) {
     return otapiJNI.OT_API_ProposePaymentPlan(SERVER_ID, VALID_FROM, VALID_TO, SENDER_ACCT_ID, SENDER_USER_ID, PLAN_CONSIDERATION, RECIPIENT_ACCT_ID, RECIPIENT_USER_ID, INITIAL_PAYMENT_AMOUNT, INITIAL_PAYMENT_DELAY, PAYMENT_PLAN_AMOUNT, PAYMENT_PLAN_DELAY, PAYMENT_PLAN_PERIOD, PAYMENT_PLAN_LENGTH, PAYMENT_PLAN_MAX_PAYMENTS);
   }
 
   public static String OT_API_ConfirmPaymentPlan(String SERVER_ID, String SENDER_USER_ID, String SENDER_ACCT_ID, String RECIPIENT_USER_ID, String PAYMENT_PLAN) {
     return otapiJNI.OT_API_ConfirmPaymentPlan(SERVER_ID, SENDER_USER_ID, SENDER_ACCT_ID, RECIPIENT_USER_ID, PAYMENT_PLAN);
+  }
+
+  public static String OT_API_Create_SmartContract(String SERVER_ID, String SIGNER_NYM_ID, String VALID_FROM, String VALID_TO) {
+    return otapiJNI.OT_API_Create_SmartContract(SERVER_ID, SIGNER_NYM_ID, VALID_FROM, VALID_TO);
+  }
+
+  public static String OT_API_SmartContract_AddBylaw(String THE_CONTRACT, String SIGNER_NYM_ID, String BYLAW_NAME) {
+    return otapiJNI.OT_API_SmartContract_AddBylaw(THE_CONTRACT, SIGNER_NYM_ID, BYLAW_NAME);
+  }
+
+  public static String OT_API_SmartContract_AddClause(String THE_CONTRACT, String SIGNER_NYM_ID, String BYLAW_NAME, String CLAUSE_NAME, String SOURCE_CODE) {
+    return otapiJNI.OT_API_SmartContract_AddClause(THE_CONTRACT, SIGNER_NYM_ID, BYLAW_NAME, CLAUSE_NAME, SOURCE_CODE);
+  }
+
+  public static String OT_API_SmartContract_AddVariable(String THE_CONTRACT, String SIGNER_NYM_ID, String BYLAW_NAME, String VAR_NAME, String VAR_ACCESS, String VAR_TYPE, String VAR_VALUE) {
+    return otapiJNI.OT_API_SmartContract_AddVariable(THE_CONTRACT, SIGNER_NYM_ID, BYLAW_NAME, VAR_NAME, VAR_ACCESS, VAR_TYPE, VAR_VALUE);
+  }
+
+  public static String OT_API_SmartContract_AddCallback(String THE_CONTRACT, String SIGNER_NYM_ID, String BYLAW_NAME, String CALLBACK_NAME, String CLAUSE_NAME) {
+    return otapiJNI.OT_API_SmartContract_AddCallback(THE_CONTRACT, SIGNER_NYM_ID, BYLAW_NAME, CALLBACK_NAME, CLAUSE_NAME);
+  }
+
+  public static String OT_API_SmartContract_AddHook(String THE_CONTRACT, String SIGNER_NYM_ID, String BYLAW_NAME, String HOOK_NAME, String CLAUSE_NAME) {
+    return otapiJNI.OT_API_SmartContract_AddHook(THE_CONTRACT, SIGNER_NYM_ID, BYLAW_NAME, HOOK_NAME, CLAUSE_NAME);
+  }
+
+  public static String OT_API_SmartContract_AddParty(String THE_CONTRACT, String SIGNER_NYM_ID, String PARTY_NAME, String AGENT_NAME) {
+    return otapiJNI.OT_API_SmartContract_AddParty(THE_CONTRACT, SIGNER_NYM_ID, PARTY_NAME, AGENT_NAME);
+  }
+
+  public static String OT_API_SmartContract_AddAccount(String THE_CONTRACT, String SIGNER_NYM_ID, String PARTY_NAME, String ACCT_NAME, String ASSET_TYPE_ID) {
+    return otapiJNI.OT_API_SmartContract_AddAccount(THE_CONTRACT, SIGNER_NYM_ID, PARTY_NAME, ACCT_NAME, ASSET_TYPE_ID);
+  }
+
+  public static int OT_API_SmartContract_CountNumsNeeded(String THE_CONTRACT, String AGENT_NAME) {
+    return otapiJNI.OT_API_SmartContract_CountNumsNeeded(THE_CONTRACT, AGENT_NAME);
+  }
+
+  public static String OT_API_SmartContract_ConfirmAccount(String THE_CONTRACT, String SIGNER_NYM_ID, String PARTY_NAME, String ACCT_NAME, String AGENT_NAME, String ACCT_ID) {
+    return otapiJNI.OT_API_SmartContract_ConfirmAccount(THE_CONTRACT, SIGNER_NYM_ID, PARTY_NAME, ACCT_NAME, AGENT_NAME, ACCT_ID);
+  }
+
+  public static String OT_API_SmartContract_ConfirmParty(String THE_CONTRACT, String PARTY_NAME, String NYM_ID) {
+    return otapiJNI.OT_API_SmartContract_ConfirmParty(THE_CONTRACT, PARTY_NAME, NYM_ID);
+  }
+
+  public static void OT_API_activateSmartContract(String SERVER_ID, String USER_ID, String THE_SMART_CONTRACT) {
+    otapiJNI.OT_API_activateSmartContract(SERVER_ID, USER_ID, THE_SMART_CONTRACT);
+  }
+
+  public static void OT_API_triggerClause(String SERVER_ID, String USER_ID, String TRANSACTION_NUMBER, String CLAUSE_NAME) {
+    otapiJNI.OT_API_triggerClause(SERVER_ID, USER_ID, TRANSACTION_NUMBER, CLAUSE_NAME);
+  }
+
+  public static int OT_API_HarvestClosingNumbers(String SERVER_ID, String NYM_ID, String THE_CRON_ITEM) {
+    return otapiJNI.OT_API_HarvestClosingNumbers(SERVER_ID, NYM_ID, THE_CRON_ITEM);
+  }
+
+  public static int OT_API_HarvestAllNumbers(String SERVER_ID, String NYM_ID, String THE_CRON_ITEM) {
+    return otapiJNI.OT_API_HarvestAllNumbers(SERVER_ID, NYM_ID, THE_CRON_ITEM);
   }
 
   public static String OT_API_LoadUserPubkey(String USER_ID) {
@@ -485,6 +553,14 @@ public class otapi {
     otapiJNI.OT_API_deleteAssetAccount(SERVER_ID, USER_ID, ACCOUNT_ID);
   }
 
+  public static void OT_API_usageCredits(String SERVER_ID, String USER_ID, String USER_ID_CHECK, String ADJUSTMENT) {
+    otapiJNI.OT_API_usageCredits(SERVER_ID, USER_ID, USER_ID_CHECK, ADJUSTMENT);
+  }
+
+  public static String OT_API_Message_GetUsageCredits(String THE_MESSAGE) {
+    return otapiJNI.OT_API_Message_GetUsageCredits(THE_MESSAGE);
+  }
+
   public static void OT_API_checkUser(String SERVER_ID, String USER_ID, String USER_ID_CHECK) {
     otapiJNI.OT_API_checkUser(SERVER_ID, USER_ID, USER_ID_CHECK);
   }
@@ -577,8 +653,8 @@ public class otapi {
     otapiJNI.OT_API_processInbox(SERVER_ID, USER_ID, ACCT_ID, ACCT_LEDGER);
   }
 
-  public static void OT_API_processNymbox(String SERVER_ID, String USER_ID, String ACCT_LEDGER) {
-    otapiJNI.OT_API_processNymbox(SERVER_ID, USER_ID, ACCT_LEDGER);
+  public static void OT_API_processNymbox(String SERVER_ID, String USER_ID) {
+    otapiJNI.OT_API_processNymbox(SERVER_ID, USER_ID);
   }
 
   public static void OT_API_withdrawVoucher(String SERVER_ID, String USER_ID, String ACCT_ID, String RECIPIENT_USER_ID, String CHEQUE_MEMO, String AMOUNT) {

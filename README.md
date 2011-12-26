@@ -13,8 +13,6 @@ Bitcoin is now supported (via bitcoind). Coming soon: safe Bitcoin storage in OT
 
 [Open-Transactions wiki](https://github.com/FellowTraveler/Open-Transactions/wiki)
 
-[Moneychanger wiki](https://github.com/FellowTraveler/Moneychanger/wiki)
-
 Video Walkthru:
 [Part 1](http://vimeo.com/28141679)
 [Part 2](http://vimeo.com/28142096)
@@ -44,7 +42,13 @@ INSTALL: Google's Protocol Buffers library (another data packer.) [Available her
 
 INSTALL: Zero MQ (transport library)
 [Available here.](http://www.zeromq.org/intro:get-the-software) 
-OT now uses this library for all transport.
+OT now uses this library for all transport. USE VERSION 2.1.
+
+INSTALL: Boost.
+[Available here.](http://www.boost.org/)
+
+INSTALL: ChaiScript.
+[Available here.](http://www.chaiscript.com/)
 
 Clone into Open-Transactions:
 
@@ -71,12 +75,11 @@ Uncompress the Moneychanger binaries into the Moneychanger folder, and into OT:
      $ cd Moneychanger
      $ tar -xzvf Moneychanger-64bit.tgz
      $ cp -r lib ../Open-Transactions/testwallet
-     $ cp JavaWrapper.jar Open-Transactions/testwallet
+     $ cp JavaWrapper.jar ../Open-Transactions/testwallet
 
 ## TO RUN OPEN TRANSACTIONS SERVER
 
-     $ cd Open-Transactions/transaction
-     $ ./transaction.exe
+     $ ot_server
 
 ## TO RUN MONEYCHANGER 
 
@@ -111,7 +114,7 @@ From a separate terminal:
 
 ```xml
 
-Moneychanger v0.06
+Moneychanger v0.07
 
 /************************************************************
 -----BEGIN PGP SIGNED MESSAGE-----
