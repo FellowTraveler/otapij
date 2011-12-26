@@ -109,6 +109,7 @@ import com.wrapper.ui.dialogs.OTWriteCheque;
 import com.wrapper.ui.dialogs.SendTransferDialog;
 import com.wrapper.ui.dialogs.WithdrawCashDialog;
 import com.wrapper.ui.dialogs.WithdrawVoucherDialog;
+import com.wrapper.core.util.Utility;
 import java.awt.Cursor;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -607,7 +608,7 @@ public class OpenTransactionAccountTopPanel extends javax.swing.JPanel {
         try {
             OpenTransactionAccount openTransaction = new OpenTransactionAccount();
             setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-            boolean isSuccess = openTransaction.getInboxOutboxAccount(accountID);
+            boolean isSuccess = Utility.getInboxOutboxAccount(accountID); // download the data.
             if (isSuccess) {
                 JOptionPane.showMessageDialog(this, "Files downloaded successfully", "Processing Success", JOptionPane.INFORMATION_MESSAGE);
                 OpenTransactionAccountBottomPanel.setOTTables(openTransaction.getInboxData(accountID), openTransaction.getOutboxData(accountID));

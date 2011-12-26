@@ -91,12 +91,9 @@ AK+ZirdWhhoHeWR1tAkN
 package com.wrapper.core;
 
 import com.wrapper.core.jni.otapi;
-import com.wrapper.core.util.Configuration;
-import com.wrapper.core.util.Utility;
+import com.wrapper.core.util.OTAPI_Func;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Contract {
 
@@ -192,55 +189,32 @@ public class Contract {
 
     public boolean issueAssetType(String serverID, String nymID, String contract) throws InterruptedException {
 
-        if (otapi.OT_API_IsNym_RegisteredAtServer(nymID, serverID) == 0) {
+        if (0 == otapi.OT_API_IsNym_RegisteredAtServer(nymID, serverID)) {
 
-            otapi.OT_API_FlushMessageBuffer();
-            otapi.OT_API_createUserAccount(serverID, nymID);
-            Utility.delay();
-            String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-            System.out.println("IN issueAssetType,OT_API_IsNym_RegisteredAtServer serverResponseMessage " + serverResponseMessage);
-            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                return false;
-            } else if (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                return false;
-            } else if (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 1) {
+            OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.CREATE_USER_ACCT, serverID, nymID);
+            String      strResponse  = OTAPI_Func.SendRequest(theRequest, "CREATE_USER_ACCT");
 
-                otapi.OT_API_FlushMessageBuffer();
-                otapi.OT_API_getRequest(serverID, nymID);
-                Utility.delay();
-                serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-                if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                    System.out.println("IN issueAssetType, during nym registration, getrequestNumber failed . serverResponseMessage - " + serverResponseMessage);
-                    return false;
-                }
-            }
-        }
-
-
-        otapi.OT_API_FlushMessageBuffer();
-        otapi.OT_API_issueAssetType(serverID, nymID, contract);
-
-        Utility.delay();
-
-        String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-        System.out.println("IN issueAssetType " + serverResponseMessage);
-        if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-            otapi.OT_API_FlushMessageBuffer();
-            otapi.OT_API_getRequest(serverID, nymID);
-            Utility.delay();
-            otapi.OT_API_issueAssetType(serverID, nymID, contract);
-            Utility.delay();
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-            if ((serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0)) {
-                return false;
-            }
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-            if ((serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0)) {
+            if (null == strResponse)
+            {
+                System.out.println("IN issueAssetType: OTAPI_Func.SendRequest(() failed. (I give up.) ");
                 return false;
             }
         }
+        // -----------------------------------------------
+ 
+        OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.ISSUE_ASSET_TYPE, serverID, nymID, contract);
+        String      strResponse  = OTAPI_Func.SendRequest(theRequest, "ISSUE_ASSET_TYPE");
 
-        return (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 1 ? true : false);
-
+        if (null == strResponse)
+        {
+            System.out.println("IN issueAssetType: OTAPI_Func.SendRequest(() failed. (I give up.) ");
+            return false;
+        }
+        
+        System.out.println("IN issueAssetType: Success. ");
+        return true;
     }
 }
+
+
+

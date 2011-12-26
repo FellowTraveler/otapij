@@ -301,6 +301,7 @@ public class OpenTransactionAccountBottomPanel extends javax.swing.JPanel {
         System.out.println("Count:" + evt.getClickCount());
         if (evt.getClickCount() == 2) {
             String key = (String) jTable6.getModel().getValueAt(jTable6.getSelectedRow(), 9);
+            if (null == key) key = new String("");
             System.out.println("In outbox double clcik, key:" + key);
             String[] row = (String[]) inbox.get(key);
             if (row != null && "pending".equalsIgnoreCase(row[3])) {
@@ -318,6 +319,7 @@ public class OpenTransactionAccountBottomPanel extends javax.swing.JPanel {
             List finalReceiptRefNo = new ArrayList();
             for (int i = 0; i < jTable6.getRowCount(); i++) {
                 String key = (String) jTable6.getModel().getValueAt(i, 9);
+                if (null == key) key = new String("");
                 if ((Boolean) jTable6.getModel().getValueAt(i, 7)) {
                     selectedIndices.put(key, true);
                 }

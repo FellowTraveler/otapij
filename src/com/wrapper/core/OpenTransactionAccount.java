@@ -98,15 +98,24 @@ import com.wrapper.core.dataobjects.OTDetails;
 import com.wrapper.core.jni.otapi;
 import com.wrapper.core.util.Configuration;
 import com.wrapper.core.util.Utility;
+import com.wrapper.core.util.OTAPI_Func;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
+
+// *********************************************************
+
+
 /**
  *
  * @author Vicky C
+ * 
+ * Rewrites: FT -- Lots of refactoring. I wrote the above class, and re-used it
+ * as much as possible in all the code below, to reduce its size and complexity.
  */
 public class OpenTransactionAccount extends Account {
 
@@ -134,140 +143,94 @@ public class OpenTransactionAccount extends Account {
         this.nymID = nymID;
     }
 
-    public static void getRequestNumber(String serverID, String nymID, long waitTime) throws InterruptedException {
+    private boolean createAssetAccount(String serverID, String nymID, String assetID) {
 
-        otapi.OT_API_FlushMessageBuffer();
-        otapi.OT_API_getRequest(serverID, nymID);
-        Utility.delay();
-        System.out.println("IN getRequestNumber " + otapi.OT_API_PopMessageBuffer());
-
-    }
-
-    private boolean createAssetAccount(String serverID, String nymID, String assetID, long waitTime) throws InterruptedException {
-
-        otapi.OT_API_FlushMessageBuffer();
-        otapi.OT_API_createAssetAccount(serverID, nymID, assetID);
-        Utility.delay();
-        String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-        System.out.println("IN createAssetAccount " + serverResponseMessage);
-        if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-            getRequestNumber(serverID, nymID, Configuration.getWaitTime());
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                return false;
-            } else {
-                otapi.OT_API_createAssetAccount(serverID, nymID, assetID);
-                Utility.delay();
-            }
-
+        OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.CREATE_ASSET_ACCT, serverID, nymID, assetID);
+        String      strResponse  = OTAPI_Func.SendRequest(theRequest, "CREATE_ASSET_ACCT");
+        
+        if (null == strResponse)
+        {
+            System.out.println("IN createAssetAccount: OTAPI_Func.SendRequest(() failed. (I give up.) ");
+            return false;
         }
-        System.out.println(otapi.OT_API_Message_GetCommand(serverResponseMessage));
-
-        //The command printed in the above line showld be '@createAccount'
-
-        boolean success = (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 1 ? true : false);
-
-        if (success) {
-            otapi.OT_API_SetAccountWallet_Name(otapi.OT_API_Message_GetNewAcctID(serverResponseMessage), nymID, label);
-            otapi.OT_API_getOutbox(serverID, nymID, otapi.OT_API_Message_GetNewAcctID(serverResponseMessage));
-            try {
-                Utility.delay();
-            } catch (InterruptedException ex) {
-                Logger.getLogger(OpenTransactionAccount.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-        return success;
+        // ----------------------------------------------------------
+        
+        String strNewAcctID = otapi.OT_API_Message_GetNewAcctID(strResponse);
+        
+        otapi.OT_API_SetAccountWallet_Name(strNewAcctID, nymID, label);
+        
+        // When you first create an asset account you need to get a copy of the outbox.
+        // (Or create an empty one, which would save us sending the message here. Todo.)
+        //
+        Utility.getOutboxLowLevel(serverID, nymID, strNewAcctID);
+        // ----------------------------------------------------------
+ 
+        return true;
     }
 
     @Override
     public boolean createAccount() {
-
-        long waitTime = Configuration.getWaitTime();
-
+        boolean bSuccess = false;
         System.out.println("IN createAccount serverID:" + serverID + " nymID: " + nymID + " assetID:" + assetID);
-
         try {
+            // If the Nym's not registered at the server, we do that first...
+            //
+            if (0 == otapi.OT_API_IsNym_RegisteredAtServer(nymID, serverID)) {
+                
+                OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.CREATE_USER_ACCT, serverID, nymID);
+                String      strResponse  = OTAPI_Func.SendRequest(theRequest, "CREATE_USER_ACCT");
 
-            if (otapi.OT_API_IsNym_RegisteredAtServer(nymID, serverID) == 0) {
-
-                otapi.OT_API_FlushMessageBuffer();
-                otapi.OT_API_createUserAccount(serverID, nymID);
-                Utility.delay();
-                String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-                System.out.println("IN createAccount,OT_API_IsNym_RegisteredAtServer serverResponseMessage " + serverResponseMessage);
-                if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
+                if (null == strResponse)
+                {
+                    System.out.println("IN createAccount: OTAPI_Func.SendRequest(() failed. (I give up.) ");
                     return false;
-                } else if (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                    return false;
-                } else if (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 1) {
-
-                    otapi.OT_API_FlushMessageBuffer();
-                    otapi.OT_API_getRequest(serverID, nymID);
-                    Utility.delay();
-                    serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-                    if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                        System.out.println("IN createAccount, during nym registration, getrequestNumber failed . serverResponseMessage - " + serverResponseMessage);
-                        return false;
-                    }
                 }
             }
+            // -----------------------------------------------
+            // Okay the Nym is definitely registered at the server, so let's 
+            // create the asset account...
+            //
+            bSuccess = createAssetAccount(serverID, nymID, assetID);
 
-            boolean success = createAssetAccount(serverID, nymID, assetID, waitTime);
-
-            if (success) {
-                System.out.println("In success");
-            } else {
-                System.out.println("In Failure");
-            }
-
-            return success;
-
+            if (bSuccess)
+                System.out.println("In createAccount: Success");
+            else
+                System.out.println("In createAccount: Failure");
         } catch (Exception e) {
-            e.printStackTrace();
+//          e.printStackTrace();
             System.out.println("In Exception");
             return false;
         }
-
+        return bSuccess;
     }
 
     @Override
     public boolean deleteAccount(String accountID) throws Exception {
 
         boolean deleteAccount = otapi.OT_API_Wallet_CanRemoveAccount(accountID) == 1 ? true : false;
+        
         if (!deleteAccount) {
-            return deleteAccount;
-        }
-        otapi.OT_API_FlushMessageBuffer();
-        otapi.OT_API_deleteAssetAccount(serverID, nymID, accountID);
-        Utility.delay();
-        String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-        System.out.println("IN deleteAccount " + serverResponseMessage);
-
-        if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-
-            otapi.OT_API_FlushMessageBuffer();
-            otapi.OT_API_getRequest(serverID, nymID);
-            Utility.delay();
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-            System.out.println("IN deleteAccount getRequestNumber " + serverResponseMessage);
-
-            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                return false;
-            } else {
-                otapi.OT_API_deleteAssetAccount(serverID, nymID, accountID);
-                Utility.delay();
-                serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-            }
-
-        }
-
-        if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-            System.out.println("deleteAccount OT_API_Message_GetSuccess returned false:");
+            System.out.println("deleteAccount: unable. There must still be open receipts, or a nonzero balance?");
             return false;
         }
+        // ----------------------------------------
+        
+        OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.DELETE_ASSET_ACCT, serverID, nymID, accountID);
+        String      strResponse  = OTAPI_Func.SendRequest(theRequest, "DELETE_ASSET_ACCT");
+        
+        if (null == strResponse)
+        {
+            System.out.println("IN deleteAccount: OTAPI_Func.SendRequest(() failed. (I give up.) ");
+            return false;
+        }
+        // ----------------------------------------
 
+        // BY THIS POINT, we successfully deleted the account from the server.
+        // Now we just need to remove it from the wallet (todo).
+
+        // TODO
         //deleteAccount = otapi.OT_API_Wallet_RemoveAccount(accountID) == 1 ? true : false;
+        System.out.println("IN deleteAccount: THIS IS THE SPOT WHERE, THE **DELETE ACCOUNT** MESSAGE TO THE SERVER WAS SUCCESSFUL, THREFORE WE CAN GO AHEAD AND DELETE THE LOCAL ONE AS WELL. (TODO.)");
         return true;
     }
 
@@ -347,112 +310,23 @@ public class OpenTransactionAccount extends Account {
 
     }
 
-    public boolean exchangeBasket(String assetID, String serverID, String nymID, String basket, boolean inXchange, int memberCount, String accountID) throws InterruptedException {
+    public boolean exchangeBasket(String assetID, String serverID, String nymID, String basket, boolean inXchange, int memberCount, String accountID) {
 
-        System.out.println("In exchangeBasket serverID:" + serverID + " accountID:" + accountID + " nymID:" + nymID + " assetID:" + assetID + " basket:" + basket + " inXchange is " + inXchange + " memberCount:" + memberCount);
+        String IN_FUNCTION = new String("exchangeBasket");
+        System.out.println("In " + IN_FUNCTION + " serverID:" + serverID + " accountID:" + accountID + " nymID:" + nymID + " assetID:" + assetID + " basket:" + basket + " inXchange is " + inXchange + " memberCount:" + memberCount);
 
-        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < (memberCount + 2)) {
-            int configTxnCount = Configuration.getNbrTransactionCount();
-            Utility.getTransactionNumbers(serverID, nymID);
-            Configuration.setNbrTransactionCount(configTxnCount);
-        }
-
-        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < (memberCount + 2)) {
-            System.out.println("IN exchangeBasket , failed to get transaction numbers, OT_API_GetNym_TransactionNumCount:" + otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID));
+        // ----------------------------------------
+        OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.EXCHANGE_BASKET, serverID, nymID, assetID, basket, accountID, inXchange, (memberCount + 2));
+        String      strResponse  = OTAPI_Func.SendTransaction(theRequest, "EXCHANGE_BASKET");
+        
+        if (null == strResponse)
+        {
+            System.out.println("IN exchangeBasket: OTAPI_Func.SendTransaction(() failed. (I give up.) ");
             return false;
         }
-
-        otapi.OT_API_FlushMessageBuffer();
-        otapi.OT_API_exchangeBasket(serverID, nymID, assetID, basket, inXchange == true ? 1 : 0);
-        Utility.delay();
-        String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-        System.out.println("IN exchangeBasket --- serverResponseMessage:" + serverResponseMessage);
-        boolean isSuccess = false;
-        if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-            getRequestNumber(serverID, nymID, Configuration.getWaitTime());
-            otapi.OT_API_exchangeBasket(serverID, nymID, assetID, basket, inXchange == true ? 1 : 0);
-            Utility.delay();
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                System.out.println("Return False - OT_API_exchangeBasket call failed");
-                return false;
-            } else {
-                System.out.println("exchangeBasket Ends Retry - status " + (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 1 ? true : false));
-                isSuccess = (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 1 ? true : false);
-            }
-        }else{
-            isSuccess = true;
-        }
-
-        if (!isSuccess) {
-            System.out.println("exchangeBasket OT_API_Message_GetSuccess returns false");
-            return false;
-        }
-        System.out.println("exchangeBasket Ends - server message status " + isSuccess);
-
-        if (otapi.OT_API_Message_GetBalanceAgreementSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) // Failure
-        {
-            boolean b1 = Utility.getAndProcessNymbox(serverID, nymID);
-//            otapi.OT_API_FlushMessageBuffer();
-//            otapi.OT_API_getNymbox(serverID, nymID); // The failure might have been due to a finalReceipt waiting in my Nymbox.
-//            Utility.delay();    // So let's update the Nymbox and then try again.
-//            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-//            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-            if (false == b1) {
-                System.out.println("exchangeBasket, Utility.getAndProcessNymbox returned false");
-                return false;
-            }
-            // <====== TRYING AGAIN (THIRD TIME)
-            otapi.OT_API_FlushMessageBuffer();
-            System.out.println("exchangeBasket, serverID:"+serverID+" nymID:"+nymID+" assetID:"+assetID+" inXchange:"+inXchange+" basket:"+basket);
-            otapi.OT_API_exchangeBasket(serverID, nymID, assetID, basket, inXchange == true ? 1 : 0);
-
-            Utility.longDelay();
-
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-
-            // Balance agreement STILL FAILURE <=========
-            //
-            if (serverResponseMessage == null) {
-                System.out.println("exchangeBasket serverResponseMessage is null after retry after balance agreement failure. ");
-                return false;
-            } else if (otapi.OT_API_Message_GetBalanceAgreementSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) // Failure
-            {
-                System.out.println("exchangeBasket serverResponseMessage is still FAILURE after retry after balance agreement failure. ");
-                return false;
-            }
-            System.out.println("exchangeBasket after balance agreement retry, ");
-        }
-
-        if (otapi.OT_API_Message_GetTransactionSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) // Failure.
-        {
-            // Maybe we have an old Inbox.
-            //
-            if (!getInboxAccount(serverID, nymID, accountID)) {
-                System.out.println("exchangeBasket getInboxAccount returned false");
-                return false;
-            }
-            Utility.delay();
-
-            otapi.OT_API_exchangeBasket(serverID, nymID, assetID, basket, inXchange == true ? 1 : 0);
-            Utility.longDelay();
-
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-
-            if (serverResponseMessage == null) {
-                System.out.println("exchangeBasket serverResponseMessage is null after retry after transaction failure and retry. ");
-                return false;
-            }
-            if (otapi.OT_API_Message_GetTransactionSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) // Transaction failed.
-            {
-                System.out.println("exchangeBasket serverResponseMessage is still a failure after retry after transaction failure. ");
-                return false;
-            }
-            System.out.println("exchangeBasket after transaction retry, ");
-        }
+        // ----------------------------------------
 
         return true;
-
     }
 
     public void getOTAccountList(String assetID, String serverID, String nymID) {
@@ -502,40 +376,51 @@ public class OpenTransactionAccount extends Account {
 
     public OTDetails getOTAccountDetails(String accountID) {
 
-        System.out.println("In getOTAccountDetails:");
+        System.out.println("In getOTAccountDetails: ");
 
         OTDetails otDetails = new OTDetails();
-        try {
-            otDetails.setInboxData(getInboxData(accountID));
-        } catch (InterruptedException ex) {
-            Logger.getLogger(OpenTransactionAccount.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            otDetails.setOutboxData(getOutboxData(accountID));
-
-        } catch (InterruptedException ex) {
-            Logger.getLogger(OpenTransactionAccount.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        if (otapi.OT_API_IsBasketCurrency(otapi.OT_API_GetAccountWallet_AssetTypeID(accountID)) == 1) {
-            otDetails.setBasketName(otapi.OT_API_GetAssetType_Name(otapi.OT_API_GetAccountWallet_AssetTypeID(accountID)) == null ? "" : otapi.OT_API_GetAssetType_Name(otapi.OT_API_GetAccountWallet_AssetTypeID(accountID)));
-        }
-
-        otDetails.setBalance(otapi.OT_API_GetAccountWallet_Balance(accountID));
-        otDetails.setAccountID(accountID);
-        otDetails.setAccountName(otapi.OT_API_GetAccountWallet_Name(accountID));
-        String assetID = otapi.OT_API_GetAccountWallet_AssetTypeID(accountID);
-        otDetails.setAssetID(assetID);
-        otDetails.setAssetName(otapi.OT_API_GetAssetType_Name(assetID));
+        // ---------------------------------------------
         String serverID = otapi.OT_API_GetAccountWallet_ServerID(accountID);
         otDetails.setServerID(serverID);
         otDetails.setServerName(otapi.OT_API_GetServer_Name(serverID));
+        // ---------------------------------------------
+        String assetID = otapi.OT_API_GetAccountWallet_AssetTypeID(accountID);
+        otDetails.setAssetID(assetID);
+        otDetails.setAssetName(otapi.OT_API_GetAssetType_Name(assetID));
+        // ---------------------------------------------
+        otDetails.setAccountID(accountID);
+        otDetails.setAccountName(otapi.OT_API_GetAccountWallet_Name(accountID));
+        otDetails.setBalance(otapi.OT_API_GetAccountWallet_Balance(accountID));
+        // ---------------------------------------------
         String nymID = otapi.OT_API_GetAccountWallet_NymID(accountID);
         otDetails.setNymID(nymID);
         if (nymID == null) {
             otDetails.setNymName("");
         } else {
             otDetails.setNymName(otapi.OT_API_GetNym_Name(nymID));
+        }
+        // ---------------------------------------------
+        try {
+            if (Utility.getInboxAccount(serverID, nymID, accountID))
+                otDetails.setInboxData(getInboxData(accountID));
+            else
+                System.out.println("getOTAccountDetails: Failed in Utility.getInboxAccount()");
+        } catch (InterruptedException ex) {
+            Logger.getLogger(OpenTransactionAccount.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        // ---------------------------------------------        
+        try {
+            if (Utility.getOutboxLowLevel(serverID, nymID, accountID))
+                otDetails.setOutboxData(getOutboxData(accountID));
+            else
+                System.out.println("getOTAccountDetails: Failed in Utility.getOutboxLowLevel()");
+        } catch (InterruptedException ex) {
+            Logger.getLogger(OpenTransactionAccount.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        // ---------------------------------------------
+        if (1 == otapi.OT_API_IsBasketCurrency(otapi.OT_API_GetAccountWallet_AssetTypeID(accountID))) {
+            otDetails.setBasketName(otapi.OT_API_GetAssetType_Name(otapi.OT_API_GetAccountWallet_AssetTypeID(accountID)) == null ? "" : 
+                    otapi.OT_API_GetAssetType_Name(otapi.OT_API_GetAccountWallet_AssetTypeID(accountID)));
         }
 
         return otDetails;
@@ -558,45 +443,24 @@ public class OpenTransactionAccount extends Account {
     public String showBasket(String serverID, String nymID, String assetID) throws InterruptedException {
 
         if (otapi.OT_API_LoadAssetContract(assetID) == null) {
-            System.out.println("IN showBasket,OT_API_LoadAssetContract is null");
-            otapi.OT_API_FlushMessageBuffer();
-            otapi.OT_API_getContract(serverID, nymID, assetID);
-            Utility.delay();
-            String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-            System.out.println("IN showBasket,OT_API_getContract response:" + serverResponseMessage);
+            System.out.println("IN showBasket, OT_API_LoadAssetContract is null");
 
-            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
+            // ----------------------------------------
+            OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.GET_CONTRACT, serverID, nymID, assetID);
+            String      strResponse  = OTAPI_Func.SendRequest(theRequest, "GET_CONTRACT");
 
-                otapi.OT_API_FlushMessageBuffer();
-                otapi.OT_API_getRequest(serverID, nymID);
-                Utility.delay();
-                serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-                System.out.println("IN getRequestNumber,showBasket " + serverResponseMessage);
-
-                if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                    System.out.println("OT_API_getRequest OT_API_Message_GetSuccess returned false");
-                    return null;
-                } else {
-                    otapi.OT_API_getContract(serverID, nymID, assetID);
-                    Utility.delay();
-                    serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-                    if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                        System.out.println("OT_API_getContract after getRequest, OT_API_Message_GetSuccess returned false");
-                        return null;
-                    }
-                }
-
+            if (null == strResponse)
+            {
+                System.out.println("IN showBasket: OTAPI_Func.SendRequest(() failed. (I give up.) ");
+                return null;
             }
-
         }
-
+        // ----------------------------------------
 
         StringBuilder basket = new StringBuilder();
 
         String minTransferAmt = otapi.OT_API_Basket_GetMinimumTransferAmount(assetID);
         String assetName = otapi.OT_API_GetAssetType_Name(assetID);
-
-
 
         System.out.println("showBasket --minTransferAmt:" + minTransferAmt + " assetName:" + assetName);
 
@@ -641,31 +505,47 @@ public class OpenTransactionAccount extends Account {
 
     }
 
+    
+   
+         
     public boolean processInbox(String accountID, Map selectedIndices) throws InterruptedException {
 
         System.out.println("Process Inbox starts");
 
-        boolean isSuccess = false;
         String serverID = otapi.OT_API_GetAccountWallet_ServerID(accountID);
         String nymID = otapi.OT_API_GetAccountWallet_NymID(accountID);
         String ledger = otapi.OT_API_LoadInbox(serverID, nymID, accountID);
 
-        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
-            Utility.getTransactionNumbers(serverID, nymID);
+        // ------------------------------------------------------------------
+        // Normally I could remove this code, since SendTransaction() (below)
+        // does the work already, of grabbing new numbers when they're needed.
+        // But in THIS case, I need those numbers BEFORE I send the transaction,
+        // as I'm forming the message-ledger, and a number is reserved during
+        // this time.
+        // Specifically, inside the call to OT_API_Ledger_CreateResponse(), the
+        // first time it is called for a specific processInbox() message, is when
+        // the transaction # is grabbed from local storage for that message. If
+        // it's not available, the call will fail.
+        //
+        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) 
+        {
+            if ((false == Utility.getTransactionNumbers(serverID, nymID)) ||
+                (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount())) 
+            {
+                System.out.println("IN processInbox , failed to get transaction numbers, OT_API_GetNym_TransactionNumCount:" + otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID));
+                return false;
+            }
         }
-
-        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
-            System.out.println("IN processInbox , failed to get transaction numbers, OT_API_GetNym_TransactionNumCount:" + otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID));
-            return false;
-        }
-
+        // ------------------------------------------------------------------
+        // SET UP THE PROCESS INBOX MESSAGE.
+        
         String responseLedger = otapi.OT_API_Ledger_CreateResponse(serverID, nymID, accountID, ledger);
 
         if (responseLedger == null) {
             System.out.println("OT_API_Ledger_CreateResponse returned responseLedger:" + responseLedger);
             return false;
         }
-
+        // ------------------------
         int count = otapi.OT_API_Ledger_GetCount(serverID, nymID, accountID, ledger);
 
         boolean isInboxEmpty = true;
@@ -686,6 +566,7 @@ public class OpenTransactionAccount extends Account {
             System.out.println("Return False - reason isInboxEmpty - " + isInboxEmpty);
             return false;
         }
+        // ------------------------
 
         String accountLedger = otapi.OT_API_Ledger_FinalizeResponse(serverID, nymID, accountID, responseLedger);
 
@@ -694,182 +575,46 @@ public class OpenTransactionAccount extends Account {
             return false;
         }
 
-        otapi.OT_API_FlushMessageBuffer();
-        otapi.OT_API_processInbox(serverID, nymID, accountID, accountLedger);
-        Utility.delay();
-        String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-        System.out.println("IN processInbox --- " + serverResponseMessage);
-        if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-            getRequestNumber(serverID, nymID, Configuration.getWaitTime());
-            otapi.OT_API_processInbox(serverID, nymID, accountID, accountLedger);
-            Utility.delay();
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                System.out.println("Return False - OT_API_processInbox call failed");
-                return false;
-            } else {
-                System.out.println("Process Inbox Ends Retry - status " + (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 1 ? true : false));
-                isSuccess = (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 1 ? true : false);
-            }
-        } else {
-            isSuccess = true;
-        }
-        if (!isSuccess) {
-            System.out.println("Process Inbox - OT_API_Message_GetSuccess returned false");
-            return false;
-        }
-        System.out.println("Process Inbox Ends - server status " + (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 1 ? true : false));
-
-        if (otapi.OT_API_Message_GetBalanceAgreementSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) // Failure
+        // -------------------------------------------------------------------
+        // SEND THE PROCESS INBOX MESSAGE (to server.)
+        // ----------------------------------------
+        
+        OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.PROCESS_INBOX, serverID, nymID, accountID, accountLedger);
+        String      strResponse  = OTAPI_Func.SendTransaction(theRequest, "PROCESS_INBOX");
+        
+        if (null == strResponse)
         {
-            boolean b1 = Utility.getAndProcessNymbox(serverID, nymID);
-                        
-//            otapi.OT_API_FlushMessageBuffer();
-//            otapi.OT_API_getNymbox(serverID, nymID); // The failure might have been due to a finalReceipt waiting in my Nymbox.
-//            Utility.delay();    // So let's update the Nymbox and then try again.
-//            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-//            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-            if (false == b1) {
-                System.out.println("Process Inbox, Utility.getAndProcessNymbox returned false");
-                return false;
-            }
-            // <====== TRYING AGAIN (THIRD TIME)
-            otapi.OT_API_FlushMessageBuffer();
-            otapi.OT_API_processInbox(serverID, nymID, accountID, accountLedger);
-
-            Utility.longDelay();
-
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-
-            // Balance agreement STILL FAILURE <=========
-            //
-            if (serverResponseMessage == null) {
-                System.out.println("Process Inbox serverResponseMessage is null after retry after balance agreement failure. ");
-                return false;
-            } else if (otapi.OT_API_Message_GetBalanceAgreementSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) // Failure
-            {
-                System.out.println("Process Inbox serverResponseMessage is still FAILURE after retry after balance agreement failure. ");
-                return false;
-            }
-            System.out.println("Process Inbox after balance agreement retry, ");
-        }
-
-        if (otapi.OT_API_Message_GetTransactionSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) // Failure.
-        {
-            // Maybe we have an old Inbox.
-            //
-            if (!getInboxAccount(serverID, nymID, accountID)) {
-                System.out.println("Process Inbox getInboxAccount returned false");
-                return false;
-            }
-
-            Utility.delay();
-
-            otapi.OT_API_FlushMessageBuffer();
-            otapi.OT_API_processInbox(serverID, nymID, accountID, accountLedger);
-            Utility.longDelay();
-
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-
-            if (serverResponseMessage == null) {
-                System.out.println("Process Inbox serverResponseMessage is null after retry after transaction failure and retry. ");
-                return false;
-            }
-            if (otapi.OT_API_Message_GetTransactionSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) // Transaction failed.
-            {
-                System.out.println("Process Inbox serverResponseMessage is still a failure after retry after transaction failure. ");
-                return false;
-            }
-            System.out.println("Process Inbox after transaction retry, ");
-        }
-
-        return true;
-
-    }
-
-    public boolean getInboxOutboxAccount(String accountID) throws InterruptedException {
-
-        boolean isSuccess = true;
-
-        String serverID = otapi.OT_API_GetAccountWallet_ServerID(accountID);
-        String nymID = otapi.OT_API_GetAccountWallet_NymID(accountID);
-
-        otapi.OT_API_FlushMessageBuffer();
-        System.out.println("Before getInbox Server call");
-        otapi.OT_API_getInbox(serverID, nymID, accountID);
-        otapi.OT_API_getAccount(serverID, nymID, accountID);
-        otapi.OT_API_getOutbox(serverID, nymID, accountID);
-
-        Utility.delay();
-
-        String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-        if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-            getRequestNumber(serverID, nymID, Configuration.getWaitTime());
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                System.out.println("After getrequest,  Failed loading OT_API_getInbox/OT_API_getAccount");
-            } else {
-                otapi.OT_API_FlushMessageBuffer();
-                otapi.OT_API_getInbox(serverID, nymID, accountID);
-                otapi.OT_API_getAccount(serverID, nymID, accountID);
-                otapi.OT_API_getOutbox(serverID, nymID, accountID);
-                Utility.delay();
-                serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-            }
-        }
-        if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-            System.out.println("Failed loading OT_API_getInbox/OT_API_getAccount/OT_API_getOutbox 1st response");
-            isSuccess = false;
-        }
-        serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-        if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-            System.out.println("Failed loading OT_API_getInbox/OT_API_getAccount /OT_API_getOutbox 2nd response");
-            isSuccess = false;
-        }
-        serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-        if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-            System.out.println("Failed loading OT_API_getInbox/OT_API_getAccount/OT_API_getOutbox 3rd response");
-            isSuccess = false;
-        }
-
-        return isSuccess;
-    }
-
-    public static boolean getInboxAccount(String serverID, String nymID, String accountID) throws InterruptedException {
-
-        otapi.OT_API_FlushMessageBuffer();
-        System.out.println("Before getInbox Server call");
-        otapi.OT_API_getInbox(serverID, nymID, accountID);
-        otapi.OT_API_getAccount(serverID, nymID, accountID);
-
-        Utility.delay();
-
-        String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-        if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-            getRequestNumber(serverID, nymID, Configuration.getWaitTime());
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                System.out.println("After getrequest,  Failed loading OT_API_getInbox/OT_API_getAccount");
-            } else {
-
-                otapi.OT_API_getInbox(serverID, nymID, accountID);
-                otapi.OT_API_getAccount(serverID, nymID, accountID);
-                Utility.delay();
-                serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-            }
-        }
-        if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-            System.out.println("Failed loading OT_API_getInbox/OT_API_getAccount  1st response");
+            System.out.println("IN processInbox: OTAPI_Func.SendTransaction(() failed. (I give up.) ");
             return false;
         }
-        serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-        if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-            System.out.println("Failed loading OT_API_getInbox/OT_API_getAccount  2nd response");
-            return false;
-        }
+
+        // -------------------------------------------------------------------
+
+        // Since we just processed the inbox, let's grab the latest versions
+        // of these files.
+        // UPDATE: the caller already does this, so I think it's redundant.
+        //
+//      if (false == Utility.getIntermediaryFiles(serverID, nymID, accountID)) {
+//          System.out.println("processInbox: Error: getIntermediaryFiles returned false.");
+//          return false;
+//      }
+        // -----------------------------------
+        
         return true;
     }
 
+    
+    
+    
+  
+    
+    
+
+    
+    
+    // **********************************************************************
+    
+    
     public Map getInboxData(String accountID) throws InterruptedException {
 
         Map data = new HashMap();
@@ -877,7 +622,8 @@ public class OpenTransactionAccount extends Account {
         String serverID = otapi.OT_API_GetAccountWallet_ServerID(accountID);
         String nymID = otapi.OT_API_GetAccountWallet_NymID(accountID);
 
-        getInboxAccount(serverID, nymID, accountID);
+        // The caller now does this.
+//      Utility.getInboxAccount(serverID, nymID, accountID);
 
         String ledger = otapi.OT_API_LoadInbox(serverID, nymID, accountID);
         if (ledger == null) {
@@ -955,24 +701,10 @@ public class OpenTransactionAccount extends Account {
         Map data = new HashMap();
         String serverID = otapi.OT_API_GetAccountWallet_ServerID(accountID);
         String nymID = otapi.OT_API_GetAccountWallet_NymID(accountID);
-
-        otapi.OT_API_getOutbox(serverID, nymID, accountID);
-
-        try {
-            Utility.delay();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(OpenTransactionAccount.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-        if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-            getRequestNumber(serverID, nymID, Configuration.getWaitTime());
-            otapi.OT_API_getOutbox(serverID, nymID, accountID);
-            Utility.delay();
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                System.out.println("Failed loading OT_API_getOutbox");
-            }
-        }
+        
+        // The caller now does this.
+//      Utility.getOutboxLowLevel(serverID, nymID, accountID);        
+        
         String ledger = otapi.OT_API_LoadOutbox(serverID, nymID, accountID);
 
         if (ledger == null) {
@@ -1097,7 +829,7 @@ public class OpenTransactionAccount extends Account {
 
     }
 
-    public boolean depositCash(String serverID, String nymID, String accountID, String purse, boolean isToken) throws InterruptedException {
+    public boolean depositCash(String serverID, String nymID, String accountID, String purse, boolean isToken) {
 
         System.out.println("In depositCash serverID:" + serverID + " nymID:" + nymID + " acount ID:" + accountID + " isToken:" + isToken);
         Utility.setOtDepositCash(null);
@@ -1110,688 +842,154 @@ public class OpenTransactionAccount extends Account {
                 return false;
             }
         }
+        // ----------------------------------------
+        OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.DEPOSIT_CASH, serverID, nymID, accountID, purse);
+        String      strResponse  = OTAPI_Func.SendTransaction(theRequest, "DEPOSIT_CASH"); // <========================
+        
+        if (null == strResponse)
+        {
+            System.out.println("IN depositCash: OTAPI_Func.SendTransaction(() failed. (I give up.) ");
+            
+            if (isToken) {
+                System.out.println("IN depositCash, failed action for single token");
+                String assetID = otapi.OT_API_GetAccountWallet_AssetTypeID(accountID);
+                boolean importStatus = otapi.OT_API_Wallet_ImportPurse(serverID, assetID, nymID, purse) == 1 ? true : false;
+                System.out.println("Since failure of depositCashPurse, OT_API_Wallet_ImportPurse called, status of import:" + importStatus);
+                if (!importStatus) {
+                    Utility.setOtDepositCash(purse);
+                }
+            }
 
-        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
-            Utility.getTransactionNumbers(serverID, nymID);
-        }
-        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
-            System.out.println("IN depositCash , failed to get transaction numbers, OT_API_GetNym_TransactionNumCount:" + otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID));
             return false;
         }
-        otapi.OT_API_FlushMessageBuffer();
-        otapi.OT_API_notarizeDeposit(serverID, nymID, accountID, purse);
-        Utility.delay();
-        String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-        System.out.println("IN depositCash server response for notarize deposit --- " + serverResponseMessage);
-        if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-            getRequestNumber(serverID, nymID, Configuration.getWaitTime());
-            otapi.OT_API_notarizeDeposit(serverID, nymID, accountID, purse);
-            Utility.delay();
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-            System.out.println("IN depositCash server response for notarize deposit after doing getrequestNumber--- " + serverResponseMessage);
-            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                System.out.println("IN depositCash, even after getting request number, failure, returning null");
-                return false;
-            } else {
-                System.out.println("after retry, OT_API_Message_GetSuccess:" + (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 1 ? true : false));
-                if (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 1 && otapi.OT_API_Message_GetTransactionSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) {
-                    getInboxAccount(serverID, nymID, accountID);
-                    otapi.OT_API_notarizeDeposit(serverID, nymID, accountID, purse);
-                    Utility.delay();
-                    serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-                    System.out.println("IN depositCash After getInboxAccount and OT_API_notarizeDeposit call,serverResponseMessage:" + serverResponseMessage);
-                    if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                        return false;
-                    }
-                }
-                ///
-                boolean isSuccess = false;
-
-                if (otapi.OT_API_Message_GetBalanceAgreementSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) // Failure
-                {
-                    boolean b1 = Utility.getAndProcessNymbox(serverID, nymID);
-                                
-//                    otapi.OT_API_FlushMessageBuffer();
-//                    otapi.OT_API_getNymbox(serverID, nymID); // The failure might have been due to a finalReceipt waiting in my Nymbox.
-//                    Utility.delay();    // So let's update the Nymbox and then try again.
-//                    serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-//                    if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                    if (false == b1) {
-                        System.out.println("depositCash, Utility.getAndProcessNymbox returned false");
-                        return false;
-                    }
-                    // <====== TRYING AGAIN (THIRD TIME)
-                    otapi.OT_API_FlushMessageBuffer();
-                    otapi.OT_API_notarizeDeposit(serverID, nymID, accountID, purse);
-
-                    Utility.longDelay();
-
-
-                    serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-
-                    // Balance agreement STILL FAILURE <=========
-                    //
-                    if (serverResponseMessage == null) {
-                        System.out.println("depositCash serverResponseMessage is null after retry after balance agreement failure. ");
-                        return false;
-                    } else if (otapi.OT_API_Message_GetBalanceAgreementSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) // Failure
-                    {
-                        System.out.println("depositCash serverResponseMessage is still FAILURE after retry after balance agreement failure. ");
-                        return false;
-                    }
-                    System.out.println("depositCash after balance agreement retry, ");
-                }
-
-                if (otapi.OT_API_Message_GetTransactionSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) // Failure.
-                {
-                    // Maybe we have an old Inbox.
-                    //
-                    if (!getInboxAccount(serverID, nymID, accountID)) {
-                        System.out.println("depositCash getInboxAccount returned false");
-                        return false;
-                    }
-                    Utility.delay();
-
-                    otapi.OT_API_notarizeDeposit(serverID, nymID, accountID, purse);
-                    Utility.longDelay();
-
-                    serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-
-                    if (serverResponseMessage == null) {
-                        System.out.println("depositCash serverResponseMessage is null after retry after transaction failure and retry. ");
-                        isSuccess = false;
-                    }
-                    if (otapi.OT_API_Message_GetTransactionSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) // Transaction failed.
-                    {
-                        System.out.println("depositCash serverResponseMessage is still a failure after retry after transaction failure. ");
-                        isSuccess = false;
-                    }
-                    System.out.println("depositCash after transaction retry, ");
-                } else {
-                    isSuccess = true;
-                }
-                ///
-                if (!isSuccess && isToken) {
-                    System.out.println("IN depositCash, failed action for single token");
-                    String assetID = otapi.OT_API_GetAccountWallet_AssetTypeID(accountID);
-                    boolean importStatus = otapi.OT_API_Wallet_ImportPurse(serverID, assetID, nymID, purse) == 1 ? true : false;
-                    System.out.println("Since failure of depositCashPurse, OT_API_Wallet_ImportPurse called, status of import:" + importStatus);
-                    if (!importStatus) {
-                        Utility.setOtDepositCash(purse);
-                    }
-                }
-                return isSuccess;
-            }
-        }
-
-        System.out.println("OT_API_Message_GetSuccess:" + (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 1 ? true : false));
-        if (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 1 && otapi.OT_API_Message_GetTransactionSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) {
-            getInboxAccount(serverID, nymID, accountID);
-            otapi.OT_API_notarizeDeposit(serverID, nymID, accountID, purse);
-            Utility.delay();
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                return false;
-            }
-        }
-        return otapi.OT_API_Message_GetTransactionSuccess(serverID, nymID, accountID, serverResponseMessage) == 1 ? true : false;
-
+        // ----------------------------------------
+        return true;
     }
 
-    public String withdrawVoucher(String serverID, String nymID, String accountID, String amount, String chequeMemo, String recepientNymID) throws InterruptedException {
+    public String withdrawVoucher(String serverID, String nymID, String accountID, String amount, String chequeMemo, String recepientNymID) {
 
         System.out.println("In withdrawVoucher serverID:" + serverID + " nymID:" + nymID + " acount ID:" + accountID);
-        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
-            Utility.getTransactionNumbers(serverID, nymID);
-        }
-        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
-            System.out.println("IN withdrawVoucher , failed to get transaction numbers, OT_API_GetNym_TransactionNumCount:" + otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID));
+
+        // ---------------------------------------------------
+        OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.WITHDRAW_VOUCHER, serverID, nymID, accountID, recepientNymID, chequeMemo, amount);
+        String      strResponse  = OTAPI_Func.SendTransaction(theRequest, "WITHDRAW_VOUCHER"); // <========================
+
+        if (null == strResponse) {
+            System.out.println("OTAPI_Func.SendTransaction() failed, in withdrawVoucher.");
             return null;
         }
-        boolean isSuccess = false;
-        otapi.OT_API_FlushMessageBuffer();
-        otapi.OT_API_withdrawVoucher(serverID, nymID, accountID, recepientNymID, chequeMemo, amount);
-        Utility.delay();
-        String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-        System.out.println("IN withdrawVoucher, serverResponseMessage -- " + serverResponseMessage);
-        System.out.println("serverResponseMessage ends ");
-        if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-            getRequestNumber(serverID, nymID, Configuration.getWaitTime());
-            otapi.OT_API_withdrawVoucher(serverID, nymID, accountID, recepientNymID, chequeMemo, amount);
-            Utility.delay();
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                return null;
-            }
-        }
-        isSuccess = (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 1 ? true : false);
-        if (!isSuccess) {
-            System.out.println("OT_API_Message_GetSuccess returns false");
-            return null;
-        }
-        isSuccess = otapi.OT_API_Message_GetTransactionSuccess(serverID, nymID, accountID, serverResponseMessage) == 1 ? true : false;
-        if (!isSuccess) {
-            System.out.println("OT_API_Message_GetTransactionSuccess for OT_API_withdrawVoucher returned :" + isSuccess);
-
-            if (otapi.OT_API_Message_GetBalanceAgreementSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) // Failure
-            {
-                boolean b1 = Utility.getAndProcessNymbox(serverID, nymID);
-                
-//                otapi.OT_API_FlushMessageBuffer();
-//                otapi.OT_API_getNymbox(serverID, nymID); // The failure might have been due to a finalReceipt waiting in my Nymbox.
-//                Utility.delay();    // So let's update the Nymbox and then try again.
-//                serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-//                if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                if (false == b1) {
-                    System.out.println("withdrawVoucher, Utility.getAndProcessNymbox returned false");
-                    return null;
-                }
-                // <====== TRYING AGAIN (THIRD TIME)
-                otapi.OT_API_FlushMessageBuffer();
-                otapi.OT_API_withdrawVoucher(serverID, nymID, accountID, recepientNymID, chequeMemo, amount);
-
-                Utility.longDelay();
-
-
-                serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-
-                // Balance agreement STILL FAILURE <=========
-                //
-                if (serverResponseMessage == null) {
-                    System.out.println("withdrawVoucher serverResponseMessage is null after retry after balance agreement failure. ");
-                    return null;
-                } else if (otapi.OT_API_Message_GetBalanceAgreementSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) // Failure
-                {
-                    System.out.println("withdrawVoucher serverResponseMessage is still FAILURE after retry after balance agreement failure. ");
-                    return null;
-                }
-                System.out.println("withdrawVoucher after balance agreement retry, ");
-            }
-
-            /*System.out.println("Going to getInbox/Account");
-            if (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 1) {
-            getInboxAccount(serverID, nymID, accountID);
-            otapi.OT_API_withdrawVoucher(serverID, nymID, accountID, recepientNymID, chequeMemo, amount);
-            Utility.delay();
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-            return null;
-            }
-            }
-            isSuccess = otapi.OT_API_Message_GetTransactionSuccess(serverID, nymID, accountID, serverResponseMessage) == 1 ? true : false;
-            if (!isSuccess) {
-            System.out.println("Even after getInbox/Account,  OT_API_Message_GetTransactionSuccess for OT_API_withdrawVoucher returned :" + isSuccess);
-            return null;
-            }*/
-            ////
-
-            System.out.println("exchangeBasket Ends - server message status " + isSuccess);
-
-
-
-            if (otapi.OT_API_Message_GetTransactionSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) // Failure.
-            {
-                // Maybe we have an old Inbox.
-                //
-                if (!getInboxAccount(serverID, nymID, accountID)) {
-                    System.out.println("withdrawVoucher getInboxAccount returned false");
-                    return null;
-                }
-                Utility.delay();
-
-                otapi.OT_API_withdrawVoucher(serverID, nymID, accountID, recepientNymID, chequeMemo, amount);
-                Utility.longDelay();
-
-                serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-
-                if (serverResponseMessage == null) {
-                    System.out.println("withdrawVoucher serverResponseMessage is null after retry after transaction failure and retry. ");
-                    return null;
-                }
-                if (otapi.OT_API_Message_GetTransactionSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) // Transaction failed.
-                {
-                    System.out.println("withdrawVoucher serverResponseMessage is still a failure after retry after transaction failure. ");
-                    return null;
-                }
-                System.out.println("withdrawVoucher after transaction retry, ");
-            }
-
-            ////
-        }
-
-
-        String ledger = otapi.OT_API_Message_GetLedger(serverResponseMessage);
+        // ---------------------------------------------------------
+        String ledger = otapi.OT_API_Message_GetLedger(strResponse);
         if (ledger == null) {
-            System.out.println(" ledger is null, returned by OT_API_Message_GetLedger,serverResponseMessage passed as argument");
+            System.out.println(" ledger is null, returned by OT_API_Message_GetLedger, serverResponseMessage passed as argument");
             return null;
         }
         String transaction = otapi.OT_API_Ledger_GetTransactionByIndex(serverID, nymID, accountID, ledger, 0);
         if (transaction == null) {
-            System.out.println("transaction is null, returned by OT_API_Ledger_GetTransactionByIndex, argument passed, index 0 and ledger :" + ledger);
+            System.out.println("withdrawVoucher: transaction is null, returned by OT_API_Ledger_GetTransactionByIndex, argument passed, index 0 and ledger :" + ledger);
             return null;
         }
+        // ---------------------------------------------------------
         String output = otapi.OT_API_Transaction_GetVoucher(serverID, nymID, accountID, transaction);
         System.out.println("output returned by OT_API_Transaction_GetVoucher:" + output);
 
         return output;
     }
 
-    public boolean withdrawCash(String serverID, String nymID, String accountID, String amount) throws InterruptedException {
+    public boolean withdrawCash(String serverID, String nymID, String accountID, String amount) {
         String serverResponseMessage = null;
         System.out.println("In withdrawCash serverID:" + serverID + " nymID:" + nymID + " acount ID:" + accountID);
         String assetID = otapi.OT_API_GetAccountWallet_AssetTypeID(accountID);
-        String assetContract = otapi.OT_API_LoadAssetContract(assetID);
+        
+        // ----------------------------------------        
+        String assetContract = otapi.OT_API_LoadAssetContract(assetID);        
         if (assetContract == null) {
-            otapi.OT_API_FlushMessageBuffer();
-            otapi.OT_API_getContract(serverID, nymID, assetID);
-            Utility.delay();
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                getRequestNumber(serverID, nymID, Configuration.getWaitTime());
-                otapi.OT_API_getContract(serverID, nymID, assetID);
-                Utility.delay();
-                serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-                if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                    return false;
-                }
-            }
-            assetContract = otapi.OT_API_LoadAssetContract(assetID);
-        }
+            OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.GET_CONTRACT, serverID, nymID, assetID);
+            String      strResponse  = OTAPI_Func.SendRequest(theRequest, "GET_CONTRACT");
 
-        if (assetContract == null) {
-            System.out.println("OT_API_LoadAssetContract returned null even after OT_API_getContract ");
-            return false;
+            if (null == strResponse)
+            {
+                System.out.println("IN withdrawCash: OTAPI_Func.SendRequest(GET_CONTRACT) failed. (I give up.) (Unable to find asset contract.)");
+                return false;
+            }
+            // ----------------------------------------
+            assetContract = otapi.OT_API_LoadAssetContract(assetID);
+            if (assetContract == null) {
+                System.out.println("OT_API_LoadAssetContract returned null even after OT_API_getContract (Unable to find asset contract.)");
+                return false;
+            }
         }
+        // ---------------------------------------------------------
+
         String mintFile = otapi.OT_API_LoadMint(serverID, assetID);
         if (mintFile == null) {
-
-            otapi.OT_API_FlushMessageBuffer();
-            otapi.OT_API_getMint(serverID, nymID, assetID);
-            Utility.delay();
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                getRequestNumber(serverID, nymID, Configuration.getWaitTime());
-                otapi.OT_API_getMint(serverID, nymID, assetID);
-                Utility.delay();
-                serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-                if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                    return false;
-                }
-            }
-            mintFile = otapi.OT_API_LoadMint(serverID, assetID);
-        }
-
-        if (mintFile == null) {
-            System.out.println("OT_API_LoadMint returned null even after OT_API_getMint ");
-            return false;
-        }
-        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
-            Utility.getTransactionNumbers(serverID, nymID);
-        }
-        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
-            System.out.println("IN withdrawCash , failed to get transaction numbers, OT_API_GetNym_TransactionNumCount:" + otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID));
-            return false;
-        }
-
-        otapi.OT_API_FlushMessageBuffer();
-        otapi.OT_API_notarizeWithdrawal(serverID, nymID, accountID, amount); // <=== SEND MESSAGE FOR THE FIRST TIME
-
-        Utility.delay(); // QUESTION:  DOES THIS USE THE SETTINGS PAGE?
-
-        serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-        System.out.println("IN withdrawCash --- " + serverResponseMessage);
-
-        // ----------------------------------------------------------
-        // MESSAGE FAILURE.
-        //
-        if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) // Message failure
-        {
-            getRequestNumber(serverID, nymID, Configuration.getWaitTime());     // <=== GET REQUEST NUMBER
-            Utility.delay();
-
-            otapi.OT_API_notarizeWithdrawal(serverID, nymID, accountID, amount); // <=== HERE WE TRY AGAIN (SECOND TIME)
-            Utility.delay();
-
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer(); // withdrawal response (supposedly)
-
-            // Message failure
-            if (serverResponseMessage == null) {
-                System.out.println("serverResponseMessage is null after retry. ");
-                return false;
-            } else if (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                System.out.println("serverResponseMessage is still FAILURE after retry. ");
-                return false;
-            }
-
             // ----------------------------------------
-            System.out.println("after retry, ");
+            OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.GET_MINT, serverID, nymID, assetID);
+            String      strResponse  = OTAPI_Func.SendRequest(theRequest, "GET_MINT");
 
-//        System.out.println("after retry,OT_API_Message_GetSuccess:" + (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 1 ? true : false));
-        }
-
-        // Below this point, I know for a fact that serverResponseMessage is not null,
-        // that the message is SUCCESS, and that the Request Number is in-sync.
-        //
-        // But I DON'T KNOW yet, if the BALANCE AGREEMENT or TRANSACTION were a success!!
-        // -------------------------------------------------------------------------------
-
-        // Balance Agreement FAILURE        <======
-        //
-        if (otapi.OT_API_Message_GetBalanceAgreementSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) // Failure
-        {
-            boolean b1 = Utility.getAndProcessNymbox(serverID, nymID);
-            
-//            otapi.OT_API_FlushMessageBuffer();
-//            otapi.OT_API_getNymbox(serverID, nymID); // The failure might have been due to a finalReceipt waiting in my Nymbox.
-//            Utility.delay();    // So let's update the Nymbox and then try again.
-//            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-//            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                
-            if (false == b1) {
-                System.out.println("withdrawCash, Utility.getAndProcessNymbox returned false");
-                return false;
-            }
-            // <====== TRYING AGAIN (THIRD TIME)
-            otapi.OT_API_FlushMessageBuffer();
-            otapi.OT_API_notarizeWithdrawal(serverID, nymID, accountID, amount); // <====== TRYING AGAIN (THIRD TIME)
-
-            Utility.longDelay();
-
-
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-
-            // Balance agreement STILL FAILURE <=========
-            //
-            if (serverResponseMessage == null) {
-                System.out.println("serverResponseMessage is null after retry after balance agreement failure. ");
-                return false;
-            } else if (otapi.OT_API_Message_GetBalanceAgreementSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) // Failure
+            if (null == strResponse)
             {
-                System.out.println("serverResponseMessage is still FAILURE after retry after balance agreement failure. ");
+                System.out.println("IN withdrawCash: OTAPI_Func.SendRequest(GET_MINT) failed. (I give up.) (Unable to find mint.)");
                 return false;
             }
-            System.out.println("after balance agreement retry, ");
-        }
+            // ----------------------------------------
+            mintFile = otapi.OT_API_LoadMint(serverID, assetID);
+            if (mintFile == null) {
+                System.out.println("OT_API_LoadMint returned null even after OT_API_getContract (I give up.) (Unable to find mint.)");
+                return false;
+            }
+        }        
+        // ---------------------------------------------------
+        OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.WITHDRAW_CASH, serverID, nymID, accountID, amount);
+        String      strResponse  = OTAPI_Func.SendTransaction(theRequest, "WITHDRAW_CASH"); // <========================
 
-        // Below this point, I know for a fact that serverResponseMessage has a SUCCESSFUL BALANCE AGREEMENT.
-        //
+        if (null == strResponse) {
+            System.out.println("OTAPI_Func.SendTransaction() failed, in withdrawCash.");
+            return false;
+        }
         // --------------------------------------------------------------------------------------
 
-        // Next we'll check to see if the transaction itself was a failure.
-        //
-        if (otapi.OT_API_Message_GetTransactionSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) // Failure.
-        {
-            // Maybe we have an old Inbox.
-            //
-            if (!getInboxAccount(serverID, nymID, accountID)) {
-                System.out.println("withdrawCash getInboxAccount returned false");
-                return false;
-            }
-            Utility.delay();
-
-            otapi.OT_API_notarizeWithdrawal(serverID, nymID, accountID, amount); // <======== TRYING AGAIN (FOURTH TIME)
-            Utility.longDelay();
-
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-
-            if (serverResponseMessage == null) {
-                System.out.println("serverResponseMessage is null after retry after transaction failure and retry. ");
-                return false;
-            }
-            if (otapi.OT_API_Message_GetTransactionSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) // Transaction failed.
-            {
-                System.out.println("serverResponseMessage is still a failure after retry after transaction failure. ");
-                return false;
-            }
-            System.out.println("after transaction retry, ");
-        }
-
-        // At this point, I know the Transaction was an unqualified success.
-        //
         return true;
-
-        /*otapi.OT_API_FlushMessageBuffer();
-        otapi.OT_API_notarizeWithdrawal(serverID, nymID, accountID, amount);
-        Utility.delay();
-        serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-        System.out.println("IN withdrawCash --- " + serverResponseMessage);
-        if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-        getRequestNumber(serverID, nymID, Configuration.getWaitTime());
-        otapi.OT_API_notarizeWithdrawal(serverID, nymID, accountID, amount);
-        Utility.delay();
-        serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-        if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-        return false;
-        } else {
-        System.out.println("after retry,OT_API_Message_GetSuccess:" + (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 1 ? true : false));
-        if (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 1 && otapi.OT_API_Message_GetTransactionSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) {
-        getInboxAccount(serverID, nymID, accountID);
-        otapi.OT_API_notarizeWithdrawal(serverID, nymID, accountID, amount);
-        Utility.delay();
-        serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-        if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-        return false;
-        }
-        }
-        return otapi.OT_API_Message_GetTransactionSuccess(serverID, nymID, accountID, serverResponseMessage) == 1 ? true : false;
-        }
-        }
-        System.out.println("OT_API_Message_GetSuccess:" + (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 1 ? true : false));
-        if (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 1 && otapi.OT_API_Message_GetTransactionSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) {
-        getInboxAccount(serverID, nymID, accountID);
-        otapi.OT_API_notarizeWithdrawal(serverID, nymID, accountID, amount);
-        Utility.delay();
-        serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-        if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-        return false;
-        }
-        }
-        
-        return otapi.OT_API_Message_GetTransactionSuccess(serverID, nymID, accountID, serverResponseMessage) == 1 ? true : false;
-         */
-
-
-
     }
 
-    public boolean sendTransfer(String serverID, String nymID, String accountID, String amount, String note, String recepientAccountID) throws InterruptedException {
+    public boolean sendTransfer(String serverID, String nymID, String accountID, String amount, String note, String recepientAccountID) {
 
         boolean isSuccess = false;
         System.out.println("In sendTransfer serverID:" + serverID + " nymID:" + nymID + " acount ID:" + accountID);
-        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
-            Utility.getTransactionNumbers(serverID, nymID);
-        }
-        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
-            System.out.println("IN sendTransfer , failed to get transaction numbers, OT_API_GetNym_TransactionNumCount:" + otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID));
+       
+        // ---------------------------------------------------
+        OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.SEND_TRANSFER, serverID, nymID, accountID, recepientAccountID, amount, note);
+        String      strResponse  = OTAPI_Func.SendTransaction(theRequest, "SEND_TRANSFER"); // <========================
+
+        if (null == strResponse) {
+            System.out.println("OTAPI_Func.SendTransaction() failed, in sendTransfer.");
             return false;
         }
-        otapi.OT_API_FlushMessageBuffer();
-        otapi.OT_API_notarizeTransfer(serverID, nymID, accountID, recepientAccountID, amount, note);
-        Utility.delay();
-        String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-        System.out.println("IN sendTransfer,serverResponseMessage --- " + serverResponseMessage);
-        if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-            getRequestNumber(serverID, nymID, Configuration.getWaitTime());
-            otapi.OT_API_notarizeTransfer(serverID, nymID, accountID, recepientAccountID, amount, note);
-            Utility.delay();
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                return false;
-            }
-        }
-        System.out.println("OT_API_Message_GetSuccess:" + (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 1 ? true : false));
-
-        if (otapi.OT_API_Message_GetBalanceAgreementSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) // Failure
-        {
-            boolean b1 = Utility.getAndProcessNymbox(serverID, nymID);
-            
-//            otapi.OT_API_FlushMessageBuffer();
-//            otapi.OT_API_getNymbox(serverID, nymID); // The failure might have been due to a finalReceipt waiting in my Nymbox.
-//            Utility.delay();    // So let's update the Nymbox and then try again.
-//            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-//            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-            if (false == b1) {
-                System.out.println("sendTransfer, Utility.getAndProcessNymbox returned false");
-                return false;
-            }
-            // <====== TRYING AGAIN (THIRD TIME)
-            otapi.OT_API_FlushMessageBuffer();
-            otapi.OT_API_notarizeTransfer(serverID, nymID, accountID, recepientAccountID, amount, note);
-
-            Utility.longDelay();
-
-
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-
-            // Balance agreement STILL FAILURE <=========
-            //
-            if (serverResponseMessage == null) {
-                System.out.println("serverResponseMessage is null after retry after balance agreement failure. ");
-                return false;
-            } else if (otapi.OT_API_Message_GetBalanceAgreementSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) // Failure
-            {
-                System.out.println("serverResponseMessage is still FAILURE after retry after balance agreement failure. ");
-                return false;
-            }
-            System.out.println("after balance agreement retry, ");
-        }
-
-        // Below this point, I know for a fact that serverResponseMessage has a SUCCESSFUL BALANCE AGREEMENT.
-        //
-        // --------------------------------------------------------------------------------------
-
-        // Next we'll check to see if the transaction itself was a failure.
-        //
-        if (otapi.OT_API_Message_GetTransactionSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) // Failure.
-        {
-            // Maybe we have an old Inbox.
-            //
-            if (!getInboxAccount(serverID, nymID, accountID)) {
-                System.out.println("sendTransfer getInboxAccount returned false");
-                return false;
-            }
-            Utility.delay();
-
-            otapi.OT_API_notarizeTransfer(serverID, nymID, accountID, recepientAccountID, amount, note);
-            Utility.longDelay();
-
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-
-            if (serverResponseMessage == null) {
-                System.out.println("sendTransfer serverResponseMessage is null after retry after transaction failure and retry. ");
-                return false;
-            }
-            if (otapi.OT_API_Message_GetTransactionSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) // Transaction failed.
-            {
-                System.out.println("sendTransfer serverResponseMessage is still a failure after retry after transaction failure. ");
-                return false;
-            }
-            System.out.println("sendTransfer after transaction retry, ");
-        }
-
-
-        otapi.OT_API_getOutbox(serverID, nymID, accountID);
-        try {
-            Utility.delay();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(OpenTransactionAccount.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        // -------------------------------------------------------------------------------------- 
+        // No need to do anything like this, since the caller already re-downloads
+        // the intermediary files after success.
+//      if (false == Utility.getIntermediaryFiles(serverID, nymID, accountID))
+//      {
+//          System.out.println("sendTransfer: getIntermediaryFiles returned false. (I give up.)");
+//          return null;
+//      }
 
         return true;
-
     }
 
-    public boolean depositCheque(String serverID, String nymID, String accountID, String cheque) throws InterruptedException {
+    public boolean depositCheque(String serverID, String nymID, String accountID, String cheque) {
 
         System.out.println("In depositCheque serverID:" + serverID + " nymID:" + nymID + " acount ID:" + accountID);
-        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
-            Utility.getTransactionNumbers(serverID, nymID);
-        }
-        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
-            System.out.println("IN depositCheque , failed to get transaction numbers, OT_API_GetNym_TransactionNumCount:" + otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID));
+        
+        // ---------------------------------------------------
+        OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.DEPOSIT_CHEQUE, serverID, nymID, accountID, cheque);
+        String      strResponse  = OTAPI_Func.SendTransaction(theRequest, "DEPOSIT_CHEQUE"); // <========================
+
+        if (null == strResponse) {
+            System.out.println("OTAPI_Func.SendTransaction() failed, in depositCheque.");
             return false;
         }
-        otapi.OT_API_FlushMessageBuffer();
-        otapi.OT_API_depositCheque(serverID, nymID, accountID, cheque);
-        Utility.delay();
-        String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-        System.out.println("IN depositCheque --- " + serverResponseMessage);
-        if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-            getRequestNumber(serverID, nymID, Configuration.getWaitTime());
-            otapi.OT_API_depositCheque(serverID, nymID, accountID, cheque);
-            Utility.delay();
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                return false;
-            }
-        }
-
-
-        if (otapi.OT_API_Message_GetBalanceAgreementSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) // Failure
-        {
-            boolean b1 = Utility.getAndProcessNymbox(serverID, nymID);
-
-//            otapi.OT_API_FlushMessageBuffer();
-//            otapi.OT_API_getNymbox(serverID, nymID); // The failure might have been due to a finalReceipt waiting in my Nymbox.
-//            Utility.delay();    // So let's update the Nymbox and then try again.
-//            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-//            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-            if (false == b1) {
-                System.out.println("depositCheque, Utility.getAndProcessNymbox returned false");
-                return false;
-            }
-            // <====== TRYING AGAIN (THIRD TIME)
-            otapi.OT_API_FlushMessageBuffer();
-            otapi.OT_API_depositCheque(serverID, nymID, accountID, cheque);
-            Utility.longDelay();
-
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-
-            // Balance agreement STILL FAILURE <=========
-            //
-            if (serverResponseMessage == null) {
-                System.out.println("serverResponseMessage is null after retry after balance agreement failure. ");
-                return false;
-            } else if (otapi.OT_API_Message_GetBalanceAgreementSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) // Failure
-            {
-                System.out.println("serverResponseMessage is still FAILURE after retry after balance agreement failure. ");
-                return false;
-            }
-            System.out.println("after balance agreement retry, ");
-        }
-
-        // Below this point, I know for a fact that serverResponseMessage has a SUCCESSFUL BALANCE AGREEMENT.
-        //
-        // --------------------------------------------------------------------------------------
-
-        // Next we'll check to see if the transaction itself was a failure.
-        //
-        if (otapi.OT_API_Message_GetTransactionSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) // Failure.
-        {
-            // Maybe we have an old Inbox.
-            //
-            if (!getInboxAccount(serverID, nymID, accountID)) {
-                System.out.println("depositCheque getInboxAccount returned false");
-                return false;
-            }
-            Utility.delay();
-
-            otapi.OT_API_depositCheque(serverID, nymID, accountID, cheque);
-            Utility.longDelay();
-
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-
-            if (serverResponseMessage == null) {
-                System.out.println("serverResponseMessage is null after retry after transaction failure and retry. ");
-                return false;
-            }
-            if (otapi.OT_API_Message_GetTransactionSuccess(serverID, nymID, accountID, serverResponseMessage) == 0) // Transaction failed.
-            {
-                System.out.println("serverResponseMessage is still a failure after retry after transaction failure. ");
-                return false;
-            }
-            System.out.println("after transaction retry, ");
-        }
+        // -------------------------------------------------------------------------------------- 
 
         return true;
     }

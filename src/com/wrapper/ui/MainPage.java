@@ -3325,13 +3325,16 @@ public class MainPage extends javax.swing.JFrame {
                 if (marketTicker != null) {
                     jLabel3.setText("Last:" + marketTicker.getLastPrice() + "          Bid:" + marketTicker.getHighestBid() + "          Ask:" + marketTicker.getLowestAsk());
                 }
+                // FT: I just added this here.
+                
+                refreshMarketOfferList(serverID, nymID);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_jButton29ActionPerformed
 
-    private void jButton28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton28ActionPerformed
+    private void jButton28ActionPerformed(java.awt.event.ActionEvent evt) {                                          
         // Cancel Order
         String serverID = "ALL";
         String nymID = "ALL";
@@ -3364,34 +3367,47 @@ public class MainPage extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Order cannot be cancelled", "Order Cancellation", JOptionPane.ERROR_MESSAGE);
                 }
             }
-}//GEN-LAST:event_jButton28ActionPerformed
- catch (InterruptedException ex) {
+        }
+        catch (Exception ex) {
             Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             setCursor(Cursor.getDefaultCursor());
         }
-    }
+    }                                          
 
     public static void refreshMarketOfferList(String serverID, String nymID) {
         Map marketList = null;
         Map offerList = null;
         try {
-
+            // DEBUGGING: this is where the next step happens
             marketList = Market.loadMarketList(serverID, nymID);
             offerList = Market.getNymOfferList(serverID, nymID);
 
             if (marketList != null) {
                 ((MarketTableModel) jTable13.getModel()).setValue(marketList, jTable13);
             }
+            else
+                System.out.println("refreshMarketOfferList:  Market.loadMarketList() returned null!");
+            // ------------------------------------
             if (offerList != null) {
                 ((MarketOffersTableModel) jTable14.getModel()).setValue(offerList, jTable14);
             }
+            else
+                System.out.println("refreshMarketOfferList:  Market.getNymOfferList() returned null!");
+            // ------------------------------------
             if (marketList != null && marketList.size() > 0) {
                 jTable13.setRowSelectionInterval(0, 0);
             }
+            else
+                System.out.println("refreshMarketOfferList:  marketList.size() was <= 0");
+            // ------------------------------------
             if (offerList != null && offerList.size() > 0) {
                 jTable14.setRowSelectionInterval(0, 0);
             }
+            else
+                System.out.println("refreshMarketOfferList:  offerList.size() was <= 0");
+            // ------------------------------------
+
         } catch (Exception ex) {
             Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -3742,8 +3758,10 @@ public class MainPage extends javax.swing.JFrame {
                                     topLayout.show(jPanel8, type + "TopPanel");
                                     bottomlayout.show(jPanel15, type + "BottomPanel");
                                     Class obj = Class.forName("com.wrapper.core." + type);
+                                    
+
                                     Account account = (Account) obj.newInstance();
-                                    Object details = account.getAccountDetails(accountID);
+                                     Object details = account.getAccountDetails(accountID);
                                     if (details == null) {
                                         JOptionPane.showMessageDialog(null, "Error loading details", "Details Error", JOptionPane.ERROR_MESSAGE);
                                         break;

@@ -89,10 +89,9 @@ AK+ZirdWhhoHeWR1tAkN
  **************************************************************/
 
 package com.wrapper.core;
-
+import com.wrapper.core.util.OTAPI_Func;
 import com.wrapper.core.dataobjects.CashPurseDetails;
 import com.wrapper.core.jni.otapi;
-import com.wrapper.core.util.Configuration;
 import com.wrapper.core.util.Utility;
 import java.util.ArrayList;
 import java.util.Date;
@@ -489,43 +488,26 @@ public class CashPurseAccount extends Account {
             // This whole block is all just about loading the pubkey for the recipient, (if I don't already have it.)
             //
             if (recepientPubKey == null) {
-                otapi.OT_API_FlushMessageBuffer();
-                otapi.OT_API_checkUser(serverID, nymID, recepientNymID);
-                try {
-                    Utility.delay();
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
+                // ----------------------------------------------------------
+                OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.CHECK_USER, serverID, nymID, recepientNymID);
+                String      strResponse  = OTAPI_Func.SendRequest(theRequest, "CHECK_USER");
+
+                if (null == strResponse)
+                {
+                    System.out.println("IN exportCashPurse: OTAPI_Func.SendRequest() failed. (I give up.) ");
+                    return null;
                 }
-
-                String serverResponse = otapi.OT_API_PopMessageBuffer();
-                if (serverResponse != null && otapi.OT_API_Message_GetSuccess(serverResponse) == 1) {
-                    recepientPubKey = otapi.OT_API_LoadPubkey(recepientNymID);
-                } else {
-                    System.out.println("Error : Response fromserver " + serverResponse);
-
-                    otapi.OT_API_getRequest(serverID, nymID);
-                    try {
-                        Utility.delay();
-                    } catch (InterruptedException ex) {
-                        ex.printStackTrace();
-                    }
-
-                    serverResponse = otapi.OT_API_PopMessageBuffer();
-
-                    if (serverResponse == null) {
-                        return null;
-                    } else {
-                        recepientPubKey = otapi.OT_API_LoadPubkey(recepientNymID);
-                    }
-                }
+                // ----------------------------------------------------------
+                
+                recepientPubKey = otapi.OT_API_LoadPubkey(recepientNymID);                
             }
 
+            // Still?
             if (recepientPubKey == null) {
-                System.out.println("recepientPubKey is null");
+                System.out.println("exportCashPurse: recepientPubKey is null");
                 return null;
             }
         }
-
         // --------------------------------------------------
 
         // By this point, we have verified that we can load the public key for the recipient.
@@ -627,9 +609,8 @@ public class CashPurseAccount extends Account {
         return newPurse;
     }
 
-    public boolean depositCashPurse(String serverID, String assetID, String nymID, String oldPurse, ArrayList selectedTokens, String accountID) throws InterruptedException {
+    public boolean depositCashPurse(String serverID, String assetID, String nymID, String oldPurse, ArrayList selectedTokens, String accountID) {
 
-        boolean isSuccess = false;
         Utility.setObj(null);
         System.out.println("depositCashPurse starts, selectedTokens:" + selectedTokens);
         String recepientNymID = otapi.OT_API_GetAccountWallet_NymID(accountID);
@@ -639,94 +620,59 @@ public class CashPurseAccount extends Account {
             System.out.println("Before server OT_API_exchangePurse call, new Purse is emtpty.. returning false ");
             return false;
         }
-
-        otapi.OT_API_FlushMessageBuffer();
-        otapi.OT_API_notarizeDeposit(serverID, nymID, accountID, newPurse);
-
-        Utility.delay();
-
-        String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-        System.out.println("IN depositCashPurse, server response:" + serverResponseMessage);
-        if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-            getRequestNumber(serverID, nymID);
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                return false;
-            } else {
-                otapi.OT_API_notarizeDeposit(serverID, nymID, accountID, newPurse);
-                Utility.delay();
-                serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-                if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                    return false;
-                }
-            }
-        }
-        isSuccess = (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 1 ? true : false);
-        System.out.println("depositCashPurse ends, status:" + isSuccess);
-        if (!isSuccess) {
+        // ----------------------------------------
+        OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.DEPOSIT_CASH, serverID, nymID, accountID, newPurse);
+        String      strResponse  = OTAPI_Func.SendTransaction(theRequest, "DEPOSIT_CASH"); // <========================
+        
+        if (null == strResponse)
+        {
+            System.out.println("IN depositCashPurse: OTAPI_Func.SendTransaction(() failed. (I give up.) ");
+            // -------------------
             boolean importStatus = otapi.OT_API_Wallet_ImportPurse(serverID, assetID, nymID, newPurse) == 1 ? true : false;
-            System.out.println("Since failure of depositCashPurse, OT_API_Wallet_ImportPurse called, status of import:" + importStatus);
+            System.out.println("Since failure in depositCashPurse, OT_API_Wallet_ImportPurse called, status of import:" + importStatus);
             if (!importStatus) {
                 Utility.setObj(newPurse);
             }
+
+            return false;
         }
-        return isSuccess;
+        // ---------------------------------------        
+        System.out.println("depositCashPurse ends, status: success.");
+        
+        return true;
     }
 
     public boolean exchangeCashPurse(String serverID, String assetID, String nymID, String oldPurse, ArrayList selectedTokens) throws InterruptedException {
 
-        boolean isSuccess = false;
         Utility.setObj(null);
         System.out.println(" Cash Purse exchange starts, selectedTokens:" + selectedTokens);
         String newPurse = processCashPurse(serverID, assetID, nymID, oldPurse, selectedTokens, nymID);
 
         if (newPurse == null) {
-            System.out.println("Before server OT_API_exchangePurse call, new Purse is emtpty.. returning false ");
+            System.out.println("exchangeCashPurse: Before server OT_API_exchangePurse call, new Purse is empty.. returning false ");
             return false;
         }
-
-        otapi.OT_API_FlushMessageBuffer();
-        otapi.OT_API_exchangePurse(serverID, assetID, nymID, newPurse);
-
-        Utility.delay();
-
-        String serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-        System.out.println("IN Exchange cash, cashpurse, server response:" + serverResponseMessage);
-        if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-            getRequestNumber(serverID, nymID);
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-            if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                return false;
-            } else {
-                otapi.OT_API_exchangePurse(serverID, assetID, nymID, newPurse);
-                Utility.delay();
-                serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-                if (serverResponseMessage == null || otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 0) {
-                    return false;
-                }
+        // ------------------------
+        OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.EXCHANGE_CASH, serverID, nymID, assetID, newPurse);
+        String      strResponse  = OTAPI_Func.SendTransaction(theRequest, "EXCHANGE_CASH"); // <========================
+        
+        if (null == strResponse)
+        {
+            System.out.println("IN exchangeCashPurse: OTAPI_Func.SendTransaction(() failed. (I give up.) ");
+            // -------------------
+            boolean importStatus = otapi.OT_API_Wallet_ImportPurse(serverID, assetID, nymID, newPurse) == 1 ? true : false;
+            System.out.println("Since failure in exchangeCashPurse, OT_API_Wallet_ImportPurse called, status of import:" + importStatus);
+            if (!importStatus) {
+                Utility.setObj(newPurse);
             }
-        }
-        isSuccess = (otapi.OT_API_Message_GetSuccess(serverResponseMessage) == 1 ? true : false);
-        System.out.println(" Cash Purse exchange ends, status:" + isSuccess);
-        int oldPurseStatus = 0;
-        if (!isSuccess) {
-            oldPurseStatus = otapi.OT_API_SavePurse(serverID, assetID, nymID, oldPurse);
-        }
-        // Display new purse on screen...
-        if (oldPurseStatus == 0) {
-            Utility.setObj(newPurse);
-        }
-        return isSuccess;
-    }
 
-    public void getRequestNumber(String serverID, String nymID) throws InterruptedException {
-
-        otapi.OT_API_FlushMessageBuffer();
-        otapi.OT_API_getRequest(serverID, nymID);
-        Utility.delay();
-        System.out.println("Type:CashPurseAccount, IN getRequestNumber " + otapi.OT_API_PopMessageBuffer());
-
-    }
+            return false;
+        }
+        // ---------------------------------------        
+        System.out.println("exchangeCashPurse ends, status: success.");
+        
+        return true;
+     }
 
     private Map getGridData(String serverID, String assetID, String nymID, String purse) {
 

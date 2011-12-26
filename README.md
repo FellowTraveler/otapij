@@ -114,7 +114,7 @@ From a separate terminal:
 
 ```xml
 
-Moneychanger v0.06
+Moneychanger v0.07
 
 /************************************************************
 -----BEGIN PGP SIGNED MESSAGE-----
