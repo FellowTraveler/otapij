@@ -42,7 +42,6 @@ public class PrefsController {
     private static Fields _fields;
     private Actions _actions;
     private PrefsViewModel _prefsViewModel;
-    private static ValidationGroups _validationGroups;
     private static CheckedFields _chekedAcceptAction;
 
     // <editor-fold defaultstate="collapsed" desc="PrefsController Methods">
@@ -53,8 +52,7 @@ public class PrefsController {
 
     private void buildDialog() {
         _prefsModel = new PrefsModel(_concierge.getConfig());
-        _validationGroups = new ValidationGroups();
-        _chekedAcceptAction = _validationGroups.new CheckedFields();
+        _chekedAcceptAction = new ValidationGroups().new CheckedFields();
         _fields = new Fields(_prefsModel);
         _actions = new Actions(_fields);
         _prefsViewModel = new PrefsViewModel(_fields, _actions);
@@ -116,7 +114,6 @@ public class PrefsController {
         @Override
         public void fieldStatusChanged() {
             _chekedAcceptAction.refreshValidationGroup();
-            System.out.println("fieldStatusChanged");
         }
 
         @Override

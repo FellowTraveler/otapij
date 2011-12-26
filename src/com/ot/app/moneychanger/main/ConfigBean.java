@@ -62,7 +62,7 @@ public class ConfigBean {
     }
 
     public String OTPathRegex() {
-        return "[0-9a-zA-Z;///.]*";
+        return "(.)*";
     }
 
     public String getOTPath() {
@@ -96,7 +96,7 @@ public class ConfigBean {
     }
 
     public String userDataPathRegex() {
-        return "[0-9a-zA-Z///.]*";
+        return "(.)*";
     }
 
     public String getUserDataPath() {
