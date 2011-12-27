@@ -314,6 +314,7 @@ public class PrefsController {
             _configBean.setTimeOut(_localConfigViewModel.get(FieldKeys.TIMEOUT));
             _configBean.setUserDataPath(_localConfigViewModel.get(FieldKeys.USERDATA));
             _configBean.setWalletFilename(_localConfigViewModel.get(FieldKeys.WALLET));
+            _configBean.setConfigUpdated(Boolean.TRUE);
         }
 
         public String getConfigViewModel(FieldKeys key) {

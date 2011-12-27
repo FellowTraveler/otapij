@@ -29,6 +29,8 @@ public class ConfigBean {
     private final static String KEY_ZMQ_PATH = "ZMQPath";
     private final static String KEY_USERDATA_PATH = "UserDataPath";
     private final static String KEY_WALLET_FILENAME = "WalletFilename";
+    
+    private final static String KEY_CONFIG_UPDATED = "ConfigUpdated";
 //----------------------------------------------------------------------------
 //  Instance Data and Constructors
 //----------------------------------------------------------------------------
@@ -122,6 +124,28 @@ public class ConfigBean {
     public void setWalletFilename(String name) {
         _prefs.put(KEY_WALLET_FILENAME, name);
     }
+    
+    
+        //ConfigUpdated
+    public String configUpdatedInfo() {
+        return "The name of the wallet file.";
+    }
+
+    public Boolean getConfigUpdated() {
+        if (_prefs.get(KEY_WALLET_FILENAME, null).equalsIgnoreCase("True"))
+        return Boolean.TRUE;
+        else return Boolean.FALSE;
+    }
+
+    public void setConfigUpdated(Boolean name) {
+        if (name) _prefs.put(KEY_WALLET_FILENAME, "True");
+        else _prefs.put(KEY_WALLET_FILENAME, "False");
+    }
+    
+    
+    
+    
+    
 
 //----------------------------------------------------------------------------
 //  Other Useful Functions
