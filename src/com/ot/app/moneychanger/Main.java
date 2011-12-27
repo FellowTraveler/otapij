@@ -25,7 +25,7 @@ public class Main {
         SwingUtilities.invokeAndWait(new Runnable() {
 
             public void run() {
-                
+
                 Boolean loaded;
                 new MainFrameController(concierge).buildAndShow();
 
@@ -33,20 +33,19 @@ public class Main {
                     new PrefsController(concierge).show();
                 }
                 loaded = false;
-                
+
                 while (!loaded) {
-                try {
-                    new Load(concierge).attempt();
-                    new MainPage().setVisible(true);
-                    loaded = true;
-                } catch (LoadMoneyChangerException e) {
-                    JOptionPane.showMessageDialog(concierge.getDialogOwner(), e, "Initialization Error", JOptionPane.ERROR_MESSAGE);
                     new PrefsController(concierge).show();
+                    if (!concierge.getConfig().getConfigUpdated()) break;
+                    try {
+                        concierge.getConfig().setConfigUpdated(Boolean.FALSE);
+                        new Load(concierge).attempt();
+                        new MainPage().setVisible(true);
+                        loaded = true;
+                    } catch (LoadMoneyChangerException e) {
+                        JOptionPane.showMessageDialog(concierge.getDialogOwner(), e, "Initialization Error", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
-                }
-                
-
-
 
 //                if (StringUtils.isBlank(concierge.getConfig().getAmazonBucketName()))
 //                    new BucketDialogController(concierge).show();
