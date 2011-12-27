@@ -5,7 +5,6 @@
 package com.ot.app.moneychanger.main;
 
 import java.util.prefs.Preferences;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -133,8 +132,11 @@ public class ConfigBean {
      *  whether to show the prefs window as the first action.
      */
     public boolean isConfigComplete() {
-        
-        return StringUtils.isNotEmpty(getUserDataPath())
-                && StringUtils.isNotEmpty(getWalletFilename());
+
+        if (getTimeOut().isEmpty()) return false;
+        if (getOTPath().isEmpty()) return false;
+        if (getUserDataPath().isEmpty()) return false;
+        if (getTimeOut().isEmpty()) return false;
+        else return true;
     }
 }

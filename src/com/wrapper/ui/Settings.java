@@ -102,7 +102,7 @@ package com.wrapper.ui;
 
 import com.wrapper.core.util.Configuration;
 import com.wrapper.core.util.Utility;
-import com.wrapper.ui.custom.CustomMenu;
+//import com.wrapper.ui.custom.CustomMenu;
 import com.wrapper.ui.dialogs.PathDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -179,7 +179,7 @@ public class Settings extends javax.swing.JFrame {
         jButton_JavaPath = new javax.swing.JButton();
         jButton_LoadWallet = new javax.swing.JButton();
         jMenuBar_Setting = new javax.swing.JMenuBar();
-        jMenu1 = new com.wrapper.ui.custom.CustomMenu("Look & Feel");
+
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(Settings.class);
@@ -455,7 +455,7 @@ public class Settings extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_DataFolderActionPerformed
 
     private void jButton_JavaPathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_JavaPathActionPerformed
-        new PathDialog(this, true, javaPaths).setVisible(true);
+        new PathDialog(this, true).setVisible(true);
     }//GEN-LAST:event_jButton_JavaPathActionPerformed
 
     /**
@@ -500,7 +500,6 @@ public class Settings extends javax.swing.JFrame {
         dataFolderChooser.setFileHidingEnabled(false);
         dataFolderChooser.setCurrentDirectory(new java.io.File("."));
         dataFolderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        jMenu1 = new CustomMenu("Look & Feel");
         jTextField_Timeout.setText(String.valueOf(Configuration.getWaitTime()));
     }
 
