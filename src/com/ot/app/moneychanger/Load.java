@@ -29,11 +29,10 @@ public class Load {
     public void attempt() throws LoadMoneyChangerException {
         try {
             Load.loadOTAPI(_concierge.getConfig().getOTPath());
-            Load.loadAppData(_concierge.getConfig().getUserDataPath(),_concierge.getConfig().getWalletFilename());
+            Load.loadAppData(_concierge.getConfig().getUserDataPath(), _concierge.getConfig().getWalletFilename());
             Load.setTimeout(_concierge.getConfig().getTimeOut());
-            Utility.setSettingsObj(this); 
-        }
-        catch (ApiNotLoadedException e) {
+            Utility.setSettingsObj(this);
+        } catch (ApiNotLoadedException e) {
             StringBuilder error = new StringBuilder();
             error.append("Unable to load your Java Path!");
             error.append(System.getProperty("line.separator"));
@@ -52,7 +51,7 @@ public class Load {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
     }
 
     static class LoadMoneyChangerException extends Exception {
@@ -73,6 +72,7 @@ public class Load {
         }
     }
     // <editor-fold defaultstate="collapsed" desc="Load API">
+
     public static void loadOTAPI(String paths) throws ApiNotLoadedException {
 //                try {
 //            
@@ -87,9 +87,16 @@ public class Load {
 //        }
         try {
             Utility.addDirToRuntime(paths);
-            if (OSType.getOS() == OSType.typeOS.WIN)
+            if (OSType.getOS() == OSType.typeOS.WIN) {
                 System.loadLibrary("libzmq");
-            System.loadLibrary("otapi");
+                System.loadLibrary("otapi");
+            }
+            if (OSType.getOS() == OSType.typeOS.LINUX) {
+                System.loadLibrary("otapi-java");
+            }
+            if (OSType.getOS() == OSType.typeOS.MAC) {
+                System.loadLibrary("otapi-java");
+            }
         } catch (java.lang.UnsatisfiedLinkError e) {
             StringBuilder errorMessage = new StringBuilder();
             errorMessage.append(e.toString());
@@ -103,15 +110,14 @@ public class Load {
         }
     }
     // </editor-fold>
-    
-    // <editor-fold defaultstate="collapsed" desc="Load AppData">
 
+    // <editor-fold defaultstate="collapsed" desc="Load AppData">
     public static void loadAppData(String appDataLocation, String walletLocation) throws AppDataNotLoadedException {
 
         System.out.println(appDataLocation);
-        
+
         if (otapi.OT_API_Init(appDataLocation) != 1) {
-           // throw new AppDataNotLoadedException("Wrong Data Directory!");
+            // throw new AppDataNotLoadedException("Wrong Data Directory!");
         }
 
         OTCaller g_theCaller = new OTCaller();
@@ -141,7 +147,7 @@ public class Load {
         Configuration.setWaitTime(waitTime);
     }
     // </editor-fold>
-    
+
     // <editor-fold defaultstate="collapsed" desc="Exceptions">
     static class ApiNotLoadedException extends Exception {
 
@@ -161,6 +167,7 @@ public class Load {
             return locationsChecked;
         }
     }
+
     static class AppDataNotLoadedException extends Exception {
 
         private String locationsChecked;
@@ -179,6 +186,7 @@ public class Load {
             return locationsChecked;
         }
     }
+
     static class InvalidTimeOutException extends Exception {
 
         private String error;
@@ -197,5 +205,4 @@ public class Load {
         }
     }
     // </editor-fold>
-    
 }
