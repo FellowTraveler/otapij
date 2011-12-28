@@ -132,14 +132,14 @@ public class ConfigBean {
     }
 
     public Boolean getConfigUpdated() {
-        if (_prefs.get(KEY_WALLET_FILENAME, null).equalsIgnoreCase("True"))
+        if (_prefs.get(KEY_CONFIG_UPDATED, null).equalsIgnoreCase("True"))
         return Boolean.TRUE;
         else return Boolean.FALSE;
     }
 
     public void setConfigUpdated(Boolean name) {
-        if (name) _prefs.put(KEY_WALLET_FILENAME, "True");
-        else _prefs.put(KEY_WALLET_FILENAME, "False");
+        if (name) _prefs.put(KEY_CONFIG_UPDATED, "True");
+        else _prefs.put(KEY_CONFIG_UPDATED, "False");
     }
     
     
