@@ -12,7 +12,7 @@ package com.ot.app.moneychanger.dialogs.panels;
 
 import com.ot.app.moneychanger.controlers.PrefsController.ActionKeys;
 import com.ot.app.moneychanger.controlers.PrefsController.FieldKeys;
-import com.ot.app.moneychanger.models.viewmodel.IViewModel;
+import net.sf.swing.dialog.viewmodel.IViewModel;
 import java.awt.Color;
 import net.sf.swinglib.actions.FieldValidationChange;
 
@@ -63,13 +63,7 @@ public class PrefsPanel extends javax.swing.JPanel {
                 if (!valid)jTextField_Wallet.setBackground(Color.yellow);
             }
         });
-        _viewModel.bindValidatedDoc(FieldKeys.OTLIB, jTextField_Libraries.getDocument(), new FieldValidationChange(){
-            @Override
-            public void fieldValidationState(boolean valid) {
-                if (valid)jTextField_Libraries.setBackground(Color.white);
-                if (!valid)jTextField_Libraries.setBackground(Color.yellow);
-            }
-        });
+        _viewModel.bindDoc(FieldKeys.OTLIB, jTextField_Libraries.getDocument());
     }
     
     private void setToolTips()

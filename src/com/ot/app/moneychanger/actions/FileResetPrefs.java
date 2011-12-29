@@ -14,9 +14,9 @@ import javax.swing.AbstractAction;
  * @author cameron
  */
 /**
- *  Displays the Preferences dialog.
+ *  Resets the Preferences.
  */
-public class FileSetPrefs extends AbstractAction
+public class FileResetPrefs extends AbstractAction
 {
     private static final long serialVersionUID = 1L;
 
@@ -24,9 +24,9 @@ public class FileSetPrefs extends AbstractAction
     private Concierge _concierge;
 
 
-    public FileSetPrefs(Concierge concierge)
+    public FileResetPrefs(Concierge concierge)
     {
-        super("Preferences...");
+        super("Reset Preferences...");
         _concierge = concierge;
     }
 
@@ -36,6 +36,6 @@ public class FileSetPrefs extends AbstractAction
 
     public void actionPerformed(ActionEvent e)
     {
-        new PrefsController(_concierge).show();
+        _concierge.getConfig().resetConfig();
     }
 }
