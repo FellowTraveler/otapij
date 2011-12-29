@@ -112,7 +112,6 @@ import com.wrapper.core.jni.TradeListMarket;
 import com.wrapper.core.jni.TradeListNym;
 import com.wrapper.core.jni.WalletData;
 import com.wrapper.core.jni.otapi;
-import com.wrapper.ui.Load;
 import com.wrapper.ui.MainPage;
 import com.wrapper.ui.model.AccountTableModel;
 import com.wrapper.ui.panels.OpenTransactionAccountBottomPanel;
@@ -169,7 +168,8 @@ public class Utility {
         Utility.dataFolder = dataFolder;
     }
 
-    public static void addDirToRuntime(Load.JavaPaths javaPaths) throws IOException {
+    public static void addDirToRuntime(String javaPaths) throws IOException {
+
         List<String> pathsSet = new ArrayList<String>();
         StringBuilder pathsString = new StringBuilder();
 
@@ -178,7 +178,6 @@ public class Utility {
             field.setAccessible(true);
 
             pathsSet.addAll(Arrays.asList((String[]) field.get(null)));
-            pathsSet.addAll(javaPaths.getPaths());
 
             replaceToLower(pathsSet);
 
@@ -200,58 +199,6 @@ public class Utility {
 
     }
 
-//    public static void addDirToRuntime(String s, boolean mutiple) throws IOException {
-//        try {
-//            String[] path = null;
-//            if (s.contains(";")) {
-//                path = s.split(";");
-//            } else {
-//                return;
-//            }
-//            for (int j = 0; j < path.length; j++) {
-//                Field field = ClassLoader.class.getDeclaredField("usr_paths");
-//                field.setAccessible(true);
-//                String[] paths = (String[]) field.get(null);
-//                for (int i = 0; i < paths.length; i++) {
-//                    if (path[j].equals(paths[i])) {
-//                        return;
-//                    }
-//                }
-//                String[] tmp = new String[paths.length + 1];
-//                System.arraycopy(paths, 0, tmp, 0, paths.length);
-//                tmp[paths.length] = path[j];
-//                field.set(null, tmp);
-//                System.setProperty("java.library.path", path[j] + File.pathSeparator + System.getProperty("java.library.path"));
-//            }
-//        } catch (IllegalAccessException e) {
-//            throw new IOException("Failed to get permissions to set library path");
-//        } catch (NoSuchFieldException e) {
-//            throw new IOException("Failed to get field handle to set library path");
-//        }
-//    }
-//
-//    public static void addDirToRuntime(String s) throws IOException {
-//        try {
-//
-//            Field field = ClassLoader.class.getDeclaredField("usr_paths");
-//            field.setAccessible(true);
-//            String[] paths = (String[]) field.get(null);
-//            for (int i = 0; i < paths.length; i++) {
-//                if (s.equals(paths[i])) {
-//                    return;
-//                }
-//            }
-//            String[] tmp = new String[paths.length + 1];
-//            System.arraycopy(paths, 0, tmp, 0, paths.length);
-//            tmp[paths.length] = s;
-//            field.set(null, tmp);
-//            System.setProperty("java.library.path", s + File.pathSeparator + System.getProperty("java.library.path"));
-//        } catch (IllegalAccessException e) {
-//            throw new IOException("Failed to get permissions to set library path");
-//        } catch (NoSuchFieldException e) {
-//            throw new IOException("Failed to get field handle to set library path");
-//        }
-//    }
 
     public static Object obj;
 

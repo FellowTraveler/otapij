@@ -37,6 +37,9 @@
       <Properties>
         <Property name="name" type="java.lang.String" value="jPanel1" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="AccountAdditionDialog_jPanel1"/>
+      </AuxValues>
 
       <Layout>
         <DimensionLayout dim="0">
