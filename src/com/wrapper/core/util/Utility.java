@@ -109,7 +109,6 @@ import com.wrapper.core.jni.TradeListMarket;
 import com.wrapper.core.jni.TradeListNym;
 import com.wrapper.core.jni.WalletData;
 import com.wrapper.core.jni.otapi;
-import com.wrapper.ui.Load;
 import com.wrapper.ui.MainPage;
 import com.wrapper.ui.model.AccountTableModel;
 import com.wrapper.ui.panels.OpenTransactionAccountBottomPanel;
@@ -165,38 +164,7 @@ public class Utility {
     public static void setDataFolder(String dataFolder) {
         Utility.dataFolder = dataFolder;
     }
-
-    public static void addDirToRuntime(Load.JavaPaths javaPaths) throws IOException {
-        List<String> pathsSet = new ArrayList<String>();
-        StringBuilder pathsString = new StringBuilder();
-
-        try {
-            Field field = ClassLoader.class.getDeclaredField("usr_paths");
-            field.setAccessible(true);
-
-            pathsSet.addAll(Arrays.asList((String[]) field.get(null)));
-            pathsSet.addAll(javaPaths.getPaths());
-
-            replaceToLower(pathsSet);
-
-            Collection<String> paths = new HashSet<String>(pathsSet);
-
-            field.set(null, paths.toArray(new String[0]));
-
-            for (String path : paths) {
-                pathsString.append(path);
-                pathsString.append(File.pathSeparator);
-            }
-
-            System.setProperty("java.library.path", pathsString.toString());
-        } catch (IllegalAccessException e) {
-            throw new IOException("Failed to get permissions to set library path");
-        } catch (NoSuchFieldException e) {
-            throw new IOException("Failed to get field handle to set library path");
-        }
-
-    }
-
+    
     public static void addDirToRuntime(String javaPaths) throws IOException {
         List<String> pathsSet = new ArrayList<String>();
         StringBuilder pathsString = new StringBuilder();
