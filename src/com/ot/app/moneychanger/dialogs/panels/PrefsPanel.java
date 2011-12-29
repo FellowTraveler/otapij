@@ -12,9 +12,9 @@ package com.ot.app.moneychanger.dialogs.panels;
 
 import com.ot.app.moneychanger.controlers.PrefsController.ActionKeys;
 import com.ot.app.moneychanger.controlers.PrefsController.FieldKeys;
-import net.sf.swing.dialog.viewmodel.IViewModel;
 import java.awt.Color;
 import net.sf.swinglib.actions.FieldValidationChange;
+import net.sf.swinglib.dialog.viewmodel.IViewModel;
 
 /**
  *
