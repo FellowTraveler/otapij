@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ot.app.moneychanger;
+package com.ot.app.moneychanger.main;
 
 import com.ot.app.moneychanger.main.Concierge;
 import com.ot.app.moneychanger.main.helpers.OSType;
@@ -54,7 +54,7 @@ public class Load {
 
     }
 
-    static class LoadMoneyChangerException extends Exception {
+    static public class LoadMoneyChangerException extends Exception {
 
         private String error;
 
@@ -74,17 +74,6 @@ public class Load {
     // <editor-fold defaultstate="collapsed" desc="Load API">
 
     public static void loadOTAPI(String paths) throws ApiNotLoadedException {
-//                try {
-//            
-//        } catch (java.lang.UnsatisfiedLinkError e) {
-//            StringBuilder errorMessage = new StringBuilder();
-//            errorMessage.append(e.toString());
-//            errorMessage.append(System.getProperty("line.separator"));
-//            errorMessage.append("libzmq not in LD path:");
-//            errorMessage.append(System.getProperty("line.separator"));
-//            errorMessage.append(System.getProperty("java.library.path").replace(";", System.getProperty("line.separator")));
-//            throw new ApiNotLoadedException(errorMessage.toString());
-//        }
         try {
             Utility.addDirToRuntime(paths);
             if (OSType.getOS() == OSType.typeOS.WIN) {

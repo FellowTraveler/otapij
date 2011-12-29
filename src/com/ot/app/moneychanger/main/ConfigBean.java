@@ -4,6 +4,10 @@
  */
 package com.ot.app.moneychanger.main;
 
+import com.ot.app.moneychanger.main.helpers.AppdataDirectory;
+import com.ot.app.moneychanger.main.helpers.OSType;
+import com.ot.app.moneychanger.main.helpers.OSType.typeOS;
+import java.io.File;
 import java.util.prefs.Preferences;
 
 /**
@@ -23,13 +27,12 @@ import java.util.prefs.Preferences;
  *  <ul>
  */
 public class ConfigBean {
-    
+
     private final static String KEY_TIMEOUT = "TimeOut";
     private final static String KEY_OTAPI_PATH = "OTPath";
     private final static String KEY_ZMQ_PATH = "ZMQPath";
     private final static String KEY_USERDATA_PATH = "UserDataPath";
     private final static String KEY_WALLET_FILENAME = "WalletFilename";
-    
     private final static String KEY_CONFIG_UPDATED = "ConfigUpdated";
 //----------------------------------------------------------------------------
 //  Instance Data and Constructors
@@ -39,7 +42,6 @@ public class ConfigBean {
 //----------------------------------------------------------------------------
 //  Accessors
 //----------------------------------------------------------------------------
-
     //TimeOUt
     public String timeOutInfo() {
         return "Time to try connecting to the server before giving up.";
@@ -56,14 +58,14 @@ public class ConfigBean {
     public void setTimeOut(String name) {
         _prefs.put(KEY_TIMEOUT, name);
     }
-    
+
     //OTPath
     public String OTPathInfo() {
         return "The directory that contains 'libotapi-java'.";
     }
 
     public String OTPathRegex() {
-        return "(.)*";
+        return "";
     }
 
     public String getOTPath() {
@@ -73,7 +75,7 @@ public class ConfigBean {
     public void setOTPath(String name) {
         _prefs.put(KEY_OTAPI_PATH, name);
     }
-    
+
     //ZMQ PAth
     public String ZMQPathInfo() {
         return "The directory that contains 'libzmq'; for windows only.";
@@ -90,7 +92,7 @@ public class ConfigBean {
     public void setZMQPath(String name) {
         _prefs.put(KEY_ZMQ_PATH, name);
     }
-    
+
     //UserDataPath
     public String userDataPathInfo() {
         return "The directory that contains the client data.";
@@ -107,7 +109,7 @@ public class ConfigBean {
     public void setUserDataPath(String name) {
         _prefs.put(KEY_USERDATA_PATH, name);
     }
-    
+
     //WalletFilename
     public String walletFilenameInfo() {
         return "The name of the wallet file.";
@@ -124,28 +126,27 @@ public class ConfigBean {
     public void setWalletFilename(String name) {
         _prefs.put(KEY_WALLET_FILENAME, name);
     }
-    
-    
-        //ConfigUpdated
+
+    //ConfigUpdated
     public String configUpdatedInfo() {
         return "The name of the wallet file.";
     }
 
     public Boolean getConfigUpdated() {
-        if (_prefs.get(KEY_CONFIG_UPDATED, null).equalsIgnoreCase("True"))
-        return Boolean.TRUE;
-        else return Boolean.FALSE;
+        if (_prefs.get(KEY_CONFIG_UPDATED, null).equalsIgnoreCase("True")) {
+            return Boolean.TRUE;
+        } else {
+            return Boolean.FALSE;
+        }
     }
 
     public void setConfigUpdated(Boolean name) {
-        if (name) _prefs.put(KEY_CONFIG_UPDATED, "True");
-        else _prefs.put(KEY_CONFIG_UPDATED, "False");
+        if (name) {
+            _prefs.put(KEY_CONFIG_UPDATED, "True");
+        } else {
+            _prefs.put(KEY_CONFIG_UPDATED, "False");
+        }
     }
-    
-    
-    
-    
-    
 
 //----------------------------------------------------------------------------
 //  Other Useful Functions
@@ -157,10 +158,27 @@ public class ConfigBean {
      */
     public boolean isConfigComplete() {
 
-        if (getTimeOut().isEmpty()) return false;
-        if (getOTPath().isEmpty()) return false;
-        if (getUserDataPath().isEmpty()) return false;
-        if (getTimeOut().isEmpty()) return false;
-        else return true;
+        if (getTimeOut().isEmpty()) {
+            return false;
+        }
+//        if (getOTPath().isEmpty()) {
+//            return false;
+//        }
+        if (getUserDataPath().isEmpty()) {
+            return false;
+        }
+        if (getTimeOut().isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public void resetConfig() {
+        setOTPath("");
+        setTimeOut("");
+        setUserDataPath("");
+        setWalletFilename("");
+        setConfigUpdated(Boolean.TRUE);
     }
 }

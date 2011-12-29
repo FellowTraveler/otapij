@@ -7,14 +7,14 @@ package com.ot.app.moneychanger.controlers;
 import com.ot.app.moneychanger.dialogs.panels.PathsPanel;
 import com.ot.app.moneychanger.main.Concierge;
 import com.ot.app.moneychanger.main.helpers.OSType.typeOS;
-import com.ot.app.moneychanger.actions.AbstractActions;
-import com.ot.app.moneychanger.models.viewmodel.AbstractDialog;
-import com.ot.app.moneychanger.models.viewmodel.AbstractFields;
-import com.ot.app.moneychanger.models.viewmodel.AbstractViewModel;
-import com.ot.app.moneychanger.actions.IActions;
+import net.sf.swinglib.actions.AbstractActions;
+import net.sf.swing.dialog.AbstractDialog;
+import net.sf.swinglib.field.AbstractFields;
+import net.sf.swing.dialog.viewmodel.AbstractViewModel;
+import net.sf.swinglib.actions.IActions;
 import com.ot.app.moneychanger.controlers.PathsController.ValidationGroups.RemoveEnabled;
-import com.ot.app.moneychanger.models.viewmodel.IDialog;
-import com.ot.app.moneychanger.models.viewmodel.IFields;
+import net.sf.swing.dialog.IDialog;
+import net.sf.swinglib.field.IFields;
 import java.awt.event.ActionEvent;
 import java.util.Arrays;
 import java.util.Collection;
@@ -25,11 +25,13 @@ import java.util.List;
 import javax.swing.AbstractAction;
 import javax.swing.AbstractListModel;
 import javax.swing.Action;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+import javax.swing.JPanel;
 import javax.swing.text.Document;
 import net.sf.swing.document.DocWatcher;
+import net.sf.swinglib.SwingUtil;
+import net.sf.swinglib.UIHelper;
 import net.sf.swinglib.actions.ReturnAction;
 import net.sf.swinglib.validation.AbstractValidationGroup;
 import net.sf.swinglib.validation.ValidationChangedEvent;
@@ -88,8 +90,27 @@ public class PathsController {
 
     private static class Dialog extends AbstractDialog {
 
-        public Dialog(PathsViewModel prefsViewModel) {
-            super(new PathsPanel(prefsViewModel,  _pathsModel), _concierge);
+        private JDialog _jDialog;
+        private JPanel _jPanel;
+
+        public Dialog(PathsViewModel pathsViewModel) {
+            _jPanel = new PathsPanel(pathsViewModel, _pathsModel);
+            buildDialog();
+        }
+
+        @Override
+        public void show() {
+            _jDialog.pack();
+            SwingUtil.centerAndShow(_jDialog, _concierge.getDialogOwner());
+        }
+
+        @Override
+        public void close() {
+            _jDialog.dispose();
+        }
+
+        private void buildDialog() {
+            _jDialog = UIHelper.newDialog(_concierge.getDialogOwner(), "Preferences", _jPanel);
         }
     }
     // </editor-fold>
@@ -114,19 +135,17 @@ public class PathsController {
             this.listModel = listModel;
             _selectedIndex = 0;
         }
-        
-        public AbstractListModel GetAbstractListModel()
-        {
+
+        public AbstractListModel GetAbstractListModel() {
             return listModel;
         }
 
         public static class PathsListModel extends AbstractListModel {
-            
-            public void fireContentsChanged()
-            {
+
+            public void fireContentsChanged() {
                 fireContentsChanged(this, 0, this.getSize());
             }
-            
+
             @Override
             public int getSize() {
                 return _paths.toArray().length;
@@ -137,15 +156,17 @@ public class PathsController {
                 return _paths.toArray(new String[]{})[index];
             }
         }
-        
+
         public void setSelectedElement(int index) {
-            _selectedIndex = index -1;
+            _selectedIndex = index - 1;
         }
 
         public Object getSelectedElement() {
             System.out.println(_paths.toArray().length);
             System.out.println(_selectedIndex);
-            if (_selectedIndex < 0) _selectedIndex = 0;
+            if (_selectedIndex < 0) {
+                _selectedIndex = 0;
+            }
             return _paths.toArray()[_selectedIndex];
         }
 
@@ -202,10 +223,11 @@ public class PathsController {
         public void addPaths(String paths) {
             List<String> pathsList = Arrays.asList(paths.split(";"));
             for (String path : pathsList) {
-                if (path != null)
-                if (! path.isEmpty()) {
-                    System.out.println(path.toLowerCase());
-                    _paths.add(path.toLowerCase());
+                if (path != null) {
+                    if (!path.isEmpty()) {
+                        System.out.println(path.toLowerCase());
+                        _paths.add(path.toLowerCase());
+                    }
                 }
             }
 
@@ -215,7 +237,7 @@ public class PathsController {
         public void remove(Object path) {
             if (path != null) {
                 _paths.remove(path);
-                
+
                 listModel.fireContentsChanged();
                 _returnAction.returnAction(this.toString());
             }

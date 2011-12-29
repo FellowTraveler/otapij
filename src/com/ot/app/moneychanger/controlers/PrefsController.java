@@ -5,26 +5,33 @@
 package com.ot.app.moneychanger.controlers;
 
 import com.ot.app.moneychanger.dialogs.panels.PrefsPanel;
-import com.ot.app.moneychanger.models.viewmodel.AbstractViewModel;
+import net.sf.swing.dialog.viewmodel.AbstractViewModel;
 import com.ot.app.moneychanger.main.Concierge;
 import com.ot.app.moneychanger.main.ConfigBean;
-import com.ot.app.moneychanger.actions.AbstractActions;
-import com.ot.app.moneychanger.models.viewmodel.AbstractDialog;
-import com.ot.app.moneychanger.models.viewmodel.AbstractFields;
-import com.ot.app.moneychanger.actions.IActions;
+import net.sf.swinglib.actions.AbstractActions;
+import net.sf.swing.dialog.AbstractDialog;
+import net.sf.swinglib.field.AbstractFields;
+import net.sf.swinglib.actions.IActions;
 import com.ot.app.moneychanger.controlers.PrefsController.ValidationGroups.CheckedFields;
-import com.ot.app.moneychanger.models.viewmodel.IDialog;
-import com.ot.app.moneychanger.models.viewmodel.IFields;
+import com.ot.app.moneychanger.main.helpers.AppdataDirectory;
+import com.ot.app.moneychanger.main.helpers.OSType;
+import net.sf.swing.dialog.IDialog;
+import net.sf.swinglib.field.IFields;
 import java.awt.event.ActionEvent;
+import java.io.File;
 import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.Map;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JPanel;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import net.sf.swing.document.DocWatcher;
+import net.sf.swinglib.SwingUtil;
+import net.sf.swinglib.UIHelper;
 import net.sf.swinglib.actions.ReturnAction;
 import net.sf.swinglib.validation.AbstractValidationGroup;
 import net.sf.swinglib.validation.ValidationChangedEvent;
@@ -81,9 +88,32 @@ public class PrefsController {
 
     private static class Dialog extends AbstractDialog {
 
+        
+                private JDialog _jDialog;
+        private JPanel _jPanel;
+
         public Dialog(PrefsViewModel prefsViewModel) {
-            super(new PrefsPanel(prefsViewModel), _concierge);
+            _jPanel = new PrefsPanel(prefsViewModel);
+            buildDialog();
         }
+
+        @Override
+        public void show() {
+            _jDialog.pack();
+            SwingUtil.centerAndShow(_jDialog, _concierge.getDialogOwner());
+        }
+
+        @Override
+        public void close() {
+            _jDialog.dispose();
+        }
+
+        private void buildDialog() {
+            _jDialog = UIHelper.newDialog(_concierge.getDialogOwner(), "Preferences", _jPanel);
+        }
+        
+        
+        
     }
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Fields Class">
@@ -108,7 +138,7 @@ public class PrefsController {
             _chekedAcceptAction.addItemToCheck(FieldKeys.TIMEOUT);
             _chekedAcceptAction.addItemToCheck(FieldKeys.WALLET);
             _chekedAcceptAction.addItemToCheck(FieldKeys.USERDATA);
-            _chekedAcceptAction.addItemToCheck(FieldKeys.OTLIB);
+//            _chekedAcceptAction.addItemToCheck(FieldKeys.OTLIB);
         }
 
         @Override
@@ -267,7 +297,7 @@ public class PrefsController {
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Prefs Config Model">
 
-    private static class PrefsModel {
+    private static final class PrefsModel {
 
         private static ConfigBean _configBean;
         private static Map<FieldKeys, String> _localConfigViewModel;
@@ -276,12 +306,41 @@ public class PrefsController {
 
         public PrefsModel(ConfigBean configBean) {
             _configBean = configBean;
+            setDefaltValues(_configBean);
+
+
             _localConfigViewModel = new EnumMap<FieldKeys, String>(FieldKeys.class);
             _localInfoViewModel = new EnumMap<FieldKeys, String>(FieldKeys.class);
             _localRegexViewModel = new EnumMap<FieldKeys, String>(FieldKeys.class);
             buildConfigViewModel();
             buildInfoViewModel();
             buildRegexViewModel();
+        }
+
+        public void setDefaltValues(ConfigBean configBean) {
+            if (configBean.getUserDataPath().isEmpty()
+                    || configBean.getUserDataPath() == null) {
+                configBean.setUserDataPath(getDefaultUserDataPath());
+            }
+            if (configBean.getWalletFilename().isEmpty()
+                    || configBean.getWalletFilename() == null) {
+                configBean.setWalletFilename("wallet.xml");
+            }
+            if (configBean.getTimeOut().isEmpty()
+                    || configBean.getTimeOut() == null) {
+                configBean.setTimeOut("1");
+            }
+
+        }
+
+        public String getDefaultUserDataPath() {
+            StringBuilder sb;
+            sb = AppdataDirectory.AppdataDirectory(OSType.getOS());
+            sb.append(File.separator);
+            sb.append(".ot");
+            sb.append(File.separator);
+            sb.append("client_data");
+            return sb.toString();
         }
 
         public void setConfigOption(FieldKeys key, String value) {
@@ -329,9 +388,6 @@ public class PrefsController {
             return _localRegexViewModel.get(key);
         }
 
-        public void setViewModelValue(FieldKeys key, String value) {
-            _localConfigViewModel.put(key, value);
-        }
     }
     // </editor-fold>
 }
