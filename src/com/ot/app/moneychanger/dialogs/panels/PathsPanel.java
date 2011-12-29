@@ -13,10 +13,9 @@ package com.ot.app.moneychanger.dialogs.panels;
 import com.ot.app.moneychanger.controlers.PathsController.ActionKeys;
 import com.ot.app.moneychanger.controlers.PathsController.FieldKeys;
 import com.ot.app.moneychanger.controlers.PathsController.PathsModel;
-import net.sf.swing.dialog.viewmodel.IViewModel;
-import javax.swing.AbstractListModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import net.sf.swinglib.dialog.viewmodel.IViewModel;
 
 /**
  *

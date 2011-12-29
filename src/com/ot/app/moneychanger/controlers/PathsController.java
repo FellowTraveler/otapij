@@ -4,17 +4,10 @@
  */
 package com.ot.app.moneychanger.controlers;
 
+import com.ot.app.moneychanger.controlers.PathsController.ValidationGroups.RemoveEnabled;
 import com.ot.app.moneychanger.dialogs.panels.PathsPanel;
 import com.ot.app.moneychanger.main.Concierge;
 import com.ot.app.moneychanger.main.helpers.OSType.typeOS;
-import net.sf.swinglib.actions.AbstractActions;
-import net.sf.swing.dialog.AbstractDialog;
-import net.sf.swinglib.field.AbstractFields;
-import net.sf.swing.dialog.viewmodel.AbstractViewModel;
-import net.sf.swinglib.actions.IActions;
-import com.ot.app.moneychanger.controlers.PathsController.ValidationGroups.RemoveEnabled;
-import net.sf.swing.dialog.IDialog;
-import net.sf.swinglib.field.IFields;
 import java.awt.event.ActionEvent;
 import java.util.Arrays;
 import java.util.Collection;
@@ -29,13 +22,21 @@ import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.text.Document;
-import net.sf.swing.document.DocWatcher;
 import net.sf.swinglib.SwingUtil;
 import net.sf.swinglib.UIHelper;
+import net.sf.swinglib.actions.AbstractActions;
+import net.sf.swinglib.actions.IActions;
 import net.sf.swinglib.actions.ReturnAction;
+import net.sf.swinglib.dialog.AbstractDialog;
+import net.sf.swinglib.dialog.IDialog;
+import net.sf.swinglib.dialog.viewmodel.AbstractViewModel;
+import net.sf.swinglib.document.DocWatcher;
+import net.sf.swinglib.field.AbstractFields;
+import net.sf.swinglib.field.IFields;
 import net.sf.swinglib.validation.AbstractValidationGroup;
 import net.sf.swinglib.validation.ValidationChangedEvent;
 import net.sf.swinglib.validation.ValidationChangedEventListener;
+
 
 /**
  *
