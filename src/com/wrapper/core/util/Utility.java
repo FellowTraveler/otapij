@@ -877,31 +877,6 @@ public class Utility {
         System.out.println(generateID());
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     public static boolean getIntermediaryFiles(String serverID, String nymID, String accountID) {
         
         if (false == Utility.getInboxAccount(serverID, nymID, accountID))
@@ -917,7 +892,6 @@ public class Utility {
         
         return true;
     }
-
 
     public static boolean getInboxOutboxAccount(String accountID)  {
 
