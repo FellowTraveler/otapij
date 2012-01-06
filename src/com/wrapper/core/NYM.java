@@ -165,7 +165,7 @@ public class NYM {
 
     public int registerNym(String serverID, String nymID) throws InterruptedException {
 
-        System.out.println("IN registerNYm,serverID:" + serverID + " nymID:" + nymID);
+        System.out.println("IN registerNym, serverID:" + serverID + " nymID:" + nymID);
 
         int status = 2;
 
@@ -190,7 +190,7 @@ public class NYM {
                     return status;
                 }
             }
- 
+
             status = 0;
             System.out.println("registerNYm otapi.OT_API_IsNym_RegisteredAtServer(nymID, serverID):" + 
                     otapi.OT_API_IsNym_RegisteredAtServer(nymID, serverID));

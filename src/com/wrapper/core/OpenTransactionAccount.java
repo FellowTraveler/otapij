@@ -185,6 +185,16 @@ public class OpenTransactionAccount extends Account {
                     System.out.println("IN createAccount: OTAPI_Func.SendRequest(() failed. (I give up.) ");
                     return false;
                 }
+                // ---------------
+                // Create_User_Acct should ALWAYS succeed (since the server succeeds no matter what,
+                // to prevent sync issues.) Therefore I feel *somewhat* safe in going ahead here
+                // and calling Utility.getRequestNumber(), since this is a brand new Nym and will
+                // need to sync it for the first time, in order to do any other messages.
+                if (false == Utility.getRequestNumber(serverID, nymID))
+                {
+                    System.out.println("In createAccount: Failure to call getRequestNumber() after supposedly creating user acct at server.");
+                    //return false; // commenting this out, so for moa7 types with bad connections, even if this call fails, it'll go ahead and try the next one, and when THAT fails it does another getRequestNumber followed by a retry. So we have plenty of chances to succeed here...
+                }
             }
             // -----------------------------------------------
             // Okay the Nym is definitely registered at the server, so let's 

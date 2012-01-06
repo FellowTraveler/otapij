@@ -189,7 +189,7 @@ public class RegisterNYMDialog extends javax.swing.JDialog {
         if(jComboBox1.getSelectedIndex() > -1) {
                 serverID = ((String[]) serverMap.get((Integer) jComboBox1.getSelectedIndex()))[1];
             }
-        System.out.println("In regsiterNym Dialog, server ID:"+serverID+" nymID:"+nymID);
+        System.out.println("In registerNym Dialog, server ID:"+serverID+" nymID:"+nymID);
 
         try {
             setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
