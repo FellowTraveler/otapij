@@ -151,7 +151,7 @@ public class CashPurseAccountTopPanel extends javax.swing.JPanel {
         jTextField7.setEditable(false);
         jTextField7.setName("jTextField7"); // NOI18N
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(app.ApplicationLauncher.class).getContext().getResourceMap(CashPurseAccountTopPanel.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(CashPurseAccountTopPanel.class);
         jLabel4.setText(resourceMap.getString("jLabel4.text")); // NOI18N
         jLabel4.setName("jLabel4"); // NOI18N
 

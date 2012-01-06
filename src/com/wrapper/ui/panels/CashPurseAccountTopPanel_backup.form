@@ -80,6 +80,9 @@
         </Property>
         <Property name="name" type="java.lang.String" value="jPanel2" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="CashPurseAccountTopPanel_backup_jPanel2"/>
+      </AuxValues>
 
       <Layout>
         <DimensionLayout dim="0">
