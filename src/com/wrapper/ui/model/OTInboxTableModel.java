@@ -224,6 +224,13 @@ public class OTInboxTableModel extends DefaultTableModel implements WrapperTable
 
         clearValue();
         Set set = values.keySet();
+        
+        if (null == set)
+        {
+            System.out.println("OTInboxTableModel::setValue: Failure: values.keySet() returned null.");
+            return;
+        }
+        
         Iterator iterator = set.iterator();
         int i = 0;
         data = new Object[values.size()][];

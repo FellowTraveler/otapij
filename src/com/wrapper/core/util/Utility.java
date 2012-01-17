@@ -94,6 +94,9 @@ AK+ZirdWhhoHeWR1tAkN
  */
 package com.wrapper.core.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.wrapper.core.Account;
 import com.wrapper.core.OpenTransactionAccount;
 import com.wrapper.core.dataobjects.OTDetails;
@@ -383,7 +386,7 @@ public class Utility {
         return false;
     }
 
-    // Called by the function below.
+    // Called by getAndProcessNymbox.
     public static boolean getNymboxLowLevel(String serverID, String nymID) {
         // ------------------------------------------
         // Send message..
@@ -395,7 +398,7 @@ public class Utility {
         // Pop the reply buffer and check for success. If so, send the next
         // message (processNymbox).
         String serverResponse = otapi.OT_API_PopMessageBuffer();
-        if (serverResponse != null && otapi.OT_API_Message_GetSuccess(serverResponse) == 1) 
+        if (serverResponse != null && otapi.OT_API_Message_GetSuccess(serverResponse) == 1)   
             return true;
         else {
             System.out.println("Failure in getNymboxLowLevel : Response from server " + serverResponse);
@@ -403,15 +406,26 @@ public class Utility {
         return false;
     }
 
+    
     public static boolean getAndProcessNymbox(String serverID, String nymID) 
     {
         // ------------------------------------------  
-        if (Utility.getNymboxLowLevel(serverID, nymID)) 
-            return Utility.processNymbox(serverID, nymID);
+        if (Utility.getNymboxLowLevel(serverID, nymID))
+        {
+            if (Utility.insureHaveAllBoxReceipts(serverID, nymID, nymID, 0)) // nBoxType = 0 aka nymbox
+                return Utility.processNymbox(serverID, nymID);
+            else
+                System.out.println("Utility.getAndProcessNymbox(): Utility.insureHaveAllBoxReceipts failed. (I give up.)");
+        }
         else if (Utility.getRequestNumber(serverID, nymID)) // this might be out of sync, if it failed... we'll re-sync, and re-try.
         {
-            if (Utility.getNymboxLowLevel(serverID, nymID)) 
-                return Utility.processNymbox(serverID, nymID);
+            if (Utility.getNymboxLowLevel(serverID, nymID))
+            {
+                if (Utility.insureHaveAllBoxReceipts(serverID, nymID, nymID, 0)) // nBoxType = 0 aka nymbox
+                    return Utility.processNymbox(serverID, nymID);
+                else
+                    System.out.println("Utility.getAndProcessNymbox(): Utility.getNymboxLowLevel failed, then getRequestNumber() succeeded, then getNymboxLowLevel succeeded, then insureHaveAllBoxReceipts failed. (I give up.)");
+            }
             else
                 System.out.println("Utility.getAndProcessNymbox(): Utility.getNymboxLowLevel failed, then Utility.getRequestNumber succeeded, then Utility.getNymboxLowLevel failed again. (I give up.)");
         }
@@ -420,6 +434,168 @@ public class Utility {
         return false;
     }
 
+    public static boolean getRequestNumber(String serverID, String nymID) {
+        otapi.OT_API_FlushMessageBuffer();
+        otapi.OT_API_getRequest(serverID, nymID);
+        Utility.delay();
+        String strReply = otapi.OT_API_PopMessageBuffer();
+
+        System.out.println("IN getRequestNumber " + strReply);
+
+        if (strReply == null)
+        {
+            System.out.println("Utility.getRequestNumber(): null server reply. Perhaps the receive_fail_ms in client.cfg needs to be set to a higher value?");
+            return false;
+        }
+
+        if (otapi.OT_API_Message_GetSuccess(strReply) == 1)
+            return true;
+
+        // Hmm -- we got the reply, but it was a failure.
+        System.out.println("FAILURE in Utility.getRequestNumber(). Perhaps the receive_fail_ms in client.cfg needs to be set to a higher value?");
+
+        return false;
+    }
+
+    // --------------------------------------------------------------
+    // called by getBoxReceiptWithErrorCorrection
+    public static boolean getBoxReceiptLowLevel(String serverID, String nymID, String accountID, int nBoxType, String strTransactionNum) {
+        // ------------------------------------------
+        // Send message..
+        otapi.OT_API_FlushMessageBuffer();
+        otapi.OT_API_getBoxReceipt(serverID, nymID, accountID, nBoxType, strTransactionNum);
+        // ------------------------------------------
+        Utility.delay();
+        // ------------------------------------------
+        // Pop the reply buffer and check for success. If so, send the next
+        // message (processNymbox).
+        String serverResponse = otapi.OT_API_PopMessageBuffer();
+        if (serverResponse != null && otapi.OT_API_Message_GetSuccess(serverResponse) == 1) {
+            return true;
+        } else {
+            System.out.println("Failure in getBoxReceiptLowLevel : Response from server " + serverResponse);
+        }
+        return false;
+    }
+
+    
+    // called by insureHaveAllBoxReceipts
+    public static boolean getBoxReceiptWithErrorCorrection(String serverID, String nymID, String accountID, int nBoxType, String strTransactionNum) {
+            // ------------------------------------------  
+        if (Utility.getBoxReceiptLowLevel(serverID, nymID, accountID, nBoxType, strTransactionNum)) 
+            return true;
+        else if (Utility.getRequestNumber(serverID, nymID)) // this might be out of sync, if it failed... we'll re-sync, and re-try.
+        {
+            if (Utility.getBoxReceiptLowLevel(serverID, nymID, accountID, nBoxType, strTransactionNum)) 
+                return true;
+            else
+                System.out.println("Utility.getBoxReceiptWithErrorCorrection(): Utility.getBoxReceiptLowLevel failed, then Utility.getRequestNumber succeeded, then Utility.getBoxReceiptLowLevel failed again. (I give up.)");
+        }
+        else 
+            System.out.println("Utility.getBoxReceiptWithErrorCorrection(): Utility.getBoxReceiptLowLevel failed, then Utility.getRequestNumber failed. (I give up.)");
+        return false;
+}
+    
+    // This function assumes you just downloaded the latest version of the box (inbox, outbox, or nymbox)
+    // and its job is to make sure all the related box receipts are downloaded as well and available, though
+    // not necessarily loaded into memory. (Yet.)
+    //
+    public static boolean insureHaveAllBoxReceipts(String serverID, String nymID, String accountID, int nBoxType) {
+        String ledger = null;
+        switch (nBoxType)
+        {
+            // The "Verify" versions of these load functions actually tries to 
+            // load all the box receipts. Therefore I use the "NoVerify" version,
+            // which stops at loading the abbreviations. That way I can iterate
+            // through them and download the box receipt for each, as necessary.
+            //
+            case 0: ledger = otapi.OT_API_LoadNymboxNoVerify(serverID, nymID);              break;
+            case 1: ledger = otapi.OT_API_LoadInboxNoVerify(serverID, nymID, accountID);    break;
+            case 2: ledger = otapi.OT_API_LoadOutboxNoVerify(serverID, nymID, accountID);   break;
+            default:
+                System.out.println("Utility.insureHaveAllBoxReceipts(): Error. Expected nBoxType of 0,1,2 (nymbox, inbox, or outbox.)");
+                return false;
+        }
+        // ----------------------------------------------
+        // Unable to load or verify inbox/outbox/nymbox
+        // Notice I don't call VerifyAccount() here (not that the API even exposes
+        // that method) but why not? Because that method tries to load up all the
+        // box receipts, in addition to verifying the signature. Therefore I call
+        // "Load XXXX NoVerify()", avoiding all that, then I verify the Signature
+        // itself. That's because this function's whole point is to find out what
+        // the box receipts are, and download them from the server. No point trying
+        // to load them before that time, when I know it will fail.
+        // 
+        if (null == ledger || (0 == otapi.OT_API_VerifySignature(nymID, ledger)))
+        {
+            System.out.println("Utility.insureHaveAllBoxReceipts(): Unable to load or verify signature on ledger. (Failure.)");
+            return false;
+        }
+        // ----------------------------------------------
+        // At this point, the box is definitely loaded. Next we'll iterate the receipts
+        // within, and for each, verify that the Box Receipt already exists. If not,
+        // then we'll download it using getBoxReceiptLowLevel(). If any download fails,
+        // then we break out of the loop (without continuing on to try the rest.)
+        //
+        boolean bReturnValue = true; // Assuming an empty box, we return success by default.
+        
+        int nReceiptCount = otapi.OT_API_Ledger_GetCount(serverID, nymID, accountID, ledger);
+
+        for (int i = 0; i < nReceiptCount; i++)
+        {
+            String strTransactionNum = otapi.OT_API_Ledger_GetTransactionIDByIndex(serverID, nymID, accountID, ledger, i);
+            if (null != strTransactionNum)
+            {
+                Long lTransactionNum = Long.valueOf(strTransactionNum);
+                if (lTransactionNum > 0)
+                {
+                    boolean bHaveBoxReceipt = (1 == otapi.OT_API_DoesBoxReceiptExist(serverID, nymID, accountID, nBoxType, strTransactionNum)) ? true : false;
+                    if (!bHaveBoxReceipt)
+                    {
+                        System.out.println("Utility.insureHaveAllBoxReceipts(): Downloading box receipt to add to my collection...");
+
+                        boolean bDownloaded = Utility.getBoxReceiptWithErrorCorrection(serverID, nymID, accountID, nBoxType, strTransactionNum);
+                        
+                        if (!bDownloaded)
+                        {
+                            System.out.println("Utility.insureHaveAllBoxReceipts(): Failed downloading box receipt. (Skipping any others.) Transaction number: " + strTransactionNum);
+                            bReturnValue = false;
+                            break;
+                            // No point continuing to loop and fail 500 times, when getBoxReceiptWithErrorCorrection() already failed
+                            // even doing the getRequest() trick and everything, and whatever retries are inside OT, before it finally
+                            // gave up.
+                        }
+                        // else (Download success.)
+                    }
+                    // else we already have the box receipt, no need to download again.
+                }
+                else
+                    System.out.println("Utility.insureHaveAllBoxReceipts(): Error: TransactionNum less-than-or-equal-to 0.");
+            }
+            else
+                System.out.println("Utility.insureHaveAllBoxReceipts(): Error: TransactionNum was null, when trying to read it based on the index (within bounds, too.)");
+        } // for
+        // ---------------------------------------------
+        
+        return bReturnValue;
+    }
+    
+ 
+    /*
+    	static void getBoxReceipt(  const std::string	SERVER_ID,
+                                    const std::string	USER_ID,
+                                    const std::string	ACCT_ID,	// If for Nymbox (vs inbox/outbox) then pass USER_ID in this field also.
+                                    const int		nBoxType,	// 0/nymbox, 1/inbox, 2/outbox
+                                    const std::string	TRANSACTION_NUMBER);
+	
+	static bool DoesBoxReceiptExist(const std::string	SERVER_ID,
+					const std::string	USER_ID,
+					const std::string	ACCT_ID,	// If for Nymbox (vs inbox/outbox) then pass USER_ID in this field also.
+					const int		nBoxType,	// 0/nymbox, 1/inbox, 2/outbox
+					const std::string	TRANSACTION_NUMBER);
+    */
+    
+    
     // If the transaction number requests fail, this function will try to resync
     // the request number. But you still have to call getRequest() yourself if
     // you have a failure in your own function, since you might already have
@@ -560,29 +736,7 @@ public class Utility {
         // -------------------------------
      }
 
-    public static boolean getRequestNumber(String serverID, String nymID) {
-        otapi.OT_API_FlushMessageBuffer();
-        otapi.OT_API_getRequest(serverID, nymID);
-        Utility.delay();
-        String strReply = otapi.OT_API_PopMessageBuffer();
-
-        System.out.println("IN getRequestNumber " + strReply);
-
-        if (strReply == null)
-        {
-            System.out.println("Utility.getRequestNumber(): null server reply. Perhaps the receive_fail_ms in client.cfg needs to be set to a higher value?");
-            return false;
-        }
-
-        if (otapi.OT_API_Message_GetSuccess(strReply) == 1)
-            return true;
-
-        // Hmm -- we got the reply, but it was a failure.
-        System.out.println("FAILURE in Utility.getRequestNumber(). Perhaps the receive_fail_ms in client.cfg needs to be set to a higher value?");
-
-        return false;
-    }
-
+ 
     public static String getCreditsFile(String fileName) {
         return otapi.QueryPlainString(fileName);
     }
@@ -878,22 +1032,7 @@ public class Utility {
     }
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+     
     
     
     
@@ -909,7 +1048,9 @@ public class Utility {
             System.out.println("getIntermediaryFiles: getInboxAccount failed. (Returning.)");
             return false;
         }
-        else if (false == Utility.getOutboxLowLevel(serverID, nymID, accountID))
+        // --------------------------------------
+        
+        if (false == Utility.getOutboxLowLevel(serverID, nymID, accountID))
         {
             System.out.println("getIntermediaryFiles: getOutboxLowLevel failed. (Returning.)");
             return false;
@@ -918,7 +1059,9 @@ public class Utility {
         return true;
     }
 
-
+    // Same as the above function, except you only have to pass the accountID.
+    // (instead of 3 IDs...)
+    //
     public static boolean getInboxOutboxAccount(String accountID)  {
 
         String serverID = otapi.OT_API_GetAccountWallet_ServerID(accountID);
@@ -932,8 +1075,23 @@ public class Utility {
         return true;
     }
 
+    // getInboxAccount()
+    // Grabs the "Account", which is the intermediary file containing the current balance, verified against
+    // last signed receipt. Server must have your signature on the last balance agreement plus, if applicable,
+    // any inbox receipts (box receipts), also with your signature, in order to justify the current balance.
+    // Any inbox receipts, further, are only valid if they each contain a transaction number that was previously 
+    // already signed out to you.
+    // (As you can see, the "account" is not a list of transactions, as per the classical understanding in 
+    // double-entry accounting, but instead it's just a signed balance agreement, plus any as-yet-unclosed
+    // transactions that have cleared since that balance was last signed, and are still waiting in the inbox
+    // for the next balance agreement to be signed when they can be removed.)
+    // ----------------
+    // In addition to the "Account" there is also the Inbox itself, as well as all of its box receipts.
+    // The box receipts are stored in abbreviated form in the Inbox itself, with the actual full
+    // versions in separate files. These are retrieved individually from the server after the inbox itself
+    // is, and then each is verified against a hash kept inside its abbreviated version.)
+    //
     public static boolean getInboxAccount(String serverID, String nymID, String accountID) {
-        
         boolean bInbox   = false;
         boolean bAccount = false;
         
@@ -970,6 +1128,16 @@ public class Utility {
         }
         else
             bInbox = true; // success
+        // ***************************************************
+        // Now let's make sure we have all the box receipts for this inbox.
+        // (They will be needed when it is used for something.)
+        //
+        if (bInbox && !Utility.insureHaveAllBoxReceipts(serverID, nymID, // <===== 
+                accountID, 1)) // nBoxType = 1 aka inbox
+        {
+            System.out.println("getInboxAccount: getInbox succeeded, but then insureHaveAllBoxReceipts failed. (I give up.)");
+            return false;
+        }
         // ***************************************************
         // Inbox done. Account next:
         // ***************************************************
@@ -1009,11 +1177,11 @@ public class Utility {
 
         return (bInbox && bAccount);
     }
+    
+    // ---------------------------------
 
     public static boolean getOutboxLowLevel(String serverID, String nymID, String accountID) {
-
         boolean bOutbox = false;
-
         // ***************************************************
         // Okay, the first two are done. Now let's finish up
         // with the OUTBOX:
@@ -1042,7 +1210,7 @@ public class Utility {
                 }
                 // -----------------------
                 bOutbox = true; // success
-            }
+             }
             else
             {
                 System.out.println("getOutboxLowLevel: Failed calling Utility.getRequestNumber().");
@@ -1051,6 +1219,15 @@ public class Utility {
         }
         else
             bOutbox = true; // success
+        // ***************************************************
+        // Now let's make sure we have all the box receipts for this outbox.
+        // (They will be needed when it is used for something.)
+        //
+        if (bOutbox && !Utility.insureHaveAllBoxReceipts(serverID, nymID, accountID, 2)) // <===== nBoxType = 2 aka OUTBOX
+        {
+            System.out.println("getOutboxLowLevel: getOutbox succeeded, but then insureHaveAllBoxReceipts failed. (I give up.)");
+            return false;
+        }
         // ***************************************************
 
          return bOutbox;

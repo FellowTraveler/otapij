@@ -389,45 +389,99 @@ public class OpenTransactionAccount extends Account {
         System.out.println("In getOTAccountDetails: ");
 
         OTDetails otDetails = new OTDetails();
-        // ---------------------------------------------
-        String serverID = otapi.OT_API_GetAccountWallet_ServerID(accountID);
-        otDetails.setServerID(serverID);
-        otDetails.setServerName(otapi.OT_API_GetServer_Name(serverID));
-        // ---------------------------------------------
-        String assetID = otapi.OT_API_GetAccountWallet_AssetTypeID(accountID);
-        otDetails.setAssetID(assetID);
-        otDetails.setAssetName(otapi.OT_API_GetAssetType_Name(assetID));
-        // ---------------------------------------------
-        otDetails.setAccountID(accountID);
-        otDetails.setAccountName(otapi.OT_API_GetAccountWallet_Name(accountID));
-        otDetails.setBalance(otapi.OT_API_GetAccountWallet_Balance(accountID));
-        // ---------------------------------------------
-        String nymID = otapi.OT_API_GetAccountWallet_NymID(accountID);
-        otDetails.setNymID(nymID);
-        if (nymID == null) {
-            otDetails.setNymName("");
-        } else {
-            otDetails.setNymName(otapi.OT_API_GetNym_Name(nymID));
+
+        if (null == accountID)
+        {
+            System.out.println("Failure: accountID is null.");
+            return otDetails;
         }
         // ---------------------------------------------
+        
+        otDetails.setAccountID(accountID);
+
+        // ---------------------------------------------
+        String serverID = otapi.OT_API_GetAccountWallet_ServerID(accountID);
+        if (null == serverID)
+        {
+            System.out.println("Failure: serverID is null for accountID: " + accountID);
+            return otDetails;
+        }
+        otDetails.setServerID(serverID);
+        
+        String serverName = otapi.OT_API_GetServer_Name(serverID);
+        if (null == serverName)
+        {
+            System.out.println("Failure: serverName is null for serverID: " + serverID);
+            return otDetails;
+        }
+        otDetails.setServerName(serverName);
+        // ---------------------------------------------
+        String assetID = otapi.OT_API_GetAccountWallet_AssetTypeID(accountID);
+        
+        if (null == assetID)
+        {
+            System.out.println("Failure: assetID is null for accountID: " + accountID);
+            return otDetails;
+        }
+        otDetails.setAssetID(assetID);
+        
+        String assetName = otapi.OT_API_GetAssetType_Name(assetID);
+        
+        if (null == assetName)
+        {
+            System.out.println("Failure: assetName is null for assetID: " + assetID);
+            return otDetails;
+        }
+        otDetails.setAssetName(assetName);
+        // ---------------------------------------------
+        String strAccountName = otapi.OT_API_GetAccountWallet_Name(accountID);
+        
+        if (null == strAccountName)
+        {
+            System.out.println("Failure: strAccountName is null for accountID: " + accountID);
+            return otDetails;
+        }
+        otDetails.setAccountName(strAccountName);
+        
+        String strBalance = otapi.OT_API_GetAccountWallet_Balance(accountID);
+        
+        if (null == strBalance)
+        {
+            System.out.println("Failure: strBalance is null for accountID: " + accountID);
+            return otDetails;
+        }
+        otDetails.setBalance(strBalance);
+        // ---------------------------------------------
+        String nymID = otapi.OT_API_GetAccountWallet_NymID(accountID);
+        
+        if (null == nymID)
+        {
+            System.out.println("Failure: nymID is null for accountID: " + accountID);
+            return otDetails;
+        }
+        otDetails.setNymID(nymID);
+        
+        String strNymName = (null == nymID) ? new String("") : otapi.OT_API_GetNym_Name(nymID);
+        
+        if (null == strNymName)
+        {
+            System.out.println("Failure: strNymName is null for nymID: " + nymID);
+            return otDetails;
+        }
+        otDetails.setNymName(strNymName);
+        // ---------------------------------------------
         try {
-            if (Utility.getInboxAccount(serverID, nymID, accountID))
+            if (Utility.getIntermediaryFiles(serverID, nymID, accountID))
+            {
                 otDetails.setInboxData(getInboxData(accountID));
+                otDetails.setOutboxData(getOutboxData(accountID));
+            }
             else
-                System.out.println("getOTAccountDetails: Failed in Utility.getInboxAccount()");
+                System.out.println("getOTAccountDetails: Failed in Utility.getIntermediaryFiles()");
         } catch (InterruptedException ex) {
             Logger.getLogger(OpenTransactionAccount.class.getName()).log(Level.SEVERE, null, ex);
         }
         // ---------------------------------------------        
-        try {
-            if (Utility.getOutboxLowLevel(serverID, nymID, accountID))
-                otDetails.setOutboxData(getOutboxData(accountID));
-            else
-                System.out.println("getOTAccountDetails: Failed in Utility.getOutboxLowLevel()");
-        } catch (InterruptedException ex) {
-            Logger.getLogger(OpenTransactionAccount.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        // ---------------------------------------------
         if (1 == otapi.OT_API_IsBasketCurrency(otapi.OT_API_GetAccountWallet_AssetTypeID(accountID))) {
             otDetails.setBasketName(otapi.OT_API_GetAssetType_Name(otapi.OT_API_GetAccountWallet_AssetTypeID(accountID)) == null ? "" : 
                     otapi.OT_API_GetAssetType_Name(otapi.OT_API_GetAccountWallet_AssetTypeID(accountID)));
