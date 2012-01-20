@@ -621,7 +621,8 @@ public class OpenTransactionAccount extends Account {
                     System.out.println("transaction is null, skipping this record");
                     continue;
                 }
-                responseLedger = otapi.OT_API_Transaction_CreateResponse(serverID, nymID, accountID, responseLedger, transaction, selected);
+                String strTemp = new String(responseLedger);
+                responseLedger = otapi.OT_API_Transaction_CreateResponse(serverID, nymID, accountID, strTemp, transaction, selected);
                 isInboxEmpty = false;
             }
         }
@@ -631,6 +632,11 @@ public class OpenTransactionAccount extends Account {
             return false;
         }
         // ------------------------
+
+        if (responseLedger == null) {
+            System.out.println("Return False - reason responseLedger is null, from  OT_API_Transaction_CreateResponse.");
+            return false;
+        }
 
         String accountLedger = otapi.OT_API_Ledger_FinalizeResponse(serverID, nymID, accountID, responseLedger);
 
@@ -698,7 +704,11 @@ public class OpenTransactionAccount extends Account {
         for (int i = 0; i < count; i++) {
 
             String transactionID = otapi.OT_API_Ledger_GetTransactionIDByIndex(serverID, nymID, accountID, ledger, i);
+            
+            
             String transaction = otapi.OT_API_Ledger_GetTransactionByIndex(serverID, nymID, accountID, ledger, i);
+            
+            
             if (transaction == null) {
                 System.out.println("Skip this record, since OT_API_Ledger_GetTransactionByIndex has returned null");
                 continue;

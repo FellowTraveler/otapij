@@ -501,6 +501,7 @@ public class Utility {
     // not necessarily loaded into memory. (Yet.)
     //
     public static boolean insureHaveAllBoxReceipts(String serverID, String nymID, String accountID, int nBoxType) {
+        
         String ledger = null;
         switch (nBoxType)
         {
@@ -516,6 +517,7 @@ public class Utility {
                 System.out.println("Utility.insureHaveAllBoxReceipts(): Error. Expected nBoxType of 0,1,2 (nymbox, inbox, or outbox.)");
                 return false;
         }
+        
         // ----------------------------------------------
         // Unable to load or verify inbox/outbox/nymbox
         // Notice I don't call VerifyAccount() here (not that the API even exposes
@@ -531,6 +533,7 @@ public class Utility {
             System.out.println("Utility.insureHaveAllBoxReceipts(): Unable to load or verify signature on ledger. (Failure.)");
             return false;
         }
+        
         // ----------------------------------------------
         // At this point, the box is definitely loaded. Next we'll iterate the receipts
         // within, and for each, verify that the Box Receipt already exists. If not,
@@ -541,17 +544,18 @@ public class Utility {
         
         int nReceiptCount = otapi.OT_API_Ledger_GetCount(serverID, nymID, accountID, ledger);
 
+        if (nReceiptCount > 0)
         for (int i = 0; i < nReceiptCount; i++)
         {
             String strTransactionNum = otapi.OT_API_Ledger_GetTransactionIDByIndex(serverID, nymID, accountID, ledger, i);
-            if (null != strTransactionNum)
+            if ((null != strTransactionNum) && !strTransactionNum.equals("-1"))
             {
                 Long lTransactionNum = Long.valueOf(strTransactionNum);
                 if (lTransactionNum > 0)
                 {
                     boolean bHaveBoxReceipt = (1 == otapi.OT_API_DoesBoxReceiptExist(serverID, nymID, accountID, nBoxType, strTransactionNum)) ? true : false;
                     if (!bHaveBoxReceipt)
-                    {
+                    {                        
                         System.out.println("Utility.insureHaveAllBoxReceipts(): Downloading box receipt to add to my collection...");
 
                         boolean bDownloaded = Utility.getBoxReceiptWithErrorCorrection(serverID, nymID, accountID, nBoxType, strTransactionNum);

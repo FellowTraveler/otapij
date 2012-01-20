@@ -227,7 +227,7 @@ public class OTInboxTableModel extends DefaultTableModel implements WrapperTable
         
         if (null == set)
         {
-            System.out.println("OTInboxTableModel::setValue: Failure: values.keySet() returned null.");
+            System.out.println("OTInboxTableModel.setValue: Failure: values.keySet() returned null.");
             return;
         }
         

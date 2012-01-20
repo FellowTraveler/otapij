@@ -4410,10 +4410,13 @@ public class MainPage extends javax.swing.JFrame {
                 jLabel49.setVisible(true);
                 jLabel50.setVisible(true);
 
-                jLabel47.setText(nymOfferDetails.getPrice());
-                jLabel48.setText(nymOfferDetails.getMinIncrement());
-                jLabel49.setText(nymOfferDetails.getTotalAssetsOnOffer());
-                jLabel50.setText(nymOfferDetails.getAssetsStillOnOffer());
+                if (null != nymOfferDetails)
+                {
+                    jLabel47.setText(nymOfferDetails.getPrice());
+                    jLabel48.setText(nymOfferDetails.getMinIncrement());
+                    jLabel49.setText(nymOfferDetails.getTotalAssetsOnOffer());
+                    jLabel50.setText(nymOfferDetails.getAssetsStillOnOffer());
+                }
             }
         } catch (Exception ex) {
             Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
