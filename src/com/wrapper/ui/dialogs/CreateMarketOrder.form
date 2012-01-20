@@ -115,7 +115,7 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="27" max="32767" attributes="0"/>
+              <EmptySpace pref="47" max="32767" attributes="0"/>
           </Group>
           <Component id="jSeparator2" alignment="0" pref="560" max="32767" attributes="0"/>
       </Group>

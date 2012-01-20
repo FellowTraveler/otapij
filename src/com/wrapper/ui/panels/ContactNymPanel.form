@@ -200,6 +200,7 @@
             <Property name="name" type="java.lang.String" value="jTextArea1" noResource="true"/>
           </Properties>
           <AuxValues>
+            <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="ContactNymPanel_jTextArea1"/>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
           </AuxValues>
         </Component>
