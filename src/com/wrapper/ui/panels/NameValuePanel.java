@@ -143,7 +143,7 @@ public class NameValuePanel extends javax.swing.JPanel {
             }
         });
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(app.ApplicationLauncher.class).getContext().getResourceMap(NameValuePanel.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(NameValuePanel.class);
         jTextField1.setBackground(resourceMap.getColor("jTextField1.background")); // NOI18N
         jTextField1.setText(resourceMap.getString("jTextField1.text")); // NOI18N
         jTextField1.setName("jTextField1"); // NOI18N

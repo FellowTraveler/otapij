@@ -173,7 +173,7 @@ public class OpenTransactionAccountBottomPanel extends javax.swing.JPanel {
         });
         jScrollPane16.setViewportView(jTable6);
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(app.ApplicationLauncher.class).getContext().getResourceMap(OpenTransactionAccountBottomPanel.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(OpenTransactionAccountBottomPanel.class);
         jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
         jButton1.setName("jButton1"); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
