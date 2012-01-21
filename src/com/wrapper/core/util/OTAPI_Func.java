@@ -30,6 +30,7 @@ public class OTAPI_Func {
         CHECK_USER,
         SEND_USER_MESSAGE,
         ISSUE_ASSET_TYPE,
+        ISSUE_BASKET,
         CREATE_ASSET_ACCT, 
         DELETE_ASSET_ACCT, 
         EXCHANGE_BASKET,
@@ -242,6 +243,9 @@ public class OTAPI_Func {
         this.bBool      = false;
         
         switch(theType) {
+            case ISSUE_BASKET:
+                this.basket     = strParam;
+                break;
             case GET_MINT:
             case GET_CONTRACT:
             case CREATE_ASSET_ACCT:
@@ -328,6 +332,9 @@ public class OTAPI_Func {
                 break;
             case ISSUE_ASSET_TYPE:
                 otapi.OT_API_issueAssetType(this.serverID, this.nymID, this.strData);
+                break;
+            case ISSUE_BASKET:
+                otapi.OT_API_issueBasket(this.serverID, this.nymID, this.basket);
                 break;
             case EXCHANGE_CASH:
                 otapi.OT_API_exchangePurse(this.serverID, this.assetID, this.nymID, this.strData);
