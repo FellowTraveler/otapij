@@ -158,6 +158,15 @@ public class ConfigBean {
      */
     public boolean isConfigComplete() {
 
+        if (getTimeOut() == null)
+        {
+            return false;
+        }
+        if (getUserDataPath() == null)
+        {
+            return false;
+        }
+        
         if (getTimeOut().isEmpty()) {
             return false;
         }

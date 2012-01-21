@@ -318,16 +318,16 @@ public class PrefsController {
         }
 
         public void setDefaltValues(ConfigBean configBean) {
-            if (configBean.getUserDataPath().isEmpty()
-                    || configBean.getUserDataPath() == null) {
+            if (configBean.getUserDataPath() == null ||
+                configBean.getUserDataPath().isEmpty()) {
                 configBean.setUserDataPath(getDefaultUserDataPath());
             }
-            if (configBean.getWalletFilename().isEmpty()
-                    || configBean.getWalletFilename() == null) {
+            if (configBean.getWalletFilename() == null ||
+                configBean.getWalletFilename().isEmpty()) {
                 configBean.setWalletFilename("wallet.xml");
             }
-            if (configBean.getTimeOut().isEmpty()
-                    || configBean.getTimeOut() == null) {
+            if (configBean.getTimeOut() == null ||
+                configBean.getTimeOut().isEmpty()) {
                 configBean.setTimeOut("1");
             }
 
