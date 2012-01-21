@@ -28,8 +28,12 @@ public class Load {
 
     public void attempt() throws LoadMoneyChangerException {
         try {
+            System.out.println(_concierge.getConfig().getOTPath());
             Load.loadOTAPI(_concierge.getConfig().getOTPath());
+            System.out.println(_concierge.getConfig().getUserDataPath());
+            System.out.println(_concierge.getConfig().getWalletFilename());
             Load.loadAppData(_concierge.getConfig().getUserDataPath(), _concierge.getConfig().getWalletFilename());
+            System.out.println(_concierge.getConfig().getTimeOut());
             Load.setTimeout(_concierge.getConfig().getTimeOut());
             Utility.setSettingsObj(this);
         } catch (ApiNotLoadedException e) {
