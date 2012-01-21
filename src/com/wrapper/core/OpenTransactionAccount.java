@@ -297,6 +297,7 @@ public class OpenTransactionAccount extends Account {
         Map accounts = new HashMap();
 
         if (assetID == null && nymID == null && serverID == null) {
+            System.out.println("In getAccountID:  nymID:"+nymID+" serverID:"+serverID);
             return null;
         }
         int j = 0;
@@ -306,9 +307,9 @@ public class OpenTransactionAccount extends Account {
             if (accountID == null) {
                 continue;
             }
-            if (assetID.equals(otapi.OT_API_GetAccountWallet_AssetTypeID(accountID))
-                    && serverID.equals(otapi.OT_API_GetAccountWallet_ServerID(accountID))
-                    && nymID.equals(otapi.OT_API_GetAccountWallet_NymID(accountID))) {
+            if ((assetID != null) && assetID.equals(otapi.OT_API_GetAccountWallet_AssetTypeID(accountID))
+             && (serverID != null) && serverID.equals(otapi.OT_API_GetAccountWallet_ServerID(accountID))
+             && (nymID != null) && nymID.equals(otapi.OT_API_GetAccountWallet_NymID(accountID))) {
                 accounts.put((j), new String[]{otapi.OT_API_GetAccountWallet_Name(accountID), accountID});
                 j++;
             }
@@ -689,6 +690,9 @@ public class OpenTransactionAccount extends Account {
 
         Map data = new HashMap();
 
+        if (null == accountID)
+            return data;
+        
         String serverID = otapi.OT_API_GetAccountWallet_ServerID(accountID);
         String nymID = otapi.OT_API_GetAccountWallet_NymID(accountID);
 
@@ -1071,11 +1075,14 @@ public class OpenTransactionAccount extends Account {
     public String writeCheque(String serverID, String nymID, String accountID, String validFrom, String validTo, String memo, String recepientNymID, String amount) {
         String cheque = "";
         System.out.println("In writeCheque serverID:" + serverID + " nymID:" + nymID);
+        
+        boolean bSure = true;	
         if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
+  	
             Utility.getTransactionNumbers(serverID, nymID);
-
+            bSure = Utility.getTransactionNumbers(serverID, nymID);
         }
-        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
+        if (!bSure || otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
             System.out.println("IN writeCheque , failed to get transaction numbers, OT_API_GetNym_TransactionNumCount:" + otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID));
             return null;
         }

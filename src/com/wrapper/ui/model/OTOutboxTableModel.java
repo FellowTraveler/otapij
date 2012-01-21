@@ -184,6 +184,11 @@ public class OTOutboxTableModel    extends AbstractTableModel implements Wrapper
     }
 
     public void setValue(Map values, JTable outbox) {
+        if (null == values)
+        {
+            System.out.println("OTOutboxTableModel.setValue: Failure: Map 'values' is null.");
+            return;
+        }
 
        clearValue();
        Set set = values.keySet();

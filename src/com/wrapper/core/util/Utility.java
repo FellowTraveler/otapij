@@ -378,8 +378,10 @@ public class Utility {
         // message (processNymbox).
         String serverResponse = otapi.OT_API_PopMessageBuffer();
         
-        if (serverResponse != null && otapi.OT_API_Message_GetSuccess(serverResponse) == 1) {
-            return true;
+         if ((serverResponse != null) && 	
+             (serverResponse.length() > 10) &&	
+             (1 == otapi.OT_API_Message_GetSuccess(serverResponse))) {
+             return true;
         } else {
             System.out.println("Failure in processNymbox : Response from server " + serverResponse);
         }
@@ -398,8 +400,11 @@ public class Utility {
         // Pop the reply buffer and check for success. If so, send the next
         // message (processNymbox).
         String serverResponse = otapi.OT_API_PopMessageBuffer();
-        if (serverResponse != null && otapi.OT_API_Message_GetSuccess(serverResponse) == 1)   
-            return true;
+        if ((serverResponse != null) && 	
+             (serverResponse.length() > 10) &&	
+             (1 == otapi.OT_API_Message_GetSuccess(serverResponse))) {
+             return true;
+        }
         else {
             System.out.println("Failure in getNymboxLowLevel : Response from server " + serverResponse);
         }
@@ -442,13 +447,13 @@ public class Utility {
 
         System.out.println("IN getRequestNumber " + strReply);
 
-        if (strReply == null)
+        if (strReply == null || strReply.length() < 10)
         {
             System.out.println("Utility.getRequestNumber(): null server reply. Perhaps the receive_fail_ms in client.cfg needs to be set to a higher value?");
             return false;
         }
 
-        if (otapi.OT_API_Message_GetSuccess(strReply) == 1)
+        if (1 == otapi.OT_API_Message_GetSuccess(strReply))
             return true;
 
         // Hmm -- we got the reply, but it was a failure.
@@ -470,7 +475,9 @@ public class Utility {
         // Pop the reply buffer and check for success. If so, send the next
         // message (processNymbox).
         String serverResponse = otapi.OT_API_PopMessageBuffer();
-        if (serverResponse != null && otapi.OT_API_Message_GetSuccess(serverResponse) == 1) {
+        if ((serverResponse != null) && 	
+             (serverResponse.length() > 10) &&	
+             (1 == otapi.OT_API_Message_GetSuccess(serverResponse))) {
             return true;
         } else {
             System.out.println("Failure in getBoxReceiptLowLevel : Response from server " + serverResponse);
@@ -528,7 +535,7 @@ public class Utility {
         // the box receipts are, and download them from the server. No point trying
         // to load them before that time, when I know it will fail.
         // 
-        if (null == ledger || (0 == otapi.OT_API_VerifySignature(nymID, ledger)))
+        if ((null == ledger) || (ledger.length() < 10) || (0 == otapi.OT_API_VerifySignature(nymID, ledger)))
         {
             System.out.println("Utility.insureHaveAllBoxReceipts(): Unable to load or verify signature on ledger. (Failure.)");
             return false;
@@ -617,14 +624,15 @@ public class Utility {
             otapi.OT_API_getTransactionNumber(serverID, nymID); // Request.
             Utility.delay();
             String serverResponse = otapi.OT_API_PopMessageBuffer();
-            if (serverResponse == null) {
+        if ((serverResponse == null) || 	
+            (serverResponse.length() < 10)) {
                 System.out.println("Utility.getTransactionNumbers(): null server reply. Perhaps the receive_fail_ms in client.cfg needs to be set to a higher value?");
                 bSuccess = false;
             }
             // -----------------------------------------------------------
             // REPLY: FAILURE
             //
-            if (otapi.OT_API_Message_GetSuccess(serverResponse) == 0) {
+            if (0 == otapi.OT_API_Message_GetSuccess(serverResponse)) {
                 System.out.println("Utility.getTransactionNumbers(): Server refused my request for a new transaction number! (Maybe reached the limit?): " + serverResponse);
                 bSuccess = false;
             }
@@ -1047,6 +1055,22 @@ public class Utility {
     
     public static boolean getIntermediaryFiles(String serverID, String nymID, String accountID) {
         
+        if (null == serverID || serverID.length() < 10)
+        {
+            System.out.println("getIntermediaryFiles: invalid serverID: " + serverID);
+            return false;
+        }	
+        if (null == nymID || nymID.length() < 10)	
+        {	
+            System.out.println("getIntermediaryFiles: invalid nymID: " + nymID);
+            return false;	
+        }
+        if (null == accountID || accountID.length() < 10)	
+        {	
+            System.out.println("getIntermediaryFiles: invalid accountID: " + accountID);
+            return false;	
+        }
+        // -----------------------------------------------------
         if (false == Utility.getInboxAccount(serverID, nymID, accountID))
         {
             System.out.println("getIntermediaryFiles: getInboxAccount failed. (Returning.)");
@@ -1067,6 +1091,13 @@ public class Utility {
     // (instead of 3 IDs...)
     //
     public static boolean getInboxOutboxAccount(String accountID)  {
+
+        if (null == accountID || accountID.length() < 10)
+	
+       {	
+           System.out.println("getInboxOutboxAccount: invalid accountID: " + accountID);
+           return false;	
+       }
 
         String serverID = otapi.OT_API_GetAccountWallet_ServerID(accountID);
         String nymID    = otapi.OT_API_GetAccountWallet_NymID(accountID);
@@ -1108,15 +1139,19 @@ public class Utility {
 
         // getInbox failed, for whatever reason.
         //
-        if (inboxResponseMessage == null || otapi.OT_API_Message_GetSuccess(inboxResponseMessage) == 0)
-        {
+        if ((inboxResponseMessage == null) ||	
+            (inboxResponseMessage.length() < 10) ||	
+            (0 == otapi.OT_API_Message_GetSuccess(inboxResponseMessage)))
+         {
             if (Utility.getRequestNumber(serverID, nymID)) // re-sync request number.
             {
                 otapi.OT_API_getInbox(serverID, nymID, accountID); // <==== SECOND ATTEMPT
                 Utility.delay();
                 inboxResponseMessage = otapi.OT_API_PopMessageBuffer();
 
-                if ((inboxResponseMessage == null) || otapi.OT_API_Message_GetSuccess(inboxResponseMessage) == 0)
+                if ((inboxResponseMessage == null) ||	
+                    (inboxResponseMessage.length() < 10) ||	
+                    (0 == otapi.OT_API_Message_GetSuccess(inboxResponseMessage)))
                 {
                     System.out.println("getInboxAccount: Failed re-trying OT_API_getInbox() after Utility.getRequestNumber().");
                     return false;
@@ -1153,7 +1188,9 @@ public class Utility {
 
         // getAccount failed, for whatever reason.
         //
-        if (accountResponseMessage == null || otapi.OT_API_Message_GetSuccess(accountResponseMessage) == 0)
+        if ((accountResponseMessage == null) ||	
+            (accountResponseMessage.length() < 10) ||	
+            (0 == otapi.OT_API_Message_GetSuccess(accountResponseMessage)))
         {
             if (Utility.getRequestNumber(serverID, nymID)) // re-sync request number.
             {
@@ -1161,7 +1198,9 @@ public class Utility {
                 Utility.delay();
                 accountResponseMessage = otapi.OT_API_PopMessageBuffer();
 
-                if ((accountResponseMessage == null) || otapi.OT_API_Message_GetSuccess(accountResponseMessage) == 0)
+                if ((accountResponseMessage == null) ||	
+                    (accountResponseMessage.length() < 10) ||	
+                    (0 == otapi.OT_API_Message_GetSuccess(accountResponseMessage)))
                 {
                     System.out.println("getInboxAccount: Failed re-trying OT_API_getAccount() after Utility.getRequestNumber().");
                     return false;
@@ -1198,7 +1237,9 @@ public class Utility {
 
         // getOutbox failed, for whatever reason.
         //
-        if (outboxResponseMessage == null || otapi.OT_API_Message_GetSuccess(outboxResponseMessage) == 0)
+        if ((outboxResponseMessage == null) ||	
+            (outboxResponseMessage.length() < 10) ||	
+            (0 == otapi.OT_API_Message_GetSuccess(outboxResponseMessage)))
         {
             if (Utility.getRequestNumber(serverID, nymID)) // re-sync request number.
             {
@@ -1207,7 +1248,9 @@ public class Utility {
                 Utility.delay();
                 outboxResponseMessage = otapi.OT_API_PopMessageBuffer();
 
-                if ((outboxResponseMessage == null) || otapi.OT_API_Message_GetSuccess(outboxResponseMessage) == 0)
+                if ((outboxResponseMessage == null) ||	
+                    (outboxResponseMessage.length() < 10) ||	
+                    (0 == otapi.OT_API_Message_GetSuccess(outboxResponseMessage)))
                 {
                     System.out.println("getOutboxLowLevel: Failed re-trying OT_API_getOutbox() after Utility.getRequestNumber().");
                     return false;

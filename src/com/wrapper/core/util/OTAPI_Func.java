@@ -66,6 +66,29 @@ public class OTAPI_Func {
                
     public OTAPI_Func(FT theType, String serverID, String nymID, String assetTypeID, String assetAccountID, String currencyTypeID, String currencyAcctID,
             String scale, String minIncrement, String quantity, String price, boolean bSelling) {
+        
+       if (null == serverID)
+           System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as serverID");
+       if (null == nymID)	
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as nymID");	
+       if (null == assetTypeID)	
+           System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as assetTypeID"); 	 	
+        if (null == assetAccountID)	 	
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as assetAccountID"); 	 	
+        if (null == currencyTypeID) 	 	
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as currencyTypeID"); 	 	
+        if (null == currencyAcctID) 	 	
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as currencyAcctID");	 	
+      if (null == scale) 	 	
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as scale");	 	
+       if (null == minIncrement)	 	
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as minIncrement");	 	
+        if (null == quantity)	 	
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as quantity");	 	
+        if (null == price)	 	
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as price");
+ 	 	
+        
         this.funcType   = theType;
         this.serverID   = serverID;
         this.nymID      = nymID;
@@ -87,6 +110,18 @@ public class OTAPI_Func {
 
     public OTAPI_Func(FT theType, String serverID, String nymID, String assetID, 
             String basket, String accountID, boolean bBool, int nTransNumsNeeded) {
+        
+        if (null == serverID)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as serverID");	
+        if (null == nymID)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as nymID");
+        if (null == assetID)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as assetID");
+        if (null == accountID)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as accountID");
+        if (null == basket)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as basket");
+        
         this.funcType   = theType;
         this.serverID   = serverID;
         this.nymID      = nymID;
@@ -99,6 +134,12 @@ public class OTAPI_Func {
     
     
     public OTAPI_Func(FT theType, String serverID, String nymID) {
+        
+        if (null == serverID)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as serverID");	
+        if (null == nymID)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as nymID");
+
         this.funcType   = theType;
         this.serverID   = serverID;
         this.nymID      = nymID;
@@ -107,6 +148,16 @@ public class OTAPI_Func {
     }
 
     public OTAPI_Func(FT theType, String serverID, String nymID, String strParam, String strData) {
+        if (null == serverID)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as serverID");	
+        if (null == nymID)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as nymID");
+
+        if (null == strParam)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as strParam");	
+        if (null == strData)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as strData");
+
         this.funcType   = theType;
         this.serverID   = serverID;
         this.nymID      = nymID;
@@ -137,6 +188,21 @@ public class OTAPI_Func {
         }
     }
     public OTAPI_Func(FT theType, String serverID, String nymID, String accountID, String strParam, String strData, String strData2) {
+    
+        if (null == serverID)	
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as serverID");
+        if (null == nymID)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as nymID");
+        if (null == accountID)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as accountID");
+	
+        if (null == strParam)	
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as strParam");	
+        if (null == strData)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as strData");	
+        if (null == strData2)	
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as strData2");
+	
         this.funcType   = theType;
         this.serverID   = serverID;
         this.nymID      = nymID;
@@ -161,6 +227,14 @@ public class OTAPI_Func {
         
     }
     public OTAPI_Func(FT theType, String serverID, String nymID, String strParam) {
+        if (null == serverID)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as serverID");	
+        if (null == nymID)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as nymID");
+
+        if (null == strParam)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as strParam");	
+
         this.funcType   = theType;
         this.serverID   = serverID;
         this.nymID      = nymID;
@@ -189,6 +263,18 @@ public class OTAPI_Func {
         }
     }
     public OTAPI_Func(FT theType, String serverID, String nymID, String nymID2, String strData, String strData2) {
+        if (null == serverID)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as serverID");	
+        if (null == nymID)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as nymID");
+        if (null == nymID2)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as nymID2");
+
+        if (null == strData)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as strData");	
+        if (null == strData2)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as strData2");	
+
         this.funcType   = theType;
         this.serverID   = serverID;
         this.nymID      = nymID;
@@ -294,16 +380,18 @@ public class OTAPI_Func {
     //
     public static String SendRequest(OTAPI_Func theFunction, String IN_FUNCTION)  {
 
-        String serverResponseMessage = null;
+        String strResponseMessage = null;
         
         otapi.OT_API_FlushMessageBuffer();
         theFunction.Run(); // <===== FIRST ATTEMPT            
         Utility.delay();
-        serverResponseMessage = otapi.OT_API_PopMessageBuffer();
+        strResponseMessage = otapi.OT_API_PopMessageBuffer();
 
-//      System.out.println("DEBUGGING SendRequest " + serverResponseMessage);
+//      System.out.println("DEBUGGING SendRequest " + strResponseMessage);
 
-        if ((null == serverResponseMessage) || (0 == otapi.OT_API_Message_GetSuccess(serverResponseMessage))) {
+        if ((null == strResponseMessage) || 
+            (strResponseMessage.length() < 10) ||
+            (0 == otapi.OT_API_Message_GetSuccess(strResponseMessage))) {
             if (false == Utility.getRequestNumber(theFunction.serverID, theFunction.nymID)) {
                 System.out.println("IN SendRequest (" + IN_FUNCTION + " ): After first failure, Utility.getRequestNumber() failed as well. (I give up.) ");
                 return null;
@@ -312,21 +400,23 @@ public class OTAPI_Func {
             else {
                 theFunction.Run(); // <===== SECOND ATTEMPT
                 Utility.delay();
-                serverResponseMessage = otapi.OT_API_PopMessageBuffer();
-                if ((null == serverResponseMessage) || (0 == otapi.OT_API_Message_GetSuccess(serverResponseMessage))) {
+                strResponseMessage = otapi.OT_API_PopMessageBuffer();
+                if ((null == strResponseMessage) || (strResponseMessage.length() < 10) ||
+                    (0 == otapi.OT_API_Message_GetSuccess(strResponseMessage))) {
                     System.out.println("IN SendRequest (" + IN_FUNCTION + " ): Function retry failed, even after Utility.getRequestNumber() succeeded. (I give up.) ");
                     return null;
                 }
             }
         }
-//      System.out.println("DEBUGGING SendRequest " + serverResponseMessage);            
+//      System.out.println("DEBUGGING SendRequest " + strResponseMessage);            
 
-        return serverResponseMessage;
+        return strResponseMessage;
     }
     
     public static String SendTransaction(OTAPI_Func theFunction, String IN_FUNCTION)  {
         
-        String serverResponseMessage = null;
+        String strResponseMessage = null;
+        boolean bSure = true;
         
         if (otapi.OT_API_GetNym_TransactionNumCount(theFunction.serverID, theFunction.nymID)    // If the current trans# count is LESS than what's needed...
                 <                                                                               
@@ -335,10 +425,10 @@ public class OTAPI_Func {
             System.out.println("OTAPI_Func.SendTransaction: I don't have enough transaction numbers to perform this transaction. Grabbing more now...");
             int configTxnCount = Configuration.getNbrTransactionCount();
             Configuration.setNbrTransactionCount((theFunction.nTransNumsNeeded > configTxnCount) ? theFunction.nTransNumsNeeded : configTxnCount);
-            Utility.getTransactionNumbers(theFunction.serverID, theFunction.nymID);
+            bSure = Utility.getTransactionNumbers(theFunction.serverID, theFunction.nymID);
             Configuration.setNbrTransactionCount(configTxnCount);
         }
-        if (otapi.OT_API_GetNym_TransactionNumCount(theFunction.serverID, theFunction.nymID) < theFunction.nTransNumsNeeded) {
+        if (!bSure || otapi.OT_API_GetNym_TransactionNumCount(theFunction.serverID, theFunction.nymID) < theFunction.nTransNumsNeeded) {
             System.out.println("IN " + IN_FUNCTION + " , failed to get transaction numbers, OT_API_GetNym_TransactionNumCount:" + 
                     otapi.OT_API_GetNym_TransactionNumCount(theFunction.serverID, theFunction.nymID));
             return null;
@@ -350,9 +440,9 @@ public class OTAPI_Func {
         // and then the function again -- and this time it worked (or I would have returned already.)
         // At least, the message was success. Now let's check the balance agreement, and the transaction itself.
         //
-        serverResponseMessage = OTAPI_Func.SendRequest(theFunction, IN_FUNCTION);
+        strResponseMessage = OTAPI_Func.SendRequest(theFunction, IN_FUNCTION);
 
-        if (null == serverResponseMessage) {
+        if (null == strResponseMessage || strResponseMessage.length() < 10) {
             System.out.print("OTAPI_Func.SendTransaction: OTAPI_Func.SendRequest failed. (I give up.)");
             return null;
         }
@@ -367,7 +457,7 @@ public class OTAPI_Func {
                     theFunction.serverID, 
                     theFunction.nymID, 
                     theFunction.accountID, 
-                    serverResponseMessage) == 1) ? true : false;
+                    strResponseMessage) == 1) ? true : false;
         if (false == bBalanceAgreement) // Failure
         {
         // Hmm -- the message was a success, but the BALANCE AGREEMENT has failed. 
@@ -421,13 +511,13 @@ public class OTAPI_Func {
             System.out.println("In " + IN_FUNCTION + ", serverID:"+theFunction.serverID+" nymID:"+theFunction.nymID);
             theFunction.Run();  // <====== TRYING AGAIN (THIRD TIME)
             Utility.delay();
-            serverResponseMessage = otapi.OT_API_PopMessageBuffer();
+            strResponseMessage = otapi.OT_API_PopMessageBuffer();
 
             // Balance agreement STILL FAILURE <=========
             //
 
-            if (serverResponseMessage == null) {
-                System.out.println("In " + IN_FUNCTION + ", serverResponseMessage is null after retry after balance agreement failure. (I give up.)");
+            if (strResponseMessage == null || strResponseMessage.length() < 10) {
+                System.out.println("In " + IN_FUNCTION + ", strResponseMessage is null after retry after balance agreement failure. (I give up.)");
                 return null;
             } // NOTE: I could check the message here for failure, but the below call would return 0 in
               // that case as well anyway. Since we already went through the request number stuff above,
@@ -437,9 +527,9 @@ public class OTAPI_Func {
                     theFunction.serverID, 
                     theFunction.nymID, 
                     theFunction.accountID, 
-                    serverResponseMessage)) 
+                    strResponseMessage)) 
             {
-                System.out.println(IN_FUNCTION + " serverResponseMessage is still FAILURE after retry after balance agreement failure. (I give up.)");
+                System.out.println(IN_FUNCTION + " strResponseMessage is still FAILURE after retry after balance agreement failure. (I give up.)");
                 return null;
             }
             System.out.println(IN_FUNCTION + " after balance agreement retry, (success on balance agreement.)");
@@ -452,13 +542,13 @@ public class OTAPI_Func {
                 theFunction.serverID, 
                 theFunction.nymID, 
                 theFunction.accountID, 
-                serverResponseMessage)) 
+                strResponseMessage)) 
         {
-            System.out.println(IN_FUNCTION + " serverResponseMessage the TRANSACTION reports FAILURE (though balance agreement was successful.) (I give up.)");
+            System.out.println(IN_FUNCTION + " strResponseMessage the TRANSACTION reports FAILURE (though balance agreement was successful.) (I give up.)");
             return null;
         }
         
-        return serverResponseMessage;
+        return strResponseMessage;
     }
 
 } // class OTAPI_Func
