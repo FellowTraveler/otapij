@@ -222,6 +222,12 @@ public class OTInboxTableModel extends DefaultTableModel implements WrapperTable
     }*/
     public void setValue(Map values, final JTable inbox) {
 
+        if (null == values)
+        {
+            System.out.println("OTInboxTableModel.setValue: Failure: Map 'values' is null.");
+            return;
+        }
+
         clearValue();
         Set set = values.keySet();
         

@@ -66,6 +66,28 @@ public class OTAPI_Func {
                
     public OTAPI_Func(FT theType, String serverID, String nymID, String assetTypeID, String assetAccountID, String currencyTypeID, String currencyAcctID,
             String scale, String minIncrement, String quantity, String price, boolean bSelling) {
+        
+        if (null == serverID)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as serverID");
+        if (null == nymID)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as nymID");
+        if (null == assetTypeID)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as assetTypeID");
+        if (null == assetAccountID)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as assetAccountID");
+        if (null == currencyTypeID)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as currencyTypeID");
+        if (null == currencyAcctID)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as currencyAcctID");
+        if (null == scale)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as scale");
+        if (null == minIncrement)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as minIncrement");
+        if (null == quantity)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as quantity");
+        if (null == price)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as price");
+        
         this.funcType   = theType;
         this.serverID   = serverID;
         this.nymID      = nymID;
@@ -87,6 +109,17 @@ public class OTAPI_Func {
 
     public OTAPI_Func(FT theType, String serverID, String nymID, String assetID, 
             String basket, String accountID, boolean bBool, int nTransNumsNeeded) {
+        if (null == serverID)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as serverID");
+        if (null == nymID)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as nymID");
+        if (null == assetID)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as assetID");
+        if (null == accountID)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as accountID");
+        if (null == basket)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as basket");
+ 
         this.funcType   = theType;
         this.serverID   = serverID;
         this.nymID      = nymID;
@@ -99,6 +132,11 @@ public class OTAPI_Func {
     
     
     public OTAPI_Func(FT theType, String serverID, String nymID) {
+        if (null == serverID)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as serverID");
+        if (null == nymID)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as nymID");
+
         this.funcType   = theType;
         this.serverID   = serverID;
         this.nymID      = nymID;
@@ -107,6 +145,17 @@ public class OTAPI_Func {
     }
 
     public OTAPI_Func(FT theType, String serverID, String nymID, String strParam, String strData) {
+        if (null == serverID)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as serverID");
+        if (null == nymID)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as nymID");
+
+        
+        if (null == strParam)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as strParam");
+        if (null == strData)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as strData");
+
         this.funcType   = theType;
         this.serverID   = serverID;
         this.nymID      = nymID;
@@ -137,6 +186,20 @@ public class OTAPI_Func {
         }
     }
     public OTAPI_Func(FT theType, String serverID, String nymID, String accountID, String strParam, String strData, String strData2) {
+        if (null == serverID)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as serverID");
+        if (null == nymID)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as nymID");
+        if (null == accountID)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as accountID");
+
+        if (null == strParam)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as strParam");
+        if (null == strData)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as strData");
+        if (null == strData2)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as strData2");
+
         this.funcType   = theType;
         this.serverID   = serverID;
         this.nymID      = nymID;
@@ -161,6 +224,13 @@ public class OTAPI_Func {
         
     }
     public OTAPI_Func(FT theType, String serverID, String nymID, String strParam) {
+        if (null == serverID)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as serverID");
+        if (null == nymID)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as nymID");
+        if (null == strParam)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as strParam");
+
         this.funcType   = theType;
         this.serverID   = serverID;
         this.nymID      = nymID;
@@ -189,6 +259,18 @@ public class OTAPI_Func {
         }
     }
     public OTAPI_Func(FT theType, String serverID, String nymID, String nymID2, String strData, String strData2) {
+        if (null == serverID)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as serverID");
+        if (null == nymID)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as nymID");
+        if (null == nymID2)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as nymID2");
+
+        if (null == strData)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as strData");
+        if (null == strData2)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as strData2");
+
         this.funcType   = theType;
         this.serverID   = serverID;
         this.nymID      = nymID;
@@ -328,6 +410,8 @@ public class OTAPI_Func {
         
         String serverResponseMessage = null;
         
+        boolean bTrue = true;
+        
         if (otapi.OT_API_GetNym_TransactionNumCount(theFunction.serverID, theFunction.nymID)    // If the current trans# count is LESS than what's needed...
                 <                                                                               
                 (theFunction.nTransNumsNeeded > Configuration.getNbrTransactionCount() ?        //theFunction needs more than my normal minimum in my configuration
@@ -335,10 +419,10 @@ public class OTAPI_Func {
             System.out.println("OTAPI_Func.SendTransaction: I don't have enough transaction numbers to perform this transaction. Grabbing more now...");
             int configTxnCount = Configuration.getNbrTransactionCount();
             Configuration.setNbrTransactionCount((theFunction.nTransNumsNeeded > configTxnCount) ? theFunction.nTransNumsNeeded : configTxnCount);
-            Utility.getTransactionNumbers(theFunction.serverID, theFunction.nymID);
+            bTrue = Utility.getTransactionNumbers(theFunction.serverID, theFunction.nymID);
             Configuration.setNbrTransactionCount(configTxnCount);
         }
-        if (otapi.OT_API_GetNym_TransactionNumCount(theFunction.serverID, theFunction.nymID) < theFunction.nTransNumsNeeded) {
+        if (!bTrue || (otapi.OT_API_GetNym_TransactionNumCount(theFunction.serverID, theFunction.nymID) < theFunction.nTransNumsNeeded)) {
             System.out.println("IN " + IN_FUNCTION + " , failed to get transaction numbers, OT_API_GetNym_TransactionNumCount:" + 
                     otapi.OT_API_GetNym_TransactionNumCount(theFunction.serverID, theFunction.nymID));
             return null;

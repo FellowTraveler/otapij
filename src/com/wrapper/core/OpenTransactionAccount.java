@@ -1071,11 +1071,12 @@ public class OpenTransactionAccount extends Account {
     public String writeCheque(String serverID, String nymID, String accountID, String validFrom, String validTo, String memo, String recepientNymID, String amount) {
         String cheque = "";
         System.out.println("In writeCheque serverID:" + serverID + " nymID:" + nymID);
+        boolean bTrue = true;
         if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
-            Utility.getTransactionNumbers(serverID, nymID);
+            bTrue = Utility.getTransactionNumbers(serverID, nymID);
 
         }
-        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
+        if (!bTrue || otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
             System.out.println("IN writeCheque , failed to get transaction numbers, OT_API_GetNym_TransactionNumCount:" + otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID));
             return null;
         }

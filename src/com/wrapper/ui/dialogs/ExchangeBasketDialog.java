@@ -325,12 +325,13 @@ public class ExchangeBasketDialog extends javax.swing.JDialog {
     private void doExchangeBasket() throws InterruptedException {
 
         int memberCount = otapi.OT_API_Basket_GetMemberCount(assetID);
-
+        boolean bTrue = true;
+        
          if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < (2+memberCount)) {
-            Utility.getTransactionNumbers(serverID, nymID);
+            bTrue = Utility.getTransactionNumbers(serverID, nymID);
         }
 
-        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < (2+memberCount)) {
+        if (!bTrue || otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < (2+memberCount)) {
             System.out.println("IN doExchangeBasket , failed to get transaction numbers, OT_API_GetNym_TransactionNumCount:" + otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID));
             return;
         }
