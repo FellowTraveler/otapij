@@ -9,12 +9,8 @@ import com.ot.app.moneychanger.dialogs.panels.PathsPanel;
 import com.ot.app.moneychanger.main.Concierge;
 import com.ot.app.moneychanger.main.helpers.OSType.typeOS;
 import java.awt.event.ActionEvent;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.EnumMap;
-import java.util.EnumSet;
-import java.util.HashSet;
-import java.util.List;
+import java.io.File;
+import java.util.*;
 import javax.swing.AbstractAction;
 import javax.swing.AbstractListModel;
 import javax.swing.Action;
@@ -36,7 +32,6 @@ import net.sf.swinglib.field.IFields;
 import net.sf.swinglib.validation.AbstractValidationGroup;
 import net.sf.swinglib.validation.ValidationChangedEvent;
 import net.sf.swinglib.validation.ValidationChangedEventListener;
-
 
 /**
  *
@@ -173,12 +168,15 @@ public class PathsController {
 
         @Override
         public String toString() {
-            StringBuilder pathList = new StringBuilder();
-            for (String path : _paths) {
-                pathList.append(path);
-                pathList.append(";");
+            StringBuilder pathsString = new StringBuilder();
+            Iterator<String> setIterator = _paths.iterator();
+            while (setIterator.hasNext()) {
+                pathsString.append(setIterator.next());
+                if (setIterator.hasNext()) {
+                    pathsString.append(File.pathSeparator);
+                }
             }
-            return pathList.toString();
+            return pathsString.toString();
         }
 
         public boolean isEmpty() {

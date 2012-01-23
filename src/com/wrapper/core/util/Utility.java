@@ -137,7 +137,6 @@ public class Utility {
             pathList.addAll(Arrays.asList(javaPaths.split(File.pathSeparator)));
 
             Collection<String> pathSet = new HashSet<String>();
-
             Iterator<String> listIterator = pathList.iterator();
             String path;
             while (listIterator.hasNext()) {
@@ -148,7 +147,6 @@ public class Utility {
             }
 
             StringBuilder pathsString = new StringBuilder();
-
             Iterator<String> setIterator = pathSet.iterator();
             while (setIterator.hasNext()) {
                 pathsString.append(setIterator.next());
