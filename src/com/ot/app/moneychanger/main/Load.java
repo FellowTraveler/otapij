@@ -11,6 +11,7 @@ import com.wrapper.core.jni.OTCaller;
 import com.wrapper.core.jni.otapi;
 import com.wrapper.core.util.Configuration;
 import com.wrapper.core.util.Utility;
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -95,7 +96,7 @@ public class Load {
             errorMessage.append(System.getProperty("line.separator"));
             errorMessage.append("libotapi-java not in LD path:");
             errorMessage.append(System.getProperty("line.separator"));
-            errorMessage.append(System.getProperty("java.library.path").replace(";", System.getProperty("line.separator")));
+            errorMessage.append(System.getProperty("java.library.path").replace(File.pathSeparator, System.getProperty("line.separator")));
             throw new ApiNotLoadedException(errorMessage.toString());
         } catch (IOException e) {
             throw new ApiNotLoadedException("IO Error");
