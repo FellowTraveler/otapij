@@ -4,7 +4,6 @@
  */
 package com.ot.app.moneychanger.main;
 
-import com.ot.app.moneychanger.main.Concierge;
 import com.ot.app.moneychanger.main.helpers.OSType;
 import com.wrapper.core.jni.JavaCallback;
 import com.wrapper.core.jni.OTCallback;
@@ -20,7 +19,7 @@ import java.io.IOException;
  */
 public class Load {
 
-    private static Concierge _concierge;
+    private Concierge _concierge;
 
     public Load(Concierge concierge) {
         _concierge = concierge;
@@ -58,7 +57,7 @@ public class Load {
 
     }
 
-    static public class LoadMoneyChangerException extends Exception {
+    public class LoadMoneyChangerException extends Exception {
 
         private String error;
 
@@ -77,7 +76,7 @@ public class Load {
     }
     // <editor-fold defaultstate="collapsed" desc="Load API">
 
-    public static void loadOTAPI(String paths) throws ApiNotLoadedException {
+    static public void loadOTAPI(String paths) throws ApiNotLoadedException {
         try {
             Utility.addDirToRuntime(paths);
             if (OSType.getOS() == OSType.typeOS.WIN) {
@@ -105,7 +104,7 @@ public class Load {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Load AppData">
-    public static void loadAppData(String appDataLocation, String walletLocation) throws AppDataNotLoadedException {
+    static public void loadAppData(String appDataLocation, String walletLocation) throws AppDataNotLoadedException {
 
         System.out.println(appDataLocation);
 
@@ -127,7 +126,7 @@ public class Load {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Load setTimeOut">
-    public static void setTimeout(String waitTimeTxt) throws InvalidTimeOutException {
+    static public void setTimeout(String waitTimeTxt) throws InvalidTimeOutException {
         long waitTime;
         try {
             waitTime = Long.parseLong(waitTimeTxt);

@@ -32,7 +32,6 @@ public class ActionRegistry {
 //----------------------------------------------------------------------------
     protected ActionRegistry(Concierge concierge) {
         showObjectInfo = new ShowObjectInfo(concierge);
-        
         loadMenuAction =  new LoadMenuAction(concierge);
         fileSetPrefs = new FileSetPrefs(concierge);
         fileResetPrefs = new FileResetPrefs(concierge);
