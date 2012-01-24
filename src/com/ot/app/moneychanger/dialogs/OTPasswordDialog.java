@@ -19,10 +19,7 @@ public class OTPasswordDialog extends javax.swing.JDialog {
         super(parent, modal);
         _password = password;
         initComponents();
-
-
-
-    }
+   }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -73,7 +70,13 @@ public class OTPasswordDialog extends javax.swing.JDialog {
 
     private void jButton_OKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_OKActionPerformed
         
-        _password = jPasswordField1.getPassword().toString();
+        char[] passwordChars = jPasswordField1.getPassword();
+                        StringBuilder str = new StringBuilder();
+        for (int i = 0; i < passwordChars.length; i++) {
+            str.append(passwordChars[i]);
+        }
+        
+        _password = str.toString();
         
         this.dispose();
     }//GEN-LAST:event_jButton_OKActionPerformed
@@ -115,7 +118,7 @@ public class OTPasswordDialog extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                OTPasswordDialog dialog = new OTPasswordDialog(new javax.swing.JFrame(), true, null);
+                OTPasswordDialog dialog = new OTPasswordDialog(new javax.swing.JFrame(), true, new String());
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override
