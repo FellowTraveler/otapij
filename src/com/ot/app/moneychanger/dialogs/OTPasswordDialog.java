@@ -30,7 +30,7 @@ public class OTPasswordDialog extends javax.swing.JDialog {
     
     private void bindComponents() {
         jButton_OK.setAction(_viewModel.getButtonAction(ActionKeys.OK));
-        _viewModel.bindDoc(FieldKeys.PASSWORD, jTextField1.getDocument());
+        _viewModel.bindDoc(FieldKeys.PASSWORD, jPasswordField1.getDocument());
     }
     
     
@@ -46,7 +46,7 @@ public class OTPasswordDialog extends javax.swing.JDialog {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jPasswordField1 = new javax.swing.JPasswordField();
         jButton_OK = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -54,24 +54,28 @@ public class OTPasswordDialog extends javax.swing.JDialog {
         setPreferredSize(new java.awt.Dimension(400, 200));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Please Enter Your Wallet Password");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 5.0;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         getContentPane().add(jLabel1, gridBagConstraints);
 
-        jTextField1.setText("Wallet Password");
-        jTextField1.setMinimumSize(new java.awt.Dimension(100, 20));
-        jTextField1.setPreferredSize(new java.awt.Dimension(100, 20));
+        jPasswordField1.setText("jPasswordField1");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.ipadx = 53;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        getContentPane().add(jTextField1, gridBagConstraints);
+        getContentPane().add(jPasswordField1, gridBagConstraints);
 
         jButton_OK.setText("OK");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         getContentPane().add(jButton_OK, gridBagConstraints);
 
@@ -130,6 +134,6 @@ public class OTPasswordDialog extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_OK;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPasswordField jPasswordField1;
     // End of variables declaration//GEN-END:variables
 }
