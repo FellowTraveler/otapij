@@ -140,7 +140,7 @@ public class Utility {
             Iterator<String> listIterator = pathList.iterator();
             String path;
             while (listIterator.hasNext()) {
-                path = listIterator.next().toLowerCase();
+                path = listIterator.next(); //.toLowerCase();
                 if (!path.equalsIgnoreCase(".")) {
                     pathSet.add(path);
                 }
