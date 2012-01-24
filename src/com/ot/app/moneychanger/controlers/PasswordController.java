@@ -41,7 +41,7 @@ public class PasswordController {
         _passwordModel = new PasswordModel();
         _returnAction = returnAction;
         _concierge = concierge;
-        _fields = new Fields();
+        _fields = new Fields(_passwordModel);
         _actions = new Actions(_fields);
         _passwordViewModel = new PasswordViewModel(_fields, _actions);
         _dialog = new OTPasswordDialog(_concierge.getDialogOwner(), true, _passwordViewModel);
@@ -105,11 +105,14 @@ public class PasswordController {
     // <editor-fold defaultstate="collapsed" desc="Fields">
 
     private static class Fields extends AbstractFields<FieldKeys> {
+        
+        private PasswordModel _passwordModel;
 
-        public Fields() {
+        public Fields(PasswordModel passwordModel) {
             super(new EnumMap<FieldKeys, Document>(FieldKeys.class),
                     new EnumMap<FieldKeys, DocWatcher>(FieldKeys.class),
                     new EnumMap<FieldKeys, Boolean>(FieldKeys.class));
+            _passwordModel = passwordModel;
         }
 
         @Override
@@ -155,6 +158,7 @@ public class PasswordController {
 
             @Override
             public void actionPerformed(ActionEvent ignored) {
+                _fields.updateConfig();
                 _returnAction.returnAction(_passwordModel.getPassword());
                 _dialog.dispose();
             }

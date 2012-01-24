@@ -50,6 +50,8 @@ public class OTPasswordDialog extends javax.swing.JDialog {
         jButton_OK = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(400, 200));
+        setPreferredSize(new java.awt.Dimension(400, 200));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setText("Please Enter Your Wallet Password");
@@ -59,6 +61,8 @@ public class OTPasswordDialog extends javax.swing.JDialog {
         getContentPane().add(jLabel1, gridBagConstraints);
 
         jTextField1.setText("Wallet Password");
+        jTextField1.setMinimumSize(new java.awt.Dimension(100, 20));
+        jTextField1.setPreferredSize(new java.awt.Dimension(100, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.ipadx = 53;
