@@ -15,85 +15,77 @@ import net.sf.swinglib.CursorManager;
  * @author cameron
  */
 public class Concierge {
-    private ConfigBean _config;
 
+    private ConfigBean _config;
     private ExecutorService _threadPool;
     private CursorManager _cursorManager;
     private JFrame _dialogOwner;
     private MainFrameController _mainFrame;
-    
-    private LoadMoneyChanger _loadMoneyChanger;
+    private Thread _t;
 
-
-    public Concierge(ConfigBean config, LoadMoneyChanger loadMoneyChanger)
-    {
+    public Concierge(ConfigBean config) {
         _config = config;
-        _loadMoneyChanger = loadMoneyChanger;
+    }
+
+    public void setMainThread(Thread t) {
+        _t = t;
     }
     
+    public Thread getMainThread()
+    {
+        return _t;
+    }
+
     //----------------------------------------------------------------------------
 //  Public Accessor Methods -- these may be called from anywhere, at any time
 //----------------------------------------------------------------------------
-
     /**
-     *  Adds an operation to the shared background thread pool. This pool is
-     *  created at instantiation, and cannot be changed.
+     * Adds an operation to the shared background thread pool. This pool is
+     * created at instantiation, and cannot be changed.
      */
-    public void execute(AsynchronousOperation<?> op)
-    {
-        if (_threadPool == null)
+    public void execute(AsynchronousOperation<?> op) {
+        if (_threadPool == null) {
             _threadPool = Executors.newFixedThreadPool(1);
+        }
         _threadPool.execute(op);
     }
 
-
     /**
-     *  Returns the configuration bean.
+     * Returns the configuration bean.
      */
-    public ConfigBean getConfig()
-    {
+    public ConfigBean getConfig() {
         return _config;
     }
-    
-    public LoadMoneyChanger getLoadMoneyChanger()
-    {
-        return _loadMoneyChanger;
-    }
 
-
+  
     /**
-     *  Returns the "main frame" controller, for update from actions.
+     * Returns the "main frame" controller, for update from actions.
      */
-    public MainFrameController getMainFrame()
-    {
+    public MainFrameController getMainFrame() {
         return _mainFrame;
     }
 
-
     /**
-     *  Returns the "owner frame" for all dialogs created by the app (nominally
-     *  the main frame).
+     * Returns the "owner frame" for all dialogs created by the app (nominally
+     * the main frame).
      */
-    public JFrame getDialogOwner()
-    {
+    public JFrame getDialogOwner() {
         return _dialogOwner;
     }
 
-
     /**
-     *  Returns the cursor manager, allowing operations/actions to set a temporary
-     *  cursor on any component in the application.
+     * Returns the cursor manager, allowing operations/actions to set a
+     * temporary cursor on any component in the application.
      */
-    public CursorManager getCursorManager()
-    {
-        if (_cursorManager == null)
+    public CursorManager getCursorManager() {
+        if (_cursorManager == null) {
             _cursorManager = new CursorManager();
+        }
         return _cursorManager;
     }
 
-
     /**
-     *  Returns a factory for S3 requests, using current configuration params.
+     * Returns a factory for S3 requests, using current configuration params.
      */
 //    public S3Factory getS3Factory()
 //    {
@@ -104,15 +96,11 @@ public class Concierge {
 //               _config.getAmazonPublicKey(),
 //               _config.getAmazonPrivateKey());
 //    }
-
-
 //----------------------------------------------------------------------------
 //  Methods called during initialization; these are all protected, on the
 //  assumption that all initialization takes place in the "main" package
 //----------------------------------------------------------------------------
-
-    protected void setMainFrame(MainFrameController controller, JFrame frame)
-    {
+    protected void setMainFrame(MainFrameController controller, JFrame frame) {
         _mainFrame = controller;
         _dialogOwner = frame;
     }
