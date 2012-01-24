@@ -90,9 +90,10 @@ AK+ZirdWhhoHeWR1tAkN
 
 package com.wrapper.core.jni;
 
+import com.ot.app.moneychanger.dialogs.OTPasswordDialog;
 import com.ot.app.moneychanger.main.Concierge;
-import com.wrapper.ui.dialogs.OTPasswordDialog;
-import com.wrapper.ui.dialogs.OTPwdConfirmDialog;
+
+
 
 public class JavaCallback extends OTCallback {
     
@@ -106,18 +107,14 @@ public class JavaCallback extends OTCallback {
     @Override
     public String runOne() {
         String strPassword = null;
-        new OTPasswordDialog(_concierge.getDialogOwner(), true).setVisible(true);
-        strPassword = OTPasswordDialog.getPassword();
-
+        new OTPasswordDialog(_concierge.getDialogOwner(), true,strPassword).setVisible(true);
         return strPassword;
     }
 
     @Override
     public String runTwo() {
         String strPassword = null;
-        new OTPasswordDialog(_concierge.getDialogOwner(), true).setVisible(true);
-        strPassword = OTPwdConfirmDialog.getPassword();
-
+        new OTPasswordDialog(_concierge.getDialogOwner(), true,strPassword).setVisible(true);
         return strPassword;
     }
 }
