@@ -4,22 +4,36 @@
  */
 package com.ot.app.moneychanger.dialogs;
 
+
+import com.ot.app.moneychanger.controlers.PasswordController.ActionKeys;
+import com.ot.app.moneychanger.controlers.PasswordController.FieldKeys;
+import net.sf.swinglib.dialog.viewmodel.IViewModel;
+
 /**
  *
  * @author Cameron Garnham
  */
 public class OTPasswordDialog extends javax.swing.JDialog {
 
-    private String _password;
+    private IViewModel<FieldKeys, ActionKeys> _viewModel;
 
     /**
      * Creates new form OTPasswordDialog
      */
-    public OTPasswordDialog(java.awt.Frame parent, boolean modal, String password) {
+    public OTPasswordDialog(java.awt.Frame parent, boolean modal, IViewModel<FieldKeys, ActionKeys> viewModel) {
         super(parent, modal);
-        _password = password;
+        _viewModel = viewModel;
         initComponents();
+        bindComponents();
+        
    }
+    
+    private void bindComponents() {
+        jButton_OK.setAction(_viewModel.getButtonAction(ActionKeys.OK));
+        _viewModel.bindDoc(FieldKeys.PASSWORD, jPasswordField1.getDocument());
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -38,11 +52,6 @@ public class OTPasswordDialog extends javax.swing.JDialog {
         jPasswordField1.setText("jPasswordField1");
 
         jButton_OK.setText("OK");
-        jButton_OK.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_OKActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -67,19 +76,6 @@ public class OTPasswordDialog extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton_OKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_OKActionPerformed
-        
-        char[] passwordChars = jPasswordField1.getPassword();
-                        StringBuilder str = new StringBuilder();
-        for (int i = 0; i < passwordChars.length; i++) {
-            str.append(passwordChars[i]);
-        }
-        
-        _password = str.toString();
-        
-        this.dispose();
-    }//GEN-LAST:event_jButton_OKActionPerformed
 
     /**
      * @param args the command line arguments
@@ -118,7 +114,7 @@ public class OTPasswordDialog extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                OTPasswordDialog dialog = new OTPasswordDialog(new javax.swing.JFrame(), true, new String());
+                OTPasswordDialog dialog = new OTPasswordDialog(new javax.swing.JFrame(), true, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override
