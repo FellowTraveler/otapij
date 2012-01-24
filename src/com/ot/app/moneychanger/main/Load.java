@@ -35,7 +35,7 @@ public class Load {
             Load.loadAppData(_concierge.getConfig().getUserDataPath(), _concierge.getConfig().getWalletFilename());
             System.out.println(_concierge.getConfig().getTimeOut());
             Load.setTimeout(_concierge.getConfig().getTimeOut());
-            Utility.setSettingsObj(this);
+            Utility.setSettingsObj(_concierge.getDialogOwner());
         } catch (ApiNotLoadedException e) {
             StringBuilder error = new StringBuilder();
             error.append("Unable to load your Java Path!");
