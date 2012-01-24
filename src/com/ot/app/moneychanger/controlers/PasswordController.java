@@ -86,6 +86,7 @@ public class PasswordController {
 
         public PasswordModel() {
             _localConfigViewModel = new EnumMap<FieldKeys, String>(FieldKeys.class);
+            _localConfigViewModel.put(FieldKeys.PASSWORD, "Enter Password");
         }
 
         public void setConfigOption(FieldKeys key, String value) {
