@@ -28,7 +28,7 @@ public class Main {
             @Override
             public void load() {
                 try {
-                    SwingUtilities.invokeAndWait(new Runnable() {
+                    Thread t = new Thread(new Runnable() {
 
                         @Override
                         public void run() {
@@ -43,6 +43,7 @@ public class Main {
                             }
                         }
                     });
+                   t.start();
                 } catch (Exception e) {
                     e.printStackTrace();
                     System.runFinalization();
