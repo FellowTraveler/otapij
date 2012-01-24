@@ -34,18 +34,19 @@ public class PasswordController {
     private static Fields _fields;
     private static Actions _actions;
     private PasswordViewModel _passwordViewModel;
-    
+
     // <editor-fold defaultstate="collapsed" desc="Controller Constructor">
     public PasswordController(Concierge concierge) {
         _passwordModel = new PasswordModel();
         _concierge = concierge;
         _fields = new Fields();
         _actions = new Actions(_fields);
-        _passwordViewModel = new PasswordViewModel(_fields,_actions);
+        _passwordViewModel = new PasswordViewModel(_fields, _actions);
         _dialog = new OTPasswordDialog(_concierge.getDialogOwner(), true, _passwordViewModel);
     }
-        // </editor-fold>
+    // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Public Methods">
+
     public void show() {
         _dialog.setVisible(true);
     }
@@ -53,13 +54,13 @@ public class PasswordController {
     public void close() {
         _dialog.dispose();
     }
-    
-    public String getPassword()
-    {
+
+    public String getPassword() {
         return _passwordModel.getPassword();
     }
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Enum Keys">
+
     public enum ActionKeys {
 
         OK;
@@ -71,6 +72,7 @@ public class PasswordController {
     };
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Password View Model">
+
     private static class PasswordViewModel extends AbstractViewModel<PasswordController.FieldKeys, PasswordController.ActionKeys> {
 
         public PasswordViewModel(IFields<PasswordController.FieldKeys> fields, IActions<PasswordController.ActionKeys> actions) {
@@ -92,6 +94,10 @@ public class PasswordController {
             _localConfigViewModel.put(key, value);
         }
 
+        public String getConfigViewModel(FieldKeys key) {
+            return _localConfigViewModel.get(key);
+        }
+
         public String getPassword() {
             return _localConfigViewModel.get(FieldKeys.PASSWORD);
         }
@@ -105,6 +111,11 @@ public class PasswordController {
             super(new EnumMap<FieldKeys, Document>(FieldKeys.class),
                     new EnumMap<FieldKeys, DocWatcher>(FieldKeys.class),
                     new EnumMap<FieldKeys, Boolean>(FieldKeys.class));
+        }
+
+        @Override
+        public void updateFieldDoc(FieldKeys fieldKey) {
+            updateFieldDoc(fieldKey, _passwordModel.getConfigViewModel(fieldKey));
         }
 
         @Override
