@@ -21,11 +21,14 @@ public class Concierge {
     private CursorManager _cursorManager;
     private JFrame _dialogOwner;
     private MainFrameController _mainFrame;
+    
+    private LoadMoneyChanger _loadMoneyChanger;
 
 
-    public Concierge(ConfigBean config)
+    public Concierge(ConfigBean config, LoadMoneyChanger loadMoneyChanger)
     {
         _config = config;
+        _loadMoneyChanger = loadMoneyChanger;
     }
     
     //----------------------------------------------------------------------------
@@ -50,6 +53,11 @@ public class Concierge {
     public ConfigBean getConfig()
     {
         return _config;
+    }
+    
+    public LoadMoneyChanger getLoadMoneyChanger()
+    {
+        return _loadMoneyChanger;
     }
 
 
