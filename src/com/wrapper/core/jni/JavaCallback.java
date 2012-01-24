@@ -91,7 +91,6 @@ AK+ZirdWhhoHeWR1tAkN
 package com.wrapper.core.jni;
 
 import com.ot.app.moneychanger.controlers.PasswordController;
-import com.ot.app.moneychanger.dialogs.OTPasswordDialog;
 import com.ot.app.moneychanger.main.Concierge;
 
 
