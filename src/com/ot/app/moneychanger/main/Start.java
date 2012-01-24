@@ -6,20 +6,20 @@ package com.ot.app.moneychanger.main;
 
 import com.wrapper.ui.MainPage;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import org.jdesktop.application.SingleFrameApplication;
 
 /**
  *
  * @author Cameron Garnham
  */
-public class Start {
+public class Start extends SingleFrameApplication {
 
-    private Concierge _concierge;
-    private Thread t;
+    private static Concierge _concierge;
 
-    public Start(Concierge concierge) {
-        _concierge = concierge;
-
-        t = new Thread(new Runnable() {
+    @Override
+    protected void startup() {
+        SwingUtilities.invokeLater(new Runnable() {
 
             @Override
             public void run() {
@@ -36,7 +36,29 @@ public class Start {
         });
     }
 
-    public Thread getThread() {
-        return t;
+    /**
+     * This method is to initialize the specified window by injecting resources.
+     * Windows shown in our application come fully initialized from the GUI
+     * builder, so this additional configuration is not needed.
+     */
+    @Override
+    protected void configureWindow(java.awt.Window root) {
+    }
+
+    /**
+     * A convenient static getter for the application instance.
+     *
+     * @return the instance of ApplicationLauncher
+     */
+    public static Start getApplication() {
+        return Start.getInstance(Start.class);
+    }
+
+    /**
+     * Main method launching the application.
+     */
+    public static void main(String[] args,Concierge concierge) {
+        _concierge = concierge;
+        launch(Start.class, args);
     }
 }

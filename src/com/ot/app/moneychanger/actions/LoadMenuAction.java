@@ -37,7 +37,7 @@ public class LoadMenuAction extends AbstractAction {
             new PrefsController(_concierge).show();
         }
         if (_concierge.getConfig().getConfigUpdated()) {
-            _concierge.getMainThread().run();
+            _concierge.getStarter().start();
         }
     }
 }

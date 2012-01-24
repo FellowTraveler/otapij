@@ -24,9 +24,17 @@ public class Main {
         try {
             SwingUtilities.invokeLater(new Runnable() {
 
+                Thread t = new Thread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        Start.main(null, concierge);
+                    }
+                });
+
                 @Override
                 public void run() {
-                    concierge.setMainThread(new Start(concierge).getThread());
+                    concierge.setStarter(t);
                 }
             });
 

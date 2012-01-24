@@ -21,19 +21,19 @@ public class Concierge {
     private CursorManager _cursorManager;
     private JFrame _dialogOwner;
     private MainFrameController _mainFrame;
-    private Thread _t;
+    private Thread _start;
 
     public Concierge(ConfigBean config) {
         _config = config;
     }
 
-    public void setMainThread(Thread t) {
-        _t = t;
+    public void setStarter(Thread start) {
+        _start = start;
     }
     
-    public Thread getMainThread()
+    public Thread getStarter()
     {
-        return _t;
+        return _start;
     }
 
     //----------------------------------------------------------------------------
