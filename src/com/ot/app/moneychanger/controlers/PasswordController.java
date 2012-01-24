@@ -34,10 +34,12 @@ public class PasswordController {
     private static Fields _fields;
     private static Actions _actions;
     private PasswordViewModel _passwordViewModel;
+    private static ReturnAction _returnAction;
 
     // <editor-fold defaultstate="collapsed" desc="Controller Constructor">
-    public PasswordController(Concierge concierge) {
+    public PasswordController(Concierge concierge, ReturnAction returnAction) {
         _passwordModel = new PasswordModel();
+        _returnAction = returnAction;
         _concierge = concierge;
         _fields = new Fields();
         _actions = new Actions(_fields);
@@ -53,10 +55,6 @@ public class PasswordController {
 
     public void close() {
         _dialog.dispose();
-    }
-
-    public String getPassword() {
-        return _passwordModel.getPassword();
     }
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Enum Keys">
@@ -156,7 +154,7 @@ public class PasswordController {
 
             @Override
             public void actionPerformed(ActionEvent ignored) {
-                _fields.updateConfig();
+                _returnAction.returnAction(_passwordModel.getPassword());
                 _dialog.dispose();
             }
         }
