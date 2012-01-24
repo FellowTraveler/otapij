@@ -213,7 +213,7 @@ public class PathsController {
 
         public void addPath(String path) {
             if (path != null) {
-                _paths.add(path.toLowerCase());
+                _paths.add(path); //.toLowerCase());
             }
             listModel.fireContentsChanged();
             _returnAction.returnAction(this.toString());
