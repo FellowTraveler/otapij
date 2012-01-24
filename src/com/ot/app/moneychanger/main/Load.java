@@ -20,7 +20,7 @@ import java.io.IOException;
  */
 public class Load {
 
-    private Concierge _concierge;
+    private static Concierge _concierge;
 
     public Load(Concierge concierge) {
         _concierge = concierge;
@@ -114,7 +114,7 @@ public class Load {
         }
 
         OTCaller g_theCaller = new OTCaller();
-        OTCallback g_theCallback = new JavaCallback();
+        OTCallback g_theCallback = new JavaCallback(_concierge);
         g_theCaller.setCallback(g_theCallback);
         otapi.OT_API_Set_PasswordCallback(g_theCaller);
         Utility.setG_theCallback(g_theCallback);
