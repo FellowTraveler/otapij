@@ -48,7 +48,8 @@ public class OTAPI_Func {
         GET_NYM_MARKET_OFFERS,
         GET_MARKET_OFFERS,
         GET_MARKET_RECENT_TRADES,
-        GET_MINT;  //; is optional
+        GET_MINT,
+        QUERY_ASSET_TYPES;  //; is optional
         }
 
     public FT funcType;
@@ -259,6 +260,7 @@ public class OTAPI_Func {
                 break;
             case ISSUE_ASSET_TYPE:
             case GET_MARKET_RECENT_TRADES:
+            case QUERY_ASSET_TYPES:
                 this.strData    = strParam;
                 break;                
             default:
@@ -326,6 +328,9 @@ public class OTAPI_Func {
                 break;
             case GET_CONTRACT:
                 otapi.OT_API_getContract(this.serverID, this.nymID, this.assetID);
+                break;
+            case QUERY_ASSET_TYPES:
+                otapi.OT_API_queryAssetTypes(this.serverID, this.nymID, this.strData);
                 break;
             case GET_MINT:
                 otapi.OT_API_getMint(this.serverID, this.nymID, this.assetID);
@@ -505,7 +510,7 @@ public class OTAPI_Func {
 
             // In case any notices have come in about new transaction #s already accepted,
             // or about old transaction #s that expired lawfully.
-            if (false == Utility.getAndProcessNymbox(theFunction.serverID, 
+            if (-1 == Utility.getAndProcessNymbox(theFunction.serverID,
                     theFunction.nymID)) 
             {
                 System.out.println(IN_FUNCTION + ", Utility.getAndProcessNymbox returned false. (I give up.)");

@@ -68,7 +68,7 @@ Hash: SHA256
  *   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
  *   PURPOSE.  See the GNU General Public License for more
  *   details.
- 
+
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.11 (Darwin)
 
@@ -101,6 +101,7 @@ AK+ZirdWhhoHeWR1tAkN
 package com.wrapper.ui;
 //Recurring, Deed/Title, Escrow, Ripple, Settings, Credits
 import com.wrapper.core.Account;
+import com.wrapper.core.Basket;
 import com.wrapper.core.Contract;
 import com.wrapper.core.Market;
 import com.wrapper.core.NYM;
@@ -118,6 +119,7 @@ import com.wrapper.core.util.Configuration;
 import com.wrapper.core.util.Utility;
 import com.wrapper.ui.dialogs.AccountAdditionDialog;
 import com.wrapper.ui.dialogs.AccountEditDialog;
+import com.wrapper.ui.dialogs.AddBasketDialog;
 import com.wrapper.ui.dialogs.AddressBookDialog;
 import com.wrapper.ui.dialogs.AssetContractEditDialog;
 import com.wrapper.ui.dialogs.ContractAdditionDialog;
@@ -132,10 +134,12 @@ import com.wrapper.ui.dialogs.OtherTabAccountEditDialog;
 import com.wrapper.ui.dialogs.OtherTabServerAddDialog;
 import com.wrapper.ui.dialogs.OtherTabServerEditDialog;
 import com.wrapper.ui.dialogs.RegisterNYMDialog;
+import com.wrapper.ui.dialogs.RegisterNymOnServerDialog;
 import com.wrapper.ui.dialogs.SendMessageDialog;
 import com.wrapper.ui.dialogs.ServerContractEditDialog;
 import com.wrapper.ui.model.AccountTableModel;
 import com.wrapper.ui.model.AssetContractTableModel;
+import com.wrapper.ui.model.BasketTableModel;
 import com.wrapper.ui.model.MarketAskTableModel;
 import com.wrapper.ui.model.MarketBidTableModel;
 import com.wrapper.ui.model.MarketOffersTableModel;
@@ -162,6 +166,7 @@ import com.wrapper.ui.panels.RippleAccountTopPanel;
 import java.awt.CardLayout;
 import java.awt.Cursor;
 import java.awt.Point;
+import java.util.List;
 import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -192,6 +197,7 @@ public class MainPage extends javax.swing.JFrame {
     }
     private Map nymBox;
     private static Map nymOutBox;
+    private static boolean isBasketInit = false;
 
     /** Creates new form MainPage */
     public MainPage() {
@@ -205,6 +211,7 @@ public class MainPage extends javax.swing.JFrame {
             initNYMSTab();
             initContractsTab();
             initMarketsTab();
+            //initBasketsTab();
             initSettingsTab();
             initCreditsTab();
             setResizable(false);
@@ -320,7 +327,14 @@ public class MainPage extends javax.swing.JFrame {
         jTextField9 = new javax.swing.JTextField();
         jLabel55 = new javax.swing.JLabel();
         jTextField11 = new javax.swing.JTextField();
+        jPanel36 = new javax.swing.JPanel();
+        jButton30 = new javax.swing.JButton();
+        jButton32 = new javax.swing.JButton();
+        jLabel62 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jButton33 = new javax.swing.JButton();
+        jButton31 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jPanel29 = new javax.swing.JPanel();
         jScrollPane19 = new javax.swing.JScrollPane();
@@ -1379,7 +1393,7 @@ public class MainPage extends javax.swing.JFrame {
 
         jScrollPane26.setName("jScrollPane26"); // NOI18N
 
-        jTable19.setModel(new com.wrapper.ui.model.MarketTableModel());
+        jTable19.setModel(new com.wrapper.ui.model.BasketTableModel());
         jTable19.setName("jTable19"); // NOI18N
         jTable19.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTable19.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1414,25 +1428,104 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
 
+        jPanel36.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel36.setName("jPanel36"); // NOI18N
+
+        jButton30.setText(resourceMap.getString("jButton30.text")); // NOI18N
+        jButton30.setToolTipText("Add");
+        jButton30.setName("jButton30"); // NOI18N
+        jButton30.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton30ActionPerformed(evt);
+            }
+        });
+
+        jButton32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/wrapper/ui/images/pencil.jpg"))); // NOI18N
+        jButton32.setToolTipText(resourceMap.getString("jButton32.toolTipText")); // NOI18N
+        jButton32.setName("jButton32"); // NOI18N
+        jButton32.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton32ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel36Layout = new javax.swing.GroupLayout(jPanel36);
+        jPanel36.setLayout(jPanel36Layout);
+        jPanel36Layout.setHorizontalGroup(
+            jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel36Layout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addComponent(jButton30, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addComponent(jButton32, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
+        );
+        jPanel36Layout.setVerticalGroup(
+            jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel36Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton32, javax.swing.GroupLayout.Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+                    .addComponent(jButton30, javax.swing.GroupLayout.Alignment.LEADING))
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
+
+        jLabel62.setText(resourceMap.getString("jLabel62.text")); // NOI18N
+        jLabel62.setName("jLabel62"); // NOI18N
+
         jLabel2.setText(resourceMap.getString("jLabel2.text")); // NOI18N
         jLabel2.setName("jLabel2"); // NOI18N
+
+        jTextField1.setEditable(false);
+        jTextField1.setText(resourceMap.getString("jTextField1.text")); // NOI18N
+        jTextField1.setDisabledTextColor(resourceMap.getColor("jTextField1.disabledTextColor")); // NOI18N
+        jTextField1.setName("jTextField1"); // NOI18N
+
+        jButton33.setText(resourceMap.getString("jButton33.text")); // NOI18N
+        jButton33.setToolTipText(resourceMap.getString("jButton33.toolTipText")); // NOI18N
+        jButton33.setEnabled(false);
+        jButton33.setName("jButton33"); // NOI18N
+        jButton33.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton33ActionPerformed(evt);
+            }
+        });
+
+        jButton31.setText(resourceMap.getString("jButton31.text")); // NOI18N
+        jButton31.setToolTipText(resourceMap.getString("jButton31.toolTipText")); // NOI18N
+        jButton31.setEnabled(false);
+        jButton31.setName("jButton31"); // NOI18N
+        jButton31.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton31ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+            .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane26, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane26, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel53, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(8, 8, 8)
-                        .addComponent(jComboBox7, 0, 116, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
+                        .addComponent(jComboBox7, 0, 122, Short.MAX_VALUE))
+                    .addComponent(jPanel36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton33, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton31, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel54)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1441,20 +1534,11 @@ public class MainPage extends javax.swing.JFrame {
                         .addComponent(jLabel55)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField11, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 799, Short.MAX_VALUE))
+                    .addComponent(jLabel62, javax.swing.GroupLayout.PREFERRED_SIZE, 787, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel53))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane26, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(353, Short.MAX_VALUE))
-            .addComponent(jSeparator10, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1462,9 +1546,26 @@ public class MainPage extends javax.swing.JFrame {
                     .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel55))
+                .addGap(27, 27, 27)
+                .addComponent(jLabel62)
+                .addGap(31, 31, 31)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton33, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton31, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(551, Short.MAX_VALUE))
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel53))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(617, Short.MAX_VALUE))
+                .addComponent(jScrollPane26, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(jPanel36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(258, 258, 258))
+            .addComponent(jSeparator10, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab(resourceMap.getString("jPanel5.TabConstraints.tabTitle"), jPanel5); // NOI18N
@@ -3326,7 +3427,7 @@ public class MainPage extends javax.swing.JFrame {
                     jLabel3.setText("Last:" + marketTicker.getLastPrice() + "          Bid:" + marketTicker.getHighestBid() + "          Ask:" + marketTicker.getLowestAsk());
                 }
                 // FT: I just added this here.
-                
+
                 refreshMarketOfferList(serverID, nymID);
             }
         } catch (Exception e) {
@@ -3334,7 +3435,7 @@ public class MainPage extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton29ActionPerformed
 
-    private void jButton28ActionPerformed(java.awt.event.ActionEvent evt) {                                          
+    private void jButton28ActionPerformed(java.awt.event.ActionEvent evt) {
         // Cancel Order
         String serverID = "ALL";
         String nymID = "ALL";
@@ -3367,13 +3468,12 @@ public class MainPage extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Order cannot be cancelled", "Order Cancellation", JOptionPane.ERROR_MESSAGE);
                 }
             }
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             setCursor(Cursor.getDefaultCursor());
         }
-    }                                          
+    }
 
     public static void refreshMarketOfferList(String serverID, String nymID) {
         Map marketList = null;
@@ -3385,27 +3485,27 @@ public class MainPage extends javax.swing.JFrame {
 
             if (marketList != null) {
                 ((MarketTableModel) jTable13.getModel()).setValue(marketList, jTable13);
-            }
-            else
+            } else {
                 System.out.println("refreshMarketOfferList:  Market.loadMarketList() returned null!");
+            }
             // ------------------------------------
             if (offerList != null) {
                 ((MarketOffersTableModel) jTable14.getModel()).setValue(offerList, jTable14);
-            }
-            else
+            } else {
                 System.out.println("refreshMarketOfferList:  Market.getNymOfferList() returned null!");
+            }
             // ------------------------------------
             if (marketList != null && marketList.size() > 0) {
                 jTable13.setRowSelectionInterval(0, 0);
-            }
-            else
+            } else {
                 System.out.println("refreshMarketOfferList:  marketList.size() was <= 0");
+            }
             // ------------------------------------
             if (offerList != null && offerList.size() > 0) {
                 jTable14.setRowSelectionInterval(0, 0);
-            }
-            else
+            } else {
                 System.out.println("refreshMarketOfferList:  offerList.size() was <= 0");
+            }
             // ------------------------------------
 
         } catch (Exception ex) {
@@ -3468,10 +3568,41 @@ public class MainPage extends javax.swing.JFrame {
                 Utility.setLoadNymTrades(false);
             }
         }
+
+        if (sel == 3 && !isBasketInit) {
+            initBasketsTab();
+            isBasketInit = true;
+        }
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
     private void jComboBox7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox7ActionPerformed
-        // TODO add your handling code here:
+
+        String currentServerID = "ALL";
+
+        if (serverMap != null && serverMap.size() > 0 && jComboBox7.getSelectedIndex() > -1) {
+            currentServerID = ((String[]) serverMap.get((Integer) jComboBox7.getSelectedIndex()))[1];
+        }
+        System.out.println("Server dropdown currentServerID:" + currentServerID);
+
+        if (Basket.getBasketList(currentServerID, null) != null && !"Popup Dialog".equalsIgnoreCase(((String[]) ((List) Basket.getBasketList(currentServerID, null)).get(0))[0])) {
+            ((BasketTableModel) jTable19.getModel()).setValue(Basket.getBasketList(currentServerID, null));
+        } else {
+
+            // Show dialog asking for register
+            new RegisterNymOnServerDialog(this, true, currentServerID).setVisible(true);
+            if (Utility.getNymID() == null) {
+                return;
+            }
+            String nymID = Utility.getNymID();
+            ((BasketTableModel) jTable19.getModel()).setValue(Basket.getBasketList(currentServerID, nymID));
+
+        }
+        // TODO : Need to clear right side details
+
+        jTextField9.setText("");
+        jTextField11.setText("");
+        jLabel62.setText("");
+
     }//GEN-LAST:event_jComboBox7ActionPerformed
 
     private void jTable19MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable19MouseClicked
@@ -3485,6 +3616,59 @@ public class MainPage extends javax.swing.JFrame {
     private void jTextField11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField11ActionPerformed
         // TODO add your handling code here:
 }//GEN-LAST:event_jTextField11ActionPerformed
+
+    private void jButton30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton30ActionPerformed
+        String currentServerID = "ALL";
+
+        if (serverMap != null && serverMap.size() > 0 && jComboBox7.getSelectedIndex() > -1) {
+            currentServerID = ((String[]) serverMap.get((Integer) jComboBox7.getSelectedIndex()))[1];
+        }
+        System.out.println("currentServerID:" + currentServerID);
+        new AddBasketDialog(this, true, currentServerID).setVisible(true);
+    }//GEN-LAST:event_jButton30ActionPerformed
+
+    public static void setBasketAssetName(String updatedName) {
+        jTextField9.setText(updatedName);
+
+    }
+
+    private void jButton32ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton32ActionPerformed
+        if (jTable19.getSelectedRow() > -1) {
+            new AssetContractEditDialog(this, true, (String) jTable19.getModel().getValueAt(jTable19.getSelectedRow(), 1)).setVisible(true);
+            refreshAssetContractList();
+            String currentServerID = "ALL";
+            if (serverMap != null && serverMap.size() > 0 && jComboBox7.getSelectedIndex() > -1) {
+                currentServerID = ((String[]) serverMap.get((Integer) jComboBox7.getSelectedIndex()))[1];
+            }
+            System.out.println("currentServerID:" + currentServerID);
+        if (Basket.getBasketList(currentServerID, null) != null && !"Popup Dialog".equalsIgnoreCase(((String[]) ((List) Basket.getBasketList(currentServerID, null)).get(0))[0])) {
+                ((BasketTableModel) jTable19.getModel()).setValue(Basket.getBasketList(currentServerID, null));
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select an Asset Contract to edit.", "Asset Contract Edit Error", JOptionPane.ERROR_MESSAGE);
+        }    }//GEN-LAST:event_jButton32ActionPerformed
+
+    private void jButton31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton31ActionPerformed
+        int existingValue = Integer.valueOf(jTextField1.getText());
+        if (existingValue == 1) {
+            JOptionPane.showMessageDialog(null, "Minimum value should be 1", "Min Bound Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        jTextField1.setText(String.valueOf(existingValue - 1));
+        jLabel62.setText(Basket.getNewValue(existingValue - 1));
+}//GEN-LAST:event_jButton31ActionPerformed
+
+    private void jButton33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton33ActionPerformed
+
+        int existingValue = Integer.valueOf(jTextField1.getText());
+        if (existingValue == 100) {
+            JOptionPane.showMessageDialog(null, "Maximum value is 100", "Max Bound Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        jTextField1.setText(String.valueOf(existingValue + 1));
+        jLabel62.setText(Basket.getNewValue(existingValue + 1));
+}//GEN-LAST:event_jButton33ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -3529,6 +3713,10 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JButton jButton28;
     private javax.swing.JButton jButton29;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton30;
+    private javax.swing.JButton jButton31;
+    private javax.swing.JButton jButton32;
+    private javax.swing.JButton jButton33;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
@@ -3600,6 +3788,7 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel61;
+    private static javax.swing.JLabel jLabel62;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -3632,6 +3821,7 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel33;
     private javax.swing.JPanel jPanel34;
     private javax.swing.JPanel jPanel35;
+    private javax.swing.JPanel jPanel36;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
@@ -3679,7 +3869,7 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTable jTable10;
-    private javax.swing.JTable jTable11;
+    private static javax.swing.JTable jTable11;
     private javax.swing.JTable jTable12;
     private static javax.swing.JTable jTable13;
     private static javax.swing.JTable jTable14;
@@ -3692,7 +3882,7 @@ public class MainPage extends javax.swing.JFrame {
     private static javax.swing.JTable jTable3;
     private static javax.swing.JTable jTable4;
     private static javax.swing.JTable jTable5;
-    private javax.swing.JTable jTable7;
+    private static javax.swing.JTable jTable7;
     private static javax.swing.JTable jTable8;
     private javax.swing.JTable jTable9;
     private javax.swing.JTextArea jTextArea1;
@@ -3700,6 +3890,7 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea5;
     private javax.swing.JTextArea jTextArea6;
     private javax.swing.JTextArea jTextArea7;
+    private static javax.swing.JTextField jTextField1;
     private static javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
@@ -3758,10 +3949,10 @@ public class MainPage extends javax.swing.JFrame {
                                     topLayout.show(jPanel8, type + "TopPanel");
                                     bottomlayout.show(jPanel15, type + "BottomPanel");
                                     Class obj = Class.forName("com.wrapper.core." + type);
-                                    
+
 
                                     Account account = (Account) obj.newInstance();
-                                     Object details = account.getAccountDetails(accountID);
+                                    Object details = account.getAccountDetails(accountID);
                                     if (details == null) {
                                         JOptionPane.showMessageDialog(null, "Error loading details", "Details Error", JOptionPane.ERROR_MESSAGE);
                                         break;
@@ -4268,7 +4459,7 @@ public class MainPage extends javax.swing.JFrame {
         Utility.populateComboWithoutAll(nymRegisteredMap, jComboBox6);
     }
 
-    private void refreshAssetContractList() {
+    private static void refreshAssetContractList() {
 
         Contract contract = new Contract();
         ((AssetContractTableModel) jTable7.getModel()).setValue(contract.loadAssetContract(), jTable7);
@@ -4291,6 +4482,14 @@ public class MainPage extends javax.swing.JFrame {
 
     public static JTable getAccountTable() {
         return jTable5;
+    }
+
+    public static void setAssets(String serverID) {
+        if (Basket.getBasketList(serverID, null) != null && !"Popup Dialog".equalsIgnoreCase(((String[]) ((List) Basket.getBasketList(serverID, null)).get(0))[0])) {
+            ((BasketTableModel) jTable19.getModel()).setValue(Basket.getBasketList(serverID, null));
+        }
+        refreshAssetContractList();
+
     }
 
     private void initSettingsTab() {
@@ -4410,8 +4609,7 @@ public class MainPage extends javax.swing.JFrame {
                 jLabel49.setVisible(true);
                 jLabel50.setVisible(true);
 
-                if (null != nymOfferDetails)
-                {
+                if (null != nymOfferDetails) {
                     jLabel47.setText(nymOfferDetails.getPrice());
                     jLabel48.setText(nymOfferDetails.getMinIncrement());
                     jLabel49.setText(nymOfferDetails.getTotalAssetsOnOffer());
@@ -4484,6 +4682,87 @@ public class MainPage extends javax.swing.JFrame {
             }
         } catch (Exception ex) {
             Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void initBasketsTab() {
+
+        Utility.populateComboWithoutAll(serverMap, jComboBox7);
+        BasketTableModel.removeCols(jTable19);
+        jLabel62.setText("");
+
+        String currentServerID = "ALL";
+
+        if (serverMap != null && serverMap.size() > 0 && jComboBox7.getSelectedIndex() > -1) {
+            currentServerID = ((String[]) serverMap.get((Integer) jComboBox7.getSelectedIndex()))[1];
+        }
+
+        if (Basket.getBasketList(currentServerID, null) != null && !"Popup Dialog".equalsIgnoreCase(((String[]) ((List) Basket.getBasketList(currentServerID, null)).get(0))[0])) {
+            ((BasketTableModel) jTable19.getModel()).setValue(Basket.getBasketList(currentServerID, null));
+        } else {
+
+            // Show dialog asking for register
+            new RegisterNymOnServerDialog(this, true, currentServerID).setVisible(true);
+            if (Utility.getNymID() == null) {
+                return;
+            }
+            String nymID = Utility.getNymID();
+            ((BasketTableModel) jTable19.getModel()).setValue(Basket.getBasketList(currentServerID, nymID));
+
+        }
+        jTable19.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+            public void valueChanged(ListSelectionEvent e) {
+
+                if (e.getValueIsAdjusting()) {
+                    return;
+                }
+                System.out.println("jTable19 valueChanged Basket List Action Listener :" + jTable19.getSelectedRow() + "e:" + e.getSource());
+
+                basketClick();
+            }
+        });
+
+
+    }
+
+    private void basketClick() {
+
+        try {
+            jButton33.setEnabled(true);
+            jButton31.setEnabled(true);
+            String serverID = "ALL";
+
+            if (serverMap != null && serverMap.size() > 0 && jComboBox7.getSelectedIndex() > -1) {
+                serverID = ((String[]) serverMap.get((Integer) jComboBox7.getSelectedIndex()))[1];
+            }
+            if (jTable19.getSelectedRow() > -1) {
+                String assetTypeID = (String) ((BasketTableModel) jTable19.getModel()).getValueAt(jTable19.getSelectedRow(), 1);
+                String assetTypeName = Basket.getAssetTypeName(assetTypeID, serverID);
+                if ("Popup Dialog".equals(assetTypeName)) {
+                    // Show dialog asking for register
+                    new RegisterNymOnServerDialog(this, true, serverID).setVisible(true);
+                    if (Utility.getNymID() == null) {
+                        return;
+                    }
+                    String nymID = Utility.getNymID();
+                    assetTypeName = Basket.getAssetTypeNameForRegNym(assetTypeID, serverID, nymID);
+                }
+
+                jTextField9.setText(assetTypeName);
+                jTextField9.setToolTipText(assetTypeName);
+                jTextField11.setText(assetTypeID);
+                jTextField11.setToolTipText(assetTypeID);
+
+                String basket = Basket.getBasketDetailsLabel(assetTypeID, assetTypeName);
+
+                jLabel62.setText(basket);
+
+                jLabel62.setToolTipText(basket);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

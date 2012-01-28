@@ -68,7 +68,7 @@ Hash: SHA256
  *   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
  *   PURPOSE.  See the GNU General Public License for more
  *   details.
- 
+
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.11 (Darwin)
 
@@ -87,9 +87,6 @@ AK+ZirdWhhoHeWR1tAkN
 =RcXP
 -----END PGP SIGNATURE-----
  **************************************************************/
-
-
-
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -100,11 +97,11 @@ AK+ZirdWhhoHeWR1tAkN
  *
  * Created on 26 Mar, 2011, 3:03:22 AM
  */
-
 package com.wrapper.ui.dialogs;
 
 import com.wrapper.core.Contract;
 import com.wrapper.core.util.Utility;
+import com.wrapper.ui.MainPage;
 import javax.swing.JOptionPane;
 
 /**
@@ -112,10 +109,11 @@ import javax.swing.JOptionPane;
  * @author Vicky C
  */
 public class AssetContractEditDialog extends javax.swing.JDialog {
+
     private String assetID;
 
     /** Creates new form AssetContractEditDialog */
-    public AssetContractEditDialog(java.awt.Frame parent, boolean modal,String assetID) {
+    public AssetContractEditDialog(java.awt.Frame parent, boolean modal, String assetID) {
         super(parent, modal);
         this.assetID = assetID;
         initComponents();
@@ -184,22 +182,27 @@ public class AssetContractEditDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        boolean status = new Contract().editLabel(assetID,"Asset", jTextField1.getText());
-        if(status)
-            JOptionPane.showMessageDialog(this, "Asset Contract edited successfully","Edit Success",JOptionPane.INFORMATION_MESSAGE);
-        else
-            JOptionPane.showMessageDialog(this, "Asset Contract could not be edited","Failure",JOptionPane.ERROR_MESSAGE);
+        boolean status = new Contract().editLabel(assetID, "Asset", jTextField1.getText());
+        if (status) {
+            JOptionPane.showMessageDialog(this, "Asset Contract edited successfully", "Edit Success", JOptionPane.INFORMATION_MESSAGE);
+            MainPage.setBasketAssetName(jTextField1.getText());
+        } else {
+            JOptionPane.showMessageDialog(this, "Asset Contract could not be edited", "Failure", JOptionPane.ERROR_MESSAGE);
+            
+        }
         this.dispose();
 }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
-                AssetContractEditDialog dialog = new AssetContractEditDialog(new javax.swing.JFrame(), true,"");
+                AssetContractEditDialog dialog = new AssetContractEditDialog(new javax.swing.JFrame(), true, "");
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
                     }
@@ -208,11 +211,9 @@ public class AssetContractEditDialog extends javax.swing.JDialog {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
-
 }

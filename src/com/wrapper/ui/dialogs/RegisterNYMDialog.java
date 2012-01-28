@@ -195,7 +195,7 @@ public class RegisterNYMDialog extends javax.swing.JDialog {
             setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
             int status = new NYM().registerNym(serverID, nymID);
             if(status == 0){
-                JOptionPane.showMessageDialog(this, "Nym registered suucessfully on the server", "NYM registration success", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Nym registered sucessfully on the server", "NYM registration success", JOptionPane.INFORMATION_MESSAGE);
                 // Refresh Market NYM list
                 MainPage.refreshMarketNym(serverID);
             }else if(status == 1){

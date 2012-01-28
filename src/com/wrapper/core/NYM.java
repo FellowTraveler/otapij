@@ -149,6 +149,28 @@ public class NYM {
         return mapNYMList;
     }
 
+    public String registeredNYM(String serverID) {
+
+        if(serverID == null)
+            return null;
+
+        String nymID = null;
+
+        for (int i = 0; i < otapi.OT_API_GetNymCount(); i++) {
+            String key = otapi.OT_API_GetNym_ID(i);
+            if (key == null) {
+                continue;
+            }
+            if (otapi.OT_API_IsNym_RegisteredAtServer(key, serverID) == 1) {
+                nymID = key;
+                break;
+            }
+
+        }
+
+        return nymID;
+    }
+
     public String getRawFileData(String nymID) {
         return otapi.OT_API_GetNym_Stats(nymID);
     }
@@ -210,7 +232,7 @@ public class NYM {
                 if (otapi.OT_API_IsNym_RegisteredAtServer(nymID, serverID) == 1) {
                     System.out.println("nym is registered");
                     
-                    boolean b1 = Utility.getAndProcessNymbox(serverID, nymID);                    
+                    Utility.getAndProcessNymbox(serverID, nymID);
                 }
             }
         }

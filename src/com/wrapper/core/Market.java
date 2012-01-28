@@ -68,7 +68,7 @@ Hash: SHA256
  *   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
  *   PURPOSE.  See the GNU General Public License for more
  *   details.
- 
+
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.11 (Darwin)
 
@@ -87,7 +87,6 @@ AK+ZirdWhhoHeWR1tAkN
 =RcXP
 -----END PGP SIGNATURE-----
  **************************************************************/
-
 package com.wrapper.core;
 
 import com.wrapper.core.dataobjects.MarketDetails;
@@ -119,9 +118,9 @@ public class Market {
     public static MarketTicker getTicker(String marketID, String serverID, String nymID) {
 
         // ----------------------------------------------------------
-        OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.GET_MARKET_LIST, serverID, nymID);
-        String      strResponse  = OTAPI_Func.SendRequest(theRequest, "GET_MARKET_LIST");
-        
+        OTAPI_Func theRequest = new OTAPI_Func(OTAPI_Func.FT.GET_MARKET_LIST, serverID, nymID);
+        String strResponse = OTAPI_Func.SendRequest(theRequest, "GET_MARKET_LIST");
+
         if (null == strResponse) {
             System.out.println("IN getTicker: OTAPI_Func.SendRequest(() failed. (I give up.) ");
             return null;
@@ -139,7 +138,7 @@ public class Market {
             System.out.println("getTicker - marketList returns null");
             return null;
         }
-        
+
         int nMarketDataCount = (int) marketList.GetMarketDataCount();
 
         for (int i = 0; i < nMarketDataCount; i++) {
@@ -149,8 +148,8 @@ public class Market {
                 continue;
             }
 
-            if ((null == marketID) ||
-                (null != marketID) && marketID.equals(marketData.getMarket_id())) {
+            if ((null == marketID)
+                    || (null != marketID) && marketID.equals(marketData.getMarket_id())) {
 
                 MarketTicker marketTicker = new MarketTicker();
                 marketTicker.setLastPrice(marketData.getLast_sale_price());
@@ -167,11 +166,11 @@ public class Market {
     public static Map loadMarketList(String serverID, String nymID) throws InterruptedException {
 //DEBUGGING 3rd step of debugging.
         Map marketListMap = new HashMap();
-        
+
         // ----------------------------------------------------------
-        OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.GET_MARKET_LIST, serverID, nymID);
-        String      strResponse  = OTAPI_Func.SendRequest(theRequest, "GET_MARKET_LIST");
-        
+        OTAPI_Func theRequest = new OTAPI_Func(OTAPI_Func.FT.GET_MARKET_LIST, serverID, nymID);
+        String strResponse = OTAPI_Func.SendRequest(theRequest, "GET_MARKET_LIST");
+
         if (null == strResponse) {
             System.out.println("IN loadMarketList: OTAPI_Func.SendRequest(() failed. (I give up.) ");
             return null;
@@ -179,7 +178,7 @@ public class Market {
         // ----------------------------------------------------------
 
         if (otapi.OT_API_Message_GetDepth(strResponse) == 0) {
-            System.out.println("loadMarketList - marketList returns with a OT_API_Message_GetDepth() of 0 elements.");            
+            System.out.println("loadMarketList - marketList returns with a OT_API_Message_GetDepth() of 0 elements.");
             return marketListMap;
         }
 
@@ -199,11 +198,21 @@ public class Market {
         for (int i = 0; i < count; i++) {
 
             MarketData marketData = marketList.GetMarketData(i);
-            if (marketData == null)
+            if (marketData == null) {
                 continue;
+            }
             if ("ALL".equalsIgnoreCase(serverID) || serverID.equals(marketData.getServer_id())) {
                 String[] data = new String[2];
-                data[0] = marketData.getMarket_id() == null ? "" : marketData.getMarket_id();
+                if (marketData.getAsset_type_id() != null && marketData.getCurrency_type_id() != null) {
+                    String assetName = otapi.OT_API_GetAssetType_Name(marketData.getAsset_type_id());
+                    String currencyName = otapi.OT_API_GetAssetType_Name(marketData.getCurrency_type_id());
+                    if (assetName != null && currencyName != null) {
+                        data[0] = assetName + "-" + currencyName;
+                }
+
+                } else {
+                    data[0] = marketData.getMarket_id() == null ? "" : marketData.getMarket_id();
+                }
                 //data[0] = marketData.getGui_label() == null ? "" : marketData.getGui_label();
                 data[1] = marketData.getMarket_id() == null ? "" : marketData.getMarket_id();
                 marketListMap.put(data[1], data);
@@ -250,16 +259,15 @@ public class Market {
         return nymOfferDetails;
     }
 
-    public static boolean createOrder(String serverID, String nymID, String assetTypeID, String assetAcctID, String currencyTypeID, String currencyAcctID, 
+    public static boolean createOrder(String serverID, String nymID, String assetTypeID, String assetAcctID, String currencyTypeID, String currencyAcctID,
             String scale, String minIncrement, String quantity, String price, int selling) {
 
         // ----------------------------------------
-        OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.CREATE_MARKET_OFFER, serverID, nymID, assetTypeID, assetAcctID, currencyTypeID, currencyAcctID,
-                                                    scale, minIncrement, quantity, price, selling == 1 ? true : false);
-        String      strResponse  = OTAPI_Func.SendTransaction(theRequest, "CREATE_MARKET_OFFER");
-        
-        if (null == strResponse)
-        {
+        OTAPI_Func theRequest = new OTAPI_Func(OTAPI_Func.FT.CREATE_MARKET_OFFER, serverID, nymID, assetTypeID, assetAcctID, currencyTypeID, currencyAcctID,
+                scale, minIncrement, quantity, price, selling == 1 ? true : false);
+        String strResponse = OTAPI_Func.SendTransaction(theRequest, "CREATE_MARKET_OFFER");
+
+        if (null == strResponse) {
             System.out.println("IN createOrder: OTAPI_Func.SendTransaction(() failed. (I give up.) ");
             return false;
         }
@@ -267,20 +275,19 @@ public class Market {
 
         return true;
     }
-                       
+
     public static boolean cancelOrder(String serverID, String nymID, String assetAccountID, String transactionID) {
 
         // ----------------------------------------
-        OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.CANCEL_MARKET_OFFER, serverID, nymID, assetAccountID, transactionID);
-        String      strResponse  = OTAPI_Func.SendTransaction(theRequest, "CANCEL_MARKET_OFFER");
-        
-        if (null == strResponse)
-        {
+        OTAPI_Func theRequest = new OTAPI_Func(OTAPI_Func.FT.CANCEL_MARKET_OFFER, serverID, nymID, assetAccountID, transactionID);
+        String strResponse = OTAPI_Func.SendTransaction(theRequest, "CANCEL_MARKET_OFFER");
+
+        if (null == strResponse) {
             System.out.println("IN cancelOrder: OTAPI_Func.SendTransaction(() failed. (I give up.) ");
             return false;
         }
         // ----------------------------------------
-        
+
         return true;
     }
 
@@ -289,9 +296,9 @@ public class Market {
         Map nymOffersData = new HashMap();
 
         // ----------------------------------------------------------
-        OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.GET_NYM_MARKET_OFFERS, serverID, nymID);
-        String      strResponse  = OTAPI_Func.SendRequest(theRequest, "GET_NYM_MARKET_OFFERS");
-        
+        OTAPI_Func theRequest = new OTAPI_Func(OTAPI_Func.FT.GET_NYM_MARKET_OFFERS, serverID, nymID);
+        String strResponse = OTAPI_Func.SendRequest(theRequest, "GET_NYM_MARKET_OFFERS");
+
         if (null == strResponse) {
             System.out.println("IN getNymOfferList: OTAPI_Func.SendRequest(() failed. (I give up.) ");
             return null;
@@ -395,8 +402,8 @@ public class Market {
                 marketDetails.setTotalAssets(marketData.getTotal_assets() == null ? "" : marketData.getTotal_assets());
 
                 // ----------------------------------------------------------
-                OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.GET_MARKET_OFFERS, serverID, nymID, marketID, Configuration.getMarketMaxDepth());
-                String      strResponse  = OTAPI_Func.SendRequest(theRequest, "GET_MARKET_OFFERS");
+                OTAPI_Func theRequest = new OTAPI_Func(OTAPI_Func.FT.GET_MARKET_OFFERS, serverID, nymID, marketID, Configuration.getMarketMaxDepth());
+                String strResponse = OTAPI_Func.SendRequest(theRequest, "GET_MARKET_OFFERS");
 
                 if (null == strResponse) {
                     System.out.println("IN getMarketDetails: OTAPI_Func.SendRequest(() failed. (I give up.) ");
@@ -426,11 +433,11 @@ public class Market {
                         askRow[3] = askData.getMinimum_increment();
 
                         try {
-                            Long lScale       = Long.valueOf(marketDetails.getGranularity()); 
-                            Long lPrice       = Long.valueOf(askRow[0]);    // this price is "per scale"
-                            Long lQuantity    = Long.valueOf(askRow[1]);    // Total overall quantity available
-                            Long lScaleUnits  = Long.valueOf(lQuantity / lScale);   // Number of scale units available in total quanity. (120 total at scale of 10, is 12 units.)
-                            Long lTotalCost   = Long.valueOf(lPrice * lScaleUnits); // // Total value of available units is price times scale units. 
+                            Long lScale = Long.valueOf(marketDetails.getGranularity());
+                            Long lPrice = Long.valueOf(askRow[0]);    // this price is "per scale"
+                            Long lQuantity = Long.valueOf(askRow[1]);    // Total overall quantity available
+                            Long lScaleUnits = Long.valueOf(lQuantity / lScale);   // Number of scale units available in total quanity. (120 total at scale of 10, is 12 units.)
+                            Long lTotalCost = Long.valueOf(lPrice * lScaleUnits); // // Total value of available units is price times scale units.
                             askRow[2] = String.valueOf(lTotalCost);    // At $5 per scale, at 12 units, is $60 total for 120 total assets. (The number 60 goes here, plus the currency symbol todo.)
 //                          askRow[2] = String.valueOf(Double.parseDouble(askRow[0]) * Double.parseDouble(askRow[1]));
 
@@ -456,11 +463,11 @@ public class Market {
                         bidRow[3] = bidData.getMinimum_increment();
 
                         try {
-                            Long lScale       = Long.valueOf(marketDetails.getGranularity()); 
-                            Long lPrice       = Long.valueOf(bidRow[0]);    // this price is "per scale"
-                            Long lQuantity    = Long.valueOf(bidRow[1]);    // Total overall quantity available
-                            Long lScaleUnits  = Long.valueOf(lQuantity / lScale);   // Number of scale units available in total quanity. (120 total at scale of 10, is 12 units.)
-                            Long lTotalCost   = Long.valueOf(lPrice * lScaleUnits); // // Total value of available units is price times scale units. 
+                            Long lScale = Long.valueOf(marketDetails.getGranularity());
+                            Long lPrice = Long.valueOf(bidRow[0]);    // this price is "per scale"
+                            Long lQuantity = Long.valueOf(bidRow[1]);    // Total overall quantity available
+                            Long lScaleUnits = Long.valueOf(lQuantity / lScale);   // Number of scale units available in total quanity. (120 total at scale of 10, is 12 units.)
+                            Long lTotalCost = Long.valueOf(lPrice * lScaleUnits); // // Total value of available units is price times scale units.
                             bidRow[2] = String.valueOf(lTotalCost);    // At $5 per scale, at 12 units, is $60 total for 120 total assets. (The number 60 goes here, plus the currency symbol todo.)
 //                          bidRow[2] = String.valueOf(Double.parseDouble(bidRow[0]) * Double.parseDouble(bidRow[1]));
 
@@ -472,10 +479,10 @@ public class Market {
 
                         bidGridData.put(bidData.getTransaction_id(), bidRow);
                     }
-                }                        
+                }
                 // ----------------------------------------------------------
-                OTAPI_Func  theRequest2   = new OTAPI_Func(OTAPI_Func.FT.GET_MARKET_RECENT_TRADES, serverID, nymID, marketID);
-                String      strResponse2  = OTAPI_Func.SendRequest(theRequest2, "GET_MARKET_RECENT_TRADES");
+                OTAPI_Func theRequest2 = new OTAPI_Func(OTAPI_Func.FT.GET_MARKET_RECENT_TRADES, serverID, nymID, marketID);
+                String strResponse2 = OTAPI_Func.SendRequest(theRequest2, "GET_MARKET_RECENT_TRADES");
 
                 if (null == strResponse2) {
                     System.out.println("IN getMarketDetails: OTAPI_Func.SendRequest(() failed. (I give up.) ");
@@ -516,11 +523,11 @@ public class Market {
                         tradeDataRow[0] = tradeDataMarket.getTransaction_id() == null ? "" : tradeDataMarket.getTransaction_id();
 
                         try {
-                            Long lScale       = Long.valueOf(marketDetails.getGranularity()); 
-                            Long lPrice       = Long.valueOf(tradeDataRow[1]);    // this price is "per scale"
-                            Long lQuantity    = Long.valueOf(tradeDataRow[2]);    // Total overall quantity available
-                            Long lScaleUnits  = Long.valueOf(lQuantity / lScale);   // Number of scale units available in total quanity. (120 total at scale of 10, is 12 units.)
-                            Long lTotalCost   = Long.valueOf(lPrice * lScaleUnits); // // Total value of available units is price times scale units. 
+                            Long lScale = Long.valueOf(marketDetails.getGranularity());
+                            Long lPrice = Long.valueOf(tradeDataRow[1]);    // this price is "per scale"
+                            Long lQuantity = Long.valueOf(tradeDataRow[2]);    // Total overall quantity available
+                            Long lScaleUnits = Long.valueOf(lQuantity / lScale);   // Number of scale units available in total quanity. (120 total at scale of 10, is 12 units.)
+                            Long lTotalCost = Long.valueOf(lPrice * lScaleUnits); // // Total value of available units is price times scale units.
                             tradeDataRow[3] = String.valueOf(lTotalCost);    // At $5 per scale, at 12 units, is $60 total for 120 total assets. (The number 60 goes here, plus the currency symbol todo.)
 //                          tradeDataRow[3] = String.valueOf(Double.parseDouble(tradeDataRow[2]) * Double.parseDouble(tradeDataRow[1]));
 
@@ -532,10 +539,10 @@ public class Market {
 
                         tradeMarketData.add(tradeDataRow);
                     }
-                }                
+                }
                 // ----------------------------------------------------------
-                OTAPI_Func  theRequest3   = new OTAPI_Func(OTAPI_Func.FT.GET_NYM_MARKET_OFFERS, serverID, nymID);
-                String      strResponse3  = OTAPI_Func.SendRequest(theRequest3, "GET_NYM_MARKET_OFFERS");
+                OTAPI_Func theRequest3 = new OTAPI_Func(OTAPI_Func.FT.GET_NYM_MARKET_OFFERS, serverID, nymID);
+                String strResponse3 = OTAPI_Func.SendRequest(theRequest3, "GET_NYM_MARKET_OFFERS");
 
                 if (null == strResponse3) {
                     System.out.println("IN getMarketDetails: OTAPI_Func.SendRequest(() failed. (I give up.) ");

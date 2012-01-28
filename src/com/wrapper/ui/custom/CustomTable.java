@@ -99,6 +99,7 @@ import com.wrapper.core.util.Utility;
 import com.wrapper.ui.*;
 import com.wrapper.ui.model.AccountTableModel;
 import com.wrapper.ui.model.AssetContractTableModel;
+import com.wrapper.ui.model.BasketTableModel;
 import com.wrapper.ui.model.NYMBoxTableModel;
 import com.wrapper.ui.model.NYMOutboxTableModel;
 import com.wrapper.ui.model.NYMTableModel;
@@ -128,6 +129,9 @@ public class CustomTable extends JTable {
                     value = (String)this.getModel().getValueAt(rowIndex, 3);
                 }
                 if(this.getModel() instanceof NYMTableModel && vColIndex==0){
+                    value = (String)this.getModel().getValueAt(rowIndex, 1);
+                }
+                if(this.getModel() instanceof BasketTableModel && vColIndex==0){
                     value = (String)this.getModel().getValueAt(rowIndex, 1);
                 }
                 if(this.getModel() instanceof AssetContractTableModel && vColIndex==0){
