@@ -142,33 +142,39 @@ public class Basket {
             nymID = new NYM().registeredNYM(serverID);
         }
 
+        System.out.println("--nymID:" + nymID);
+
+
         if (nymID == null) {
             basketList.add(new String[]{"Popup Dialog"});
             return basketList;
         }
 
-        /*List registeredAssets = getRegisteredAssets(serverID, "");
+        List registeredAssets = getRegisteredAssets(serverID, nymID);
 
-        for (int i = 0; i < registeredAssets.size(); i++) {
-        String key = (String)registeredAssets.get(i);
+        if (registeredAssets != null) {
+
+            for (int i = 0; i < registeredAssets.size(); i++) {
+                String key = (String) registeredAssets.get(i);
+                System.out.println("key:" + key);
+                if (key != null && otapi.OT_API_IsBasketCurrency(key) == 1) {
+                    String label = otapi.OT_API_GetAssetType_Name(key);
+                    basketList.add(new String[]{label, key});
+                }
+            }
+        }
+
+
+        /* int count = otapi.OT_API_GetAssetTypeCount();
+
+        for (int i = 0; i < count; i++) {
+        String key = otapi.OT_API_GetAssetType_ID(i);
         System.out.println("key:" + key);
         if (key != null && otapi.OT_API_IsBasketCurrency(key) == 1) {
         String label = otapi.OT_API_GetAssetType_Name(key);
         basketList.add(new String[]{label, key});
         }
         }*/
-
-
-        int count = otapi.OT_API_GetAssetTypeCount();
-
-        for (int i = 0; i < count; i++) {
-            String key = otapi.OT_API_GetAssetType_ID(i);
-            System.out.println("key:" + key);
-            if (key != null && otapi.OT_API_IsBasketCurrency(key) == 1) {
-                String label = otapi.OT_API_GetAssetType_Name(key);
-                basketList.add(new String[]{label, key});
-            }
-        }
 
 
         return basketList;

@@ -279,6 +279,7 @@ public class Market {
     public static boolean cancelOrder(String serverID, String nymID, String assetAccountID, String transactionID) {
 
         // ----------------------------------------
+        System.out.println(serverID+" .. "+nymID+" .. "+assetAccountID+" .. "+transactionID);
         OTAPI_Func theRequest = new OTAPI_Func(OTAPI_Func.FT.CANCEL_MARKET_OFFER, serverID, nymID, assetAccountID, transactionID);
         String strResponse = OTAPI_Func.SendTransaction(theRequest, "CANCEL_MARKET_OFFER");
 
@@ -509,7 +510,7 @@ public class Market {
 
                         tradeDataRow[2] = tradeDataMarket.getAmount_sold() == null ? "" : tradeDataMarket.getAmount_sold();
                         tradeDataRow[4] = tradeDataMarket.getDate() == null ? "" : tradeDataMarket.getDate();
-
+                        System.out.println("tradeDataMarket.getDate():"+tradeDataMarket.getDate());
                         try {
                             tradeDataRow[4] = String.valueOf(new Date(Long.parseLong(tradeDataRow[4]) * 1000));
 
@@ -567,11 +568,22 @@ public class Market {
 
                         String[] nymDataRow = new String[3];
                         //offerDataNym.getSelling()
+                        if(marketData.getAsset_type_id()!=null
+                          && marketData.getCurrency_type_id()!=null
+                          && marketData.getScale()!=null
+                          && offerDataNym.getAsset_type_id()!=null
+                          && offerDataNym.getScale()!=null
+                          && offerDataNym.getCurrency_type_id()!=null
+                          && marketData.getAsset_type_id().equals(offerDataNym.getAsset_type_id())
+                          && marketData.getCurrency_type_id().equals(offerDataNym.getCurrency_type_id())
+                          && marketData.getScale().equals(offerDataNym.getScale())
+                                ){
                         nymDataRow[0] = offerDataNym.getTransaction_id();
                         nymDataRow[1] = offerDataNym.getSelling() == true ? "Ask" : "Bid";
                         nymDataRow[2] = offerDataNym.getAsset_acct_id();
 
                         nymGridData.put(offerDataNym.getTransaction_id(), nymDataRow);
+                        }
                     }
                 }
 
@@ -606,13 +618,12 @@ public class Market {
             }
 
             String[] tradeDataRow = new String[5];
-
             tradeDataRow[0] = tradeDataNym.getTransaction_id() == null ? "" : tradeDataNym.getTransaction_id();
             tradeDataRow[1] = tradeDataNym.getPrice() == null ? "" : tradeDataNym.getPrice();
             tradeDataRow[2] = tradeDataNym.getAmount_sold() == null ? "" : tradeDataNym.getAmount_sold();
             tradeDataRow[3] = tradeDataNym.getCompleted_count() == null ? "" : tradeDataNym.getCompleted_count();
             tradeDataRow[4] = tradeDataNym.getDate() == null ? "" : tradeDataNym.getDate();
-
+            System.out.println("tradeDataNym.getDate():"+tradeDataNym.getDate());
             if (!tradeDataRow[4].equals("")) {
 
                 try {

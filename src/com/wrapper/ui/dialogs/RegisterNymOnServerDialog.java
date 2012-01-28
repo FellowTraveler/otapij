@@ -120,6 +120,7 @@ public class RegisterNymOnServerDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.serverID = serverID;
+        initValues();
         setLocation(Utility.getLocation(this.getSize()));
 
     }

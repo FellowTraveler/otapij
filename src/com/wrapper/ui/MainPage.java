@@ -1667,7 +1667,7 @@ public class MainPage extends javax.swing.JFrame {
 
         jScrollPane25.setName("jScrollPane25"); // NOI18N
 
-        jTable18.setModel(new com.wrapper.ui.model.MarketRecentTradesTableModel());
+        jTable18.setModel(new com.wrapper.ui.model.MarketRecentTradesTableModel(jTable18));
         jTable18.setToolTipText(resourceMap.getString("jTable18.toolTipText")); // NOI18N
         jTable18.setName("jTable18"); // NOI18N
         jTable18.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -3459,7 +3459,7 @@ public class MainPage extends javax.swing.JFrame {
             if (userSelection == 0) {
                 setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 
-                boolean status = Market.cancelOrder(serverID, nymID, (String) jTable13.getModel().getValueAt(jTable13.getSelectedRow(), 1), (String) jTable14.getModel().getValueAt(jTable14.getSelectedRow(), 0));
+                boolean status = Market.cancelOrder(serverID, nymID, (String) jTable14.getModel().getValueAt(jTable14.getSelectedRow(), 2), (String) jTable14.getModel().getValueAt(jTable14.getSelectedRow(), 0));
                 setCursor(Cursor.getDefaultCursor());
                 if (status) {
                     JOptionPane.showMessageDialog(this, "Order cancelled successfully", "Order Cancellation", JOptionPane.INFORMATION_MESSAGE);
@@ -3584,9 +3584,14 @@ public class MainPage extends javax.swing.JFrame {
         }
         System.out.println("Server dropdown currentServerID:" + currentServerID);
 
-        if (Basket.getBasketList(currentServerID, null) != null && !"Popup Dialog".equalsIgnoreCase(((String[]) ((List) Basket.getBasketList(currentServerID, null)).get(0))[0])) {
-            ((BasketTableModel) jTable19.getModel()).setValue(Basket.getBasketList(currentServerID, null));
-        } else {
+        List baskets = Basket.getBasketList(currentServerID, null);
+        System.out.println("baskets:" + baskets);
+        System.out.println("baskets.size():" + baskets.size());
+
+
+        if (baskets != null && baskets.size() > 0 && !"Popup Dialog".equalsIgnoreCase(((String[]) baskets.get(0))[0])) {
+            ((BasketTableModel) jTable19.getModel()).setValue(baskets);
+        } else if (baskets != null && baskets.size() != 0) {
 
             // Show dialog asking for register
             new RegisterNymOnServerDialog(this, true, currentServerID).setVisible(true);
@@ -3597,7 +3602,6 @@ public class MainPage extends javax.swing.JFrame {
             ((BasketTableModel) jTable19.getModel()).setValue(Basket.getBasketList(currentServerID, nymID));
 
         }
-        // TODO : Need to clear right side details
 
         jTextField9.setText("");
         jTextField11.setText("");
@@ -3641,8 +3645,10 @@ public class MainPage extends javax.swing.JFrame {
                 currentServerID = ((String[]) serverMap.get((Integer) jComboBox7.getSelectedIndex()))[1];
             }
             System.out.println("currentServerID:" + currentServerID);
-        if (Basket.getBasketList(currentServerID, null) != null && !"Popup Dialog".equalsIgnoreCase(((String[]) ((List) Basket.getBasketList(currentServerID, null)).get(0))[0])) {
-                ((BasketTableModel) jTable19.getModel()).setValue(Basket.getBasketList(currentServerID, null));
+            List baskets = Basket.getBasketList(currentServerID, null);
+
+            if (baskets != null && baskets.size() > 0 && !"Popup Dialog".equalsIgnoreCase(((String[]) baskets.get(0))[0])) {
+                ((BasketTableModel) jTable19.getModel()).setValue(baskets);
             }
 
         } else {
@@ -3876,7 +3882,7 @@ public class MainPage extends javax.swing.JFrame {
     private static javax.swing.JTable jTable15;
     private static javax.swing.JTable jTable16;
     private javax.swing.JTable jTable17;
-    private javax.swing.JTable jTable18;
+    private static javax.swing.JTable jTable18;
     private static javax.swing.JTable jTable19;
     private static javax.swing.JTable jTable2;
     private static javax.swing.JTable jTable3;
@@ -4485,8 +4491,11 @@ public class MainPage extends javax.swing.JFrame {
     }
 
     public static void setAssets(String serverID) {
-        if (Basket.getBasketList(serverID, null) != null && !"Popup Dialog".equalsIgnoreCase(((String[]) ((List) Basket.getBasketList(serverID, null)).get(0))[0])) {
-            ((BasketTableModel) jTable19.getModel()).setValue(Basket.getBasketList(serverID, null));
+
+        List baskets = Basket.getBasketList(serverID, null);
+
+        if (baskets != null && baskets.size() > 0 && !"Popup Dialog".equalsIgnoreCase(((String[]) baskets.get(0))[0])) {
+            ((BasketTableModel) jTable19.getModel()).setValue(baskets);
         }
         refreshAssetContractList();
 
@@ -4697,9 +4706,15 @@ public class MainPage extends javax.swing.JFrame {
             currentServerID = ((String[]) serverMap.get((Integer) jComboBox7.getSelectedIndex()))[1];
         }
 
-        if (Basket.getBasketList(currentServerID, null) != null && !"Popup Dialog".equalsIgnoreCase(((String[]) ((List) Basket.getBasketList(currentServerID, null)).get(0))[0])) {
-            ((BasketTableModel) jTable19.getModel()).setValue(Basket.getBasketList(currentServerID, null));
-        } else {
+        List baskets = Basket.getBasketList(currentServerID, null);
+
+        System.out.println("baskets:" + baskets);
+        System.out.println("baskets.size():" + baskets.size());
+
+
+        if (baskets != null && baskets.size() > 0 && !"Popup Dialog".equalsIgnoreCase(((String[]) baskets.get(0))[0])) {
+            ((BasketTableModel) jTable19.getModel()).setValue(baskets);
+        } else if (baskets != null && baskets.size() != 0) {
 
             // Show dialog asking for register
             new RegisterNymOnServerDialog(this, true, currentServerID).setVisible(true);

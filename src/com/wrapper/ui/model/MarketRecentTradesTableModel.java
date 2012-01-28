@@ -112,6 +112,12 @@ public class MarketRecentTradesTableModel extends DefaultTableModel implements W
     {"Server3","300"}
     };*/
 
+   public MarketRecentTradesTableModel(JTable recentTradesTable){
+          /* RowSorter<TableModel> sorter =
+                    new TableRowSorter<TableModel>(this);
+            recentTradesTable.setRowSorter(sorter);*/
+    }
+
     public void setValue(List values, JTable recentTradesTable) {
 
         clearValue();
@@ -121,11 +127,11 @@ public class MarketRecentTradesTableModel extends DefaultTableModel implements W
             String[] row = (String[]) values.get(j);
             data[i] = row;
         }
-        if (values.size() > 0) {
+        /*if (values.size() > 0) {
             RowSorter<TableModel> sorter =
                     new TableRowSorter<TableModel>(this);
             recentTradesTable.setRowSorter(sorter);
-        }
+        }*/
 
         fireTableDataChanged();
     }
@@ -144,11 +150,6 @@ public class MarketRecentTradesTableModel extends DefaultTableModel implements W
             data[i] = row;
             i++;
         }
-
-        RowSorter<TableModel> sorter =
-                new TableRowSorter<TableModel>(this);
-        recentTradesTable.setRowSorter(sorter);
-
 
         fireTableDataChanged();
     }
@@ -174,10 +175,12 @@ public class MarketRecentTradesTableModel extends DefaultTableModel implements W
         }
     }
 
+    @Override
     public String getColumnName(int col) {
         return columnNames[col];
     }
 
+    @Override
     public Object getValueAt(int row, int col) {
 
         if (row > -1 && col > -1 && data != null) {
@@ -229,5 +232,9 @@ public class MarketRecentTradesTableModel extends DefaultTableModel implements W
         if (tcm.getColumnCount() == 2) {
             marketTable.removeColumn(tcm.getColumn(1));
         }
+
+        /*   RowSorter<TableModel> sorter =
+                new TableRowSorter<TableModel>(this);
+        marketTable.setRowSorter(sorter);*/
     }
 }
