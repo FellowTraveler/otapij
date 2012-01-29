@@ -68,7 +68,7 @@ Hash: SHA256
  *   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
  *   PURPOSE.  See the GNU General Public License for more
  *   details.
- 
+
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.11 (Darwin)
 
@@ -87,14 +87,10 @@ AK+ZirdWhhoHeWR1tAkN
 =RcXP
 -----END PGP SIGNATURE-----
  **************************************************************/
-
-
-
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.wrapper.core.util;
 
 /**
@@ -103,12 +99,21 @@ package com.wrapper.core.util;
  */
 public class Configuration {
 
-    private static long   waitTime            = 1;
-    private static int    retryCount          = 1;
-    private static int    nbrTransactionCount = 10;
-    private static String rippleUsernameID    = "username";
-    private static String ripplePasswordID    = "password";
-    private static String loomPasswordID      = "passphrase";
+    private static long waitTime = 1;
+    private static int retryCount = 1;
+    private static int nbrTransactionCount = 10;
+    private static String rippleUsernameID = "username";
+    private static String ripplePasswordID = "password";
+    private static String loomPasswordID = "passphrase";
+    private static String imagePath = null;
+
+    public static String getImagePath() {
+        return imagePath;
+    }
+
+    public static void setImagePath(String imagePath) {
+        Configuration.imagePath = imagePath;
+    }
 
     public static String getLoomPasswordID() {
         return loomPasswordID;
@@ -117,7 +122,7 @@ public class Configuration {
     public static void setLoomPasswordID(String loomPasswordID) {
         Configuration.loomPasswordID = loomPasswordID;
     }
-    private static String marketMaxDepth      = "100";
+    private static String marketMaxDepth = "100";
 
     public static String getMarketMaxDepth() {
         return marketMaxDepth;
@@ -142,7 +147,6 @@ public class Configuration {
     public static void setRippleUsernameID(String rippleUsernameID) {
         Configuration.rippleUsernameID = rippleUsernameID;
     }
-    
 
     public static int getNbrTransactionCount() {
         return nbrTransactionCount;
@@ -167,5 +171,4 @@ public class Configuration {
     public static void setWaitTime(long waitTime) {
         Configuration.waitTime = waitTime;
     }
-
 }

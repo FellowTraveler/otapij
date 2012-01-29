@@ -623,7 +623,6 @@ public class Market {
             tradeDataRow[2] = tradeDataNym.getAmount_sold() == null ? "" : tradeDataNym.getAmount_sold();
             tradeDataRow[3] = tradeDataNym.getCompleted_count() == null ? "" : tradeDataNym.getCompleted_count();
             tradeDataRow[4] = tradeDataNym.getDate() == null ? "" : tradeDataNym.getDate();
-            System.out.println("tradeDataNym.getDate():"+tradeDataNym.getDate());
             if (!tradeDataRow[4].equals("")) {
 
                 try {
