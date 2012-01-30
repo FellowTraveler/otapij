@@ -38,10 +38,10 @@ public class WalletData extends Storable {
     super.delete();
   }
 // ------------------------
-	/*@SWIG:OTAPI.i,346,OT_CONTAINER_TYPE_MEMBERS@*/
+	/*@SWIG:OTAPI.i,352,OT_CONTAINER_TYPE_MEMBERS@*/
 	private List elementList = new ArrayList();
 /*@SWIG@*/
-	/*@SWIG:OTAPI.i,427,OT_ADD_ELEMENT@*/  // THIS BLOCK CONTAINS JAVA CODE.
+	/*@SWIG:OTAPI.i,433,OT_ADD_ELEMENT@*/  // THIS BLOCK CONTAINS JAVA CODE.
 private long removeRefBitcoinServer(long lIndex) {
 	// 
 	// loop through the elements in the actual container, in order to find the one
@@ -101,7 +101,7 @@ private long getCPtrAddRefBitcoinServer(BitcoinServer element) {
 	return BitcoinServer.getCPtr(element);
 }	// Hope I get away with overloading this for every type. Otherwise,
 /*@SWIG@*/
-	/*@SWIG:OTAPI.i,427,OT_ADD_ELEMENT@*/  // THIS BLOCK CONTAINS JAVA CODE.
+	/*@SWIG:OTAPI.i,433,OT_ADD_ELEMENT@*/  // THIS BLOCK CONTAINS JAVA CODE.
 private long removeRefBitcoinAcct(long lIndex) {
 	// 
 	// loop through the elements in the actual container, in order to find the one
@@ -161,7 +161,7 @@ private long getCPtrAddRefBitcoinAcct(BitcoinAcct element) {
 	return BitcoinAcct.getCPtr(element);
 }	// Hope I get away with overloading this for every type. Otherwise,
 /*@SWIG@*/
-	/*@SWIG:OTAPI.i,427,OT_ADD_ELEMENT@*/  // THIS BLOCK CONTAINS JAVA CODE.
+	/*@SWIG:OTAPI.i,433,OT_ADD_ELEMENT@*/  // THIS BLOCK CONTAINS JAVA CODE.
 private long removeRefRippleServer(long lIndex) {
 	// 
 	// loop through the elements in the actual container, in order to find the one
@@ -221,7 +221,7 @@ private long getCPtrAddRefRippleServer(RippleServer element) {
 	return RippleServer.getCPtr(element);
 }	// Hope I get away with overloading this for every type. Otherwise,
 /*@SWIG@*/
-	/*@SWIG:OTAPI.i,427,OT_ADD_ELEMENT@*/  // THIS BLOCK CONTAINS JAVA CODE.
+	/*@SWIG:OTAPI.i,433,OT_ADD_ELEMENT@*/  // THIS BLOCK CONTAINS JAVA CODE.
 private long removeRefLoomServer(long lIndex) {
 	// 
 	// loop through the elements in the actual container, in order to find the one
