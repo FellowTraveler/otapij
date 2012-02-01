@@ -97,6 +97,17 @@ public class Load {
             throw new AppDataNotLoadedException("Unable To Load Wallet, Maybe Wrong Password?");
         }
     }
+     public static void loadImage() throws ImageNotLoadedException {
+
+        System.out.println("Utility.getImagePath():"+Utility.getImagePath());
+
+        if (Utility.getImagePath() == null) {
+            throw new ImageNotLoadedException("Unable To Load Image, Maybe First Run, Image Not Set?");
+        }
+
+        Configuration.setImagePath(Utility.getImagePath());
+      
+    }
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Load setTimeOut">
     public static void setTimeout() throws InvalidTimeOutException {
@@ -238,6 +249,24 @@ public class Load {
         }
 
         public ApiNotLoadedException(String err) {
+            super(err);     // call super class constructor
+            locationsChecked = err;  // save message
+        }
+
+        public String getError() {
+            return locationsChecked;
+        }
+    }
+    static class ImageNotLoadedException extends Exception {
+
+        private String locationsChecked;
+
+        public ImageNotLoadedException() {
+            super();             // call superclass constructor
+            locationsChecked = "none";
+        }
+
+        public ImageNotLoadedException(String err) {
             super(err);     // call super class constructor
             locationsChecked = err;  // save message
         }

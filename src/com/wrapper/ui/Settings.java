@@ -129,6 +129,7 @@ public class Settings extends javax.swing.JFrame {
         //Try and load without settings dilogue:
         try {
             Load.loadOTAPI();
+            Load.loadImage();
             Load.loadAppData();
             Load.setTimeout();
             Utility.setSettingsObj(this);
@@ -151,6 +152,14 @@ public class Settings extends javax.swing.JFrame {
         } catch (Load.InvalidTimeOutException e) {
             StringBuilder error = new StringBuilder();
             error.append("Auto-Timout is invalid; you should never see this message: please contact us for support!");
+            error.append(e.getError());
+            System.out.println(error.toString());
+            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
+            loadSettings();
+        } catch (Load.ImageNotLoadedException e) {
+            StringBuilder error = new StringBuilder();
+            error.append("Autoload of image failed: ");
+            error.append(System.getProperty("line.separator"));
             error.append(e.getError());
             System.out.println(error.toString());
             //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
@@ -349,20 +358,23 @@ public class Settings extends javax.swing.JFrame {
     private void jButton_LoadWalletActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_LoadWalletActionPerformed
         //Atempt to load with modifed settings:
         try {
-        String path = Configuration.getImagePath();
-        BufferedImage image = null;
-        try{
-            image = ImageIO.read(new File(path));
-            image.getWidth();
-        }catch(Exception e){
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Invalid image file. Please select proper image", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+            String path = Configuration.getImagePath();
+            BufferedImage image = null;
+            try {
+                image = ImageIO.read(new File(path));
+                image.getWidth();
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Invalid image file. Please select proper image", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             Load.loadOTAPI(javaPaths);
             Load.loadAppData(jTextField_DataFolder.getText(), jTextField_WalletFile.getText());
             Load.setTimeout(jTextField_Timeout.getText());
             Utility.setSettingsObj(this);
+
+            boolean status = Utility.saveImagePath(jTextField_ImagePath.getText());
+            System.out.println("Status of image path persistence:" + status);
             new MainPage().setVisible(true);
         } catch (Load.ApiNotLoadedException e) {
             StringBuilder error = new StringBuilder();
@@ -387,7 +399,7 @@ public class Settings extends javax.swing.JFrame {
             e.printStackTrace();
         }
 
-      
+
 
 // <editor-fold defaultstate="collapsed" desc="//Old Code">
 //        try {
@@ -511,7 +523,6 @@ public class Settings extends javax.swing.JFrame {
             //This is where a real application would open the file.
             jTextField_ImagePath.setText(imageChooser.getSelectedFile().getPath());
             Configuration.setImagePath(jTextField_ImagePath.getText());
-
         } else {
             System.out.println("Cancelled");
         }
@@ -564,7 +575,7 @@ public class Settings extends javax.swing.JFrame {
         dataFolderChooser.setCurrentDirectory(new java.io.File("."));
         dataFolderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
-        imageChooser= new JFileChooser();
+        imageChooser = new JFileChooser();
 
         imageChooser.setFileHidingEnabled(false);
         imageChooser.setCurrentDirectory(new java.io.File("."));
@@ -589,3 +600,4 @@ public class Settings extends javax.swing.JFrame {
     }
 }
   // </editor-fold>
+

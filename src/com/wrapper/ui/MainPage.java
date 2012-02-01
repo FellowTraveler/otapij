@@ -220,95 +220,7 @@ public class MainPage extends javax.swing.JFrame {
 
         try {
 
-            // systray code start
-            Image image = null;
-
-
-            System.out.println("creating instance");
-
-            if (SystemTray.isSupported()) {
-                System.out.println("system tray supported");
-                tray = SystemTray.getSystemTray();
-
-                ImageIcon image1 = new javax.swing.ImageIcon(getClass().getResource("/com/wrapper/ui/images/images.jpeg"));
-                image = image1.getImage();
-                //image = Toolkit.getDefaultToolkit().getImage("/Users/administrator/Desktop/images.jpeg");
-                ActionListener exitListener = new ActionListener() {
-
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        System.out.println("Exiting....");
-                        System.exit(0);
-                    }
-                };
-                PopupMenu popup = new PopupMenu();
-                MenuItem defaultItem = new MenuItem("Exit");
-                defaultItem.addActionListener(exitListener);
-                popup.add(defaultItem);
-                defaultItem = new MenuItem("Open");
-                defaultItem.addActionListener(new ActionListener() {
-
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        //tray.remove(trayIcon);
-                        setVisible(true);
-                        repaint();
-                        setVisible(true);
-                        System.out.println("Open");
-
-                    }
-                });
-                popup.add(defaultItem);
-                trayIcon = new TrayIcon(image, "Moneychanger", popup);
-                trayIcon.setImageAutoSize(true);
-            } else {
-                System.out.println("system tray not supported");
-            }
-            addWindowStateListener(new WindowStateListener() {
-
-                @Override
-                public void windowStateChanged(WindowEvent e) {
-                    System.out.println("-----:" + e.getNewState());
-                    if (e.getNewState() == ICONIFIED) {
-                        try {
-                            tray.add(trayIcon);
-                            setVisible(false);
-                            System.out.println("added to SystemTray");
-                        } catch (AWTException ex) {
-                            System.out.println("unable to add to tray");
-                        }
-                    }
-                    if (e.getNewState() == 7) {
-                        try {
-                            tray.add(trayIcon);
-                            setVisible(false);
-                            System.out.println("added to SystemTray");
-                        } catch (AWTException ex) {
-                            System.out.println("unable to add to system tray");
-                        }
-                    }
-                    if (e.getNewState() == MAXIMIZED_BOTH) {
-                        tray.remove(trayIcon);
-                        setVisible(true);
-                        System.out.println("Max both");
-                        System.out.println("Tray icon removed");
-                    }
-                    if (e.getNewState() == NORMAL) {
-                        tray.remove(trayIcon);
-                        setVisible(true);
-                        System.out.println("Max NORMAL");
-
-                        System.out.println("Tray icon removed");
-                    }
-                }
-            });
-            //  setIconImage(Toolkit.getDefaultToolkit().getImage("Duke256.png"));
-            if (image != null) {
-                setIconImage(image);
-            }
-
-            // systray code ends
-
+            setToSystray();
             setTitle("Moneychanger");
             initComponents();
             initMainTab();
@@ -328,6 +240,99 @@ public class MainPage extends javax.swing.JFrame {
             ((JFrame) Utility.getSettingsObj()).dispose();
             setCursor(Cursor.getDefaultCursor());
         }
+    }
+
+    private void setToSystray() {
+
+        Image image = null;
+
+        System.out.println("creating instance");
+
+        if (SystemTray.isSupported()) {
+            System.out.println("system tray supported");
+            tray = SystemTray.getSystemTray();
+
+            ImageIcon image1 = new javax.swing.ImageIcon(getClass().getResource("/com/wrapper/ui/images/images.jpeg"));
+            image = image1.getImage();
+            ActionListener exitListener = new ActionListener() {
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    System.out.println("Exiting....");
+                    System.exit(0);
+                }
+            };
+            PopupMenu popup = new PopupMenu();
+            MenuItem defaultItem = new MenuItem("Exit");
+            defaultItem.addActionListener(exitListener);
+            popup.add(defaultItem);
+            defaultItem = new MenuItem("Open");
+            defaultItem.addActionListener(new ActionListener() {
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    //tray.remove(trayIcon);
+                    setVisible(true);
+                    repaint();
+                    setVisible(true);
+                    System.out.println("Open");
+
+                }
+            });
+            popup.add(defaultItem);
+            trayIcon = new TrayIcon(image, "Moneychanger", popup);
+            trayIcon.setImageAutoSize(true);
+        } else {
+            System.out.println("system tray not supported");
+        }
+        final String os = System.getProperty("os.name").toLowerCase();
+        addWindowStateListener(new WindowStateListener() {
+
+            @Override
+            public void windowStateChanged(WindowEvent e) {
+                System.out.println("-----:" + e.getNewState());
+                if (e.getNewState() == ICONIFIED) {
+                    try {
+                        tray.add(trayIcon);
+                        if (os.indexOf("nix") < 0 || os.indexOf("nux") < 0) {
+                            setVisible(false);
+                        }
+                        System.out.println("added to SystemTray");
+                    } catch (AWTException ex) {
+                        System.out.println("unable to add to tray");
+                    }
+                }
+                if (e.getNewState() == 7) {
+                    try {
+                        tray.add(trayIcon);
+                         if(!(os.indexOf("nix") >= 0 || os.indexOf("nux") >= 0)){
+                        setVisible(false);
+                        }
+                        System.out.println("added to SystemTray");
+                    } catch (AWTException ex) {
+                        System.out.println("unable to add to system tray");
+                    }
+                }
+                if (e.getNewState() == MAXIMIZED_BOTH) {
+                    tray.remove(trayIcon);
+                    setVisible(true);
+                    System.out.println("Max both");
+                    System.out.println("Tray icon removed");
+                }
+                if (e.getNewState() == NORMAL) {
+                    tray.remove(trayIcon);
+                    setVisible(true);
+                    System.out.println("Max NORMAL");
+
+                    System.out.println("Tray icon removed");
+                }
+            }
+        });
+        //  setIconImage(Toolkit.getDefaultToolkit().getImage("Duke256.png"));
+        if (image != null) {
+            setIconImage(image);
+        }
+
     }
 
     protected void setState() {

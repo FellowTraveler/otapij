@@ -108,6 +108,7 @@ import com.wrapper.core.jni.OfferListMarket;
 import com.wrapper.core.jni.OfferListNym;
 import com.wrapper.core.jni.Storable;
 import com.wrapper.core.jni.StoredObjectType;
+import com.wrapper.core.jni.StringMap;
 import com.wrapper.core.jni.TradeListMarket;
 import com.wrapper.core.jni.TradeListNym;
 import com.wrapper.core.jni.WalletData;
@@ -152,7 +153,6 @@ public class Utility {
 
     private static Object settingsObj;
     private static String nymID;
-
     private static List basketExistingAssets = new ArrayList();
 
     public static List getBasketExistingAssets() {
@@ -163,7 +163,7 @@ public class Utility {
         Utility.basketExistingAssets.add(assetID);
     }
 
-     public static void clearBasketExistingAssets() {
+    public static void clearBasketExistingAssets() {
         Utility.basketExistingAssets.clear();
     }
 
@@ -417,17 +417,14 @@ public class Utility {
         // ------------------------------------------
         // Send message..
         otapi.OT_API_FlushMessageBuffer();
-        
+
         int nReceiptCount = otapi.OT_API_processNymbox(serverID, nymID);
         // ------------------------------------------
-	if ((-1) == nReceiptCount)
-	{
+        if ((-1) == nReceiptCount) {
             otapi.OT_API_Output(0, " Utility.processNymbox: Failure. OT_API_processNymbox() returned -1. \n");
             return (-1);
-	}
-        // ------------------------------------------
-        else if (0 == nReceiptCount) 
-        {
+        } // ------------------------------------------
+        else if (0 == nReceiptCount) {
             return 0;	// Nymbox is empty, thus no need to process it.
         }
         // ------------------------------------------
@@ -439,8 +436,7 @@ public class Utility {
 
         if ((serverResponse == null)
                 || (serverResponse.length() < 10)
-                || (0 == otapi.OT_API_Message_GetSuccess(serverResponse))) 
-        {
+                || (0 == otapi.OT_API_Message_GetSuccess(serverResponse))) {
             nReceiptCount = (-1);
             System.out.println("Failure in processNymbox : Response from server " + serverResponse);
         }
@@ -469,8 +465,7 @@ public class Utility {
         return false;
     }
 
-    public static int getAndProcessNymbox(String serverID, String nymID) 
-    {
+    public static int getAndProcessNymbox(String serverID, String nymID) {
         // ------------------------------------------  
         if (Utility.getNymboxLowLevel(serverID, nymID)) {
             if (Utility.insureHaveAllBoxReceipts(serverID, nymID, nymID, 0)) // nBoxType = 0 aka nymbox
@@ -1287,5 +1282,66 @@ public class Utility {
         // ***************************************************
 
         return bOutbox;
+    }
+
+    public static boolean saveImagePath(String imagePath) {
+
+        boolean status = false;
+        StringMap stringMap = null;  // we are about to create this object
+
+        Storable storable =
+                otapi.CreateObject(StoredObjectType.STORED_OBJ_STRING_MAP);
+        System.out.println("storable:" + storable);
+        if (storable != null) {
+            stringMap = StringMap.ot_dynamic_cast(storable);
+            System.out.println("stringMap:" + stringMap);
+
+            if (stringMap != null) {
+                //stringMap.SetValue("ImagePath", "~/.ot/default.gif");
+                stringMap.SetValue("ImagePath", imagePath);
+                status = otapi.StoreObject(stringMap, "moneychanger",
+                        "settings.dat");
+            }
+        }
+
+        return status;
+    }
+
+    public static String getImagePath() {
+
+        StringMap stringMap = null;
+        Storable storable = null;
+        System.out.println("getImagePath:");
+
+        if (otapi.Exists("moneychanger", "settings.dat")) {
+
+            storable =
+                    otapi.QueryObject(StoredObjectType.STORED_OBJ_STRING_MAP,
+                    "moneychanger", "settings.dat");
+            System.out.println("getImagePath,storable:" + storable);
+
+            if (storable == null) {
+                return null;
+            }
+
+            stringMap = StringMap.ot_dynamic_cast(storable);
+        } else {
+            storable =
+                    otapi.CreateObject(StoredObjectType.STORED_OBJ_STRING_MAP);
+            System.out.println("Else getImagePath,storable:" + storable);
+
+            if (storable == null) {
+                return null;
+            }
+            stringMap = StringMap.ot_dynamic_cast(storable);
+        }
+        System.out.println("getImagePath,stringMap:" + stringMap);
+
+        if (stringMap == null) {
+            return null;
+        }
+
+        return stringMap.GetValue("ImagePath");
+
     }
 }
