@@ -128,11 +128,10 @@ public class Settings extends javax.swing.JFrame {
 
         //Try and load without settings dilogue:
         try {
+            Utility.setSettingsObj(this);
             Load.loadOTAPI();
-            Load.loadImage();
             Load.loadAppData();
             Load.setTimeout();
-            Utility.setSettingsObj(this);
             new MainPage().setVisible(true);
         } catch (Load.ApiNotLoadedException e) {
             StringBuilder error = new StringBuilder();
@@ -144,7 +143,7 @@ public class Settings extends javax.swing.JFrame {
             loadSettings();
         } catch (Load.AppDataNotLoadedException e) {
             StringBuilder error = new StringBuilder();
-            error.append("AutoLoad of your MoneyChanger user data failed; Choose the location here:");
+            error.append("AutoLoad of your MoneyChanger user data failed; Choose the location here: ");
             error.append(e.getError().replace(":", System.getProperty("line.separator")));
             System.out.println(error.toString());
             //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
@@ -156,15 +155,17 @@ public class Settings extends javax.swing.JFrame {
             System.out.println(error.toString());
             //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
             loadSettings();
-        } catch (Load.ImageNotLoadedException e) {
-            StringBuilder error = new StringBuilder();
-            error.append("Autoload of image failed: ");
-            error.append(System.getProperty("line.separator"));
-            error.append(e.getError());
-            System.out.println(error.toString());
-            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
-            loadSettings();
-        } catch (Exception e) {
+        } 
+//        catch (Load.ImageNotLoadedException e) {
+//            StringBuilder error = new StringBuilder();
+//            error.append("Autoload of image failed: ");
+//            error.append(System.getProperty("line.separator"));
+//            error.append(e.getError());
+//            System.out.println(error.toString());
+//            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
+//            loadSettings();
+//        } 
+        catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -358,24 +359,42 @@ public class Settings extends javax.swing.JFrame {
     private void jButton_LoadWalletActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_LoadWalletActionPerformed
         //Atempt to load with modifed settings:
         try {
-            String path = Configuration.getImagePath();
-            BufferedImage image = null;
-            try {
-                image = ImageIO.read(new File(path));
-                image.getWidth();
-            } catch (Exception e) {
-                e.printStackTrace();
-                JOptionPane.showMessageDialog(this, "Invalid image file. Please select proper image", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            Load.loadOTAPI(javaPaths);
-            Load.loadAppData(jTextField_DataFolder.getText(), jTextField_WalletFile.getText());
-            Load.setTimeout(jTextField_Timeout.getText());
             Utility.setSettingsObj(this);
 
-            boolean status = Utility.saveImagePath(jTextField_ImagePath.getText());
-            System.out.println("Status of image path persistence:" + status);
-            new MainPage().setVisible(true);
+            Load.loadOTAPI(javaPaths);
+            Load.loadAppData(jTextField_DataFolder.getText(), jTextField_WalletFile.getText());
+            
+            Load.setTimeout(jTextField_Timeout.getText());
+            // ---------------------------
+            
+            String path = Configuration.getImagePath();
+            BufferedImage image = null;
+            
+            if ((null != path) && (path.length() > 0))
+            {
+                try {
+                    File f = new File(path);
+                    
+                    if (null == f)
+                    {
+                        System.out.println("jButton_LoadWalletActionPerformed: new File(path) returned null. Path: " + path);
+                    }
+                    else
+                    {
+                        image = ImageIO.read(f);
+                        image.getWidth();
+                        // --------------------------------
+                        boolean status = Utility.saveImagePath(jTextField_ImagePath.getText());
+                        System.out.println("Status of image path persistence:" + status);
+                        // -------------------------
+                        new MainPage().setVisible(true);
+                    }
+                    // ------------------------------------------------------
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "Invalid image file. Please select proper image", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }            
         } catch (Load.ApiNotLoadedException e) {
             StringBuilder error = new StringBuilder();
             error.append("Unable to load your Java Path!");
@@ -523,6 +542,12 @@ public class Settings extends javax.swing.JFrame {
             //This is where a real application would open the file.
             jTextField_ImagePath.setText(imageChooser.getSelectedFile().getPath());
             Configuration.setImagePath(jTextField_ImagePath.getText());
+
+            // --------------------------------
+            boolean status = Utility.saveImagePath(jTextField_ImagePath.getText());
+            System.out.println("jButton_DataFolder1ActionPerformed: Status of image path persistence:" + status);
+            // -------------------------
+            
         } else {
             System.out.println("Cancelled");
         }

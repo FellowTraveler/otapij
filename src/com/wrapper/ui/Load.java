@@ -12,42 +12,204 @@ import com.wrapper.core.util.Configuration;
 import com.wrapper.core.util.Utility;
 import java.io.IOException;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.AbstractListModel;
 
 /**
  *
  * @author cameron
+ * 
+ * Cleanup:  FT
  */
 public class Load {
+    // These can only happen once per run of the cpplication
+    // -FT
+    //
+    private static boolean s_bLoadedZMQ     = false; // So we don't load it multiple times in Windows.
+    private static boolean s_bLoadedOTAPI   = false; // So we don't load it multiple times.
+    private static boolean s_bInitializedOTAPI   = false; // So we don't initialize it multiple times.
+    private static boolean s_bLoadedWallet   = false; // So we don't load the wallet multiple times.
+    // -------------------------------------
+            
+    private static OneTimeOnly s_OneTime = null;
+    // -------------------------------------
+    // Do NOT instantiate this until AFTER OTAPI library is loaded
+    // and OT_API_INit() is called, but BEFORE LoadWallet() is called.
+    //
+    private static class OneTimeOnly {
+        private OTCaller    m_theCaller;
+        private OTCallback  m_theCallback;
+        public OneTimeOnly() {
+            m_theCaller     = new OTCaller();
+            m_theCallback   = new JavaCallback();
+            
+            m_theCaller.setCallback(m_theCallback);
+            
+            otapi.OT_API_Set_PasswordCallback(m_theCaller);
+            
+            Utility.setG_theCallback(m_theCallback);
+            Utility.setG_theCaller(m_theCaller);
+        }
+    }
+    // -------------------------------------
+    public static void setupPasswordCallback()
+    {
+        // This only happens if the above OT_API_Init() was successful, and it
+        // only happens once.
+        if (null == Load.s_OneTime)
+        {
+            Load.s_OneTime = new OneTimeOnly(); // Password callbacks are in here.
+            System.out.println("Load.setupPasswordCallback: Password callback successfully set up." );
+        }
+        else
+            System.out.println("Load.setupPasswordCallback: Password callback was already set. (Skipping.)" );                
+    }
+    // -------------------------------------
+    private static void loadImage() throws ImageNotLoadedException {
+
+        System.out.println("Load.loadImage(): ");
+        String strImagePath = Utility.getImagePath();
+
+        if (null == strImagePath) {
+            throw new ImageNotLoadedException("Load.loadImage(): Unable To Load Image, Maybe First Run, Image Not Set?");
+        }
+        System.out.println("Utility.getImagePath(): "+strImagePath);
+
+        Configuration.setImagePath(strImagePath);      
+    }
+    // -------------------------------------
+
+    public static void loadAppData(String appDataLocation, String walletLocation) throws AppDataNotLoadedException {
+
+        if (!Load.s_bLoadedOTAPI) // We haven't loaded the jnilib yet.
+        {
+            String strError = "Load.loadAppData: otapi library isn't loaded yet. (Should thus never call this function at this point.)";
+            System.out.println(strError);
+            throw new AppDataNotLoadedException(strError);
+        }
+        // -----------------------------------------
+        
+        String strLocation = new String(appDataLocation.trim());
+        
+        if (Load.s_bInitializedOTAPI)
+        {
+            System.out.println("Load.loadAppData: (OT_API_Init() was already completed in the past. (Skipping.)" );
+        }
+        else // We haven't initialized yet OT yet.
+        {
+            if (1 == otapi.OT_API_Init(strLocation)) {
+                Load.s_bInitializedOTAPI = true;
+                System.out.println("Load.loadAppData: Success invoking OT_API_Init()." );        
+            }
+            else    // Failed in OT_API_Init().
+            {
+                String strErrorMsg = "Load.loadAppData: OT_API_Init() call failed(). (Has it already been called?) Location is " + appDataLocation + " (End of location.)";
+                throw new AppDataNotLoadedException(strErrorMsg);
+            }
+        }
+        // --------------------------------------------
+        
+        // This has internal logic so that it only actually is called once.
+        //
+        Load.setupPasswordCallback();
+        
+        // --------------------------------------------
+        // Password dialog -- security image 
+        try {
+            Load.loadImage();
+        } catch (ImageNotLoadedException ex) {
+            throw new AppDataNotLoadedException("Load.loadAppData: Unable To Load Wallet; password security image not loaded.");
+        }
+        // --------------------------------------------
+        // Load the wallet, if not already loaded.
+        //
+        if (Load.s_bLoadedWallet) // Already loaded, therefore, use SwitchWallet() instead of LoadWallet().
+        {
+            if (1 == otapi.OT_API_SwitchWallet(strLocation, walletLocation)) {
+                Load.s_bLoadedWallet = true;
+                System.out.println("Load.loadAppData: OT_API_SwitchWallet() completed successfully." );                        
+            }
+            else
+                throw new AppDataNotLoadedException("Load.loadAppData: Unable To Switch Wallet, Maybe Wrong Password?");
+        }
+        else // Wallet has not ever been loaded yet successfully.
+        {            
+            if (1 == otapi.OT_API_LoadWallet(walletLocation)) {
+                Load.s_bLoadedWallet = true;
+                System.out.println("Load.loadAppData: OT_API_LoadWallet() completed successfully." );                        
+            }
+            else
+                throw new AppDataNotLoadedException("Load.loadAppData: Unable To Load Wallet, Maybe Wrong Password?");
+        }
+    }
+    // -------------------------------------
+
     // <editor-fold defaultstate="collapsed" desc="Load API">
     public static void loadOTAPI() throws ApiNotLoadedException {
-        try {
-            if (getOS() == typeOS.WIN) {
-                System.loadLibrary("libzmq");
+        
+        loadZMQ();
+        
+        if (!s_bLoadedOTAPI)
+        {
+            try {
+                System.loadLibrary("otapi-java");
+                s_bLoadedOTAPI = true;
+                System.out.println("Load.loadOTAPI: Success loading otapi.java.jnilib");
+            } catch (java.lang.UnsatisfiedLinkError e) {
+                StringBuilder errorMessage = new StringBuilder();
+                errorMessage.append(System.getProperty("line.separator"));
+                errorMessage.append("libotapi-java not in LD path:");
+                errorMessage.append(System.getProperty("line.separator"));
+                errorMessage.append(System.getProperty("java.library.path").replace(":", System.getProperty("line.separator")));
+                throw new ApiNotLoadedException(errorMessage.toString());
             }
-        } catch (java.lang.UnsatisfiedLinkError e) {
-            StringBuilder errorMessage = new StringBuilder();
-            errorMessage.append(System.getProperty("line.separator"));
-            errorMessage.append("libzmq not in LD path:");
-            errorMessage.append(System.getProperty("line.separator"));
-            errorMessage.append(System.getProperty("java.library.path").replace(":", System.getProperty("line.separator")));
-            throw new ApiNotLoadedException(errorMessage.toString());
         }
-        try {
-            System.loadLibrary("otapi-java");
-        } catch (java.lang.UnsatisfiedLinkError e) {
-            StringBuilder errorMessage = new StringBuilder();
-            errorMessage.append(System.getProperty("line.separator"));
-            errorMessage.append("libotapi-java not in LD path:");
-            errorMessage.append(System.getProperty("line.separator"));
-            errorMessage.append(System.getProperty("java.library.path").replace(":", System.getProperty("line.separator")));
-            throw new ApiNotLoadedException(errorMessage.toString());
+        else {
+            System.out.println("Load.loadOTAPI (1): (otapi-java is already loaded. Skipping.)" );
         }
     }
     public static void loadOTAPI(JavaPaths paths) throws ApiNotLoadedException {
+        
+        loadZMQ();
+
+        if (!s_bLoadedOTAPI)
+        {
+            try {
+                Utility.addDirToRuntime(paths);
+                System.loadLibrary("otapi-java");
+                s_bLoadedOTAPI = true;
+                System.out.println("Load.loadOTAPI: Success loading otapi-java.jnilib");                
+            } catch (java.lang.UnsatisfiedLinkError e) {
+                StringBuilder errorMessage = new StringBuilder();
+                errorMessage.append(System.getProperty("line.separator"));
+                errorMessage.append("libotapi-java not in LD path:");
+                errorMessage.append(System.getProperty("line.separator"));
+                errorMessage.append(System.getProperty("java.library.path").replace(":", System.getProperty("line.separator")));
+                throw new ApiNotLoadedException(errorMessage.toString());
+            } catch (IOException e) {
+                throw new ApiNotLoadedException("IO Error");
+            }
+        }
+        else {
+            System.out.println("Load.loadOTAPI (2): (otapi-java is already loaded. Skipping.)" );
+        }        
+    }
+    // </editor-fold>
+    
+   // -------------------------------------
+
+    public static void loadZMQ() throws ApiNotLoadedException {
         try {
             if (getOS() == typeOS.WIN) {
-                System.loadLibrary("libzmq");
+                if (!s_bLoadedZMQ)
+                {
+                    System.loadLibrary("libzmq");
+                    s_bLoadedZMQ = true; // (Assuming the above loadLibrary throws in event of failure.)
+                }
+                else {
+                    System.out.println("Load.loadZMQ: (libzmq is already loaded. Skipping.)" );                    
+                }
             }
         } catch (java.lang.UnsatisfiedLinkError e) {
             StringBuilder errorMessage = new StringBuilder();
@@ -57,57 +219,17 @@ public class Load {
             errorMessage.append(System.getProperty("java.library.path").replace(":", System.getProperty("line.separator")));
             throw new ApiNotLoadedException(errorMessage.toString());
         }
-        try {
-            Utility.addDirToRuntime(paths);
-            System.loadLibrary("otapi-java");
-        } catch (java.lang.UnsatisfiedLinkError e) {
-            StringBuilder errorMessage = new StringBuilder();
-            errorMessage.append(System.getProperty("line.separator"));
-            errorMessage.append("libotapi-java not in LD path:");
-            errorMessage.append(System.getProperty("line.separator"));
-            errorMessage.append(System.getProperty("java.library.path").replace(":", System.getProperty("line.separator")));
-            throw new ApiNotLoadedException(errorMessage.toString());
-        } catch (IOException e) {
-            throw new ApiNotLoadedException("IO Error");
-        }
     }
-    // </editor-fold>
+
     // <editor-fold defaultstate="collapsed" desc="Load AppData">
     public static void loadAppData() throws AppDataNotLoadedException {
-        StringBuffer strOSVers      = new StringBuffer("~"); // My appdataDirectory has a SPACE in it (/Users/au/Library/Application Support...)
+        StringBuffer strOSVers      = new StringBuffer("~"); // My appdataDirectory has a SPACE in it (/Users/au/Library/Application Support/.ot)
 //      StringBuffer strOSVers      = new StringBuffer(appdataDirectory(getOS())); // Therefore I did this for now, so I could run the wallet again!
         String strAppend            = strOSVers.append("/.ot/client_data").toString() ;
-//        String strSubstitute        = strAppend.replaceAll(" ", "\\ "); // Oh well, I tried.
+//      String strSubstitute        = strAppend.replaceAll(" ", "\\ "); // Oh well, I tried.
         loadAppData(strAppend, "wallet.xml");
     }
-    public static void loadAppData(String appDataLocation, String walletLocation) throws AppDataNotLoadedException {
-
-        if (otapi.OT_API_Init(appDataLocation) != 1) {
-           // throw new AppDataNotLoadedException("Wrong Data Directory!");
-        }
-
-        OTCaller g_theCaller = new OTCaller();
-        OTCallback g_theCallback = new JavaCallback();
-        g_theCaller.setCallback(g_theCallback);
-        otapi.OT_API_Set_PasswordCallback(g_theCaller);
-        Utility.setG_theCallback(g_theCallback);
-        Utility.setG_theCaller(g_theCaller);
-
-        if (otapi.OT_API_LoadWallet(walletLocation) != 1) {
-            throw new AppDataNotLoadedException("Unable To Load Wallet, Maybe Wrong Password?");
-        }
-    }
-     public static void loadImage() throws ImageNotLoadedException {
-
-        System.out.println("Utility.getImagePath():"+Utility.getImagePath());
-
-        if (Utility.getImagePath() == null) {
-            throw new ImageNotLoadedException("Unable To Load Image, Maybe First Run, Image Not Set?");
-        }
-
-        Configuration.setImagePath(Utility.getImagePath());
-      
-    }
+    
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Load setTimeOut">
     public static void setTimeout() throws InvalidTimeOutException {
@@ -225,8 +347,12 @@ public class Load {
             }
             case MAC: {
                 appdataDirectory.append(System.getProperty("user.home"));
-                appdataDirectory.append("/Library/Application ");
-                appdataDirectory.append("Support");
+                // FT: Been debugging on something here for hours and if this
+                // turns out to be the fix, then I'll just keep it this way until
+                // we have a well-tested version that says otherwise.
+                //
+//              appdataDirectory.append("/Library/Application ");
+//              appdataDirectory.append("Support");
                 return appdataDirectory;
             }
             case UNIX: {

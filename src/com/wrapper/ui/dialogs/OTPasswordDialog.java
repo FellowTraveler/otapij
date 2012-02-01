@@ -236,11 +236,14 @@ public class OTPasswordDialog extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
     public static String getPassword() {
+        if (null == password)
+            return "";
+        
         StringBuilder str = new StringBuilder();
         for (int i = 0; i < password.length; i++) {
             str.append(password[i]);
         }
-        return str.toString();
+        return (str.length() > 0) ? str.toString() : "";
     }
 
     /**

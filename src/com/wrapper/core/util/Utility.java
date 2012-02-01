@@ -1309,39 +1309,45 @@ public class Utility {
 
     public static String getImagePath() {
 
-        StringMap stringMap = null;
-        Storable storable = null;
-        System.out.println("getImagePath:");
+        Storable    storable    = null;
+        StringMap   stringMap   = null;
+
+        System.out.println("getImagePath top...");
+
+        String strDefault = null;
+        
+        String strImagePath = strDefault; // Todo: hardcoding 
 
         if (otapi.Exists("moneychanger", "settings.dat")) {
-
             storable =
                     otapi.QueryObject(StoredObjectType.STORED_OBJ_STRING_MAP,
                     "moneychanger", "settings.dat");
-            System.out.println("getImagePath,storable:" + storable);
+            System.out.println("getImagePath, storable:" + storable);
 
             if (storable == null) {
-                return null;
+                System.out.println("Utility.getImagePath, failed querying storable from local storage.");                
+                return strDefault;
             }
 
             stringMap = StringMap.ot_dynamic_cast(storable);
-        } else {
-            storable =
-                    otapi.CreateObject(StoredObjectType.STORED_OBJ_STRING_MAP);
-            System.out.println("Else getImagePath,storable:" + storable);
+            
+            System.out.println("getImagePath, stringMap:" + stringMap);
 
-            if (storable == null) {
-                return null;
+            if (stringMap == null) {
+                System.out.println("Utility.getImagePath, failed casting stringmap from storable.");                
+                return strDefault;
             }
-            stringMap = StringMap.ot_dynamic_cast(storable);
+
+            strImagePath = stringMap.GetValue("ImagePath");
+        } 
+        else
+        {
+            System.out.println("Utility.getImagePath():  File does not exist: (OT_MAIN_PATH)/moneychanger/settings.dat");    
         }
-        System.out.println("getImagePath,stringMap:" + stringMap);
-
-        if (stringMap == null) {
-            return null;
-        }
-
-        return stringMap.GetValue("ImagePath");
-
+        
+        if ((null == strImagePath) || (strImagePath.length() < 1))
+            strImagePath = strDefault; 
+        
+        return strImagePath;
     }
 }
