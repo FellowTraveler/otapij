@@ -360,6 +360,8 @@ public class Settings extends javax.swing.JFrame {
         //Atempt to load with modifed settings:
         try {
             Utility.setSettingsObj(this);
+            
+            System.out.println(javaPaths.toString());
 
             Load.loadOTAPI(javaPaths);
             Load.loadAppData(jTextField_DataFolder.getText(), jTextField_WalletFile.getText());

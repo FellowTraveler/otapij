@@ -160,7 +160,7 @@ public class Load {
                 errorMessage.append(System.getProperty("line.separator"));
                 errorMessage.append("libotapi-java not in LD path:");
                 errorMessage.append(System.getProperty("line.separator"));
-                errorMessage.append(System.getProperty("java.library.path").replace(":", System.getProperty("line.separator")));
+                errorMessage.append(System.getProperty("java.library.path").replace(File.pathSeparator, System.getProperty("line.separator")));
                 throw new ApiNotLoadedException(errorMessage.toString());
             }
         } else {
@@ -169,32 +169,35 @@ public class Load {
     }
 
     public static void loadOTAPI(JavaPaths paths) throws ApiNotLoadedException {
+        try {
 
-        loadZMQ();
+            Utility.addDirToRuntime(paths.toString());
 
-        if (!s_bLoadedOTAPI) {
-            try {
-                Utility.addDirToRuntime(paths.toString());
+            loadZMQ();
+
+            if (!s_bLoadedOTAPI) {
+
+
                 System.loadLibrary("otapi-java");
                 s_bLoadedOTAPI = true;
                 System.out.println("Load.loadOTAPI: Success loading otapi-java.jnilib");
-            } catch (java.lang.UnsatisfiedLinkError e) {
-                StringBuilder errorMessage = new StringBuilder();
-                errorMessage.append(System.getProperty("line.separator"));
-                errorMessage.append("libotapi-java not in LD path:");
-                errorMessage.append(System.getProperty("line.separator"));
-                errorMessage.append(System.getProperty("java.library.path").replace(":", System.getProperty("line.separator")));
-                throw new ApiNotLoadedException(errorMessage.toString());
-            } catch (IOException e) {
-                throw new ApiNotLoadedException("IO Error");
+            } else {
+                System.out.println("Load.loadOTAPI (2): (otapi-java is already loaded. Skipping.)");
             }
-        } else {
-            System.out.println("Load.loadOTAPI (2): (otapi-java is already loaded. Skipping.)");
+        } catch (java.lang.UnsatisfiedLinkError e) {
+            StringBuilder errorMessage = new StringBuilder();
+            errorMessage.append(System.getProperty("line.separator"));
+            errorMessage.append("libotapi-java not in LD path:");
+            errorMessage.append(System.getProperty("line.separator"));
+            errorMessage.append(System.getProperty("java.library.path").replace(File.pathSeparator, System.getProperty("line.separator")));
+            throw new ApiNotLoadedException(errorMessage.toString());
+        } catch (IOException e) {
+            throw new ApiNotLoadedException("IO Error");
         }
     }
-    // </editor-fold>
 
-    // -------------------------------------
+// </editor-fold>
+// -------------------------------------
     public static void loadZMQ() throws ApiNotLoadedException {
         try {
             if (getOS() == typeOS.WIN) {
@@ -242,6 +245,12 @@ public class Load {
             throw new InvalidTimeOutException("Please enter valid timeout; is less than 1");
         }
         Configuration.setWaitTime(waitTime);
+
+
+
+
+
+
     }
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Helpers">
@@ -306,6 +315,7 @@ public class Load {
 
         public void addPath(String path) {
             _paths.add(path); //.toLowerCase());
+            System.out.println(_paths.toString());
             fireContentsChanged(this, 0, this.getSize());
         }
 
@@ -364,6 +374,12 @@ public class Load {
         }
         appdataDirectory.append(System.getProperty("user.dir"));
         return appdataDirectory;
+
+
+
+
+
+
     }
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Exceptions">
@@ -442,5 +458,5 @@ public class Load {
             return error;
         }
     }
-    // </editor-fold>
+// </editor-fold>
 }
