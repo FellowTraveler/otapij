@@ -223,29 +223,39 @@ public class Utility {
         Utility.dataFolder = dataFolder;
     }
 
-    public static void addDirToRuntime(Load.JavaPaths javaPaths) throws IOException {
-        List<String> pathsSet = new ArrayList<String>();
-        StringBuilder pathsString = new StringBuilder();
+    // <editor-fold defaultstate="collapsed" desc="Add Directory To Runtime" >
+    public static void addDirToRuntime(String javaPaths) throws IOException {
 
         try {
             Field field = ClassLoader.class.getDeclaredField("usr_paths");
             field.setAccessible(true);
 
-            pathsSet.addAll(Arrays.asList((String[]) field.get(null)));
-            pathsSet.addAll(javaPaths.getPaths());
+            List<String> pathList = new ArrayList<String>();
+            pathList.addAll(Arrays.asList((String[]) field.get(null)));
+            pathList.addAll(Arrays.asList(javaPaths.split(File.pathSeparator)));
 
-            replaceToLower(pathsSet);
-
-            Collection<String> paths = new HashSet<String>(pathsSet);
-
-            field.set(null, paths.toArray(new String[0]));
-
-            for (String path : paths) {
-                pathsString.append(path);
-                pathsString.append(File.pathSeparator);
+            Collection<String> pathSet = new HashSet<String>();
+            Iterator<String> listIterator = pathList.iterator();
+            String path;
+            while (listIterator.hasNext()) {
+                path = listIterator.next(); //.toLowerCase();
+                if (!path.equalsIgnoreCase(".")) {
+                    pathSet.add(path);
+                }
             }
 
+            StringBuilder pathsString = new StringBuilder();
+            Iterator<String> setIterator = pathSet.iterator();
+            while (setIterator.hasNext()) {
+                pathsString.append(setIterator.next());
+                if (setIterator.hasNext()) {
+                pathsString.append(File.pathSeparator);
+            }
+            }
+
+            field.set(null, pathSet.toArray(new String[0]));
             System.setProperty("java.library.path", pathsString.toString());
+
         } catch (IllegalAccessException e) {
             throw new IOException("Failed to get permissions to set library path");
         } catch (NoSuchFieldException e) {
@@ -253,58 +263,7 @@ public class Utility {
         }
 
     }
-//    public static void addDirToRuntime(String s, boolean mutiple) throws IOException {
-//        try {
-//            String[] path = null;
-//            if (s.contains(";")) {
-//                path = s.split(";");
-//            } else {
-//                return;
-//            }
-//            for (int j = 0; j < path.length; j++) {
-//                Field field = ClassLoader.class.getDeclaredField("usr_paths");
-//                field.setAccessible(true);
-//                String[] paths = (String[]) field.get(null);
-//                for (int i = 0; i < paths.length; i++) {
-//                    if (path[j].equals(paths[i])) {
-//                        return;
-//                    }
-//                }
-//                String[] tmp = new String[paths.length + 1];
-//                System.arraycopy(paths, 0, tmp, 0, paths.length);
-//                tmp[paths.length] = path[j];
-//                field.set(null, tmp);
-//                System.setProperty("java.library.path", path[j] + File.pathSeparator + System.getProperty("java.library.path"));
-//            }
-//        } catch (IllegalAccessException e) {
-//            throw new IOException("Failed to get permissions to set library path");
-//        } catch (NoSuchFieldException e) {
-//            throw new IOException("Failed to get field handle to set library path");
-//        }
-//    }
-//
-//    public static void addDirToRuntime(String s) throws IOException {
-//        try {
-//
-//            Field field = ClassLoader.class.getDeclaredField("usr_paths");
-//            field.setAccessible(true);
-//            String[] paths = (String[]) field.get(null);
-//            for (int i = 0; i < paths.length; i++) {
-//                if (s.equals(paths[i])) {
-//                    return;
-//                }
-//            }
-//            String[] tmp = new String[paths.length + 1];
-//            System.arraycopy(paths, 0, tmp, 0, paths.length);
-//            tmp[paths.length] = s;
-//            field.set(null, tmp);
-//            System.setProperty("java.library.path", s + File.pathSeparator + System.getProperty("java.library.path"));
-//        } catch (IllegalAccessException e) {
-//            throw new IOException("Failed to get permissions to set library path");
-//        } catch (NoSuchFieldException e) {
-//            throw new IOException("Failed to get field handle to set library path");
-//        }
-//    }
+    // </editor-fold>
     public static Object obj;
 
     public static Object getObj() {

@@ -10,6 +10,7 @@ import com.wrapper.core.jni.OTCaller;
 import com.wrapper.core.jni.otapi;
 import com.wrapper.core.util.Configuration;
 import com.wrapper.core.util.Utility;
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import java.util.logging.Level;
@@ -176,7 +177,7 @@ public class Load {
         if (!s_bLoadedOTAPI)
         {
             try {
-                Utility.addDirToRuntime(paths);
+                Utility.addDirToRuntime(paths.toString());
                 System.loadLibrary("otapi-java");
                 s_bLoadedOTAPI = true;
                 System.out.println("Load.loadOTAPI: Success loading otapi-java.jnilib");                
@@ -266,12 +267,15 @@ public class Load {
 
         @Override
         public String toString() {
-            StringBuilder pathList = new StringBuilder();
-            for (String path : _paths) {
-                pathList.append(path);
-                pathList.append(";");
+            StringBuilder pathsString = new StringBuilder();
+            Iterator<String> setIterator = _paths.iterator();
+            while (setIterator.hasNext()) {
+                pathsString.append(setIterator.next());
+                if (setIterator.hasNext()) {
+                pathsString.append(File.pathSeparator);
             }
-            return pathList.toString();
+            }
+            return pathsString.toString();
         }
 
         public JavaPaths() {
