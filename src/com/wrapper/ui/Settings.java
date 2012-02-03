@@ -1,92 +1,76 @@
-/************************************************************
------BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
-
- *                 M O N E Y C H A N G E R
+/**
+ * **********************************************************
+ * -----BEGIN PGP SIGNED MESSAGE----- Hash: SHA256
  *
- *  Open Transactions:
- *       Financial Cryptography and Digital Cash
- *       Library, Protocol, API, Server, and GUI 
- *    
- *    	 -- Anonymous Numbered Accounts.
- *    	 -- Untraceable Digital Cash.
- *    	 -- Triple-Signed Receipts.
- *    	 -- Cheques, Vouchers, Transfers, Inboxes.
- *    	 -- Basket Currencies, Markets, Payment Plans.
- *    	 -- Signed, XML, Ricardian-style Contracts.
- *    
- *  Copyright (C) 2010-2012 by "Fellow Traveler" (A pseudonym)
+ * M O N E Y C H A N G E R
  *
- *  EMAIL:
- *  FellowTraveler@rayservers.net
- *  
- *  FINGERPRINT:
- *  9DD5 90EB 9292 4B48 0484  7910 0308 00ED F951 BB8E
+ * Open Transactions: Financial Cryptography and Digital Cash Library, Protocol,
+ * API, Server, and GUI
  *
- *  BITCOIN:  1NtTPVVjDsUfDWybS4BwvHpG2pdS9RnYyQ
+ * -- Anonymous Numbered Accounts. -- Untraceable Digital Cash. -- Triple-Signed
+ * Receipts. -- Cheques, Vouchers, Transfers, Inboxes. -- Basket Currencies,
+ * Markets, Payment Plans. -- Signed, XML, Ricardian-style Contracts.
  *
- *  OFFICIAL PROJECT WIKI:
- *  https://github.com/FellowTraveler/Moneychanger
- *  https://github.com/FellowTraveler/Open-Transactions/wiki
+ * Copyright (C) 2010-2012 by "Fellow Traveler" (A pseudonym)
  *
- *  WEBSITE:
- *  http://www.OpenTransactions.org/
- *    
- *  Components and licensing:
- *   -- Moneychanger..A Java client GUI.....LICENSE:.....GPLv3
- *   -- OTLib.........A class library.......LICENSE:...LAGPLv3 
- *   -- OT-API........A client API..........LICENSE:...LAGPLv3
- *   -- testwallet....Command-line client...LICENSE:...LAGPLv3
- *   -- OT-Server.....Server Application....LICENSE:....AGPLv3
- *  Github.com/FellowTraveler/Open-Transactions/wiki/Components
+ * EMAIL: FellowTraveler@rayservers.net
  *
- *  All of the above OT components were designed and written by
- *  Fellow Traveler, with the exception of Moneychanger, which
- *  was contracted out to Vicky C (livewire_3001@yahoo.com).
+ * FINGERPRINT: 9DD5 90EB 9292 4B48 0484 7910 0308 00ED F951 BB8E
  *
- *  -----------------------------------------------------
+ * BITCOIN: 1NtTPVVjDsUfDWybS4BwvHpG2pdS9RnYyQ
  *
- *   LICENSE:
- *   This program is free software: you can redistribute it
- *   and/or modify it under the terms of the GNU General
- *   Public License as published by the Free Software
- *   Foundation, either version 3 of the License, or (at your
- *   option) any later version.
+ * OFFICIAL PROJECT WIKI: https://github.com/FellowTraveler/Moneychanger
+ * https://github.com/FellowTraveler/Open-Transactions/wiki
  *
- *   You should have received a copy of the GNU General
- *   Public License along with this program.  If not, see:
- *   http://www.gnu.org/licenses/
+ * WEBSITE: http://www.OpenTransactions.org/
  *
- *   If you would like to use this software outside of the free
- *   software license, please contact FellowTraveler.
- *   (Unfortunately many will run anonymously and untraceably,
- *   so who could really stop them?)
- *   
- *   DISCLAIMER:
- *   This program is distributed in the hope that it will be
- *   useful, but WITHOUT ANY WARRANTY; without even the implied
- *   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- *   PURPOSE.  See the GNU General Public License for more
- *   details.
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v1.4.11 (Darwin)
-
-iQIcBAEBCAAGBQJOj7gfAAoJEAMIAO35UbuOs3sP/2rrjSdYu/AsXcgLK9/9CP4a
-lIJfw3KLvybKZjZW5r5j+4xUlCYIqPZSI66PGDChGPMPFcZQN6M4Ddpn9kbctymS
-sdTXvbdFhpbV6k2wSa1Fz97ygfXJc/7MDTmHYbZ53hVV8AoUBrCHWtVttkQD31o3
-Pn/qGmy+jOgTvjEXhjEpV66pDkMWze1SiI1MArHUziCYoxItuM45x0EfzwQIqlo3
-ku2R7rRTtqm47Dgea12psWrjbPS5XRL1Q8Hs38Z1J0JdFlfn6cJYe52Iiluzof6M
-kCLhy6FH8QfIADfrKkFP48EIhnVquDlkV9AlJ1r217K3cpK2jEjlZUnGBECMAMEo
-pSXXk1BLNgxsa4yaXCgHY92/MhgtcdCMLkcCq6MWUTGZsLGiWIiQGmO9mwBfNIlY
-SawlIviuS5DiE/D16A290Byxhha/5e144cIiKm27fSQra8eogUXNfZdZeuv6n69v
-t8QjeBjoLhe5/KnRNoGLpSXhPphsWLRSJBru77ZU2msHfmkNfcP2UoEUCfNTfTbE
-XpyRfeyRVowVKeKunV9KUSHgdD5wa6RUeyodAbaHvWrFpIpNkaFIP9OwhRULpjx0
-arwVNYucbX1qb2I8HBm2u+IRWQTONp74TFFjU0/CVAXu2DeJKY5mL4zDej35c5j9
-AK+ZirdWhhoHeWR1tAkN
-=RcXP
------END PGP SIGNATURE-----
- **************************************************************/
+ * Components and licensing: -- Moneychanger..A Java client
+ * GUI.....LICENSE:.....GPLv3 -- OTLib.........A class
+ * library.......LICENSE:...LAGPLv3 -- OT-API........A client
+ * API..........LICENSE:...LAGPLv3 -- testwallet....Command-line
+ * client...LICENSE:...LAGPLv3 -- OT-Server.....Server
+ * Application....LICENSE:....AGPLv3
+ * Github.com/FellowTraveler/Open-Transactions/wiki/Components
+ *
+ * All of the above OT components were designed and written by Fellow Traveler,
+ * with the exception of Moneychanger, which was contracted out to Vicky C
+ * (livewire_3001@yahoo.com).
+ *
+ * -----------------------------------------------------
+ *
+ * LICENSE: This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see: http://www.gnu.org/licenses/
+ *
+ * If you would like to use this software outside of the free software license,
+ * please contact FellowTraveler. (Unfortunately many will run anonymously and
+ * untraceably, so who could really stop them?)
+ *
+ * DISCLAIMER: This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+ * Public License for more details.
+ *
+ * -----BEGIN PGP SIGNATURE----- Version: GnuPG v1.4.11 (Darwin)
+ *
+ * iQIcBAEBCAAGBQJOj7gfAAoJEAMIAO35UbuOs3sP/2rrjSdYu/AsXcgLK9/9CP4a
+ * lIJfw3KLvybKZjZW5r5j+4xUlCYIqPZSI66PGDChGPMPFcZQN6M4Ddpn9kbctymS
+ * sdTXvbdFhpbV6k2wSa1Fz97ygfXJc/7MDTmHYbZ53hVV8AoUBrCHWtVttkQD31o3
+ * Pn/qGmy+jOgTvjEXhjEpV66pDkMWze1SiI1MArHUziCYoxItuM45x0EfzwQIqlo3
+ * ku2R7rRTtqm47Dgea12psWrjbPS5XRL1Q8Hs38Z1J0JdFlfn6cJYe52Iiluzof6M
+ * kCLhy6FH8QfIADfrKkFP48EIhnVquDlkV9AlJ1r217K3cpK2jEjlZUnGBECMAMEo
+ * pSXXk1BLNgxsa4yaXCgHY92/MhgtcdCMLkcCq6MWUTGZsLGiWIiQGmO9mwBfNIlY
+ * SawlIviuS5DiE/D16A290Byxhha/5e144cIiKm27fSQra8eogUXNfZdZeuv6n69v
+ * t8QjeBjoLhe5/KnRNoGLpSXhPphsWLRSJBru77ZU2msHfmkNfcP2UoEUCfNTfTbE
+ * XpyRfeyRVowVKeKunV9KUSHgdD5wa6RUeyodAbaHvWrFpIpNkaFIP9OwhRULpjx0
+ * arwVNYucbX1qb2I8HBm2u+IRWQTONp74TFFjU0/CVAXu2DeJKY5mL4zDej35c5j9
+ * AK+ZirdWhhoHeWR1tAkN =RcXP -----END PGP SIGNATURE-----
+ *************************************************************
+ */
 
 /*
  * To change this template, choose Tools | Templates
@@ -123,57 +107,59 @@ public class Settings extends javax.swing.JFrame {
     private JFileChooser imageChooser;
     private static Load.JavaPaths javaPaths;
 
-    /** Creates new form Settings */
+    /**
+     * Creates new form Settings
+     */
     public Settings() {
 
         //Try and load without settings dilogue:
-        try {
-            Utility.setSettingsObj(this);
-            Load.loadOTAPI();
-            Load.loadAppData();
-            Load.setTimeout();
-            new MainPage().setVisible(true);
-        } catch (Load.ApiNotLoadedException e) {
-            StringBuilder error = new StringBuilder();
-            error.append("Autoload of from the Java Path failed!: ");
-            error.append(System.getProperty("line.separator"));
-            error.append(e.getError());
-            System.out.println(error.toString());
-            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
-            loadSettings();
-        } catch (Load.AppDataNotLoadedException e) {
-            StringBuilder error = new StringBuilder();
-            error.append("AutoLoad of your MoneyChanger user data failed; Choose the location here: ");
-            error.append(e.getError().replace(":", System.getProperty("line.separator")));
-            System.out.println(error.toString());
-            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
-            loadSettings();
-        } catch (Load.InvalidTimeOutException e) {
-            StringBuilder error = new StringBuilder();
-            error.append("Auto-Timout is invalid; you should never see this message: please contact us for support!");
-            error.append(e.getError());
-            System.out.println(error.toString());
-            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
-            loadSettings();
-        } 
-//        catch (Load.ImageNotLoadedException e) {
+//        try {
+//            Utility.setSettingsObj(this);
+//            Load.loadOTAPI();
+//            Load.loadAppData();
+//            Load.setTimeout();
+//            new MainPage().setVisible(true);
+//        } catch (Load.ApiNotLoadedException e) {
 //            StringBuilder error = new StringBuilder();
-//            error.append("Autoload of image failed: ");
+//            error.append("Autoload of from the Java Path failed!: ");
 //            error.append(System.getProperty("line.separator"));
 //            error.append(e.getError());
 //            System.out.println(error.toString());
 //            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
 //            loadSettings();
+//        } catch (Load.AppDataNotLoadedException e) {
+//            StringBuilder error = new StringBuilder();
+//            error.append("AutoLoad of your MoneyChanger user data failed; Choose the location here: ");
+//            error.append(e.getError().replace(":", System.getProperty("line.separator")));
+//            System.out.println(error.toString());
+//            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
+//            loadSettings();
+//        } catch (Load.InvalidTimeOutException e) {
+//            StringBuilder error = new StringBuilder();
+//            error.append("Auto-Timout is invalid; you should never see this message: please contact us for support!");
+//            error.append(e.getError());
+//            System.out.println(error.toString());
+//            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
+//            loadSettings();
 //        } 
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+//        catch (Load.ImageNotLoadedException e) {
+//        StringBuilder error = new StringBuilder();
+//        error.append("Autoload of image failed: ");
+//        error.append(System.getProperty("line.separator"));
+//        error.append(e.getError());
+//        System.out.println(error.toString());
+        //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
+
+//        } 
+//        catch (Exception e) {
+//            e.printStackTrace();
+        loadSettings();
     }
 
-    /** This method is called from within the constructor to
-     * initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is
-     * always regenerated by the Form Editor.
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -360,29 +346,25 @@ public class Settings extends javax.swing.JFrame {
         //Atempt to load with modifed settings:
         try {
             Utility.setSettingsObj(this);
-            
+
             System.out.println(javaPaths.toString());
 
             Load.loadOTAPI(javaPaths);
             Load.loadAppData(jTextField_DataFolder.getText(), jTextField_WalletFile.getText());
-            
+
             Load.setTimeout(jTextField_Timeout.getText());
             // ---------------------------
-            
+
             String path = Configuration.getImagePath();
             BufferedImage image = null;
-            
-            if ((null != path) && (path.length() > 0))
-            {
+
+            if ((null != path) && (path.length() > 0)) {
                 try {
                     File f = new File(path);
-                    
-                    if (null == f)
-                    {
+
+                    if (null == f) {
                         System.out.println("jButton_LoadWalletActionPerformed: new File(path) returned null. Path: " + path);
-                    }
-                    else
-                    {
+                    } else {
                         image = ImageIO.read(f);
                         image.getWidth();
                         // --------------------------------
@@ -396,7 +378,7 @@ public class Settings extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Invalid image file. Please select proper image", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
-            }            
+            }
         } catch (Load.ApiNotLoadedException e) {
             StringBuilder error = new StringBuilder();
             error.append("Unable to load your Java Path!");
@@ -549,7 +531,7 @@ public class Settings extends javax.swing.JFrame {
             boolean status = Utility.saveImagePath(jTextField_ImagePath.getText());
             System.out.println("jButton_DataFolder1ActionPerformed: Status of image path persistence:" + status);
             // -------------------------
-            
+
         } else {
             System.out.println("Cancelled");
         }
@@ -626,5 +608,5 @@ public class Settings extends javax.swing.JFrame {
         setPath();
     }
 }
-  // </editor-fold>
+// </editor-fold>
 

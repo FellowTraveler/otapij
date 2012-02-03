@@ -146,27 +146,27 @@ public class Load {
     // -------------------------------------
 
     // <editor-fold defaultstate="collapsed" desc="Load API">
-    public static void loadOTAPI() throws ApiNotLoadedException {
-
-        loadZMQ();
-
-        if (!s_bLoadedOTAPI) {
-            try {
-                System.loadLibrary("otapi-java");
-                s_bLoadedOTAPI = true;
-                System.out.println("Load.loadOTAPI: Success loading otapi.java.jnilib");
-            } catch (java.lang.UnsatisfiedLinkError e) {
-                StringBuilder errorMessage = new StringBuilder();
-                errorMessage.append(System.getProperty("line.separator"));
-                errorMessage.append("libotapi-java not in LD path:");
-                errorMessage.append(System.getProperty("line.separator"));
-                errorMessage.append(System.getProperty("java.library.path").replace(File.pathSeparator, System.getProperty("line.separator")));
-                throw new ApiNotLoadedException(errorMessage.toString());
-            }
-        } else {
-            System.out.println("Load.loadOTAPI (1): (otapi-java is already loaded. Skipping.)");
-        }
-    }
+//    public static void loadOTAPI() throws ApiNotLoadedException {
+//
+//        loadZMQ();
+//
+//        if (!s_bLoadedOTAPI) {
+//            try {
+//                System.loadLibrary("otapi-java");
+//                s_bLoadedOTAPI = true;
+//                System.out.println("Load.loadOTAPI: Success loading otapi.java.jnilib");
+//            } catch (java.lang.UnsatisfiedLinkError e) {
+//                StringBuilder errorMessage = new StringBuilder();
+//                errorMessage.append(System.getProperty("line.separator"));
+//                errorMessage.append("libotapi-java not in LD path:");
+//                errorMessage.append(System.getProperty("line.separator"));
+//                errorMessage.append(System.getProperty("java.library.path").replace(File.pathSeparator, System.getProperty("line.separator")));
+//                throw new ApiNotLoadedException(errorMessage.toString());
+//            }
+//        } else {
+//            System.out.println("Load.loadOTAPI (1): (otapi-java is already loaded. Skipping.)");
+//        }
+//    }
 
     public static void loadOTAPI(JavaPaths paths) throws ApiNotLoadedException {
         try {
@@ -219,20 +219,20 @@ public class Load {
     }
 
     // <editor-fold defaultstate="collapsed" desc="Load AppData">
-    public static void loadAppData() throws AppDataNotLoadedException {
-        StringBuffer strOSVers = new StringBuffer("~"); // My appdataDirectory has a SPACE in it (/Users/au/Library/Application Support/.ot)
-//      StringBuffer strOSVers      = new StringBuffer(appdataDirectory(getOS())); // Therefore I did this for now, so I could run the wallet again!
-        String strAppend = strOSVers.append("/.ot/client_data").toString();
-//      String strSubstitute        = strAppend.replaceAll(" ", "\\ "); // Oh well, I tried.
-        loadAppData(strAppend, "wallet.xml");
-    }
+//    public static void loadAppData() throws AppDataNotLoadedException {
+//        StringBuffer strOSVers = new StringBuffer("~"); // My appdataDirectory has a SPACE in it (/Users/au/Library/Application Support/.ot)
+////      StringBuffer strOSVers      = new StringBuffer(appdataDirectory(getOS())); // Therefore I did this for now, so I could run the wallet again!
+//        String strAppend = strOSVers.append("/.ot/client_data").toString();
+////      String strSubstitute        = strAppend.replaceAll(" ", "\\ "); // Oh well, I tried.
+//        loadAppData(strAppend, "wallet.xml");
+//    }
 
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Load setTimeOut">
-    public static void setTimeout() throws InvalidTimeOutException {
-        long waitTime = 1;
-        Configuration.setWaitTime(waitTime);
-    }
+//    public static void setTimeout() throws InvalidTimeOutException {
+//        long waitTime = 1;
+//        Configuration.setWaitTime(waitTime);
+//    }
 
     public static void setTimeout(String waitTimeTxt) throws InvalidTimeOutException {
         long waitTime;
