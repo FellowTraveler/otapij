@@ -1246,67 +1246,76 @@ public class Utility {
     public static boolean saveImagePath(String imagePath) {
 
         boolean status = false;
-        StringMap stringMap = null;  // we are about to create this object
+        
+        if (Load.IsOTInitialized())
+        {
+            StringMap stringMap = null;  // we are about to create this object
+            Storable storable =
+                    otapi.CreateObject(StoredObjectType.STORED_OBJ_STRING_MAP);
+            System.out.println("storable:" + storable);
+            if (storable != null) {
+                stringMap = StringMap.ot_dynamic_cast(storable);
+                System.out.println("stringMap:" + stringMap);
 
-        Storable storable =
-                otapi.CreateObject(StoredObjectType.STORED_OBJ_STRING_MAP);
-        System.out.println("storable:" + storable);
-        if (storable != null) {
-            stringMap = StringMap.ot_dynamic_cast(storable);
-            System.out.println("stringMap:" + stringMap);
-
-            if (stringMap != null) {
-                //stringMap.SetValue("ImagePath", "~/.ot/default.gif");
-                stringMap.SetValue("ImagePath", imagePath);
-                status = otapi.StoreObject(stringMap, "moneychanger",
-                        "settings.dat");
+                if (stringMap != null) {
+                    //stringMap.SetValue("ImagePath", "~/.ot/default.gif");
+                    stringMap.SetValue("ImagePath", imagePath);
+                    status = otapi.StoreObject(stringMap, "moneychanger",
+                            "settings.dat");
+                }
             }
         }
-
+        else {
+            System.out.println("Utility.getImagePath():  Skipping. (OT not initialized yet.)");    
+        }        
         return status;
     }
 
     public static String getImagePath() {
 
-        Storable    storable    = null;
-        StringMap   stringMap   = null;
+        String strDefault   = null;
+        String strImagePath = strDefault; // Todo: hardcoding
 
-        System.out.println("getImagePath top...");
-
-        String strDefault = null;
-        
-        String strImagePath = strDefault; // Todo: hardcoding 
-
-        if (otapi.Exists("moneychanger", "settings.dat")) {
-            storable =
-                    otapi.QueryObject(StoredObjectType.STORED_OBJ_STRING_MAP,
-                    "moneychanger", "settings.dat");
-            System.out.println("getImagePath, storable:" + storable);
-
-            if (storable == null) {
-                System.out.println("Utility.getImagePath, failed querying storable from local storage.");                
-                return strDefault;
-            }
-
-            stringMap = StringMap.ot_dynamic_cast(storable);
-            
-            System.out.println("getImagePath, stringMap:" + stringMap);
-
-            if (stringMap == null) {
-                System.out.println("Utility.getImagePath, failed casting stringmap from storable.");                
-                return strDefault;
-            }
-
-            strImagePath = stringMap.GetValue("ImagePath");
-        } 
-        else
+        if (Load.IsOTInitialized())
         {
-            System.out.println("Utility.getImagePath():  File does not exist: (OT_MAIN_PATH)/moneychanger/settings.dat");    
+            Storable    storable    = null;
+            StringMap   stringMap   = null;
+
+            System.out.println("getImagePath top...");
+
+            if (otapi.Exists("moneychanger", "settings.dat")) {
+                storable =
+                        otapi.QueryObject(StoredObjectType.STORED_OBJ_STRING_MAP,
+                        "moneychanger", "settings.dat");
+                System.out.println("getImagePath, storable:" + storable);
+
+                if (storable == null) {
+                    System.out.println("Utility.getImagePath, failed querying storable from local storage.");                
+                    return strDefault;
+                }
+
+                stringMap = StringMap.ot_dynamic_cast(storable);
+
+                System.out.println("getImagePath, stringMap:" + stringMap);
+
+                if (stringMap == null) {
+                    System.out.println("Utility.getImagePath, failed casting stringmap from storable.");                
+                    return strDefault;
+                }
+
+                strImagePath = stringMap.GetValue("ImagePath");
+            } 
+            else
+            {
+                System.out.println("Utility.getImagePath():  File does not exist: (OT_MAIN_PATH)/moneychanger/settings.dat");    
+            }
+
+            if ((null == strImagePath) || (strImagePath.length() < 1))
+                strImagePath = strDefault; 
         }
-        
-        if ((null == strImagePath) || (strImagePath.length() < 1))
-            strImagePath = strDefault; 
-        
+        else {
+            System.out.println("Utility.getImagePath():  Skipping. (OT not initialized yet.)");    
+        }
         return strImagePath;
     }
 }

@@ -113,47 +113,53 @@ public class Settings extends javax.swing.JFrame {
     public Settings() {
 
         //Try and load without settings dilogue:
-//        try {
+        try {
 //            Utility.setSettingsObj(this);
-//            Load.loadOTAPI();
-//            Load.loadAppData();
-//            Load.setTimeout();
+            
+            loadSettings();
+            
+            Load.loadOTAPI();
+            
+            Load.loadAllAppDataButWallet(this);
+//          Load.loadAppData(this);
+            
+            Load.setTimeout();
 //            new MainPage().setVisible(true);
-//        } catch (Load.ApiNotLoadedException e) {
+        } catch (Load.ApiNotLoadedException e) {
+            StringBuilder error = new StringBuilder();
+            error.append("Autoload of from the Java Path failed!: ");
+            error.append(System.getProperty("line.separator"));
+            error.append(e.getError());
+            System.out.println(error.toString());
+            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
+            loadSettings();
+        } catch (Load.AppDataNotLoadedException e) {
+            StringBuilder error = new StringBuilder();
+            error.append("AutoLoad of your MoneyChanger user data failed; Choose the location here: ");
+            error.append(e.getError().replace(":", System.getProperty("line.separator")));
+            System.out.println(error.toString());
+            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
+            loadSettings();
+        } catch (Load.InvalidTimeOutException e) {
+            StringBuilder error = new StringBuilder();
+            error.append("Auto-Timout is invalid; you should never see this message: please contact us for support!");
+            error.append(e.getError());
+            System.out.println(error.toString());
+            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
+            loadSettings();
+        } 
+//        catch (Load.ImageNotLoadedException e) {
 //            StringBuilder error = new StringBuilder();
-//            error.append("Autoload of from the Java Path failed!: ");
+//            error.append("Autoload of image failed: ");
 //            error.append(System.getProperty("line.separator"));
 //            error.append(e.getError());
 //            System.out.println(error.toString());
 //            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
-//            loadSettings();
-//        } catch (Load.AppDataNotLoadedException e) {
-//            StringBuilder error = new StringBuilder();
-//            error.append("AutoLoad of your MoneyChanger user data failed; Choose the location here: ");
-//            error.append(e.getError().replace(":", System.getProperty("line.separator")));
-//            System.out.println(error.toString());
-//            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
-//            loadSettings();
-//        } catch (Load.InvalidTimeOutException e) {
-//            StringBuilder error = new StringBuilder();
-//            error.append("Auto-Timout is invalid; you should never see this message: please contact us for support!");
-//            error.append(e.getError());
-//            System.out.println(error.toString());
-//            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
-//            loadSettings();
 //        } 
-//        catch (Load.ImageNotLoadedException e) {
-//        StringBuilder error = new StringBuilder();
-//        error.append("Autoload of image failed: ");
-//        error.append(System.getProperty("line.separator"));
-//        error.append(e.getError());
-//        System.out.println(error.toString());
-        //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
-
-//        } 
-//        catch (Exception e) {
-//            e.printStackTrace();
-        loadSettings();
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+//        loadSettings();
     }
 
     /**
@@ -350,14 +356,19 @@ public class Settings extends javax.swing.JFrame {
             System.out.println(javaPaths.toString());
 
             Load.loadOTAPI(javaPaths);
-            Load.loadAppData(jTextField_DataFolder.getText(), jTextField_WalletFile.getText());
+            Load.loadAppData(this, jTextField_DataFolder.getText(), jTextField_WalletFile.getText());
 
             Load.setTimeout(jTextField_Timeout.getText());
             // ---------------------------
 
-            String path = Configuration.getImagePath();
+            String path = jTextField_ImagePath.getText();
             BufferedImage image = null;
 
+            if ((null == path) || (path.length() <= 0)) {
+                path = Configuration.getImagePath();
+            }
+            // ---------------------------------
+            
             if ((null != path) && (path.length() > 0)) {
                 try {
                     File f = new File(path);
@@ -368,7 +379,7 @@ public class Settings extends javax.swing.JFrame {
                         image = ImageIO.read(f);
                         image.getWidth();
                         // --------------------------------
-                        boolean status = Utility.saveImagePath(jTextField_ImagePath.getText());
+                        boolean status = Utility.saveImagePath(path);
                         System.out.println("Status of image path persistence:" + status);
                         // -------------------------
                         new MainPage().setVisible(true);
@@ -517,6 +528,11 @@ public class Settings extends javax.swing.JFrame {
         new PathDialog(this, true, javaPaths).setVisible(true);
     }//GEN-LAST:event_jButton_JavaPathActionPerformed
 
+    
+    public void setImagePath(String strPath) {
+        jTextField_ImagePath.setText(strPath);
+    }
+    
     private void jButton_DataFolder1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_DataFolder1ActionPerformed
 
         int returnVal = imageChooser.showOpenDialog(this);
@@ -524,12 +540,18 @@ public class Settings extends javax.swing.JFrame {
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             // file = contractFileChooser.getSelectedFile();
             //This is where a real application would open the file.
+            
             jTextField_ImagePath.setText(imageChooser.getSelectedFile().getPath());
-            Configuration.setImagePath(jTextField_ImagePath.getText());
+            Configuration.setImagePath(imageChooser.getSelectedFile().getPath());
 
             // --------------------------------
-            boolean status = Utility.saveImagePath(jTextField_ImagePath.getText());
-            System.out.println("jButton_DataFolder1ActionPerformed: Status of image path persistence:" + status);
+            if (Load.IsOTInitialized())
+            {
+                boolean status = Utility.saveImagePath(jTextField_ImagePath.getText());
+                System.out.println("jButton_DataFolder1ActionPerformed: Status of image path persistence:" + status);
+            }
+            else
+                System.out.println("jButton_DataFolder1ActionPerformed: Status of image path persistence: UNABLE to save (at this point) because OTAPI isn't loaded yet.");
             // -------------------------
 
         } else {
@@ -600,7 +622,7 @@ public class Settings extends javax.swing.JFrame {
 
     private void loadSettings() {
         javaPaths = new Load.JavaPaths();
-        javaPaths.addDefultPath(Load.getOS());
+        javaPaths.addDefaultPath(Load.getOS());
         initComponents();
         Utility.setObj(this);
         setLocation(Utility.getLocation(this.getSize()));

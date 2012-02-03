@@ -1,0 +1,9 @@
+rm Moneychanger*.tgz
+rm -rf moneychanger/*
+cp MoneyChanger.jar moneychanger
+cp LICENSE-GPLv3.txt moneychanger
+cp VERSION.txt moneychanger
+mkdir moneychanger/lib && cp -R lib32/* moneychanger/lib
+tar -zcvf Moneychanger-32bit.tgz moneychanger
+rm -rf moneychanger/lib/* && cp -R lib64/* moneychanger/lib
+tar -zcvf Moneychanger-64bit.tgz moneychanger
