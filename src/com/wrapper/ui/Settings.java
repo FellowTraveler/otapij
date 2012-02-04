@@ -127,7 +127,7 @@ public class Settings extends javax.swing.JFrame {
 //            new MainPage().setVisible(true);
         } catch (Load.ApiNotLoadedException e) {
             StringBuilder error = new StringBuilder();
-            error.append("Autoload of from the Java Path failed!: ");
+            error.append("Autoload of the Java Path failed: ");
             error.append(System.getProperty("line.separator"));
             error.append(e.getError());
             System.out.println(error.toString());

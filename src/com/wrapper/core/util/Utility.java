@@ -249,12 +249,14 @@ public class Utility {
             while (setIterator.hasNext()) {
                 pathsString.append(setIterator.next());
                 if (setIterator.hasNext()) {
-                pathsString.append(File.pathSeparator);
-            }
+                    pathsString.append(File.pathSeparator);
+                }
             }
 
             field.set(null, pathSet.toArray(new String[0]));
             System.setProperty("java.library.path", pathsString.toString());
+
+            System.out.println("Utility.addDirToRuntime: Setting java.library.path: " + pathsString.toString());
 
         } catch (IllegalAccessException e) {
             throw new IOException("Failed to get permissions to set library path");

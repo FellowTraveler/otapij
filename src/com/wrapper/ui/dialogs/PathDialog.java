@@ -99,11 +99,15 @@ AK+ZirdWhhoHeWR1tAkN
  */
 package com.wrapper.ui.dialogs;
 
+import java.util.*;
+import java.io.*;
+
 import com.wrapper.core.util.Utility;
 import com.wrapper.ui.Load;
 import com.wrapper.ui.Settings;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
+
 
 /**
  *
@@ -203,6 +207,14 @@ public class PathDialog extends javax.swing.JDialog {
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             // file = contractFileChooser.getSelectedFile();
             //This is where a real application would open the file.
+    
+//            File[] thePaths         = pathFolderChooser.getSelectedFiles();
+//            List<File> listPaths    = Arrays.asList(thePaths);
+//            
+//            for(File file : listPaths) {
+//                javaPaths.addPath(file.getPath());
+//                System.out.print("PathDialog.jButton_AddActionPerformed: ADDED TO PATH: " + file.getPath());
+//            }
             
             javaPaths.addPath(pathFolderChooser.getSelectedFile().getPath());
             

@@ -250,7 +250,10 @@ public class Load {
         catch (java.lang.UnsatisfiedLinkError e) {
                 StringBuilder errorMessage = new StringBuilder();
                 errorMessage.append(System.getProperty("line.separator"));
-                errorMessage.append("libotapi-java not in LD path:");
+                
+                errorMessage.append(e.toString());
+//              errorMessage.append("libotapi-java not in LD path:");
+                
                 errorMessage.append(System.getProperty("line.separator"));
                 errorMessage.append(System.getProperty("java.library.path").replace(File.pathSeparator, System.getProperty("line.separator")));
                 throw new ApiNotLoadedException(errorMessage.toString());
@@ -274,7 +277,8 @@ public class Load {
         } catch (java.lang.UnsatisfiedLinkError e) {
             StringBuilder errorMessage = new StringBuilder();
             errorMessage.append(System.getProperty("line.separator"));
-            errorMessage.append("libotapi-java not in LD path:");
+            errorMessage.append(e.toString());
+//          errorMessage.append("libotapi-java not in LD path:");
             errorMessage.append(System.getProperty("line.separator"));
             errorMessage.append(System.getProperty("java.library.path").replace(File.pathSeparator, System.getProperty("line.separator")));
             throw new ApiNotLoadedException(errorMessage.toString());
@@ -287,18 +291,17 @@ public class Load {
 // -------------------------------------
     public static void loadZMQ() throws ApiNotLoadedException {
         try {
-            if (getOS() == typeOS.WIN) {
-                if (!s_bLoadedZMQ) {
-                    System.loadLibrary("libzmq");
-                    s_bLoadedZMQ = true; // (Assuming the above loadLibrary throws in event of failure.)
-                } else {
-                    System.out.println("Load.loadZMQ: (libzmq is already loaded. Skipping.)");
-                }
+            if (!s_bLoadedZMQ) {
+                System.loadLibrary("zmq");
+                s_bLoadedZMQ = true; // (Assuming the above loadLibrary throws in event of failure.)
+            } else {
+                System.out.println("Load.loadZMQ: (libzmq is already loaded. Skipping.)");
             }
         } catch (java.lang.UnsatisfiedLinkError e) {
             StringBuilder errorMessage = new StringBuilder();
             errorMessage.append(System.getProperty("line.separator"));
-            errorMessage.append("libzmq not in LD path:");
+            errorMessage.append(e.toString());            
+//          errorMessage.append("libzmq not in LD path:");
             errorMessage.append(System.getProperty("line.separator"));
             errorMessage.append(System.getProperty("java.library.path").replace(File.pathSeparator, System.getProperty("line.separator")));
             throw new ApiNotLoadedException(errorMessage.toString());
@@ -392,7 +395,7 @@ public class Load {
 
         public void addPath(String path) {
             _paths.add(path); //.toLowerCase());
-            System.out.println(_paths.toString());
+            System.out.println("Load.JavaPaths: Adding path: " + _paths.toString());
             fireContentsChanged(this, 0, this.getSize());
         }
 
