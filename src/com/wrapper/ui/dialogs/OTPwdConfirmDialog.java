@@ -98,7 +98,13 @@ AK+ZirdWhhoHeWR1tAkN
  *
  * Created on 4 May, 2011, 8:54:57 PM
  */
+
 package com.wrapper.ui.dialogs;
+
+
+import com.wrapper.core.jni.OTPassword;
+import com.wrapper.core.util.Utility;
+import com.wrapper.core.jni.OTPassword;
 
 import javax.swing.JOptionPane;
 
@@ -115,6 +121,8 @@ public class OTPwdConfirmDialog extends javax.swing.JDialog {
     public OTPwdConfirmDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocation(Utility.getLocation(this.getSize()));
+
         count = 0;
     }
 
@@ -219,7 +227,7 @@ public class OTPwdConfirmDialog extends javax.swing.JDialog {
         }else{
             count++;
             if(count == 3){
-                JOptionPane.showMessageDialog(null, "3 wrong password trie. Exiting......","Error",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "3 wrong password tries. Exiting......","Error",JOptionPane.ERROR_MESSAGE);
                 System.exit(0);
             }
             JOptionPane.showMessageDialog(null, "Passwords dont match.","Error",JOptionPane.ERROR_MESSAGE);
@@ -259,11 +267,18 @@ public class OTPwdConfirmDialog extends javax.swing.JDialog {
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JPasswordField jPasswordField2;
     // End of variables declaration//GEN-END:variables
-    public static String getPassword() {
+    public static boolean getPassword(OTPassword theOutput) {
+        if (null == password)
+            return false;
+
         StringBuilder str = new StringBuilder();
         for (int i = 0; i < password.length; i++) {
             str.append(password[i]);
         }
-        return str.toString();
+        if (str.length() > 0)
+            theOutput.setPassword(str.toString(), str.length());
+        // TODO: Security implications of using String here? (Fix.)
+        
+        return true;        
     }
 }

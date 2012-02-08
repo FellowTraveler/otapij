@@ -186,8 +186,11 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.UIManager;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import org.jvnet.substance.SubstanceLookAndFeel;
+import org.jvnet.substance.skin.SubstanceModerateLookAndFeel;
 
 /**
  *
@@ -220,14 +223,19 @@ public class MainPage extends javax.swing.JFrame {
 
         try {
 
-            setToSystray();
+            //SubstanceLookAndFeel laf = new SubstanceModerateLookAndFeel();
+            //UIManager.setLookAndFeel(laf);
+            
+            if (false == System.getProperty("os.name").toLowerCase().contains("linux"))
+                setToSystray();
+            // ---------------------------------
             setTitle("Moneychanger");
             initComponents();
             initMainTab();
             initOtherTab();
             initNYMSTab();
             initContractsTab();
-            initMarketsTab();
+            initMarketsTab(); 
             //initBasketsTab();
             initSettingsTab();
             initCreditsTab();
@@ -237,7 +245,7 @@ public class MainPage extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            ((JFrame) Utility.getSettingsObj()).dispose();
+            //((JFrame) Utility.getSettingsObj()).dispose();
             setCursor(Cursor.getDefaultCursor());
         }
     }
@@ -305,8 +313,8 @@ public class MainPage extends javax.swing.JFrame {
                 if (e.getNewState() == 7) {
                     try {
                         tray.add(trayIcon);
-                         if(!(os.indexOf("nix") >= 0 || os.indexOf("nux") >= 0)){
-                        setVisible(false);
+                        if (!(os.indexOf("nix") >= 0 || os.indexOf("nux") >= 0)) {
+                            setVisible(false);
                         }
                         System.out.println("added to SystemTray");
                     } catch (AWTException ex) {
@@ -4643,7 +4651,7 @@ public class MainPage extends javax.swing.JFrame {
     }
 
     private void initMarketsTab() {
-
+          
         jLabel25.setText("");
         jLabel46.setText("");
         jLabel30.setText("");
@@ -4710,8 +4718,6 @@ public class MainPage extends javax.swing.JFrame {
                 ((MarketTradesTableModel) jTable16.getModel()).setValue(nymTrades, jTable16);
             }
         }
-
-
     }
 
     private void nymOfferClick() {
@@ -4745,6 +4751,7 @@ public class MainPage extends javax.swing.JFrame {
     }
 
     private void marketListClick() {
+                
         try {
             String serverID = "ALL";
             String nymID = "ALL";

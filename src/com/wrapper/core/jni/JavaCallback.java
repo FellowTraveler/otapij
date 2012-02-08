@@ -91,6 +91,7 @@ AK+ZirdWhhoHeWR1tAkN
 package com.wrapper.core.jni;
 
 import com.wrapper.core.util.*;
+import com.wrapper.core.jni.OTPassword;
 import com.wrapper.core.jni.OTCallback;
 import com.wrapper.ui.dialogs.OTPasswordDialog;
 import com.wrapper.ui.dialogs.OTPwdConfirmDialog;
@@ -101,19 +102,52 @@ public class JavaCallback extends OTCallback {
         super();
     }
 
-    public String runOne() {
-        String strPassword = null;
+    public void runOne(String strDisplay, OTPassword theOutput) {
+        if (null == theOutput)
+        {
+            System.out.println("JavaCallback.runOne: Failure: theOutput variable (for password to be returned) is null!");
+            return;
+        }
         new OTPasswordDialog(null, true).setVisible(true);
-        strPassword = OTPasswordDialog.getPassword();
-
-        return strPassword;
+        OTPasswordDialog.getPassword(theOutput);
     }
 
-    public String runTwo() {
-        String strPassword = null;
-        new OTPasswordDialog(null, true).setVisible(true);
-        strPassword = OTPwdConfirmDialog.getPassword();
-
-        return strPassword;
+    public void runTwo(String strDisplay, OTPassword theOutput) {
+	if (null == theOutput)
+	{
+            System.out.println("JavaCallback.runTwo: Failure: theOutput variable (for password to be returned) is null!");
+            return;
+	}		
+        new OTPwdConfirmDialog(null, true).setVisible(true);
+        OTPwdConfirmDialog.getPassword(theOutput);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

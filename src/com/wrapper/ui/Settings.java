@@ -88,13 +88,20 @@ import com.wrapper.core.util.Configuration;
 import com.wrapper.core.util.Utility;
 import com.wrapper.ui.custom.CustomMenu;
 import com.wrapper.ui.dialogs.PathDialog;
+import com.wrapper.ui.panels.OpenTransactionAccountTopPanel;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.LookAndFeel;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
+import org.jvnet.substance.SubstanceProgressBarUI;
 
 /**
  *
@@ -105,62 +112,84 @@ public class Settings extends javax.swing.JFrame {
 
     private JFileChooser dataFolderChooser;
     private JFileChooser imageChooser;
+    
+    private boolean m_bSettingsLoaded;
+    private boolean m_bComponentsInitialized;
+    
     private static Load.JavaPaths javaPaths;
+    
+    private void loadSettings() {
+        if (false == m_bSettingsLoaded) {
+            javaPaths = new Load.JavaPaths();
+            javaPaths.addDefaultPath(Load.getOS());
+            if (false == m_bComponentsInitialized) {
+                initComponents();
+                m_bComponentsInitialized = true;
+            }
+            Utility.setObj(this);
+            setLocation(Utility.getLocation(this.getSize()));
+            initFileChooser();
+            setPath();
+            m_bSettingsLoaded = true;
+        }
+    }
 
     /**
      * Creates new form Settings
      */
     public Settings() {
-
-        //Try and load without settings dilogue:
-        try {
-//            Utility.setSettingsObj(this);
-            
-            loadSettings();
-            
-            Load.loadOTAPI();
-            
-            Load.loadAllAppDataButWallet(this);
-//          Load.loadAppData(this);
-            
-            Load.setTimeout();
-//            new MainPage().setVisible(true);
-        } catch (Load.ApiNotLoadedException e) {
-            StringBuilder error = new StringBuilder();
-            error.append("Autoload of the Java Path failed: ");
-            error.append(System.getProperty("line.separator"));
-            error.append(e.getError());
-            System.out.println(error.toString());
-            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
-            loadSettings();
-        } catch (Load.AppDataNotLoadedException e) {
-            StringBuilder error = new StringBuilder();
-            error.append("AutoLoad of your MoneyChanger user data failed; Choose the location here: ");
-            error.append(e.getError().replace(":", System.getProperty("line.separator")));
-            System.out.println(error.toString());
-            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
-            loadSettings();
-        } catch (Load.InvalidTimeOutException e) {
-            StringBuilder error = new StringBuilder();
-            error.append("Auto-Timout is invalid; you should never see this message: please contact us for support!");
-            error.append(e.getError());
-            System.out.println(error.toString());
-            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
-            loadSettings();
-        } 
-//        catch (Load.ImageNotLoadedException e) {
+        m_bSettingsLoaded = false;
+        m_bComponentsInitialized = false;
+       //Try and load without settings dilogue:
+//        try {
+////          Utility.setSettingsObj(this);
+//
+//            loadSettings();
+//
+//            Load.loadOTAPI();
+//
+//            Load.loadAllAppDataButWallet(this);
+////          Load.loadAppData(this);
+//
+//            Load.setTimeout();
+////            new MainPage().setVisible(true);
+//        } catch (Load.ApiNotLoadedException e) {
 //            StringBuilder error = new StringBuilder();
-//            error.append("Autoload of image failed: ");
+//            error.append("Autoload of the Java Path failed: ");
 //            error.append(System.getProperty("line.separator"));
 //            error.append(e.getError());
 //            System.out.println(error.toString());
 //            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
-//        } 
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-//        loadSettings();
-    }
+//            loadSettings();
+//        } catch (Load.AppDataNotLoadedException e) {
+//            StringBuilder error = new StringBuilder();
+//            error.append("AutoLoad of your MoneyChanger user data failed; Choose the location here: ");
+//            error.append(e.getError().replace(":", System.getProperty("line.separator")));
+//            System.out.println(error.toString());
+//            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
+//            loadSettings();
+//        } catch (Load.InvalidTimeOutException e) {
+//            StringBuilder error = new StringBuilder();
+//            error.append("Auto-Timout is invalid; you should never see this message: please contact us for support!");
+//            error.append(e.getError());
+//            System.out.println(error.toString());
+//            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
+//            loadSettings();
+//        } //        catch (Load.ImageNotLoadedException e) {
+//        //            StringBuilder error = new StringBuilder();
+//        //            error.append("Autoload of image failed: ");
+//        //            error.append(System.getProperty("line.separator"));
+//        //            error.append(e.getError());
+//        //            System.out.println(error.toString());
+//        //            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
+//        //        }
+//        catch (Exception e) {
+//            e.printStackTrace();
+//        }
+        Utility.setSettingsObj(this);
+        loadSettings();
+
+     }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -368,7 +397,7 @@ public class Settings extends javax.swing.JFrame {
                 path = Configuration.getImagePath();
             }
             // ---------------------------------
-            
+
             if ((null != path) && (path.length() > 0)) {
                 try {
                     File f = new File(path);
@@ -383,6 +412,13 @@ public class Settings extends javax.swing.JFrame {
                         System.out.println("Status of image path persistence:" + status);
                         // -------------------------
                         new MainPage().setVisible(true);
+             //UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+                                    // UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+
+//  com.wrapper.ui.ProgressBar progressBar = new com.wrapper.ui.ProgressBar();
+//                        new Thread(progressBar).start();
+//                        progressBar.setVisible(true);
+//                        progressBar.pack();
                     }
                     // ------------------------------------------------------
                 } catch (Exception e) {
@@ -528,11 +564,10 @@ public class Settings extends javax.swing.JFrame {
         new PathDialog(this, true, javaPaths).setVisible(true);
     }//GEN-LAST:event_jButton_JavaPathActionPerformed
 
-    
     public void setImagePath(String strPath) {
         jTextField_ImagePath.setText(strPath);
     }
-    
+
     private void jButton_DataFolder1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_DataFolder1ActionPerformed
 
         int returnVal = imageChooser.showOpenDialog(this);
@@ -540,18 +575,17 @@ public class Settings extends javax.swing.JFrame {
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             // file = contractFileChooser.getSelectedFile();
             //This is where a real application would open the file.
-            
+
             jTextField_ImagePath.setText(imageChooser.getSelectedFile().getPath());
             Configuration.setImagePath(imageChooser.getSelectedFile().getPath());
 
             // --------------------------------
-            if (Load.IsOTInitialized())
-            {
+            if (Load.IsOTInitialized()) {
                 boolean status = Utility.saveImagePath(jTextField_ImagePath.getText());
                 System.out.println("jButton_DataFolder1ActionPerformed: Status of image path persistence:" + status);
-            }
-            else
+            } else {
                 System.out.println("jButton_DataFolder1ActionPerformed: Status of image path persistence: UNABLE to save (at this point) because OTAPI isn't loaded yet.");
+            }
             // -------------------------
 
         } else {
@@ -620,15 +654,6 @@ public class Settings extends javax.swing.JFrame {
         jTextField_JavaPath.setText(javaPaths.toString());
     }
 
-    private void loadSettings() {
-        javaPaths = new Load.JavaPaths();
-        javaPaths.addDefaultPath(Load.getOS());
-        initComponents();
-        Utility.setObj(this);
-        setLocation(Utility.getLocation(this.getSize()));
-        initFileChooser();
-        setPath();
-    }
-}
+ }
 // </editor-fold>
 

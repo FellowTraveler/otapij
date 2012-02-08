@@ -129,15 +129,16 @@ public class ApplicationLauncher extends SingleFrameApplication {
                          * Comment below 2 lines to restore the default
                          * look and feel.
                          */
-               
-                        SubstanceLookAndFeel laf = new SubstanceModerateLookAndFeel();
+                        /*SubstanceLookAndFeel laf = new SubstanceModerateLookAndFeel();
                         UIManager.setLookAndFeel(laf);
-                        Utility.setObj(laf);
+
+                        Utility.setObj(laf);*/
 
                         new Settings().setVisible(true);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+
 
                 }
             });

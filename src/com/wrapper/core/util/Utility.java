@@ -324,7 +324,7 @@ public class Utility {
     public static void setLoadNymTrades(boolean loadNymTrades) {
         Utility.loadNymTrades = loadNymTrades;
     }
-    private static OTCallback g_theCallback;
+    private static OTCallback g_theCallback = null;
 
     public static OTCallback getG_theCallback() {
         return g_theCallback;

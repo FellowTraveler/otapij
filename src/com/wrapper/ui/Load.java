@@ -4,6 +4,7 @@
  */
 package com.wrapper.ui;
 
+import chrriis.common.SystemProperty;
 import com.wrapper.core.jni.JavaCallback;
 import com.wrapper.core.jni.OTCallback;
 import com.wrapper.core.jni.OTCaller;
@@ -47,19 +48,73 @@ public class Load {
     
     private static class OneTimeOnly {
 
-        private OTCaller m_theCaller;
-        private OTCallback m_theCallback;
+        private static OTCaller s_theCaller     = null;
+        private static OTCallback s_theCallback = null;
 
+        private static boolean s_bHasHappened   = false;
+        // -----------------------------------------
+        
         public OneTimeOnly() {
-            m_theCaller = new OTCaller();
-            m_theCallback = new JavaCallback();
+            System.out.println("OneTimeOnly.OneTimeOnly(): FYI, constructor is called here. Trying to set password callback also...");
+            boolean bSuccess = OneTimeOnly.GiveItAShot();
+            System.out.println("OneTimeOnly.OneTimeOnly(): Status: " + bSuccess);
+        }
+        // -----------------------------------------
+        
+        public static boolean GiveItAShot() {
+            
+            // It hasn't happened yet, so let's give it a shot...
+            if (false == OneTimeOnly.s_bHasHappened) {
+                
+                if ((null != OneTimeOnly.s_theCaller) || (null != OneTimeOnly.s_theCallback))
+                {
+                    System.out.println("OneTimeOnly.GiveItAShot(): ERROR: HOW on earth were the callback objects instantiated already? ERROR.");
+                }
+                else {
+                    OneTimeOnly.s_theCaller     = new OTCaller();
+                    OneTimeOnly.s_theCallback   = new JavaCallback();
 
-            m_theCaller.setCallback(m_theCallback);
+                    if ((null == OneTimeOnly.s_theCaller) || (null == OneTimeOnly.s_theCallback))
+                    {
+                        System.out.println("OneTimeOnly.GiveItAShot(): ERROR: Failure instantiating caller or callback objects.");
+                        OneTimeOnly.s_theCaller     = null;
+                        OneTimeOnly.s_theCallback   = null;
+                    }
+                    else {
+                        OneTimeOnly.s_theCaller.setCallback(OneTimeOnly.s_theCallback);
 
-            otapi.OT_API_Set_PasswordCallback(m_theCaller);
+                        // bool OT_API_Set_PasswordCallback(OTCaller & theCaller); 
+                        // Caller _must_ have Callback attached already.
+                        //
+                        boolean bSuccess = otapi.OT_API_Set_PasswordCallback(OneTimeOnly.s_theCaller);
 
-            Utility.setG_theCallback(m_theCallback);
-            Utility.setG_theCaller(m_theCaller);
+                        if (false == bSuccess)
+                        {
+                            System.out.println("OneTimeOnly.GiveItAShot(): FAILED calling OT_API_Set_PasswordCallback(). (Better try again!)");
+                            OneTimeOnly.s_theCaller     = null;
+                            OneTimeOnly.s_theCallback   = null;
+                        }
+                        else {
+                            // IF SUCCESS:
+                            OneTimeOnly.s_bHasHappened = true; // SUCCESS!
+                            
+                            System.out.println("OneTimeOnly.GiveItAShot(): SUCCESS setting the password callback.");
+                            
+                            
+                            // Definitely this is the only place these set functions are called.
+                            // I also don't see that they are used, except for the same reason this class is
+                            // (to maintain the instance...)
+                            //
+                            Utility.setG_theCallback(OneTimeOnly.s_theCallback);
+                            Utility.setG_theCaller(OneTimeOnly.s_theCaller);
+                        }
+                    }
+                }
+            }
+            else {
+                System.out.println("OneTimeOnly.GiveItAShot(): Password callback is already set. (Skipping and returning true.)");                
+            }
+            return OneTimeOnly.s_bHasHappened;
         }
     }
     // -------------------------------------
@@ -67,11 +122,19 @@ public class Load {
     public static void setupPasswordCallback() {
         // This only happens if the above OT_API_Init() was successful, and it
         // only happens once.
-        if (null == Load.s_OneTime) {
-            Load.s_OneTime = new OneTimeOnly(); // Password callbacks are in here.
-            System.out.println("Load.setupPasswordCallback: Password callback successfully set up.");
-        } else {
-            System.out.println("Load.setupPasswordCallback: Password callback was already set. (Skipping.)");
+        if (false == Load.IsOTInitialized()) {
+            System.out.println("Load.setupPasswordCallback: OTAPI isn't initialized yet. (Skipping.)");            
+        }
+        else {
+            if (null == Load.s_OneTime) {
+                System.out.println("Load.setupPasswordCallback: Instantiating OneTimeOnly object... (this should happen one time only)");
+                Load.s_OneTime = new OneTimeOnly(); // Password callbacks are in here. This internally also calls GiveItAShot().
+            }
+            else {
+                System.out.println("Load.setupPasswordCallback: OneTimeOnly already exists. Calling GiveItAShot()...");
+                boolean bCallbackSetup = Load.s_OneTime.GiveItAShot();
+                System.out.println("Load.setupPasswordCallback: Status: " + bCallbackSetup);
+            }
         }
     }
     // -------------------------------------
@@ -85,7 +148,7 @@ public class Load {
         String strConfigImagePath   = Configuration.getImagePath();
 
         if (null != strConfigImagePath) {
-            System.out.println("Utility.getImagePath(): Skipping, since a path is already set: " + strConfigImagePath);
+            System.out.println("Load.loadImage(): Skipping, since Configuration.getImagePath() is already set: " + strConfigImagePath);
             return;
         }
         // -------------------------------
@@ -132,7 +195,7 @@ public class Load {
         loadAppData(null, appDataLocation, walletLocation);
     }
     public static void loadAllAppDataButWallet(Settings theSettings, String appDataLocation, String walletLocation) throws AppDataNotLoadedException {
-        if (!Load.s_bLoadedOTAPI) // We haven't loaded the jnilib yet.
+        if (!Load.IsOTLoaded()) // We haven't loaded the jnilib yet.
         {
             String strError = "Load.loadAppData: otapi library isn't loaded yet. (Should thus never call this function at this point.)";
             System.out.println(strError);
@@ -163,17 +226,18 @@ public class Load {
     // -------------------------------------
     public static void initOTAPI(String appDataLocation) throws AppDataNotLoadedException {
 
-        if (!Load.s_bLoadedOTAPI) // We haven't loaded the jnilib yet.
+        if (!Load.IsOTLoaded()) // We haven't loaded the jnilib yet.
         {
             String strError = "Load.initOTAPI: otapi library isn't loaded yet. (Skipping.)";
             System.out.println(strError);
             throw new AppDataNotLoadedException(strError);
         }
         // -------------------------------------
+        // BELOW THIS POINT, we know for a FACT that the OTAPI is LOADED...
         
         String strLocation = new String(appDataLocation.trim());
 
-        if (Load.s_bInitializedOTAPI) {
+        if (Load.IsOTInitialized()) {
             System.out.println("Load.initOTAPI: (OT_API_Init() was already completed in the past. (Skipping.)");
         }
         else // We haven't initialized yet OT yet.
@@ -185,12 +249,14 @@ public class Load {
             // happen even if otapi init failed) and then it wouldn't allow
             // itself to trigger again.  This I think should fix that.
             //
-            Load.setupPasswordCallback();                            
             // --------------------------------------------
             
             if (1 == otapi.OT_API_Init(strLocation)) {
+                System.out.println("Load.initOTAPI: SUCCESS invoking OT_API_Init().");
                 Load.s_bInitializedOTAPI = true;
-                System.out.println("Load.initOTAPI: Success invoking OT_API_Init().");                
+                // ---------------------------------
+                
+                Load.setupPasswordCallback();                
             }
             else // Failed in OT_API_Init().
             {
@@ -203,7 +269,7 @@ public class Load {
     
     public static void loadOTWallet(String appDataLocation, String walletLocation) throws AppDataNotLoadedException {
         
-        if (!Load.IsOTInitialized()) {
+        if (false == Load.IsOTInitialized()) {
             System.out.println("Load.loadOTWallet: Skipping. (OT isn't initialized yet.)");
             return;
         }
@@ -218,15 +284,19 @@ public class Load {
                 Load.s_bLoadedWallet = true;
                 System.out.println("Load.loadOTWallet: OT_API_SwitchWallet() completed successfully.");
             } else {
-                throw new AppDataNotLoadedException("Load.loadAppData: Unable To Switch Wallet, Maybe Wrong Password?");
+                Load.s_bLoadedWallet = false;                
+                throw new AppDataNotLoadedException("Load.loadOTWallet: Unable To Switch Wallet, Maybe Wrong Password?");
             }
         }
         else // Wallet has not ever been loaded yet successfully.
         {
+            Load.setupPasswordCallback(); // Just in case. (This can't step on its own toes, anyway.)
+            
             if (1 == otapi.OT_API_LoadWallet(walletLocation)) {
                 Load.s_bLoadedWallet = true;
                 System.out.println("Load.loadOTWallet: OT_API_LoadWallet() completed successfully.");
             } else {
+                Load.s_bLoadedWallet = false;
                 throw new AppDataNotLoadedException("Load.loadOTWallet: Unable To Load Wallet, Maybe Wrong Password?");
             }
         }        
@@ -291,7 +361,9 @@ public class Load {
 // -------------------------------------
     public static void loadZMQ() throws ApiNotLoadedException {
         try {
-            if (!s_bLoadedZMQ) {
+            if (!s_bLoadedZMQ//){
+                && !System.getProperty("os.name").toLowerCase().contains("mac")
+                && !System.getProperty("os.name").toLowerCase().contains("linux")) {
                 System.loadLibrary("zmq");
                 s_bLoadedZMQ = true; // (Assuming the above loadLibrary throws in event of failure.)
             } else {

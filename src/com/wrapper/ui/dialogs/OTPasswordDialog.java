@@ -89,6 +89,7 @@ AK+ZirdWhhoHeWR1tAkN
  **************************************************************/
 package com.wrapper.ui.dialogs;
 
+import com.wrapper.core.jni.OTPassword;
 import com.wrapper.core.util.Configuration;
 import com.wrapper.core.util.Utility;
 import com.wrapper.ui.custom.LoadImage;
@@ -235,15 +236,17 @@ public class OTPasswordDialog extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
-    public static String getPassword() {
+    public static boolean getPassword(OTPassword theOutput) {
         if (null == password)
-            return "";
-        
+            return false;
         StringBuilder str = new StringBuilder();
         for (int i = 0; i < password.length; i++) {
             str.append(password[i]);
         }
-        return (str.length() > 0) ? str.toString() : "";
+        if (str.length() > 0)
+            theOutput.setPassword(str.toString(), str.length());
+        // TODO: Security implications of using String here? (Fix.)
+        return true;
     }
 
     /**

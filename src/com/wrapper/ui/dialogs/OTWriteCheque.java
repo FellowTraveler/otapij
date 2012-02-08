@@ -103,6 +103,7 @@ AK+ZirdWhhoHeWR1tAkN
 package com.wrapper.ui.dialogs;
 
 //import com.theotherbell.ui.DateField; - JavaDatePicker (bad)
+import com.theotherbell.ui.DateField;
 import com.wrapper.core.NYM;
 import com.wrapper.core.OpenTransactionAccount;
 import com.wrapper.core.util.Utility;
@@ -395,16 +396,16 @@ public class OTWriteCheque extends javax.swing.JDialog  {
     private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
     
-    String dateField;
+    DateField dateField;
 
     public static void setDate(String date) {
     }
 
     private void initDateComponent() {
 
-        dateField = new String();
- //       dateField.setBounds(0,-10, 250, 30);
-        jPanel1.add(new javax.swing.JTextField() );
+        dateField = new DateField();
+        dateField.setBounds(0,-10, 250, 30);
+        jPanel1.add(dateField);
         jPanel1.setBorder(null);
         repaint();
         SwingUtilities.invokeLater(new Runnable() {
