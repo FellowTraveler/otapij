@@ -313,7 +313,7 @@ public class AddBasketDialog extends javax.swing.JDialog {
 
                 JOptionPane.showMessageDialog(null, "Basket issued successfully", "Issue basket success", JOptionPane.INFORMATION_MESSAGE);
 
-                MainPage.setAssets(serverID);
+                MainPage.setAssets(serverID,assetTypeID);
 
             }
 

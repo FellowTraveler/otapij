@@ -213,6 +213,7 @@ public class MainPage extends javax.swing.JFrame {
     private Map nymBox;
     private static Map nymOutBox;
     private static boolean isBasketInit = false;
+    private static boolean isMarketInit = false;
     TrayIcon trayIcon;
     SystemTray tray;
 
@@ -225,9 +226,10 @@ public class MainPage extends javax.swing.JFrame {
 
             //SubstanceLookAndFeel laf = new SubstanceModerateLookAndFeel();
             //UIManager.setLookAndFeel(laf);
-            
-            if (false == System.getProperty("os.name").toLowerCase().contains("linux"))
+
+            if (false == System.getProperty("os.name").toLowerCase().contains("linux")) {
                 setToSystray();
+            }
             // ---------------------------------
             setTitle("Moneychanger");
             initComponents();
@@ -235,7 +237,7 @@ public class MainPage extends javax.swing.JFrame {
             initOtherTab();
             initNYMSTab();
             initContractsTab();
-            initMarketsTab(); 
+            //initMarketsTab();
             //initBasketsTab();
             initSettingsTab();
             initCreditsTab();
@@ -3695,6 +3697,12 @@ public class MainPage extends javax.swing.JFrame {
             initBasketsTab();
             isBasketInit = true;
         }
+        if (sel == 4 && !isMarketInit) {
+            initMarketsTab();
+            isMarketInit = true;
+        }
+
+
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
     private void jComboBox7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox7ActionPerformed
@@ -3760,6 +3768,7 @@ public class MainPage extends javax.swing.JFrame {
 
     private void jButton32ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton32ActionPerformed
         if (jTable19.getSelectedRow() > -1) {
+            String assetID = (String) jTable19.getModel().getValueAt(jTable19.getSelectedRow(), 1);
             new AssetContractEditDialog(this, true, (String) jTable19.getModel().getValueAt(jTable19.getSelectedRow(), 1)).setVisible(true);
             refreshAssetContractList();
             String currentServerID = "ALL";
@@ -3771,6 +3780,18 @@ public class MainPage extends javax.swing.JFrame {
 
             if (baskets != null && baskets.size() > 0 && !"Popup Dialog".equalsIgnoreCase(((String[]) baskets.get(0))[0])) {
                 ((BasketTableModel) jTable19.getModel()).setValue(baskets);
+                if (assetID != null) {
+                    for (int i = 0; i < jTable19.getRowCount(); i++) {
+                        String id = (String) jTable19.getModel().getValueAt(i, 1);
+                        if (id == null) {
+                            continue;
+                        }
+                        if (assetID.equals(id)) {
+                            jTable19.setRowSelectionInterval(i, i);
+                            break;
+                        }
+                    }
+                }
             }
 
         } else {
@@ -4612,7 +4633,7 @@ public class MainPage extends javax.swing.JFrame {
         return jTable5;
     }
 
-    public static void setAssets(String serverID) {
+    public static void setAssets(String serverID, String assetID) {
 
         List baskets = Basket.getBasketList(serverID, null);
 
@@ -4620,6 +4641,18 @@ public class MainPage extends javax.swing.JFrame {
             ((BasketTableModel) jTable19.getModel()).setValue(baskets);
         }
         refreshAssetContractList();
+        if (assetID != null) {
+            for (int i = 0; i < jTable19.getRowCount(); i++) {
+                String id = (String) jTable19.getModel().getValueAt(i, 1);
+                if (id == null) {
+                    continue;
+                }
+                if (assetID.equals(id)) {
+                    jTable19.setRowSelectionInterval(i, i);
+                    break;
+                }
+            }
+        }
 
     }
 
@@ -4651,7 +4684,7 @@ public class MainPage extends javax.swing.JFrame {
     }
 
     private void initMarketsTab() {
-          
+
         jLabel25.setText("");
         jLabel46.setText("");
         jLabel30.setText("");
@@ -4751,7 +4784,7 @@ public class MainPage extends javax.swing.JFrame {
     }
 
     private void marketListClick() {
-                
+
         try {
             String serverID = "ALL";
             String nymID = "ALL";
@@ -4867,6 +4900,8 @@ public class MainPage extends javax.swing.JFrame {
         try {
             jButton33.setEnabled(true);
             jButton31.setEnabled(true);
+            jTextField1.setText("1");
+            Basket.resetSubCurrency();
             String serverID = "ALL";
 
             if (serverMap != null && serverMap.size() > 0 && jComboBox7.getSelectedIndex() > -1) {

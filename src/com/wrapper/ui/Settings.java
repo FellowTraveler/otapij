@@ -88,20 +88,11 @@ import com.wrapper.core.util.Configuration;
 import com.wrapper.core.util.Utility;
 import com.wrapper.ui.custom.CustomMenu;
 import com.wrapper.ui.dialogs.PathDialog;
-import com.wrapper.ui.panels.OpenTransactionAccountTopPanel;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import javax.imageio.ImageIO;
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.LookAndFeel;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.filechooser.FileFilter;
-import org.jvnet.substance.SubstanceProgressBarUI;
 
 /**
  *
@@ -415,10 +406,10 @@ public class Settings extends javax.swing.JFrame {
              //UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
                                     // UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 
-//  com.wrapper.ui.ProgressBar progressBar = new com.wrapper.ui.ProgressBar();
-//                        new Thread(progressBar).start();
-//                        progressBar.setVisible(true);
-//                        progressBar.pack();
+  /*com.wrapper.ui.ProgressBar progressBar = new com.wrapper.ui.ProgressBar();
+                        new Thread(progressBar).start();
+                        progressBar.setVisible(true);
+                        progressBar.pack();*/
                     }
                     // ------------------------------------------------------
                 } catch (Exception e) {

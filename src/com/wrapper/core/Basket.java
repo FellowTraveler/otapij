@@ -125,6 +125,10 @@ public class Basket {
         return subCurrency;
     }
 
+    public static void resetSubCurrency() {
+        subCurrency.clear();
+    }
+
     public static void addSubCurrency(String[] subCurrencyValue) {
         Basket.subCurrency.add(subCurrencyValue);
     }
