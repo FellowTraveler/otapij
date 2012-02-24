@@ -49,6 +49,14 @@ INSTALL: Boost.
 
 INSTALL: ChaiScript.
 [Available here.](http://www.chaiscript.com/)
+ 
+     $ git clone git://github.com/ChaiScript/ChaiScript
+     $ cd ChaiScript
+     $ mkdir build
+     $ cd build
+     $ cmake ..
+     $ make
+     $ sudo make install
 
 Clone into Open-Transactions:
 

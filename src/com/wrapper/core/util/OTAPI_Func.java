@@ -23,7 +23,7 @@ import com.wrapper.core.jni.otapi;
 
 
 public class OTAPI_Func {
-    
+
     public enum FT {
         CREATE_USER_ACCT,
         DELETE_USER_ACCT, 
@@ -45,11 +45,14 @@ public class OTAPI_Func {
         GET_MARKET_LIST,
         CREATE_MARKET_OFFER,
         CANCEL_MARKET_OFFER,
+        CANCEL_PAYMENT_PLAN,
+        DEPOSIT_PAYMENT_PLAN,
         GET_NYM_MARKET_OFFERS,
         GET_MARKET_OFFERS,
         GET_MARKET_RECENT_TRADES,
         GET_MINT,
-        QUERY_ASSET_TYPES;  //; is optional
+        QUERY_ASSET_TYPES,
+        GET_BOX_RECEIPT;  //; is optional
         }
 
     public FT funcType;
@@ -57,17 +60,23 @@ public class OTAPI_Func {
     public String   serverID;
     public String   nymID, nymID2;
     public String   assetID, assetID2;
-    public String   accountID;
-    public String   accountID2;
+    public String   accountID, accountID2;
     public String   basket;
     public String   strData, strData2, strData3, strData4;
     public boolean  bBool;    
     public int      nData;
     public int      nTransNumsNeeded;
     
-               
-    public OTAPI_Func(FT theType, String serverID, String nymID, String assetTypeID, String assetAccountID, String currencyTypeID, String currencyAcctID,
-            String scale, String minIncrement, String quantity, String price, boolean bSelling) {
+             
+   // for market offers
+   //
+   public OTAPI_Func(FT theType, 
+           String serverID, 
+           String nymID, 
+           String assetTypeID,      String assetAccountID, 
+           String currencyTypeID,   String currencyAcctID,
+           String scale, String minIncrement, String quantity, String price,
+           boolean bSelling) { // 12 args
         
        if (null == serverID)
            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as serverID");
@@ -75,19 +84,19 @@ public class OTAPI_Func {
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as nymID");	
        if (null == assetTypeID)	
            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as assetTypeID"); 	 	
-        if (null == assetAccountID)	 	
+       if (null == assetAccountID)	 	
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as assetAccountID"); 	 	
-        if (null == currencyTypeID) 	 	
+       if (null == currencyTypeID) 	 	
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as currencyTypeID"); 	 	
-        if (null == currencyAcctID) 	 	
+       if (null == currencyAcctID) 	 	
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as currencyAcctID");	 	
-      if (null == scale) 	 	
+       if (null == scale) 	 	
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as scale");	 	
        if (null == minIncrement)	 	
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as minIncrement");	 	
-        if (null == quantity)	 	
+       if (null == quantity)	 	
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as quantity");	 	
-        if (null == price)	 	
+       if (null == price)	 	
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as price");
  	 	
         
@@ -111,7 +120,7 @@ public class OTAPI_Func {
         
 
     public OTAPI_Func(FT theType, String serverID, String nymID, String assetID, 
-            String basket, String accountID, boolean bBool, int nTransNumsNeeded) {
+            String basket, String accountID, boolean bBool, int nTransNumsNeeded) { // 8 args
         
         if (null == serverID)
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as serverID");	
@@ -135,7 +144,7 @@ public class OTAPI_Func {
     }
     
     
-    public OTAPI_Func(FT theType, String serverID, String nymID) {
+    public OTAPI_Func(FT theType, String serverID, String nymID) { // 3 args
         
         if (null == serverID)
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as serverID");	
@@ -149,7 +158,7 @@ public class OTAPI_Func {
         this.bBool      = false;
     }
 
-    public OTAPI_Func(FT theType, String serverID, String nymID, String strParam, String strData) {
+    public OTAPI_Func(FT theType, String serverID, String nymID, String strParam, String strData) { // 5 args
         if (null == serverID)
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as serverID");	
         if (null == nymID)
@@ -169,6 +178,7 @@ public class OTAPI_Func {
         switch(theType)
         {
             case CANCEL_MARKET_OFFER:
+            case CANCEL_PAYMENT_PLAN:
             case PROCESS_INBOX:
             case DEPOSIT_CASH:
             case DEPOSIT_CHEQUE:
@@ -189,7 +199,7 @@ public class OTAPI_Func {
                 break;
         }
     }
-    public OTAPI_Func(FT theType, String serverID, String nymID, String accountID, String strParam, String strData, String strData2) {
+    public OTAPI_Func(FT theType, String serverID, String nymID, String accountID, String strParam, String strData, String strData2) { // 7 args
     
         if (null == serverID)	
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as serverID");
@@ -228,7 +238,9 @@ public class OTAPI_Func {
 
         
     }
-    public OTAPI_Func(FT theType, String serverID, String nymID, String strParam) {
+    
+
+    public OTAPI_Func(FT theType, String serverID, String nymID, String strParam) { // 4 args
         if (null == serverID)
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as serverID");	
         if (null == nymID)
@@ -258,6 +270,7 @@ public class OTAPI_Func {
             case DELETE_ASSET_ACCT:
                 this.accountID  = strParam;
                 break;
+            case DEPOSIT_PAYMENT_PLAN:
             case ISSUE_ASSET_TYPE:
             case GET_MARKET_RECENT_TRADES:
             case QUERY_ASSET_TYPES:
@@ -268,7 +281,8 @@ public class OTAPI_Func {
                 break;
         }
     }
-    public OTAPI_Func(FT theType, String serverID, String nymID, String nymID2, String strData, String strData2) {
+                
+    public OTAPI_Func(FT theType, String serverID, String nymID, String nymID2, String strData, String strData2) { // 6 args with string
         if (null == serverID)
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as serverID");	
         if (null == nymID)
@@ -284,15 +298,43 @@ public class OTAPI_Func {
         this.funcType   = theType;
         this.serverID   = serverID;
         this.nymID      = nymID;
-        this.nymID2     = nymID2;
         this.nTransNumsNeeded = 1;
         this.bBool      = false;
-        
-        this.strData    = strData;
-        this.strData2   = strData2;
-        
+                
         switch(theType) {
             case SEND_USER_MESSAGE:
+                this.nymID2     = nymID2;
+                this.strData    = strData;
+                this.strData2   = strData2;                
+                break;                
+            default:
+                System.out.print("ERROR! WRONG TYPE passed to OTAPI_Func.OTAPI_Func() ERROR!!!!!!");
+                break;
+        }
+    }
+    
+    public OTAPI_Func(FT theType, String serverID, String nymID, String accountID, int nData, String strData) { // 6 args with long
+        if (null == serverID)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as serverID");	
+        if (null == nymID)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as nymID");
+        if (null == accountID)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as accountID");
+
+        if (null == strData)
+            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as strData");	
+
+        this.funcType   = theType;
+        this.serverID   = serverID;
+        this.nymID      = nymID;
+        this.nTransNumsNeeded = 1;
+        this.bBool      = false;
+                
+        switch(theType) {
+            case GET_BOX_RECEIPT:
+                this.accountID = accountID;
+                this.nData    = nData;
+                this.strData  = strData;                                
                 break;                
             default:
                 System.out.print("ERROR! WRONG TYPE passed to OTAPI_Func.OTAPI_Func() ERROR!!!!!!");
@@ -347,6 +389,12 @@ public class OTAPI_Func {
             case CANCEL_MARKET_OFFER:
                 otapi.OT_API_cancelMarketOffer(this.serverID, this.nymID, this.accountID, this.strData);
                 break;
+            case CANCEL_PAYMENT_PLAN:
+                otapi.OT_API_cancelPaymentPlan(this.serverID, this.nymID, this.accountID, this.strData);
+                break;
+            case GET_BOX_RECEIPT:
+                otapi.OT_API_getBoxReceipt(this.serverID, this.nymID, this.accountID, this.nData, this.strData);
+                break;
             case PROCESS_INBOX:
                 otapi.OT_API_processInbox(this.serverID, this.nymID, this.accountID, this.strData);
                 break;
@@ -356,6 +404,9 @@ public class OTAPI_Func {
             case DEPOSIT_CHEQUE:
                 otapi.OT_API_depositCheque(this.serverID, this.nymID, this.accountID, this.strData);
                 break;
+            case DEPOSIT_PAYMENT_PLAN:
+                otapi.OT_API_depositPaymentPlan(this.serverID, this.nymID, this.strData);
+                break;                
             case WITHDRAW_CASH:
                 otapi.OT_API_notarizeWithdrawal(this.serverID, this.nymID, this.accountID, this.strData);
                 break;
@@ -384,7 +435,6 @@ public class OTAPI_Func {
         }
     }
     
-
     // Generic function for any server message.
     // If you are doing a transaction message, then use SendTransaction instead.
     // (It will call this one.)

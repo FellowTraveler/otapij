@@ -629,12 +629,12 @@ public class Utility {
         otapi.OT_API_FlushMessageBuffer();
         // -------------------------------------------
         int nFailures = 0;
+        // Only 1 iteration is needed now. OT just gives you 20 numbers in a single message.
         for (int i = 0; i < Configuration.getNbrTransactionCount(); i++) {
             otapi.OT_API_getTransactionNumber(serverID, nymID); // Request.
             Utility.delay();
             String serverResponse = otapi.OT_API_PopMessageBuffer();
-            if ((serverResponse == null)
-                    || (serverResponse.length() < 10)) {
+            if ((serverResponse == null) || (serverResponse.length() < 10)) {
                 System.out.println("Utility.getTransactionNumbers(): null server reply. Perhaps the receive_fail_ms in client.cfg needs to be set to a higher value?");
                 bSuccess = false;
             }
@@ -645,6 +645,11 @@ public class Utility {
                 System.out.println("Utility.getTransactionNumbers(): Server refused my request for a new transaction number! (Maybe reached the limit?): " + serverResponse);
                 bSuccess = false;
             }
+            else // The message was a success.
+            {
+                break;
+            }
+            // -----------------------------------------------------------
 
             // We got the reply, but it failed.
             // Or, it was null.

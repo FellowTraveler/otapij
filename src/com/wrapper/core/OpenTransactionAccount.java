@@ -578,9 +578,8 @@ public class OpenTransactionAccount extends Account {
         System.out.println("Process Inbox starts");
 
         String serverID = otapi.OT_API_GetAccountWallet_ServerID(accountID);
-        String nymID = otapi.OT_API_GetAccountWallet_NymID(accountID);
-        String ledger = otapi.OT_API_LoadInbox(serverID, nymID, accountID);
-
+        String nymID    = otapi.OT_API_GetAccountWallet_NymID(accountID);
+        
         // ------------------------------------------------------------------
         // Normally I could remove this code, since SendTransaction() (below)
         // does the work already, of grabbing new numbers when they're needed.
@@ -601,6 +600,12 @@ public class OpenTransactionAccount extends Account {
                 return false;
             }
         }
+        // ------------------------------------------------------------------
+        
+        
+        String ledger   = otapi.OT_API_LoadInbox(serverID, nymID, accountID);
+
+
         // ------------------------------------------------------------------
         // SET UP THE PROCESS INBOX MESSAGE.
         
