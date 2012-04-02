@@ -6,20 +6,20 @@ Hash: SHA256
  *
  *  Open Transactions:
  *       Financial Cryptography and Digital Cash
- *       Library, Protocol, API, Server, and GUI 
- *    
+ *       Library, Protocol, API, Server, and GUI
+ *
  *    	 -- Anonymous Numbered Accounts.
  *    	 -- Untraceable Digital Cash.
  *    	 -- Triple-Signed Receipts.
  *    	 -- Cheques, Vouchers, Transfers, Inboxes.
  *    	 -- Basket Currencies, Markets, Payment Plans.
  *    	 -- Signed, XML, Ricardian-style Contracts.
- *    
+ *
  *  Copyright (C) 2010-2012 by "Fellow Traveler" (A pseudonym)
  *
  *  EMAIL:
  *  FellowTraveler@rayservers.net
- *  
+ *
  *  FINGERPRINT:
  *  9DD5 90EB 9292 4B48 0484  7910 0308 00ED F951 BB8E
  *
@@ -31,10 +31,10 @@ Hash: SHA256
  *
  *  WEBSITE:
  *  http://www.OpenTransactions.org/
- *    
+ *
  *  Components and licensing:
  *   -- Moneychanger..A Java client GUI.....LICENSE:.....GPLv3
- *   -- OTLib.........A class library.......LICENSE:...LAGPLv3 
+ *   -- OTLib.........A class library.......LICENSE:...LAGPLv3
  *   -- OT-API........A client API..........LICENSE:...LAGPLv3
  *   -- testwallet....Command-line client...LICENSE:...LAGPLv3
  *   -- OT-Server.....Server Application....LICENSE:....AGPLv3
@@ -61,14 +61,14 @@ Hash: SHA256
  *   software license, please contact FellowTraveler.
  *   (Unfortunately many will run anonymously and untraceably,
  *   so who could really stop them?)
- *   
+ *
  *   DISCLAIMER:
  *   This program is distributed in the hope that it will be
  *   useful, but WITHOUT ANY WARRANTY; without even the implied
  *   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
  *   PURPOSE.  See the GNU General Public License for more
  *   details.
- 
+
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.11 (Darwin)
 
@@ -89,45 +89,20 @@ AK+ZirdWhhoHeWR1tAkN
  **************************************************************/
 
 
-package com.wrapper.ui.test;
+package com.wrapper.ui.custom;
 
-import com.wrapper.core.util.Utility;
-import com.wrapper.ui.dialogs.OTPasswordDialog;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+/**
+ *
+ * @author Vicky C
+ */
+public class PaymentInboxRightClickListener  implements ActionListener {
 
-public class Testing {
-public static void main(String a[]){
-
-    String   amount = "-123";
-          amount = amount.substring(1, amount.length());
-System.out.println("amount:"+amount);
-
-   Object data[][] ={{"dddd","cdcdcd"},{"dddd1","cdcdcd2"}};
-     for (int i = 0; i < data.length; i++) {
-                            Object[] row = (Object[]) data[i];
-                            System.out.println("row:"+row[1].toString());
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        System.out.println(" Execute :"+ae.getActionCommand());
     }
 
-
-        System.out.println("Hi1111.......");
-        String aa = " 5 Gold";
-        String splitted[] = aa.split(" ");
-        for(int i=0;i<splitted.length;i++){
-
-        System.out.println("spli:"+splitted[i]+"i:"+i);
-        }
-        /*try {
-            Utility.delay();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Testing.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        System.out.println("H21111.......");/*
-
-       // Get this string from a modal.
-       /*String strPassword = null;
-       new OTPasswordDialog(null, true).setVisible(true);
-       strPassword = OTPasswordDialog.getPassword();*/
-}
 }

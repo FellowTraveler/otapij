@@ -6,20 +6,20 @@ Hash: SHA256
  *
  *  Open Transactions:
  *       Financial Cryptography and Digital Cash
- *       Library, Protocol, API, Server, and GUI 
- *    
+ *       Library, Protocol, API, Server, and GUI
+ *
  *    	 -- Anonymous Numbered Accounts.
  *    	 -- Untraceable Digital Cash.
  *    	 -- Triple-Signed Receipts.
  *    	 -- Cheques, Vouchers, Transfers, Inboxes.
  *    	 -- Basket Currencies, Markets, Payment Plans.
  *    	 -- Signed, XML, Ricardian-style Contracts.
- *    
+ *
  *  Copyright (C) 2010-2012 by "Fellow Traveler" (A pseudonym)
  *
  *  EMAIL:
  *  FellowTraveler@rayservers.net
- *  
+ *
  *  FINGERPRINT:
  *  9DD5 90EB 9292 4B48 0484  7910 0308 00ED F951 BB8E
  *
@@ -31,10 +31,10 @@ Hash: SHA256
  *
  *  WEBSITE:
  *  http://www.OpenTransactions.org/
- *    
+ *
  *  Components and licensing:
  *   -- Moneychanger..A Java client GUI.....LICENSE:.....GPLv3
- *   -- OTLib.........A class library.......LICENSE:...LAGPLv3 
+ *   -- OTLib.........A class library.......LICENSE:...LAGPLv3
  *   -- OT-API........A client API..........LICENSE:...LAGPLv3
  *   -- testwallet....Command-line client...LICENSE:...LAGPLv3
  *   -- OT-Server.....Server Application....LICENSE:....AGPLv3
@@ -61,7 +61,7 @@ Hash: SHA256
  *   software license, please contact FellowTraveler.
  *   (Unfortunately many will run anonymously and untraceably,
  *   so who could really stop them?)
- *   
+ *
  *   DISCLAIMER:
  *   This program is distributed in the hope that it will be
  *   useful, but WITHOUT ANY WARRANTY; without even the implied
@@ -89,37 +89,33 @@ AK+ZirdWhhoHeWR1tAkN
  **************************************************************/
 
 /*
- * RegisterNYMDialog.java
+ * ServerSelectionDialog.java
  *
- * Created on Aug 22, 2011, 5:34:05 PM
+ * Created on Feb 12, 2012, 7:43:37 PM
  */
 package com.wrapper.ui.dialogs;
 
-import com.wrapper.core.Contract;
-import com.wrapper.core.NYM;
 import com.wrapper.core.util.Utility;
-import com.wrapper.ui.MainPage;
-import java.awt.Cursor;
+import java.util.HashMap;
 import java.util.Map;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author Vicky C
  */
-public class RegisterNYMDialog extends javax.swing.JDialog {
+public class ServerSelectionDialog extends javax.swing.JDialog {
 
     private Map serverMap;
-    private String nymID;
     private String serverID;
 
-    /** Creates new form RegisterNYMDialog */
-    public RegisterNYMDialog(java.awt.Frame parent, boolean modal, String nymID) {
+    /** Creates new form ServerSelectionDialog */
+    public ServerSelectionDialog(java.awt.Frame parent, boolean modal, Map serverMap) {
         super(parent, modal);
         initComponents();
-        setLocation(Utility.getLocation(this.getSize()));
+        this.serverMap = serverMap;
         initValues();
-        this.nymID = nymID;
+        setLocation(Utility.getLocation(this.getSize()));
+
     }
 
     /** This method is called from within the constructor to
@@ -131,21 +127,14 @@ public class RegisterNYMDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(RegisterNYMDialog.class);
-        setTitle(resourceMap.getString("Form.title")); // NOI18N
-        setName("Form"); // NOI18N
+        setTitle("Server Selection");
 
-        jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
-        jLabel1.setName("jLabel1"); // NOI18N
-
-        jComboBox1.setName("jComboBox1"); // NOI18N
-
-        jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
+        jButton1.setText("OK");
         jButton1.setName("jButton1"); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -153,10 +142,16 @@ public class RegisterNYMDialog extends javax.swing.JDialog {
             }
         });
 
+        jLabel1.setText("Select Server");
+        jLabel1.setName("jLabel1"); // NOI18N
+
+        jComboBox1.setName("jComboBox1"); // NOI18N
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(0, 311, Short.MAX_VALUE)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jLabel1)
@@ -168,6 +163,7 @@ public class RegisterNYMDialog extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(0, 127, Short.MAX_VALUE)
             .add(layout.createSequentialGroup()
                 .add(25, 25, 25)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
@@ -175,39 +171,27 @@ public class RegisterNYMDialog extends javax.swing.JDialog {
                     .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(18, 18, 18)
                 .add(jButton1)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String serverID = null;
-        if (jComboBox1.getSelectedIndex() > -1) {
-            serverID = ((String[]) serverMap.get((Integer) jComboBox1.getSelectedIndex()))[1];
-        }
-        System.out.println("In registerNym Dialog, server ID:" + serverID + " nymID:" + nymID);
+
 
         try {
-            setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-            int status = new NYM().registerNym(serverID, nymID);
-            if (status == 0) {
-                JOptionPane.showMessageDialog(this, "Nym registered sucessfully on the server", "NYM registration success", JOptionPane.INFORMATION_MESSAGE);
-                // Refresh Market NYM list
-                MainPage.refreshMarketNym(serverID);
-                this.serverID = serverID;
-            } else if (status == 1) {
-                JOptionPane.showMessageDialog(this, "Nym is already registered on server " + serverID, "Already registered", JOptionPane.ERROR_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this, "Cannot register nym on server", "Error", JOptionPane.ERROR_MESSAGE);
+            if (jComboBox1.getSelectedIndex() > -1) {
+                serverID = ((String[]) serverMap.get((Integer) jComboBox1.getSelectedIndex()))[1];
             }
-        } catch (InterruptedException ex) {
+            System.out.println("In ServerSelection Dialog, server ID:" + serverID);
+
+        } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
-            setCursor(Cursor.getDefaultCursor());
             dispose();
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+}//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -216,7 +200,7 @@ public class RegisterNYMDialog extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                RegisterNYMDialog dialog = new RegisterNYMDialog(new javax.swing.JFrame(), true, "");
+                ServerSelectionDialog dialog = new ServerSelectionDialog(new javax.swing.JFrame(), true, new HashMap());
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -234,13 +218,11 @@ public class RegisterNYMDialog extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void initValues() {
-        serverMap = new Contract().loadServerContract();
         Utility.populateComboWithoutAll(serverMap, jComboBox1);
     }
 
     public String getPaymentServerID() {
-        System.out.println("RegisterNYMDialog - getPaymentServerID:"+serverID);
+        System.out.println("RegisterNYMDialog - getPaymentServerID:" + serverID);
         return serverID;
-
     }
 }

@@ -6,20 +6,20 @@ Hash: SHA256
  *
  *  Open Transactions:
  *       Financial Cryptography and Digital Cash
- *       Library, Protocol, API, Server, and GUI 
- *    
+ *       Library, Protocol, API, Server, and GUI
+ *
  *    	 -- Anonymous Numbered Accounts.
  *    	 -- Untraceable Digital Cash.
  *    	 -- Triple-Signed Receipts.
  *    	 -- Cheques, Vouchers, Transfers, Inboxes.
  *    	 -- Basket Currencies, Markets, Payment Plans.
  *    	 -- Signed, XML, Ricardian-style Contracts.
- *    
+ *
  *  Copyright (C) 2010-2012 by "Fellow Traveler" (A pseudonym)
  *
  *  EMAIL:
  *  FellowTraveler@rayservers.net
- *  
+ *
  *  FINGERPRINT:
  *  9DD5 90EB 9292 4B48 0484  7910 0308 00ED F951 BB8E
  *
@@ -31,10 +31,10 @@ Hash: SHA256
  *
  *  WEBSITE:
  *  http://www.OpenTransactions.org/
- *    
+ *
  *  Components and licensing:
  *   -- Moneychanger..A Java client GUI.....LICENSE:.....GPLv3
- *   -- OTLib.........A class library.......LICENSE:...LAGPLv3 
+ *   -- OTLib.........A class library.......LICENSE:...LAGPLv3
  *   -- OT-API........A client API..........LICENSE:...LAGPLv3
  *   -- testwallet....Command-line client...LICENSE:...LAGPLv3
  *   -- OT-Server.....Server Application....LICENSE:....AGPLv3
@@ -61,7 +61,7 @@ Hash: SHA256
  *   software license, please contact FellowTraveler.
  *   (Unfortunately many will run anonymously and untraceably,
  *   so who could really stop them?)
- *   
+ *
  *   DISCLAIMER:
  *   This program is distributed in the hope that it will be
  *   useful, but WITHOUT ANY WARRANTY; without even the implied
@@ -87,63 +87,97 @@ AK+ZirdWhhoHeWR1tAkN
 =RcXP
 -----END PGP SIGNATURE-----
  **************************************************************/
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.wrapper.ui.model;
 
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javax.swing.JTable;
-import javax.swing.RowSorter;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
-import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
 
 /**
  *
  * @author Vicky C
  */
-public class NYMTableModel extends AbstractTableModel implements WrapperTableModel {
+public class PaymentInboxTableModel extends DefaultTableModel implements WrapperTableModel {
 
-    private String[] columnNames = {"NYMS List", "ID"};
-    private Object[][] data = null;
+    private String[] columnNames = {"Txn #", "In Ref To", "From NYM", "Amount", "From Account Name", "Type", "Date","ID", "NYM ID", "Acct ID"};
+    private Object[][] data;
+
+    public void setValue(List values) {
+        clearValue();
+        data = new Object[values.size()][];
+        for (int i = 0; i < values.size(); i++) {
+            String[] row = (String[]) values.get(i);
+            data[i] = row;
+        }
+
+        fireTableDataChanged();
+    }
 
     @Override
+    public void setValue(Map values, JTable paymentTable) {
+
+        if (null == values) {
+            System.out.println("PaymentInboxTableModel.setValue: Failure: Map 'values' is null.");
+            return;
+        }
+
+        clearValue();
+        Set set = values.keySet();
+
+        if (null == set) {
+            System.out.println("PaymentInboxTableModel.setValue: Failure: values.keySet() returned null.");
+            return;
+        }
+
+        Iterator iterator = set.iterator();
+        int i = 0;
+        data = new Object[values.size()][];
+        while (iterator.hasNext()) {
+            String key = (String) iterator.next();
+            String[] row = (String[]) values.get(key);
+            data[i] = row;
+            i++;
+        }
+
+        fireTableDataChanged();
+    }
+
+    @Override
+    public void setValueAt(Object aValue, int row, int column) {
+        if (row < 0 || column < 0) {
+            return;
+        }
+        data[row][column] = aValue;
+        fireTableCellUpdated(row, column);
+    }
+
     public int getColumnCount() {
         return columnNames.length;
     }
 
-    @Override
     public int getRowCount() {
-        if (data == null) {
+        if (data != null) {
+            return data.length;
+        } else {
             return 0;
         }
-        return data.length;
     }
 
-    @Override
     public String getColumnName(int col) {
         return columnNames[col];
     }
 
-    @Override
     public Object getValueAt(int row, int col) {
-        if (data == null) {
+
+        if (row > -1 && col > -1 && data != null) {
+            return data[row][col];
+        } else {
             return null;
         }
-        if (row == -1 || col == -1) {
-            return null;
-        }
-        return data[row][col];
     }
 
     /*
@@ -165,65 +199,35 @@ public class NYMTableModel extends AbstractTableModel implements WrapperTableMod
         }
         return returnValue;
     }
-
     /*
      * Don't need to implement this method unless your table's
      * editable.
      */
-    @Override
+
     public boolean isCellEditable(int row, int col) {
 
         return false;
 
     }
 
-    public void setValue(Map values) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
     public void clearValue() {
         data = null;
         fireTableDataChanged();
     }
 
-    @Override
-    public void setValue(Map values, JTable nymTable) {
+    public static void removeCols(JTable paymentTable) {
 
-        clearValue();
-        Set set = values.keySet();
-        Iterator iterator = set.iterator();
-        int i = 0;
-        data = new Object[values.size()][];
-        while (iterator.hasNext()) {
-            Integer key = (Integer) iterator.next();
-            String[] rowData = new String[2];
-            rowData = (String[]) values.get(key);
-            /*rowData[0] = (String)values.get(key);
-            rowData[1] = String.valueOf(key);*/
-            data[i] = rowData;
-            i++;
-        }
-
-
-        /*RowSorter<TableModel> sorter =
-        new TableRowSorter<TableModel>(this);
-        nymTable.setRowSorter(sorter);*/
-
-        TableColumnModel tcm = nymTable.getColumnModel();
+        TableColumnModel tcm = paymentTable.getColumnModel();
         System.out.println("getColumnCount:" + tcm.getColumnCount());
-        if (tcm.getColumnCount() == 2) {
-            nymTable.removeColumn(tcm.getColumn(1));
+        if (tcm.getColumnCount() == 10) {
+            paymentTable.removeColumn(tcm.getColumn(9));
+        }
+        if (tcm.getColumnCount() == 9) {
+            paymentTable.removeColumn(tcm.getColumn(8));
+        }
+        if (tcm.getColumnCount() == 8) {
+            paymentTable.removeColumn(tcm.getColumn(7));
         }
 
-        fireTableDataChanged();
-    }
-
-    public static void removeCols(JTable nymTable) {
-        TableColumnModel tcm = nymTable.getColumnModel();
-        System.out.println("getColumnCount:" + tcm.getColumnCount());
-        if (tcm.getColumnCount() == 2) {
-            nymTable.removeColumn(tcm.getColumn(1));
-        }
     }
 }

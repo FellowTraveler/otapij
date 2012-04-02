@@ -394,7 +394,7 @@ public class Load {
             throw new InvalidTimeOutException("Please enter valid timeout; timeout not a number!");
         }
         if (waitTime < 1) {
-            throw new InvalidTimeOutException("Please enter valid timeout; input was less than 1");
+            throw new InvalidTimeOutException("Please enter valid timeout; is less than 1");
         }
         Configuration.setWaitTime(waitTime);
 

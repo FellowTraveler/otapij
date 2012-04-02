@@ -68,7 +68,7 @@ Hash: SHA256
  *   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
  *   PURPOSE.  See the GNU General Public License for more
  *   details.
- 
+
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.11 (Darwin)
 
@@ -87,9 +87,6 @@ AK+ZirdWhhoHeWR1tAkN
 =RcXP
 -----END PGP SIGNATURE-----
  **************************************************************/
-
-
-
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -102,29 +99,24 @@ AK+ZirdWhhoHeWR1tAkN
  */
 package com.wrapper.ui.dialogs;
 
-//import com.theotherbell.ui.DateField; - JavaDatePicker (bad)
 import com.theotherbell.ui.DateField;
 import com.wrapper.core.NYM;
 import com.wrapper.core.OpenTransactionAccount;
 import com.wrapper.core.util.Utility;
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.ClipboardOwner;
 import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.util.Date;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
-
 /**
  *
  * @author Vicky C
  */
-public class OTWriteCheque extends javax.swing.JDialog  {
+public class OTWriteCheque extends javax.swing.JDialog {
 
     private String serverID;
     private String nymID;
@@ -139,14 +131,16 @@ public class OTWriteCheque extends javax.swing.JDialog  {
         OTWriteCheque.date = date;
     }
     private Map nymMap;
+    private final String invoice;
 
     /** Creates new form OTWriteCheque */
-    public OTWriteCheque(java.awt.Frame parent, boolean modal, String serverID, String nymID, String accountID) {
+    public OTWriteCheque(java.awt.Frame parent, boolean modal, String serverID, String nymID, String accountID, String invoice) {
         super(parent, modal);
         initComponents();
         this.accountID = accountID;
         this.serverID = serverID;
         this.nymID = nymID;
+        this.invoice = invoice;
         initDateComponent();
         setLocation(Utility.getLocation(this.getSize()));
     }
@@ -315,15 +309,20 @@ public class OTWriteCheque extends javax.swing.JDialog  {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
+            if (invoice.equals("-") && jTextField1.getText().contains("-")) {
+                JOptionPane.showMessageDialog(this, "Please enter positive amount for invoice", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             OpenTransactionAccount openTransactionAccount = new OpenTransactionAccount();
-            String validFrom = String.valueOf(System.currentTimeMillis()/1000);
+            String validFrom = String.valueOf(System.currentTimeMillis() / 1000);
             String validTo = String.valueOf(dateField);
             /*if(dateField.getDate().getTime()<=System.currentTimeMillis()){
-                JOptionPane.showMessageDialog(null , "Expiration date should be greater than today","Date error",JOptionPane.ERROR_MESSAGE);
-                return;
+            JOptionPane.showMessageDialog(null , "Expiration date should be greater than today","Date error",JOptionPane.ERROR_MESSAGE);
+            return;
             }*/
             this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-            String chequeString = openTransactionAccount.writeCheque(serverID, nymID, accountID, validFrom, validTo, jTextArea1.getText(), jTextField3.getText(), jTextField1.getText());
+            String chequeString = openTransactionAccount.writeCheque(serverID, nymID, accountID, validFrom, validTo, jTextArea1.getText(), jTextField3.getText(), invoice + jTextField1.getText());
             System.out.println("chequeString:" + chequeString);
             new OTWriteChequeOutput(null, true, chequeString).setVisible(true);
         } catch (Exception e) {
@@ -369,7 +368,7 @@ public class OTWriteCheque extends javax.swing.JDialog  {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                OTWriteCheque dialog = new OTWriteCheque(new javax.swing.JFrame(), true, "", "", "");
+                OTWriteCheque dialog = new OTWriteCheque(new javax.swing.JFrame(), true, "", "", "", "");
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -395,7 +394,6 @@ public class OTWriteCheque extends javax.swing.JDialog  {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
-    
     DateField dateField;
 
     public static void setDate(String date) {
@@ -404,7 +402,7 @@ public class OTWriteCheque extends javax.swing.JDialog  {
     private void initDateComponent() {
 
         dateField = new DateField();
-        dateField.setBounds(0,-10, 250, 30);
+        dateField.setBounds(0, -10, 250, 30);
         jPanel1.add(dateField);
         jPanel1.setBorder(null);
         repaint();
@@ -425,5 +423,4 @@ public class OTWriteCheque extends javax.swing.JDialog  {
         System.out.println("IIIi");*/
 
     }
-
 }

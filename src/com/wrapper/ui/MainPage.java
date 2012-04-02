@@ -106,6 +106,7 @@ import com.wrapper.core.Contract;
 import com.wrapper.core.Market;
 import com.wrapper.core.NYM;
 import com.wrapper.core.OpenTransactionAccount;
+import com.wrapper.core.Payments;
 import com.wrapper.core.RippleAccount;
 import com.wrapper.core.dataobjects.BitcoinDetails;
 import com.wrapper.core.dataobjects.CashPurseDetails;
@@ -117,6 +118,7 @@ import com.wrapper.core.datastore.StorageHelper;
 import com.wrapper.core.util.ComboObject;
 import com.wrapper.core.util.Configuration;
 import com.wrapper.core.util.Utility;
+import com.wrapper.ui.custom.PaymentInboxRightClickListener;
 import com.wrapper.ui.dialogs.AccountAdditionDialog;
 import com.wrapper.ui.dialogs.AccountEditDialog;
 import com.wrapper.ui.dialogs.AddBasketDialog;
@@ -133,10 +135,14 @@ import com.wrapper.ui.dialogs.NymBoxDetailsDialog;
 import com.wrapper.ui.dialogs.OtherTabAccountEditDialog;
 import com.wrapper.ui.dialogs.OtherTabServerAddDialog;
 import com.wrapper.ui.dialogs.OtherTabServerEditDialog;
+import com.wrapper.ui.dialogs.PaymentOutboxDetailsDialog;
+import com.wrapper.ui.dialogs.ProposePaymentDialog;
 import com.wrapper.ui.dialogs.RegisterNYMDialog;
 import com.wrapper.ui.dialogs.RegisterNymOnServerDialog;
 import com.wrapper.ui.dialogs.SendMessageDialog;
+import com.wrapper.ui.dialogs.ServerAcctDialog;
 import com.wrapper.ui.dialogs.ServerContractEditDialog;
+import com.wrapper.ui.dialogs.ServerSelectionDialog;
 import com.wrapper.ui.model.AccountTableModel;
 import com.wrapper.ui.model.AssetContractTableModel;
 import com.wrapper.ui.model.BasketTableModel;
@@ -154,6 +160,9 @@ import javax.swing.SwingUtilities;
 import com.wrapper.ui.model.NYMTableModel;
 import com.wrapper.ui.model.OtherTabAccountModel;
 import com.wrapper.ui.model.OtherTabServerTableModel;
+import com.wrapper.ui.model.PaymentInboxTableModel;
+import com.wrapper.ui.model.PaymentOutboxTableModel;
+import com.wrapper.ui.model.PaymentRecordboxTableModel;
 import com.wrapper.ui.model.ServerContractTableModel;
 import com.wrapper.ui.panels.BitcoinAccountBottomPanel;
 import com.wrapper.ui.panels.BitcoinAccountTopPanel;
@@ -171,7 +180,6 @@ import java.awt.MenuItem;
 import java.awt.Point;
 import java.awt.PopupMenu;
 import java.awt.SystemTray;
-import java.awt.Toolkit;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -181,14 +189,17 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableColumn;
 import org.jvnet.substance.SubstanceLookAndFeel;
 import org.jvnet.substance.skin.SubstanceModerateLookAndFeel;
 
@@ -214,18 +225,19 @@ public class MainPage extends javax.swing.JFrame {
     private static Map nymOutBox;
     private static boolean isBasketInit = false;
     private static boolean isMarketInit = false;
+    private static boolean isPaymentsInit = false;
     TrayIcon trayIcon;
     SystemTray tray;
 
     /** Creates new form MainPage */
     public MainPage() {
         // this.setExtendedState(MAXIMIZED_BOTH);
-        super("SystemTray test");
+        super("Moneychanger");
 
         try {
 
-            //SubstanceLookAndFeel laf = new SubstanceModerateLookAndFeel();
-            //UIManager.setLookAndFeel(laf);
+            SubstanceLookAndFeel laf = new SubstanceModerateLookAndFeel();
+            UIManager.setLookAndFeel(laf);
 
             if (false == System.getProperty("os.name").toLowerCase().contains("linux")) {
                 setToSystray();
@@ -247,7 +259,9 @@ public class MainPage extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            //((JFrame) Utility.getSettingsObj()).dispose();
+            if (Utility.getSettingsObj() != null) {
+                ((JFrame) Utility.getSettingsObj()).dispose();
+            }
             setCursor(Cursor.getDefaultCursor());
         }
     }
@@ -516,9 +530,28 @@ public class MainPage extends javax.swing.JFrame {
         jButton28 = new javax.swing.JButton();
         jLabel51 = new javax.swing.JLabel();
         jPanel18 = new javax.swing.JPanel();
+        jScrollPane27 = new javax.swing.JScrollPane();
+        jTable6 = new com.wrapper.ui.custom.CustomTable();
+        jSeparator11 = new javax.swing.JSeparator();
+        jPanel_PaymentTop = new javax.swing.JPanel();
+        jTabbedPane5 = new javax.swing.JTabbedPane();
+        jPanel37 = new javax.swing.JPanel();
+        jScrollPane28 = new javax.swing.JScrollPane();
+        jTable20 = new com.wrapper.ui.custom.CustomTable();
+        jButton34 = new javax.swing.JButton();
+        jPanel38 = new javax.swing.JPanel();
+        jScrollPane29 = new javax.swing.JScrollPane();
+        jTable21 = new com.wrapper.ui.custom.CustomTable();
+        jPanel39 = new javax.swing.JPanel();
+        jScrollPane30 = new javax.swing.JScrollPane();
+        jTable22 = new javax.swing.JTable();
+        jButton35 = new javax.swing.JButton();
+        jSeparator12 = new javax.swing.JSeparator();
         jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel31 = new javax.swing.JLabel();
+        jComboBox8 = new javax.swing.JComboBox();
+        jPanel40 = new javax.swing.JPanel();
+        jButton36 = new javax.swing.JButton();
+        jButton37 = new javax.swing.JButton();
         jPanel19 = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
@@ -703,7 +736,7 @@ public class MainPage extends javax.swing.JFrame {
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 735, Short.MAX_VALUE)
+            .addGap(0, 742, Short.MAX_VALUE)
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -748,7 +781,7 @@ public class MainPage extends javax.swing.JFrame {
         jPanel16Layout.setHorizontalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addGap(35, 35, 35)
                 .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -801,7 +834,7 @@ public class MainPage extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE))
+                            .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE))
                         .addGap(37, 37, 37))
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2218,14 +2251,210 @@ public class MainPage extends javax.swing.JFrame {
 
         jPanel18.setName("jPanel18"); // NOI18N
 
+        jScrollPane27.setName("jScrollPane27"); // NOI18N
+
+        jTable6.setModel(new NYMTableModel());
+        jTable6.setName("jTable6"); // NOI18N
+        jTable6.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTable6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable6MouseClicked(evt);
+            }
+        });
+        jScrollPane27.setViewportView(jTable6);
+
+        jSeparator11.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jSeparator11.setName("jSeparator11"); // NOI18N
+
+        jPanel_PaymentTop.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel_PaymentTop.setName("jPanel_PaymentTop"); // NOI18N
+
+        jTabbedPane5.setName("jTabbedPane5"); // NOI18N
+
+        jPanel37.setName("jPanel37"); // NOI18N
+
+        jScrollPane28.setName("jScrollPane28"); // NOI18N
+
+        jTable20.setModel(new com.wrapper.ui.model.PaymentInboxTableModel());
+        jTable20.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jTable20.setName("jTable20"); // NOI18N
+        jTable20.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTable20.setShowGrid(true);
+        jTable20.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable20MouseClicked(evt);
+            }
+        });
+        jScrollPane28.setViewportView(jTable20);
+
+        jButton34.setText(resourceMap.getString("jButton34.text")); // NOI18N
+        jButton34.setName("jButton34"); // NOI18N
+        jButton34.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton34ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel37Layout = new javax.swing.GroupLayout(jPanel37);
+        jPanel37.setLayout(jPanel37Layout);
+        jPanel37Layout.setHorizontalGroup(
+            jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane28, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel37Layout.createSequentialGroup()
+                .addContainerGap(275, Short.MAX_VALUE)
+                .addComponent(jButton34)
+                .addGap(294, 294, 294))
+        );
+        jPanel37Layout.setVerticalGroup(
+            jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel37Layout.createSequentialGroup()
+                .addComponent(jScrollPane28, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addComponent(jButton34))
+        );
+
+        jTabbedPane5.addTab(resourceMap.getString("jPanel37.TabConstraints.tabTitle"), jPanel37); // NOI18N
+
+        jPanel38.setName("jPanel38"); // NOI18N
+
+        jScrollPane29.setName("jScrollPane29"); // NOI18N
+
+        jTable21.setModel(new com.wrapper.ui.model.PaymentOutboxTableModel());
+        jTable21.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jTable21.setName("jTable21"); // NOI18N
+        jTable21.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTable21.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable21MouseClicked(evt);
+            }
+        });
+        jScrollPane29.setViewportView(jTable21);
+
+        javax.swing.GroupLayout jPanel38Layout = new javax.swing.GroupLayout(jPanel38);
+        jPanel38.setLayout(jPanel38Layout);
+        jPanel38Layout.setHorizontalGroup(
+            jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane29, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
+        );
+        jPanel38Layout.setVerticalGroup(
+            jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel38Layout.createSequentialGroup()
+                .addComponent(jScrollPane29, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jTabbedPane5.addTab(resourceMap.getString("jPanel38.TabConstraints.tabTitle"), jPanel38); // NOI18N
+
+        jPanel39.setName("jPanel39"); // NOI18N
+
+        jScrollPane30.setName("jScrollPane30"); // NOI18N
+
+        jTable22.setModel(new com.wrapper.ui.model.PaymentRecordboxTableModel());
+        jTable22.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jTable22.setName("jTable22"); // NOI18N
+        jTable22.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane30.setViewportView(jTable22);
+
+        jButton35.setName("jButton35"); // NOI18N
+
+        javax.swing.GroupLayout jPanel39Layout = new javax.swing.GroupLayout(jPanel39);
+        jPanel39.setLayout(jPanel39Layout);
+        jPanel39Layout.setHorizontalGroup(
+            jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel39Layout.createSequentialGroup()
+                .addGap(186, 186, 186)
+                .addComponent(jButton35, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(474, Short.MAX_VALUE))
+            .addGroup(jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel39Layout.createSequentialGroup()
+                    .addComponent(jScrollPane30, javax.swing.GroupLayout.DEFAULT_SIZE, 681, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+        jPanel39Layout.setVerticalGroup(
+            jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel39Layout.createSequentialGroup()
+                .addGap(226, 226, 226)
+                .addComponent(jButton35, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel39Layout.createSequentialGroup()
+                    .addGap(8, 8, 8)
+                    .addComponent(jScrollPane30, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(29, Short.MAX_VALUE)))
+        );
+
+        jTabbedPane5.addTab(resourceMap.getString("jPanel39.TabConstraints.tabTitle"), jPanel39); // NOI18N
+
+        javax.swing.GroupLayout jPanel_PaymentTopLayout = new javax.swing.GroupLayout(jPanel_PaymentTop);
+        jPanel_PaymentTop.setLayout(jPanel_PaymentTopLayout);
+        jPanel_PaymentTopLayout.setHorizontalGroup(
+            jPanel_PaymentTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_PaymentTopLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 722, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(29, Short.MAX_VALUE))
+        );
+        jPanel_PaymentTopLayout.setVerticalGroup(
+            jPanel_PaymentTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_PaymentTopLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jSeparator12.setName("jSeparator12"); // NOI18N
+
         jLabel17.setText(resourceMap.getString("jLabel17.text")); // NOI18N
         jLabel17.setName("jLabel17"); // NOI18N
 
-        jLabel18.setText(resourceMap.getString("jLabel18.text")); // NOI18N
-        jLabel18.setName("jLabel18"); // NOI18N
+        jComboBox8.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Send Transfer", "Send Cheque", "Send Voucher", "Send Cash" }));
+        jComboBox8.setSelectedItem(null);
+        jComboBox8.setName("jComboBox8"); // NOI18N
+        jComboBox8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox8ActionPerformed(evt);
+            }
+        });
 
-        jLabel31.setText(resourceMap.getString("jLabel31.text")); // NOI18N
-        jLabel31.setName("jLabel31"); // NOI18N
+        jPanel40.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel40.border.title"))); // NOI18N
+        jPanel40.setToolTipText(resourceMap.getString("jPanel40.toolTipText")); // NOI18N
+        jPanel40.setName("jPanel40"); // NOI18N
+
+        jButton36.setText(resourceMap.getString("jButton36.text")); // NOI18N
+        jButton36.setName("jButton36"); // NOI18N
+        jButton36.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton36ActionPerformed(evt);
+            }
+        });
+
+        jButton37.setText(resourceMap.getString("jButton37.text")); // NOI18N
+        jButton37.setName("jButton37"); // NOI18N
+        jButton37.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton37ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel40Layout = new javax.swing.GroupLayout(jPanel40);
+        jPanel40.setLayout(jPanel40Layout);
+        jPanel40Layout.setHorizontalGroup(
+            jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel40Layout.createSequentialGroup()
+                .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton36, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton37, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(46, Short.MAX_VALUE))
+        );
+        jPanel40Layout.setVerticalGroup(
+            jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel40Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton36)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addComponent(jButton37)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
         jPanel18.setLayout(jPanel18Layout);
@@ -2234,22 +2463,45 @@ public class MainPage extends javax.swing.JFrame {
             .addGroup(jPanel18Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 1005, Short.MAX_VALUE)
+                    .addComponent(jScrollPane27, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
                     .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jLabel31, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 757, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel18Layout.createSequentialGroup()
+                            .addComponent(jLabel17)
+                            .addGap(9, 9, 9)
+                            .addComponent(jComboBox8, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jPanel40, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel_PaymentTop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11))
+            .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel18Layout.createSequentialGroup()
+                    .addContainerGap(257, Short.MAX_VALUE)
+                    .addComponent(jSeparator12, javax.swing.GroupLayout.PREFERRED_SIZE, 807, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         jPanel18Layout.setVerticalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel18Layout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1)
-                .addComponent(jLabel31)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel18)
-                .addContainerGap(595, Short.MAX_VALUE))
+                .addGap(11, 11, 11)
+                .addComponent(jScrollPane27, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
+                    .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(78, Short.MAX_VALUE))
+            .addComponent(jSeparator11, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
+            .addGroup(jPanel18Layout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addComponent(jPanel_PaymentTop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(376, Short.MAX_VALUE))
+            .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel18Layout.createSequentialGroup()
+                    .addGap(344, 344, 344)
+                    .addComponent(jSeparator12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(345, Short.MAX_VALUE)))
         );
 
         jTabbedPane1.addTab(resourceMap.getString("jPanel18.TabConstraints.tabTitle"), jPanel18); // NOI18N
@@ -2731,7 +2983,7 @@ public class MainPage extends javax.swing.JFrame {
                         .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, 150, Short.MAX_VALUE))
-                .addGap(579, 579, 579))
+                .addGap(937, 937, 937))
         );
 
         jTabbedPane1.addTab(resourceMap.getString("jPanel22.TabConstraints.tabTitle"), jPanel22); // NOI18N
@@ -3217,7 +3469,36 @@ public class MainPage extends javax.swing.JFrame {
 }//GEN-LAST:event_jTable8MouseEntered
 
     private void jTable8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable8MouseClicked
+
         System.out.println("Count:" + evt.getClickCount());
+
+        if (evt.getButton() == java.awt.event.MouseEvent.BUTTON3) {
+            System.out.println("Right Click");
+            int r = jTable8.rowAtPoint(evt.getPoint());
+            if (r >= 0 && r < jTable8.getRowCount()) {
+                jTable8.setRowSelectionInterval(r, r);
+            } else {
+                jTable8.clearSelection();
+            }
+
+            if (jTable8.getSelectedRow() > -1) {
+                JPopupMenu popupMenu = new JPopupMenu();
+                PaymentInboxRightClickListener menuListener = new PaymentInboxRightClickListener();
+                JMenuItem menuItem = new JMenuItem("Test");
+                popupMenu.add(menuItem);
+                menuItem.addActionListener(menuListener);
+
+                menuItem = new JMenuItem("Test1");
+
+                popupMenu.add(menuItem);
+
+                menuItem.addActionListener(menuListener);
+
+                popupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+
+            }
+        }
+
         if (evt.getClickCount() == 2) {
             String key = (String) jTable8.getModel().getValueAt(jTable8.getSelectedRow(), 3);
             String subject = (String) jTable8.getModel().getValueAt(jTable8.getSelectedRow(), 0);
@@ -3701,6 +3982,10 @@ public class MainPage extends javax.swing.JFrame {
             initMarketsTab();
             isMarketInit = true;
         }
+        if (sel == 5 && !isPaymentsInit) {
+            initPaymentsInitTab();
+            isPaymentsInit = true;
+        }
 
 
     }//GEN-LAST:event_jTabbedPane1StateChanged
@@ -3819,6 +4104,93 @@ public class MainPage extends javax.swing.JFrame {
         jLabel62.setText(Basket.getNewValue(existingValue + 1));
 }//GEN-LAST:event_jButton33ActionPerformed
 
+    private void jTable6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable6MouseClicked
+        // TODO add your handling code here:
+}//GEN-LAST:event_jTable6MouseClicked
+
+    private void jTable20MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable20MouseClicked
+
+
+        if (evt.getButton() == java.awt.event.MouseEvent.BUTTON3) {
+            System.out.println("Right Click");
+            int r = jTable20.rowAtPoint(evt.getPoint());
+            if (r >= 0 && r < jTable20.getRowCount()) {
+                jTable20.setRowSelectionInterval(r, r);
+            } else {
+                jTable20.clearSelection();
+            }
+
+            if (jTable20.getSelectedRow() > -1) {
+                JPopupMenu popupMenu = new JPopupMenu();
+                PaymentInboxRightClickListener menuListener = new PaymentInboxRightClickListener();
+                JMenuItem menuItem = new JMenuItem("Deposit");
+                popupMenu.add(menuItem);
+                menuItem.addActionListener(menuListener);
+
+                menuItem = new JMenuItem("Reject");
+
+                popupMenu.add(menuItem);
+
+                menuItem.addActionListener(menuListener);
+
+                popupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+
+            }
+        }
+
+
+}//GEN-LAST:event_jTable20MouseClicked
+
+    private void jButton34ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton34ActionPerformed
+}//GEN-LAST:event_jButton34ActionPerformed
+
+    private void jTable21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable21MouseClicked
+        System.out.println("Count:" + evt.getClickCount());
+        if (evt.getClickCount() == 2) {
+            String key = (String) jTable21.getModel().getValueAt(jTable21.getSelectedRow(), 4);
+            String subject = (String) jTable21.getModel().getValueAt(jTable21.getSelectedRow(), 0);
+            System.out.println("In paymentOutBox double clcik, key:" + key);
+            String status = (String) jTable21.getModel().getValueAt(jTable21.getSelectedRow(), 8);
+            String content = (String) jTable21.getModel().getValueAt(jTable21.getSelectedRow(), 7);
+
+            PaymentOutboxDetailsDialog payOutboxDialog = new PaymentOutboxDetailsDialog(this, true, status == "true" ? "Verified" : "Not Verified", content, subject);
+            payOutboxDialog.setVisible(true);
+
+
+        }
+}//GEN-LAST:event_jTable21MouseClicked
+
+    private void jButton36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton36ActionPerformed
+        if (jTable6.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(null, "Please select nym", "Nym selection Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        new ServerAcctDialog(this, true, (String) jTable6.getModel().getValueAt(jTable6.getSelectedRow(), 1), "Send Invoice").setVisible(true);
+
+    }//GEN-LAST:event_jButton36ActionPerformed
+
+    private void jButton37ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton37ActionPerformed
+        if (jTable6.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(null, "Please select nym", "Nym selection Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        new ProposePaymentDialog(this, true, (String) jTable6.getModel().getValueAt(jTable6.getSelectedRow(), 1)).setVisible(true);
+    }//GEN-LAST:event_jButton37ActionPerformed
+
+    private void jComboBox8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox8ActionPerformed
+        if (jTable6.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(null, "Please select nym", "Nym selection Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (jComboBox8.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(null, "Please select Send Funds", "Nym selection Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        new ServerAcctDialog(this, true, (String) jTable6.getModel().getValueAt(jTable6.getSelectedRow(), 1), (String) jComboBox8.getSelectedItem()).setVisible(true);
+    }//GEN-LAST:event_jComboBox8ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -3866,6 +4238,10 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JButton jButton31;
     private javax.swing.JButton jButton32;
     private javax.swing.JButton jButton33;
+    private javax.swing.JButton jButton34;
+    private javax.swing.JButton jButton35;
+    private javax.swing.JButton jButton36;
+    private javax.swing.JButton jButton37;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
@@ -3879,6 +4255,7 @@ public class MainPage extends javax.swing.JFrame {
     private static javax.swing.JComboBox jComboBox5;
     private static javax.swing.JComboBox jComboBox6;
     private static javax.swing.JComboBox jComboBox7;
+    private static javax.swing.JComboBox jComboBox8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -3888,7 +4265,6 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
@@ -3903,7 +4279,6 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
@@ -3971,12 +4346,17 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel34;
     private javax.swing.JPanel jPanel35;
     private javax.swing.JPanel jPanel36;
+    private javax.swing.JPanel jPanel37;
+    private javax.swing.JPanel jPanel38;
+    private javax.swing.JPanel jPanel39;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel40;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private static javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private static javax.swing.JPanel jPanel_PaymentTop;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
@@ -3996,7 +4376,11 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane24;
     private javax.swing.JScrollPane jScrollPane25;
     private javax.swing.JScrollPane jScrollPane26;
+    private javax.swing.JScrollPane jScrollPane27;
+    private javax.swing.JScrollPane jScrollPane28;
+    private javax.swing.JScrollPane jScrollPane29;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane30;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
@@ -4005,6 +4389,8 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
+    private javax.swing.JSeparator jSeparator11;
+    private javax.swing.JSeparator jSeparator12;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
@@ -4017,6 +4403,7 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTabbedPane jTabbedPane4;
+    private javax.swing.JTabbedPane jTabbedPane5;
     private javax.swing.JTable jTable10;
     private static javax.swing.JTable jTable11;
     private javax.swing.JTable jTable12;
@@ -4028,9 +4415,13 @@ public class MainPage extends javax.swing.JFrame {
     private static javax.swing.JTable jTable18;
     private static javax.swing.JTable jTable19;
     private static javax.swing.JTable jTable2;
+    private static javax.swing.JTable jTable20;
+    private static javax.swing.JTable jTable21;
+    private static javax.swing.JTable jTable22;
     private static javax.swing.JTable jTable3;
     private static javax.swing.JTable jTable4;
     private static javax.swing.JTable jTable5;
+    private static javax.swing.JTable jTable6;
     private static javax.swing.JTable jTable7;
     private static javax.swing.JTable jTable8;
     private javax.swing.JTable jTable9;
@@ -4399,7 +4790,7 @@ public class MainPage extends javax.swing.JFrame {
         boolean isAccountPresent = false;
         for (int i = 0; i < jTable5.getRowCount(); i++) {
             String accountID = (String) jTable5.getModel().getValueAt(i, 3);
-            if (selectedAccount.equals(accountID)) {
+            if (selectedAccount != null && selectedAccount.equals(accountID)) {
                 isAccountPresent = true;
                 jTable5.setRowSelectionInterval(i, i);
             }
@@ -4868,7 +5259,7 @@ public class MainPage extends javax.swing.JFrame {
 
         if (baskets != null && baskets.size() > 0 && !"Popup Dialog".equalsIgnoreCase(((String[]) baskets.get(0))[0])) {
             ((BasketTableModel) jTable19.getModel()).setValue(baskets);
-        } else if (baskets != null && baskets.size() != 0) {
+        } else if (baskets != null && !baskets.isEmpty()) {
 
             // Show dialog asking for register
             new RegisterNymOnServerDialog(this, true, currentServerID).setVisible(true);
@@ -4935,5 +5326,102 @@ public class MainPage extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void initPaymentsInitTab() {
+
+        PaymentInboxTableModel.removeCols(jTable20);
+        PaymentOutboxTableModel.removeCols(jTable21);
+
+        PaymentRecordboxTableModel.removeCols(jTable22);
+
+        setCustomWidthPayments();
+        NYMTableModel.removeCols(jTable6);
+
+        ((NYMTableModel) jTable6.getModel()).setValue(new NYM().loadNYM(), jTable6);
+
+        jTable6.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+
+                if (e.getValueIsAdjusting()) {
+                    return;
+                }
+                System.out.println("jTable6 valueChanged Payment List Action Listener :" + jTable6.getSelectedRow() + "e:" + e.getSource());
+                try {
+                    setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                    paymentClick();
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+                } finally {
+                    setCursor(Cursor.getDefaultCursor());
+
+                }
+            }
+        });
+
+    }
+
+    private void paymentClick() throws InterruptedException {
+
+        if (jTable6.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "Please select NYM", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        String nymID = (String) jTable6.getModel().getValueAt(jTable6.getSelectedRow(), 1);
+
+        Map inbox = Payments.getPaymentInboxData(nymID);
+        Map outbox = null;
+        if (inbox != null) {
+            if (inbox.get("Popup") != null) {
+                RegisterNYMDialog registerNYM = new RegisterNYMDialog(this, true, nymID);
+                registerNYM.setVisible(true);
+                String serverID = registerNYM.getPaymentServerID();
+                System.out.println("PaymentClick - after reg nym, serverID:" + serverID);
+                if (serverID != null) {
+                    inbox = Payments.getPaymentInboxRecords(nymID, serverID);
+                }
+            } else if (inbox.get("serverList") != null) {
+                ServerSelectionDialog selectServer = new ServerSelectionDialog(this, true, (Map) inbox.get("serverList"));
+                selectServer.setVisible(true);
+                String serverID = selectServer.getPaymentServerID();
+                System.out.println("PaymentClick - after selecting server, serverID:" + serverID);
+                if (serverID != null) {
+                    inbox = Payments.getPaymentInboxRecords(nymID, serverID);
+                    outbox = Payments.getPaymentOutboxRecords(nymID, serverID);
+
+                    ((PaymentInboxTableModel) jTable20.getModel()).setValue(inbox, jTable20);
+                    ((PaymentOutboxTableModel) jTable21.getModel()).setValue(outbox, jTable21);
+                    ((PaymentRecordboxTableModel) jTable22.getModel()).setValue(inbox, jTable22);
+                }
+            }
+
+
+        }
+
+    }
+
+    private void setCustomWidthPayments() {
+
+        int width = 120;
+
+        TableColumn col = jTable20.getColumnModel().getColumn(4);
+
+        col.setPreferredWidth(width);
+
+        col = jTable20.getColumnModel().getColumn(5);
+        col.setPreferredWidth(width);
+
+        col = jTable20.getColumnModel().getColumn(6);
+        col.setPreferredWidth(180);
+
+
+        col = jTable22.getColumnModel().getColumn(3);
+        col.setPreferredWidth(width);
+
+        col = jTable22.getColumnModel().getColumn(5);
+        col.setPreferredWidth(width);
+
     }
 }

@@ -46,40 +46,45 @@
           <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="195" max="-2" attributes="0"/>
               <Component id="jLabel_SettingTitle" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="223" max="32767" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="36" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel_Timeout" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel_WalletFile" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel_JavaPath" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel_DataFolder" alignment="0" min="-2" max="-2" attributes="1"/>
-                  <Component id="jLabel_JavaPath1" pref="110" max="32767" attributes="1"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jTextField_Timeout" max="32767" attributes="1"/>
-                      <Component id="jTextField_JavaPath" max="32767" attributes="1"/>
-                      <Component id="jTextField_WalletFile" max="32767" attributes="1"/>
-                      <Component id="jTextField_DataFolder" alignment="0" pref="160" max="32767" attributes="1"/>
-                  </Group>
-                  <Component id="jTextField_ImagePath" pref="160" max="32767" attributes="1"/>
-              </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jButton_JavaPath" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton_DataFolder" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel_TimoutUnit" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton_DataFolder1" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+              <EmptySpace pref="238" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="148" max="-2" attributes="0"/>
-              <Component id="jButton_LoadWallet" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="227" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="jLabel_Timeout" alignment="0" max="32767" attributes="1"/>
+                      <Component id="jLabel_DataFolder" alignment="0" min="-2" max="-2" attributes="1"/>
+                      <Component id="jLabel_WalletFile" alignment="0" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="jLabel_JavaPath1" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel_JavaPath" alignment="0" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jButton_LoadWallet" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jTextField_Timeout" max="32767" attributes="1"/>
+                              <Component id="jTextField_JavaPath" max="32767" attributes="1"/>
+                              <Component id="jTextField_WalletFile" max="32767" attributes="1"/>
+                              <Component id="jTextField_DataFolder" alignment="0" pref="160" max="32767" attributes="1"/>
+                          </Group>
+                          <Component id="jTextField_ImagePath" pref="166" max="32767" attributes="1"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jButton_JavaPath" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButton_DataFolder" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel_TimoutUnit" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButton_DataFolder1" min="-2" pref="128" max="-2" attributes="1"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
           </Group>
       </Group>
     </DimensionLayout>
@@ -108,13 +113,13 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jTextField_JavaPath" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButton_JavaPath" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel_JavaPath" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel_JavaPath1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jTextField_ImagePath" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel_JavaPath1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButton_DataFolder1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel_JavaPath" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               <Component id="jButton_LoadWallet" min="-2" max="-2" attributes="0"/>
@@ -221,18 +226,14 @@
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField_ImagePath">
       <Properties>
-        <Property name="editable" type="boolean" value="false"/>
+        <Property name="editable" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="false" type="code"/>
+        </Property>
         <Property name="name" type="java.lang.String" value="jTextField_ImagePath" noResource="true"/>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
       </AuxValues>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel_JavaPath1">
-      <Properties>
-        <Property name="text" type="java.lang.String" resourceKey="jLabel_JavaPath1.text"/>
-        <Property name="name" type="java.lang.String" value="jLabel_JavaPath1" noResource="true"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jButton_DataFolder1">
       <Properties>
@@ -242,6 +243,12 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_DataFolder1ActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel_JavaPath1">
+      <Properties>
+        <Property name="text" type="java.lang.String" resourceKey="jLabel_JavaPath1.text"/>
+        <Property name="name" type="java.lang.String" value="jLabel_JavaPath1" noResource="true"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

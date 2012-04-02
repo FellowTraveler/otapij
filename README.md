@@ -122,7 +122,7 @@ From a separate terminal:
 
 ```xml
 
-Moneychanger v0.08
+(See VERSION.txt for version information.) 
 
 /************************************************************
 -----BEGIN PGP SIGNED MESSAGE-----

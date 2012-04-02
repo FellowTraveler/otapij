@@ -596,7 +596,7 @@ public class OpenTransactionAccountTopPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        new OTWriteCheque(null, true, jTextField11.getText(), jTextField12.getText(), jTextField9.getText()).setVisible(true);
+        new OTWriteCheque(null, true, jTextField11.getText(), jTextField12.getText(), jTextField9.getText(),"").setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -608,7 +608,7 @@ public class OpenTransactionAccountTopPanel extends javax.swing.JPanel {
         try {
             OpenTransactionAccount openTransaction = new OpenTransactionAccount();
             setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-            boolean isSuccess = Utility.getInboxOutboxAccount(accountID); // download the data.
+            boolean isSuccess = Utility.getInboxOutboxAccount(accountID, true); // download the data.
             if (isSuccess) {
                 JOptionPane.showMessageDialog(this, "Files downloaded successfully", "Processing Success", JOptionPane.INFORMATION_MESSAGE);
                 OpenTransactionAccountBottomPanel.setOTTables(openTransaction.getInboxData(accountID), openTransaction.getOutboxData(accountID));

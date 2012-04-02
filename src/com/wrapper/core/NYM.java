@@ -206,7 +206,7 @@ public class NYM {
             else // Since we just registered, let's sync the request number 
                  // (for the first time.)
             {
-                if (false == Utility.getRequestNumber(serverID, nymID))
+                if (Utility.getRequestNumber(serverID, nymID) < 1)
                 {
                     System.out.println("IN registerNym: Utility.getRequestNumber() failed. (The first one ever for this Nym on this server.) ");
                     return status;
@@ -229,10 +229,23 @@ public class NYM {
             String serverID = otapi.OT_API_GetServer_ID(i);
             System.out.println("IN FOR,i=" + i + " server id:" + serverID);
             if (serverID != null) {
-                if (otapi.OT_API_IsNym_RegisteredAtServer(nymID, serverID) == 1) {
+                if (otapi.OT_API_IsNym_RegisteredAtServer(nymID, serverID) == 1) 
+                {
                     System.out.println("nym is registered");
                     
-                    Utility.getAndProcessNymbox(serverID, nymID);
+    // Returns:
+    //   -1 ERROR.
+    //    0 Nymbox was empty -- nothing done. (bWasMsgSent = false)
+    //    0 Transaction status == server reply received (bWasMsgSent = true), but 
+    //      the server reply has status == FAILED. (All harvesting was subsequently successful for processNymbox).
+    //    1 If the ProcessNymbox Transaction status (from the server reply) is SUCCESS,
+    //      then this function returns 1.
+    //   >1 If the ProcessNymbox Transaction status (from the server reply) is >1, then this function returns the 
+    //      REQUEST NUMBER from when it was originally sent. (Harvesting was NOT performed, which is why the request
+    //      number is being returned, so the caller can choose what to do next.)
+                    
+                    Utility.OTBool bWasMsgSent = new Utility.OTBool (false);
+                    Utility.getAndProcessNymbox(serverID, nymID, bWasMsgSent, true); // bForceDownload=true
                 }
             }
         }
@@ -340,7 +353,7 @@ public class NYM {
     }
 
     public String createNym(String nymName) {
-        String nymID = otapi.OT_API_CreateNym();
+        String nymID = otapi.OT_API_CreateNym(1024); // TODO:  Dropdown:  1024, 2048, 4096, 8192
         if (nymID != null) {
             otapi.OT_API_SetNym_Name(nymID, nymID, nymName);
         }

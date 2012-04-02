@@ -103,12 +103,10 @@ public class Settings extends javax.swing.JFrame {
 
     private JFileChooser dataFolderChooser;
     private JFileChooser imageChooser;
-    
     private boolean m_bSettingsLoaded;
     private boolean m_bComponentsInitialized;
-    
     private static Load.JavaPaths javaPaths;
-    
+
     private void loadSettings() {
         if (false == m_bSettingsLoaded) {
             javaPaths = new Load.JavaPaths();
@@ -131,56 +129,60 @@ public class Settings extends javax.swing.JFrame {
     public Settings() {
         m_bSettingsLoaded = false;
         m_bComponentsInitialized = false;
-       //Try and load without settings dilogue:
-//        try {
-////          Utility.setSettingsObj(this);
-//
-//            loadSettings();
-//
-//            Load.loadOTAPI();
-//
-//            Load.loadAllAppDataButWallet(this);
-////          Load.loadAppData(this);
-//
-//            Load.setTimeout();
-////            new MainPage().setVisible(true);
-//        } catch (Load.ApiNotLoadedException e) {
-//            StringBuilder error = new StringBuilder();
-//            error.append("Autoload of the Java Path failed: ");
-//            error.append(System.getProperty("line.separator"));
-//            error.append(e.getError());
-//            System.out.println(error.toString());
-//            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
-//            loadSettings();
-//        } catch (Load.AppDataNotLoadedException e) {
-//            StringBuilder error = new StringBuilder();
-//            error.append("AutoLoad of your MoneyChanger user data failed; Choose the location here: ");
-//            error.append(e.getError().replace(":", System.getProperty("line.separator")));
-//            System.out.println(error.toString());
-//            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
-//            loadSettings();
-//        } catch (Load.InvalidTimeOutException e) {
-//            StringBuilder error = new StringBuilder();
-//            error.append("Auto-Timout is invalid; you should never see this message: please contact us for support!");
-//            error.append(e.getError());
-//            System.out.println(error.toString());
-//            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
-//            loadSettings();
-//        } //        catch (Load.ImageNotLoadedException e) {
-//        //            StringBuilder error = new StringBuilder();
-//        //            error.append("Autoload of image failed: ");
-//        //            error.append(System.getProperty("line.separator"));
-//        //            error.append(e.getError());
-//        //            System.out.println(error.toString());
-//        //            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
-//        //        }
-//        catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        //Try and load without settings dilogue:
+        try {
+            Utility.setSettingsObj(this);
+            loadSettings();
+
+            Load.loadOTAPI();
+
+            Load.loadAllAppDataButWallet(this);
+            Load.loadAppData(this);
+
+            Load.setTimeout();
+            //new MainPage().setVisible(true);
+            com.wrapper.ui.ProgressBar progressBar = new com.wrapper.ui.ProgressBar();
+            new Thread(progressBar).start();
+            progressBar.setVisible(true);
+            progressBar.pack();
+            this.dispose();
+        } catch (Load.ApiNotLoadedException e) {
+            StringBuilder error = new StringBuilder();
+            error.append("Autoload of the Java Path failed: ");
+            error.append(System.getProperty("line.separator"));
+            error.append(e.getError());
+            System.out.println(error.toString());
+            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
+            loadSettings();
+        } catch (Load.AppDataNotLoadedException e) {
+            StringBuilder error = new StringBuilder();
+            error.append("AutoLoad of your MoneyChanger user data failed; Choose the location here: ");
+            error.append(e.getError().replace(":", System.getProperty("line.separator")));
+            System.out.println(error.toString());
+            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
+            loadSettings();
+        } catch (Load.InvalidTimeOutException e) {
+            StringBuilder error = new StringBuilder();
+            error.append("Auto-Timout is invalid; you should never see this message: please contact us for support!");
+            error.append(e.getError());
+            System.out.println(error.toString());
+            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
+            loadSettings();
+        } //        catch (Load.ImageNotLoadedException e) {
+        //            StringBuilder error = new StringBuilder();
+        //            error.append("Autoload of image failed: ");
+        //            error.append(System.getProperty("line.separator"));
+        //            error.append(e.getError());
+        //            System.out.println(error.toString());
+        //            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
+        //        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
         Utility.setSettingsObj(this);
         loadSettings();
 
-     }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -205,8 +207,8 @@ public class Settings extends javax.swing.JFrame {
         jButton_JavaPath = new javax.swing.JButton();
         jButton_LoadWallet = new javax.swing.JButton();
         jTextField_ImagePath = new javax.swing.JTextField();
-        jLabel_JavaPath1 = new javax.swing.JLabel();
         jButton_DataFolder1 = new javax.swing.JButton();
+        jLabel_JavaPath1 = new javax.swing.JLabel();
         jMenuBar_Setting = new javax.swing.JMenuBar();
         jMenu1 = new com.wrapper.ui.custom.CustomMenu("Look & Feel");
 
@@ -277,9 +279,6 @@ public class Settings extends javax.swing.JFrame {
         jTextField_ImagePath.setEditable(false);
         jTextField_ImagePath.setName("jTextField_ImagePath"); // NOI18N
 
-        jLabel_JavaPath1.setText(resourceMap.getString("jLabel_JavaPath1.text")); // NOI18N
-        jLabel_JavaPath1.setName("jLabel_JavaPath1"); // NOI18N
-
         jButton_DataFolder1.setText(resourceMap.getString("jButton_DataFolder1.text")); // NOI18N
         jButton_DataFolder1.setName("jButton_DataFolder1"); // NOI18N
         jButton_DataFolder1.addActionListener(new java.awt.event.ActionListener() {
@@ -287,6 +286,9 @@ public class Settings extends javax.swing.JFrame {
                 jButton_DataFolder1ActionPerformed(evt);
             }
         });
+
+        jLabel_JavaPath1.setText(resourceMap.getString("jLabel_JavaPath1.text")); // NOI18N
+        jLabel_JavaPath1.setName("jLabel_JavaPath1"); // NOI18N
 
         jMenuBar_Setting.setName("jMenuBar_Setting"); // NOI18N
 
@@ -303,34 +305,36 @@ public class Settings extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(195, 195, 195)
                 .addComponent(jLabel_SettingTitle)
-                .addContainerGap(223, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(36, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel_Timeout)
-                    .addComponent(jLabel_WalletFile)
-                    .addComponent(jLabel_JavaPath)
-                    .addComponent(jLabel_DataFolder)
-                    .addComponent(jLabel_JavaPath1, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jTextField_Timeout)
-                        .addComponent(jTextField_JavaPath)
-                        .addComponent(jTextField_WalletFile)
-                        .addComponent(jTextField_DataFolder, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
-                    .addComponent(jTextField_ImagePath, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton_JavaPath)
-                    .addComponent(jButton_DataFolder)
-                    .addComponent(jLabel_TimoutUnit)
-                    .addComponent(jButton_DataFolder1))
-                .addGap(27, 27, 27))
+                .addContainerGap(238, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(148, 148, 148)
-                .addComponent(jButton_LoadWallet)
-                .addContainerGap(227, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel_Timeout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel_DataFolder)
+                        .addComponent(jLabel_WalletFile))
+                    .addComponent(jLabel_JavaPath1)
+                    .addComponent(jLabel_JavaPath))
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton_LoadWallet)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jTextField_Timeout)
+                                .addComponent(jTextField_JavaPath)
+                                .addComponent(jTextField_WalletFile)
+                                .addComponent(jTextField_DataFolder, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
+                            .addComponent(jTextField_ImagePath, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton_JavaPath)
+                            .addComponent(jButton_DataFolder)
+                            .addComponent(jLabel_TimoutUnit)
+                            .addComponent(jButton_DataFolder1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(35, 35, 35))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -354,12 +358,12 @@ public class Settings extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField_JavaPath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_JavaPath)
-                    .addComponent(jLabel_JavaPath))
+                    .addComponent(jLabel_JavaPath1))
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField_ImagePath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel_JavaPath1)
-                    .addComponent(jButton_DataFolder1))
+                    .addComponent(jButton_DataFolder1)
+                    .addComponent(jLabel_JavaPath))
                 .addGap(27, 27, 27)
                 .addComponent(jButton_LoadWallet)
                 .addContainerGap(28, Short.MAX_VALUE))
@@ -402,14 +406,15 @@ public class Settings extends javax.swing.JFrame {
                         boolean status = Utility.saveImagePath(path);
                         System.out.println("Status of image path persistence:" + status);
                         // -------------------------
-                        new MainPage().setVisible(true);
-             //UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-                                    // UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+                        // new MainPage().setVisible(true);
+                        //UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+                        // UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 
-  /*com.wrapper.ui.ProgressBar progressBar = new com.wrapper.ui.ProgressBar();
+                        com.wrapper.ui.ProgressBar progressBar = new com.wrapper.ui.ProgressBar();
                         new Thread(progressBar).start();
                         progressBar.setVisible(true);
-                        progressBar.pack();*/
+                        progressBar.pack();
+                        this.dispose();
                     }
                     // ------------------------------------------------------
                 } catch (Exception e) {
@@ -568,6 +573,9 @@ public class Settings extends javax.swing.JFrame {
             //This is where a real application would open the file.
 
             jTextField_ImagePath.setText(imageChooser.getSelectedFile().getPath());
+            //jTextField_ImagePath.setVisible(true);
+            System.out.println("jTextField_ImagePath:" + jTextField_ImagePath.isVisible());
+
             Configuration.setImagePath(imageChooser.getSelectedFile().getPath());
 
             // --------------------------------
@@ -644,7 +652,6 @@ public class Settings extends javax.swing.JFrame {
     public static void setPath() {
         jTextField_JavaPath.setText(javaPaths.toString());
     }
-
- }
+}
 // </editor-fold>
 

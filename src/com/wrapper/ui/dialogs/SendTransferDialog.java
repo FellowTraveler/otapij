@@ -274,6 +274,7 @@ public class SendTransferDialog extends javax.swing.JDialog {
                 return;
             }
             setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            System.out.println("serverID:"+serverID+",nymID:"+nymID+",accountID:"+accountID);
             boolean success = new OpenTransactionAccount().sendTransfer(serverID, nymID, accountID,jTextField2.getText(),jTextArea1.getText(),jTextField1.getText());
             /**
              * Reload the inbox and top accounts panel if success

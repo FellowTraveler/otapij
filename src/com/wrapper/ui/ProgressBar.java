@@ -24,18 +24,20 @@ public class ProgressBar
 
     public ProgressBar() {
         /*try {
-            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-            UIManager.setLookAndFeel("javax.swing.MultiUIDefaults");
+        UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+        UIManager.setLookAndFeel("javax.swing.MultiUIDefaults");
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ProgressBar.class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(ProgressBar.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            Logger.getLogger(ProgressBar.class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(ProgressBar.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            Logger.getLogger(ProgressBar.class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(ProgressBar.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(ProgressBar.class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(ProgressBar.class.getName()).log(Level.SEVERE, null, ex);
         }
-*/
+         */
+        ((JFrame) Utility.getSettingsObj()).dispose();
+
 
         setResizable(false);
 
@@ -57,7 +59,7 @@ public class ProgressBar
         progress.setPreferredSize(new Dimension(300, 20));
         progress.setMinimum(0);
         progress.setMaximum(MAX);
- 
+
         progress.setBounds(20, 35, 260, 20);
         topPanel.add(progress);
 
@@ -71,8 +73,6 @@ public class ProgressBar
         repaint();
 
         setLocation(Utility.getLocation(this.getSize()));
-
-        ((JFrame) Utility.getSettingsObj()).dispose();
 
 
         SwingUtilities.invokeLater(new Runnable() {
@@ -129,11 +129,11 @@ public class ProgressBar
                 progress.paintImmediately(progressRect);
                 //counter++;
                 /*{
-               Thread.sleep(SLEEP);
-               } catch (Exception ex) {
-            Logger.getLogger(ProgressBar.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-            
+                Thread.sleep(SLEEP);
+                } catch (Exception ex) {
+                Logger.getLogger(ProgressBar.class.getName()).log(Level.SEVERE, null, ex);
+                }*/
+
 
             } while (!stop);
         } catch (Exception ex) {

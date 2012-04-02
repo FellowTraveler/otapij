@@ -68,7 +68,7 @@ Hash: SHA256
  *   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
  *   PURPOSE.  See the GNU General Public License for more
  *   details.
- 
+
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.11 (Darwin)
 
@@ -105,11 +105,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
-
 // *********************************************************
-
-
 /**
  *
  * @author Vicky C
@@ -145,26 +141,26 @@ public class OpenTransactionAccount extends Account {
 
     private boolean createAssetAccount(String serverID, String nymID, String assetID) {
 
-        OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.CREATE_ASSET_ACCT, serverID, nymID, assetID);
-        String      strResponse  = OTAPI_Func.SendRequest(theRequest, "CREATE_ASSET_ACCT");
-        
-        if (null == strResponse)
-        {
+        OTAPI_Func theRequest = new OTAPI_Func(OTAPI_Func.FT.CREATE_ASSET_ACCT, serverID, nymID, assetID);
+        String strResponse = OTAPI_Func.SendRequest(theRequest, "CREATE_ASSET_ACCT");
+
+        if (null == strResponse) {
             System.out.println("IN createAssetAccount: OTAPI_Func.SendRequest(() failed. (I give up.) ");
             return false;
         }
         // ----------------------------------------------------------
-        
+
         String strNewAcctID = otapi.OT_API_Message_GetNewAcctID(strResponse);
-        
+
         otapi.OT_API_SetAccountWallet_Name(strNewAcctID, nymID, label);
-        
+
         // When you first create an asset account you need to get a copy of the outbox.
         // (Or create an empty one, which would save us sending the message here. Todo.)
         //
-        Utility.getOutboxLowLevel(serverID, nymID, strNewAcctID);
+        Utility.OTBool bWasMsgSent = new Utility.OTBool (false);
+        Utility.getOutboxLowLevel(serverID, nymID, strNewAcctID, bWasMsgSent, true);
         // ----------------------------------------------------------
- 
+
         return true;
     }
 
@@ -176,12 +172,11 @@ public class OpenTransactionAccount extends Account {
             // If the Nym's not registered at the server, we do that first...
             //
             if (0 == otapi.OT_API_IsNym_RegisteredAtServer(nymID, serverID)) {
-                
-                OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.CREATE_USER_ACCT, serverID, nymID);
-                String      strResponse  = OTAPI_Func.SendRequest(theRequest, "CREATE_USER_ACCT");
 
-                if (null == strResponse)
-                {
+                OTAPI_Func theRequest = new OTAPI_Func(OTAPI_Func.FT.CREATE_USER_ACCT, serverID, nymID);
+                String strResponse = OTAPI_Func.SendRequest(theRequest, "CREATE_USER_ACCT");
+
+                if (null == strResponse) {
                     System.out.println("IN createAccount: OTAPI_Func.SendRequest(() failed. (I give up.) ");
                     return false;
                 }
@@ -190,8 +185,7 @@ public class OpenTransactionAccount extends Account {
                 // to prevent sync issues.) Therefore I feel *somewhat* safe in going ahead here
                 // and calling Utility.getRequestNumber(), since this is a brand new Nym and will
                 // need to sync it for the first time, in order to do any other messages.
-                if (false == Utility.getRequestNumber(serverID, nymID))
-                {
+                if (Utility.getRequestNumber(serverID, nymID) < 1) {
                     System.out.println("In createAccount: Failure to call getRequestNumber() after supposedly creating user acct at server.");
                     //return false; // commenting this out, so for moa7 types with bad connections, even if this call fails, it'll go ahead and try the next one, and when THAT fails it does another getRequestNumber followed by a retry. So we have plenty of chances to succeed here...
                 }
@@ -202,10 +196,11 @@ public class OpenTransactionAccount extends Account {
             //
             bSuccess = createAssetAccount(serverID, nymID, assetID);
 
-            if (bSuccess)
+            if (bSuccess) {
                 System.out.println("In createAccount: Success");
-            else
+            } else {
                 System.out.println("In createAccount: Failure");
+            }
         } catch (Exception e) {
 //          e.printStackTrace();
             System.out.println("In Exception");
@@ -218,18 +213,17 @@ public class OpenTransactionAccount extends Account {
     public boolean deleteAccount(String accountID) throws Exception {
 
         boolean deleteAccount = otapi.OT_API_Wallet_CanRemoveAccount(accountID) == 1 ? true : false;
-        
+
         if (!deleteAccount) {
             System.out.println("deleteAccount: unable. There must still be open receipts, or a nonzero balance?");
             return false;
         }
         // ----------------------------------------
-        
-        OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.DELETE_ASSET_ACCT, serverID, nymID, accountID);
-        String      strResponse  = OTAPI_Func.SendRequest(theRequest, "DELETE_ASSET_ACCT");
-        
-        if (null == strResponse)
-        {
+
+        OTAPI_Func theRequest = new OTAPI_Func(OTAPI_Func.FT.DELETE_ASSET_ACCT, serverID, nymID, accountID);
+        String strResponse = OTAPI_Func.SendRequest(theRequest, "DELETE_ASSET_ACCT");
+
+        if (null == strResponse) {
             System.out.println("IN deleteAccount: OTAPI_Func.SendRequest(() failed. (I give up.) ");
             return false;
         }
@@ -272,7 +266,7 @@ public class OpenTransactionAccount extends Account {
 
     public Map getAccounts(String assetID, String nymID, String serverID) {
 
-        System.out.println("In getAccounts,assetID:"+assetID+" nymID:"+nymID+" serverID:"+serverID);
+        System.out.println("In getAccounts,assetID:" + assetID + " nymID:" + nymID + " serverID:" + serverID);
 
         Map account = new HashMap();
         int count = otapi.OT_API_GetAccountCount();
@@ -297,7 +291,7 @@ public class OpenTransactionAccount extends Account {
         Map accounts = new HashMap();
 
         if (assetID == null && nymID == null && serverID == null) {
-            System.out.println("In getAccountID:  nymID:"+nymID+" serverID:"+serverID);
+            System.out.println("In getAccountID:  nymID:" + nymID + " serverID:" + serverID);
             return null;
         }
         int j = 0;
@@ -308,8 +302,8 @@ public class OpenTransactionAccount extends Account {
                 continue;
             }
             if ((assetID != null) && assetID.equals(otapi.OT_API_GetAccountWallet_AssetTypeID(accountID))
-             && (serverID != null) && serverID.equals(otapi.OT_API_GetAccountWallet_ServerID(accountID))
-             && (nymID != null) && nymID.equals(otapi.OT_API_GetAccountWallet_NymID(accountID))) {
+                    && (serverID != null) && serverID.equals(otapi.OT_API_GetAccountWallet_ServerID(accountID))
+                    && (nymID != null) && nymID.equals(otapi.OT_API_GetAccountWallet_NymID(accountID))) {
                 accounts.put((j), new String[]{otapi.OT_API_GetAccountWallet_Name(accountID), accountID});
                 j++;
             }
@@ -327,11 +321,10 @@ public class OpenTransactionAccount extends Account {
         System.out.println("In " + IN_FUNCTION + " serverID:" + serverID + " accountID:" + accountID + " nymID:" + nymID + " assetID:" + assetID + " basket:" + basket + " inXchange is " + inXchange + " memberCount:" + memberCount);
 
         // ----------------------------------------
-        OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.EXCHANGE_BASKET, serverID, nymID, assetID, basket, accountID, inXchange, (memberCount + 2));
-        String      strResponse  = OTAPI_Func.SendTransaction(theRequest, "EXCHANGE_BASKET");
-        
-        if (null == strResponse)
-        {
+        OTAPI_Func theRequest = new OTAPI_Func(OTAPI_Func.FT.EXCHANGE_BASKET, serverID, nymID, assetID, basket, accountID, inXchange, (memberCount + 2));
+        String strResponse = OTAPI_Func.SendTransaction(theRequest, "EXCHANGE_BASKET");
+
+        if (null == strResponse) {
             System.out.println("IN exchangeBasket: OTAPI_Func.SendTransaction(() failed. (I give up.) ");
             return false;
         }
@@ -391,101 +384,92 @@ public class OpenTransactionAccount extends Account {
 
         OTDetails otDetails = new OTDetails();
 
-        if (null == accountID)
-        {
+        if (null == accountID) {
             System.out.println("Failure: accountID is null.");
             return otDetails;
         }
         // ---------------------------------------------
-        
+
         otDetails.setAccountID(accountID);
 
         // ---------------------------------------------
         String serverID = otapi.OT_API_GetAccountWallet_ServerID(accountID);
-        if (null == serverID)
-        {
+        if (null == serverID) {
             System.out.println("Failure: serverID is null for accountID: " + accountID);
             return otDetails;
         }
         otDetails.setServerID(serverID);
-        
+
         String serverName = otapi.OT_API_GetServer_Name(serverID);
-        if (null == serverName)
-        {
+        if (null == serverName) {
             System.out.println("Failure: serverName is null for serverID: " + serverID);
             return otDetails;
         }
         otDetails.setServerName(serverName);
         // ---------------------------------------------
         String assetID = otapi.OT_API_GetAccountWallet_AssetTypeID(accountID);
-        
-        if (null == assetID)
-        {
+
+        if (null == assetID) {
             System.out.println("Failure: assetID is null for accountID: " + accountID);
             return otDetails;
         }
         otDetails.setAssetID(assetID);
-        
+
         String assetName = otapi.OT_API_GetAssetType_Name(assetID);
-        
-        if (null == assetName)
-        {
+
+        if (null == assetName) {
             System.out.println("Failure: assetName is null for assetID: " + assetID);
             return otDetails;
         }
         otDetails.setAssetName(assetName);
         // ---------------------------------------------
         String strAccountName = otapi.OT_API_GetAccountWallet_Name(accountID);
-        
-        if (null == strAccountName)
-        {
+
+        if (null == strAccountName) {
             System.out.println("Failure: strAccountName is null for accountID: " + accountID);
             return otDetails;
         }
         otDetails.setAccountName(strAccountName);
-        
+        // ---------------------------------------------
+        String nymID = otapi.OT_API_GetAccountWallet_NymID(accountID);
+
+        if (null == nymID) {
+            System.out.println("Failure: nymID is null for accountID: " + accountID);
+            return otDetails;
+        }
+        otDetails.setNymID(nymID);
+
+        String strNymName = (null == nymID) ? new String("") : otapi.OT_API_GetNym_Name(nymID);
+
+        if (null == strNymName) {
+            System.out.println("Failure: strNymName is null for nymID: " + nymID);
+            return otDetails;
+        }
+        otDetails.setNymName(strNymName);
+        // ----------------------------------        
+        try {
+            if (Utility.getIntermediaryFiles(serverID, nymID, accountID)) {
+                otDetails.setInboxData(getInboxData(accountID));
+                otDetails.setOutboxData(getOutboxData(accountID));
+            } else {
+                System.out.println("getOTAccountDetails: Failed in Utility.getIntermediaryFiles()");
+            }
+        } catch (InterruptedException ex) {
+            Logger.getLogger(OpenTransactionAccount.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        // ----------------------------------
         String strBalance = otapi.OT_API_GetAccountWallet_Balance(accountID);
-        
-        if (null == strBalance)
-        {
+
+        if (null == strBalance) {
             System.out.println("Failure: strBalance is null for accountID: " + accountID);
             return otDetails;
         }
         otDetails.setBalance(strBalance);
         // ---------------------------------------------
-        String nymID = otapi.OT_API_GetAccountWallet_NymID(accountID);
         
-        if (null == nymID)
-        {
-            System.out.println("Failure: nymID is null for accountID: " + accountID);
-            return otDetails;
-        }
-        otDetails.setNymID(nymID);
-        
-        String strNymName = (null == nymID) ? new String("") : otapi.OT_API_GetNym_Name(nymID);
-        
-        if (null == strNymName)
-        {
-            System.out.println("Failure: strNymName is null for nymID: " + nymID);
-            return otDetails;
-        }
-        otDetails.setNymName(strNymName);
-        // ---------------------------------------------
-        try {
-            if (Utility.getIntermediaryFiles(serverID, nymID, accountID))
-            {
-                otDetails.setInboxData(getInboxData(accountID));
-                otDetails.setOutboxData(getOutboxData(accountID));
-            }
-            else
-                System.out.println("getOTAccountDetails: Failed in Utility.getIntermediaryFiles()");
-        } catch (InterruptedException ex) {
-            Logger.getLogger(OpenTransactionAccount.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        // ---------------------------------------------        
         if (1 == otapi.OT_API_IsBasketCurrency(otapi.OT_API_GetAccountWallet_AssetTypeID(accountID))) {
-            otDetails.setBasketName(otapi.OT_API_GetAssetType_Name(otapi.OT_API_GetAccountWallet_AssetTypeID(accountID)) == null ? "" : 
-                    otapi.OT_API_GetAssetType_Name(otapi.OT_API_GetAccountWallet_AssetTypeID(accountID)));
+            otDetails.setBasketName(otapi.OT_API_GetAssetType_Name(otapi.OT_API_GetAccountWallet_AssetTypeID(accountID)) == null ? ""
+                    : otapi.OT_API_GetAssetType_Name(otapi.OT_API_GetAccountWallet_AssetTypeID(accountID)));
         }
 
         return otDetails;
@@ -511,11 +495,10 @@ public class OpenTransactionAccount extends Account {
             System.out.println("IN showBasket, OT_API_LoadAssetContract is null");
 
             // ----------------------------------------
-            OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.GET_CONTRACT, serverID, nymID, assetID);
-            String      strResponse  = OTAPI_Func.SendRequest(theRequest, "GET_CONTRACT");
+            OTAPI_Func theRequest = new OTAPI_Func(OTAPI_Func.FT.GET_CONTRACT, serverID, nymID, assetID);
+            String strResponse = OTAPI_Func.SendRequest(theRequest, "GET_CONTRACT");
 
-            if (null == strResponse)
-            {
+            if (null == strResponse) {
                 System.out.println("IN showBasket: OTAPI_Func.SendRequest(() failed. (I give up.) ");
                 return null;
             }
@@ -570,16 +553,13 @@ public class OpenTransactionAccount extends Account {
 
     }
 
-    
-   
-         
     public boolean processInbox(String accountID, Map selectedIndices) throws InterruptedException {
 
         System.out.println("Process Inbox starts");
 
         String serverID = otapi.OT_API_GetAccountWallet_ServerID(accountID);
-        String nymID    = otapi.OT_API_GetAccountWallet_NymID(accountID);
-        
+        String nymID = otapi.OT_API_GetAccountWallet_NymID(accountID);
+
         // ------------------------------------------------------------------
         // Normally I could remove this code, since SendTransaction() (below)
         // does the work already, of grabbing new numbers when they're needed.
@@ -591,24 +571,18 @@ public class OpenTransactionAccount extends Account {
         // the transaction # is grabbed from local storage for that message. If
         // it's not available, the call will fail.
         //
-        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) 
-        {
-            if ((false == Utility.getTransactionNumbers(serverID, nymID)) ||
-                (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount())) 
-            {
-                System.out.println("IN processInbox , failed to get transaction numbers, OT_API_GetNym_TransactionNumCount:" + otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID));
+        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
+            if ((false == Utility.getTransactionNumbers(serverID, nymID))
+                    || (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount())) {
+                System.out.println("In processInbox , failed to get transaction numbers, OT_API_GetNym_TransactionNumCount:" + otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID));
                 return false;
             }
         }
-        // ------------------------------------------------------------------
-        
-        
-        String ledger   = otapi.OT_API_LoadInbox(serverID, nymID, accountID);
-
+        String ledger = otapi.OT_API_LoadInbox(serverID, nymID, accountID);
 
         // ------------------------------------------------------------------
         // SET UP THE PROCESS INBOX MESSAGE.
-        
+
         String responseLedger = otapi.OT_API_Ledger_CreateResponse(serverID, nymID, accountID, ledger);
 
         if (responseLedger == null) {
@@ -654,12 +628,11 @@ public class OpenTransactionAccount extends Account {
         // -------------------------------------------------------------------
         // SEND THE PROCESS INBOX MESSAGE (to server.)
         // ----------------------------------------
-        
-        OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.PROCESS_INBOX, serverID, nymID, accountID, accountLedger);
-        String      strResponse  = OTAPI_Func.SendTransaction(theRequest, "PROCESS_INBOX");
-        
-        if (null == strResponse)
-        {
+
+        OTAPI_Func theRequest = new OTAPI_Func(OTAPI_Func.FT.PROCESS_INBOX, serverID, nymID, accountID, accountLedger);
+        String strResponse = OTAPI_Func.SendTransaction(theRequest, "PROCESS_INBOX");
+
+        if (null == strResponse) {
             System.out.println("IN processInbox: OTAPI_Func.SendTransaction(() failed. (I give up.) ");
             return false;
         }
@@ -669,35 +642,30 @@ public class OpenTransactionAccount extends Account {
         // Since we just processed the inbox, let's grab the latest versions
         // of these files.
         // UPDATE: the caller already does this, so I think it's redundant.
+        // UPDATE: I put it back in, except with a FORCE (true) so it definitely
+        // downloads.
+        // Update: removing again, though might add back in WITHOUT the force.
         //
-//      if (false == Utility.getIntermediaryFiles(serverID, nymID, accountID)) {
-//          System.out.println("processInbox: Error: getIntermediaryFiles returned false.");
-//          return false;
-//      }
+//        boolean isSuccess = Utility.getInboxOutboxAccount(accountID, true); // download the data.        
+//        if (false == Utility.getIntermediaryFiles(serverID, nymID, accountID, true)) {
+//        if (false == Utility.getIntermediaryFiles(serverID, nymID, accountID)) {
+//            System.out.println("processInbox: Error: getIntermediaryFiles returned false.");
+//            return false;
+//        }
         // -----------------------------------
-        
+
         return true;
     }
 
-    
-    
-    
-  
-    
-    
-
-    
-    
     // **********************************************************************
-    
-    
     public Map getInboxData(String accountID) throws InterruptedException {
 
         Map data = new HashMap();
 
-        if (null == accountID)
+        if (null == accountID) {
             return data;
-        
+        }
+
         String serverID = otapi.OT_API_GetAccountWallet_ServerID(accountID);
         String nymID = otapi.OT_API_GetAccountWallet_NymID(accountID);
 
@@ -713,11 +681,11 @@ public class OpenTransactionAccount extends Account {
         for (int i = 0; i < count; i++) {
 
             String transactionID = otapi.OT_API_Ledger_GetTransactionIDByIndex(serverID, nymID, accountID, ledger, i);
-            
-            
+
+
             String transaction = otapi.OT_API_Ledger_GetTransactionByIndex(serverID, nymID, accountID, ledger, i);
-            
-            
+
+
             if (transaction == null) {
                 System.out.println("Skip this record, since OT_API_Ledger_GetTransactionByIndex has returned null");
                 continue;
@@ -784,10 +752,10 @@ public class OpenTransactionAccount extends Account {
         Map data = new HashMap();
         String serverID = otapi.OT_API_GetAccountWallet_ServerID(accountID);
         String nymID = otapi.OT_API_GetAccountWallet_NymID(accountID);
-        
+
         // The caller now does this.
 //      Utility.getOutboxLowLevel(serverID, nymID, accountID);        
-        
+
         String ledger = otapi.OT_API_LoadOutbox(serverID, nymID, accountID);
 
         if (ledger == null) {
@@ -868,7 +836,7 @@ public class OpenTransactionAccount extends Account {
 
     }
 
-    private String getUser(String txnType, String serverID, String nymID, String accountID, String transaction) {
+    public String getUser(String txnType, String serverID, String nymID, String accountID, String transaction) {
 
         String user = "";
         if (txnType != null && "pending".equalsIgnoreCase(txnType)) {
@@ -884,7 +852,7 @@ public class OpenTransactionAccount extends Account {
 
     }
 
-    private String getAccount(String txnType, String serverID, String nymID, String accountID, String transaction) {
+    public String getAccount(String txnType, String serverID, String nymID, String accountID, String transaction) {
 
         String account = "";
         if (txnType != null && "pending".equalsIgnoreCase(txnType)) {
@@ -926,13 +894,12 @@ public class OpenTransactionAccount extends Account {
             }
         }
         // ----------------------------------------
-        OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.DEPOSIT_CASH, serverID, nymID, accountID, purse);
-        String      strResponse  = OTAPI_Func.SendTransaction(theRequest, "DEPOSIT_CASH"); // <========================
-        
-        if (null == strResponse)
-        {
+        OTAPI_Func theRequest = new OTAPI_Func(OTAPI_Func.FT.DEPOSIT_CASH, serverID, nymID, accountID, purse);
+        String strResponse = OTAPI_Func.SendTransaction(theRequest, "DEPOSIT_CASH"); // <========================
+
+        if (null == strResponse) {
             System.out.println("IN depositCash: OTAPI_Func.SendTransaction(() failed. (I give up.) ");
-            
+
             if (isToken) {
                 System.out.println("IN depositCash, failed action for single token");
                 String assetID = otapi.OT_API_GetAccountWallet_AssetTypeID(accountID);
@@ -954,8 +921,8 @@ public class OpenTransactionAccount extends Account {
         System.out.println("In withdrawVoucher serverID:" + serverID + " nymID:" + nymID + " acount ID:" + accountID);
 
         // ---------------------------------------------------
-        OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.WITHDRAW_VOUCHER, serverID, nymID, accountID, recepientNymID, chequeMemo, amount);
-        String      strResponse  = OTAPI_Func.SendTransaction(theRequest, "WITHDRAW_VOUCHER"); // <========================
+        OTAPI_Func theRequest = new OTAPI_Func(OTAPI_Func.FT.WITHDRAW_VOUCHER, serverID, nymID, accountID, recepientNymID, chequeMemo, amount);
+        String strResponse = OTAPI_Func.SendTransaction(theRequest, "WITHDRAW_VOUCHER"); // <========================
 
         if (null == strResponse) {
             System.out.println("OTAPI_Func.SendTransaction() failed, in withdrawVoucher.");
@@ -983,15 +950,14 @@ public class OpenTransactionAccount extends Account {
         String serverResponseMessage = null;
         System.out.println("In withdrawCash serverID:" + serverID + " nymID:" + nymID + " acount ID:" + accountID);
         String assetID = otapi.OT_API_GetAccountWallet_AssetTypeID(accountID);
-        
-        // ----------------------------------------        
-        String assetContract = otapi.OT_API_LoadAssetContract(assetID);        
-        if (assetContract == null) {
-            OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.GET_CONTRACT, serverID, nymID, assetID);
-            String      strResponse  = OTAPI_Func.SendRequest(theRequest, "GET_CONTRACT");
 
-            if (null == strResponse)
-            {
+        // ----------------------------------------        
+        String assetContract = otapi.OT_API_LoadAssetContract(assetID);
+        if (assetContract == null) {
+            OTAPI_Func theRequest = new OTAPI_Func(OTAPI_Func.FT.GET_CONTRACT, serverID, nymID, assetID);
+            String strResponse = OTAPI_Func.SendRequest(theRequest, "GET_CONTRACT");
+
+            if (null == strResponse) {
                 System.out.println("IN withdrawCash: OTAPI_Func.SendRequest(GET_CONTRACT) failed. (I give up.) (Unable to find asset contract.)");
                 return false;
             }
@@ -1007,11 +973,10 @@ public class OpenTransactionAccount extends Account {
         String mintFile = otapi.OT_API_LoadMint(serverID, assetID);
         if (mintFile == null) {
             // ----------------------------------------
-            OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.GET_MINT, serverID, nymID, assetID);
-            String      strResponse  = OTAPI_Func.SendRequest(theRequest, "GET_MINT");
+            OTAPI_Func theRequest = new OTAPI_Func(OTAPI_Func.FT.GET_MINT, serverID, nymID, assetID);
+            String strResponse = OTAPI_Func.SendRequest(theRequest, "GET_MINT");
 
-            if (null == strResponse)
-            {
+            if (null == strResponse) {
                 System.out.println("IN withdrawCash: OTAPI_Func.SendRequest(GET_MINT) failed. (I give up.) (Unable to find mint.)");
                 return false;
             }
@@ -1021,10 +986,10 @@ public class OpenTransactionAccount extends Account {
                 System.out.println("OT_API_LoadMint returned null even after OT_API_getContract (I give up.) (Unable to find mint.)");
                 return false;
             }
-        }        
+        }
         // ---------------------------------------------------
-        OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.WITHDRAW_CASH, serverID, nymID, accountID, amount);
-        String      strResponse  = OTAPI_Func.SendTransaction(theRequest, "WITHDRAW_CASH"); // <========================
+        OTAPI_Func theRequest = new OTAPI_Func(OTAPI_Func.FT.WITHDRAW_CASH, serverID, nymID, accountID, amount);
+        String strResponse = OTAPI_Func.SendTransaction(theRequest, "WITHDRAW_CASH"); // <========================
 
         if (null == strResponse) {
             System.out.println("OTAPI_Func.SendTransaction() failed, in withdrawCash.");
@@ -1039,10 +1004,10 @@ public class OpenTransactionAccount extends Account {
 
         boolean isSuccess = false;
         System.out.println("In sendTransfer serverID:" + serverID + " nymID:" + nymID + " acount ID:" + accountID);
-       
+
         // ---------------------------------------------------
-        OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.SEND_TRANSFER, serverID, nymID, accountID, recepientAccountID, amount, note);
-        String      strResponse  = OTAPI_Func.SendTransaction(theRequest, "SEND_TRANSFER"); // <========================
+        OTAPI_Func theRequest = new OTAPI_Func(OTAPI_Func.FT.SEND_TRANSFER, serverID, nymID, accountID, recepientAccountID, amount, note);
+        String strResponse = OTAPI_Func.SendTransaction(theRequest, "SEND_TRANSFER"); // <========================
 
         if (null == strResponse) {
             System.out.println("OTAPI_Func.SendTransaction() failed, in sendTransfer.");
@@ -1063,10 +1028,10 @@ public class OpenTransactionAccount extends Account {
     public boolean depositCheque(String serverID, String nymID, String accountID, String cheque) {
 
         System.out.println("In depositCheque serverID:" + serverID + " nymID:" + nymID + " acount ID:" + accountID);
-        
+
         // ---------------------------------------------------
-        OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.DEPOSIT_CHEQUE, serverID, nymID, accountID, cheque);
-        String      strResponse  = OTAPI_Func.SendTransaction(theRequest, "DEPOSIT_CHEQUE"); // <========================
+        OTAPI_Func theRequest = new OTAPI_Func(OTAPI_Func.FT.DEPOSIT_CHEQUE, serverID, nymID, accountID, cheque);
+        String strResponse = OTAPI_Func.SendTransaction(theRequest, "DEPOSIT_CHEQUE"); // <========================
 
         if (null == strResponse) {
             System.out.println("OTAPI_Func.SendTransaction() failed, in depositCheque.");
@@ -1080,15 +1045,15 @@ public class OpenTransactionAccount extends Account {
     public String writeCheque(String serverID, String nymID, String accountID, String validFrom, String validTo, String memo, String recepientNymID, String amount) {
         String cheque = "";
         System.out.println("In writeCheque serverID:" + serverID + " nymID:" + nymID);
-        
-        boolean bSure = true;	
+
+        boolean bSure = true;
         if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
-  	
+
             Utility.getTransactionNumbers(serverID, nymID);
             bSure = Utility.getTransactionNumbers(serverID, nymID);
         }
         if (!bSure || otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
-            System.out.println("IN writeCheque , failed to get transaction numbers, OT_API_GetNym_TransactionNumCount:" + otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID));
+            System.out.println("In writeCheque , failed to get transaction numbers, OT_API_GetNym_TransactionNumCount:" + otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID));
             return null;
         }
         System.out.println("validTo:" + validTo);
@@ -1126,6 +1091,4 @@ public class OpenTransactionAccount extends Account {
             return 1;
         }
     }
-
-    
 }

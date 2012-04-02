@@ -163,9 +163,7 @@ public class CustomTable extends JTable {
                     value = (String)this.getModel().getValueAt(rowIndex, 5);
                 }
                 if(this.getModel() instanceof NYMBoxTableModel){
-                    System.out.println("IN NYMBoxTableModel:"+(String)this.getModel().getValueAt(rowIndex, 4));
-                    System.out.println("IN NYMBoxTableModel:"+(String)this.getModel().getValueAt(rowIndex, 5));
-                    if(vColIndex==1)
+                   if(vColIndex==1)
                     value = (String)this.getModel().getValueAt(rowIndex, 4);
                     if(vColIndex==2)
                     value = (String)this.getModel().getValueAt(rowIndex, 5);

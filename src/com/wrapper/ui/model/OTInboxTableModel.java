@@ -97,25 +97,15 @@ package com.wrapper.ui.model;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Vector;
-import javax.swing.Action;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JCheckBox;
 import javax.swing.JTable;
-import javax.swing.RowSorter;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -220,6 +210,7 @@ public class OTInboxTableModel extends DefaultTableModel implements WrapperTable
     System.out.println("setValueAt:"+aValue+"row:"+row+" col:"+column);
     
     }*/
+    @Override
     public void setValue(Map values, final JTable inbox) {
 
         if (null == values)
