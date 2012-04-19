@@ -84,19 +84,19 @@ import java.util.List;
 import com.moneychanger.core.Account;
 import com.moneychanger.core.OpenTransactionAccount;
 import com.moneychanger.core.dataobjects.OTDetails;
-import com.wrapper.core.jni.AddressBook;
-import com.wrapper.core.jni.MarketList;
-import com.wrapper.core.jni.OTCallback;
-import com.wrapper.core.jni.OTCaller;
-import com.wrapper.core.jni.OfferListMarket;
-import com.wrapper.core.jni.OfferListNym;
-import com.wrapper.core.jni.Storable;
-import com.wrapper.core.jni.StoredObjectType;
-import com.wrapper.core.jni.StringMap;
-import com.wrapper.core.jni.TradeListMarket;
-import com.wrapper.core.jni.TradeListNym;
-import com.wrapper.core.jni.WalletData;
-import com.wrapper.core.jni.otapi;
+import org.ot.wrapper.jni.AddressBook;
+import org.ot.wrapper.jni.MarketList;
+import org.ot.wrapper.jni.OTCallback;
+import org.ot.wrapper.jni.OTCaller;
+import org.ot.wrapper.jni.OfferListMarket;
+import org.ot.wrapper.jni.OfferListNym;
+import org.ot.wrapper.jni.Storable;
+import org.ot.wrapper.jni.StoredObjectType;
+import org.ot.wrapper.jni.StringMap;
+import org.ot.wrapper.jni.TradeListMarket;
+import org.ot.wrapper.jni.TradeListNym;
+import org.ot.wrapper.jni.WalletData;
+import org.ot.wrapper.jni.otapi;
 import com.moneychanger.ui.Load;
 import com.moneychanger.ui.LoadState;
 import com.moneychanger.ui.MainPage;
@@ -1802,87 +1802,95 @@ public class Utility {
     }
 
     // DONE
-    public static boolean getTransactionNumbers(String serverID, String nymID) {
+    public static boolean getTransactionNumbers(String serverID, String nymID)
+    {
         return Utility.getTransactionNumbers(serverID, nymID, true); // bForceFirstCall == true (by default) but in special cases you can override it and set it to false.
     }
-
     public static boolean getTransactionNumbers(String serverID, String nymID, boolean bForceFirstCall) // defaults to true.
     {
-        // System.out.println("DEBUGGING -- 1.");
+// System.out.println("DEBUGGING -- 1.");
         //
-        OTBool bWasSent = new OTBool(false);
-        int nGetNumbers = -1;
-
-        if (bForceFirstCall) {
+        OTBool  bWasSent = new OTBool(false);
+        int     nGetNumbers = -1;
+        
+        if (bForceFirstCall)
             nGetNumbers = Utility.getTransactionNumLowLevel(serverID, nymID, bWasSent);   // <============ FIRST TRY
-        } else {
+        else
             nGetNumbers = -1;
-        }
+        
+// System.out.println("DEBUGGING -- 2.");
 
-        // System.out.println("DEBUGGING -- 2.");
-
-        if (!bForceFirstCall || // if the first call didn't happen, due to bForceFirstCall being false, that means the caller wants the rest of this to happen as though it did.  
-                (bWasSent.getBooleanValue() && (nGetNumbers >= 1))) {
-            // System.out.println("DEBUGGING -- 3.");
+        if ( !bForceFirstCall || // if the first call didn't happen, due to bForceFirstCall being false, that means the caller wants the rest of this to happen as though it did.  
+             (bWasSent.getBooleanValue() && (nGetNumbers >= 1)) ||
+            (!bWasSent.getBooleanValue() && (nGetNumbers == 0))
+                )
+        {
+                     // System.out.println("DEBUGGING -- 3.");
 
             // Because it was successful, we have to now SIGN FOR those numbers we requested.
             //
             int nProcess = Utility.getAndProcessNymbox(serverID, nymID, bWasSent, true); // bForceDownload=true
+            
+                     // System.out.println("DEBUGGING -- 4.");
 
-            // System.out.println("DEBUGGING -- 4.");
-
-            if ((bWasSent.getBooleanValue() && (1 == nProcess))
-                    || (!bWasSent.getBooleanValue() && (0 == nProcess))) {
-                // System.out.println("DEBUGGING -- 5.");
+            if (
+                    ( bWasSent.getBooleanValue() && (1 == nProcess)) ||
+                    (!bWasSent.getBooleanValue() && (0 == nProcess))
+               ) 
+            {
+                 // System.out.println("DEBUGGING -- 5.");
                 return true;
             }
-        } else if ((nGetNumbers < (-1)) || // If value is LESS THAN (-1) (which is an unexpected value)
-                !bWasSent.getBooleanValue()) // or if the getTransactionNum message WASN'T EVEN SENT, then return.
+        }
+        else if ((nGetNumbers < (-1)) ||         // If value is LESS THAN (-1) (which is an unexpected value)
+            !bWasSent.getBooleanValue())    // or if the getTransactionNum message WASN'T EVEN SENT, then return.
         {
-            // System.out.println("DEBUGGING -- 6.");
-
+             // System.out.println("DEBUGGING -- 6.");
+            
             System.out.println("Utility.getTransactionNumbers: Failure: Utility.getTransactionNumLowLevel returned unexpected value: " + nGetNumbers);
             return false;
-        } // -----------------------------------------------------------------
+        }
+        // -----------------------------------------------------------------
+
         // Below this point, the message WAS sent.  -1 is error, 0 is failure, >0 is success.
         // Now it's just about whether a reply was successful, or was even received.
         //
-        else if (((-1) == nGetNumbers) || // Message sent, but then error receiving or loading the reply.
-                ((0) == nGetNumbers)) // Received a reply, but status == failure on that reply.
+        else if (((-1) == nGetNumbers) ||   // Message sent, but then error receiving or loading the reply.
+                 (( 0) == nGetNumbers))     // Received a reply, but status == failure on that reply.
         {
-            // System.out.println("DEBUGGING -- 7.");
+// System.out.println("DEBUGGING -- 7.");
 
-            if ((-1) == nGetNumbers) {
+            if ((-1) == nGetNumbers)
                 System.out.println("Utility.getTransactionNumbers: FYI: Utility.getTransactionNumLowLevel did send, but returned error (-1). (Re-trying...)");
-            } else if ((0) == nGetNumbers) {
+            else if (( 0) == nGetNumbers)
                 System.out.println("Utility.getTransactionNumbers: FYI: Utility.getTransactionNumLowLevel did send, but returned failure (0). (Re-trying...)");
-            }
 
             // ---------------------------------
-            final int nGetRequest = Utility.getRequestNumber(serverID, nymID);
+            final int nGetRequest = Utility.getRequestNumber(serverID, nymID); 
+            
+// System.out.println("DEBUGGING -- 8.");
 
-            // System.out.println("DEBUGGING -- 8.");
-
-            if (1 != nGetRequest) {
-                System.out.println("Utility.getTransactionNumbers: Failure: Utility.getTransactionNumLowLevel failed, then "
-                        + "I tried to resync with getRequestNumber and then that failed too. (I give up.)");
-                return false;
-            }
-            // ---------------------------------
-
-            // System.out.println("DEBUGGING -- 9.");
-
-            OTBool bWasProcessSent = new OTBool(false);
-            OTBool bFoundNymboxItem = new OTBool(false);
-
-            final int nProcessNymbox = Utility.getAndProcessNymbox(serverID, nymID, bWasProcessSent, true);   //boolean bForceDownload=true
-
-            // System.out.println("DEBUGGING -- 10.");
-
-            if ((!bWasProcessSent.getBooleanValue() && ((nProcessNymbox < 0) || (nProcessNymbox > 1)))
-                    || (bWasProcessSent.getBooleanValue() && (nProcessNymbox != 1))) // -1 error, 0 failed (harvesting success), 1 success, >1 failed (harvesting NOT done) RequestNum is returned.
+            if (1 != nGetRequest)
             {
-                // System.out.println("DEBUGGING -- 11.");
+                System.out.println("Utility.getTransactionNumbers: Failure: Utility.getTransactionNumLowLevel failed, then " +
+                        "I tried to resync with getRequestNumber and then that failed too. (I give up.)");
+                return false;                
+            }
+            // ---------------------------------
+            
+// System.out.println("DEBUGGING -- 9.");
+
+            OTBool  bWasProcessSent  = new OTBool(false);            
+            OTBool  bFoundNymboxItem = new OTBool(false);    
+            
+            final int nProcessNymbox = Utility.getAndProcessNymbox(serverID, nymID, bWasProcessSent, true);   //boolean bForceDownload=true
+             
+// System.out.println("DEBUGGING -- 10.");
+
+            if ( (!bWasProcessSent.getBooleanValue() && ((nProcessNymbox  < 0) || (nProcessNymbox  > 1))) || 
+                 ( bWasProcessSent.getBooleanValue() && (nProcessNymbox  != 1)) ) // -1 error, 0 failed (harvesting success), 1 success, >1 failed (harvesting NOT done) RequestNum is returned.
+            {
+                         // System.out.println("DEBUGGING -- 11.");
 
                 // todo: if request num is returned probably don't have to do anything with it.
                 // Why not?  Because future processNymbox will iterate Nymbox and search for all found
@@ -1893,148 +1901,162 @@ public class Utility {
                 // there. Have it be smart enough to harvest all sent messages before flushing,
                 // 
                 //
-                if (bWasProcessSent.getBooleanValue() && nProcessNymbox > 1) {
-                    // System.out.println("DEBUGGING -- 12.");
+                if (bWasProcessSent.getBooleanValue() && nProcessNymbox > 1)
+                {
+                             // System.out.println("DEBUGGING -- 12.");
 
                     String strNymbox = otapi.OT_API_LoadNymboxNoVerify(serverID, nymID);      // FLUSH SENT MESSAGES!!!!  (AND HARVEST.)
 
-                    // System.out.println("DEBUGGING -- 13.");
+                             // System.out.println("DEBUGGING -- 13.");
 
                     // *******************************************************
-                    if (Utility.isValid(strNymbox)) {
-                        otapi.OT_API_FlushSentMessages(0, //harvesting for retry == OT_FALSE
-                                serverID,
-                                nymID,
-                                strNymbox);
-                    }
-                    // System.out.println("DEBUGGING -- 14.");
+                    if (Utility.isValid(strNymbox))
+                         otapi.OT_API_FlushSentMessages(0, //harvesting for retry == OT_FALSE
+                                                       serverID,
+                                                       nymID,
+                                                       strNymbox);                        
+                         // System.out.println("DEBUGGING -- 14.");
                 }
 
                 System.out.println("Utility.getTransactionNumbers: Failure: Utility.getAndProcessNymbox. Returned value: " + nProcessNymbox);
                 return false;
             }
-
-            // System.out.println("DEBUGGING -- 15.");
+            
+// System.out.println("DEBUGGING -- 15.");
 
             // -----------------------------------------------------------------
-
+            
             nGetNumbers = Utility.getTransactionNumLowLevel(serverID, nymID, bWasSent);  // <================= SECOND TRY
 
-            // System.out.println("DEBUGGING -- 16.");
+// System.out.println("DEBUGGING -- 16.");
 
             // -----------------------------------------------------------------
 
-            if (bWasSent.getBooleanValue() && (nGetNumbers >= 1)) {
-                // System.out.println("DEBUGGING -- 17.");
+            if ( ( bWasSent.getBooleanValue() && (nGetNumbers >=  1)) || // if message was sent, and was a success.
+                 (!bWasSent.getBooleanValue() && (nGetNumbers ==  0)) )  // Or if message wasn't sent due to "you already signed out too many numbers--you need to process your Nymbox..."
+            {
+// System.out.println("DEBUGGING -- 17.");
 
                 int nProcess = Utility.getAndProcessNymbox(serverID, nymID, bWasSent, true); // bForceDownload=true
+                            
+// System.out.println("DEBUGGING -- 18.");
 
-                // System.out.println("DEBUGGING -- 18.");
-
-                if ((bWasSent.getBooleanValue() && (1 == nProcess))
-                        || (!bWasSent.getBooleanValue() && (0 == nProcess))) {
-                    // System.out.println("DEBUGGING -- 19.");
+                if ( ( bWasSent.getBooleanValue() && (1 == nProcess)) ||
+                     (!bWasSent.getBooleanValue() && (0 == nProcess)) )
+                {
+// System.out.println("DEBUGGING -- 19.");
 
                     return true;
                 }
-            } else if ((nGetNumbers < (-1))
-                    || !bWasSent.getBooleanValue()) {
-                // System.out.println("DEBUGGING -- 20.");
+            }
+            else if ((nGetNumbers < (-1)) || 
+                (!bWasSent.getBooleanValue() && nGetNumbers != 0))
+            {
+// System.out.println("DEBUGGING -- 20.");
 
                 System.out.println("Utility.getTransactionNumbers: Failure: Utility.getTransactionNumLowLevel returned unexpected value: " + nGetNumbers);
                 return false;
-            } else if (((-1) == nGetNumbers)
-                    || ((0) == nGetNumbers)) {
-                // System.out.println("DEBUGGING -- 21.");
+            }
+            else if ( ((-1) == nGetNumbers) ||
+                      (( 0) == nGetNumbers) )   
+            {
+                         // System.out.println("DEBUGGING -- 21.");
 
-                if ((-1) == nGetNumbers) {
-                    System.out.println("Utility.getTransactionNumbers: Failure: Utility.getTransactionNumLowLevel did send, but returned error (-1), "
-                            + "even after syncing the request number successfully. (Giving up.)");
-                } else if ((0) == nGetNumbers) {
-                    System.out.println("Utility.getTransactionNumbers: Failure: Utility.getTransactionNumLowLevel did send, but returned failure (0), "
-                            + "even after syncing the request number successfully. (Giving up.)");
-                }
-
-
-                // System.out.println("DEBUGGING -- 22.");
+                if ((-1) == nGetNumbers)
+                    System.out.println("Utility.getTransactionNumbers: Failure: Utility.getTransactionNumLowLevel did send, but returned error (-1), " +
+                            "even after syncing the request number successfully. (Giving up.)");
+                else if (( 0) == nGetNumbers)
+                    System.out.println("Utility.getTransactionNumbers: Failure: Utility.getTransactionNumLowLevel did send, but returned failure (0), " +
+                            "even after syncing the request number successfully. (Giving up.)");
+                
+                
+                         // System.out.println("DEBUGGING -- 22.");
 
                 int nLast = Utility.getAndProcessNymbox(serverID, nymID, bWasProcessSent, true);   //boolean bForceDownload=true
-                if (((false == bWasProcessSent.getBooleanValue()) && ((nLast < 0) || (nLast > 1)))
-                        || ((true == bWasProcessSent.getBooleanValue()) && (nLast != 1))) // -1 error, 0 failed (harvesting success), 1 success, >1 failed (harvesting NOT done) RequestNum is returned.
+                if ( 
+                     ((false == bWasProcessSent.getBooleanValue()) && ((nLast  < 0) || (nLast  > 1))) || 
+                     ((true  == bWasProcessSent.getBooleanValue()) &&  (nLast != 1))
+                   ) // -1 error, 0 failed (harvesting success), 1 success, >1 failed (harvesting NOT done) RequestNum is returned.
                 {
+                    
+                             // System.out.println("DEBUGGING -- 23.");
 
-                    // System.out.println("DEBUGGING -- 23.");
-
-                    if (bWasProcessSent.getBooleanValue() && (nLast > 1)) {
-
-                        // System.out.println("DEBUGGING -- 24.");
+                    if (bWasProcessSent.getBooleanValue() && (nLast > 1))
+                    {
+                        
+                                // System.out.println("DEBUGGING -- 24.");
 
                         String strNymbox = otapi.OT_API_LoadNymboxNoVerify(serverID, nymID);      // FLUSH SENT MESSAGES!!!!  (AND HARVEST.)
 
-                        // System.out.println("DEBUGGING -- 25.");
+                                 // System.out.println("DEBUGGING -- 25.");
 
                         // *******************************************************
-                        if (Utility.isValid(strNymbox)) {
-                            otapi.OT_API_FlushSentMessages(0, //harvesting for retry == OT_FALSE
-                                    serverID,
-                                    nymID,
-                                    strNymbox);
-                        }
+                        if (Utility.isValid(strNymbox))
+                             otapi.OT_API_FlushSentMessages(0, //harvesting for retry == OT_FALSE
+                                                           serverID,
+                                                           nymID,
+                                                           strNymbox);                        
                     }
 
                     System.out.println("Utility.getTransactionNumbers: Failure: Utility.getAndProcessNymbox. Returned value: " + nLast);
                     return false;
                 }
-
-                // System.out.println("DEBUGGING -- 27.");
+                
+                         // System.out.println("DEBUGGING -- 27.");
 
                 nGetNumbers = Utility.getTransactionNumLowLevel(serverID, nymID, bWasSent);   // <============ FIRST TRY      
 
-                // System.out.println("DEBUGGING -- 28.");
+                         // System.out.println("DEBUGGING -- 28.");
 
-                if ((bWasSent.getBooleanValue() && (nGetNumbers >= 1))) {
-                    // System.out.println("DEBUGGING -- 29.");
+                if ( (bWasSent.getBooleanValue() && (nGetNumbers >= 1) ) 
+                        || 
+                   ((!bWasSent.getBooleanValue() && (nGetNumbers == 0) ) )
+                        )
+                {
+         // System.out.println("DEBUGGING -- 29.");
 
-
+        
                     int nProcess = Utility.getAndProcessNymbox(serverID, nymID, bWasSent, true); // bForceDownload=true
 
-
-                    // System.out.println("DEBUGGING -- 30.");
-
-
-                    if ((bWasSent.getBooleanValue() && (1 == nProcess))
-                            || (!bWasSent.getBooleanValue() && (0 == nProcess))) {
-                        // System.out.println("DEBUGGING -- 31.");
+                    
+         // System.out.println("DEBUGGING -- 30.");
+        
+                    
+                    if ( ( bWasSent.getBooleanValue() && (1 == nProcess)) ||
+                         (!bWasSent.getBooleanValue() && (0 == nProcess)) )
+                    {
+                                 // System.out.println("DEBUGGING -- 31.");
 
                         return true;
                     }
                 }
-                if ((nGetNumbers < (-1)) || // If value is LESS THAN (-1) (which is an unexpected value)
-                        !bWasSent.getBooleanValue()) // or if the getTransactionNum message WASN'T EVEN SENT, then return.
+                if ((nGetNumbers < (-1)) ||         // If value is LESS THAN (-1) (which is an unexpected value)
+                    !bWasSent.getBooleanValue())    // or if the getTransactionNum message WASN'T EVEN SENT, then return.
                 {
-                    // System.out.println("DEBUGGING -- 32.");
+                             // System.out.println("DEBUGGING -- 32.");
 
                     System.out.println("Utility.getTransactionNumbers: Failure: Utility.getTransactionNumLowLevel returned unexpected value: " + nGetNumbers);
                     return false;
-                }
+                }        
             }
         }
-
-        // System.out.println("DEBUGGING -- 33.");
+        
+                 // System.out.println("DEBUGGING -- 33.");
 
         // BY THIS POINT, we have SUCCESSFULLY sent the getTransactionNumLowLevel message,
         // and nGetNumbers contains its request number.
         // -----
-
+        
         // No need to read the result, as getTransactionNumLowLevel() already read it,
         // and and it's available anytime via Utility.getLastReplyReceived()
         // -------------------------------------------------------------------------
-
+        
         final String strLastReplyReceived = Utility.getLastReplyReceived();
 
-        if (!Utility.isValid(strLastReplyReceived)) {
-            System.out.println("Utility.getTransactionNumbers: "
-                    + "ERROR in Utility.getLastReplyReceived(): why was this string not set, when Utility.getRequestNumber was otherwise an apparent success?");
+        if (!Utility.isValid(strLastReplyReceived))
+        {
+            System.out.println("Utility.getTransactionNumbers: " +
+                    "ERROR in Utility.getLastReplyReceived(): why was this string not set, when Utility.getRequestNumber was otherwise an apparent success?");
             return false; // (SHOULD NEVER HAPPEN. This string is set in the getRequestNumber function.)
         }
         //-------------------------------------------------
@@ -2047,68 +2069,72 @@ public class Utility {
         // Grab the NymboxHash on the @getTransactionNum reply, and also the one I
         // already had on my client-side Nym... (So we can compare them.)
         //
-        final String strServerHash = otapi.OT_API_Message_GetNymboxHash(strLastReplyReceived);
-        final boolean bServerhash = Utility.isValid(strServerHash);
-        if (!bServerhash) {
-            System.out.println("Utility.getTransactionNumbers: Warning: Unable to retrieve server-side "
-                    + "NymboxHash from OT, from server @getTransactionNum reply:\n\n"
-                    + strLastReplyReceived);
+        final String  strServerHash = otapi.OT_API_Message_GetNymboxHash(strLastReplyReceived);
+        final boolean bServerhash   = Utility.isValid(strServerHash);
+        if (!bServerhash)
+        {
+            System.out.println("Utility.getTransactionNumbers: Warning: Unable to retrieve server-side " +
+                    "NymboxHash from OT, from server @getTransactionNum reply:\n\n" + 
+                    strLastReplyReceived);
 //            return false; 
         }
         //-------------------------------------------------                
-        final String strLocalHash = otapi.OT_API_GetNym_NymboxHash(serverID, nymID);
-        final boolean bLocalhash = Utility.isValid(strLocalHash);
-        if (!bLocalhash) {
-            System.out.println("Utility.getTransactionNumbers: Warning: Unable to retrieve client-side NymboxHash from OT, "
-                    + "for:\n serverID: " + serverID + "\n nymID: " + nymID);
+        final String strLocalHash  = otapi.OT_API_GetNym_NymboxHash(serverID, nymID);
+        final boolean bLocalhash   = Utility.isValid(strLocalHash);
+        if (!bLocalhash)
+        {
+            System.out.println("Utility.getTransactionNumbers: Warning: Unable to retrieve client-side NymboxHash from OT, " +
+                    "for:\n serverID: " + serverID + "\n nymID: " + nymID);
 //            return false; 
         }
         //-------------------------------------------------
 
-        if (!bServerhash || !bLocalhash
-                || (bServerhash && bLocalhash
-                && !strServerHash.equals(strLocalHash))) // the hashes don't match -- so let's definitely re-try to download the latest nymbox.
+        if (    !bServerhash || !bLocalhash ||
+                (bServerhash && bLocalhash &&
+                !strServerHash.equals(strLocalHash)) ) // the hashes don't match -- so let's definitely re-try to download the latest nymbox.
         {
             // the getRequest worked, and the server hashes don't match,
             // so let's get and process the Nymbox...
             //
+        
+                // System.out.println("DEBUGGING -- 34.");
 
-            // System.out.println("DEBUGGING -- 34.");
-
-
-            OTBool bWasProcessSent = new OTBool(false);
-            OTBool bFoundNymboxItem = new OTBool(false);
+                
+            OTBool  bWasProcessSent = new OTBool(false);     
+            OTBool  bFoundNymboxItem = new OTBool(false);
             final int nGetNymbox = Utility.getAndProcessNymbox(serverID, nymID, bWasProcessSent, true);   //boolean bForceDownload=true
 
-            if (((false == bWasProcessSent.getBooleanValue()) && ((nGetNymbox < 0) || (nGetNymbox > 1)))
-                    || ((true == bWasProcessSent.getBooleanValue()) && (nGetNymbox != 1))) // -1 error, 0 failed (harvesting success), 1 success, >1 failed (harvesting NOT done) RequestNum is returned.
-            {
-                if (nGetNymbox > 1) {
-                    String strNymbox = otapi.OT_API_LoadNymboxNoVerify(serverID, nymID);      // FLUSH SENT MESSAGES!!!!  (AND HARVEST.)
+            if ( ((false == bWasProcessSent.getBooleanValue()) && ((nGetNymbox  < 0) || (nGetNymbox  > 1))) || 
+                 ((true  == bWasProcessSent.getBooleanValue()) && (nGetNymbox != 1)) ) // -1 error, 0 failed (harvesting success), 1 success, >1 failed (harvesting NOT done) RequestNum is returned.
+            {                
+                    if (nGetNymbox > 1)
+                    {
+                        String strNymbox = otapi.OT_API_LoadNymboxNoVerify(serverID, nymID);      // FLUSH SENT MESSAGES!!!!  (AND HARVEST.)
 
-                    // *******************************************************
-                    if (Utility.isValid(strNymbox)) {
-                        otapi.OT_API_FlushSentMessages(0, //harvesting for retry == OT_FALSE
-                                serverID,
-                                nymID,
-                                strNymbox);
+                        // *******************************************************
+                        if (Utility.isValid(strNymbox))
+                             otapi.OT_API_FlushSentMessages(0, //harvesting for retry == OT_FALSE
+                                                           serverID,
+                                                           nymID,
+                                                           strNymbox);                        
                     }
-                }
-
+                
                 System.out.println("Utility.getTransactionNumbers: Failure: Utility.getAndProcessNymbox returned unexpected value: " + nGetNymbox);
                 return false;
-            } else if ((-1) == nGetNymbox) // we'll try re-syncing the request number, then try again.
+            }
+            else if ((-1) == nGetNymbox) // we'll try re-syncing the request number, then try again.
             {
                 System.out.println("Utility.getTransactionNumbers: Failure: Utility.getAndProcessNymbox returned -1, even after syncing the request number successfully. (Giving up.)");
                 return false;
             }
         }
 
-        // System.out.println("DEBUGGING -- 35.");
+               // System.out.println("DEBUGGING -- 35.");
 
         return true;
     }
     // -------------------------------
+
 
     public static String getCreditsFile(String fileName) {
         return otapi.QueryPlainString(fileName);
