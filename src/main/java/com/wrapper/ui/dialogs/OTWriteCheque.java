@@ -99,10 +99,10 @@ AK+ZirdWhhoHeWR1tAkN
  */
 package com.wrapper.ui.dialogs;
 
-import com.theotherbell.ui.DateField;
 import com.wrapper.core.NYM;
 import com.wrapper.core.OpenTransactionAccount;
 import com.wrapper.core.util.Utility;
+import com.wrapper.ui.custom.DateField;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.datatransfer.DataFlavor;
