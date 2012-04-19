@@ -166,6 +166,11 @@ public class PathDialog extends javax.swing.JDialog {
         jButton_Remove.setText(resourceMap.getString("jButton_Remove.text")); // NOI18N
         jButton_Remove.setActionCommand(resourceMap.getString("jButton_Remove.actionCommand")); // NOI18N
         jButton_Remove.setName("jButton_Remove"); // NOI18N
+        jButton_Remove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_RemoveActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
         gridBagConstraints.insets = new java.awt.Insets(3, 3, 24, 3);
