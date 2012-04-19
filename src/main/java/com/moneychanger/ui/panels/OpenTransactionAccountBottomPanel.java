@@ -1,0 +1,448 @@
+/************************************************************
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+ *                 M O N E Y C H A N G E R
+ *
+ *  Open Transactions:
+ *       Financial Cryptography and Digital Cash
+ *       Library, Protocol, API, Server, and GUI 
+ *    
+ *    	 -- Anonymous Numbered Accounts.
+ *    	 -- Untraceable Digital Cash.
+ *    	 -- Triple-Signed Receipts.
+ *    	 -- Cheques, Vouchers, Transfers, Inboxes.
+ *    	 -- Basket Currencies, Markets, Payment Plans.
+ *    	 -- Signed, XML, Ricardian-style Contracts.
+ *    
+ *  Copyright (C) 2010-2012 by "Fellow Traveler" (A pseudonym)
+ *
+ *  EMAIL:
+ *  FellowTraveler@rayservers.net
+ *  
+ *  FINGERPRINT:
+ *  9DD5 90EB 9292 4B48 0484  7910 0308 00ED F951 BB8E
+ *
+ *  BITCOIN:  1NtTPVVjDsUfDWybS4BwvHpG2pdS9RnYyQ
+ *
+ *  OFFICIAL PROJECT WIKI:
+ *  https://github.com/FellowTraveler/Moneychanger
+ *  https://github.com/FellowTraveler/Open-Transactions/wiki
+ *
+ *  WEBSITE:
+ *  http://www.OpenTransactions.org/
+ *    
+ *  Components and licensing:
+ *   -- Moneychanger..A Java client GUI.....LICENSE:.....GPLv3
+ *   -- OTLib.........A class library.......LICENSE:...LAGPLv3 
+ *   -- OT-API........A client API..........LICENSE:...LAGPLv3
+ *   -- testwallet....Command-line client...LICENSE:...LAGPLv3
+ *   -- OT-Server.....Server Application....LICENSE:....AGPLv3
+ *  Github.com/FellowTraveler/Open-Transactions/wiki/Components
+ *
+ *  All of the above OT components were designed and written by
+ *  Fellow Traveler, with the exception of Moneychanger, which
+ *  was contracted out to Vicky C (livewire_3001@yahoo.com).
+ *
+ *  -----------------------------------------------------
+ *
+ *   LICENSE:
+ *   This program is free software: you can redistribute it
+ *   and/or modify it under the terms of the GNU General
+ *   Public License as published by the Free Software
+ *   Foundation, either version 3 of the License, or (at your
+ *   option) any later version.
+ *
+ *   You should have received a copy of the GNU General
+ *   Public License along with this program.  If not, see:
+ *   http://www.gnu.org/licenses/
+ *
+ *   If you would like to use this software outside of the free
+ *   software license, please contact FellowTraveler.
+ *   (Unfortunately many will run anonymously and untraceably,
+ *   so who could really stop them?)
+ *   
+ *   DISCLAIMER:
+ *   This program is distributed in the hope that it will be
+ *   useful, but WITHOUT ANY WARRANTY; without even the implied
+ *   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+ *   PURPOSE.  See the GNU General Public License for more
+ *   details.
+ 
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.11 (Darwin)
+
+iQIcBAEBCAAGBQJOj7gfAAoJEAMIAO35UbuOs3sP/2rrjSdYu/AsXcgLK9/9CP4a
+lIJfw3KLvybKZjZW5r5j+4xUlCYIqPZSI66PGDChGPMPFcZQN6M4Ddpn9kbctymS
+sdTXvbdFhpbV6k2wSa1Fz97ygfXJc/7MDTmHYbZ53hVV8AoUBrCHWtVttkQD31o3
+Pn/qGmy+jOgTvjEXhjEpV66pDkMWze1SiI1MArHUziCYoxItuM45x0EfzwQIqlo3
+ku2R7rRTtqm47Dgea12psWrjbPS5XRL1Q8Hs38Z1J0JdFlfn6cJYe52Iiluzof6M
+kCLhy6FH8QfIADfrKkFP48EIhnVquDlkV9AlJ1r217K3cpK2jEjlZUnGBECMAMEo
+pSXXk1BLNgxsa4yaXCgHY92/MhgtcdCMLkcCq6MWUTGZsLGiWIiQGmO9mwBfNIlY
+SawlIviuS5DiE/D16A290Byxhha/5e144cIiKm27fSQra8eogUXNfZdZeuv6n69v
+t8QjeBjoLhe5/KnRNoGLpSXhPphsWLRSJBru77ZU2msHfmkNfcP2UoEUCfNTfTbE
+XpyRfeyRVowVKeKunV9KUSHgdD5wa6RUeyodAbaHvWrFpIpNkaFIP9OwhRULpjx0
+arwVNYucbX1qb2I8HBm2u+IRWQTONp74TFFjU0/CVAXu2DeJKY5mL4zDej35c5j9
+AK+ZirdWhhoHeWR1tAkN
+=RcXP
+-----END PGP SIGNATURE-----
+ **************************************************************/
+
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/*
+ * OpenTransactionAccountBottomPanel.java
+ *
+ * Created on 18 Mar, 2011, 8:55:00 AM
+ */
+package com.moneychanger.ui.panels;
+
+import com.moneychanger.core.OpenTransactionAccount;
+import com.moneychanger.core.dataobjects.OTDetails;
+import com.moneychanger.core.util.Utility;
+import com.moneychanger.ui.MainPage;
+import com.moneychanger.ui.dialogs.OTNotes;
+import com.moneychanger.ui.model.OTInboxTableModel;
+import com.moneychanger.ui.model.OTOutboxTableModel;
+import com.moneychanger.ui.model.OTReceiptTableModel;
+import java.awt.Cursor;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.TableColumn;
+
+/**
+ *
+ * @author Vicky C
+ */
+public class OpenTransactionAccountBottomPanel extends javax.swing.JPanel {
+
+    private static Map inbox;
+    private static Map outbox;
+    private static String accountID;
+
+    /** Creates new form OpenTransactionAccountBottomPanel */
+    public OpenTransactionAccountBottomPanel() {
+        initComponents();
+        setCustomProperties();
+    }
+
+    /** This method is called from within the constructor to
+     * initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is
+     * always regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane16 = new javax.swing.JScrollPane();
+        jTable6 = new com.moneychanger.ui.custom.CustomTable();
+        jButton1 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane14 = new javax.swing.JScrollPane();
+        jTable7 = new com.moneychanger.ui.custom.CustomTable();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane15 = new javax.swing.JScrollPane();
+        jTable8 = new javax.swing.JTable();
+        jButton8 = new javax.swing.JButton();
+
+        setName("Form"); // NOI18N
+
+        jTabbedPane1.setName("jTabbedPane1"); // NOI18N
+
+        jPanel1.setName("jPanel1"); // NOI18N
+
+        jScrollPane16.setName("jScrollPane16"); // NOI18N
+
+        jTable6.setModel(new com.moneychanger.ui.model.OTInboxTableModel());
+        jTable6.setName("jTable6"); // NOI18N
+        jTable6.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTable6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable6MouseClicked(evt);
+            }
+        });
+        jScrollPane16.setViewportView(jTable6);
+
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(OpenTransactionAccountBottomPanel.class);
+        jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
+        jButton1.setName("jButton1"); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane16, javax.swing.GroupLayout.DEFAULT_SIZE, 697, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(300, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(296, 296, 296))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jScrollPane16, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("INBOX", jPanel1);
+
+        jPanel3.setName("jPanel3"); // NOI18N
+
+        jScrollPane14.setName("jScrollPane14"); // NOI18N
+
+        jTable7.setModel(new com.moneychanger.ui.model.OTOutboxTableModel());
+        jTable7.setName("jTable7"); // NOI18N
+        jTable7.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTable7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable7MouseClicked(evt);
+            }
+        });
+        jScrollPane14.setViewportView(jTable7);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane14, javax.swing.GroupLayout.DEFAULT_SIZE, 697, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jScrollPane14, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("OUTBOX", jPanel3);
+
+        jPanel4.setName("jPanel4");
+
+        jScrollPane15.setName("jScrollPane15"); // NOI18N
+
+        jTable8.setModel(new com.moneychanger.ui.model.OTReceiptTableModel());
+        jTable8.setName("jTable8");
+        jTable8.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane15.setViewportView(jTable8);
+
+        jButton8.setName("jButton8"); // NOI18N
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(186, 186, 186)
+                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(470, Short.MAX_VALUE))
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jScrollPane15, javax.swing.GroupLayout.DEFAULT_SIZE, 697, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(226, 226, 226)
+                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addGap(8, 8, 8)
+                    .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(29, Short.MAX_VALUE)))
+        );
+
+        jTabbedPane1.addTab("RECEIPTS", jPanel4);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 702, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void jTable7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable7MouseClicked
+        System.out.println("Count:" + evt.getClickCount());
+        if (evt.getClickCount() == 2) {
+            String key = (String) jTable7.getModel().getValueAt(jTable7.getSelectedRow(), 7);
+            System.out.println("In outbox double clcik, key:" + key);
+            String[] row = (String[]) outbox.get(key);
+            if (row != null && "pending".equalsIgnoreCase(row[3])) {
+                System.out.println("In outbox double clcik, key:aaaaaaaaaa" + key);
+                OTNotes otNotes = new OTNotes(null, true, row[10]);
+                otNotes.setVisible(true);
+            }
+        }
+}//GEN-LAST:event_jTable7MouseClicked
+
+    private void jTable6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable6MouseClicked
+        System.out.println("Count:" + evt.getClickCount());
+        if (evt.getClickCount() == 2) {
+            String key = (String) jTable6.getModel().getValueAt(jTable6.getSelectedRow(), 9);
+            if (null == key) key = new String("");
+            System.out.println("In outbox double clcik, key:" + key);
+            String[] row = (String[]) inbox.get(key);
+            if (row != null && "pending".equalsIgnoreCase(row[3])) {
+                System.out.println("In inbox double clcik, key:aaaaaaaaaa" + key);
+                OTNotes otNotes = new OTNotes(null, true, row[10]);
+                otNotes.setVisible(true);
+            }
+        }
+    }//GEN-LAST:event_jTable6MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            OpenTransactionAccount openTransaction = new OpenTransactionAccount();
+            Map selectedIndices = new HashMap();
+            List finalReceiptRefNo = new ArrayList();
+            for (int i = 0; i < jTable6.getRowCount(); i++) {
+                String key = (String) jTable6.getModel().getValueAt(i, 9);
+                if (null == key) key = new String("");
+                if ((Boolean) jTable6.getModel().getValueAt(i, 7)) {
+                    selectedIndices.put(key, true);
+                }
+                if ((Boolean) jTable6.getModel().getValueAt(i, 8)) {
+                    selectedIndices.put(key, false);
+                }
+                if ("finalReceipt".equalsIgnoreCase((String) jTable6.getModel().getValueAt(i, 3)) && (Boolean) jTable6.getModel().getValueAt(i, 7)) {
+                    finalReceiptRefNo.add((String) jTable6.getModel().getValueAt(i, 1));
+                }
+            }
+            System.out.println("selectedIndices:" + selectedIndices.entrySet());
+            if (jTable6.getRowCount() < 1 || selectedIndices.size() < 1) {
+                JOptionPane.showMessageDialog(this, "Please check some transactions to process", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            for (int j = 0; j < finalReceiptRefNo.size(); j++) {
+                String referenceNo = (String) finalReceiptRefNo.get(j);
+                for (int i = 0; i < jTable6.getRowCount(); i++) {
+                    if (referenceNo.equals((String) jTable6.getModel().getValueAt(i, 1)) && !(Boolean) jTable6.getModel().getValueAt(i, 7)) {
+                        JOptionPane.showMessageDialog(this, "To close a finalReceipt, you must also close the other receipts that have the same reference number", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+
+                    }
+                }
+            }
+            setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            boolean success = openTransaction.processInbox(accountID, selectedIndices);
+            if (success) {
+                JOptionPane.showMessageDialog(this, "Inbox processed successfully", "Processing Success", JOptionPane.INFORMATION_MESSAGE);
+                Utility.reloadOTDetails(accountID);
+                MainPage.reLoadAccount();
+                Utility.setLoadNymTrades(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "Error in processing Inbox", "Server Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            setCursor(Cursor.getDefaultCursor());
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane14;
+    private javax.swing.JScrollPane jScrollPane15;
+    private javax.swing.JScrollPane jScrollPane16;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private static javax.swing.JTable jTable6;
+    private static javax.swing.JTable jTable7;
+    private static javax.swing.JTable jTable8;
+    // End of variables declaration//GEN-END:variables
+
+    private void setCustomProperties() {
+
+        int width = 120;
+
+        jTable6.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        TableColumn col = jTable6.getColumnModel().getColumn(4);
+
+        col.setPreferredWidth(width);
+
+        col = jTable6.getColumnModel().getColumn(5);
+        col.setPreferredWidth(width);
+
+        col = jTable6.getColumnModel().getColumn(6);
+        col.setPreferredWidth(180);
+
+        jTable7.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+        col = jTable7.getColumnModel().getColumn(4);
+        col.setPreferredWidth(80);
+
+        col = jTable7.getColumnModel().getColumn(4);
+        col.setPreferredWidth(width);
+
+        col = jTable7.getColumnModel().getColumn(5);
+        col.setPreferredWidth(width);
+
+
+        col = jTable7.getColumnModel().getColumn(6);
+        col.setPreferredWidth(150);
+
+        jTable8.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        col = jTable8.getColumnModel().getColumn(3);
+        col.setPreferredWidth(width);
+
+        col = jTable8.getColumnModel().getColumn(5);
+        col.setPreferredWidth(width);
+
+        // TODO Uncomment below when implementing RECEIPT
+        jTabbedPane1.remove(jPanel4);
+    }
+
+    public static void clearPanel() {
+        if (jTable6 != null && jTable7 != null && jTable8 != null) {
+            ((OTInboxTableModel) jTable6.getModel()).clearValue();
+            ((OTOutboxTableModel) jTable7.getModel()).clearValue();
+            ((OTReceiptTableModel) jTable8.getModel()).clearValue();
+        }
+    }
+
+    public static void setOTTables(Map inboxData, Map outboxData) {
+
+        inbox = inboxData;
+        outbox = outboxData;
+        ((OTInboxTableModel) jTable6.getModel()).setValue(inbox, jTable6);
+        ((OTOutboxTableModel) jTable7.getModel()).setValue(outbox, jTable7);
+        //((OTReceiptTableModel) jTable8.getModel()).setValue(otDetails.getReceiptData(),jTable8);
+    }
+
+    public static void populateOTDetails(OTDetails otDetails) {
+
+        inbox = otDetails.getInboxData();
+        outbox = otDetails.getOutboxData();
+        accountID = otDetails.getAccountID();
+        ((OTInboxTableModel) jTable6.getModel()).setValue(inbox, jTable6);
+        ((OTOutboxTableModel) jTable7.getModel()).setValue(outbox, jTable7);
+        //((OTReceiptTableModel) jTable8.getModel()).setValue(otDetails.getReceiptData(),jTable8);
+    }
+}
