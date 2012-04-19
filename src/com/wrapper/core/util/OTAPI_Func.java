@@ -984,7 +984,10 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
             // we already received the successful server reply, and OT's "ProcessServerReply"
             // already removed the sent message from the sent buffer (so no need to do that here.)
             
-//            System.out.println("SendRequestOnce(): OT_API_RemoveSentMessage: " + nRemoved);                    
+//          System.out.println("SendRequestOnce(): OT_API_RemoveSentMessage: " + nRemoved);
+            
+            return strReply;         
+            
         }
         // In this case we want to grab the Nymbox and see if the replyNotice is there.
         // If it IS, then OT server DEFINITELY replied to it (the MESSAGE was a success,
@@ -1067,7 +1070,7 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
         } // else if (bMsgAnyError || bMsgAnyFailure)
         // --------------------------------------------------------
 
-        return strReply;         
+        return null;         
     }
         
     
