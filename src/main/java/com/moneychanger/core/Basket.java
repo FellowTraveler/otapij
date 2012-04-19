@@ -89,10 +89,10 @@ AK+ZirdWhhoHeWR1tAkN
  **************************************************************/
 package com.moneychanger.core;
 
-import com.wrapper.core.jni.Storable;
-import com.wrapper.core.jni.StoredObjectType;
-import com.wrapper.core.jni.StringMap;
-import com.wrapper.core.jni.otapi;
+import org.ot.wrapper.jni.Storable;
+import org.ot.wrapper.jni.StoredObjectType;
+import org.ot.wrapper.jni.StringMap;
+import org.ot.wrapper.jni.otapi;
 import com.moneychanger.core.util.OTAPI_Func;
 import java.util.ArrayList;
 import java.util.HashMap;

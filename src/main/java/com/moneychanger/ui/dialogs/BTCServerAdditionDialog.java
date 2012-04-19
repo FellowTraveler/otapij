@@ -101,11 +101,11 @@ AK+ZirdWhhoHeWR1tAkN
 package com.moneychanger.ui.dialogs;
 
 import com.moneychanger.core.datastore.StorageHelper;
-import com.wrapper.core.jni.BitcoinServer;
-import com.wrapper.core.jni.Storage;
-import com.wrapper.core.jni.StoredObjectType;
-import com.wrapper.core.jni.WalletData;
-import com.wrapper.core.jni.otapi;
+import org.ot.wrapper.jni.BitcoinServer;
+import org.ot.wrapper.jni.Storage;
+import org.ot.wrapper.jni.StoredObjectType;
+import org.ot.wrapper.jni.WalletData;
+import org.ot.wrapper.jni.otapi;
 import com.moneychanger.core.util.Utility;
 import com.moneychanger.ui.MainPage;
 import java.util.HashMap;

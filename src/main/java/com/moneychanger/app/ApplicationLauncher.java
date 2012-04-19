@@ -92,7 +92,7 @@ AK+ZirdWhhoHeWR1tAkN
 package com.moneychanger.app;
 
 import com.moneychanger.core.util.ConfigBean;
-import com.wrapper.core.jni.otapi;
+import org.ot.wrapper.jni.otapi;
 import com.moneychanger.core.util.Utility;
 import com.moneychanger.ui.MainPage;
 import com.moneychanger.ui.Settings;

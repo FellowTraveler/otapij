@@ -5,17 +5,17 @@
 package com.moneychanger.ui;
 
 import com.moneychanger.core.util.ConfigBean;
+import com.moneychanger.core.util.JavaCallback;
 import com.moneychanger.core.util.Utility;
 import com.moneychanger.core.util.Utility.ReturnAction;
 import com.moneychanger.ui.LoadState.OutOfOrderException;
-import com.wrapper.core.jni.JavaCallback;
-import com.wrapper.core.jni.OTCaller;
-import com.wrapper.core.jni.otapi;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import javax.swing.AbstractListModel;
+import org.ot.wrapper.jni.OTCaller;
+import org.ot.wrapper.jni.otapi;
 
 /**
  *

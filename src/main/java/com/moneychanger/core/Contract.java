@@ -90,7 +90,7 @@ AK+ZirdWhhoHeWR1tAkN
 
 package com.moneychanger.core;
 
-import com.wrapper.core.jni.otapi;
+import org.ot.wrapper.jni.otapi;
 import com.moneychanger.core.util.OTAPI_Func;
 import java.util.HashMap;
 import java.util.Map;
