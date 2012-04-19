@@ -88,65 +88,49 @@ AK+ZirdWhhoHeWR1tAkN
 -----END PGP SIGNATURE-----
  **************************************************************/
 
-package com.wrapper.core.jni;
 
-import com.wrapper.core.jni.OTPassword;
-import com.wrapper.core.jni.OTCallback;
-import com.moneychanger.ui.dialogs.OTPasswordDialog;
-import com.moneychanger.ui.dialogs.OTPwdConfirmDialog;
 
-public class JavaCallback extends OTCallback {
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.moneychanger.ui.custom;
 
-    public JavaCallback() {
-        super();
-    }
+import com.moneychanger.core.util.Utility;
+import com.moneychanger.ui.Settings;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import org.jvnet.substance.SubstanceLookAndFeel;
+import org.jvnet.substance.SubstanceSliderUI;
+import org.jvnet.substance.api.SubstanceApi;
+import org.jvnet.substance.api.SubstanceSkin;
+import org.jvnet.substance.skin.SubstanceNebulaBrickWallLookAndFeel;
+import org.jvnet.substance.skin.SubstanceSaharaLookAndFeel;
 
-    public void runOne(String strDisplay, OTPassword theOutput) {
-        if (null == theOutput)
-        {
-            System.out.println("JavaCallback.runOne: Failure: theOutput variable (for password to be returned) is null!");
-            return;
+/**
+ *
+ * @author Vicky C
+ */
+public class MenuListener implements ActionListener {
+
+    public void actionPerformed(ActionEvent e) {
+        
+        String substanceClass = (String) CustomMenu.getClassName(e.getActionCommand().trim());
+        try {
+            Class obj = Class.forName(substanceClass);
+            SubstanceLookAndFeel laf = (SubstanceLookAndFeel) obj.newInstance();
+            Settings utility = (Settings)Utility.getObj();
+            
+            UIManager.setLookAndFeel(laf);
+            utility.repaint();
+           
+        } catch (Exception ex) {
+            Logger.getLogger(MenuListener.class.getName()).log(Level.SEVERE, null, ex);
         }
-        new OTPasswordDialog(null, true,strDisplay).setVisible(true);
-        OTPasswordDialog.getPassword(theOutput);
-    }
 
-    public void runTwo(String strDisplay, OTPassword theOutput) {
-	if (null == theOutput)
-	{
-            System.out.println("JavaCallback.runTwo: Failure: theOutput variable (for password to be returned) is null!");
-            return;
-	}		
-        new OTPwdConfirmDialog(null, true,strDisplay).setVisible(true);
-        OTPwdConfirmDialog.getPassword(theOutput);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

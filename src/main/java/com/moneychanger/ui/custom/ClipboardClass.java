@@ -88,65 +88,85 @@ AK+ZirdWhhoHeWR1tAkN
 -----END PGP SIGNATURE-----
  **************************************************************/
 
-package com.wrapper.core.jni;
 
-import com.wrapper.core.jni.OTPassword;
-import com.wrapper.core.jni.OTCallback;
-import com.moneychanger.ui.dialogs.OTPasswordDialog;
-import com.moneychanger.ui.dialogs.OTPwdConfirmDialog;
 
-public class JavaCallback extends OTCallback {
+/*
+ *To change this template, choose Tools | Templates
+ *and open the template in the editor.
+ */
+package com.moneychanger.ui.custom;
 
-    public JavaCallback() {
-        super();
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.ClipboardOwner;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JFrame;
+
+public class ClipboardClass extends JFrame implements ClipboardOwner {
+
+    private static Clipboard clipboard;
+
+    public Clipboard getClipboard() {
+        clipboard = getToolkit().getSystemClipboard ();
+        return clipboard;
     }
 
-    public void runOne(String strDisplay, OTPassword theOutput) {
-        if (null == theOutput)
-        {
-            System.out.println("JavaCallback.runOne: Failure: theOutput variable (for password to be returned) is null!");
-            return;
+    public static void setClipboard(Clipboard clipboard) {
+        ClipboardClass.clipboard = clipboard;
+    }
+    private static String sourceString;
+    private static String destinationString;
+
+    public String getDestinationString() {
+        return destinationString;
+    }
+
+    public void setDestinationString(String destinationString) {
+        this.destinationString = destinationString;
+    }
+
+    public String getSourceString() {
+        return sourceString;
+    }
+
+    public void setSourceString(String sourceString) {
+        this.sourceString = sourceString;
+    }
+
+    public ClipboardClass() {
+    }
+
+    public void lostOwnership(Clipboard parClipboard, Transferable parTransferable) {
+        System.out.println("Lost ownership");
+    }
+
+    class cmdCopyActionListener implements ActionListener {
+
+        public void actionPerformed(ActionEvent event) {
+            StringSelection fieldContent = new StringSelection(sourceString);
+            clipboard.setContents(fieldContent, ClipboardClass.this);
         }
-        new OTPasswordDialog(null, true,strDisplay).setVisible(true);
-        OTPasswordDialog.getPassword(theOutput);
     }
 
-    public void runTwo(String strDisplay, OTPassword theOutput) {
-	if (null == theOutput)
-	{
-            System.out.println("JavaCallback.runTwo: Failure: theOutput variable (for password to be returned) is null!");
-            return;
-	}		
-        new OTPwdConfirmDialog(null, true,strDisplay).setVisible(true);
-        OTPwdConfirmDialog.getPassword(theOutput);
+    class cmdPasteActionListener implements ActionListener {
+
+        public void actionPerformed(ActionEvent event) {
+
+            Transferable clipboardContent = clipboard.getContents(this);
+
+            if ((clipboardContent != null)
+                    && (clipboardContent.isDataFlavorSupported(DataFlavor.stringFlavor))) {
+                try {
+                    String tempString;
+                    tempString = (String) clipboardContent.getTransferData(DataFlavor.stringFlavor);
+                    destinationString = tempString;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

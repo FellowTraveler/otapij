@@ -88,65 +88,119 @@ AK+ZirdWhhoHeWR1tAkN
 -----END PGP SIGNATURE-----
  **************************************************************/
 
-package com.wrapper.core.jni;
 
-import com.wrapper.core.jni.OTPassword;
-import com.wrapper.core.jni.OTCallback;
-import com.moneychanger.ui.dialogs.OTPasswordDialog;
-import com.moneychanger.ui.dialogs.OTPwdConfirmDialog;
+package com.moneychanger.ui.model;
 
-public class JavaCallback extends OTCallback {
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
-    public JavaCallback() {
-        super();
-    }
+public class MarketOffersTableModel extends DefaultTableModel implements WrapperTableModel {
+        private String[] columnNames = {"ID","Type","Acct ID"};
+        private Object[][] data;
+        /*private Object[][] data = {
+	    {"Asset1","100"},
+	    {"Server2","200"},
+	    {"Server3","300"}
+	       };*/
 
-    public void runOne(String strDisplay, OTPassword theOutput) {
-        if (null == theOutput)
-        {
-            System.out.println("JavaCallback.runOne: Failure: theOutput variable (for password to be returned) is null!");
-            return;
+      public void setValue(Map values,JTable accountTable){
+
+       clearValue();
+       System.out.println("values.size():"+values.size());
+       Set set = values.keySet();
+       Iterator iterator = set.iterator();
+       int i=0;
+       data = new Object[values.size()][];
+       while(iterator.hasNext()){
+           String key = (String)iterator.next();
+           String[] row = (String[])values.get(key);
+           data[i] = row;
+           i++;
+       }
+
+       /*RowSorter<TableModel> sorter =
+             new TableRowSorter<TableModel>(this);
+           accountTable.setRowSorter(sorter);*/
+
+
+      fireTableDataChanged();
         }
-        new OTPasswordDialog(null, true,strDisplay).setVisible(true);
-        OTPasswordDialog.getPassword(theOutput);
+    @Override
+    public void setValueAt(Object aValue, int row, int column) {
+        if(row<0 || column<0)
+            return;
+        data[row][column] = aValue;
+        fireTableCellUpdated(row, column);
+    }
+        public int getColumnCount() {
+            return columnNames.length;
+        }
+
+        public int getRowCount() {
+            if(data!=null)
+            return data.length;
+            else
+                return 0;
+        }
+
+        public String getColumnName(int col) {
+            return columnNames[col];
+        }
+
+        public Object getValueAt(int row, int col) {
+
+            if(row>-1 && col>-1 && data!=null)
+                return data[row][col];
+            else
+                return null;
+        }
+
+        /*
+         * JTable uses this method to determine the default renderer/
+         * editor for each cell.  If we didn't implement this method,
+         * then the last column would contain text ("true"/"false"),
+         * rather than a check box.
+         */
+
+    @Override
+        public Class getColumnClass(int column) {
+               Class returnValue;
+               if ((column >= 0) && (column < getColumnCount())) {
+                 if(getValueAt(0, column)==null)
+                     return String.class;
+                 returnValue = getValueAt(0, column).getClass();
+               } else {
+                 returnValue = Object.class;
+               }
+               return returnValue;
+             }
+        /*
+         * Don't need to implement this method unless your table's
+         * editable.
+         */
+        public boolean isCellEditable(int row, int col) {
+
+                return false;
+
+        }
+
+    public void clearValue() {
+        data = null;
+        fireTableDataChanged();
     }
 
-    public void runTwo(String strDisplay, OTPassword theOutput) {
-	if (null == theOutput)
-	{
-            System.out.println("JavaCallback.runTwo: Failure: theOutput variable (for password to be returned) is null!");
-            return;
-	}		
-        new OTPwdConfirmDialog(null, true,strDisplay).setVisible(true);
-        OTPwdConfirmDialog.getPassword(theOutput);
+    public static void removeCols(JTable marketTable){
+
+        TableColumnModel tcm = marketTable.getColumnModel();
+        System.out.println("getColumnCount:" + tcm.getColumnCount());
+        if (tcm.getColumnCount() == 3) {
+            marketTable.removeColumn(tcm.getColumn(2));
+        }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

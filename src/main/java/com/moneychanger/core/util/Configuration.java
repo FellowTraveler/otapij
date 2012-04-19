@@ -68,7 +68,7 @@ Hash: SHA256
  *   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
  *   PURPOSE.  See the GNU General Public License for more
  *   details.
- 
+
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.11 (Darwin)
 
@@ -87,66 +87,88 @@ AK+ZirdWhhoHeWR1tAkN
 =RcXP
 -----END PGP SIGNATURE-----
  **************************************************************/
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.moneychanger.core.util;
 
-package com.wrapper.core.jni;
+/**
+ *
+ * @author Vicky C
+ */
+public class Configuration {
 
-import com.wrapper.core.jni.OTPassword;
-import com.wrapper.core.jni.OTCallback;
-import com.moneychanger.ui.dialogs.OTPasswordDialog;
-import com.moneychanger.ui.dialogs.OTPwdConfirmDialog;
+    private static long waitTime = 1;
+    private static int retryCount = 1;
+    private static int nbrTransactionCount = 10;
+    private static String rippleUsernameID = "username";
+    private static String ripplePasswordID = "password";
+    private static String loomPasswordID = "passphrase";
+    private static String imagePath = null;
 
-public class JavaCallback extends OTCallback {
-
-    public JavaCallback() {
-        super();
+    public static String getImagePath() {
+        return imagePath;
     }
 
-    public void runOne(String strDisplay, OTPassword theOutput) {
-        if (null == theOutput)
-        {
-            System.out.println("JavaCallback.runOne: Failure: theOutput variable (for password to be returned) is null!");
-            return;
-        }
-        new OTPasswordDialog(null, true,strDisplay).setVisible(true);
-        OTPasswordDialog.getPassword(theOutput);
+    public static void setImagePath(String imagePath) {
+        Configuration.imagePath = imagePath;
     }
 
-    public void runTwo(String strDisplay, OTPassword theOutput) {
-	if (null == theOutput)
-	{
-            System.out.println("JavaCallback.runTwo: Failure: theOutput variable (for password to be returned) is null!");
-            return;
-	}		
-        new OTPwdConfirmDialog(null, true,strDisplay).setVisible(true);
-        OTPwdConfirmDialog.getPassword(theOutput);
+    public static String getLoomPasswordID() {
+        return loomPasswordID;
+    }
+
+    public static void setLoomPasswordID(String loomPasswordID) {
+        Configuration.loomPasswordID = loomPasswordID;
+    }
+    private static String marketMaxDepth = "100";
+
+    public static String getMarketMaxDepth() {
+        return marketMaxDepth;
+    }
+
+    public static void setMarketMaxDepth(String marketMaxDepth) {
+        Configuration.marketMaxDepth = marketMaxDepth;
+    }
+
+    public static String getRipplePasswordID() {
+        return ripplePasswordID;
+    }
+
+    public static void setRipplePasswordID(String ripplePasswordID) {
+        Configuration.ripplePasswordID = ripplePasswordID;
+    }
+
+    public static String getRippleUsernameID() {
+        return rippleUsernameID;
+    }
+
+    public static void setRippleUsernameID(String rippleUsernameID) {
+        Configuration.rippleUsernameID = rippleUsernameID;
+    }
+
+    public static int getNbrTransactionCount() {
+        return nbrTransactionCount;
+    }
+
+    public static void setNbrTransactionCount(int nbrTransactionCount) {
+        Configuration.nbrTransactionCount = nbrTransactionCount;
+    }
+
+    public static int getRetryCount() {
+        return retryCount;
+    }
+
+    public static void setRetryCount(int retryCount) {
+        Configuration.retryCount = retryCount;
+    }
+
+    public static long getWaitTime() {
+        return waitTime;
+    }
+
+    public static void setWaitTime(long waitTime) {
+        Configuration.waitTime = waitTime;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

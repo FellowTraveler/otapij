@@ -88,65 +88,113 @@ AK+ZirdWhhoHeWR1tAkN
 -----END PGP SIGNATURE-----
  **************************************************************/
 
-package com.wrapper.core.jni;
+/*
+*To change this template, choose Tools | Templates
+*and open the template in the editor.
+ */
 
-import com.wrapper.core.jni.OTPassword;
-import com.wrapper.core.jni.OTCallback;
-import com.moneychanger.ui.dialogs.OTPasswordDialog;
-import com.moneychanger.ui.dialogs.OTPwdConfirmDialog;
+package com.moneychanger.ui.model;
 
-public class JavaCallback extends OTCallback {
+import java.util.List;
+import java.util.Map;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
-    public JavaCallback() {
-        super();
-    }
-
-    public void runOne(String strDisplay, OTPassword theOutput) {
-        if (null == theOutput)
-        {
-            System.out.println("JavaCallback.runOne: Failure: theOutput variable (for password to be returned) is null!");
-            return;
+public class ContactNymTableModel extends DefaultTableModel implements WrapperTableModel {
+        private String[] columnNames = {"Contact","ID"};
+        private Object[][] data;
+   
+      public void setValue(List values) {
+        clearValue();
+        data = new Object[values.size()][];
+        for (int i = 0; i < values.size(); i++) {
+            String[] row = (String[]) values.get(i);
+            data[i] = row;
         }
-        new OTPasswordDialog(null, true,strDisplay).setVisible(true);
-        OTPasswordDialog.getPassword(theOutput);
+
+        fireTableDataChanged();
     }
 
-    public void runTwo(String strDisplay, OTPassword theOutput) {
-	if (null == theOutput)
-	{
-            System.out.println("JavaCallback.runTwo: Failure: theOutput variable (for password to be returned) is null!");
+      public void setValue(Map values,JTable contactTable){
+
+       clearValue();
+      fireTableDataChanged();
+        }
+    @Override
+    public void setValueAt(Object aValue, int row, int column) {
+        if(row<0 || column<0)
             return;
-	}		
-        new OTPwdConfirmDialog(null, true,strDisplay).setVisible(true);
-        OTPwdConfirmDialog.getPassword(theOutput);
+        data[row][column] = aValue;
+        fireTableCellUpdated(row, column);
+    }
+        public int getColumnCount() {
+            return columnNames.length;
+        }
+
+        public int getRowCount() {
+            if(data!=null)
+            return data.length;
+            else
+                return 0;
+        }
+
+        public String getColumnName(int col) {
+            return columnNames[col];
+        }
+
+        public Object getValueAt(int row, int col) {
+
+            if(row>-1 && col>-1 && data!=null)
+                return data[row][col];
+            else
+                return null;
+        }
+
+        /*
+         * JTable uses this method to determine the default renderer/
+         * editor for each cell.  If we didn't implement this method,
+         * then the last column would contain text ("true"/"false"),
+         * rather than a check box.
+         */
+
+    @Override
+        public Class getColumnClass(int column) {
+               Class returnValue;
+               if ((column >= 0) && (column < getColumnCount())) {
+                 if(getValueAt(0, column)==null)
+                     return String.class;
+                 returnValue = getValueAt(0, column).getClass();
+               } else {
+                 returnValue = Object.class;
+               }
+               return returnValue;
+             }
+        /*
+         * Don't need to implement this method unless your table's
+         * editable.
+         */
+        public boolean isCellEditable(int row, int col) {
+
+                return false;
+
+        }
+
+    public void clearValue() {
+        data = null;
+        fireTableDataChanged();
+    }
+
+
+    public static void removeCols(JTable contactNymTable){
+
+        TableColumnModel tcm = contactNymTable.getColumnModel();
+        System.out.println("getColumnCount:" + tcm.getColumnCount());
+        if (tcm.getColumnCount() == 2) {
+            contactNymTable.removeColumn(tcm.getColumn(1));
+        }
+
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

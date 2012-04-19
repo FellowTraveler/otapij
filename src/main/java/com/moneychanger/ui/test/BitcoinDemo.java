@@ -88,65 +88,35 @@ AK+ZirdWhhoHeWR1tAkN
 -----END PGP SIGNATURE-----
  **************************************************************/
 
-package com.wrapper.core.jni;
 
-import com.wrapper.core.jni.OTPassword;
-import com.wrapper.core.jni.OTCallback;
-import com.moneychanger.ui.dialogs.OTPasswordDialog;
-import com.moneychanger.ui.dialogs.OTPwdConfirmDialog;
+package com.moneychanger.ui.test;
 
-public class JavaCallback extends OTCallback {
+import java.net.URISyntaxException;
+import org.json.JSONException;
+import ru.paradoxs.bitcoin.client.ServerInfo;
+import ru.paradoxs.bitcoin.http.HttpSession;
 
-    public JavaCallback() {
-        super();
-    }
 
-    public void runOne(String strDisplay, OTPassword theOutput) {
-        if (null == theOutput)
-        {
-            System.out.println("JavaCallback.runOne: Failure: theOutput variable (for password to be returned) is null!");
-            return;
-        }
-        new OTPasswordDialog(null, true,strDisplay).setVisible(true);
-        OTPasswordDialog.getPassword(theOutput);
-    }
 
-    public void runTwo(String strDisplay, OTPassword theOutput) {
-	if (null == theOutput)
-	{
-            System.out.println("JavaCallback.runTwo: Failure: theOutput variable (for password to be returned) is null!");
-            return;
-	}		
-        new OTPwdConfirmDialog(null, true,strDisplay).setVisible(true);
-        OTPwdConfirmDialog.getPassword(theOutput);
-    }
+/**
+ *
+ * @author waqqas
+ */
+public class BitcoinDemo {
+   private static HttpSession session;
+
+public static void main(String[] a) throws URISyntaxException, JSONException{
+    BitcoinClient bcc= new BitcoinClient("108.56.153.131", "test", "test");
+  // ru.paradoxs.bitcoin.client.TransactionInfo info = (ru.paradoxs.bitcoin.client.TransactionInfo) bcc.getTransaction("d9d87d0bdf38a426fe35f91e11b54992a7083357b6334deeefc933fb57520e9d");
+    bcc.getAccountList();
+  ServerInfo serv = (ServerInfo)  bcc.getServerInfo();
+  System.out.println("diff:"+serv.getDifficulty());
+System.out.println("bb:tt "+bcc.getBalance());
+//bcc.listTransactions();
+//
+System.out.println("TTT:"+bcc.getAccount("1Hi69mrM3iYr8kktFzjz67X22Njp9Rreuq"));
+//bcc.move("Label Testing", "", 25.04, 1, "Since account was created");
+//bcc.setAccountForAddress("1Hi69mrM3iYr8kktFzjz67X22Njp9Rreuq", "")
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}

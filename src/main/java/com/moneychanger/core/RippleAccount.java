@@ -88,65 +88,74 @@ AK+ZirdWhhoHeWR1tAkN
 -----END PGP SIGNATURE-----
  **************************************************************/
 
-package com.wrapper.core.jni;
+package com.moneychanger.core;
 
-import com.wrapper.core.jni.OTPassword;
-import com.wrapper.core.jni.OTCallback;
-import com.moneychanger.ui.dialogs.OTPasswordDialog;
-import com.moneychanger.ui.dialogs.OTPwdConfirmDialog;
+import com.wrapper.core.jni.RippleServer;
+import com.wrapper.core.jni.WalletData;
+import com.moneychanger.core.util.Configuration;
+import com.moneychanger.core.util.Utility;
 
-public class JavaCallback extends OTCallback {
+/**
+ *
+ * @author waqqas
+ */
+public class RippleAccount extends Account {
 
-    public JavaCallback() {
-        super();
+    @Override
+    public boolean createAccount() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public void runOne(String strDisplay, OTPassword theOutput) {
-        if (null == theOutput)
-        {
-            System.out.println("JavaCallback.runOne: Failure: theOutput variable (for password to be returned) is null!");
-            return;
+    @Override
+    public boolean deleteAccount(String accountID) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void editAccount() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void loadAccount(String assetID, String serverID, String nymID) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Object getAccountDetails(String accountID) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public boolean editLabel(String accountID, String newLabel) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public String[] loadServerDetails(String serverID){
+
+        String[] details = null;
+        WalletData walletData = Utility.getWalletData();
+        if (walletData == null) {
+            System.out.println("loadServerDetails - walletData returns null");
+            return null;
         }
-        new OTPasswordDialog(null, true,strDisplay).setVisible(true);
-        OTPasswordDialog.getPassword(theOutput);
-    }
+        for (int i = 0; i < walletData.GetRippleServerCount(); i++) {
+            RippleServer rippleServer = walletData.GetRippleServer(i);
+            if (rippleServer == null) {
+                continue;
+            }
+            System.out.println("serverID:" + serverID + " rippleServer.getServer_id():" + rippleServer.getServer_id());
+            if (serverID.equals(rippleServer.getServer_id())) {
+                details = new String[5];
+                details[0] = rippleServer.getServer_host()==null?"":rippleServer.getServer_host();
+                details[1] = rippleServer.getNamefield_id()==null || rippleServer.getNamefield_id().trim().length()<1 ?Configuration.getRippleUsernameID():rippleServer.getNamefield_id();
+                details[2] = rippleServer.getPassfield_id()==null || rippleServer.getPassfield_id().trim().length()<1 ?Configuration.getRipplePasswordID():rippleServer.getPassfield_id();
+                details[3] = rippleServer.getRipple_username()==null?"":rippleServer.getRipple_username();
+                details[4] = rippleServer.getRipple_password()==null?"":rippleServer.getRipple_password();
+                break;
+            }
+        }
 
-    public void runTwo(String strDisplay, OTPassword theOutput) {
-	if (null == theOutput)
-	{
-            System.out.println("JavaCallback.runTwo: Failure: theOutput variable (for password to be returned) is null!");
-            return;
-	}		
-        new OTPwdConfirmDialog(null, true,strDisplay).setVisible(true);
-        OTPwdConfirmDialog.getPassword(theOutput);
+        return details;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

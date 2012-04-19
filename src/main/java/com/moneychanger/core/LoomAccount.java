@@ -88,65 +88,62 @@ AK+ZirdWhhoHeWR1tAkN
 -----END PGP SIGNATURE-----
  **************************************************************/
 
-package com.wrapper.core.jni;
 
-import com.wrapper.core.jni.OTPassword;
-import com.wrapper.core.jni.OTCallback;
-import com.moneychanger.ui.dialogs.OTPasswordDialog;
-import com.moneychanger.ui.dialogs.OTPwdConfirmDialog;
 
-public class JavaCallback extends OTCallback {
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
-    public JavaCallback() {
-        super();
+package com.moneychanger.core;
+
+
+public class LoomAccount extends Account {
+
+    public LoomAccount() {
+
+        type="LoomAccount";
     }
 
-    public void runOne(String strDisplay, OTPassword theOutput) {
-        if (null == theOutput)
-        {
-            System.out.println("JavaCallback.runOne: Failure: theOutput variable (for password to be returned) is null!");
-            return;
-        }
-        new OTPasswordDialog(null, true,strDisplay).setVisible(true);
-        OTPasswordDialog.getPassword(theOutput);
+    @Override
+    public boolean createAccount() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public void runTwo(String strDisplay, OTPassword theOutput) {
-	if (null == theOutput)
-	{
-            System.out.println("JavaCallback.runTwo: Failure: theOutput variable (for password to be returned) is null!");
-            return;
-	}		
-        new OTPwdConfirmDialog(null, true,strDisplay).setVisible(true);
-        OTPwdConfirmDialog.getPassword(theOutput);
+    @Override
+    public boolean deleteAccount(String accountID) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    @Override
+    public void editAccount() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void getLoomAccountList() {
+
+    }
+
+    @Override
+    public void loadAccount(String assetID, String serverID, String nymID) {
+        //accountList.put("Loom1", new String[] {"loomlabel1","1000","LoomAccount","Loom1"});
+        System.out.println("In Loom load");
+        getLoomAccountList();
+    }
+
+    @Override
+    public Object getAccountDetails(String accountID) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public boolean editLabel(String accountID, String newLabel) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void setServerID(String serverID){
+        //setBTCClient(serverID);
+    }
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

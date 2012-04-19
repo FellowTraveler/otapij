@@ -88,65 +88,45 @@ AK+ZirdWhhoHeWR1tAkN
 -----END PGP SIGNATURE-----
  **************************************************************/
 
-package com.wrapper.core.jni;
+package com.moneychanger.core.dataobjects;
 
-import com.wrapper.core.jni.OTPassword;
-import com.wrapper.core.jni.OTCallback;
-import com.moneychanger.ui.dialogs.OTPasswordDialog;
-import com.moneychanger.ui.dialogs.OTPwdConfirmDialog;
+public class NymOfferDetails {
+private String price;
+private String minIncrement;
 
-public class JavaCallback extends OTCallback {
-
-    public JavaCallback() {
-        super();
+    public String getAssetsStillOnOffer() {
+        return assetsStillOnOffer;
     }
 
-    public void runOne(String strDisplay, OTPassword theOutput) {
-        if (null == theOutput)
-        {
-            System.out.println("JavaCallback.runOne: Failure: theOutput variable (for password to be returned) is null!");
-            return;
-        }
-        new OTPasswordDialog(null, true,strDisplay).setVisible(true);
-        OTPasswordDialog.getPassword(theOutput);
+    public void setAssetsStillOnOffer(String assetsStillOnOffer) {
+        this.assetsStillOnOffer = assetsStillOnOffer;
     }
 
-    public void runTwo(String strDisplay, OTPassword theOutput) {
-	if (null == theOutput)
-	{
-            System.out.println("JavaCallback.runTwo: Failure: theOutput variable (for password to be returned) is null!");
-            return;
-	}		
-        new OTPwdConfirmDialog(null, true,strDisplay).setVisible(true);
-        OTPwdConfirmDialog.getPassword(theOutput);
+    public String getMinIncrement() {
+        return minIncrement;
     }
+
+    public void setMinIncrement(String minIncrement) {
+        this.minIncrement = minIncrement;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getTotalAssetsOnOffer() {
+        return totalAssetsOnOffer;
+    }
+
+    public void setTotalAssetsOnOffer(String totalAssetsOnOffer) {
+        this.totalAssetsOnOffer = totalAssetsOnOffer;
+    }
+
+private String totalAssetsOnOffer;
+private String assetsStillOnOffer;
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

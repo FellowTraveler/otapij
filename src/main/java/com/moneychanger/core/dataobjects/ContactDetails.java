@@ -88,65 +88,76 @@ AK+ZirdWhhoHeWR1tAkN
 -----END PGP SIGNATURE-----
  **************************************************************/
 
-package com.wrapper.core.jni;
 
-import com.wrapper.core.jni.OTPassword;
-import com.wrapper.core.jni.OTCallback;
-import com.moneychanger.ui.dialogs.OTPasswordDialog;
-import com.moneychanger.ui.dialogs.OTPwdConfirmDialog;
+package com.moneychanger.core.dataobjects;
 
-public class JavaCallback extends OTCallback {
+import com.wrapper.core.jni.Contact;
+import java.util.List;
+import java.util.Map;
 
-    public JavaCallback() {
-        super();
+public class ContactDetails {
+
+    private List contactNyms;
+    private List contactAccts;
+    private Contact contact;
+
+    public Contact getContact() {
+        return contact;
     }
 
-    public void runOne(String strDisplay, OTPassword theOutput) {
-        if (null == theOutput)
-        {
-            System.out.println("JavaCallback.runOne: Failure: theOutput variable (for password to be returned) is null!");
-            return;
-        }
-        new OTPasswordDialog(null, true,strDisplay).setVisible(true);
-        OTPasswordDialog.getPassword(theOutput);
+    public void setContact(Contact contact) {
+        this.contact = contact;
     }
 
-    public void runTwo(String strDisplay, OTPassword theOutput) {
-	if (null == theOutput)
-	{
-            System.out.println("JavaCallback.runTwo: Failure: theOutput variable (for password to be returned) is null!");
-            return;
-	}		
-        new OTPwdConfirmDialog(null, true,strDisplay).setVisible(true);
-        OTPwdConfirmDialog.getPassword(theOutput);
+    public List getContactAccts() {
+        return contactAccts;
     }
+
+    public void setContactAccts(List contactAccts) {
+        this.contactAccts = contactAccts;
+    }
+
+    public List getContactNyms() {
+        return contactNyms;
+    }
+
+    public void setContactNyms(List contactNyms) {
+        this.contactNyms = contactNyms;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
+
+    public String getPublicKey() {
+        return publicKey;
+    }
+
+    public void setPublicKey(String publicKey) {
+        this.publicKey = publicKey;
+    }
+private String label;
+private String email;
+private String publicKey;
+private String memo;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

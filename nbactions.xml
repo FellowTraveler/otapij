@@ -7,7 +7,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2:exec</goal>
             </goals>
             <properties>
-                <exec.args>-classpath %classpath app.ApplicationLauncher</exec.args>
+                <exec.args>-classpath %classpath com.moneychanger.app.ApplicationLauncher</exec.args>
                 <exec.executable>java</exec.executable>
                 <exec.classpathScope>runtime</exec.classpathScope>
             </properties>

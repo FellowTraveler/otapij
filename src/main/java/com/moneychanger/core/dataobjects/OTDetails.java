@@ -88,65 +88,143 @@ AK+ZirdWhhoHeWR1tAkN
 -----END PGP SIGNATURE-----
  **************************************************************/
 
-package com.wrapper.core.jni;
 
-import com.wrapper.core.jni.OTPassword;
-import com.wrapper.core.jni.OTCallback;
-import com.moneychanger.ui.dialogs.OTPasswordDialog;
-import com.moneychanger.ui.dialogs.OTPwdConfirmDialog;
 
-public class JavaCallback extends OTCallback {
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
-    public JavaCallback() {
-        super();
+package com.moneychanger.core.dataobjects;
+
+import java.util.ArrayList;
+import java.util.Map;
+
+/**
+ *
+ * @author Vicky C
+ */
+public class OTDetails {
+
+    private String balance;
+    private String nymID;
+    private String nymName;
+    private String serverID;
+    private String serverName;
+    private String assetID;
+    private String assetName;
+    private String accountID;
+    private String accountName;
+    private String basketName;
+
+    public String getBasketName() {
+        return basketName;
     }
 
-    public void runOne(String strDisplay, OTPassword theOutput) {
-        if (null == theOutput)
-        {
-            System.out.println("JavaCallback.runOne: Failure: theOutput variable (for password to be returned) is null!");
-            return;
-        }
-        new OTPasswordDialog(null, true,strDisplay).setVisible(true);
-        OTPasswordDialog.getPassword(theOutput);
+    public void setBasketName(String basketName) {
+        this.basketName = basketName;
+    }
+    private Map inboxData;
+    private Map outboxData;
+
+    public Map getOutboxData() {
+        return outboxData;
     }
 
-    public void runTwo(String strDisplay, OTPassword theOutput) {
-	if (null == theOutput)
-	{
-            System.out.println("JavaCallback.runTwo: Failure: theOutput variable (for password to be returned) is null!");
-            return;
-	}		
-        new OTPwdConfirmDialog(null, true,strDisplay).setVisible(true);
-        OTPwdConfirmDialog.getPassword(theOutput);
+    public void setOutboxData(Map outboxData) {
+        this.outboxData = outboxData;
     }
+
+    public ArrayList getReceiptData() {
+        return receiptData;
+    }
+
+    public void setReceiptData(ArrayList receiptData) {
+        this.receiptData = receiptData;
+    }
+    private ArrayList receiptData;
+
+    public Map getInboxData() {
+        return inboxData;
+    }
+
+    public void setInboxData(Map inboxData) {
+        this.inboxData = inboxData;
+    }
+
+
+    public String getAccountID() {
+        return accountID;
+    }
+
+    public void setAccountID(String accountID) {
+        this.accountID = accountID;
+    }
+
+    public String getAccountName() {
+        return accountName;
+    }
+
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
+    }
+
+    public String getAssetID() {
+        return assetID;
+    }
+
+    public void setAssetID(String assetID) {
+        this.assetID = assetID;
+    }
+
+    public String getAssetName() {
+        return assetName;
+    }
+
+    public void setAssetName(String assetName) {
+        this.assetName = assetName;
+    }
+
+    public String getBalance() {
+        return balance;
+    }
+
+    public void setBalance(String balance) {
+        this.balance = balance;
+    }
+
+    public String getNymID() {
+        return nymID;
+    }
+
+    public void setNymID(String nymID) {
+        this.nymID = nymID;
+    }
+
+    public String getNymName() {
+        return nymName;
+    }
+
+    public void setNymName(String nymName) {
+        this.nymName = nymName;
+    }
+
+    public String getServerID() {
+        return serverID;
+    }
+
+    public void setServerID(String serverID) {
+        this.serverID = serverID;
+    }
+
+    public String getServerName() {
+        return serverName;
+    }
+
+    public void setServerName(String serverName) {
+        this.serverName = serverName;
+    }
+    
+
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -88,65 +88,99 @@ AK+ZirdWhhoHeWR1tAkN
 -----END PGP SIGNATURE-----
  **************************************************************/
 
-package com.wrapper.core.jni;
 
-import com.wrapper.core.jni.OTPassword;
-import com.wrapper.core.jni.OTCallback;
-import com.moneychanger.ui.dialogs.OTPasswordDialog;
-import com.moneychanger.ui.dialogs.OTPwdConfirmDialog;
 
-public class JavaCallback extends OTCallback {
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
-    public JavaCallback() {
-        super();
-    }
+package com.moneychanger.ui.model;
 
-    public void runOne(String strDisplay, OTPassword theOutput) {
-        if (null == theOutput)
-        {
-            System.out.println("JavaCallback.runOne: Failure: theOutput variable (for password to be returned) is null!");
-            return;
+import java.util.List;
+import java.util.Map;
+import javax.swing.JTable;
+import javax.swing.table.AbstractTableModel;
+
+/**
+ *
+ * @author Vicky C
+ */
+public class OTReceiptTableModel extends AbstractTableModel implements WrapperTableModel {
+        private String[] columnNames = {"Txn #","Reference #","Amount","Type","From/To", "Timestamp"};
+        private Object[][] data = null;
+
+        public int getColumnCount() {
+            return columnNames.length;
         }
-        new OTPasswordDialog(null, true,strDisplay).setVisible(true);
-        OTPasswordDialog.getPassword(theOutput);
+
+        public int getRowCount() {
+             if(data==null)
+                return 0;
+            return data.length;
+        }
+
+        public String getColumnName(int col) {
+            return columnNames[col];
+        }
+
+        public Object getValueAt(int row, int col) {
+            if(data==null)
+                return null;
+            return data[row][col];
+        }
+
+        /*
+         * JTable uses this method to determine the default renderer/
+         * editor for each cell.  If we didn't implement this method,
+         * then the last column would contain text ("true"/"false"),
+         * rather than a check box.
+         */
+        @Override
+        public Class getColumnClass(int column) {
+               Class returnValue;
+               if ((column >= 0) && (column < getColumnCount())) {
+                 if(getValueAt(0, column)==null)
+                     return String.class;
+                 returnValue = getValueAt(0, column).getClass();
+               } else {
+                 returnValue = Object.class;
+               }
+               return returnValue;
+             }
+
+        /*
+         * Don't need to implement this method unless your table's
+         * editable.
+         */
+        public boolean isCellEditable(int row, int col) {
+
+                return true;
+
+        }
+
+    public void setValue(List values) {
+        data = new Object[values.size()][];
+        for(int i=0;i<values.size();i++){
+            String[] row = (String[]) values.get(i);
+            data [i] = row;
+        }
+
+        fireTableDataChanged();
     }
 
-    public void runTwo(String strDisplay, OTPassword theOutput) {
-	if (null == theOutput)
-	{
-            System.out.println("JavaCallback.runTwo: Failure: theOutput variable (for password to be returned) is null!");
-            return;
-	}		
-        new OTPwdConfirmDialog(null, true,strDisplay).setVisible(true);
-        OTPwdConfirmDialog.getPassword(theOutput);
+    public void clearValue() {
+        data = null;
+        fireTableDataChanged();
     }
+
+    public void setValue(Map values, JTable jtable) {
+        
+    }
+
+
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -6,20 +6,20 @@ Hash: SHA256
  *
  *  Open Transactions:
  *       Financial Cryptography and Digital Cash
- *       Library, Protocol, API, Server, and GUI 
- *    
+ *       Library, Protocol, API, Server, and GUI
+ *
  *    	 -- Anonymous Numbered Accounts.
  *    	 -- Untraceable Digital Cash.
  *    	 -- Triple-Signed Receipts.
  *    	 -- Cheques, Vouchers, Transfers, Inboxes.
  *    	 -- Basket Currencies, Markets, Payment Plans.
  *    	 -- Signed, XML, Ricardian-style Contracts.
- *    
+ *
  *  Copyright (C) 2010-2012 by "Fellow Traveler" (A pseudonym)
  *
  *  EMAIL:
  *  FellowTraveler@rayservers.net
- *  
+ *
  *  FINGERPRINT:
  *  9DD5 90EB 9292 4B48 0484  7910 0308 00ED F951 BB8E
  *
@@ -31,10 +31,10 @@ Hash: SHA256
  *
  *  WEBSITE:
  *  http://www.OpenTransactions.org/
- *    
+ *
  *  Components and licensing:
  *   -- Moneychanger..A Java client GUI.....LICENSE:.....GPLv3
- *   -- OTLib.........A class library.......LICENSE:...LAGPLv3 
+ *   -- OTLib.........A class library.......LICENSE:...LAGPLv3
  *   -- OT-API........A client API..........LICENSE:...LAGPLv3
  *   -- testwallet....Command-line client...LICENSE:...LAGPLv3
  *   -- OT-Server.....Server Application....LICENSE:....AGPLv3
@@ -61,14 +61,14 @@ Hash: SHA256
  *   software license, please contact FellowTraveler.
  *   (Unfortunately many will run anonymously and untraceably,
  *   so who could really stop them?)
- *   
+ *
  *   DISCLAIMER:
  *   This program is distributed in the hope that it will be
  *   useful, but WITHOUT ANY WARRANTY; without even the implied
  *   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
  *   PURPOSE.  See the GNU General Public License for more
  *   details.
- 
+
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.11 (Darwin)
 
@@ -88,65 +88,21 @@ AK+ZirdWhhoHeWR1tAkN
 -----END PGP SIGNATURE-----
  **************************************************************/
 
-package com.wrapper.core.jni;
 
-import com.wrapper.core.jni.OTPassword;
-import com.wrapper.core.jni.OTCallback;
-import com.moneychanger.ui.dialogs.OTPasswordDialog;
-import com.moneychanger.ui.dialogs.OTPwdConfirmDialog;
+package com.moneychanger.ui.custom;
 
-public class JavaCallback extends OTCallback {
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-    public JavaCallback() {
-        super();
+/**
+ *
+ * @author Vicky C
+ */
+public class PaymentInboxRightClickListener  implements ActionListener {
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        System.out.println(" Execute :"+ae.getActionCommand());
     }
 
-    public void runOne(String strDisplay, OTPassword theOutput) {
-        if (null == theOutput)
-        {
-            System.out.println("JavaCallback.runOne: Failure: theOutput variable (for password to be returned) is null!");
-            return;
-        }
-        new OTPasswordDialog(null, true,strDisplay).setVisible(true);
-        OTPasswordDialog.getPassword(theOutput);
-    }
-
-    public void runTwo(String strDisplay, OTPassword theOutput) {
-	if (null == theOutput)
-	{
-            System.out.println("JavaCallback.runTwo: Failure: theOutput variable (for password to be returned) is null!");
-            return;
-	}		
-        new OTPwdConfirmDialog(null, true,strDisplay).setVisible(true);
-        OTPwdConfirmDialog.getPassword(theOutput);
-    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

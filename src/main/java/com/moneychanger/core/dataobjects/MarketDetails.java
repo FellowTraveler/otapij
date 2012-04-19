@@ -88,65 +88,146 @@ AK+ZirdWhhoHeWR1tAkN
 -----END PGP SIGNATURE-----
  **************************************************************/
 
-package com.wrapper.core.jni;
+package com.moneychanger.core.dataobjects;
 
-import com.wrapper.core.jni.OTPassword;
-import com.wrapper.core.jni.OTCallback;
-import com.moneychanger.ui.dialogs.OTPasswordDialog;
-import com.moneychanger.ui.dialogs.OTPwdConfirmDialog;
+import java.util.List;
+import java.util.Map;
 
-public class JavaCallback extends OTCallback {
+public class MarketDetails {
 
-    public JavaCallback() {
-        super();
+    private MarketTicker marketTicker;
+    private String assetTypeName;
+    private String assetTypeID;
+    private String currencyName;
+    private String currencyID;
+    private String serverName;
+    private String totalAssets;
+
+    public String getNbrAsks() {
+        return nbrAsks;
     }
 
-    public void runOne(String strDisplay, OTPassword theOutput) {
-        if (null == theOutput)
-        {
-            System.out.println("JavaCallback.runOne: Failure: theOutput variable (for password to be returned) is null!");
-            return;
-        }
-        new OTPasswordDialog(null, true,strDisplay).setVisible(true);
-        OTPasswordDialog.getPassword(theOutput);
+    public void setNbrAsks(String nbrAsks) {
+        this.nbrAsks = nbrAsks;
     }
 
-    public void runTwo(String strDisplay, OTPassword theOutput) {
-	if (null == theOutput)
-	{
-            System.out.println("JavaCallback.runTwo: Failure: theOutput variable (for password to be returned) is null!");
-            return;
-	}		
-        new OTPwdConfirmDialog(null, true,strDisplay).setVisible(true);
-        OTPwdConfirmDialog.getPassword(theOutput);
+    public String getNbrBids() {
+        return nbrBids;
+    }
+
+    public void setNbrBids(String nbrBids) {
+        this.nbrBids = nbrBids;
+    }
+
+    public String getTotalAssets() {
+        return totalAssets;
+    }
+
+    public void setTotalAssets(String totalAssets) {
+        this.totalAssets = totalAssets;
+    }
+    private String nbrBids;
+    private String nbrAsks;
+
+    public Map getMarketAsk() {
+        return marketAsk;
+    }
+
+    public void setMarketAsk(Map marketAsk) {
+        this.marketAsk = marketAsk;
+    }
+
+    public Map getMarketBid() {
+        return marketBid;
+    }
+
+    public void setMarketBid(Map marketBid) {
+        this.marketBid = marketBid;
+    }
+
+    public List getMarketRecentTrades() {
+        return marketRecentTrades;
+    }
+
+    public void setMarketRecentTrades(List marketRecentTrades) {
+        this.marketRecentTrades = marketRecentTrades;
+    }
+
+    public Map getNymOffers() {
+        return nymOffers;
+    }
+
+    public void setNymOffers(Map nymOffers) {
+        this.nymOffers = nymOffers;
+    }
+    private Map marketBid;
+    private Map marketAsk;
+    private List marketRecentTrades;
+    private Map nymOffers;
+
+    public String getAssetTypeID() {
+        return assetTypeID;
+    }
+
+    public void setAssetTypeID(String assetTypeID) {
+        this.assetTypeID = assetTypeID;
+    }
+
+    public String getAssetTypeName() {
+        return assetTypeName;
+    }
+
+    public void setAssetTypeName(String assetTypeName) {
+        this.assetTypeName = assetTypeName;
+    }
+
+    public String getCurrencyID() {
+        return currencyID;
+    }
+
+    public void setCurrencyID(String currencyID) {
+        this.currencyID = currencyID;
+    }
+
+    public String getCurrencyName() {
+        return currencyName;
+    }
+
+    public void setCurrencyName(String currencyName) {
+        this.currencyName = currencyName;
+    }
+
+    public String getGranularity() {
+        return granularity;
+    }
+
+    public void setGranularity(String granularity) {
+        this.granularity = granularity;
+    }
+
+    public String getServerID() {
+        return serverID;
+    }
+
+    public void setServerID(String serverID) {
+        this.serverID = serverID;
+    }
+
+    public String getServerName() {
+        return serverName;
+    }
+
+    public void setServerName(String serverName) {
+        this.serverName = serverName;
+    }
+    private String serverID;
+    private String granularity;
+
+    public MarketTicker getMarketTicker() {
+        return marketTicker;
+    }
+
+    public void setMarketTicker(MarketTicker marketTicker) {
+        this.marketTicker = marketTicker;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

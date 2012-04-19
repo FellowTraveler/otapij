@@ -8,12 +8,12 @@ Hash: SHA256
  *       Financial Cryptography and Digital Cash
  *       Library, Protocol, API, Server, and GUI 
  *    
- *    	 -- Anonymous Numbered Accounts.
- *    	 -- Untraceable Digital Cash.
- *    	 -- Triple-Signed Receipts.
- *    	 -- Cheques, Vouchers, Transfers, Inboxes.
- *    	 -- Basket Currencies, Markets, Payment Plans.
- *    	 -- Signed, XML, Ricardian-style Contracts.
+ *       -- Anonymous Numbered Accounts.
+ *       -- Untraceable Digital Cash.
+ *       -- Triple-Signed Receipts.
+ *       -- Cheques, Vouchers, Transfers, Inboxes.
+ *       -- Basket Currencies, Markets, Payment Plans.
+ *       -- Signed, XML, Ricardian-style Contracts.
  *    
  *  Copyright (C) 2010-2012 by "Fellow Traveler" (A pseudonym)
  *
@@ -88,65 +88,58 @@ AK+ZirdWhhoHeWR1tAkN
 -----END PGP SIGNATURE-----
  **************************************************************/
 
-package com.wrapper.core.jni;
 
-import com.wrapper.core.jni.OTPassword;
-import com.wrapper.core.jni.OTCallback;
-import com.moneychanger.ui.dialogs.OTPasswordDialog;
-import com.moneychanger.ui.dialogs.OTPwdConfirmDialog;
+package com.moneychanger.core;
 
-public class JavaCallback extends OTCallback {
+import java.util.HashMap;
+import java.util.Map;
 
-    public JavaCallback() {
-        super();
+public abstract class Account {
+
+    protected String type;
+    protected String label;
+    protected String amount;
+    protected String key;
+    protected static  Map    accountList = new HashMap();
+    protected static  Map    accountListOT = new HashMap();
+
+
+    public static final String[] allAccounts;
+
+    static{
+        allAccounts = new String[]{"OpenTransactionAccount","CashPurseAccount","BitcoinAccount","LoomAccount","RippleAccount","TruledgerAccount","PKTPAccount"};
     }
 
-    public void runOne(String strDisplay, OTPassword theOutput) {
-        if (null == theOutput)
-        {
-            System.out.println("JavaCallback.runOne: Failure: theOutput variable (for password to be returned) is null!");
-            return;
-        }
-        new OTPasswordDialog(null, true,strDisplay).setVisible(true);
-        OTPasswordDialog.getPassword(theOutput);
+    
+    public abstract boolean createAccount();
+
+    public abstract  boolean deleteAccount(String accountID) throws Exception;
+
+    public abstract  void editAccount();
+
+    public abstract void loadAccount(String assetID,String serverID,String nymID) throws Exception;
+
+    public abstract Object getAccountDetails(String accountID);
+
+    public abstract boolean editLabel(String accountID,String newLabel);
+
+    public void setServerID(String serverID){
+
     }
 
-    public void runTwo(String strDisplay, OTPassword theOutput) {
-	if (null == theOutput)
-	{
-            System.out.println("JavaCallback.runTwo: Failure: theOutput variable (for password to be returned) is null!");
-            return;
-	}		
-        new OTPwdConfirmDialog(null, true,strDisplay).setVisible(true);
-        OTPwdConfirmDialog.getPassword(theOutput);
+    public Map getAccountList(){
+        return accountList;
     }
+    public Map getOTAccountList(){
+        return accountListOT;
+    }
+
+    public void clearOTAccountList(){
+        accountListOT.clear();
+    }
+
+    public void clearAccountList(){
+        accountList.clear();
+    }
+    
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

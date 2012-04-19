@@ -8,12 +8,12 @@ Hash: SHA256
  *       Financial Cryptography and Digital Cash
  *       Library, Protocol, API, Server, and GUI 
  *    
- *    	 -- Anonymous Numbered Accounts.
- *    	 -- Untraceable Digital Cash.
- *    	 -- Triple-Signed Receipts.
- *    	 -- Cheques, Vouchers, Transfers, Inboxes.
- *    	 -- Basket Currencies, Markets, Payment Plans.
- *    	 -- Signed, XML, Ricardian-style Contracts.
+ *       -- Anonymous Numbered Accounts.
+ *       -- Untraceable Digital Cash.
+ *       -- Triple-Signed Receipts.
+ *       -- Cheques, Vouchers, Transfers, Inboxes.
+ *       -- Basket Currencies, Markets, Payment Plans.
+ *       -- Signed, XML, Ricardian-style Contracts.
  *    
  *  Copyright (C) 2010-2012 by "Fellow Traveler" (A pseudonym)
  *
@@ -88,65 +88,90 @@ AK+ZirdWhhoHeWR1tAkN
 -----END PGP SIGNATURE-----
  **************************************************************/
 
-package com.wrapper.core.jni;
 
-import com.wrapper.core.jni.OTPassword;
-import com.wrapper.core.jni.OTCallback;
-import com.moneychanger.ui.dialogs.OTPasswordDialog;
-import com.moneychanger.ui.dialogs.OTPwdConfirmDialog;
+package com.moneychanger.app;
 
-public class JavaCallback extends OTCallback {
+import com.wrapper.core.jni.otapi;
+import com.moneychanger.core.util.Utility;
+import com.moneychanger.ui.MainPage;
+import com.moneychanger.ui.Settings;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import org.jdesktop.application.Application;
+import org.jdesktop.application.SingleFrameApplication;
+import org.jvnet.substance.SubstanceLookAndFeel;
+import org.jvnet.substance.skin.SubstanceModerateLookAndFeel;
+import org.jvnet.substance.skin.SubstanceSaharaLookAndFeel;
 
-    public JavaCallback() {
-        super();
-    }
+/**
+ * The main class of the application.
+ */
+public class ApplicationLauncher extends SingleFrameApplication {
 
-    public void runOne(String strDisplay, OTPassword theOutput) {
-        if (null == theOutput)
-        {
-            System.out.println("JavaCallback.runOne: Failure: theOutput variable (for password to be returned) is null!");
-            return;
+    /**
+     * At startup create and show the main frame of the application.
+     */
+    @Override
+    protected void startup() {
+        try {
+            //show(new DesktopApplication1View(this));
+            SwingUtilities.invokeLater(new Runnable() {
+
+                @Override
+                public void run() {
+                    try {
+
+                        /**
+                         * Comment below 2 lines to restore the default
+                         * look and feel.
+                         */
+                        /*SubstanceLookAndFeel laf = new SubstanceModerateLookAndFeel();
+                        UIManager.setLookAndFeel(laf);
+
+                        Utility.setObj(laf);*/
+
+                        new Settings().setVisible(true);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+            });
+
+
+
+        } catch (Exception ex) {
+            Logger.getLogger(ApplicationLauncher.class.getName()).log(Level.SEVERE, null, ex);
         }
-        new OTPasswordDialog(null, true,strDisplay).setVisible(true);
-        OTPasswordDialog.getPassword(theOutput);
     }
 
-    public void runTwo(String strDisplay, OTPassword theOutput) {
-	if (null == theOutput)
-	{
-            System.out.println("JavaCallback.runTwo: Failure: theOutput variable (for password to be returned) is null!");
-            return;
-	}		
-        new OTPwdConfirmDialog(null, true,strDisplay).setVisible(true);
-        OTPwdConfirmDialog.getPassword(theOutput);
+    /**
+     * This method is to initialize the specified window by injecting resources.
+     * Windows shown in our application come fully initialized from the GUI
+     * builder, so this additional configuration is not needed.
+     */
+    @Override
+    protected void configureWindow(java.awt.Window root) {
+    }
+
+    /**
+     * A convenient static getter for the application instance.
+     * @return the instance of ApplicationLauncher
+     */
+    public static ApplicationLauncher getApplication() {
+        return Application.getInstance(ApplicationLauncher.class);
+    }
+
+    /**
+     * Main method launching the application.
+     */
+    public static void main(String[] args) throws UnsupportedLookAndFeelException {
+
+        launch(ApplicationLauncher.class, args);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -88,65 +88,125 @@ AK+ZirdWhhoHeWR1tAkN
 -----END PGP SIGNATURE-----
  **************************************************************/
 
-package com.wrapper.core.jni;
+package com.moneychanger.ui.model;
 
-import com.wrapper.core.jni.OTPassword;
-import com.wrapper.core.jni.OTCallback;
-import com.moneychanger.ui.dialogs.OTPasswordDialog;
-import com.moneychanger.ui.dialogs.OTPwdConfirmDialog;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+import javax.swing.JTable;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableColumnModel;
 
-public class JavaCallback extends OTCallback {
+public class OtherTabServerTableModel extends AbstractTableModel implements WrapperTableModel {
 
-    public JavaCallback() {
-        super();
+    private String[] columnNames = {"Server List", "Type", "ID"};
+    private Object[][] data = null;
+
+    public int getColumnCount() {
+        return columnNames.length;
     }
 
-    public void runOne(String strDisplay, OTPassword theOutput) {
-        if (null == theOutput)
-        {
-            System.out.println("JavaCallback.runOne: Failure: theOutput variable (for password to be returned) is null!");
-            return;
+    public int getRowCount() {
+        if (data == null) {
+            return 0;
         }
-        new OTPasswordDialog(null, true,strDisplay).setVisible(true);
-        OTPasswordDialog.getPassword(theOutput);
+        return data.length;
     }
 
-    public void runTwo(String strDisplay, OTPassword theOutput) {
-	if (null == theOutput)
-	{
-            System.out.println("JavaCallback.runTwo: Failure: theOutput variable (for password to be returned) is null!");
-            return;
-	}		
-        new OTPwdConfirmDialog(null, true,strDisplay).setVisible(true);
-        OTPwdConfirmDialog.getPassword(theOutput);
+    public String getColumnName(int col) {
+        return columnNames[col];
+    }
+
+    public Object getValueAt(int row, int col) {
+        if (data == null) {
+            return null;
+        }
+        if (row == -1 || col == -1) {
+            return null;
+        }
+        return data[row][col];
+    }
+
+    /*
+     * JTable uses this method to determine the default renderer/
+     * editor for each cell.  If we didn't implement this method,
+     * then the last column would contain text ("true"/"false"),
+     * rather than a check box.
+     */
+    @Override
+    public Class getColumnClass(int column) {
+        Class returnValue;
+        if ((column >= 0) && (column < getColumnCount())) {
+            if (getValueAt(0, column) == null) {
+                return String.class;
+            }
+            returnValue = getValueAt(0, column).getClass();
+        } else {
+            returnValue = Object.class;
+        }
+        return returnValue;
+    }
+
+    /*
+     * Don't need to implement this method unless your table's
+     * editable.
+     */
+    public boolean isCellEditable(int row, int col) {
+
+        return false;
+
+    }
+
+    public void setValue(Map values) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void clearValue() {
+        data = null;
+        fireTableDataChanged();
+    }
+
+    public void setValue(Map values, JTable serverTable) {
+
+        clearValue();
+        Set set = values.keySet();
+        Iterator iterator = set.iterator();
+        int i = 0;
+        data = new Object[values.size()][];
+        while (iterator.hasNext()) {
+            String key = (String) iterator.next();
+            String[] rowData = new String[2];
+            rowData = (String[]) values.get(key);
+            data[i] = rowData;
+            i++;
+        }
+
+
+        /*RowSorter<TableModel> sorter =
+        new TableRowSorter<TableModel>(this);
+        nymTable.setRowSorter(sorter);*/
+
+       /* TableColumnModel tcm = serverTable.getColumnModel();
+        System.out.println("getColumnCount:" + tcm.getColumnCount());
+        if (tcm.getColumnCount() == 3) {
+            serverTable.removeColumn(tcm.getColumn(2));
+        }
+        if (tcm.getColumnCount() == 2) {
+            serverTable.removeColumn(tcm.getColumn(1));
+        }*/
+        fireTableDataChanged();
+    }
+
+    public static void removeCols(JTable serverTable){
+
+        TableColumnModel tcm = serverTable.getColumnModel();
+        System.out.println("getColumnCount:" + tcm.getColumnCount());
+        if (tcm.getColumnCount() == 3) {
+            serverTable.removeColumn(tcm.getColumn(2));
+        }
+        if (tcm.getColumnCount() == 2) {
+            serverTable.removeColumn(tcm.getColumn(1));
+        }
+        
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

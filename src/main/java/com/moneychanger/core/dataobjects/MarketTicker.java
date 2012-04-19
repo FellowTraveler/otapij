@@ -88,65 +88,57 @@ AK+ZirdWhhoHeWR1tAkN
 -----END PGP SIGNATURE-----
  **************************************************************/
 
-package com.wrapper.core.jni;
 
-import com.wrapper.core.jni.OTPassword;
-import com.wrapper.core.jni.OTCallback;
-import com.moneychanger.ui.dialogs.OTPasswordDialog;
-import com.moneychanger.ui.dialogs.OTPwdConfirmDialog;
 
-public class JavaCallback extends OTCallback {
 
-    public JavaCallback() {
-        super();
+package com.moneychanger.core.dataobjects;
+
+public class MarketTicker {
+
+    private String lastPrice;
+    private String highPrice;
+    private String lowPrice;
+
+    public String getHighPrice() {
+        return highPrice;
     }
 
-    public void runOne(String strDisplay, OTPassword theOutput) {
-        if (null == theOutput)
-        {
-            System.out.println("JavaCallback.runOne: Failure: theOutput variable (for password to be returned) is null!");
-            return;
-        }
-        new OTPasswordDialog(null, true,strDisplay).setVisible(true);
-        OTPasswordDialog.getPassword(theOutput);
+    public void setHighPrice(String highPrice) {
+        this.highPrice = highPrice;
     }
 
-    public void runTwo(String strDisplay, OTPassword theOutput) {
-	if (null == theOutput)
-	{
-            System.out.println("JavaCallback.runTwo: Failure: theOutput variable (for password to be returned) is null!");
-            return;
-	}		
-        new OTPwdConfirmDialog(null, true,strDisplay).setVisible(true);
-        OTPwdConfirmDialog.getPassword(theOutput);
+    public String getHighestBid() {
+        return highestBid;
     }
+
+    public void setHighestBid(String highestBid) {
+        this.highestBid = highestBid;
+    }
+
+    public String getLastPrice() {
+        return lastPrice;
+    }
+
+    public void setLastPrice(String lastPrice) {
+        this.lastPrice = lastPrice;
+    }
+
+    public String getLowPrice() {
+        return lowPrice;
+    }
+
+    public void setLowPrice(String lowPrice) {
+        this.lowPrice = lowPrice;
+    }
+
+    public String getLowestAsk() {
+        return lowestAsk;
+    }
+
+    public void setLowestAsk(String lowestAsk) {
+        this.lowestAsk = lowestAsk;
+    }
+    private String highestBid;
+    private String lowestAsk;
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

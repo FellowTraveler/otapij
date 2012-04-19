@@ -88,65 +88,103 @@ AK+ZirdWhhoHeWR1tAkN
 -----END PGP SIGNATURE-----
  **************************************************************/
 
-package com.wrapper.core.jni;
+package com.moneychanger.core.helper.bitcoin;
 
-import com.wrapper.core.jni.OTPassword;
-import com.wrapper.core.jni.OTCallback;
-import com.moneychanger.ui.dialogs.OTPasswordDialog;
-import com.moneychanger.ui.dialogs.OTPwdConfirmDialog;
+public class TransactionInfo {
 
-public class JavaCallback extends OTCallback {
+    private String category;
+    private double amount;
+    private double fee;
+    private long confirmations;
+    private String txId;
+    private String otherAccount;
+    private String message;
+    private String to;
+    private String address;
+    private long timestamp;
 
-    public JavaCallback() {
-        super();
+    public String getAddress() {
+        return address;
     }
 
-    public void runOne(String strDisplay, OTPassword theOutput) {
-        if (null == theOutput)
-        {
-            System.out.println("JavaCallback.runOne: Failure: theOutput variable (for password to be returned) is null!");
-            return;
-        }
-        new OTPasswordDialog(null, true,strDisplay).setVisible(true);
-        OTPasswordDialog.getPassword(theOutput);
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public void runTwo(String strDisplay, OTPassword theOutput) {
-	if (null == theOutput)
-	{
-            System.out.println("JavaCallback.runTwo: Failure: theOutput variable (for password to be returned) is null!");
-            return;
-	}		
-        new OTPwdConfirmDialog(null, true,strDisplay).setVisible(true);
-        OTPwdConfirmDialog.getPassword(theOutput);
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public String getCategory() {
+        return this.category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public double getAmount() {
+        return this.amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public double getFee() {
+        return this.fee;
+    }
+
+    public void setFee(double fee) {
+        this.fee = fee;
+    }
+
+    public long getConfirmations() {
+        return this.confirmations;
+    }
+
+    public void setConfirmations(long confirmations) {
+        this.confirmations = confirmations;
+    }
+
+    public String getTxId() {
+        return this.txId;
+    }
+
+    public void setTxId(String txId) {
+        this.txId = txId;
+    }
+
+    public String getOtherAccount() {
+        return this.otherAccount;
+    }
+
+    public void setOtherAccount(String otherAccount) {
+        this.otherAccount = otherAccount;
+    }
+
+    public String getMessage() {
+        return this.message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getTo() {
+        return this.to;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
+    }
+
+    @Override
+    public String toString() {
+        return "TransactionInfo{category='" + this.category + '\'' + ", amount=" + this.amount + ", fee=" + this.fee + ", confirmations=" + this.confirmations + ", txId='" + this.txId + '\'' + ", otherAccount='" + this.otherAccount + '\'' + ", message='" + this.message + '\'' + ", to='" + this.to + '\'' + '}';
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

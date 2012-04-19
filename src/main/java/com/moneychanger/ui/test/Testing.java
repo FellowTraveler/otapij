@@ -88,65 +88,46 @@ AK+ZirdWhhoHeWR1tAkN
 -----END PGP SIGNATURE-----
  **************************************************************/
 
-package com.wrapper.core.jni;
 
-import com.wrapper.core.jni.OTPassword;
-import com.wrapper.core.jni.OTCallback;
+package com.moneychanger.ui.test;
+
+import com.moneychanger.core.util.Utility;
 import com.moneychanger.ui.dialogs.OTPasswordDialog;
-import com.moneychanger.ui.dialogs.OTPwdConfirmDialog;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class JavaCallback extends OTCallback {
 
-    public JavaCallback() {
-        super();
+public class Testing {
+public static void main(String a[]){
+
+    String   amount = "-123";
+          amount = amount.substring(1, amount.length());
+System.out.println("amount:"+amount);
+
+   Object data[][] ={{"dddd","cdcdcd"},{"dddd1","cdcdcd2"}};
+     for (int i = 0; i < data.length; i++) {
+                            Object[] row = (Object[]) data[i];
+                            System.out.println("row:"+row[1].toString());
     }
 
-    public void runOne(String strDisplay, OTPassword theOutput) {
-        if (null == theOutput)
-        {
-            System.out.println("JavaCallback.runOne: Failure: theOutput variable (for password to be returned) is null!");
-            return;
+
+        System.out.println("Hi1111.......");
+        String aa = " 5 Gold";
+        String splitted[] = aa.split(" ");
+        for(int i=0;i<splitted.length;i++){
+
+        System.out.println("spli:"+splitted[i]+"i:"+i);
         }
-        new OTPasswordDialog(null, true,strDisplay).setVisible(true);
-        OTPasswordDialog.getPassword(theOutput);
-    }
+        /*try {
+            Utility.delay();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Testing.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("H21111.......");/*
 
-    public void runTwo(String strDisplay, OTPassword theOutput) {
-	if (null == theOutput)
-	{
-            System.out.println("JavaCallback.runTwo: Failure: theOutput variable (for password to be returned) is null!");
-            return;
-	}		
-        new OTPwdConfirmDialog(null, true,strDisplay).setVisible(true);
-        OTPwdConfirmDialog.getPassword(theOutput);
-    }
+       // Get this string from a modal.
+       /*String strPassword = null;
+       new OTPasswordDialog(null, true).setVisible(true);
+       strPassword = OTPasswordDialog.getPassword();*/
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}

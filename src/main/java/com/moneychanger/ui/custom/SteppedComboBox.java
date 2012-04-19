@@ -88,65 +88,100 @@ AK+ZirdWhhoHeWR1tAkN
 -----END PGP SIGNATURE-----
  **************************************************************/
 
-package com.wrapper.core.jni;
 
-import com.wrapper.core.jni.OTPassword;
-import com.wrapper.core.jni.OTCallback;
-import com.moneychanger.ui.dialogs.OTPasswordDialog;
-import com.moneychanger.ui.dialogs.OTPwdConfirmDialog;
 
-public class JavaCallback extends OTCallback {
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
-    public JavaCallback() {
-        super();
-    }
+package com.moneychanger.ui.custom;
 
-    public void runOne(String strDisplay, OTPassword theOutput) {
-        if (null == theOutput)
-        {
-            System.out.println("JavaCallback.runOne: Failure: theOutput variable (for password to be returned) is null!");
-            return;
+import java.awt.Dimension;
+import java.awt.Rectangle;
+import java.util.Vector;
+import javax.swing.ComboBoxModel;
+import javax.swing.JComboBox;
+import javax.swing.plaf.basic.BasicComboPopup;
+import javax.swing.plaf.basic.ComboPopup;
+import javax.swing.plaf.metal.MetalComboBoxUI;
+
+/**
+ *
+ * @author Vicky C
+ */
+
+class SteppedComboBoxUI extends MetalComboBoxUI {
+  protected ComboPopup createPopup() {
+    BasicComboPopup popup = new BasicComboPopup(comboBox) {
+
+            @Override
+      public void show() {
+        Dimension popupSize = ((SteppedComboBox) comboBox)
+            .getPopupSize();
+        popupSize
+            .setSize(popupSize.width,
+                getPopupHeightForRowCount(comboBox
+                    .getMaximumRowCount()));
+        Rectangle popupBounds = computePopupBounds(0, comboBox
+            .getBounds().height, popupSize.width, popupSize.height);
+        scroller.setMaximumSize(popupBounds.getSize());
+        scroller.setPreferredSize(popupBounds.getSize());
+        scroller.setMinimumSize(popupBounds.getSize());
+        list.invalidate();
+        int selectedIndex = comboBox.getSelectedIndex();
+        if (selectedIndex == -1) {
+          list.clearSelection();
+        } else {
+          list.setSelectedIndex(selectedIndex);
         }
-        new OTPasswordDialog(null, true,strDisplay).setVisible(true);
-        OTPasswordDialog.getPassword(theOutput);
-    }
+        list.ensureIndexIsVisible(list.getSelectedIndex());
+        setLightWeightPopupEnabled(comboBox.isLightWeightPopupEnabled());
 
-    public void runTwo(String strDisplay, OTPassword theOutput) {
-	if (null == theOutput)
-	{
-            System.out.println("JavaCallback.runTwo: Failure: theOutput variable (for password to be returned) is null!");
-            return;
-	}		
-        new OTPwdConfirmDialog(null, true,strDisplay).setVisible(true);
-        OTPwdConfirmDialog.getPassword(theOutput);
-    }
+        show(comboBox, popupBounds.x, popupBounds.y);
+      }
+    };
+    popup.getAccessibleContext().setAccessibleParent(comboBox);
+    return popup;
+  }
 }
 
+public class SteppedComboBox extends JComboBox {
+  protected int popupWidth;
+
+  public SteppedComboBox(ComboBoxModel aModel) {
+    super(aModel);
+    setUI(new SteppedComboBoxUI());
+    popupWidth = 0;
+  }
+
+  public SteppedComboBox() {
+
+    setUI(new SteppedComboBoxUI());
+    popupWidth = 0;
+  }
+
+  public SteppedComboBox(final Object[] items) {
+    super(items);
+    setUI(new SteppedComboBoxUI());
+    popupWidth = 0;
+  }
+
+  public SteppedComboBox(Vector items) {
+    super(items);
+    setUI(new SteppedComboBoxUI());
+    popupWidth = 0;
+  }
 
 
+  public void setPopupWidth(int width) {
+    popupWidth = width;
+  }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  public Dimension getPopupSize() {
+    Dimension size = getSize();
+    if (popupWidth < 1)
+      popupWidth = size.width;
+    return new Dimension(popupWidth, size.height);
+  }
+}

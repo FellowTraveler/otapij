@@ -88,65 +88,101 @@ AK+ZirdWhhoHeWR1tAkN
 -----END PGP SIGNATURE-----
  **************************************************************/
 
-package com.wrapper.core.jni;
 
-import com.wrapper.core.jni.OTPassword;
-import com.wrapper.core.jni.OTCallback;
-import com.moneychanger.ui.dialogs.OTPasswordDialog;
-import com.moneychanger.ui.dialogs.OTPwdConfirmDialog;
 
-public class JavaCallback extends OTCallback {
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
-    public JavaCallback() {
-        super();
+package com.moneychanger.core.dataobjects;
+
+import java.util.ArrayList;
+import java.util.Map;
+
+/**
+ *
+ * @author Vicky C
+ */
+public class CashPurseDetails {
+    private String balance;
+    private String assetID;
+    private String nymID;
+    private String serverID;
+    private String purse;
+
+    public String getPurse() {
+        return purse;
     }
 
-    public void runOne(String strDisplay, OTPassword theOutput) {
-        if (null == theOutput)
-        {
-            System.out.println("JavaCallback.runOne: Failure: theOutput variable (for password to be returned) is null!");
-            return;
-        }
-        new OTPasswordDialog(null, true,strDisplay).setVisible(true);
-        OTPasswordDialog.getPassword(theOutput);
+    public void setPurse(String purse) {
+        this.purse = purse;
+    }
+    private String assetType;
+    private String nymName;
+
+    public String getAssetType() {
+        return assetType;
     }
 
-    public void runTwo(String strDisplay, OTPassword theOutput) {
-	if (null == theOutput)
-	{
-            System.out.println("JavaCallback.runTwo: Failure: theOutput variable (for password to be returned) is null!");
-            return;
-	}		
-        new OTPwdConfirmDialog(null, true,strDisplay).setVisible(true);
-        OTPwdConfirmDialog.getPassword(theOutput);
+    public void setAssetType(String assetType) {
+        this.assetType = assetType;
     }
+
+    public String getNymName() {
+        return nymName;
+    }
+
+    public void setNymName(String nymName) {
+        this.nymName = nymName;
+    }
+
+    public String getServeName() {
+        return serveName;
+    }
+
+    public void setServeName(String serveName) {
+        this.serveName = serveName;
+    }
+    private String serveName;
+
+    public String getAssetID() {
+        return assetID;
+    }
+
+    public void setAssetID(String assetID) {
+        this.assetID = assetID;
+    }
+
+    public String getNymID() {
+        return nymID;
+    }
+
+    public void setNymID(String nymID) {
+        this.nymID = nymID;
+    }
+
+    public String getServerID() {
+        return serverID;
+    }
+
+    public void setServerID(String serverID) {
+        this.serverID = serverID;
+    }
+    public String getBalance() {
+        return balance;
+    }
+
+    public void setBalance(String balance) {
+        this.balance = balance;
+    }
+
+    public Map getPurseGrid() {
+        return purseGrid;
+    }
+
+    public void setPurseGrid(Map purseGrid) {
+        this.purseGrid = purseGrid;
+    }
+    private Map purseGrid;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

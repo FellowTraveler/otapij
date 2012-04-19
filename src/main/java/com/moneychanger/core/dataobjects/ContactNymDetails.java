@@ -88,65 +88,69 @@ AK+ZirdWhhoHeWR1tAkN
 -----END PGP SIGNATURE-----
  **************************************************************/
 
-package com.wrapper.core.jni;
+/*
+*To change this template, choose Tools | Templates
+*and open the template in the editor.
+ */
 
-import com.wrapper.core.jni.OTPassword;
-import com.wrapper.core.jni.OTCallback;
-import com.moneychanger.ui.dialogs.OTPasswordDialog;
-import com.moneychanger.ui.dialogs.OTPwdConfirmDialog;
+package com.moneychanger.core.dataobjects;
 
-public class JavaCallback extends OTCallback {
+import java.util.List;
 
-    public JavaCallback() {
-        super();
+public class ContactNymDetails {
+
+private String label;
+private String nymType;
+private List serverList;
+private String nymID;
+
+    public String getLabel() {
+        return label;
     }
 
-    public void runOne(String strDisplay, OTPassword theOutput) {
-        if (null == theOutput)
-        {
-            System.out.println("JavaCallback.runOne: Failure: theOutput variable (for password to be returned) is null!");
-            return;
-        }
-        new OTPasswordDialog(null, true,strDisplay).setVisible(true);
-        OTPasswordDialog.getPassword(theOutput);
+    public void setLabel(String label) {
+        this.label = label;
     }
 
-    public void runTwo(String strDisplay, OTPassword theOutput) {
-	if (null == theOutput)
-	{
-            System.out.println("JavaCallback.runTwo: Failure: theOutput variable (for password to be returned) is null!");
-            return;
-	}		
-        new OTPwdConfirmDialog(null, true,strDisplay).setVisible(true);
-        OTPwdConfirmDialog.getPassword(theOutput);
+    public String getMemo() {
+        return memo;
     }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
+
+    public String getNymID() {
+        return nymID;
+    }
+
+    public void setNymID(String nymID) {
+        this.nymID = nymID;
+    }
+
+    public String getNymType() {
+        return nymType;
+    }
+
+    public void setNymType(String nymType) {
+        this.nymType = nymType;
+    }
+
+    public String getPublicKey() {
+        return publicKey;
+    }
+
+    public void setPublicKey(String publicKey) {
+        this.publicKey = publicKey;
+    }
+
+    public List getServerList() {
+        return serverList;
+    }
+
+    public void setServerList(List serverList) {
+        this.serverList = serverList;
+    }
+private String memo;
+private String publicKey;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
