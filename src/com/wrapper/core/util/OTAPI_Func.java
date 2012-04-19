@@ -681,7 +681,20 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
     
     
     public static String SendTransaction(OTAPI_Func theFunction, String IN_FUNCTION)
-    {      
+    {
+        // We won't download here unless we can see the hash has changed.
+        // If it HAS, and our download fails, then we have failed.
+        // (Can't sign any balance agreements anyway without that download...)
+        //
+        if (false == Utility.getIntermediaryFiles(theFunction.serverID,
+                theFunction.nymID, theFunction.accountID, false)) // bForceDownload=false
+        {
+            System.out.println(IN_FUNCTION + " getIntermediaryFiles returned false. (It couldn't download files that it needed.)");
+            return null;
+        }
+        // -------------------------------------------------------
+
+        
         // **********************************************************************
         // GET TRANSACTION NUMBERS HERE IF NECESSARY.
         //
@@ -732,29 +745,40 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
                     otapi.OT_API_GetNym_TransactionNumCount(theFunction.serverID, theFunction.nymID));
             return null;
         }
+        
         // **********************************************************************
         
         Utility.OTBool bCanRetryAfterThis = new Utility.OTBool(false);
         // -------------------------------------------------------
+        
+ 
         String strResult = SendRequestOnce( theFunction,
                                             IN_FUNCTION,
                                             true,   // bIsTransaction      = true;
                                             true,   // bWillRetryAfterThis = true
                                             bCanRetryAfterThis); // output
+        
         // -------------------------------------------------------
-        if (null != strResult)
+        
+        if (null != strResult) // success.
         {
+            if (false == Utility.getIntermediaryFiles(theFunction.serverID,
+                    theFunction.nymID, theFunction.accountID, true)) // bForceDownload=true
+            {
+                System.out.println(IN_FUNCTION + " getIntermediaryFiles returned false. (After a success sending the transaction. Strange...)");
+                return null;
+            }
+            // -----------------------------
+            
             return strResult; // success!
         }
+        
+        
         //
         // Maybe we have an old Inbox or something.
         //
-        if (false == Utility.getIntermediaryFiles(theFunction.serverID,
-                theFunction.nymID, theFunction.accountID, true)) // bForceDownload=true
-        {
-            System.out.println(IN_FUNCTION + " getIntermediaryFiles returned false. (I give up.)");
-            return null;
-        }
+        
+        
         // TODO!!  SECURITY:  This is where a GOOD CLIENT (vs. a test client)
         // will verify these intermediary files against your LAST SIGNED RECEIPT,
         // using OT_API_VerifySomethingorother().
@@ -776,16 +800,35 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
             nRetries--;
             // -------------------------------
                 Utility.OTBool bWasMsgSent = new Utility.OTBool(false);
-                final int nLast = Utility.getAndProcessNymbox(theFunction.serverID, theFunction.nymID, bWasMsgSent, true); // bForceDownload=true
+                                
+                // NOTE: LATEST CHANGES, DEBUGGING. COMMENTED THIS OUT DURING DEBUGGING PROCESS.
+                //
+//                final int nLast = Utility.getAndProcessNymbox(theFunction.serverID, theFunction.nymID, bWasMsgSent, true); // bForceDownload=true
                 // ---------------------------
-                if ( (!bWasMsgSent.getBooleanValue() && (0 == nLast)) ||    // If the message was NOT sent, and Nymbox was empty,
-                      (bWasMsgSent.getBooleanValue() && (1 == nLast)) )     // or if the message WAS sent, and it was success, (either way is success.)
+//                if ( (!bWasMsgSent.getBooleanValue() && (0 == nLast)) ||    // If the message was NOT sent, and Nymbox was empty,
+//                      (bWasMsgSent.getBooleanValue() && (1 == nLast)) )     // or if the message WAS sent, and it was success, (either way is success.)
                     
                     strResult = SendRequestOnce( theFunction,
                                                  IN_FUNCTION,
                                                  true,   // bIsTransaction      = true;
-                                                 (nRetries == 0) ? false : true,  // bWillRetryAfterThis = false
-                                                 bCanRetryAfterThis);            
+                                                 ((nRetries == 0) || !bCanRetryAfterThis.getBooleanValue()) ? false : true,  // bWillRetryAfterThis = false
+                                                 bCanRetryAfterThis);
+                    // ---------------------------
+                    // In case of failure, we want to get these before we re-try.
+                    // But in case of success, we also want to get these, so we can
+                    // see the results of our success. So we get these either way...
+                    //
+                    if (strResult != null)
+                    {
+                        if (false == Utility.getIntermediaryFiles(theFunction.serverID,
+                                theFunction.nymID, theFunction.accountID, true)) // bForceDownload=true
+                        {
+                            System.out.println(IN_FUNCTION + " getIntermediaryFiles (loop) returned false even after successfully sending the transaction.");
+                            return null;
+                        }
+                        
+                        break;
+                    }
             // -------------------------------
         }
         
@@ -907,6 +950,13 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
             {
                 nBalanceSuccess = otapi.OT_API_Message_GetBalanceAgreementSuccess(theFunction.serverID, theFunction.nymID, theFunction.accountID, strReply); 
 
+//                if (nBalanceSuccess < 0)
+//                    nTransSuccess = (-1);
+//                else if (0 == nBalanceSuccess) // balance agreement was explicit failure.
+//                    nTransSuccess = 0; // NOTE: VERY RECENT CHANGE (SEE COMMENTED SECTION BELOW) SO MIGHT NEED TO CHANGE THIS BACK... DEBUGGING RIGHT NOW...
+//                else
+//                    nTransSuccess   = otapi.OT_API_Message_GetTransactionSuccess (theFunction.serverID, theFunction.nymID, theFunction.accountID, strReply); 
+                
                 if (nBalanceSuccess > 0)
                     nTransSuccess   = otapi.OT_API_Message_GetTransactionSuccess (theFunction.serverID, theFunction.nymID, theFunction.accountID, strReply); 
                 else
@@ -1013,7 +1063,20 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
                 if (bIsTransaction) 
                 {
                     bCanRetryAfterThis.setBooleanValue(false);
+                    // -------------------------------------------
 
+                    //
+                    // Maybe we have an old Inbox or something.
+                    // NEW CODE HERE FOR DEBUGGING (THIS BLOCK)
+                    //
+                    if (false == Utility.getIntermediaryFiles(theFunction.serverID,
+                            theFunction.nymID, theFunction.accountID, true)) // bForceDownload=true
+                    {
+                        System.out.println(IN_FUNCTION + " getIntermediaryFiles returned false. (After a failure to send the transaction. Thus, I give up.)");
+                        return null;
+                    }
+                    
+                    
                     // -------------------------------------------
                     Utility.OTBool  bWasFound = new Utility.OTBool(false),
                                     bWasSent  = new Utility.OTBool(false);
