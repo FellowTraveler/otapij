@@ -553,13 +553,19 @@ public class OpenTransactionAccount extends Account {
 
     }
 
+    
+    
     public boolean processInbox(String accountID, Map selectedIndices) throws InterruptedException {
 
+        String IN_FUNCTION = new String("OpenTransactionAccount.processInbox");
+        
         System.out.println("Process Inbox starts");
 
-        String serverID = otapi.OT_API_GetAccountWallet_ServerID(accountID);
-        String nymID = otapi.OT_API_GetAccountWallet_NymID(accountID);
+        final String serverID = otapi.OT_API_GetAccountWallet_ServerID(accountID);
+        final String nymID = otapi.OT_API_GetAccountWallet_NymID(accountID);
 
+        final int nTransNumsNeeded = 1;
+        
         // ------------------------------------------------------------------
         // Normally I could remove this code, since SendTransaction() (below)
         // does the work already, of grabbing new numbers when they're needed.
@@ -569,21 +575,93 @@ public class OpenTransactionAccount extends Account {
         // Specifically, inside the call to OT_API_Ledger_CreateResponse(), the
         // first time it is called for a specific processInbox() message, is when
         // the transaction # is grabbed from local storage for that message. If
-        // it's not available, the call will fail.
+        // it's not available, that call will fail.
         //
-        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
-            if ((false == Utility.getTransactionNumbers(serverID, nymID))
-                    || (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount())) {
-                System.out.println("In processInbox , failed to get transaction numbers, OT_API_GetNym_TransactionNumCount:" + otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID));
-                return false;
-            }
+//        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
+//            if ((false == Utility.getTransactionNumbers(serverID, nymID))
+//                    || (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount())) {
+//                System.out.println("In processInbox , failed to get transaction numbers, OT_API_GetNym_TransactionNumCount:" + otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID));
+//                return false;
+//            }
+//        }
+        // ------------------------------------------------------------------
+        
+        
+        
+        
+        
+        // We won't download here unless we can see the hash has changed.
+        // If it HAS, and our download fails, then we have failed.
+        // (Can't sign any balance agreements anyway without that download...)
+        //
+        if (false == Utility.getIntermediaryFiles(serverID,
+                nymID, accountID, false)) // bForceDownload=false
+        {
+            System.out.println("In: " + IN_FUNCTION + ", getIntermediaryFiles returned false. (It couldn't download files that it needed.)");
+            return false;
         }
+        // -------------------------------------------------------
+
+        
+        // **********************************************************************
+        // GET TRANSACTION NUMBERS HERE IF NECESSARY.
+        //
+        boolean bSure = true;
+
+        if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID)    // If the current trans# count is LESS than what's needed...
+                <
+                (nTransNumsNeeded > Configuration.getNbrTransactionCount() ?        //theFunction needs more than my normal minimum in my configuration
+                    nTransNumsNeeded  : Configuration.getNbrTransactionCount()))    // Therefore I will grab that many, instead of however many I would normally grab.
+        {
+            System.out.println("In: " + IN_FUNCTION + ", I don't have enough transaction numbers to perform this transaction. Grabbing more now...");
+            int configTxnCount = Configuration.getNbrTransactionCount();
+            Configuration.setNbrTransactionCount((nTransNumsNeeded > configTxnCount) ? nTransNumsNeeded : configTxnCount);
+            
+            bSure = Utility.getTransactionNumbers(serverID, nymID); // <====================== getTransactionNumbers
+            
+            Configuration.setNbrTransactionCount(configTxnCount);
+        }
+        // -------------------------------------
+        
+        if (
+//              !bSure || 
+                (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < nTransNumsNeeded))  // Try a second time.
+        {
+            System.out.println("In: " + IN_FUNCTION + ", first failure:  Utility.getTransactionNumbers. (Trying again...)");
+            
+            bSure = Utility.getTransactionNumbers( serverID, nymID,    // Try a second time.        
+                                                   false); // We tell getTransNumbers that it can skip the first call to getTransNumLowLevel        
+        }
+        // -------------------------------------
+        if (
+//              !bSure || 
+                (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < nTransNumsNeeded))  // Try a third time.
+        {
+            System.out.println("In: " + IN_FUNCTION + ", second failure:  Utility.getTransactionNumbers. (Trying again...)");
+            
+            bSure = Utility.getTransactionNumbers( serverID, nymID, // Try a third time.   
+                                                   false); // We tell getTransNumbers that it can skip the first call to getTransNumLowLevel        
+        }
+        // -------------------------------------
+        // Giving up if still a failure...
+        //
+        if (
+//              !bSure || 
+                (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < nTransNumsNeeded))
+        {
+            System.out.println("In: " + IN_FUNCTION + ", third failure. bSure: " + bSure + ". OT_API_GetNym_TransactionNumCount: " +
+                    otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID));
+            return false;
+        }
+        
+        // ------------------------------------------------------------------
+
         String ledger = otapi.OT_API_LoadInbox(serverID, nymID, accountID);
 
         // ------------------------------------------------------------------
         // SET UP THE PROCESS INBOX MESSAGE.
 
-        String responseLedger = otapi.OT_API_Ledger_CreateResponse(serverID, nymID, accountID, ledger);
+        String responseLedger = otapi.OT_API_Ledger_CreateResponse(serverID, nymID, accountID, ledger); // <=== Uses a transaction #, which must be available.
 
         if (responseLedger == null) {
             System.out.println("OT_API_Ledger_CreateResponse returned responseLedger:" + responseLedger);
@@ -657,6 +735,7 @@ public class OpenTransactionAccount extends Account {
         return true;
     }
 
+    
     // **********************************************************************
     public Map getInboxData(String accountID) throws InterruptedException {
 

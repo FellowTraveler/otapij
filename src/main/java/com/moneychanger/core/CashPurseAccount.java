@@ -196,7 +196,8 @@ public class CashPurseAccount extends Account {
                     System.out.println("aaserverID:" + serverID);
                     System.out.println("ccnymID:" + nymID);
 
-                    if (assetID != null && serverID != null && nymID != null) {
+                    if (assetID != null && serverID != null && nymID != null &&
+                            otapi.Exists("purse", serverID, nymID, assetID) ) {
                         String cashPurse = otapi.OT_API_LoadPurse(serverID, assetID, nymID);
                         System.out.println("cashPurse:" + cashPurse);
                         if (cashPurse != null) {
