@@ -1,15 +1,11 @@
 package com.moneychanger.ui;
 
-import com.moneychanger.app.ApplicationLauncher;
-import chrriis.dj.nativeswing.swtimpl.EventDispatchUtils;
 import com.moneychanger.core.util.Utility;
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.Rectangle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
-import org.jvnet.substance.SubstanceLookAndFeel;
-import org.jvnet.substance.SubstanceProgressBarUI;
-import org.jvnet.substance.skin.SubstanceModerateLookAndFeel;
 
 public class ProgressBar
         extends JFrame implements Runnable {

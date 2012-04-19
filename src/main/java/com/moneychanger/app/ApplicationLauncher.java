@@ -91,6 +91,7 @@ AK+ZirdWhhoHeWR1tAkN
 
 package com.moneychanger.app;
 
+import com.moneychanger.core.util.ConfigBean;
 import com.wrapper.core.jni.otapi;
 import com.moneychanger.core.util.Utility;
 import com.moneychanger.ui.MainPage;
@@ -134,7 +135,9 @@ public class ApplicationLauncher extends SingleFrameApplication {
 
                         Utility.setObj(laf);*/
 
-                        new Settings().setVisible(true);
+                        ConfigBean configBean = new ConfigBean();
+                        
+                        new Settings(configBean).setVisible(true);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

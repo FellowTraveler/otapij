@@ -4,244 +4,239 @@
  */
 package com.moneychanger.ui;
 
-import chrriis.common.SystemProperty;
+import com.moneychanger.core.util.ConfigBean;
+import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Utility.ReturnAction;
+import com.moneychanger.ui.LoadState.OutOfOrderException;
 import com.wrapper.core.jni.JavaCallback;
-import com.wrapper.core.jni.OTCallback;
 import com.wrapper.core.jni.OTCaller;
 import com.wrapper.core.jni.otapi;
-import com.moneychanger.core.util.Configuration;
-import com.moneychanger.core.util.Utility;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.concurrent.CopyOnWriteArrayList;
 import javax.swing.AbstractListModel;
 
 /**
  *
- * @author cameron
+ * Note... Everything in this outer class is Static
  *
- * Cleanup: FT
+ * @author Cameron Garnham
  */
 public class Load {
-    // These can only happen once per run of the cpplication
-    // -FT
-    //
 
-    private static boolean s_bLoadedZMQ = false; // So we don't load it multiple times in Windows.
-    private static boolean s_bLoadedOTAPI = false; // So we don't load it multiple times.
-    private static boolean s_bInitializedOTAPI = false; // So we don't initialize it multiple times.
-    private static boolean s_bLoadedWallet = false; // So we don't load the wallet multiple times.
-    // -------------------------------------
-    private static OneTimeOnly s_OneTime = null;
-    // -------------------------------------
-    // Do NOT instantiate this until AFTER OTAPI library is loaded
-    // and OT_API_INit() is called, but BEFORE LoadWallet() is called.
-    //
+    private static ConfigBean _configBean;
 
-    public static boolean IsOTLoaded() { return s_bLoadedOTAPI; }
-    public static boolean IsOTInitialized() { return s_bInitializedOTAPI; }
-    public static boolean IsOTWalletLoaded() { return s_bLoadedWallet; }
-    
-    
-    
-    private static class OneTimeOnly {
-
-        private static OTCaller s_theCaller     = null;
-        private static OTCallback s_theCallback = null;
-
-        private static boolean s_bHasHappened   = false;
-        // -----------------------------------------
-        
-        public OneTimeOnly() {
-            System.out.println("OneTimeOnly.OneTimeOnly(): FYI, constructor is called here. Trying to set password callback also...");
-            boolean bSuccess = OneTimeOnly.GiveItAShot();
-            System.out.println("OneTimeOnly.OneTimeOnly(): Status: " + bSuccess);
-        }
-        // -----------------------------------------
-        
-        public static boolean GiveItAShot() {
-            
-            // It hasn't happened yet, so let's give it a shot...
-            if (false == OneTimeOnly.s_bHasHappened) {
-                
-                if ((null != OneTimeOnly.s_theCaller) || (null != OneTimeOnly.s_theCallback))
-                {
-                    System.out.println("OneTimeOnly.GiveItAShot(): ERROR: HOW on earth were the callback objects instantiated already? ERROR.");
-                }
-                else {
-                    OneTimeOnly.s_theCaller     = new OTCaller();
-                    OneTimeOnly.s_theCallback   = new JavaCallback();
-
-                    if ((null == OneTimeOnly.s_theCaller) || (null == OneTimeOnly.s_theCallback))
-                    {
-                        System.out.println("OneTimeOnly.GiveItAShot(): ERROR: Failure instantiating caller or callback objects.");
-                        OneTimeOnly.s_theCaller     = null;
-                        OneTimeOnly.s_theCallback   = null;
-                    }
-                    else {
-                        OneTimeOnly.s_theCaller.setCallback(OneTimeOnly.s_theCallback);
-
-                        // bool OT_API_Set_PasswordCallback(OTCaller & theCaller); 
-                        // Caller _must_ have Callback attached already.
-                        //
-                        boolean bSuccess = otapi.OT_API_Set_PasswordCallback(OneTimeOnly.s_theCaller);
-
-                        if (false == bSuccess)
-                        {
-                            System.out.println("OneTimeOnly.GiveItAShot(): FAILED calling OT_API_Set_PasswordCallback(). (Better try again!)");
-                            OneTimeOnly.s_theCaller     = null;
-                            OneTimeOnly.s_theCallback   = null;
-                        }
-                        else {
-                            // IF SUCCESS:
-                            OneTimeOnly.s_bHasHappened = true; // SUCCESS!
-                            
-                            System.out.println("OneTimeOnly.GiveItAShot(): SUCCESS setting the password callback.");
-                            
-                            
-                            // Definitely this is the only place these set functions are called.
-                            // I also don't see that they are used, except for the same reason this class is
-                            // (to maintain the instance...)
-                            //
-                            Utility.setG_theCallback(OneTimeOnly.s_theCallback);
-                            Utility.setG_theCaller(OneTimeOnly.s_theCaller);
-                        }
-                    }
-                }
-            }
-            else {
-                System.out.println("OneTimeOnly.GiveItAShot(): Password callback is already set. (Skipping and returning true.)");                
-            }
-            return OneTimeOnly.s_bHasHappened;
-        }
+    //<editor-fold defaultstate="collapsed" desc="Init">
+    public static void Init(ConfigBean configBean) throws OutOfOrderException {
+        _configBean = configBean;
+        LoadState.setStageComplete();
     }
-    // -------------------------------------
+    //</editor-fold>
 
-    public static void setupPasswordCallback() {
-        // This only happens if the above OT_API_Init() was successful, and it
-        // only happens once.
-        if (false == Load.IsOTInitialized()) {
-            System.out.println("Load.setupPasswordCallback: OTAPI isn't initialized yet. (Skipping.)");            
-        }
-        else {
-            if (null == Load.s_OneTime) {
-                System.out.println("Load.setupPasswordCallback: Instantiating OneTimeOnly object... (this should happen one time only)");
-                Load.s_OneTime = new OneTimeOnly(); // Password callbacks are in here. This internally also calls GiveItAShot().
-            }
-            else {
-                System.out.println("Load.setupPasswordCallback: OneTimeOnly already exists. Calling GiveItAShot()...");
-                boolean bCallbackSetup = Load.s_OneTime.GiveItAShot();
-                System.out.println("Load.setupPasswordCallback: Status: " + bCallbackSetup);
-            }
-        }
-    }
-    // -------------------------------------
+    //<editor-fold defaultstate="collapsed" desc="AtemptLoad">
+    public static void Atempt() throws LoadFailedException {
 
-    private static void loadImage() throws ImageNotLoadedException {
-        loadImage(null);
-    }
-    private static void loadImage(Settings theSettings) throws ImageNotLoadedException {
-
-        System.out.println("Load.loadImage() top... ");
-        String strConfigImagePath   = Configuration.getImagePath();
-
-        if (null != strConfigImagePath) {
-            System.out.println("Load.loadImage(): Skipping, since Configuration.getImagePath() is already set: " + strConfigImagePath);
-            return;
-        }
-        // -------------------------------
-        String strImagePath         = Utility.getImagePath();
-
-        if (null == strImagePath) {
-            throw new ImageNotLoadedException("Load.loadImage(): Unable To Load Image, Maybe First Run, Image Not Set?");
-        }
-        System.out.println("Load.loadImage: Utility.getImagePath(): " + strImagePath);
-
-        Configuration.setImagePath(strImagePath);
-        
-        if (null != theSettings)
-            theSettings.setImagePath(strImagePath);
-    }
-    // -------------------------------------
-
-    // <editor-fold defaultstate="collapsed" desc="Load AppData">
-    private static String genericGetPath() { // added this function to avoid code duplication
-        StringBuffer strOSVers = new StringBuffer("~"); // My appdataDirectory has a SPACE in it (/Users/au/Library/Application Support/.ot)
-//      StringBuffer strOSVers      = new StringBuffer(appdataDirectory(getOS())); // Therefore I did this for now, so I could run the wallet again!
-        String strAppend = strOSVers.append("/.ot/client_data").toString(); // todo hardcoding
-//      String strSubstitute        = strAppend.replaceAll(" ", "\\ "); // Oh well, I tried.
-        return strAppend;
-    }
-    public static void loadAllAppDataButWallet(Settings theSettings) throws AppDataNotLoadedException {
-        String strPath = genericGetPath();
-        if (null != strPath)
-            loadAllAppDataButWallet(theSettings, strPath, "wallet.xml"); // todo hardcoding
-    }
-    public static void loadAppData(Settings theSettings) throws AppDataNotLoadedException {
-        String strPath = genericGetPath();
-        if (null != strPath)
-            loadAppData(theSettings, strPath, "wallet.xml"); // todo hardcoding        
-    }
-    public static void loadAppData() throws AppDataNotLoadedException {
-        String strPath = genericGetPath();
-        if (null != strPath)
-            loadAppData(strPath, "wallet.xml"); // todo hardcoding
-    }
-    // </editor-fold>
-    
-    public static void loadAppData(String appDataLocation, String walletLocation) throws AppDataNotLoadedException {
-        loadAppData(null, appDataLocation, walletLocation);
-    }
-    public static void loadAllAppDataButWallet(Settings theSettings, String appDataLocation, String walletLocation) throws AppDataNotLoadedException {
-        if (!Load.IsOTLoaded()) // We haven't loaded the jnilib yet.
-        {
-            String strError = "Load.loadAppData: otapi library isn't loaded yet. (Should thus never call this function at this point.)";
-            System.out.println(strError);
-            throw new AppDataNotLoadedException(strError);
-        }
-        // -----------------------------------------
-
-        initOTAPI(appDataLocation);
-        
-        // --------------------------------------------
-        // Password dialog -- security image path
-        //
         try {
-            Load.loadImage(theSettings); // really just loading the image path.
-        } catch (ImageNotLoadedException ex) {
-            throw new AppDataNotLoadedException("Load.loadAppData: Unable To Load Wallet; password security image not loaded.");
+            // For some Reason the current stage is not complete... Lets atempt to complete it.
+            if (!LoadState.isStageComplete()) {
+                switch (LoadState.getStage()) {
+                    case Init:
+                        throw new LoadFailedException("Must Complete init before atempt!");
+
+                    case Opt_InitSettings:
+                    case Opt_LoadSettings:
+                    case Opt_UpdateSettings:
+                        throw new LoadFailedException("Must Complete Settings before atempting to Load!");
+
+
+                    case Opt_LoadNativeDependencies:
+                        LoadNativeDependencies.Atempt();
+                        break;
+                    case LoadOTAPI:
+                        LoadOTAPI.Atempt();
+                        break;
+                    case InitOTAPI:
+                        InitOTAPI.Atempt();
+                        break;
+                    case SetupPasswordImage:
+                        SetupPasswordImage.Atempt();
+                        break;
+                    case SetupPasswordCallback:
+                        SetupPasswordCallback.Atempt();
+                        break;
+                    case LoadWallet:
+                        LoadWallet.Atempt();
+                        break;
+                }
+
+                // Well that didn't fix it... lets throw a big error.
+                if (LoadState.isStageComplete()) {
+                    throw new LoadFailedException("Failed to Complete step!");
+                }
+            }
+
+            // Now that the stage we are on is complete... lets load the next step.
+            switch (LoadState.getStage()) {
+                case Init:
+                case Opt_InitSettings:
+                case Opt_LoadSettings:
+                    throw new LoadFailedException("Must Complete Settings before atempting to Load!");
+
+
+                case Opt_UpdateSettings:
+                    LoadNativeDependencies.Atempt();
+                case Opt_LoadNativeDependencies:
+                    LoadOTAPI.Atempt();
+                case LoadOTAPI:
+                    InitOTAPI.Atempt();
+                case InitOTAPI:
+                    SetupPasswordImage.Atempt();
+                case SetupPasswordImage:
+                    SetupPasswordCallback.Atempt();
+                case SetupPasswordCallback:
+                    LoadWallet.Atempt();
+            }
+
+        } catch (Exception e) {
+            System.err.println(e.toString());
+            throw new LoadFailedException(e.toString());
         }
     }
-    public static void loadAppData(Settings theSettings, String appDataLocation, String walletLocation) throws AppDataNotLoadedException {
 
-        loadAllAppDataButWallet(theSettings, appDataLocation, walletLocation);
-        
-        // --------------------------------------------
-        // Load the wallet, if not already loaded.
-        //
-        loadOTWallet(appDataLocation, walletLocation);
+    public static class LoadFailedException extends Exception {
+
+        private String locationsChecked;
+
+        public LoadFailedException() {
+            super();             // call superclass constructor
+            locationsChecked = "none";
+        }
+
+        public LoadFailedException(String err) {
+            super(err);     // call super class constructor
+            locationsChecked = err;  // save message
+        }
+
+        public String getError() {
+            return locationsChecked;
+        }
     }
-    // -------------------------------------
-    public static void initOTAPI(String appDataLocation) throws AppDataNotLoadedException {
+    //</editor-fold>
 
-        if (!Load.IsOTLoaded()) // We haven't loaded the jnilib yet.
-        {
-            String strError = "Load.initOTAPI: otapi library isn't loaded yet. (Skipping.)";
-            System.out.println(strError);
-            throw new AppDataNotLoadedException(strError);
-        }
-        // -------------------------------------
-        // BELOW THIS POINT, we know for a FACT that the OTAPI is LOADED...
-        
-        String strLocation = new String(appDataLocation.trim());
+    //<editor-fold defaultstate="collapsed" desc="LoadNativeDependencies">
+    public static class LoadNativeDependencies {
 
-        if (Load.IsOTInitialized()) {
-            System.out.println("Load.initOTAPI: (OT_API_Init() was already completed in the past. (Skipping.)");
+        private LoadNativeDependencies() {
         }
-        else // We haven't initialized yet OT yet.
-        {
+
+        public static void Atempt() throws LoadNativeDependenciesFailedException, OutOfOrderException {
+            LoadState.Progress(LoadState.Stages.Opt_LoadNativeDependencies);
+
+            setJavaPaths(_configBean);
+
+            if (getOS() == typeOS.WIN) {
+                LoadExtraDLLs();
+            }
+
+            LoadState.setStageComplete();
+        }
+
+        private static void LoadExtraDLLs() throws LoadNativeDependenciesFailedException, OutOfOrderException {
+            try {
+                System.loadLibrary("libzmq");
+//                System.loadLibrary("irrxml");
+                System.loadLibrary("chaiscript");
+                System.loadLibrary("otlib");
+            } catch (java.lang.UnsatisfiedLinkError e) {
+                LoadState.setStageFailed();
+                throw new LoadNativeDependenciesFailedException(e.toString());
+            }
+        }
+    }
+
+    public static class LoadNativeDependenciesFailedException extends Exception {
+
+        private String locationsChecked;
+
+        public LoadNativeDependenciesFailedException() {
+            super();             // call superclass constructor
+            locationsChecked = "none";
+        }
+
+        public LoadNativeDependenciesFailedException(String err) {
+            super(err);     // call super class constructor
+            locationsChecked = err;  // save message
+        }
+
+        public String getError() {
+            return locationsChecked;
+        }
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="LoadOTAPI">
+    public static class LoadOTAPI {
+
+        private LoadOTAPI() {
+        }
+
+        public static void Atempt() throws LoadOTAPIFailedException, OutOfOrderException {
+            LoadState.Progress(LoadState.Stages.LoadOTAPI);
+
+            setJavaPaths(_configBean);
+            LoadNativeOTAPI();
+
+            LoadState.setStageComplete();
+        }
+
+        private static void LoadNativeOTAPI() throws LoadOTAPIFailedException, OutOfOrderException {
+            try {
+                System.loadLibrary("otapi-java");
+            } catch (java.lang.UnsatisfiedLinkError e) {
+                LoadState.setStageFailed();
+                throw new LoadOTAPIFailedException(e.toString());
+            }
+        }
+    }
+
+    public static class LoadOTAPIFailedException extends Exception {
+
+        private String locationsChecked;
+
+        public LoadOTAPIFailedException() {
+            super();             // call superclass constructor
+            locationsChecked = "none";
+        }
+
+        public LoadOTAPIFailedException(String err) {
+            super(err);     // call super class constructor
+            locationsChecked = err;  // save message
+        }
+
+        public String getError() {
+            return locationsChecked;
+        }
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="InitOTAPI">
+    public static class InitOTAPI {
+
+        private InitOTAPI() {
+        }
+
+        public static void Atempt() throws InitOTAPIFailedException, OutOfOrderException {
+            LoadState.Progress(LoadState.Stages.InitOTAPI);
+
+            API_Init();
+
+            LoadState.setStageComplete();
+        }
+
+        private static void API_Init() throws InitOTAPIFailedException, OutOfOrderException {
+            String userDataPath = _configBean.getConfig(ConfigBean.Keys.UserDataPath);
+
             // --------------------------------------------
             // This has internal logic so that it only actually is called once.
             // Probably not necessary anymore since I moved the call here.
@@ -250,175 +245,308 @@ public class Load {
             // itself to trigger again.  This I think should fix that.
             //
             // --------------------------------------------
-            
-            if (1 == otapi.OT_API_Init(strLocation)) {
+
+            if (1 == otapi.OT_API_Init(userDataPath)) {
                 System.out.println("Load.initOTAPI: SUCCESS invoking OT_API_Init().");
-                Load.s_bInitializedOTAPI = true;
-                // ---------------------------------
-                
-                Load.setupPasswordCallback();                
-            }
-            else // Failed in OT_API_Init().
+
+            } else // Failed in OT_API_Init().
             {
-                String strErrorMsg = "Load.initOTAPI: OT_API_Init() call failed(). (Has it already been called?) Location is " + appDataLocation + " (End of location.)";
-                throw new AppDataNotLoadedException(strErrorMsg);
+                String strErrorMsg = "Load.initOTAPI: OT_API_Init() call failed(). (Has it already been called?) Location is " + userDataPath + " (End of location.)";
+                throw new InitOTAPIFailedException(strErrorMsg);
             }
         }
     }
-    // --------------------------------------------
-    
-    public static void loadOTWallet(String appDataLocation, String walletLocation) throws AppDataNotLoadedException {
-        
-        if (false == Load.IsOTInitialized()) {
-            System.out.println("Load.loadOTWallet: Skipping. (OT isn't initialized yet.)");
-            return;
-        }
-        // ----------------------------------------
-        // Load the wallet, if not already loaded.
-        //
-        String strLocation = new String(appDataLocation.trim());
 
-        if (Load.s_bLoadedWallet) // Already loaded, therefore, use SwitchWallet() instead of LoadWallet().
-        {
-            if (1 == otapi.OT_API_SwitchWallet(strLocation, walletLocation)) {
-                Load.s_bLoadedWallet = true;
-                System.out.println("Load.loadOTWallet: OT_API_SwitchWallet() completed successfully.");
-            } else {
-                Load.s_bLoadedWallet = false;                
-                throw new AppDataNotLoadedException("Load.loadOTWallet: Unable To Switch Wallet, Maybe Wrong Password?");
+    public static class InitOTAPIFailedException extends Exception {
+
+        private String locationsChecked;
+
+        public InitOTAPIFailedException() {
+            super();             // call superclass constructor
+            locationsChecked = "none";
+        }
+
+        public InitOTAPIFailedException(String err) {
+            super(err);     // call super class constructor
+            locationsChecked = err;  // save message
+        }
+
+        public String getError() {
+            return locationsChecked;
+        }
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="SetupPasswordImage">
+    public static class SetupPasswordImage {
+
+        public static void Atempt() throws SetupPasswordImageFailedException, OutOfOrderException {
+            LoadState.Progress(LoadState.Stages.SetupPasswordImage);
+
+            SetGetImagePath();
+
+            LoadState.setStageComplete();
+        }
+
+        private static void SetGetImagePath() throws SetupPasswordImageFailedException {
+            // Set In Config... Update Image...
+            String path = ConfigBean.Static.getKey(ConfigBean.Static.Keys.PasswordImagePath);
+            System.out.println(path);
+            if (path != null && !path.isEmpty()) {
+                Utility.saveImagePath(path);
+            } // Try Loding pre-ezxisting path
+            else {
+                path = Utility.getImagePath();
+                System.out.println(path);
+                if (path != null && !path.isEmpty()) {
+                    ConfigBean.Static.setKey(ConfigBean.Static.Keys.PasswordImagePath, path);
+                } // Throw Eception... no Path
+                else {
+                    throw new SetupPasswordImageFailedException("No Path available");
+                }
             }
         }
-        else // Wallet has not ever been loaded yet successfully.
-        {
-            Load.setupPasswordCallback(); // Just in case. (This can't step on its own toes, anyway.)
-            
-            if (1 == otapi.OT_API_LoadWallet(walletLocation)) {
-                Load.s_bLoadedWallet = true;
+    }
+
+    public static class SetupPasswordImageFailedException extends Exception {
+
+        private String locationsChecked;
+
+        public SetupPasswordImageFailedException() {
+            super();             // call superclass constructor
+            locationsChecked = "none";
+        }
+
+        public SetupPasswordImageFailedException(String err) {
+            super(err);     // call super class constructor
+            locationsChecked = err;  // save message
+        }
+
+        public String getError() {
+            return locationsChecked;
+        }
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="SetupPasswordCallback">
+    public static class SetupPasswordCallback {
+
+        private static OTCaller s_theCaller = null;
+        private static JavaCallback s_theCallback = null;
+
+        public static void Atempt() throws SetupPasswordCallbackFailedException, OutOfOrderException {
+            if (!LoadState.isThisStageComplete(LoadState.Stages.SetupPasswordCallback)) {
+
+                LoadState.Progress(LoadState.Stages.SetupPasswordCallback);
+                SetCallerAndCallback();
+                LoadState.setStageComplete();
+            }
+        }
+
+        private static void SetCallerAndCallback() throws SetupPasswordCallbackFailedException, OutOfOrderException {
+
+            s_theCaller = new OTCaller();
+            s_theCallback = new JavaCallback();
+
+            if ((null == s_theCaller) || (null == s_theCallback)) {
+                s_theCaller = null;
+                s_theCallback = null;
+                LoadState.setStageFailed();
+                throw new SetupPasswordCallbackFailedException("OneTimeOnly.GiveItAShot(): ERROR: Failure instantiating caller or callback objects.");
+            }
+
+            s_theCaller.setCallback(s_theCallback);
+            Boolean bSuccess = otapi.OT_API_Set_PasswordCallback(s_theCaller);
+
+            if (!bSuccess) {
+                s_theCaller = null;
+                s_theCallback = null;
+                LoadState.setStageFailed();
+                throw new SetupPasswordCallbackFailedException("OneTimeOnly.GiveItAShot(): ERROR: Failure instantiating caller or callback objects.");
+            }
+
+            System.out.println("OneTimeOnly.GiveItAShot(): SUCCESS setting the password callback.");
+        }
+    }
+
+    public static class SetupPasswordCallbackFailedException extends Exception {
+
+        private String locationsChecked;
+
+        public SetupPasswordCallbackFailedException() {
+            super();             // call superclass constructor
+            locationsChecked = "none";
+        }
+
+        public SetupPasswordCallbackFailedException(String err) {
+            super(err);     // call super class constructor
+            locationsChecked = err;  // save message
+        }
+
+        public String getError() {
+            return locationsChecked;
+        }
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="LoadWallet">
+    public static class LoadWallet {
+
+        private LoadWallet() {
+        }
+
+        public static void Atempt() throws LoadWalletFailedException, OutOfOrderException {
+            LoadState.Progress(LoadState.Stages.LoadWallet);
+
+            API_LoadWallet();
+
+            LoadState.setStageComplete();
+        }
+
+        private static void API_LoadWallet() throws LoadWalletFailedException, OutOfOrderException {
+            String walletFilename = _configBean.getConfig(ConfigBean.Keys.WalletFilename);
+
+            if (1 == otapi.OT_API_LoadWallet(walletFilename)) {
                 System.out.println("Load.loadOTWallet: OT_API_LoadWallet() completed successfully.");
             } else {
-                Load.s_bLoadedWallet = false;
-                throw new AppDataNotLoadedException("Load.loadOTWallet: Unable To Load Wallet, Maybe Wrong Password?");
-            }
-        }        
-    }
-    // -------------------------------------
-
-    // <editor-fold defaultstate="collapsed" desc="Load API">
-    public static void loadOTAPI() throws ApiNotLoadedException {
-
-        try {
-            loadZMQ();
-
-            if (!s_bLoadedOTAPI) {
-                System.loadLibrary("otapi-java");
-                s_bLoadedOTAPI = true;
-                System.out.println("Load.loadOTAPI: Success loading otapi.java.jnilib");
-            } else {
-                System.out.println("Load.loadOTAPI (1): (otapi-java is already loaded. Skipping.)");
+                LoadState.setStageFailed();
+                throw new LoadWalletFailedException("Load.loadOTWallet: Unable To Load Wallet, Maybe Wrong Password?");
             }
         }
-        catch (java.lang.UnsatisfiedLinkError e) {
-                StringBuilder errorMessage = new StringBuilder();
-                errorMessage.append(System.getProperty("line.separator"));
-                
-                errorMessage.append(e.toString());
-//              errorMessage.append("libotapi-java not in LD path:");
-                
-                errorMessage.append(System.getProperty("line.separator"));
-                errorMessage.append(System.getProperty("java.library.path").replace(File.pathSeparator, System.getProperty("line.separator")));
-                throw new ApiNotLoadedException(errorMessage.toString());
-            }        
     }
 
-    public static void loadOTAPI(JavaPaths paths) throws ApiNotLoadedException {
-        try {
+    public static class LoadWalletFailedException extends Exception {
 
-            Utility.addDirToRuntime(paths.toString());
+        private String locationsChecked;
 
-            loadZMQ();
+        public LoadWalletFailedException() {
+            super();             // call superclass constructor
+            locationsChecked = "none";
+        }
 
-            if (!s_bLoadedOTAPI) {
-                System.loadLibrary("otapi-java");
-                s_bLoadedOTAPI = true;
-                System.out.println("Load.loadOTAPI: Success loading otapi-java.jnilib");
+        public LoadWalletFailedException(String err) {
+            super(err);     // call super class constructor
+            locationsChecked = err;  // save message
+        }
+
+        public String getError() {
+            return locationsChecked;
+        }
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="SwitchWallet">
+    public static class SwitchWallet {
+
+        private SwitchWallet() {
+        }
+
+        public static void Atempt() throws SwitchWalletFailedException, OutOfOrderException {
+            LoadState.Progress(LoadState.Stages.Opt_SwitchWallet);
+
+            API_SwitchWallet();
+
+            LoadState.setStageComplete();
+        }
+
+        private static void API_SwitchWallet() throws SwitchWalletFailedException, OutOfOrderException {
+            String userDataPath = _configBean.getConfig(ConfigBean.Keys.UserDataPath);
+            String walletFilename = _configBean.getConfig(ConfigBean.Keys.WalletFilename);
+
+            if (1 == otapi.OT_API_SwitchWallet(userDataPath, walletFilename)) {
+                System.out.println("Load.loadOTWallet: OT_API_SwitchWallet() completed successfully.");
             } else {
-                System.out.println("Load.loadOTAPI (2): (otapi-java is already loaded. Skipping.)");
+                LoadState.setStageFailed();
+                throw new SwitchWalletFailedException("Load.loadOTWallet: Unable To Switch Wallet, Maybe Wrong Password?");
             }
-        } catch (java.lang.UnsatisfiedLinkError e) {
-            StringBuilder errorMessage = new StringBuilder();
-            errorMessage.append(System.getProperty("line.separator"));
-            errorMessage.append(e.toString());
-//          errorMessage.append("libotapi-java not in LD path:");
-            errorMessage.append(System.getProperty("line.separator"));
-            errorMessage.append(System.getProperty("java.library.path").replace(File.pathSeparator, System.getProperty("line.separator")));
-            throw new ApiNotLoadedException(errorMessage.toString());
-        } catch (IOException e) {
-            throw new ApiNotLoadedException("IO Error");
         }
     }
 
-// </editor-fold>
-// -------------------------------------
-    public static void loadZMQ() throws ApiNotLoadedException {
-        try {
-            if (!s_bLoadedZMQ//){
-                && !System.getProperty("os.name").toLowerCase().contains("mac")
-                && !System.getProperty("os.name").toLowerCase().contains("linux")) {
-                System.loadLibrary("zmq");
-                s_bLoadedZMQ = true; // (Assuming the above loadLibrary throws in event of failure.)
-            } else {
-                System.out.println("Load.loadZMQ: (libzmq is already loaded. Skipping.)");
-            }
-        } catch (java.lang.UnsatisfiedLinkError e) {
-            StringBuilder errorMessage = new StringBuilder();
-            errorMessage.append(System.getProperty("line.separator"));
-            errorMessage.append(e.toString());            
-//          errorMessage.append("libzmq not in LD path:");
-            errorMessage.append(System.getProperty("line.separator"));
-            errorMessage.append(System.getProperty("java.library.path").replace(File.pathSeparator, System.getProperty("line.separator")));
-            throw new ApiNotLoadedException(errorMessage.toString());
+    public static class SwitchWalletFailedException extends Exception {
+
+        private String locationsChecked;
+
+        public SwitchWalletFailedException() {
+            super();             // call superclass constructor
+            locationsChecked = "none";
+        }
+
+        public SwitchWalletFailedException(String err) {
+            super(err);     // call super class constructor
+            locationsChecked = err;  // save message
+        }
+
+        public String getError() {
+            return locationsChecked;
         }
     }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Helpers">
     
-    // <editor-fold defaultstate="collapsed" desc="Load setTimeOut">
-    public static void setTimeout() throws InvalidTimeOutException {
-        long waitTime = 1;
-        Configuration.setWaitTime(waitTime);
+    public static void setJavaPaths(ConfigBean configBean) {
+        String paths = configBean.getConfig(ConfigBean.Keys.JavaPath);
+        if (paths != null
+                && !paths.isEmpty()) {
+
+            try {
+
+                Utility.addDirToRuntime(paths);
+            } catch (IOException e) {
+                System.err.println(e.toString());
+            }
+        }
     }
 
-    public static void setTimeout(String waitTimeTxt) throws InvalidTimeOutException {
-        long waitTime;
-        try {
-            waitTime = Long.parseLong(waitTimeTxt);
-        } catch (NumberFormatException nfe) {
-            throw new InvalidTimeOutException("Please enter valid timeout; timeout not a number!");
+    public static class JavaPaths {
+
+        private static Set<String> _paths = new HashSet<String>();
+        private static JavaPathsListModel _javaPathsListModel;
+        private int _selectedIndex;
+        private static ReturnAction _returnActionToSettings;
+        private static ReturnAction _returnActionToPathDialog;
+
+        private static class JavaPathsListModel extends AbstractListModel {
+
+            public void fireContentsChanged() {
+                if (_returnActionToPathDialog != null) {
+                    if (_paths.isEmpty()) {
+                        _returnActionToPathDialog.returnAction("Disabled");
+                    } else {
+                        _returnActionToPathDialog.returnAction("Enabled");
+                    }
+                }
+
+                fireContentsChanged(this, 0, this.getSize());
+            }
+
+            @Override
+            public int getSize() {
+                return _paths.size();
+            }
+
+            @Override
+            public Object getElementAt(int index) {
+                return _paths.toArray(new String[getSize()])[index];
+            }
         }
-        if (waitTime < 1) {
-            throw new InvalidTimeOutException("Please enter valid timeout; is less than 1");
-        }
-        Configuration.setWaitTime(waitTime);
 
-
-
-
-
-
-    }
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Helpers">
-
-    public static class JavaPaths extends AbstractListModel {
-
-        private List<String> _paths = new ArrayList<String>();
-
-        @Override
-        public int getSize() {
-            return _paths.size();
+        public AbstractListModel getAbstractListModel() {
+            return _javaPathsListModel;
         }
 
-        @Override
-        public Object getElementAt(int index) {
-            return _paths.get(index);
+        public JavaPaths(ReturnAction returnAction) {
+            this(returnAction, null);
+        }
+
+        public JavaPaths(ReturnAction returnAction, String paths) {
+            _javaPathsListModel = new JavaPathsListModel();
+            _returnActionToSettings = returnAction;
+            if (null != paths
+                    && !paths.isEmpty()) {
+                addPaths(paths);
+            }
+            _javaPathsListModel.fireContentsChanged();
         }
 
         @Override
@@ -434,49 +562,79 @@ public class Load {
             return pathsString.toString();
         }
 
-        public JavaPaths() {
+        public final void setSelectedElement(int index) {
+            if (index < 1) {
+                index = 0;
+            }
+            _selectedIndex = index;
         }
 
-        public JavaPaths(List<String> paths) {
-            _paths.addAll(paths);
+        public final String getSelectedElement() {
+            if (_selectedIndex < 1) {
+                _selectedIndex = 0;
+            }
+            Iterator<String> setIterator = _paths.iterator();
+            Integer index = _selectedIndex;
+            String ret = null;
+            while (setIterator.hasNext()
+                    && !(index < 0)) {
+                ret = setIterator.next();
+                index--;
+            }
+            return ret;
         }
 
-        public void addDefaultPath(typeOS os) {
-            switch (os) {
-                case WIN: {
-                    break;
+        public final boolean isEmpty() {
+            return _paths.isEmpty();
+        }
+
+        public final void addPaths(String paths) {
+            final List<String> pathList = new CopyOnWriteArrayList<String>();
+            pathList.addAll(Arrays.asList(paths.split(File.pathSeparator)));
+            final Iterator<String> listIterator = pathList.iterator();
+            String path;
+            while (listIterator.hasNext()) {
+                path = listIterator.next(); //.toLowerCase();
+                if (!path.equalsIgnoreCase(".")) {
+                    System.out.println("Load.JavaPaths: Adding path: " + path.toString());
+                    _paths.add(path);
                 }
-                case LINUX: {
-                    addPath("/usr/local/lib");
-                    break;
-                }
-                case MAC: {
-                    addPath("/usr/local/lib");
-                    break;
-                }
-                case UNIX: {
-                    addPath("/usr/local/lib");
-                    break;
-                }
-                case OTHER: {
-                    addPath("/usr/local/lib");
-                    break;
-                }
+            }
+            _javaPathsListModel.fireContentsChanged();
+            _returnActionToSettings.returnAction(this.toString());
+        }
+
+        public final void addPath(String path) {
+            if (path != null
+                    || path.isEmpty()) {
+                addPaths(path);
             }
         }
 
-        public void addPath(String path) {
-            _paths.add(path); //.toLowerCase());
-            System.out.println("Load.JavaPaths: Adding path: " + _paths.toString());
-            fireContentsChanged(this, 0, this.getSize());
+        public final void remove(String path) {
+            if (path != null
+                    && !_paths.isEmpty()) {
+                _paths.remove(path);
+                _javaPathsListModel.fireContentsChanged();
+                _returnActionToSettings.returnAction(this.toString());
+            }
         }
 
-        public List<String> getPaths() {
-            return _paths;
+        public final void removeSelected() {
+            remove(getSelectedElement());
+            setSelectedElement(_paths.toArray().length);
+        }
+
+        public final void setRemoveReturnAction(ReturnAction r) {
+            _returnActionToPathDialog = r;
         }
     }
 
-    public enum typeOS {
+    public static String getUserAppDataLocation() {
+        return appdataDirectory(getOS()).toString();
+    }
+
+    public static enum typeOS {
 
         WIN, LINUX, MAC, UNIX, ALL, OTHER
     }
@@ -526,89 +684,6 @@ public class Load {
         }
         appdataDirectory.append(System.getProperty("user.dir"));
         return appdataDirectory;
-
-
-
-
-
-
     }
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Exceptions">
-
-    static class ApiNotLoadedException extends Exception {
-
-        private String locationsChecked;
-
-        public ApiNotLoadedException() {
-            super();             // call superclass constructor
-            locationsChecked = "none";
-        }
-
-        public ApiNotLoadedException(String err) {
-            super(err);     // call super class constructor
-            locationsChecked = err;  // save message
-        }
-
-        public String getError() {
-            return locationsChecked;
-        }
-    }
-
-    static class ImageNotLoadedException extends Exception {
-
-        private String locationsChecked;
-
-        public ImageNotLoadedException() {
-            super();             // call superclass constructor
-            locationsChecked = "none";
-        }
-
-        public ImageNotLoadedException(String err) {
-            super(err);     // call super class constructor
-            locationsChecked = err;  // save message
-        }
-
-        public String getError() {
-            return locationsChecked;
-        }
-    }
-
-    static class AppDataNotLoadedException extends Exception {
-
-        private String locationsChecked;
-
-        public AppDataNotLoadedException() {
-            super();             // call superclass constructor
-            locationsChecked = "none";
-        }
-
-        public AppDataNotLoadedException(String err) {
-            super(err);     // call super class constructor
-            locationsChecked = err;  // save message
-        }
-
-        public String getError() {
-            return locationsChecked;
-        }
-    }
-
-    static class InvalidTimeOutException extends Exception {
-
-        private String error;
-
-        public InvalidTimeOutException() {
-            error = "none";
-        }
-
-        public InvalidTimeOutException(String err) {
-            super(err);     // call super class constructor
-            error = err;  // save message
-        }
-
-        public String getError() {
-            return error;
-        }
-    }
-// </editor-fold>
+    //</editor-fold>
 }
