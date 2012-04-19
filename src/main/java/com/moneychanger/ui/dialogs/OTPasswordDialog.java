@@ -89,7 +89,7 @@ AK+ZirdWhhoHeWR1tAkN
  **************************************************************/
 package com.moneychanger.ui.dialogs;
 
-import com.wrapper.core.jni.OTPassword;
+import org.ot.wrapper.jni.OTPassword;
 import com.moneychanger.core.util.Configuration;
 import com.moneychanger.core.util.Utility;
 import com.moneychanger.ui.custom.LoadImage;

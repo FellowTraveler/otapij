@@ -5,11 +5,11 @@
 package com.moneychanger.ui;
 
 import chrriis.common.SystemProperty;
-import com.wrapper.core.jni.JavaCallback;
-import com.wrapper.core.jni.OTCallback;
-import com.wrapper.core.jni.OTCaller;
-import com.wrapper.core.jni.otapi;
+import org.ot.wrapper.jni.OTCallback;
+import org.ot.wrapper.jni.OTCaller;
+import org.ot.wrapper.jni.otapi;
 import com.moneychanger.core.util.Configuration;
+import com.moneychanger.core.util.JavaCallback;
 import com.moneychanger.core.util.Utility;
 import java.io.File;
 import java.io.IOException;

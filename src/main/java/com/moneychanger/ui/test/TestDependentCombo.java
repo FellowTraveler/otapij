@@ -103,7 +103,7 @@ AK+ZirdWhhoHeWR1tAkN
 
 package com.moneychanger.ui.test;
 
-import com.wrapper.core.jni.otapi;
+import org.ot.wrapper.jni.otapi;
 import com.moneychanger.core.util.Utility;
 import com.moneychanger.ui.panels.NameValuePanel;
 import java.awt.BorderLayout;

@@ -91,7 +91,7 @@ AK+ZirdWhhoHeWR1tAkN
 package com.moneychanger.core;
 import com.moneychanger.core.util.OTAPI_Func;
 import com.moneychanger.core.dataobjects.CashPurseDetails;
-import com.wrapper.core.jni.otapi;
+import org.ot.wrapper.jni.otapi;
 import com.moneychanger.core.util.Utility;
 import java.util.ArrayList;
 import java.util.Date;
