@@ -371,6 +371,7 @@ public class MainPage extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel12 = new javax.swing.JPanel();
         jTextField6 = new javax.swing.JTextField();
@@ -379,26 +380,25 @@ public class MainPage extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
-        jComboBox1 = new com.moneychanger.ui.custom.SteppedComboBox();
-        jScrollPane12 = new javax.swing.JScrollPane();
-        jTable5 = new com.moneychanger.ui.custom.CustomTable();
-        jSeparator3 = new javax.swing.JSeparator();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jComboBox2 = new com.moneychanger.ui.custom.SteppedComboBox();
-        jSeparator2 = new javax.swing.JSeparator();
-        jScrollPane14 = new javax.swing.JScrollPane();
-        jPanel8 = new javax.swing.JPanel();
-        jScrollPane13 = new javax.swing.JScrollPane();
-        jPanel15 = new javax.swing.JPanel();
-        jPanel16 = new javax.swing.JPanel();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
-        jLabel16 = new javax.swing.JLabel();
-        jComboBox3 = new com.moneychanger.ui.custom.SteppedComboBox();
-        jLabel1 = new javax.swing.JLabel();
+        jPanel_Main = new javax.swing.JPanel();
+        jLabel_FilterAccounts = new javax.swing.JLabel();
+        jLabel_Filter1 = new javax.swing.JLabel();
+        jComboBox_Filter1 = new com.moneychanger.ui.custom.SteppedComboBox();
+        jLabel_Filter2 = new javax.swing.JLabel();
+        jComboBox_Filter2 = new com.moneychanger.ui.custom.SteppedComboBox();
+        jLabel_Filter3 = new javax.swing.JLabel();
+        jComboBox_Filter3 = new com.moneychanger.ui.custom.SteppedComboBox();
+        jScrollPane_AccountTable = new javax.swing.JScrollPane();
+        jTable_AccountTable = new com.moneychanger.ui.custom.CustomTable();
+        jPanel_AccountAddEditRemove = new javax.swing.JPanel();
+        jButton_AddAccountMain = new javax.swing.JButton();
+        jButton_EditAccountMain = new javax.swing.JButton();
+        jButton_RemoveAccountMain = new javax.swing.JButton();
+        jPanel_LeftPannelMain = new javax.swing.JPanel();
+        jScrollPane_Top = new javax.swing.JScrollPane();
+        jPanel_Top = new javax.swing.JPanel();
+        jScrollPane_Bottom = new javax.swing.JScrollPane();
+        jPanel_Bottom = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jTextField4 = new javax.swing.JTextField();
@@ -633,7 +633,7 @@ public class MainPage extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 80, Short.MAX_VALUE))
+                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTextField6)
@@ -655,233 +655,252 @@ public class MainPage extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(500, 500));
         setName("Form"); // NOI18N
+        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
+        jTabbedPane1.setMinimumSize(new java.awt.Dimension(500, 400));
+        jTabbedPane1.setPreferredSize(new java.awt.Dimension(600, 500));
         jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jTabbedPane1StateChanged(evt);
             }
         });
 
-        jPanel1.setName("jPanel1"); // NOI18N
+        jPanel_Main.setMinimumSize(new java.awt.Dimension(700, 400));
+        jPanel_Main.setName("jPanel_Main"); // NOI18N
+        jPanel_Main.setPreferredSize(new java.awt.Dimension(700, 900));
+        jPanel_Main.setLayout(new java.awt.GridBagLayout());
 
-        jComboBox1.setSelectedItem("ALL");
-        jComboBox1.setName("jComboBox1"); // NOI18N
-        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+        jLabel_FilterAccounts.setText(resourceMap.getString("jLabel_FilterAccounts.text")); // NOI18N
+        jLabel_FilterAccounts.setName("jLabel_FilterAccounts"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel_Main.add(jLabel_FilterAccounts, gridBagConstraints);
+
+        jLabel_Filter1.setText("NYMS");
+        jLabel_Filter1.setName("jLabel_Filter1"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel_Main.add(jLabel_Filter1, gridBagConstraints);
+
+        jComboBox_Filter1.setSelectedItem("ALL");
+        jComboBox_Filter1.setName("jComboBox_Filter1"); // NOI18N
+        jComboBox_Filter1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBox1ItemStateChanged(evt);
+                jComboBox_Filter1ItemStateChanged(evt);
             }
         });
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        jComboBox_Filter1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                jComboBox_Filter1ActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel_Main.add(jComboBox_Filter1, gridBagConstraints);
 
-        jScrollPane12.setName("jScrollPane12"); // NOI18N
+        jLabel_Filter2.setText("Server Contracts");
+        jLabel_Filter2.setName("jLabel_Filter2"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel_Main.add(jLabel_Filter2, gridBagConstraints);
 
-        jTable5.setModel(new AccountTableModel());
-        jTable5.setName("jTable5"); // NOI18N
-        jTable5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jTable5.addMouseListener(new java.awt.event.MouseAdapter() {
+        jComboBox_Filter2.setSelectedItem("ALL");
+        jComboBox_Filter2.setName("jComboBox_Filter2"); // NOI18N
+        jComboBox_Filter2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox_Filter2ActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel_Main.add(jComboBox_Filter2, gridBagConstraints);
+
+        jLabel_Filter3.setText("Asset Contracts");
+        jLabel_Filter3.setName("jLabel_Filter3"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel_Main.add(jLabel_Filter3, gridBagConstraints);
+
+        jComboBox_Filter3.setSelectedItem("ALL");
+        jComboBox_Filter3.setName("jComboBox_Filter3"); // NOI18N
+        jComboBox_Filter3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox_Filter3ActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel_Main.add(jComboBox_Filter3, gridBagConstraints);
+
+        jScrollPane_AccountTable.setMinimumSize(new java.awt.Dimension(100, 100));
+        jScrollPane_AccountTable.setName("jScrollPane_AccountTable"); // NOI18N
+        jScrollPane_AccountTable.setPreferredSize(new java.awt.Dimension(200, 400));
+
+        jTable_AccountTable.setModel(new AccountTableModel());
+        jTable_AccountTable.setMinimumSize(new java.awt.Dimension(100, 100));
+        jTable_AccountTable.setName("jTable_AccountTable"); // NOI18N
+        jTable_AccountTable.setPreferredSize(new java.awt.Dimension(200, 400));
+        jTable_AccountTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTable_AccountTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable5MouseClicked(evt);
+                jTable_AccountTableMouseClicked(evt);
             }
         });
-        jScrollPane12.setViewportView(jTable5);
+        jScrollPane_AccountTable.setViewportView(jTable_AccountTable);
 
-        jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator3.setName("jSeparator3"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 10.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel_Main.add(jScrollPane_AccountTable, gridBagConstraints);
 
-        jLabel4.setText("NYMS");
-        jLabel4.setName("jLabel4"); // NOI18N
+        jPanel_AccountAddEditRemove.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel_AccountAddEditRemove.setMinimumSize(new java.awt.Dimension(100, 30));
+        jPanel_AccountAddEditRemove.setName("jPanel_AccountAddEditRemove"); // NOI18N
+        jPanel_AccountAddEditRemove.setPreferredSize(new java.awt.Dimension(200, 40));
 
-        jLabel5.setText("Server Contracts");
-        jLabel5.setName("jLabel5"); // NOI18N
-
-        jComboBox2.setSelectedItem("ALL");
-        jComboBox2.setName("jComboBox2"); // NOI18N
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+        jButton_AddAccountMain.setText(resourceMap.getString("jButton_AddAccountMain.text")); // NOI18N
+        jButton_AddAccountMain.setToolTipText("Add");
+        jButton_AddAccountMain.setMaximumSize(new java.awt.Dimension(0, 0));
+        jButton_AddAccountMain.setMinimumSize(null);
+        jButton_AddAccountMain.setName("jButton_AddAccountMain"); // NOI18N
+        jButton_AddAccountMain.setPreferredSize(new java.awt.Dimension(40, 20));
+        jButton_AddAccountMain.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
+                jButton_AddAccountMainActionPerformed(evt);
             }
         });
+        jPanel_AccountAddEditRemove.add(jButton_AddAccountMain);
 
-        jSeparator2.setName("jSeparator2"); // NOI18N
-
-        jScrollPane14.setName("jScrollPane14"); // NOI18N
-
-        jPanel8.setName("jPanel8"); // NOI18N
-        jPanel8.setVisible(false);
-
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 731, Short.MAX_VALUE)
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 357, Short.MAX_VALUE)
-        );
-
-        jScrollPane14.setViewportView(jPanel8);
-
-        jScrollPane13.setName("jScrollPane13"); // NOI18N
-
-        jPanel15.setName("jPanel15"); // NOI18N
-        jPanel15.setVisible(false);
-
-        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
-        jPanel15.setLayout(jPanel15Layout);
-        jPanel15Layout.setHorizontalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 742, Short.MAX_VALUE)
-        );
-        jPanel15Layout.setVerticalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 480, Short.MAX_VALUE)
-        );
-
-        jScrollPane13.setViewportView(jPanel15);
-
-        jPanel16.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel16.setName("jPanel16"); // NOI18N
-
-        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/moneychanger/ui/images/pencil.jpg"))); // NOI18N
-        jButton10.setText(resourceMap.getString("jButton10.text")); // NOI18N
-        jButton10.setToolTipText(resourceMap.getString("jButton10.toolTipText")); // NOI18N
-        jButton10.setName("jButton10"); // NOI18N
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        jButton_EditAccountMain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/moneychanger/ui/images/pencil.jpg"))); // NOI18N
+        jButton_EditAccountMain.setText(resourceMap.getString("jButton_EditAccountMain.text")); // NOI18N
+        jButton_EditAccountMain.setToolTipText(resourceMap.getString("jButton_EditAccountMain.toolTipText")); // NOI18N
+        jButton_EditAccountMain.setMaximumSize(new java.awt.Dimension(0, 0));
+        jButton_EditAccountMain.setMinimumSize(null);
+        jButton_EditAccountMain.setName("jButton_EditAccountMain"); // NOI18N
+        jButton_EditAccountMain.setPreferredSize(new java.awt.Dimension(40, 20));
+        jButton_EditAccountMain.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                jButton_EditAccountMainActionPerformed(evt);
             }
         });
+        jPanel_AccountAddEditRemove.add(jButton_EditAccountMain);
 
-        jButton11.setText(resourceMap.getString("jButton11.text")); // NOI18N
-        jButton11.setToolTipText("Add");
-        jButton11.setName("jButton11"); // NOI18N
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
+        jButton_RemoveAccountMain.setText(resourceMap.getString("jButton_RemoveAccountMain.text")); // NOI18N
+        jButton_RemoveAccountMain.setToolTipText(resourceMap.getString("jButton_RemoveAccountMain.toolTipText")); // NOI18N
+        jButton_RemoveAccountMain.setMaximumSize(new java.awt.Dimension(0, 0));
+        jButton_RemoveAccountMain.setMinimumSize(null);
+        jButton_RemoveAccountMain.setName("jButton_RemoveAccountMain"); // NOI18N
+        jButton_RemoveAccountMain.setPreferredSize(new java.awt.Dimension(40, 20));
+        jButton_RemoveAccountMain.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
+                jButton_RemoveAccountMainActionPerformed(evt);
             }
         });
+        jPanel_AccountAddEditRemove.add(jButton_RemoveAccountMain);
 
-        jButton12.setText(resourceMap.getString("jButton12.text")); // NOI18N
-        jButton12.setToolTipText(resourceMap.getString("jButton12.toolTipText")); // NOI18N
-        jButton12.setName("jButton12"); // NOI18N
-        jButton12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton12ActionPerformed(evt);
-            }
-        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel_Main.add(jPanel_AccountAddEditRemove, gridBagConstraints);
 
-        javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
-        jPanel16.setLayout(jPanel16Layout);
-        jPanel16Layout.setHorizontalGroup(
-            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+        jPanel_LeftPannelMain.setMinimumSize(new java.awt.Dimension(300, 100));
+        jPanel_LeftPannelMain.setName("jPanel_LeftPannelMain"); // NOI18N
+        jPanel_LeftPannelMain.setPreferredSize(new java.awt.Dimension(300, 100));
+        jPanel_LeftPannelMain.setLayout(new java.awt.GridBagLayout());
+
+        jScrollPane_Top.setMinimumSize(new java.awt.Dimension(0, 0));
+        jScrollPane_Top.setName("jScrollPane_Top"); // NOI18N
+        jScrollPane_Top.setPreferredSize(new java.awt.Dimension(0, 0));
+
+        jPanel_Top.setName("jPanel_Top"); // NOI18N
+        jPanel_Top.setPreferredSize(new java.awt.Dimension(0, 0));
+        jPanel_Top.setVisible(false);
+
+        javax.swing.GroupLayout jPanel_TopLayout = new javax.swing.GroupLayout(jPanel_Top);
+        jPanel_Top.setLayout(jPanel_TopLayout);
+        jPanel_TopLayout.setHorizontalGroup(
+            jPanel_TopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 441, Short.MAX_VALUE)
         );
-        jPanel16Layout.setVerticalGroup(
-            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel16Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton11))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jLabel16.setText("Asset Contracts");
-        jLabel16.setName("jLabel16"); // NOI18N
-
-        jComboBox3.setSelectedItem("ALL");
-        jComboBox3.setName("jComboBox3"); // NOI18N
-        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox3ActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
-        jLabel1.setName("jLabel1"); // NOI18N
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel16))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBox2, 0, 69, Short.MAX_VALUE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE))
-                        .addGap(37, 37, 37))
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 1, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane13, javax.swing.GroupLayout.DEFAULT_SIZE, 750, Short.MAX_VALUE)
-                    .addComponent(jScrollPane14, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(33, 33, 33)
-                        .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(128, 128, 128))
-            .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 810, Short.MAX_VALUE)
+        jPanel_TopLayout.setVerticalGroup(
+            jPanel_TopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 153, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab(resourceMap.getString("jPanel1.TabConstraints.tabTitle"), jPanel1); // NOI18N
+        jScrollPane_Top.setViewportView(jPanel_Top);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel_LeftPannelMain.add(jScrollPane_Top, gridBagConstraints);
+
+        jScrollPane_Bottom.setMinimumSize(new java.awt.Dimension(0, 0));
+        jScrollPane_Bottom.setName("jScrollPane_Bottom"); // NOI18N
+        jScrollPane_Bottom.setPreferredSize(new java.awt.Dimension(0, 0));
+
+        jPanel_Bottom.setName("jPanel_Bottom"); // NOI18N
+        jPanel_Bottom.setPreferredSize(new java.awt.Dimension(0, 0));
+        jPanel_Bottom.setVisible(false);
+
+        javax.swing.GroupLayout jPanel_BottomLayout = new javax.swing.GroupLayout(jPanel_Bottom);
+        jPanel_Bottom.setLayout(jPanel_BottomLayout);
+        jPanel_BottomLayout.setHorizontalGroup(
+            jPanel_BottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 441, Short.MAX_VALUE)
+        );
+        jPanel_BottomLayout.setVerticalGroup(
+            jPanel_BottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 153, Short.MAX_VALUE)
+        );
+
+        jScrollPane_Bottom.setViewportView(jPanel_Bottom);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel_LeftPannelMain.add(jScrollPane_Bottom, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 10.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel_Main.add(jPanel_LeftPannelMain, gridBagConstraints);
+
+        jTabbedPane1.addTab(resourceMap.getString("jPanel_Main.TabConstraints.tabTitle"), jPanel_Main); // NOI18N
 
         jPanel3.setName("jPanel3"); // NOI18N
 
@@ -923,7 +942,7 @@ public class MainPage extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE))
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel9Layout.setVerticalGroup(
@@ -979,7 +998,7 @@ public class MainPage extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 47, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -1158,7 +1177,7 @@ public class MainPage extends javax.swing.JFrame {
                                 .addComponent(jButton26)))
                         .addGap(67, 67, 67)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 721, Short.MAX_VALUE)
+                            .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE)
                             .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1169,12 +1188,12 @@ public class MainPage extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addGap(254, 254, 254)
-                    .addComponent(jSeparator4, javax.swing.GroupLayout.DEFAULT_SIZE, 791, Short.MAX_VALUE)))
+                    .addComponent(jSeparator4, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)))
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addGap(245, 245, 245)
                     .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(788, Short.MAX_VALUE)))
+                    .addContainerGap(542, Short.MAX_VALUE)))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1202,9 +1221,9 @@ public class MainPage extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addGap(322, 322, 322)
                     .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(424, Short.MAX_VALUE)))
+                    .addContainerGap(362, Short.MAX_VALUE)))
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jSeparator5, javax.swing.GroupLayout.DEFAULT_SIZE, 757, Short.MAX_VALUE))
+                .addComponent(jSeparator5, javax.swing.GroupLayout.DEFAULT_SIZE, 695, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab(resourceMap.getString("jPanel3.TabConstraints.tabTitle"), jPanel3); // NOI18N
@@ -1325,7 +1344,7 @@ public class MainPage extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 45, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -1447,7 +1466,7 @@ public class MainPage extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton13, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
+                .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 49, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -1504,7 +1523,7 @@ public class MainPage extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(43, 43, 43))))
-            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 1111, Short.MAX_VALUE)
+            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 1055, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1514,14 +1533,14 @@ public class MainPage extends javax.swing.JFrame {
                     .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                         .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGap(13, 13, 13)
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(426, 426, 426)
@@ -1613,7 +1632,7 @@ public class MainPage extends javax.swing.JFrame {
             .addGroup(jPanel36Layout.createSequentialGroup()
                 .addGap(9, 9, 9)
                 .addComponent(jButton30, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton32, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
         );
@@ -1665,11 +1684,11 @@ public class MainPage extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane26, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                    .addComponent(jScrollPane26, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel53, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(8, 8, 8)
-                        .addComponent(jComboBox7, 0, 122, Short.MAX_VALUE))
+                        .addComponent(jComboBox7, 0, 93, Short.MAX_VALUE))
                     .addComponent(jPanel36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1690,7 +1709,7 @@ public class MainPage extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel55)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField11, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE))
+                        .addComponent(jTextField11, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE))
                     .addComponent(jLabel62, javax.swing.GroupLayout.PREFERRED_SIZE, 787, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -1711,7 +1730,7 @@ public class MainPage extends javax.swing.JFrame {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton33, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton31, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(551, Short.MAX_VALUE))
+                .addContainerGap(553, Short.MAX_VALUE))
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(11, 11, 11)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1722,7 +1741,7 @@ public class MainPage extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addComponent(jPanel36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(258, 258, 258))
-            .addComponent(jSeparator10, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
+            .addComponent(jSeparator10, javax.swing.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab(resourceMap.getString("jPanel5.TabConstraints.tabTitle"), jPanel5); // NOI18N
@@ -1841,9 +1860,9 @@ public class MainPage extends javax.swing.JFrame {
         jPanel35.setLayout(jPanel35Layout);
         jPanel35Layout.setHorizontalGroup(
             jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 388, Short.MAX_VALUE)
+            .addGap(0, 404, Short.MAX_VALUE)
             .addGroup(jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane25, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE))
+                .addComponent(jScrollPane25, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE))
         );
         jPanel35Layout.setVerticalGroup(
             jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1917,7 +1936,7 @@ public class MainPage extends javax.swing.JFrame {
         );
         jPanel30Layout.setVerticalGroup(
             jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator9, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
+            .addComponent(jSeparator9, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
             .addGroup(jPanel30Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1948,7 +1967,7 @@ public class MainPage extends javax.swing.JFrame {
                 .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel58)
                     .addComponent(jLabel61))
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(81, Short.MAX_VALUE))
             .addGroup(jPanel30Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jTabbedPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2043,7 +2062,7 @@ public class MainPage extends javax.swing.JFrame {
                     .addComponent(jLabel48)
                     .addComponent(jLabel49)
                     .addComponent(jLabel47))
-                .addContainerGap(523, Short.MAX_VALUE))
+                .addContainerGap(598, Short.MAX_VALUE))
         );
         jPanel32Layout.setVerticalGroup(
             jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2064,7 +2083,7 @@ public class MainPage extends javax.swing.JFrame {
                 .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel45)
                     .addComponent(jLabel50))
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addContainerGap(140, Short.MAX_VALUE))
         );
 
         jTabbedPane3.addTab(resourceMap.getString("jPanel32.TabConstraints.tabTitle"), jPanel32); // NOI18N
@@ -2210,7 +2229,7 @@ public class MainPage extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(13, 13, 13)
-                        .addComponent(jScrollPane21, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))
+                        .addComponent(jScrollPane21, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE))
                     .addGroup(jPanel29Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -2279,7 +2298,6 @@ public class MainPage extends javax.swing.JFrame {
         jTable20.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jTable20.setName("jTable20"); // NOI18N
         jTable20.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jTable20.setShowGrid(true);
         jTable20.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable20MouseClicked(evt);
@@ -2299,9 +2317,9 @@ public class MainPage extends javax.swing.JFrame {
         jPanel37.setLayout(jPanel37Layout);
         jPanel37Layout.setHorizontalGroup(
             jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane28, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
+            .addComponent(jScrollPane28, javax.swing.GroupLayout.DEFAULT_SIZE, 717, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel37Layout.createSequentialGroup()
-                .addContainerGap(275, Short.MAX_VALUE)
+                .addContainerGap(322, Short.MAX_VALUE)
                 .addComponent(jButton34)
                 .addGap(294, 294, 294))
         );
@@ -2309,7 +2327,7 @@ public class MainPage extends javax.swing.JFrame {
             jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel37Layout.createSequentialGroup()
                 .addComponent(jScrollPane28, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(jButton34))
         );
 
@@ -2334,12 +2352,12 @@ public class MainPage extends javax.swing.JFrame {
         jPanel38.setLayout(jPanel38Layout);
         jPanel38Layout.setHorizontalGroup(
             jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane29, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
+            .addComponent(jScrollPane29, javax.swing.GroupLayout.DEFAULT_SIZE, 717, Short.MAX_VALUE)
         );
         jPanel38Layout.setVerticalGroup(
             jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel38Layout.createSequentialGroup()
-                .addComponent(jScrollPane29, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+                .addComponent(jScrollPane29, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -2364,10 +2382,10 @@ public class MainPage extends javax.swing.JFrame {
             .addGroup(jPanel39Layout.createSequentialGroup()
                 .addGap(186, 186, 186)
                 .addComponent(jButton35, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(474, Short.MAX_VALUE))
+                .addContainerGap(490, Short.MAX_VALUE))
             .addGroup(jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel39Layout.createSequentialGroup()
-                    .addComponent(jScrollPane30, javax.swing.GroupLayout.DEFAULT_SIZE, 681, Short.MAX_VALUE)
+                    .addComponent(jScrollPane30, javax.swing.GroupLayout.DEFAULT_SIZE, 707, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         jPanel39Layout.setVerticalGroup(
@@ -2375,12 +2393,12 @@ public class MainPage extends javax.swing.JFrame {
             .addGroup(jPanel39Layout.createSequentialGroup()
                 .addGap(226, 226, 226)
                 .addComponent(jButton35, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
             .addGroup(jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel39Layout.createSequentialGroup()
                     .addGap(8, 8, 8)
                     .addComponent(jScrollPane30, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(29, Short.MAX_VALUE)))
+                    .addContainerGap(46, Short.MAX_VALUE)))
         );
 
         jTabbedPane5.addTab(resourceMap.getString("jPanel39.TabConstraints.tabTitle"), jPanel39); // NOI18N
@@ -2474,10 +2492,10 @@ public class MainPage extends javax.swing.JFrame {
                 .addComponent(jSeparator11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel_PaymentTop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11))
+                .addGap(28, 28, 28))
             .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel18Layout.createSequentialGroup()
-                    .addContainerGap(257, Short.MAX_VALUE)
+                    .addContainerGap(227, Short.MAX_VALUE)
                     .addComponent(jSeparator12, javax.swing.GroupLayout.PREFERRED_SIZE, 807, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         jPanel18Layout.setVerticalGroup(
@@ -2491,17 +2509,17 @@ public class MainPage extends javax.swing.JFrame {
                     .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(78, Short.MAX_VALUE))
-            .addComponent(jSeparator11, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jSeparator11, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
             .addGroup(jPanel18Layout.createSequentialGroup()
                 .addGap(11, 11, 11)
                 .addComponent(jPanel_PaymentTop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(376, Short.MAX_VALUE))
+                .addContainerGap(275, Short.MAX_VALUE))
             .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel18Layout.createSequentialGroup()
                     .addGap(344, 344, 344)
                     .addComponent(jSeparator12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(345, Short.MAX_VALUE)))
+                    .addContainerGap(256, Short.MAX_VALUE)))
         );
 
         jTabbedPane1.addTab(resourceMap.getString("jPanel18.TabConstraints.tabTitle"), jPanel18); // NOI18N
@@ -2523,7 +2541,7 @@ public class MainPage extends javax.swing.JFrame {
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 962, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 889, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel19Layout.setVerticalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2532,7 +2550,7 @@ public class MainPage extends javax.swing.JFrame {
                 .addComponent(jLabel19)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel20)
-                .addContainerGap(619, Short.MAX_VALUE))
+                .addContainerGap(296, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab(resourceMap.getString("jPanel19.TabConstraints.tabTitle"), jPanel19); // NOI18N
@@ -2582,9 +2600,9 @@ public class MainPage extends javax.swing.JFrame {
             .addGroup(jPanel20Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 1025, Short.MAX_VALUE)
+                    .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 1005, Short.MAX_VALUE)
                     .addGroup(jPanel20Layout.createSequentialGroup()
-                        .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, 1005, Short.MAX_VALUE)
+                        .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, 995, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(jPanel20Layout.createSequentialGroup()
                         .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2594,8 +2612,8 @@ public class MainPage extends javax.swing.JFrame {
                         .addContainerGap())))
             .addGroup(jPanel20Layout.createSequentialGroup()
                 .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel37, javax.swing.GroupLayout.DEFAULT_SIZE, 1025, Short.MAX_VALUE)
-                    .addComponent(jLabel34, javax.swing.GroupLayout.DEFAULT_SIZE, 1025, Short.MAX_VALUE)
+                    .addComponent(jLabel37, javax.swing.GroupLayout.DEFAULT_SIZE, 995, Short.MAX_VALUE)
+                    .addComponent(jLabel34, javax.swing.GroupLayout.DEFAULT_SIZE, 995, Short.MAX_VALUE)
                     .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 994, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 812, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -2626,7 +2644,7 @@ public class MainPage extends javax.swing.JFrame {
                 .addComponent(jLabel34)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel33)
-                .addContainerGap(424, Short.MAX_VALUE))
+                .addContainerGap(127, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab(resourceMap.getString("jPanel20.TabConstraints.tabTitle"), jPanel20); // NOI18N
@@ -2695,7 +2713,7 @@ public class MainPage extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jButton20, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton19, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                .addComponent(jButton19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton21, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -2761,7 +2779,7 @@ public class MainPage extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jButton23, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton22, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                .addComponent(jButton22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton24, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -2828,7 +2846,7 @@ public class MainPage extends javax.swing.JFrame {
                     .addGroup(jPanel21Layout.createSequentialGroup()
                         .addComponent(jLabel23)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox4, 0, 124, Short.MAX_VALUE))
+                        .addComponent(jComboBox4, 0, 132, Short.MAX_VALUE))
                     .addComponent(jPanel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2848,7 +2866,7 @@ public class MainPage extends javax.swing.JFrame {
                 .addGroup(jPanel21Layout.createSequentialGroup()
                     .addGap(248, 248, 248)
                     .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(785, Short.MAX_VALUE)))
+                    .addContainerGap(771, Short.MAX_VALUE)))
         );
         jPanel21Layout.setVerticalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2877,7 +2895,7 @@ public class MainPage extends javax.swing.JFrame {
                         .addComponent(jScrollPane18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
             .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jSeparator6, javax.swing.GroupLayout.DEFAULT_SIZE, 771, Short.MAX_VALUE))
+                .addComponent(jSeparator6, javax.swing.GroupLayout.DEFAULT_SIZE, 743, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab(resourceMap.getString("jPanel21.TabConstraints.tabTitle"), jPanel21); // NOI18N
@@ -2914,7 +2932,7 @@ public class MainPage extends javax.swing.JFrame {
                 .addGroup(jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel33Layout.createSequentialGroup()
                         .addComponent(jButton18)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel33Layout.createSequentialGroup()
                         .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2972,7 +2990,7 @@ public class MainPage extends javax.swing.JFrame {
                 .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49)
                 .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(408, Short.MAX_VALUE))
+                .addContainerGap(110, Short.MAX_VALUE))
         );
         jPanel22Layout.setVerticalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2981,7 +2999,7 @@ public class MainPage extends javax.swing.JFrame {
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel22Layout.createSequentialGroup()
                         .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, 150, Short.MAX_VALUE))
                 .addGap(937, 937, 937))
         );
@@ -3022,7 +3040,7 @@ public class MainPage extends javax.swing.JFrame {
                 .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 749, Short.MAX_VALUE)
                     .addComponent(jPanel24, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(229, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3031,23 +3049,12 @@ public class MainPage extends javax.swing.JFrame {
                 .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab(resourceMap.getString("jPanel23.TabConstraints.tabTitle"), jPanel23); // NOI18N
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1066, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 747, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        getContentPane().add(jTabbedPane1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -3117,7 +3124,7 @@ public class MainPage extends javax.swing.JFrame {
         // TODO add your handling code here:
 }//GEN-LAST:event_jTextField4ActionPerformed
 
-    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+    private void jComboBox_Filter3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_Filter3ActionPerformed
         System.out.println("In Action for Asset Combo main tab");
         /*String nymID = Utility.getKey(nymMap, (String) jComboBox1.getSelectedItem());
         String assetID = Utility.getKey(assetMap, (String) jComboBox3.getSelectedItem());
@@ -3126,122 +3133,24 @@ public class MainPage extends javax.swing.JFrame {
         String assetID = "ALL";
         String serverID = "ALL";
 
-        if (nymMap != null && nymMap.size() > 0 && jComboBox1.getSelectedIndex() > 0) {
-            nymID = ((String[]) nymMap.get((Integer) jComboBox1.getSelectedIndex() - 1))[1];
+        if (nymMap != null && nymMap.size() > 0 && jComboBox_Filter1.getSelectedIndex() > 0) {
+            nymID = ((String[]) nymMap.get((Integer) jComboBox_Filter1.getSelectedIndex() - 1))[1];
         }
 
-        if (assetMap != null && assetMap.size() > 0 && jComboBox3.getSelectedIndex() > 0) {
-            assetID = ((String[]) assetMap.get((Integer) jComboBox3.getSelectedIndex() - 1))[1];
+        if (assetMap != null && assetMap.size() > 0 && jComboBox_Filter3.getSelectedIndex() > 0) {
+            assetID = ((String[]) assetMap.get((Integer) jComboBox_Filter3.getSelectedIndex() - 1))[1];
         }
 
-        if (serverMap != null && serverMap.size() > 0 && jComboBox2.getSelectedIndex() > 0) {
-            serverID = ((String[]) serverMap.get((Integer) jComboBox2.getSelectedIndex() - 1))[1];
+        if (serverMap != null && serverMap.size() > 0 && jComboBox_Filter2.getSelectedIndex() > 0) {
+            serverID = ((String[]) serverMap.get((Integer) jComboBox_Filter2.getSelectedIndex() - 1))[1];
         }
 
         System.out.print("nymiiidL:" + nymID);
         loadAccount(assetID, serverID, nymID);
         clearDetailPage();
-}//GEN-LAST:event_jComboBox3ActionPerformed
+}//GEN-LAST:event_jComboBox_Filter3ActionPerformed
 
-    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        if (jTable5.getSelectedRow() < 0) {
-            JOptionPane.showMessageDialog(this, "Please select account to delete", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        int userSelection = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete account", "Delete Account", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        System.out.println("userSelection:" + userSelection);
-        String nymID = "ALL";
-        String assetID = "ALL";
-        String serverID = "ALL";
-
-        if (nymMap != null && nymMap.size() > 0 && jComboBox1.getSelectedIndex() > 0) {
-            nymID = ((String[]) nymMap.get((Integer) jComboBox1.getSelectedIndex() - 1))[1];
-        }
-
-        if (assetMap != null && assetMap.size() > 0 && jComboBox3.getSelectedIndex() > 0) {
-            assetID = ((String[]) assetMap.get((Integer) jComboBox3.getSelectedIndex() - 1))[1];
-        }
-
-        if (serverMap != null && serverMap.size() > 0 && jComboBox2.getSelectedIndex() > 0) {
-            serverID = ((String[]) serverMap.get((Integer) jComboBox2.getSelectedIndex() - 1))[1];
-        }
-
-        // pass serverID and nymID here
-        OpenTransactionAccount openTransaction = new OpenTransactionAccount(serverID, nymID);
-        try {
-            if (userSelection == 0) {
-                setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-                boolean status = openTransaction.deleteAccount((String) jTable5.getModel().getValueAt(jTable5.getSelectedRow(), 3));
-                if (status) {
-                    JOptionPane.showMessageDialog(this, "Account deleted successfully", "Account deletion", JOptionPane.INFORMATION_MESSAGE);
-
-                    loadAccount(assetID, serverID, nymID);
-                    clearDetailPage();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Account cannot be deleted", "Account deletion", JOptionPane.ERROR_MESSAGE);
-                }
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            setCursor(Cursor.getDefaultCursor());
-        }
-}//GEN-LAST:event_jButton12ActionPerformed
-
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-
-        String nymID = "ALL";
-        String assetID = "ALL";
-        String serverID = "ALL";
-
-        if (nymMap != null && nymMap.size() > 0 && jComboBox1.getSelectedIndex() > 0) {
-            nymID = ((String[]) nymMap.get((Integer) jComboBox1.getSelectedIndex() - 1))[1];
-        }
-
-        if (assetMap != null && assetMap.size() > 0 && jComboBox3.getSelectedIndex() > 0) {
-            assetID = ((String[]) assetMap.get((Integer) jComboBox3.getSelectedIndex() - 1))[1];
-        }
-
-        if (serverMap != null && serverMap.size() > 0 && jComboBox2.getSelectedIndex() > 0) {
-            serverID = ((String[]) serverMap.get((Integer) jComboBox2.getSelectedIndex() - 1))[1];
-        }
-
-        new AccountAdditionDialog(this, true, nymID, assetID, serverID, "OT", (String) jTable5.getModel().getValueAt(jTable5.getSelectedRow(), 3)).setVisible(true);
-        System.out.print("assetID:" + assetID);
-        System.out.print("serverID:" + serverID);
-        System.out.print("nymiiidL:" + nymID);
-
-}//GEN-LAST:event_jButton11ActionPerformed
-
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        if (jTable5.getSelectedRow() > -1) {
-            new AccountEditDialog(this, true, (String) jTable5.getModel().getValueAt(jTable5.getSelectedRow(), 3), (String) jTable5.getModel().getValueAt(jTable5.getSelectedRow(), 2)).setVisible(true);
-            System.out.println("ggggggggjTable5.getSelectedRow():" + jTable5.getSelectedRow());
-            String nymID = "ALL";
-            String assetID = "ALL";
-            String serverID = "ALL";
-
-            if (nymMap != null && nymMap.size() > 0 && jComboBox1.getSelectedIndex() > 0) {
-                nymID = ((String[]) nymMap.get((Integer) jComboBox1.getSelectedIndex() - 1))[1];
-            }
-
-            if (assetMap != null && assetMap.size() > 0 && jComboBox3.getSelectedIndex() > 0) {
-                assetID = ((String[]) assetMap.get((Integer) jComboBox3.getSelectedIndex() - 1))[1];
-            }
-
-            if (serverMap != null && serverMap.size() > 0 && jComboBox2.getSelectedIndex() > 0) {
-                serverID = ((String[]) serverMap.get((Integer) jComboBox2.getSelectedIndex() - 1))[1];
-            }
-            loadAccount(assetID, serverID, nymID);
-            //jTable5.setValueAt("", jTable5.getSelectedRow(), 0);
-        } else {
-            JOptionPane.showMessageDialog(this, "Please select an account to edit.", "NYM Edit Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_jButton10ActionPerformed
-
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+    private void jComboBox_Filter2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_Filter2ActionPerformed
         System.out.println("In Action for Server Combo main tab");
         /*String nymID = Utility.getKey(nymMap, (String) jComboBox1.getSelectedItem());
         String assetID = Utility.getKey(assetMap, (String) jComboBox3.getSelectedItem());
@@ -3250,27 +3159,27 @@ public class MainPage extends javax.swing.JFrame {
         String assetID = "ALL";
         String serverID = "ALL";
 
-        if (nymMap != null && nymMap.size() > 0 && jComboBox1.getSelectedIndex() > 0) {
-            nymID = ((String[]) nymMap.get((Integer) jComboBox1.getSelectedIndex() - 1))[1];
+        if (nymMap != null && nymMap.size() > 0 && jComboBox_Filter1.getSelectedIndex() > 0) {
+            nymID = ((String[]) nymMap.get((Integer) jComboBox_Filter1.getSelectedIndex() - 1))[1];
         }
 
-        if (assetMap != null && assetMap.size() > 0 && jComboBox3.getSelectedIndex() > 0) {
-            assetID = ((String[]) assetMap.get((Integer) jComboBox3.getSelectedIndex() - 1))[1];
+        if (assetMap != null && assetMap.size() > 0 && jComboBox_Filter3.getSelectedIndex() > 0) {
+            assetID = ((String[]) assetMap.get((Integer) jComboBox_Filter3.getSelectedIndex() - 1))[1];
         }
 
-        if (serverMap != null && serverMap.size() > 0 && jComboBox2.getSelectedIndex() > 0) {
-            serverID = ((String[]) serverMap.get((Integer) jComboBox2.getSelectedIndex() - 1))[1];
+        if (serverMap != null && serverMap.size() > 0 && jComboBox_Filter2.getSelectedIndex() > 0) {
+            serverID = ((String[]) serverMap.get((Integer) jComboBox_Filter2.getSelectedIndex() - 1))[1];
         }
 
         System.out.print("serverID----------------------------:" + serverID);
         loadAccount(assetID, serverID, nymID);
         clearDetailPage();
-}//GEN-LAST:event_jComboBox2ActionPerformed
+}//GEN-LAST:event_jComboBox_Filter2ActionPerformed
 
-    private void jTable5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable5MouseClicked
-}//GEN-LAST:event_jTable5MouseClicked
+    private void jTable_AccountTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_AccountTableMouseClicked
+}//GEN-LAST:event_jTable_AccountTableMouseClicked
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void jComboBox_Filter1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_Filter1ActionPerformed
         System.out.println("In Action for NYM Combo Main tab");
         /*String nymID = Utility.getKey(nymMap, (String) jComboBox1.getSelectedItem());
         String assetID = Utility.getKey(assetMap, (String) jComboBox3.getSelectedItem());
@@ -3279,16 +3188,16 @@ public class MainPage extends javax.swing.JFrame {
         String assetID = "ALL";
         String serverID = "ALL";
 
-        if (nymMap != null && nymMap.size() > 0 && jComboBox1.getSelectedIndex() > 0) {
-            nymID = ((String[]) nymMap.get((Integer) jComboBox1.getSelectedIndex() - 1))[1];
+        if (nymMap != null && nymMap.size() > 0 && jComboBox_Filter1.getSelectedIndex() > 0) {
+            nymID = ((String[]) nymMap.get((Integer) jComboBox_Filter1.getSelectedIndex() - 1))[1];
         }
 
-        if (assetMap != null && assetMap.size() > 0 && jComboBox3.getSelectedIndex() > 0) {
-            assetID = ((String[]) assetMap.get((Integer) jComboBox3.getSelectedIndex() - 1))[1];
+        if (assetMap != null && assetMap.size() > 0 && jComboBox_Filter3.getSelectedIndex() > 0) {
+            assetID = ((String[]) assetMap.get((Integer) jComboBox_Filter3.getSelectedIndex() - 1))[1];
         }
 
-        if (serverMap != null && serverMap.size() > 0 && jComboBox2.getSelectedIndex() > 0) {
-            serverID = ((String[]) serverMap.get((Integer) jComboBox2.getSelectedIndex() - 1))[1];
+        if (serverMap != null && serverMap.size() > 0 && jComboBox_Filter2.getSelectedIndex() > 0) {
+            serverID = ((String[]) serverMap.get((Integer) jComboBox_Filter2.getSelectedIndex() - 1))[1];
         }
 
         System.out.print(":" + nymID);
@@ -3296,7 +3205,7 @@ public class MainPage extends javax.swing.JFrame {
         System.out.print("assetID:" + assetID);
         loadAccount(assetID, serverID, nymID);
         clearDetailPage();
-}//GEN-LAST:event_jComboBox1ActionPerformed
+}//GEN-LAST:event_jComboBox_Filter1ActionPerformed
 
     private void jTable9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable9MouseClicked
         // TODO add your handling code here:
@@ -3376,16 +3285,16 @@ public class MainPage extends javax.swing.JFrame {
         String assetID = "ALL";
         String serverID = "ALL";
 
-        if (nymMap != null && nymMap.size() > 0 && jComboBox1.getSelectedIndex() > 0) {
-            nymID = ((String[]) nymMap.get((Integer) jComboBox1.getSelectedIndex() - 1))[1];
+        if (nymMap != null && nymMap.size() > 0 && jComboBox_Filter1.getSelectedIndex() > 0) {
+            nymID = ((String[]) nymMap.get((Integer) jComboBox_Filter1.getSelectedIndex() - 1))[1];
         }
 
-        if (assetMap != null && assetMap.size() > 0 && jComboBox3.getSelectedIndex() > 0) {
-            assetID = ((String[]) assetMap.get((Integer) jComboBox3.getSelectedIndex() - 1))[1];
+        if (assetMap != null && assetMap.size() > 0 && jComboBox_Filter3.getSelectedIndex() > 0) {
+            assetID = ((String[]) assetMap.get((Integer) jComboBox_Filter3.getSelectedIndex() - 1))[1];
         }
 
-        if (serverMap != null && serverMap.size() > 0 && jComboBox2.getSelectedIndex() > 0) {
-            serverID = ((String[]) serverMap.get((Integer) jComboBox2.getSelectedIndex() - 1))[1];
+        if (serverMap != null && serverMap.size() > 0 && jComboBox_Filter2.getSelectedIndex() > 0) {
+            serverID = ((String[]) serverMap.get((Integer) jComboBox_Filter2.getSelectedIndex() - 1))[1];
         }
 
         System.out.print(":" + nymID);
@@ -3461,9 +3370,9 @@ public class MainPage extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton16ActionPerformed
 
-    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+    private void jComboBox_Filter1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox_Filter1ItemStateChanged
         System.out.println("Item stt--");
-    }//GEN-LAST:event_jComboBox1ItemStateChanged
+    }//GEN-LAST:event_jComboBox_Filter1ItemStateChanged
 
     private void jTable8MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable8MouseEntered
 }//GEN-LAST:event_jTable8MouseEntered
@@ -4191,6 +4100,57 @@ public class MainPage extends javax.swing.JFrame {
         new ServerAcctDialog(this, true, (String) jTable6.getModel().getValueAt(jTable6.getSelectedRow(), 1), (String) jComboBox8.getSelectedItem()).setVisible(true);
     }//GEN-LAST:event_jComboBox8ActionPerformed
 
+    private void jButton_RemoveAccountMainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_RemoveAccountMainActionPerformed
+
+        if (jTable_AccountTable.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "Please select account to delete", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        int userSelection = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete account", "Delete Account", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        System.out.println("userSelection:" + userSelection);
+        String nymID = "ALL";
+        String assetID = "ALL";
+        String serverID = "ALL";
+        if (nymMap != null && nymMap.size() > 0 && jComboBox_Filter1.getSelectedIndex() > 0) {
+            nymID = ((String[]) nymMap.get((Integer) jComboBox_Filter1.getSelectedIndex() - 1))[1];
+        }
+        if (assetMap != null && assetMap.size() > 0 && jComboBox_Filter2.getSelectedIndex() > 0) {
+            assetID = ((String[]) assetMap.get((Integer) jComboBox_Filter2.getSelectedIndex() - 1))[1];
+        }
+        if (serverMap != null && serverMap.size() > 0 && jComboBox_Filter3.getSelectedIndex() > 0) {
+            serverID = ((String[]) serverMap.get((Integer) jComboBox_Filter3.getSelectedIndex() - 1))[1];
+        }          // pass serverID and nymID here         OpenTransactionAccount openTransaction = new OpenTransactionAccount(serverID, nymID);         try {             if (userSelection == 0) {                 setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));                 boolean status = openTransaction.deleteAccount((String) jTable_AccountTable.getModel().getValueAt(jTable_AccountTable.getSelectedRow(), 3));                 if (status) {                     JOptionPane.showMessageDialog(this, "Account deleted successfully", "Account deletion", JOptionPane.INFORMATION_MESSAGE);                      loadAccount(assetID, serverID, nymID);                     clearDetailPage();                 } else {                     JOptionPane.showMessageDialog(this, "Account cannot be deleted", "Account deletion", JOptionPane.ERROR_MESSAGE);                 }              }         } catch (Exception e) {             e.printStackTrace();         } finally {             setCursor(Cursor.getDefaultCursor());         }     }
+
+
+    }//GEN-LAST:event_jButton_RemoveAccountMainActionPerformed
+
+        private void jButton_AddAccountMainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_AddAccountMainActionPerformed
+
+            String nymID = "ALL";
+            String assetID = "ALL";
+            String serverID = "ALL";
+
+            if (nymMap != null && nymMap.size() > 0 && jComboBox_Filter1.getSelectedIndex() > 0) {
+                nymID = ((String[]) nymMap.get((Integer) jComboBox_Filter1.getSelectedIndex() - 1))[1];
+            }
+
+            if (assetMap != null && assetMap.size() > 0 && jComboBox_Filter3.getSelectedIndex() > 0) {
+                assetID = ((String[]) assetMap.get((Integer) jComboBox_Filter3.getSelectedIndex() - 1))[1];
+            }
+
+            if (serverMap != null && serverMap.size() > 0 && jComboBox_Filter2.getSelectedIndex() > 0) {
+                serverID = ((String[]) serverMap.get((Integer) jComboBox_Filter2.getSelectedIndex() - 1))[1];
+            }
+
+            new AccountAdditionDialog(this, true, nymID, assetID, serverID, "OT", (String) jTable_AccountTable.getModel().getValueAt(jTable_AccountTable.getSelectedRow(), 3)).setVisible(true);
+            System.out.print("assetID:" + assetID);
+            System.out.print("serverID:" + serverID);
+            System.out.print("nymiiidL:" + nymID);
+    }//GEN-LAST:event_jButton_AddAccountMainActionPerformed
+
+    private void jButton_EditAccountMainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_EditAccountMainActionPerformed
+    }//GEN-LAST:event_jButton_EditAccountMainActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -4212,9 +4172,6 @@ public class MainPage extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton15;
@@ -4248,22 +4205,23 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private static javax.swing.JComboBox jComboBox1;
-    private static javax.swing.JComboBox jComboBox2;
-    private static javax.swing.JComboBox jComboBox3;
+    private javax.swing.JButton jButton_AddAccountMain;
+    private javax.swing.JButton jButton_EditAccountMain;
+    private javax.swing.JButton jButton_RemoveAccountMain;
     private static javax.swing.JComboBox jComboBox4;
     private static javax.swing.JComboBox jComboBox5;
     private static javax.swing.JComboBox jComboBox6;
     private static javax.swing.JComboBox jComboBox7;
     private static javax.swing.JComboBox jComboBox8;
-    private javax.swing.JLabel jLabel1;
+    private static javax.swing.JComboBox jComboBox_Filter1;
+    private static javax.swing.JComboBox jComboBox_Filter2;
+    private static javax.swing.JComboBox jComboBox_Filter3;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
@@ -4287,7 +4245,6 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
@@ -4298,7 +4255,6 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel52;
@@ -4316,14 +4272,15 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel_Filter1;
+    private javax.swing.JLabel jLabel_Filter2;
+    private javax.swing.JLabel jLabel_Filter3;
+    private javax.swing.JLabel jLabel_FilterAccounts;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
-    private static javax.swing.JPanel jPanel15;
-    private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
@@ -4354,15 +4311,16 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private static javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JPanel jPanel_AccountAddEditRemove;
+    private static javax.swing.JPanel jPanel_Bottom;
+    private javax.swing.JPanel jPanel_LeftPannelMain;
+    private javax.swing.JPanel jPanel_Main;
     private static javax.swing.JPanel jPanel_PaymentTop;
+    private static javax.swing.JPanel jPanel_Top;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
-    private javax.swing.JScrollPane jScrollPane12;
-    private javax.swing.JScrollPane jScrollPane13;
-    private javax.swing.JScrollPane jScrollPane14;
     private javax.swing.JScrollPane jScrollPane15;
     private javax.swing.JScrollPane jScrollPane16;
     private javax.swing.JScrollPane jScrollPane17;
@@ -4387,12 +4345,13 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
+    private javax.swing.JScrollPane jScrollPane_AccountTable;
+    private javax.swing.JScrollPane jScrollPane_Bottom;
+    private javax.swing.JScrollPane jScrollPane_Top;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator12;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
@@ -4420,11 +4379,11 @@ public class MainPage extends javax.swing.JFrame {
     private static javax.swing.JTable jTable22;
     private static javax.swing.JTable jTable3;
     private static javax.swing.JTable jTable4;
-    private static javax.swing.JTable jTable5;
     private static javax.swing.JTable jTable6;
     private static javax.swing.JTable jTable7;
     private static javax.swing.JTable jTable8;
     private javax.swing.JTable jTable9;
+    private static javax.swing.JTable jTable_AccountTable;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea3;
     private javax.swing.JTextArea jTextArea5;
@@ -4451,32 +4410,30 @@ public class MainPage extends javax.swing.JFrame {
     private void initMainTab() {
 
 
-        jPanel8.setLayout(new CardLayout());
-        jPanel15.setLayout(new CardLayout());
+        jPanel_Top.setLayout(new CardLayout());
+        jPanel_Bottom.setLayout(new CardLayout());
 
-        jTable5.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        jTable_AccountTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
             public void valueChanged(ListSelectionEvent e) {
                 if (e.getValueIsAdjusting()) {
                     return;
                 }
-                System.out.println("valueChanged Action Listener :" + jTable5.getSelectedRow() + "e:" + e.getSource());
-                if (jTable5.getSelectedRow() >= 0) {
+                System.out.println("valueChanged Action Listener :" + jTable_AccountTable.getSelectedRow() + "e:" + e.getSource());
+                if (jTable_AccountTable.getSelectedRow() >= 0) {
                     try {
-                        jPanel8.setVisible(true);
-                        jPanel15.setVisible(true);
+                        jPanel_Top.setVisible(true);
+                        jPanel_Bottom.setVisible(true);
 
-                        jSeparator2.setVisible(true);
+                        CardLayout topLayout = (CardLayout) (jPanel_Top.getLayout());
+                        CardLayout bottomlayout = (CardLayout) (jPanel_Bottom.getLayout());
 
-                        CardLayout topLayout = (CardLayout) (jPanel8.getLayout());
-                        CardLayout bottomlayout = (CardLayout) (jPanel15.getLayout());
-
-                        jScrollPane13.setVisible(true);
+                        jScrollPane_Bottom.setVisible(true);
                         String type = null;
                         String accountID = null;
 
-                        type = (String) jTable5.getModel().getValueAt(jTable5.getSelectedRow(), 2);
-                        accountID = (String) jTable5.getModel().getValueAt(jTable5.getSelectedRow(), 3);
+                        type = (String) jTable_AccountTable.getModel().getValueAt(jTable_AccountTable.getSelectedRow(), 2);
+                        accountID = (String) jTable_AccountTable.getModel().getValueAt(jTable_AccountTable.getSelectedRow(), 3);
 
                         System.out.println("Type:" + type);
 
@@ -4486,8 +4443,8 @@ public class MainPage extends javax.swing.JFrame {
 
                             if (Account.allAccounts[i].equalsIgnoreCase(type)) {
                                 try {
-                                    topLayout.show(jPanel8, type + "TopPanel");
-                                    bottomlayout.show(jPanel15, type + "BottomPanel");
+                                    topLayout.show(jPanel_Top, type + "TopPanel");
+                                    bottomlayout.show(jPanel_Bottom, type + "BottomPanel");
                                     Class obj = Class.forName("com.moneychanger.core." + type);
 
 
@@ -4500,7 +4457,7 @@ public class MainPage extends javax.swing.JFrame {
                                     if ("OpenTransactionAccount".equalsIgnoreCase(type)) {
                                         OTDetails otDetails = (OTDetails) details;
                                         Utility.populateOTDetails(otDetails);
-                                        ((AccountTableModel) jTable5.getModel()).setValueAt(otDetails.getBalance(), jTable5.getSelectedRow(), 1);
+                                        ((AccountTableModel) jTable_AccountTable.getModel()).setValueAt(otDetails.getBalance(), jTable_AccountTable.getSelectedRow(), 1);
                                     } else if ("CashPurseAccount".equalsIgnoreCase(type)) {
                                         CashPurseDetails cashDetails = (CashPurseDetails) details;
                                         populateCashPurseDetails(cashDetails, cashDetails.getBalance());
@@ -4529,19 +4486,19 @@ public class MainPage extends javax.swing.JFrame {
 
         nymMap = new NYM().loadNYM();
 
-        jComboBox1.addItem(new ComboObject("ALL"));
-        jComboBox2.addItem(new ComboObject("ALL"));
-        jComboBox3.addItem(new ComboObject("ALL"));
+        jComboBox_Filter1.addItem(new ComboObject("ALL"));
+        jComboBox_Filter2.addItem(new ComboObject("ALL"));
+        jComboBox_Filter3.addItem(new ComboObject("ALL"));
 
-        Utility.populateCombo(nymMap, jComboBox1);
+        Utility.populateCombo(nymMap, jComboBox_Filter1);
 
         Contract contract = new Contract();
 
         serverMap = contract.loadServerContract();
-        Utility.populateCombo(serverMap, jComboBox2);
+        Utility.populateCombo(serverMap, jComboBox_Filter2);
 
         assetMap = contract.loadAssetContract();
-        Utility.populateCombo(assetMap, jComboBox3);
+        Utility.populateCombo(assetMap, jComboBox_Filter3);
 
 
         Account account = null;
@@ -4560,12 +4517,12 @@ public class MainPage extends javax.swing.JFrame {
 
                     Class obj1 = Class.forName("com.moneychanger.ui.panels." + Account.allAccounts[i] + "TopPanel");
                     JPanel topPanel = (JPanel) obj1.newInstance();
-                    jPanel8.add(topPanel, Account.allAccounts[i] + "TopPanel");
+                    jPanel_Top.add(topPanel, Account.allAccounts[i] + "TopPanel");
 
                     Class obj2 = Class.forName("com.moneychanger.ui.panels." + Account.allAccounts[i] + "BottomPanel");
                     JPanel bottomPanel = (JPanel) obj2.newInstance();
 
-                    jPanel15.add(bottomPanel, Account.allAccounts[i] + "BottomPanel");
+                    jPanel_Bottom.add(bottomPanel, Account.allAccounts[i] + "BottomPanel");
                 }
 
             } catch (InstantiationException ex) {
@@ -4771,28 +4728,28 @@ public class MainPage extends javax.swing.JFrame {
         String nymID = "ALL";
         String assetID = "ALL";
         String serverID = "ALL";
-        String selectedAccount = (String) jTable5.getModel().getValueAt(jTable5.getSelectedRow(), 3);
-        if (nymMap != null && nymMap.size() > 0 && jComboBox1.getSelectedIndex() > 0) {
-            nymID = ((String[]) nymMap.get((Integer) jComboBox1.getSelectedIndex() - 1))[1];
+        String selectedAccount = (String) jTable_AccountTable.getModel().getValueAt(jTable_AccountTable.getSelectedRow(), 3);
+        if (nymMap != null && nymMap.size() > 0 && jComboBox_Filter1.getSelectedIndex() > 0) {
+            nymID = ((String[]) nymMap.get((Integer) jComboBox_Filter1.getSelectedIndex() - 1))[1];
         }
 
-        if (assetMap != null && assetMap.size() > 0 && jComboBox3.getSelectedIndex() > 0) {
-            assetID = ((String[]) assetMap.get((Integer) jComboBox3.getSelectedIndex() - 1))[1];
+        if (assetMap != null && assetMap.size() > 0 && jComboBox_Filter3.getSelectedIndex() > 0) {
+            assetID = ((String[]) assetMap.get((Integer) jComboBox_Filter3.getSelectedIndex() - 1))[1];
         }
 
-        if (serverMap != null && serverMap.size() > 0 && jComboBox2.getSelectedIndex() > 0) {
-            serverID = ((String[]) serverMap.get((Integer) jComboBox2.getSelectedIndex() - 1))[1];
+        if (serverMap != null && serverMap.size() > 0 && jComboBox_Filter2.getSelectedIndex() > 0) {
+            serverID = ((String[]) serverMap.get((Integer) jComboBox_Filter2.getSelectedIndex() - 1))[1];
         }
 
         System.out.print("reLoadAccount , nymID :" + nymID + " assetID:" + assetID + " serverID:" + serverID);
 
         loadAccount(assetID, serverID, nymID);
         boolean isAccountPresent = false;
-        for (int i = 0; i < jTable5.getRowCount(); i++) {
-            String accountID = (String) jTable5.getModel().getValueAt(i, 3);
+        for (int i = 0; i < jTable_AccountTable.getRowCount(); i++) {
+            String accountID = (String) jTable_AccountTable.getModel().getValueAt(i, 3);
             if (selectedAccount != null && selectedAccount.equals(accountID)) {
                 isAccountPresent = true;
-                jTable5.setRowSelectionInterval(i, i);
+                jTable_AccountTable.setRowSelectionInterval(i, i);
             }
         }
 
@@ -4822,7 +4779,7 @@ public class MainPage extends javax.swing.JFrame {
 
         }
 
-        ((AccountTableModel) jTable5.getModel()).setValue(account.getOTAccountList(), jTable5);
+        ((AccountTableModel) jTable_AccountTable.getModel()).setValue(account.getOTAccountList(), jTable_AccountTable);
 
     }
 
@@ -4847,13 +4804,13 @@ public class MainPage extends javax.swing.JFrame {
 
         }
 
-        ((AccountTableModel) jTable5.getModel()).setValue(account.getOTAccountList(), jTable5);
+        ((AccountTableModel) jTable_AccountTable.getModel()).setValue(account.getOTAccountList(), jTable_AccountTable);
 
 
-        for (int i = 0; i < jTable5.getModel().getRowCount(); i++) {
-            System.out.println("selectedID:" + selectedID + "jTable5.getModel().getValueAt(i, 3" + (String) jTable5.getModel().getValueAt(i, 3));
-            if (selectedID != null && jTable5.getModel().getValueAt(i, 3) != null && selectedID.equals(jTable5.getModel().getValueAt(i, 3))) {
-                jTable5.setRowSelectionInterval(i, i);
+        for (int i = 0; i < jTable_AccountTable.getModel().getRowCount(); i++) {
+            System.out.println("selectedID:" + selectedID + "jTable5.getModel().getValueAt(i, 3" + (String) jTable_AccountTable.getModel().getValueAt(i, 3));
+            if (selectedID != null && jTable_AccountTable.getModel().getValueAt(i, 3) != null && selectedID.equals(jTable_AccountTable.getModel().getValueAt(i, 3))) {
+                jTable_AccountTable.setRowSelectionInterval(i, i);
                 break;
             }
 
@@ -4995,7 +4952,7 @@ public class MainPage extends javax.swing.JFrame {
 
         nymRegisteredMap = new NYM().loadRegisteredNYM(serverID);
 
-        Utility.populateCombo(nymMap, jComboBox1);
+        Utility.populateCombo(nymMap, jComboBox_Filter1);
         Utility.populateComboWithoutAll(nymRegisteredMap, jComboBox6);
     }
 
@@ -5005,7 +4962,7 @@ public class MainPage extends javax.swing.JFrame {
         ((AssetContractTableModel) jTable7.getModel()).setValue(contract.loadAssetContract(), jTable7);
         assetMap.clear();
         assetMap = contract.loadAssetContract();
-        Utility.populateCombo(assetMap, jComboBox3);
+        Utility.populateCombo(assetMap, jComboBox_Filter3);
 
     }
 
@@ -5015,13 +4972,13 @@ public class MainPage extends javax.swing.JFrame {
         serverMap.clear();
         serverMap = contract.loadServerContract();
         System.out.println("serverv" + serverMap.entrySet());
-        Utility.populateCombo(serverMap, jComboBox2);
+        Utility.populateCombo(serverMap, jComboBox_Filter2);
         Utility.populateComboWithoutAll(serverMap, jComboBox5);
 
     }
 
     public static JTable getAccountTable() {
-        return jTable5;
+        return jTable_AccountTable;
     }
 
     public static void setAssets(String serverID, String assetID) {

@@ -60,10 +60,13 @@ public class ConfigBean {
         }
 
         public static String getKey(String key) {
-            if (!(_StaticMap.containsKey(Enum.valueOf(Keys.class, key)))) {
-                return null;
-            } else {
-                return _StaticMap.get(Enum.valueOf(Keys.class, key));
+            try {
+                Keys k = Keys.valueOf(key);
+                return _StaticMap.get(k);
+            }
+            catch (IllegalArgumentException e)
+            {
+                return "";
             }
         }
         // Overrides
@@ -86,6 +89,7 @@ public class ConfigBean {
     }
 
     public ConfigBean() {
+        resetConfig();
         if (!configurationExist()) {
             resetConfig();
         }
