@@ -89,7 +89,6 @@ public class ConfigBean {
     }
 
     public ConfigBean() {
-        resetConfig();
         if (!configurationExist()) {
             resetConfig();
         }

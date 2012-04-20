@@ -92,21 +92,13 @@ AK+ZirdWhhoHeWR1tAkN
 package com.moneychanger.app;
 
 import com.moneychanger.core.util.ConfigBean;
-import org.ot.wrapper.jni.otapi;
-import com.moneychanger.core.util.Utility;
-import com.moneychanger.ui.MainPage;
 import com.moneychanger.ui.Settings;
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
-import org.jvnet.substance.SubstanceLookAndFeel;
-import org.jvnet.substance.skin.SubstanceModerateLookAndFeel;
-import org.jvnet.substance.skin.SubstanceSaharaLookAndFeel;
 
 /**
  * The main class of the application.
@@ -141,13 +133,8 @@ public class ApplicationLauncher extends SingleFrameApplication {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
-
                 }
             });
-
-
-
         } catch (Exception ex) {
             Logger.getLogger(ApplicationLauncher.class.getName()).log(Level.SEVERE, null, ex);
         }

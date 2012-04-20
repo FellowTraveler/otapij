@@ -253,7 +253,7 @@ public class MainPage extends javax.swing.JFrame {
             //initBasketsTab();
             initSettingsTab();
             initCreditsTab();
-            setResizable(false);
+//            setResizable(false);
             setLocation(Utility.getLocation(this.getSize()));
             repaint();
         } catch (Exception e) {
@@ -3826,6 +3826,7 @@ public class MainPage extends javax.swing.JFrame {
             Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
     private void jButton27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton27ActionPerformed
         // Create Order and refresh order and market list
         String serverID = "ALL";
