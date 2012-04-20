@@ -1,0 +1,171 @@
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.moneychanger</groupId>
+    <artifactId>MoneyChanger</artifactId>
+    <version>0.8-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>MoneyChanger</name>
+    <url>http://maven.apache.org</url>
+
+    <distributionManagement>
+        <repository>
+            <id>internal.repo</id>
+            <name>Moneychanger Internal Repository</name>
+            <url>https://github.com/da2ce7/Moneychanger/</url>
+        </repository>
+    </distributionManagement>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>project.local</id>
+            <name>project</name>
+            <url>file:${project.basedir}/repo</url>
+        </repository>
+
+        <repository>
+            <id>netbeans</id>
+            <name>NetBeans</name>
+            <url>http://bits.netbeans.org/maven2/</url>
+        </repository>
+        <repository>
+            <id>ivy2maven2</id>
+            <name>Ivy 2 Maven2</name>
+            <url>http://ivy2maven2.littleware.googlecode.com/hg/maven2/</url>
+        </repository>
+        <repository>
+            <id>jspresso</id>
+            <name>Jspresso Repository</name>
+            <layout>default</layout>
+            <url>http://repository.jspresso.org/maven2/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>chrriis</groupId>
+            <artifactId>dj-nativeswing-swt</artifactId>
+            <version>0.9.9.20101112</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>chrriis</groupId>
+            <artifactId>dj-nativeswing</artifactId>
+            <version>0.9.9.20101112</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.netbeans.external</groupId>
+            <artifactId>appframework-1.0.3</artifactId>
+            <version>RELEASE701</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.netbeans.external</groupId>
+            <artifactId>org-apache-commons-httpclient</artifactId>
+            <version>RELEASE71</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.netbeans.external</groupId>
+            <artifactId>json-2</artifactId>
+            <version>RELEASE65</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.jvnet</groupId>
+            <artifactId>substance</artifactId>
+            <version>5.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.swinglabs</groupId>
+            <artifactId>swing-layout</artifactId>
+            <version>1.0.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.netbeans.external</groupId>
+            <artifactId>AbsoluteLayout</artifactId>
+            <version>RELEASE71</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>ru.paradoxs</groupId>
+            <artifactId>bitcoin</artifactId>
+            <version>client-0.3.18</version>
+        </dependency>
+        <dependency>
+            <groupId>org.netbeans.external</groupId>
+            <artifactId>swing-worker-1.1</artifactId>
+            <version>RELEASE701</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.moneychanger.app.ApplicationLauncher</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>nbm-maven-plugin</artifactId>
+                <version>3.7</version>
+                <extensions>true</extensions>
+            </plugin>
+            <plugin>
+                <!-- NetBeans 6.9+ requires JDK 6 -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <!-- to have the jar plugin pickup the nbm generated manifest -->
+                    <useDefaultManifestFile>true</useDefaultManifestFile>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
