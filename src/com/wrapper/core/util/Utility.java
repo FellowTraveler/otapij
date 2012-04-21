@@ -1755,28 +1755,59 @@ public class Utility {
                     
                     if (lTransactionNum > 0)
                     {
-                        final boolean bHaveBoxReceipt =
-                                (1 == otapi.OT_API_DoesBoxReceiptExist(serverID, nymID, accountID, nBoxType, strTransactionNum))
-                                    ? true : false;
-                        
-                        if (!bHaveBoxReceipt)
-                        {
-                            System.out.println("Utility.insureHaveAllBoxReceipts(): Downloading box receipt to add to my collection...");
+                        final String strTransaction = otapi.OT_API_Ledger_GetTransactionByID(serverID, nymID, accountID, ledger, strTransactionNum);
 
-                            final boolean bDownloaded = Utility.getBoxReceiptWithErrorCorrection(serverID, nymID, accountID, nBoxType, strTransactionNum);
-                            
-                            if (!bDownloaded) 
+                        if (null == strTransaction)
+                        {
+                            System.out.println("Utility.insureHaveAllBoxReceipts(): Error: Null transaction somehow returned, even though I had a good ID for this index: " + i);
+                            return false;
+                        }
+                        else
+                        {
+                            final String  strTransType   = otapi.OT_API_Transaction_GetType(serverID, nymID, accountID, strTransaction);
+                            final boolean bIsReplyNotice = ((null != strTransType) && strTransType.equals("replyNotice"));
+                            final String  strRequestNum;
+                                    
+                            if (bIsReplyNotice)
                             {
-                                System.out.println("Utility.insureHaveAllBoxReceipts(): Failed downloading box receipt. (Skipping any others.) Transaction number: " + strTransactionNum);
-                                bReturnValue = false;
-                                break;
-                                // No point continuing to loop and fail 500 times, when getBoxReceiptWithErrorCorrection() already failed
-                                // even doing the getRequest() trick and everything, and whatever retries are inside OT, before it finally
-                                // gave up.
+                                strRequestNum = otapi.OT_API_ReplyNotice_GetRequestNum(serverID, nymID, strTransaction);
                             }
-                            // else (Download success.)
-                        } // if (!bHaveBoxReceipt)
-                        // else we already have the box receipt, no need to download again.
+                            else
+                            {
+                                strRequestNum = null;
+                            }
+                            // ----------------------------------------
+                                
+                            final 
+                            boolean bShouldDownload = (!bIsReplyNotice || 
+                                                       (bIsReplyNotice && (null != strRequestNum) && (0 == otapi.OT_API_HaveAlreadySeenReply(serverID, nymID, strRequestNum))));
+                            // ----------------------------------------
+                            if (bShouldDownload) // This block executes if we should download it (assuming we haven't already, which it also checks for.)
+                            {
+                                final boolean bHaveBoxReceipt =
+                                        (1 == otapi.OT_API_DoesBoxReceiptExist(serverID, nymID, accountID, nBoxType, strTransactionNum))
+                                            ? true : false;
+
+                                if (!bHaveBoxReceipt)
+                                {
+                                    System.out.println("Utility.insureHaveAllBoxReceipts(): Downloading box receipt to add to my collection...");
+
+                                    final boolean bDownloaded = Utility.getBoxReceiptWithErrorCorrection(serverID, nymID, accountID, nBoxType, strTransactionNum);
+
+                                    if (!bDownloaded) 
+                                    {
+                                        System.out.println("Utility.insureHaveAllBoxReceipts(): Failed downloading box receipt. (Skipping any others.) Transaction number: " + strTransactionNum);
+                                        bReturnValue = false;
+                                        break;
+                                        // No point continuing to loop and fail 500 times, when getBoxReceiptWithErrorCorrection() already failed
+                                        // even doing the getRequest() trick and everything, and whatever retries are inside OT, before it finally
+                                        // gave up.
+                                    }
+                                    // else (Download success.)
+                                } // if (!bHaveBoxReceipt)
+                            }
+                            // else we already have the box receipt, no need to download again.                            
+                        }
                     } // if (lTransactionNum > 0)
                     else
                     {
@@ -1805,6 +1836,86 @@ public class Utility {
             // box receipts haven't been downloaded by the time you reach this code.
             // Nevertheless, we will see if the reply is there for the appropriate request
             // number, whether abbreviated or not.
+            //
+            // UPDATE: I am now adding specific cases where the replyNotice is NOT downloaded.
+            // You still use it, through its abbreviated version -- and the actual version
+            // IS still available for download through the server's API. But with a replyNotice,
+            // just knowing that it exists is usually enough for the client, who probably still 
+            // has a cached copy of the original sent message anyway. Only in cases where he
+            // doesn't, would he need to download it. (Why? So he can process the server's reply.)
+            // Therefore the cached sent message is useless, since it doesn't contain the server's
+            // reply! Hmm. So I need that reply BUT ONLY IN CASES where I didn't already receive it
+            // as a normal part of processing (and that is MOST of the time, meaning most cases can
+            // thus entirely eliminate the download.)
+            //
+            // PROTOCOL FOR NOT DOWNLOADING MOST OF THE BOX RECEIPTS
+            //
+            // Solution: User messages should contain a list of the last X number of request numbers
+            // that they have DEFINITELY seen the response to. The server, meanwhile, since the user
+            // has DEFINITELY seen the response, can now safely remove the replyNotice from the Nymbox.
+            // The only reason it was there in the first place was to make sure the user got the reply.
+            // Since the user is straight-up acknowledging that he received it, the server no longer
+            // needs to "make sure" and thus it can remove that reply from the Nymbox, and mark the 
+            // box receipt for deletion. This will be MOST REPLIES! We'll eliminate the step of having
+            // to download the box receipt. 
+            // The above call to getBoxReceiptWithErrorCorrection should also be smart enough not to
+            // bother downloading any replyNotice Box Receipts if their request number appears on that 
+            // list. Again: the list means I DEFINITELY already responded to it--if the request # is on
+            // that list, then NO NEED downloading the Box Receipt -- I DEFINITELY already got that reply!
+            //
+            // Therefore, Something like OT_API_HaveAlreadySeenReply(serverID, nymID, requestNum);
+            //
+            // Perhaps also, on the server side, send a list of request numbers for that Nym that the
+            // server KNOWS the Nym saw the reply to. This way, the Nym can remove the number from his
+            // list, and thus won't be continually causing the server to load up the Nymbox and try
+            // to remove the replyNotice (since it's already been removed.)
+            //
+            // The Nym doesn't have to keep a list of ALL request numbers he's seen the reply to.
+            // Rather, just the past X number of them, and with the number explicitly removed once
+            // he sees the server acknowledgment. (ServerAckOfAlreadyGotReply.)
+            //
+            // The server, meanwhile, is free to remove the ACK for any request # once he sees that
+            // the client has as well. Server also only needs to store a list of the past X request #s.
+            // Also: since both sides REMOVE the number, there need not necessarily be a limit on the 
+            // size of the list, since it grows and shrinks as needed.
+            // 
+            // Whenever Wallet processes a server reply, just see if it's on that "replied to already"
+            // list already on client side. If so, discard the reply. OTClient::ProcessServerReply probably
+            // best place to do this. (We replied to it already, so discard it.)
+            // Also, for any server reply, look at the list of numbers on it. The server is acknowledging
+            // to us that it KNOWS we got those replies, and that it ALREADY has removed them from the
+            // Nymbox as a result. Therefore we can remove ALL of those numbers from our own list
+            // as well. No need for an API call to do this, since it will happen internally to OT.
+            //
+            // On the server side, any numbers on its own list were only there to acknowledge numbers
+            // that had been on the client side list. Therefore, when those numbers disappear from the
+            // client side list, the server simply removes them. Again: ANY NUMBERS on the server list,
+            // which do NOT appear on the client list, are REMOVED From the server list. After all, the
+            // client has clearly now removed them, so the server doesn't have to keep them around either.
+            //
+            // These are useful for synchronization but also there's a long term benefit, if we include
+            // them in the signed receipt (which they will be already, if the receipt contains the entire
+            // message and not just the transaction.) That benefit is that we can prove receipt of notice.
+            // At least, notice of server replies. But for other notice types, such as notice of upcoming
+            // meeting. Or notice of upcoming election. Or notice of election outcome. Or notice of petition
+            // to put X issue on the next ballot, or to nominate Y Nym for some corporate role. Sometimes
+            // you want to be able to PROVE that notice was received. Does this prove that?
+            // Hmm, not necessarily. Currently I'm using this as an optimization scheme, which is useful
+            // even if not provable. How to make it provable?
+            // 
+            // Back from tangent: Wait a sec! If I notice the server that I saw the reply, the server will
+            // remove that reply from my Nymbox -- but it's still in my Nymbox on the client side! Until
+            // I download the latest Nymbox. Thus if I try to PROCESS MY NYMBOX, I will be attempting to
+            // accept a receipt that's already gone! (And the processNymbox will therefore FAIL!)
+            // Solution: be smart enough, when processing Nymbox, to IGNORE any replyNotices when the request
+            // Number appears on the client's list! As the wallet processes the Nymbox it should already 
+            // know to skip the ones that were already replied-to.
+            // Meanwhile the server side will deliberately NOT update the Nymbox hash just because the receipt
+            // was removed. Otherwise it could trigger an unnecessary download of the Nymbox, when the whole
+            // point of this exercise was to prevent unnecessary downloads. It only updates the Nymbox hash
+            // when it WANTS me to download the Nymbox, and that certainly does NOT apply to cases where the
+            // only change involved the removal of some old receipt I already acknowledged. (No need to force
+            // any downloads based on THAT case, after all.)
             //
             final String strReplyNotice = otapi.OT_API_Nymbox_GetReplyNotice(serverID, nymID, Integer.toString(nRequestSeeking));
             
