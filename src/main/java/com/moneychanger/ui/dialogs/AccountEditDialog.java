@@ -126,7 +126,7 @@ public class AccountEditDialog extends javax.swing.JDialog {
         this.accountID = accountID;
         this.type = type;
         initComponents();
-        setLocation(Utility.getLocation(this.getSize()));
+        this.setLocationRelativeTo(null); 
     }
 
     /** This method is called from within the constructor to

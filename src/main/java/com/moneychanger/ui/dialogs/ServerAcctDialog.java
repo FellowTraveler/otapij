@@ -121,7 +121,7 @@ public class ServerAcctDialog extends javax.swing.JDialog {
         this.nymID = nymID;
         this.type = type;
         initValues();
-        setLocation(Utility.getLocation(this.getSize()));
+        this.setLocationRelativeTo(null); 
 
     }
 

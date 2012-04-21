@@ -68,7 +68,7 @@ public class ProgressBar
 
         repaint();
 
-        setLocation(Utility.getLocation(this.getSize()));
+        this.setLocationRelativeTo(null); 
 
 
         SwingUtilities.invokeLater(new Runnable() {

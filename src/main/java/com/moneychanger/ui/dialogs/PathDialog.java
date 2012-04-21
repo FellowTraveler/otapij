@@ -108,7 +108,7 @@ public class PathDialog extends javax.swing.JDialog {
         this._javaPaths = javaPaths;
         initComponents();
         initValues();
-        setLocation(Utility.getLocation(this.getSize()));
+        this.setLocationRelativeTo(null); 
         jButton_Remove.setEnabled(!_javaPaths.isEmpty());
     }
 

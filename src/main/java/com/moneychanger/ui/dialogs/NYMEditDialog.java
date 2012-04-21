@@ -119,7 +119,7 @@ public class NYMEditDialog extends javax.swing.JDialog {
         super(parent, modal);
         this.nymID = nymID;
         initComponents();
-        setLocation(Utility.getLocation(this.getSize()));
+        this.setLocationRelativeTo(null); 
     }
 
     /** This method is called from within the constructor to

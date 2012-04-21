@@ -118,7 +118,7 @@ public class PaymentOutboxDetailsDialog extends javax.swing.JDialog implements C
         this.subject = subject;
         initComponents();
         initValues();
-        setLocation(Utility.getLocation(this.getSize()));
+        this.setLocationRelativeTo(null); 
 
     }
 

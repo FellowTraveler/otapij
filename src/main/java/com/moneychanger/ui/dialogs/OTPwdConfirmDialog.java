@@ -122,7 +122,7 @@ public class OTPwdConfirmDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         jLabel1.setText(passphrase);
-        setLocation(Utility.getLocation(this.getSize()));
+        this.setLocationRelativeTo(null); 
 
         count = 0;
     }

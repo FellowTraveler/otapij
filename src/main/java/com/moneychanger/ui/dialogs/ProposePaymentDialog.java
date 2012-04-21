@@ -123,7 +123,7 @@ public class ProposePaymentDialog extends javax.swing.JDialog {
         initComponents();
         this.nymID = nymID;
         initValues();
-        setLocation(Utility.getLocation(this.getSize()));
+        this.setLocationRelativeTo(null); 
 
     }
 
