@@ -123,7 +123,7 @@ public class NYMAdditionDialog extends javax.swing.JDialog {
         setTitle("Add NYM");
         initComponents();
         initServerLabels();
-        setLocation(Utility.getLocation(this.getSize()));
+        this.setLocationRelativeTo(null); 
     }
 
     /** This method is called from within the constructor to

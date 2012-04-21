@@ -447,11 +447,13 @@ public class Settings extends javax.swing.JFrame {
     private void initSettings() throws OutOfOrderException {
         LoadState.Progress(LoadState.Stages.Opt_InitSettings);
         // Stage: Init
-        setLocation(Utility.getLocation(this.getSize()));
+        LoadState.setStageComplete();
         initFileChoosers();
         initComponents();
         _javaPaths = new JavaPaths(new PathReturnAction());
-
+        
+        this.setLocationRelativeTo(null);
+        
         // All Done with Init!
         LoadState.setStageComplete();
     }

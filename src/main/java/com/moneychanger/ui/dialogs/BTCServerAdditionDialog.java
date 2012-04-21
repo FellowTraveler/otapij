@@ -120,7 +120,7 @@ public class BTCServerAdditionDialog extends javax.swing.JDialog {
         super(parent, modal);
         this.label = label;
         initComponents();
-        setLocation(Utility.getLocation(this.getSize()));
+        this.setLocationRelativeTo(null); 
 
     }
 

@@ -105,7 +105,6 @@ import com.moneychanger.core.Basket;
 import com.moneychanger.core.Contract;
 import com.moneychanger.core.Market;
 import com.moneychanger.core.NYM;
-import com.moneychanger.core.OpenTransactionAccount;
 import com.moneychanger.core.Payments;
 import com.moneychanger.core.RippleAccount;
 import com.moneychanger.core.dataobjects.BitcoinDetails;
@@ -120,7 +119,6 @@ import com.moneychanger.core.util.Configuration;
 import com.moneychanger.core.util.Utility;
 import com.moneychanger.ui.custom.PaymentInboxRightClickListener;
 import com.moneychanger.ui.dialogs.AccountAdditionDialog;
-import com.moneychanger.ui.dialogs.AccountEditDialog;
 import com.moneychanger.ui.dialogs.AddBasketDialog;
 import com.moneychanger.ui.dialogs.AddressBookDialog;
 import com.moneychanger.ui.dialogs.AssetContractEditDialog;
@@ -254,7 +252,7 @@ public class MainPage extends javax.swing.JFrame {
             initSettingsTab();
             initCreditsTab();
 //            setResizable(false);
-            setLocation(Utility.getLocation(this.getSize()));
+            this.setLocationRelativeTo(null); 
             repaint();
         } catch (Exception e) {
             e.printStackTrace();
@@ -660,7 +658,7 @@ public class MainPage extends javax.swing.JFrame {
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
         jTabbedPane1.setMinimumSize(new java.awt.Dimension(500, 400));
-        jTabbedPane1.setPreferredSize(new java.awt.Dimension(600, 500));
+        jTabbedPane1.setPreferredSize(new java.awt.Dimension(800, 500));
         jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jTabbedPane1StateChanged(evt);

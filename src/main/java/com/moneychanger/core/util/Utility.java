@@ -2118,15 +2118,15 @@ public class Utility {
         return otapi.QueryPlainString(fileName);
     }
 
-    public static Point getLocation(Dimension componentDimension) {
-
-        Point center = new Point(0, 0);
-        Dimension toolkitDimension = Toolkit.getDefaultToolkit().getScreenSize();
-        center.x = center.x + (toolkitDimension.width - componentDimension.width) / 2;
-        center.y = center.y + (toolkitDimension.height - componentDimension.height) / 2;
-
-        return center;
-    }
+//    public static Point getLocation(Dimension componentDimension) {
+//
+//        Point center = new Point(0, 0);
+//        Dimension toolkitDimension = Toolkit.getDefaultToolkit().getScreenSize();
+//        center.x = center.x + (toolkitDimension.width - componentDimension.width) / 2;
+//        center.y = center.y + (toolkitDimension.height - componentDimension.height) / 2;
+//
+//        return center;
+//    }
 
     public static void getKeyFromName(String name) {
     }

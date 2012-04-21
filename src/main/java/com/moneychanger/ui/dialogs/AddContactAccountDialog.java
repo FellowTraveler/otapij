@@ -114,7 +114,7 @@ public class AddContactAccountDialog extends javax.swing.JDialog {
         initComponents();
         this.contactID = contactID;
         this.index =index;
-        setLocation(Utility.getLocation(this.getSize()));
+        this.setLocationRelativeTo(null); 
     }
 
     /** This method is called from within the constructor to

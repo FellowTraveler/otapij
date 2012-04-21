@@ -104,7 +104,7 @@ public class BitcoinTrnDetailsDialog extends javax.swing.JDialog {
         jTextField2.setText(txnID);
         jTextArea1.setText(comment);
         jTextArea1.setCaretPosition(0);
-        setLocation(Utility.getLocation(this.getSize()));
+        this.setLocationRelativeTo(null); 
     }
 
     /** This method is called from within the constructor to

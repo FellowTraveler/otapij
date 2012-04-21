@@ -125,7 +125,7 @@ public class WithdrawCashDialog extends javax.swing.JDialog {
         this.nymID = nymID;
         this.accountID = accountID;
         initComponents();
-        setLocation(Utility.getLocation(this.getSize()));
+        this.setLocationRelativeTo(null); 
     }
 
     /** This method is called from within the constructor to

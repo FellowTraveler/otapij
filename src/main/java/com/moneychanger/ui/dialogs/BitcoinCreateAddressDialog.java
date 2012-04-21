@@ -119,7 +119,7 @@ public class BitcoinCreateAddressDialog extends javax.swing.JDialog {
     public BitcoinCreateAddressDialog(java.awt.Frame parent, boolean modal, String account,String serverID) {
         super(parent, modal);
         initComponents();
-        setLocation(Utility.getLocation(this.getSize()));
+        this.setLocationRelativeTo(null); 
         this.account = account;
         this.serverID = serverID;
     }

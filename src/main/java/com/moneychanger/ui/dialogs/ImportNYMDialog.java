@@ -104,7 +104,7 @@ public class ImportNYMDialog extends javax.swing.JDialog {
     public ImportNYMDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        setLocation(Utility.getLocation(this.getSize()));
+        this.setLocationRelativeTo(null); 
     }
 
     /** This method is called from within the constructor to

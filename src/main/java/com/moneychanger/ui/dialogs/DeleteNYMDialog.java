@@ -121,7 +121,7 @@ public class DeleteNYMDialog extends javax.swing.JDialog {
     public DeleteNYMDialog(java.awt.Frame parent, boolean modal,String nymID) {
         super(parent, modal);
         initComponents();
-        setLocation(Utility.getLocation(this.getSize()));
+        this.setLocationRelativeTo(null); 
         this.nymID = nymID;
     }
 

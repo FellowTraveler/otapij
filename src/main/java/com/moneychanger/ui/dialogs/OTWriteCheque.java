@@ -142,7 +142,7 @@ public class OTWriteCheque extends javax.swing.JDialog {
         this.nymID = nymID;
         this.invoice = invoice;
         initDateComponent();
-        setLocation(Utility.getLocation(this.getSize()));
+        this.setLocationRelativeTo(null); 
     }
 
     /** This method is called from within the constructor to
