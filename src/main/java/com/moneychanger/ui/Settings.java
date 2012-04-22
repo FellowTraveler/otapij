@@ -119,6 +119,7 @@ public class Settings extends javax.swing.JFrame {
             if (Boolean.parseBoolean(_configBean.getConfig(ConfigBean.Keys.LastLoadSuccessfull))) {
                 try {
                     // Starting an autoload... lets set the Last Load Succssfull to false...
+                    System.out.println("Last Load was Successful! Atempting Autoload!");
                     _configBean.setConfig(ConfigBean.Keys.LastLoadSuccessfull, Boolean.FALSE.toString());
                     
                     Load.Atempt();
@@ -549,6 +550,7 @@ public class Settings extends javax.swing.JFrame {
         
         // since we have got this far... lets set the autoloader bit
         
+        System.out.println("Looks like Load was Successful! Setting Autoload for next time!");
         _configBean.setConfig(ConfigBean.Keys.LastLoadSuccessfull, Boolean.TRUE.toString());
         
         

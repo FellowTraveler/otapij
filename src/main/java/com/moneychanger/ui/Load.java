@@ -83,12 +83,12 @@ public class Load {
 
             // Now that the stage we are on is complete... lets load the next step.
             switch (LoadState.getStage()) {
-                case Init:
+                
                 case Opt_InitSettings:
                 case Opt_LoadSettings:
                     throw new LoadFailedException("Must Complete Settings before atempting to Load!");
 
-
+                case Init:
                 case Opt_UpdateSettings:
                     LoadNativeDependencies.Atempt();
                 case Opt_LoadNativeDependencies:
