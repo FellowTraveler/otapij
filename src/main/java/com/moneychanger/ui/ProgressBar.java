@@ -32,7 +32,7 @@ public class ProgressBar
         Logger.getLogger(ProgressBar.class.getName()).log(Level.SEVERE, null, ex);
         }
          */
-        ((JFrame) Utility.getSettingsObj()).dispose();
+//        ((JFrame) Utility.getSettingsObj()).dispose();
 
 
         setResizable(false);
