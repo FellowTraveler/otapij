@@ -506,7 +506,7 @@ public class Settings extends javax.swing.JFrame {
             String javaPath = _configBean.getConfig(ConfigBean.Keys.JavaPath);
             if (javaPath == null
                     || javaPath.isEmpty()) {
-                javaPath = "Browse For Where OTAPI-JAVA is on your system";
+                javaPath = "";
             }
             Settings.jTextField_JavaPath.setText(javaPath);
             _javaPaths.addPaths(javaPath);
@@ -542,7 +542,8 @@ public class Settings extends javax.swing.JFrame {
 
     private void LoadMoneychangerGUI() throws OutOfOrderException {
         LoadState.Progress(LoadState.Stages.LoadMoneychangerGUI);
-
+        
+        this.setVisible(Boolean.FALSE);
         ProgressBar progressBar = new ProgressBar();
         new Thread(progressBar).start();
         progressBar.setVisible(true);
