@@ -118,6 +118,9 @@ public class Settings extends javax.swing.JFrame {
             // If we loaded successfull Last time... Atempt The Same Known Good Settings
             if (Boolean.parseBoolean(_configBean.getConfig(ConfigBean.Keys.LastLoadSuccessfull))) {
                 try {
+                    // Starting an autoload... lets set the Last Load Succssfull to false...
+                    _configBean.setConfig(ConfigBean.Keys.LastLoadSuccessfull, Boolean.FALSE.toString());
+                    
                     Load.Atempt();
                     LoadMoneychangerGUI();
                 } catch (Load.LoadFailedException e) {
@@ -543,8 +546,13 @@ public class Settings extends javax.swing.JFrame {
         new Thread(progressBar).start();
         progressBar.setVisible(true);
         progressBar.pack();
+        
+        // since we have got this far... lets set the autoloader bit
+        
+        _configBean.setConfig(ConfigBean.Keys.LastLoadSuccessfull, Boolean.TRUE.toString());
+        
+        
         this.dispose();
-
         LoadState.setStageComplete();
     }
 
