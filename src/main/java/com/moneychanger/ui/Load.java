@@ -39,39 +39,39 @@ public class Load {
     }
     //</editor-fold>
 
-    //<editor-fold defaultstate="collapsed" desc="AtemptLoad">
-    public static void Atempt() throws LoadFailedException {
+    //<editor-fold defaultstate="collapsed" desc="AttemptLoad">
+    public static void Attempt() throws LoadFailedException {
 
         try {
-            // For some Reason the current stage is not complete... Lets atempt to complete it.
+            // For some Reason the current stage is not complete... Lets Attempt to complete it.
             if (!LoadState.isStageComplete()) {
                 switch (LoadState.getStage()) {
                     case Init:
-                        throw new LoadFailedException("Must Complete init before atempt!");
+                        throw new LoadFailedException("Must Complete init before Attempt!");
 
                     case Opt_InitSettings:
                     case Opt_LoadSettings:
                     case Opt_UpdateSettings:
-                        throw new LoadFailedException("Must Complete Settings before atempting to Load!");
+                        throw new LoadFailedException("Must Complete Settings before Attempting to Load!");
 
 
                     case Opt_LoadNativeDependencies:
-                        LoadNativeDependencies.Atempt();
+                        LoadNativeDependencies.Attempt();
                         break;
                     case LoadOTAPI:
-                        LoadOTAPI.Atempt();
+                        LoadOTAPI.Attempt();
                         break;
                     case InitOTAPI:
-                        InitOTAPI.Atempt();
+                        InitOTAPI.Attempt();
                         break;
                     case SetupPasswordImage:
-                        SetupPasswordImage.Atempt();
+                        SetupPasswordImage.Attempt();
                         break;
                     case SetupPasswordCallback:
-                        SetupPasswordCallback.Atempt();
+                        SetupPasswordCallback.Attempt();
                         break;
                     case LoadWallet:
-                        LoadWallet.Atempt();
+                        LoadWallet.Attempt();
                         break;
                 }
 
@@ -86,21 +86,21 @@ public class Load {
                 
                 case Opt_InitSettings:
                 case Opt_LoadSettings:
-                    throw new LoadFailedException("Must Complete Settings before atempting to Load!");
+                    throw new LoadFailedException("Must Complete Settings before Attempting to Load!");
 
                 case Init:
                 case Opt_UpdateSettings:
-                    LoadNativeDependencies.Atempt();
+                    LoadNativeDependencies.Attempt();
                 case Opt_LoadNativeDependencies:
-                    LoadOTAPI.Atempt();
+                    LoadOTAPI.Attempt();
                 case LoadOTAPI:
-                    InitOTAPI.Atempt();
+                    InitOTAPI.Attempt();
                 case InitOTAPI:
-                    SetupPasswordImage.Atempt();
+                    SetupPasswordImage.Attempt();
                 case SetupPasswordImage:
-                    SetupPasswordCallback.Atempt();
+                    SetupPasswordCallback.Attempt();
                 case SetupPasswordCallback:
-                    LoadWallet.Atempt();
+                    LoadWallet.Attempt();
             }
 
         } catch (Exception e) {
@@ -135,7 +135,7 @@ public class Load {
         private LoadNativeDependencies() {
         }
 
-        public static void Atempt() throws LoadNativeDependenciesFailedException, OutOfOrderException {
+        public static void Attempt() throws LoadNativeDependenciesFailedException, OutOfOrderException {
             LoadState.Progress(LoadState.Stages.Opt_LoadNativeDependencies);
 
             setJavaPaths(_configBean);
@@ -186,7 +186,7 @@ public class Load {
         private LoadOTAPI() {
         }
 
-        public static void Atempt() throws LoadOTAPIFailedException, OutOfOrderException {
+        public static void Attempt() throws LoadOTAPIFailedException, OutOfOrderException {
             LoadState.Progress(LoadState.Stages.LoadOTAPI);
 
             setJavaPaths(_configBean);
@@ -231,7 +231,7 @@ public class Load {
         private InitOTAPI() {
         }
 
-        public static void Atempt() throws InitOTAPIFailedException, OutOfOrderException {
+        public static void Attempt() throws InitOTAPIFailedException, OutOfOrderException {
             LoadState.Progress(LoadState.Stages.InitOTAPI);
 
             API_Init();
@@ -285,7 +285,7 @@ public class Load {
     //<editor-fold defaultstate="collapsed" desc="SetupPasswordImage">
     public static class SetupPasswordImage {
 
-        public static void Atempt() throws SetupPasswordImageFailedException, OutOfOrderException {
+        public static void Attempt() throws SetupPasswordImageFailedException, OutOfOrderException {
             LoadState.Progress(LoadState.Stages.SetupPasswordImage);
 
             SetGetImagePath();
@@ -339,7 +339,7 @@ public class Load {
         private static OTCaller s_theCaller = null;
         private static OTCallback s_theCallback = null;
 
-        public static void Atempt() throws SetupPasswordCallbackFailedException, OutOfOrderException {
+        public static void Attempt() throws SetupPasswordCallbackFailedException, OutOfOrderException {
             if (!LoadState.isThisStageComplete(LoadState.Stages.SetupPasswordCallback)) {
 
                 LoadState.Progress(LoadState.Stages.SetupPasswordCallback);
@@ -400,7 +400,7 @@ public class Load {
         private LoadWallet() {
         }
 
-        public static void Atempt() throws LoadWalletFailedException, OutOfOrderException {
+        public static void Attempt() throws LoadWalletFailedException, OutOfOrderException {
             LoadState.Progress(LoadState.Stages.LoadWallet);
 
             API_LoadWallet();
@@ -446,7 +446,7 @@ public class Load {
         private SwitchWallet() {
         }
 
-        public static void Atempt() throws SwitchWalletFailedException, OutOfOrderException {
+        public static void Attempt() throws SwitchWalletFailedException, OutOfOrderException {
             LoadState.Progress(LoadState.Stages.Opt_SwitchWallet);
 
             API_SwitchWallet();

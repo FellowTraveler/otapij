@@ -115,14 +115,14 @@ public class Settings extends javax.swing.JFrame {
         try {
             Load.Init(_configBean);
 
-            // If we loaded successfull Last time... Atempt The Same Known Good Settings
+            // If we loaded successfull Last time... Attempt The Same Known Good Settings
             if (Boolean.parseBoolean(_configBean.getConfig(ConfigBean.Keys.LastLoadSuccessfull))) {
                 try {
                     // Starting an autoload... lets set the Last Load Succssfull to false...
-                    System.out.println("Last Load was Successful! Atempting Autoload!");
+                    System.out.println("Last Load was Successful! Attempting Autoload!");
                     _configBean.setConfig(ConfigBean.Keys.LastLoadSuccessfull, Boolean.FALSE.toString());
                     
-                    Load.Atempt();
+                    Load.Attempt();
                     LoadMoneychangerGUI();
                 } catch (Load.LoadFailedException e) {
                     System.out.println("We didn't load Successfuly, Showing Seetings...!");
@@ -370,7 +370,7 @@ public class Settings extends javax.swing.JFrame {
             this.setVisible(Boolean.FALSE);
 
             // Now That the Settings are Updated... Lets Try Loading again!
-            Load.Atempt();
+            Load.Attempt();
             LoadMoneychangerGUI();
         } catch (Load.LoadFailedException e) {
             System.err.println(e.toString());
@@ -482,7 +482,7 @@ public class Settings extends javax.swing.JFrame {
     // This method loads the configuration (if any) from the ConfigBean
     private void loadSettings() throws OutOfOrderException {
 
-        // Set that are are going to atempt to do this Stage now
+        // Set that are are going to Attempt to do this Stage now
         LoadState.Progress(LoadState.Stages.Opt_LoadSettings);
         if (LoadState.getStage() == LoadState.Stages.Opt_LoadSettings) {
 
