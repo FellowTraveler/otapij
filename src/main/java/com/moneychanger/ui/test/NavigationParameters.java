@@ -3,7 +3,7 @@
 *and open the template in the editor.
  */
 
-package com.wrapper.ui.test;
+package com.moneychanger.ui.test;
 
 /*
  * Christopher Deckers (chrriis@nextencia.net)

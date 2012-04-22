@@ -101,11 +101,11 @@ AK+ZirdWhhoHeWR1tAkN
  * Created on 12 Apr, 2011, 9:16:58 AM
  */
 
-package com.wrapper.ui.test;
+package com.moneychanger.ui.test;
 
 import com.wrapper.core.jni.otapi;
-import com.wrapper.core.util.Utility;
-import com.wrapper.ui.panels.NameValuePanel;
+import com.moneychanger.core.util.Utility;
+import com.moneychanger.ui.panels.NameValuePanel;
 import java.awt.BorderLayout;
 import java.io.IOException;
 import java.util.logging.Level;

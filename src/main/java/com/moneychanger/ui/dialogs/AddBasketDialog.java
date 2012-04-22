@@ -93,15 +93,15 @@ AK+ZirdWhhoHeWR1tAkN
  *
  * Created on Jan 24, 2012, 7:55:53 AM
  */
-package com.wrapper.ui.dialogs;
+package com.moneychanger.ui.dialogs;
 
-import com.wrapper.core.Basket;
-import com.wrapper.core.NYM;
+import com.moneychanger.core.Basket;
+import com.moneychanger.core.NYM;
 import com.wrapper.core.jni.otapi;
-import com.wrapper.core.util.OTAPI_Func;
-import com.wrapper.core.util.Utility;
-import com.wrapper.ui.MainPage;
-import com.wrapper.ui.model.BasketTableModel;
+import com.moneychanger.core.util.OTAPI_Func;
+import com.moneychanger.core.util.Utility;
+import com.moneychanger.ui.MainPage;
+import com.moneychanger.ui.model.BasketTableModel;
 import java.util.Map;
 import javax.swing.JOptionPane;
 
@@ -139,7 +139,7 @@ public class AddBasketDialog extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox6 = new com.wrapper.ui.custom.SteppedComboBox();
+        jComboBox6 = new com.moneychanger.ui.custom.SteppedComboBox();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 

@@ -101,12 +101,12 @@ AK+ZirdWhhoHeWR1tAkN
  * Created on 3 Apr, 2011, 8:24:08 PM
  */
 
-package com.wrapper.ui.dialogs;
+package com.moneychanger.ui.dialogs;
 
-import com.wrapper.core.Contract;
-import com.wrapper.core.NYM;
-import com.wrapper.core.util.Utility;
-import com.wrapper.ui.MainPage;
+import com.moneychanger.core.Contract;
+import com.moneychanger.core.NYM;
+import com.moneychanger.core.util.Utility;
+import com.moneychanger.ui.MainPage;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.util.Map;
@@ -149,14 +149,14 @@ public class IssueAssetContractDialog extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jComboBox1 = new com.wrapper.ui.custom.SteppedComboBox();
+        jComboBox1 = new com.moneychanger.ui.custom.SteppedComboBox();
         jLabel2 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox2 = new com.wrapper.ui.custom.SteppedComboBox();
+        jComboBox2 = new com.moneychanger.ui.custom.SteppedComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(app.ApplicationLauncher.class).getContext().getResourceMap(IssueAssetContractDialog.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(IssueAssetContractDialog.class);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
         setName("Form"); // NOI18N
 

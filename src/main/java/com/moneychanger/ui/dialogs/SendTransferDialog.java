@@ -101,11 +101,11 @@ AK+ZirdWhhoHeWR1tAkN
  * Created on 7 Apr, 2011, 6:25:07 AM
  */
 
-package com.wrapper.ui.dialogs;
+package com.moneychanger.ui.dialogs;
 
-import com.wrapper.core.OpenTransactionAccount;
-import com.wrapper.core.util.Utility;
-import com.wrapper.ui.MainPage;
+import com.moneychanger.core.OpenTransactionAccount;
+import com.moneychanger.core.util.Utility;
+import com.moneychanger.ui.MainPage;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.datatransfer.DataFlavor;
@@ -151,12 +151,12 @@ public class SendTransferDialog extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
-        jComboBox1 = new com.wrapper.ui.custom.SteppedComboBox();
+        jComboBox1 = new com.moneychanger.ui.custom.SteppedComboBox();
         jLabel4 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(app.ApplicationLauncher.class).getContext().getResourceMap(SendTransferDialog.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(SendTransferDialog.class);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
         setName("Form"); // NOI18N
 

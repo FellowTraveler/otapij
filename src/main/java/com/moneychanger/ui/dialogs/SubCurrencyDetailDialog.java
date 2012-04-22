@@ -92,10 +92,10 @@ AK+ZirdWhhoHeWR1tAkN
  *
  * Created on Jan 24, 2012, 10:33:40 PM
  */
-package com.wrapper.ui.dialogs;
+package com.moneychanger.ui.dialogs;
 
-import com.wrapper.core.Basket;
-import com.wrapper.core.util.Utility;
+import com.moneychanger.core.Basket;
+import com.moneychanger.core.util.Utility;
 import java.util.List;
 import java.util.Map;
 
@@ -127,7 +127,7 @@ public class SubCurrencyDetailDialog extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jComboBox6 = new com.wrapper.ui.custom.SteppedComboBox();
+        jComboBox6 = new com.moneychanger.ui.custom.SteppedComboBox();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
@@ -193,7 +193,7 @@ public class SubCurrencyDetailDialog extends javax.swing.JDialog {
                         .add(layout.createSequentialGroup()
                             .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 88, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                            .add(jButton1, 0, 0, Short.MAX_VALUE))))
+                            .add(jButton1, 0, 1, Short.MAX_VALUE))))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(

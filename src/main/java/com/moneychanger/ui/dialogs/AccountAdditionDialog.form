@@ -108,7 +108,7 @@
             <Property name="name" type="java.lang.String" value="jComboBox2" noResource="true"/>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.wrapper.ui.custom.SteppedComboBox()"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.moneychanger.ui.custom.SteppedComboBox()"/>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
           </AuxValues>
         </Component>

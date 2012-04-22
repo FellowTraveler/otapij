@@ -88,7 +88,7 @@ AK+ZirdWhhoHeWR1tAkN
 -----END PGP SIGNATURE-----
  **************************************************************/
 
-package com.wrapper.core.dataobjects;
+package com.moneychanger.core.dataobjects;
 
 public class NymOfferDetails {
 private String price;

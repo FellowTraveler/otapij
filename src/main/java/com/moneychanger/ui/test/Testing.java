@@ -89,10 +89,10 @@ AK+ZirdWhhoHeWR1tAkN
  **************************************************************/
 
 
-package com.wrapper.ui.test;
+package com.moneychanger.ui.test;
 
-import com.wrapper.core.util.Utility;
-import com.wrapper.ui.dialogs.OTPasswordDialog;
+import com.moneychanger.core.util.Utility;
+import com.moneychanger.ui.dialogs.OTPasswordDialog;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

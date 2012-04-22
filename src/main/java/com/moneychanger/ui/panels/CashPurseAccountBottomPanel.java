@@ -100,17 +100,17 @@ AK+ZirdWhhoHeWR1tAkN
  *
  * Created on 18 Mar, 2011, 7:01:51 PM
  */
-package com.wrapper.ui.panels;
+package com.moneychanger.ui.panels;
 
-import com.wrapper.core.CashPurseAccount;
-import com.wrapper.core.dataobjects.CashPurseDetails;
-import com.wrapper.core.util.Utility;
-import com.wrapper.ui.MainPage;
-import com.wrapper.ui.dialogs.CashPurseDepositDialog;
-import com.wrapper.ui.dialogs.CashPurseExportDetails;
-import com.wrapper.ui.dialogs.CashPurseTokenDetails;
-import com.wrapper.ui.dialogs.ExportCashToDialog;
-import com.wrapper.ui.model.CashPurseTableModel;
+import com.moneychanger.core.CashPurseAccount;
+import com.moneychanger.core.dataobjects.CashPurseDetails;
+import com.moneychanger.core.util.Utility;
+import com.moneychanger.ui.MainPage;
+import com.moneychanger.ui.dialogs.CashPurseDepositDialog;
+import com.moneychanger.ui.dialogs.CashPurseExportDetails;
+import com.moneychanger.ui.dialogs.CashPurseTokenDetails;
+import com.moneychanger.ui.dialogs.ExportCashToDialog;
+import com.moneychanger.ui.model.CashPurseTableModel;
 import java.awt.Cursor;
 import java.util.ArrayList;
 import java.util.Map;
@@ -149,7 +149,7 @@ public class CashPurseAccountBottomPanel extends javax.swing.JPanel {
 
         jScrollPane12.setName("jScrollPane12"); // NOI18N
 
-        jTable5.setModel(new com.wrapper.ui.model.CashPurseTableModel());
+        jTable5.setModel(new com.moneychanger.ui.model.CashPurseTableModel());
         jTable5.setName("jTable5"); // NOI18N
         jTable5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTable5.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -162,7 +162,7 @@ public class CashPurseAccountBottomPanel extends javax.swing.JPanel {
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.setName("jPanel1"); // NOI18N
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(app.ApplicationLauncher.class).getContext().getResourceMap(CashPurseAccountBottomPanel.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(CashPurseAccountBottomPanel.class);
         jButton2.setText(resourceMap.getString("jButton2.text")); // NOI18N
         jButton2.setName("jButton2"); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener() {

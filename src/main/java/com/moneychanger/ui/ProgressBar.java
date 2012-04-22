@@ -1,6 +1,6 @@
-package com.wrapper.ui;
+package com.moneychanger.ui;
 
-import com.wrapper.core.util.Utility;
+import com.moneychanger.core.util.Utility;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.util.logging.Level;

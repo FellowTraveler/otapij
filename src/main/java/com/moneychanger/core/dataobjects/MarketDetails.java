@@ -88,7 +88,7 @@ AK+ZirdWhhoHeWR1tAkN
 -----END PGP SIGNATURE-----
  **************************************************************/
 
-package com.wrapper.core.dataobjects;
+package com.moneychanger.core.dataobjects;
 
 import java.util.List;
 import java.util.Map;

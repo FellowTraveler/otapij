@@ -95,7 +95,7 @@ AK+ZirdWhhoHeWR1tAkN
  * and open the template in the editor.
  */
 
-package com.wrapper.core;
+package com.moneychanger.core;
 
 
 public class LoomAccount extends Account {

@@ -93,12 +93,12 @@ AK+ZirdWhhoHeWR1tAkN
  *
  * Created on Aug 22, 2011, 5:34:05 PM
  */
-package com.wrapper.ui.dialogs;
+package com.moneychanger.ui.dialogs;
 
-import com.wrapper.core.Contract;
-import com.wrapper.core.NYM;
-import com.wrapper.core.util.Utility;
-import com.wrapper.ui.MainPage;
+import com.moneychanger.core.Contract;
+import com.moneychanger.core.NYM;
+import com.moneychanger.core.util.Utility;
+import com.moneychanger.ui.MainPage;
 import java.awt.Cursor;
 import java.util.Map;
 import javax.swing.JOptionPane;

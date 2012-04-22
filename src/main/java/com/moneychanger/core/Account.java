@@ -89,7 +89,7 @@ AK+ZirdWhhoHeWR1tAkN
  **************************************************************/
 
 
-package com.wrapper.core;
+package com.moneychanger.core;
 
 import java.util.HashMap;
 import java.util.Map;

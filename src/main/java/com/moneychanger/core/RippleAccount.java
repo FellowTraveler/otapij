@@ -88,12 +88,12 @@ AK+ZirdWhhoHeWR1tAkN
 -----END PGP SIGNATURE-----
  **************************************************************/
 
-package com.wrapper.core;
+package com.moneychanger.core;
 
 import com.wrapper.core.jni.RippleServer;
 import com.wrapper.core.jni.WalletData;
-import com.wrapper.core.util.Configuration;
-import com.wrapper.core.util.Utility;
+import com.moneychanger.core.util.Configuration;
+import com.moneychanger.core.util.Utility;
 
 /**
  *

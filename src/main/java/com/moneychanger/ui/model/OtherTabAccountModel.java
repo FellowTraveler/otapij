@@ -89,7 +89,7 @@ AK+ZirdWhhoHeWR1tAkN
  **************************************************************/
 
 
-package com.wrapper.ui.model;
+package com.moneychanger.ui.model;
 
 import java.util.Iterator;
 import java.util.Map;

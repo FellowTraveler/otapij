@@ -93,7 +93,7 @@ AK+ZirdWhhoHeWR1tAkN
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.wrapper.ui.custom;
+package com.moneychanger.ui.custom;
 
 import java.util.HashMap;
 import java.util.Iterator;

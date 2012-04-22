@@ -2,15 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.wrapper.ui;
+package com.moneychanger.ui;
 
 import chrriis.common.SystemProperty;
 import com.wrapper.core.jni.JavaCallback;
 import com.wrapper.core.jni.OTCallback;
 import com.wrapper.core.jni.OTCaller;
 import com.wrapper.core.jni.otapi;
-import com.wrapper.core.util.Configuration;
-import com.wrapper.core.util.Utility;
+import com.moneychanger.core.util.Configuration;
+import com.moneychanger.core.util.Utility;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;

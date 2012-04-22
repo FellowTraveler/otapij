@@ -99,7 +99,7 @@ AK+ZirdWhhoHeWR1tAkN
  * Created on 11 Jun, 2011, 3:26:02 AM
  */
 
-package com.wrapper.ui.dialogs;
+package com.moneychanger.ui.dialogs;
 
 /**
  *

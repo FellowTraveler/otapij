@@ -87,11 +87,11 @@ AK+ZirdWhhoHeWR1tAkN
 =RcXP
 -----END PGP SIGNATURE-----
  **************************************************************/
-package com.wrapper.core;
+package com.moneychanger.core;
 
-import com.wrapper.core.dataobjects.MarketDetails;
-import com.wrapper.core.dataobjects.MarketTicker;
-import com.wrapper.core.dataobjects.NymOfferDetails;
+import com.moneychanger.core.dataobjects.MarketDetails;
+import com.moneychanger.core.dataobjects.MarketTicker;
+import com.moneychanger.core.dataobjects.NymOfferDetails;
 import com.wrapper.core.jni.AskData;
 import com.wrapper.core.jni.BidData;
 import com.wrapper.core.jni.MarketData;
@@ -104,9 +104,9 @@ import com.wrapper.core.jni.TradeDataNym;
 import com.wrapper.core.jni.TradeListMarket;
 import com.wrapper.core.jni.TradeListNym;
 import com.wrapper.core.jni.otapi;
-import com.wrapper.core.util.OTAPI_Func;
-import com.wrapper.core.util.Configuration;
-import com.wrapper.core.util.Utility;
+import com.moneychanger.core.util.OTAPI_Func;
+import com.moneychanger.core.util.Configuration;
+import com.moneychanger.core.util.Utility;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;

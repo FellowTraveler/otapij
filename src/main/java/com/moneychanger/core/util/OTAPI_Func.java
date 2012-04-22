@@ -2,11 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.wrapper.core.util;
+package com.moneychanger.core.util;
 
 import com.wrapper.core.jni.otapi;
 
-import com.wrapper.core.util.Utility;
+import com.moneychanger.core.util.Utility;
 
 /**
  *

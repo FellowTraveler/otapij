@@ -98,11 +98,11 @@ AK+ZirdWhhoHeWR1tAkN
  *
  * Created on 30 May, 2011, 9:22:46 AM
  */
-package com.wrapper.ui.panels;
+package com.moneychanger.ui.panels;
 
-import com.wrapper.core.dataobjects.ContactNymDetails;
-import com.wrapper.core.datastore.AddressBookHelper;
-import com.wrapper.ui.model.ServerInfoTableModel;
+import com.moneychanger.core.dataobjects.ContactNymDetails;
+import com.moneychanger.core.datastore.AddressBookHelper;
+import com.moneychanger.ui.model.ServerInfoTableModel;
 import javax.swing.JOptionPane;
 
 public class ContactNymPanel extends javax.swing.JPanel {
@@ -140,7 +140,7 @@ public class ContactNymPanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane16 = new javax.swing.JScrollPane();
-        jTable6 = new com.wrapper.ui.custom.CustomTable();
+        jTable6 = new com.moneychanger.ui.custom.CustomTable();
         jPanel1 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -163,7 +163,7 @@ public class ContactNymPanel extends javax.swing.JPanel {
 
         setName("Form"); // NOI18N
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(app.ApplicationLauncher.class).getContext().getResourceMap(ContactNymPanel.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(ContactNymPanel.class);
         jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
         jButton1.setName("jButton1"); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -212,7 +212,7 @@ public class ContactNymPanel extends javax.swing.JPanel {
 
         jScrollPane16.setName("jScrollPane16"); // NOI18N
 
-        jTable6.setModel(new com.wrapper.ui.model.ServerInfoTableModel());
+        jTable6.setModel(new com.moneychanger.ui.model.ServerInfoTableModel());
         jTable6.setName("jTable6"); // NOI18N
         jTable6.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTable6.addMouseListener(new java.awt.event.MouseAdapter() {

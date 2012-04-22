@@ -99,12 +99,12 @@ AK+ZirdWhhoHeWR1tAkN
  * Created on Sep 23, 2011, 9:09:30 AM
  */
 
-package com.wrapper.ui.dialogs;
+package com.moneychanger.ui.dialogs;
 
-import com.wrapper.core.Contract;
-import com.wrapper.core.NYM;
-import com.wrapper.core.util.Utility;
-import com.wrapper.ui.MainPage;
+import com.moneychanger.core.Contract;
+import com.moneychanger.core.NYM;
+import com.moneychanger.core.util.Utility;
+import com.moneychanger.ui.MainPage;
 import java.awt.Cursor;
 import java.util.Map;
 import javax.swing.JOptionPane;
@@ -143,7 +143,7 @@ public class DeleteNYMDialog extends javax.swing.JDialog {
 
         jComboBox1.setName("jComboBox1"); // NOI18N
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(app.ApplicationLauncher.class).getContext().getResourceMap(DeleteNYMDialog.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(DeleteNYMDialog.class);
         jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
         jButton1.setName("jButton1"); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {

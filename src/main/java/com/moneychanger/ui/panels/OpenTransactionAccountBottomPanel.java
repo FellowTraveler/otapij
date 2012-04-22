@@ -98,16 +98,16 @@ AK+ZirdWhhoHeWR1tAkN
  *
  * Created on 18 Mar, 2011, 8:55:00 AM
  */
-package com.wrapper.ui.panels;
+package com.moneychanger.ui.panels;
 
-import com.wrapper.core.OpenTransactionAccount;
-import com.wrapper.core.dataobjects.OTDetails;
-import com.wrapper.core.util.Utility;
-import com.wrapper.ui.MainPage;
-import com.wrapper.ui.dialogs.OTNotes;
-import com.wrapper.ui.model.OTInboxTableModel;
-import com.wrapper.ui.model.OTOutboxTableModel;
-import com.wrapper.ui.model.OTReceiptTableModel;
+import com.moneychanger.core.OpenTransactionAccount;
+import com.moneychanger.core.dataobjects.OTDetails;
+import com.moneychanger.core.util.Utility;
+import com.moneychanger.ui.MainPage;
+import com.moneychanger.ui.dialogs.OTNotes;
+import com.moneychanger.ui.model.OTInboxTableModel;
+import com.moneychanger.ui.model.OTOutboxTableModel;
+import com.moneychanger.ui.model.OTReceiptTableModel;
 import java.awt.Cursor;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -145,11 +145,11 @@ public class OpenTransactionAccountBottomPanel extends javax.swing.JPanel {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane16 = new javax.swing.JScrollPane();
-        jTable6 = new com.wrapper.ui.custom.CustomTable();
+        jTable6 = new com.moneychanger.ui.custom.CustomTable();
         jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane14 = new javax.swing.JScrollPane();
-        jTable7 = new com.wrapper.ui.custom.CustomTable();
+        jTable7 = new com.moneychanger.ui.custom.CustomTable();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane15 = new javax.swing.JScrollPane();
         jTable8 = new javax.swing.JTable();
@@ -163,7 +163,7 @@ public class OpenTransactionAccountBottomPanel extends javax.swing.JPanel {
 
         jScrollPane16.setName("jScrollPane16"); // NOI18N
 
-        jTable6.setModel(new com.wrapper.ui.model.OTInboxTableModel());
+        jTable6.setModel(new com.moneychanger.ui.model.OTInboxTableModel());
         jTable6.setName("jTable6"); // NOI18N
         jTable6.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTable6.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -173,7 +173,7 @@ public class OpenTransactionAccountBottomPanel extends javax.swing.JPanel {
         });
         jScrollPane16.setViewportView(jTable6);
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(app.ApplicationLauncher.class).getContext().getResourceMap(OpenTransactionAccountBottomPanel.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(OpenTransactionAccountBottomPanel.class);
         jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
         jButton1.setName("jButton1"); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -207,7 +207,7 @@ public class OpenTransactionAccountBottomPanel extends javax.swing.JPanel {
 
         jScrollPane14.setName("jScrollPane14"); // NOI18N
 
-        jTable7.setModel(new com.wrapper.ui.model.OTOutboxTableModel());
+        jTable7.setModel(new com.moneychanger.ui.model.OTOutboxTableModel());
         jTable7.setName("jTable7"); // NOI18N
         jTable7.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTable7.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -236,7 +236,7 @@ public class OpenTransactionAccountBottomPanel extends javax.swing.JPanel {
 
         jScrollPane15.setName("jScrollPane15"); // NOI18N
 
-        jTable8.setModel(new com.wrapper.ui.model.OTReceiptTableModel());
+        jTable8.setModel(new com.moneychanger.ui.model.OTReceiptTableModel());
         jTable8.setName("jTable8");
         jTable8.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane15.setViewportView(jTable8);

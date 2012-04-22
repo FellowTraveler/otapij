@@ -98,16 +98,16 @@ AK+ZirdWhhoHeWR1tAkN
  *
  * Created on 6 May, 2011, 3:58:59 PM
  */
-package com.wrapper.ui.dialogs;
+package com.moneychanger.ui.dialogs;
 
-import com.wrapper.core.datastore.StorageHelper;
+import com.moneychanger.core.datastore.StorageHelper;
 import com.wrapper.core.jni.BitcoinServer;
 import com.wrapper.core.jni.Storage;
 import com.wrapper.core.jni.StoredObjectType;
 import com.wrapper.core.jni.WalletData;
 import com.wrapper.core.jni.otapi;
-import com.wrapper.core.util.Utility;
-import com.wrapper.ui.MainPage;
+import com.moneychanger.core.util.Utility;
+import com.moneychanger.ui.MainPage;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 
@@ -144,7 +144,7 @@ public class BTCServerAdditionDialog extends javax.swing.JDialog {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(app.ApplicationLauncher.class).getContext().getResourceMap(BTCServerAdditionDialog.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(BTCServerAdditionDialog.class);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
         setName("Form"); // NOI18N
 

@@ -249,7 +249,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox1ActionPerformed"/>
               </Events>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.wrapper.ui.custom.SteppedComboBox()"/>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.moneychanger.ui.custom.SteppedComboBox()"/>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
               </AuxValues>
             </Component>
@@ -277,7 +277,7 @@
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTable5MouseClicked"/>
                   </Events>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.wrapper.ui.custom.CustomTable()"/>
+                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.moneychanger.ui.custom.CustomTable()"/>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
                   </AuxValues>
                 </Component>
@@ -319,7 +319,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox2ActionPerformed"/>
               </Events>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.wrapper.ui.custom.SteppedComboBox()"/>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.moneychanger.ui.custom.SteppedComboBox()"/>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
               </AuxValues>
             </Component>
@@ -432,7 +432,7 @@
                 <Component class="javax.swing.JButton" name="jButton10">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" noResource="true" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/com/wrapper/ui/images/pencil.jpg"/>
+                      <Image iconType="3" name="/com/moneychanger/ui/images/pencil.jpg"/>
                     </Property>
                     <Property name="text" type="java.lang.String" resourceKey="jButton10.text"/>
                     <Property name="toolTipText" type="java.lang.String" resourceKey="jButton10.toolTipText"/>
@@ -488,7 +488,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox3ActionPerformed"/>
               </Events>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.wrapper.ui.custom.SteppedComboBox()"/>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.moneychanger.ui.custom.SteppedComboBox()"/>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
               </AuxValues>
             </Component>
@@ -740,7 +740,7 @@
                 <Component class="javax.swing.JButton" name="jButton4">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" noResource="true" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/com/wrapper/ui/images/pencil.jpg"/>
+                      <Image iconType="3" name="/com/moneychanger/ui/images/pencil.jpg"/>
                     </Property>
                     <Property name="text" type="java.lang.String" resourceKey="jButton4.text"/>
                     <Property name="toolTipText" type="java.lang.String" resourceKey="jButton4.toolTipText"/>
@@ -796,7 +796,7 @@
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTable2MouseClicked"/>
                   </Events>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.wrapper.ui.custom.CustomTable()"/>
+                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.moneychanger.ui.custom.CustomTable()"/>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
                   </AuxValues>
                 </Component>
@@ -915,7 +915,7 @@
                         <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTable8MouseEntered"/>
                       </Events>
                       <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.wrapper.ui.custom.CustomTable()"/>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.moneychanger.ui.custom.CustomTable()"/>
                         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
                       </AuxValues>
                     </Component>
@@ -957,7 +957,7 @@
                         <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTable10MouseEntered"/>
                       </Events>
                       <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.wrapper.ui.custom.CustomTable()"/>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.moneychanger.ui.custom.CustomTable()"/>
                       </AuxValues>
                     </Component>
                   </SubComponents>
@@ -1286,7 +1286,7 @@
                 <Component class="javax.swing.JButton" name="jButton7">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" noResource="true" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/com/wrapper/ui/images/pencil.jpg"/>
+                      <Image iconType="3" name="/com/moneychanger/ui/images/pencil.jpg"/>
                     </Property>
                     <Property name="text" type="java.lang.String" resourceKey="jButton7.text"/>
                     <Property name="name" type="java.lang.String" value="jButton7" noResource="true"/>
@@ -1342,7 +1342,7 @@
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTable7MouseClicked"/>
                   </Events>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.wrapper.ui.custom.CustomTable()"/>
+                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.moneychanger.ui.custom.CustomTable()"/>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
                   </AuxValues>
                 </Component>
@@ -1484,7 +1484,7 @@
                 <Component class="javax.swing.JButton" name="jButton13">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" noResource="true" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/com/wrapper/ui/images/pencil.jpg"/>
+                      <Image iconType="3" name="/com/moneychanger/ui/images/pencil.jpg"/>
                     </Property>
                     <Property name="text" type="java.lang.String" resourceKey="jButton13.text"/>
                     <Property name="toolTipText" type="java.lang.String" resourceKey="jButton13.toolTipText"/>
@@ -1551,7 +1551,7 @@
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTable11MouseClicked"/>
                   </Events>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.wrapper.ui.custom.CustomTable()"/>
+                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.moneychanger.ui.custom.CustomTable()"/>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
                   </AuxValues>
                 </Component>
@@ -1666,7 +1666,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox7ActionPerformed"/>
               </Events>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.wrapper.ui.custom.SteppedComboBox()"/>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.moneychanger.ui.custom.SteppedComboBox()"/>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
               </AuxValues>
             </Component>
@@ -1689,7 +1689,7 @@
                 <Component class="javax.swing.JTable" name="jTable19">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="new com.wrapper.ui.model.BasketTableModel()" type="code"/>
+                      <Connection code="new com.moneychanger.ui.model.BasketTableModel()" type="code"/>
                     </Property>
                     <Property name="name" type="java.lang.String" value="jTable19" noResource="true"/>
                     <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
@@ -1700,7 +1700,7 @@
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTable19MouseClicked"/>
                   </Events>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.wrapper.ui.custom.CustomTable()"/>
+                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.moneychanger.ui.custom.CustomTable()"/>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
                   </AuxValues>
                 </Component>
@@ -1799,7 +1799,7 @@
                 <Component class="javax.swing.JButton" name="jButton32">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" noResource="true" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/com/wrapper/ui/images/pencil.jpg"/>
+                      <Image iconType="3" name="/com/moneychanger/ui/images/pencil.jpg"/>
                     </Property>
                     <Property name="toolTipText" type="java.lang.String" resourceKey="jButton32.toolTipText"/>
                     <Property name="name" type="java.lang.String" value="jButton32" noResource="true"/>
@@ -2246,7 +2246,7 @@
                             <Component class="javax.swing.JTable" name="jTable15">
                               <Properties>
                                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                                  <Connection code="new com.wrapper.ui.model.MarketBidTableModel()" type="code"/>
+                                  <Connection code="new com.moneychanger.ui.model.MarketBidTableModel()" type="code"/>
                                 </Property>
                                 <Property name="toolTipText" type="java.lang.String" resourceKey="jTable15.toolTipText"/>
                                 <Property name="name" type="java.lang.String" value="jTable15" noResource="true"/>
@@ -2259,7 +2259,7 @@
                                 <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTable15MouseEntered"/>
                               </Events>
                               <AuxValues>
-                                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.wrapper.ui.custom.CustomTable()"/>
+                                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.moneychanger.ui.custom.CustomTable()"/>
                                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
                               </AuxValues>
                             </Component>
@@ -2285,7 +2285,7 @@
                             <Component class="javax.swing.JTable" name="jTable17">
                               <Properties>
                                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                                  <Connection code="new com.wrapper.ui.model.MarketAskTableModel()" type="code"/>
+                                  <Connection code="new com.moneychanger.ui.model.MarketAskTableModel()" type="code"/>
                                 </Property>
                                 <Property name="toolTipText" type="java.lang.String" resourceKey="jTable17.toolTipText"/>
                                 <Property name="name" type="java.lang.String" value="jTable17" noResource="true"/>
@@ -2298,7 +2298,7 @@
                                 <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTable17MouseEntered"/>
                               </Events>
                               <AuxValues>
-                                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.wrapper.ui.custom.CustomTable()"/>
+                                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.moneychanger.ui.custom.CustomTable()"/>
                               </AuxValues>
                             </Component>
                           </SubComponents>
@@ -2350,7 +2350,7 @@
                                 <Component class="javax.swing.JTable" name="jTable18">
                                   <Properties>
                                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                                      <Connection code="new com.wrapper.ui.model.MarketRecentTradesTableModel(jTable18)" type="code"/>
+                                      <Connection code="new com.moneychanger.ui.model.MarketRecentTradesTableModel(jTable18)" type="code"/>
                                     </Property>
                                     <Property name="toolTipText" type="java.lang.String" resourceKey="jTable18.toolTipText"/>
                                     <Property name="name" type="java.lang.String" value="jTable18" noResource="true"/>
@@ -2363,7 +2363,7 @@
                                     <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTable18MouseEntered"/>
                                   </Events>
                                   <AuxValues>
-                                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.wrapper.ui.custom.CustomTable()"/>
+                                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.moneychanger.ui.custom.CustomTable()"/>
                                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
                                   </AuxValues>
                                 </Component>
@@ -2433,7 +2433,7 @@
                     <Component class="javax.swing.JTable" name="jTable13">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                          <Connection code="new com.wrapper.ui.model.MarketTableModel()" type="code"/>
+                          <Connection code="new com.moneychanger.ui.model.MarketTableModel()" type="code"/>
                         </Property>
                         <Property name="name" type="java.lang.String" value="jTable13" noResource="true"/>
                         <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
@@ -2444,7 +2444,7 @@
                         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTable13MouseClicked"/>
                       </Events>
                       <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.wrapper.ui.custom.CustomTable()"/>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.moneychanger.ui.custom.CustomTable()"/>
                         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
                       </AuxValues>
                     </Component>
@@ -2468,7 +2468,7 @@
                     <Component class="javax.swing.JTable" name="jTable14">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                          <Connection code="new com.wrapper.ui.model.MarketOffersTableModel()" type="code"/>
+                          <Connection code="new com.moneychanger.ui.model.MarketOffersTableModel()" type="code"/>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                           <TableColumnModel selectionModel="0"/>
@@ -2485,7 +2485,7 @@
                         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTable14MouseClicked"/>
                       </Events>
                       <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.wrapper.ui.custom.CustomTable()"/>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.moneychanger.ui.custom.CustomTable()"/>
                         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
                       </AuxValues>
                     </Component>
@@ -2506,7 +2506,7 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox5ActionPerformed"/>
                   </Events>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.wrapper.ui.custom.SteppedComboBox()"/>
+                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.moneychanger.ui.custom.SteppedComboBox()"/>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
                   </AuxValues>
                 </Component>
@@ -2673,7 +2673,7 @@
                         <Component class="javax.swing.JTable" name="jTable16">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="new com.wrapper.ui.model.MarketTradesTableModel()" type="code"/>
+                              <Connection code="new com.moneychanger.ui.model.MarketTradesTableModel()" type="code"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" resourceKey="jTable16.toolTipText"/>
                             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -2688,7 +2688,7 @@
                             </Property>
                           </Properties>
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.wrapper.ui.custom.CustomTable()"/>
+                            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.moneychanger.ui.custom.CustomTable()"/>
                             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
                           </AuxValues>
                         </Component>
@@ -2728,7 +2728,7 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox6ActionPerformed"/>
                   </Events>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.wrapper.ui.custom.SteppedComboBox()"/>
+                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.moneychanger.ui.custom.SteppedComboBox()"/>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
                   </AuxValues>
                 </Component>
@@ -2904,7 +2904,7 @@
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTable6MouseClicked"/>
                   </Events>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.wrapper.ui.custom.CustomTable()"/>
+                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.moneychanger.ui.custom.CustomTable()"/>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
                   </AuxValues>
                 </Component>
@@ -3005,7 +3005,7 @@
                             <Component class="javax.swing.JTable" name="jTable20">
                               <Properties>
                                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                                  <Connection code="new com.wrapper.ui.model.PaymentInboxTableModel()" type="code"/>
+                                  <Connection code="new com.moneychanger.ui.model.PaymentInboxTableModel()" type="code"/>
                                 </Property>
                                 <Property name="autoResizeMode" type="int" value="0"/>
                                 <Property name="name" type="java.lang.String" value="jTable20" noResource="true"/>
@@ -3018,7 +3018,7 @@
                                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTable20MouseClicked"/>
                               </Events>
                               <AuxValues>
-                                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.wrapper.ui.custom.CustomTable()"/>
+                                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.moneychanger.ui.custom.CustomTable()"/>
                                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
                               </AuxValues>
                             </Component>
@@ -3076,7 +3076,7 @@
                             <Component class="javax.swing.JTable" name="jTable21">
                               <Properties>
                                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                                  <Connection code="new com.wrapper.ui.model.PaymentOutboxTableModel()" type="code"/>
+                                  <Connection code="new com.moneychanger.ui.model.PaymentOutboxTableModel()" type="code"/>
                                 </Property>
                                 <Property name="autoResizeMode" type="int" value="0"/>
                                 <Property name="name" type="java.lang.String" value="jTable21" noResource="true"/>
@@ -3088,7 +3088,7 @@
                                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTable21MouseClicked"/>
                               </Events>
                               <AuxValues>
-                                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.wrapper.ui.custom.CustomTable()"/>
+                                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.moneychanger.ui.custom.CustomTable()"/>
                                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
                               </AuxValues>
                             </Component>
@@ -3155,7 +3155,7 @@
                             <Component class="javax.swing.JTable" name="jTable22">
                               <Properties>
                                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                                  <Connection code="new com.wrapper.ui.model.PaymentRecordboxTableModel()" type="code"/>
+                                  <Connection code="new com.moneychanger.ui.model.PaymentRecordboxTableModel()" type="code"/>
                                 </Property>
                                 <Property name="autoResizeMode" type="int" value="0"/>
                                 <Property name="name" type="java.lang.String" value="jTable22" noResource="true"/>
@@ -3625,7 +3625,7 @@
                 <Component class="javax.swing.JTable" name="jTable3">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="new com.wrapper.ui.model.OtherTabAccountModel()" type="code"/>
+                      <Connection code="new com.moneychanger.ui.model.OtherTabAccountModel()" type="code"/>
                     </Property>
                     <Property name="name" type="java.lang.String" value="jTable3" noResource="true"/>
                     <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
@@ -3636,7 +3636,7 @@
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTable3MouseClicked"/>
                   </Events>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.wrapper.ui.custom.CustomTable()"/>
+                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.moneychanger.ui.custom.CustomTable()"/>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
                   </AuxValues>
                 </Component>
@@ -3684,7 +3684,7 @@
                 <Component class="javax.swing.JButton" name="jButton19">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" noResource="true" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/com/wrapper/ui/images/pencil.jpg"/>
+                      <Image iconType="3" name="/com/moneychanger/ui/images/pencil.jpg"/>
                     </Property>
                     <Property name="toolTipText" type="java.lang.String" resourceKey="jButton19.toolTipText"/>
                     <Property name="name" type="java.lang.String" value="jButton19" noResource="true"/>
@@ -3728,7 +3728,7 @@
                 <Component class="javax.swing.JTable" name="jTable4">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="new com.wrapper.ui.model.OtherTabServerTableModel()" type="code"/>
+                      <Connection code="new com.moneychanger.ui.model.OtherTabServerTableModel()" type="code"/>
                     </Property>
                     <Property name="name" type="java.lang.String" value="jTable4" noResource="true"/>
                     <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
@@ -3739,7 +3739,7 @@
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTable4MouseClicked"/>
                   </Events>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.wrapper.ui.custom.CustomTable()"/>
+                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.moneychanger.ui.custom.CustomTable()"/>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
                   </AuxValues>
                 </Component>
@@ -3787,7 +3787,7 @@
                 <Component class="javax.swing.JButton" name="jButton22">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" noResource="true" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/com/wrapper/ui/images/pencil.jpg"/>
+                      <Image iconType="3" name="/com/moneychanger/ui/images/pencil.jpg"/>
                     </Property>
                     <Property name="toolTipText" type="java.lang.String" resourceKey="jButton22.toolTipText"/>
                     <Property name="name" type="java.lang.String" value="jButton22" noResource="true"/>

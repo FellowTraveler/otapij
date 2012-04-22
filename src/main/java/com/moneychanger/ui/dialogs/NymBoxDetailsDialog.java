@@ -95,9 +95,9 @@ AK+ZirdWhhoHeWR1tAkN
  * Created on 27 Mar, 2011, 7:42:13 AM
  */
 
-package com.wrapper.ui.dialogs;
+package com.moneychanger.ui.dialogs;
 
-import com.wrapper.core.util.Utility;
+import com.moneychanger.core.util.Utility;
 
 /**
  *
@@ -138,7 +138,7 @@ public class NymBoxDetailsDialog extends javax.swing.JDialog {
         jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(app.ApplicationLauncher.class).getContext().getResourceMap(NymBoxDetailsDialog.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(NymBoxDetailsDialog.class);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
         setName("Form"); // NOI18N
 

@@ -101,14 +101,14 @@ AK+ZirdWhhoHeWR1tAkN
  * Created on 16 Apr, 2011, 3:09:12 AM
  */
 
-package com.wrapper.ui.dialogs;
+package com.moneychanger.ui.dialogs;
 
-import com.wrapper.core.CashPurseAccount;
-import com.wrapper.core.dataobjects.CashPurseDetails;
-import com.wrapper.core.util.Utility;
-import com.wrapper.ui.MainPage;
-import com.wrapper.ui.panels.CashPurseAccountBottomPanel;
-import com.wrapper.ui.panels.CashPurseAccountTopPanel;
+import com.moneychanger.core.CashPurseAccount;
+import com.moneychanger.core.dataobjects.CashPurseDetails;
+import com.moneychanger.core.util.Utility;
+import com.moneychanger.ui.MainPage;
+import com.moneychanger.ui.panels.CashPurseAccountBottomPanel;
+import com.moneychanger.ui.panels.CashPurseAccountTopPanel;
 import java.awt.Cursor;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
@@ -163,7 +163,7 @@ public class ImportCashPurse extends javax.swing.JDialog {
         jTextArea1.setName("jTextArea1"); // NOI18N
         jScrollPane1.setViewportView(jTextArea1);
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(app.ApplicationLauncher.class).getContext().getResourceMap(ImportCashPurse.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(ImportCashPurse.class);
         jLabel2.setText(resourceMap.getString("jLabel2.text")); // NOI18N
         jLabel2.setName("jLabel2"); // NOI18N
 

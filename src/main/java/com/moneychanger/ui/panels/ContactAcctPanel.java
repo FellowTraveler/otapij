@@ -99,10 +99,10 @@ AK+ZirdWhhoHeWR1tAkN
  * Created on 31 May, 2011, 6:25:11 AM
  */
 
-package com.wrapper.ui.panels;
+package com.moneychanger.ui.panels;
 
-import com.wrapper.core.dataobjects.ContactAcctDetails;
-import com.wrapper.core.datastore.AddressBookHelper;
+import com.moneychanger.core.dataobjects.ContactAcctDetails;
+import com.moneychanger.core.datastore.AddressBookHelper;
 import javax.swing.JOptionPane;
 
 /**
@@ -150,7 +150,7 @@ public class ContactAcctPanel extends javax.swing.JPanel {
 
         setName("Form"); // NOI18N
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(app.ApplicationLauncher.class).getContext().getResourceMap(ContactAcctPanel.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(ContactAcctPanel.class);
         jLabel7.setText(resourceMap.getString("jLabel7.text")); // NOI18N
         jLabel7.setName("jLabel7"); // NOI18N
 

@@ -98,13 +98,13 @@ AK+ZirdWhhoHeWR1tAkN
  *
  * Created on 18 Mar, 2011, 7:27:38 AM
  */
-package com.wrapper.ui.panels;
+package com.moneychanger.ui.panels;
 
-import com.wrapper.core.BitcoinAccount;
-import com.wrapper.core.dataobjects.BitcoinDetails;
-import com.wrapper.ui.MainPage;
-import com.wrapper.ui.dialogs.BitcoinCreateAddressDialog;
-import com.wrapper.ui.dialogs.BitcoinSendFundDialog;
+import com.moneychanger.core.BitcoinAccount;
+import com.moneychanger.core.dataobjects.BitcoinDetails;
+import com.moneychanger.ui.MainPage;
+import com.moneychanger.ui.dialogs.BitcoinCreateAddressDialog;
+import com.moneychanger.ui.dialogs.BitcoinSendFundDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
@@ -146,7 +146,7 @@ public class BitcoinAccountTopPanel extends javax.swing.JPanel {
 
         setName("Form"); // NOI18N
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(app.ApplicationLauncher.class).getContext().getResourceMap(BitcoinAccountTopPanel.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(BitcoinAccountTopPanel.class);
         jLabel7.setText(resourceMap.getString("jLabel7.text")); // NOI18N
         jLabel7.setName("jLabel7"); // NOI18N
 

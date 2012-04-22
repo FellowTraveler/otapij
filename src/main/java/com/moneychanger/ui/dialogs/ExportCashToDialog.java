@@ -101,15 +101,15 @@ AK+ZirdWhhoHeWR1tAkN
  * Created on 22 Apr, 2011, 9:09:06 PM
  */
 
-package com.wrapper.ui.dialogs;
+package com.moneychanger.ui.dialogs;
 
-import com.wrapper.core.CashPurseAccount;
-import com.wrapper.core.NYM;
-import com.wrapper.core.dataobjects.CashPurseDetails;
-import com.wrapper.core.util.Utility;
-import com.wrapper.ui.MainPage;
-import com.wrapper.ui.panels.CashPurseAccountBottomPanel;
-import com.wrapper.ui.panels.CashPurseAccountTopPanel;
+import com.moneychanger.core.CashPurseAccount;
+import com.moneychanger.core.NYM;
+import com.moneychanger.core.dataobjects.CashPurseDetails;
+import com.moneychanger.core.util.Utility;
+import com.moneychanger.ui.MainPage;
+import com.moneychanger.ui.panels.CashPurseAccountBottomPanel;
+import com.moneychanger.ui.panels.CashPurseAccountTopPanel;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.datatransfer.DataFlavor;
@@ -149,13 +149,13 @@ public class ExportCashToDialog extends javax.swing.JDialog {
 
         jTextField1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox2 = new com.wrapper.ui.custom.SteppedComboBox();
+        jComboBox2 = new com.moneychanger.ui.custom.SteppedComboBox();
         jLabel6 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(app.ApplicationLauncher.class).getContext().getResourceMap(ExportCashToDialog.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(ExportCashToDialog.class);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
         setAlwaysOnTop(true);
         setName("Form"); // NOI18N

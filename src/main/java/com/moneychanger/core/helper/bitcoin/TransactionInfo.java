@@ -88,7 +88,7 @@ AK+ZirdWhhoHeWR1tAkN
 -----END PGP SIGNATURE-----
  **************************************************************/
 
-package com.wrapper.core.helper.bitcoin;
+package com.moneychanger.core.helper.bitcoin;
 
 public class TransactionInfo {
 

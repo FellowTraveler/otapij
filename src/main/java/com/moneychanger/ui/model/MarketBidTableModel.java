@@ -88,7 +88,7 @@ AK+ZirdWhhoHeWR1tAkN
 -----END PGP SIGNATURE-----
  **************************************************************/
 
-package com.wrapper.ui.model;
+package com.moneychanger.ui.model;
 
 import java.util.Iterator;
 import java.util.Map;

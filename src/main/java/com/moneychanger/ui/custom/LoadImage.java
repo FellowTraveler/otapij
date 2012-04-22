@@ -1,6 +1,5 @@
-package com.wrapper.ui.custom;
+package com.moneychanger.ui.custom;
 
-import com.wrapper.ui.test.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;

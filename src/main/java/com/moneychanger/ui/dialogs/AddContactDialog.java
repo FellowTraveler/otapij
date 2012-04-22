@@ -88,11 +88,11 @@ AK+ZirdWhhoHeWR1tAkN
 -----END PGP SIGNATURE-----
  **************************************************************/
 
-package com.wrapper.ui.dialogs;
+package com.moneychanger.ui.dialogs;
 
-import com.wrapper.core.datastore.AddressBookHelper;
-import com.wrapper.core.datastore.StorageHelper;
-import com.wrapper.core.util.Utility;
+import com.moneychanger.core.datastore.AddressBookHelper;
+import com.moneychanger.core.datastore.StorageHelper;
+import com.moneychanger.core.util.Utility;
 import javax.swing.JOptionPane;
 
 public class AddContactDialog extends javax.swing.JDialog {
@@ -135,7 +135,7 @@ public class AddContactDialog extends javax.swing.JDialog {
 
         jTextField1.setName("jTextField1"); // NOI18N
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(app.ApplicationLauncher.class).getContext().getResourceMap(AddContactDialog.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(AddContactDialog.class);
         jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
         jLabel1.setName("jLabel1"); // NOI18N
 

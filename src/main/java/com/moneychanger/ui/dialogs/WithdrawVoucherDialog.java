@@ -101,11 +101,11 @@ AK+ZirdWhhoHeWR1tAkN
  * Created on 5 Apr, 2011, 8:07:55 PM
  */
 
-package com.wrapper.ui.dialogs;
+package com.moneychanger.ui.dialogs;
 
-import com.wrapper.core.NYM;
-import com.wrapper.core.OpenTransactionAccount;
-import com.wrapper.core.util.Utility;
+import com.moneychanger.core.NYM;
+import com.moneychanger.core.OpenTransactionAccount;
+import com.moneychanger.core.util.Utility;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.datatransfer.DataFlavor;
@@ -152,11 +152,11 @@ public class WithdrawVoucherDialog extends javax.swing.JDialog {
         jTextArea1 = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox1 = new com.wrapper.ui.custom.SteppedComboBox();
+        jComboBox1 = new com.moneychanger.ui.custom.SteppedComboBox();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(app.ApplicationLauncher.class).getContext().getResourceMap(WithdrawVoucherDialog.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(WithdrawVoucherDialog.class);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
 
         jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N

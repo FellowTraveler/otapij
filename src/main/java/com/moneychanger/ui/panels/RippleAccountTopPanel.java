@@ -89,11 +89,11 @@ AK+ZirdWhhoHeWR1tAkN
  **************************************************************/
 
 
-package com.wrapper.ui.panels;
+package com.moneychanger.ui.panels;
 
 import chrriis.dj.nativeswing.swtimpl.NativeInterface;
 import chrriis.dj.nativeswing.swtimpl.components.JWebBrowser;
-import com.wrapper.ui.test.SimpleWebBrowserExample;
+import com.moneychanger.ui.test.SimpleWebBrowserExample;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ItemEvent;

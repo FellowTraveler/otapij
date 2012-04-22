@@ -101,13 +101,13 @@ AK+ZirdWhhoHeWR1tAkN
  * Created on 28 Mar, 2011, 8:13:32 AM
  */
 
-package com.wrapper.ui.dialogs;
+package com.moneychanger.ui.dialogs;
 
-import com.wrapper.core.Contract;
-import com.wrapper.core.NYM;
-import com.wrapper.core.OpenTransactionAccount;
-import com.wrapper.core.util.Utility;
-import com.wrapper.ui.MainPage;
+import com.moneychanger.core.Contract;
+import com.moneychanger.core.NYM;
+import com.moneychanger.core.OpenTransactionAccount;
+import com.moneychanger.core.util.Utility;
+import com.moneychanger.ui.MainPage;
 import java.awt.Cursor;
 import java.util.Map;
 import java.util.logging.Level;
@@ -151,15 +151,15 @@ public class OTAccountAdditionDialog extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel4 = new javax.swing.JLabel();
-        jComboBox1 = new com.wrapper.ui.custom.SteppedComboBox();
+        jComboBox1 = new com.moneychanger.ui.custom.SteppedComboBox();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox2 = new com.wrapper.ui.custom.SteppedComboBox();
+        jComboBox2 = new com.moneychanger.ui.custom.SteppedComboBox();
         jLabel16 = new javax.swing.JLabel();
-        jComboBox3 = new com.wrapper.ui.custom.SteppedComboBox();
+        jComboBox3 = new com.moneychanger.ui.custom.SteppedComboBox();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(app.ApplicationLauncher.class).getContext().getResourceMap(OTAccountAdditionDialog.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(OTAccountAdditionDialog.class);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
         setName("Form"); // NOI18N
 

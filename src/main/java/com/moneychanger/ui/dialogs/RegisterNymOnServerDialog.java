@@ -98,11 +98,11 @@ AK+ZirdWhhoHeWR1tAkN
  *
  * Created on Jan 23, 2012, 7:24:32 PM
  */
-package com.wrapper.ui.dialogs;
+package com.moneychanger.ui.dialogs;
 
-import com.wrapper.core.NYM;
-import com.wrapper.core.util.Utility;
-import com.wrapper.ui.MainPage;
+import com.moneychanger.core.NYM;
+import com.moneychanger.core.util.Utility;
+import com.moneychanger.ui.MainPage;
 import java.awt.Cursor;
 import java.util.Map;
 import javax.swing.JOptionPane;
@@ -158,7 +158,6 @@ public class RegisterNymOnServerDialog extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 316, Short.MAX_VALUE)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jLabel1)
@@ -170,7 +169,6 @@ public class RegisterNymOnServerDialog extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 129, Short.MAX_VALUE)
             .add(layout.createSequentialGroup()
                 .add(25, 25, 25)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)

@@ -90,11 +90,10 @@ AK+ZirdWhhoHeWR1tAkN
 
 package com.wrapper.core.jni;
 
-import com.wrapper.core.util.*;
 import com.wrapper.core.jni.OTPassword;
 import com.wrapper.core.jni.OTCallback;
-import com.wrapper.ui.dialogs.OTPasswordDialog;
-import com.wrapper.ui.dialogs.OTPwdConfirmDialog;
+import com.moneychanger.ui.dialogs.OTPasswordDialog;
+import com.moneychanger.ui.dialogs.OTPwdConfirmDialog;
 
 public class JavaCallback extends OTCallback {
 

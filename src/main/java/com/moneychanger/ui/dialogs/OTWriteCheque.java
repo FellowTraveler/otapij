@@ -97,12 +97,12 @@ AK+ZirdWhhoHeWR1tAkN
  *
  * Created on 29 Mar, 2011, 10:57:11 PM
  */
-package com.wrapper.ui.dialogs;
+package com.moneychanger.ui.dialogs;
 
-import com.wrapper.core.NYM;
-import com.wrapper.core.OpenTransactionAccount;
-import com.wrapper.core.util.Utility;
-import com.wrapper.ui.custom.DateField;
+import com.moneychanger.core.NYM;
+import com.moneychanger.core.OpenTransactionAccount;
+import com.moneychanger.core.util.Utility;
+import com.moneychanger.ui.custom.DateField;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.datatransfer.DataFlavor;
@@ -165,11 +165,11 @@ public class OTWriteCheque extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox1 = new com.wrapper.ui.custom.SteppedComboBox();
+        jComboBox1 = new com.moneychanger.ui.custom.SteppedComboBox();
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(app.ApplicationLauncher.class).getContext().getResourceMap(OTWriteCheque.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(OTWriteCheque.class);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
         setName("Form"); // NOI18N
 

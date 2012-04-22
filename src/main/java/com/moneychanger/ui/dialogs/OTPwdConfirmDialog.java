@@ -99,11 +99,11 @@ AK+ZirdWhhoHeWR1tAkN
  * Created on 4 May, 2011, 8:54:57 PM
  */
 
-package com.wrapper.ui.dialogs;
+package com.moneychanger.ui.dialogs;
 
 
 import com.wrapper.core.jni.OTPassword;
-import com.wrapper.core.util.Utility;
+import com.moneychanger.core.util.Utility;
 import com.wrapper.core.jni.OTPassword;
 
 import javax.swing.JOptionPane;

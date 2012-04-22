@@ -101,12 +101,12 @@ AK+ZirdWhhoHeWR1tAkN
  * Created on 26 Mar, 2011, 3:03:22 AM
  */
 
-package com.wrapper.ui.dialogs;
+package com.moneychanger.ui.dialogs;
 
-import com.wrapper.core.Account;
-import com.wrapper.core.Contract;
-import com.wrapper.core.OpenTransactionAccount;
-import com.wrapper.core.util.Utility;
+import com.moneychanger.core.Account;
+import com.moneychanger.core.Contract;
+import com.moneychanger.core.OpenTransactionAccount;
+import com.moneychanger.core.util.Utility;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -143,7 +143,7 @@ public class AccountEditDialog extends javax.swing.JDialog {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(app.ApplicationLauncher.class).getContext().getResourceMap(AccountEditDialog.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(AccountEditDialog.class);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
         setName("Form"); // NOI18N
 
@@ -197,7 +197,7 @@ public class AccountEditDialog extends javax.swing.JDialog {
                 return;
             }
             Account account = null;
-            Class obj = Class.forName("com.wrapper.core." + type);
+            Class obj = Class.forName("com.moneychanger.core." + type);
             account = (Account) obj.newInstance();
             boolean status = account.editLabel(accountID, jTextField1.getText());
             if (status) {

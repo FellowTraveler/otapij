@@ -91,7 +91,7 @@ AK+ZirdWhhoHeWR1tAkN
 
 
 
-package com.wrapper.core.dataobjects;
+package com.moneychanger.core.dataobjects;
 
 public class MarketTicker {
 

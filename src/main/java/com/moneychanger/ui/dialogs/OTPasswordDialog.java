@@ -87,12 +87,12 @@ AK+ZirdWhhoHeWR1tAkN
 =RcXP
 -----END PGP SIGNATURE-----
  **************************************************************/
-package com.wrapper.ui.dialogs;
+package com.moneychanger.ui.dialogs;
 
 import com.wrapper.core.jni.OTPassword;
-import com.wrapper.core.util.Configuration;
-import com.wrapper.core.util.Utility;
-import com.wrapper.ui.custom.LoadImage;
+import com.moneychanger.core.util.Configuration;
+import com.moneychanger.core.util.Utility;
+import com.moneychanger.ui.custom.LoadImage;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.image.BufferedImage;

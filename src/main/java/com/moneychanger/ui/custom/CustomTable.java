@@ -93,19 +93,18 @@ AK+ZirdWhhoHeWR1tAkN
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.wrapper.ui.custom;
+package com.moneychanger.ui.custom;
 
-import com.wrapper.core.util.Utility;
-import com.wrapper.ui.*;
-import com.wrapper.ui.model.AccountTableModel;
-import com.wrapper.ui.model.AssetContractTableModel;
-import com.wrapper.ui.model.BasketTableModel;
-import com.wrapper.ui.model.NYMBoxTableModel;
-import com.wrapper.ui.model.NYMOutboxTableModel;
-import com.wrapper.ui.model.NYMTableModel;
-import com.wrapper.ui.model.OTInboxTableModel;
-import com.wrapper.ui.model.OTOutboxTableModel;
-import com.wrapper.ui.model.ServerContractTableModel;
+import com.moneychanger.core.util.Utility;
+import com.moneychanger.ui.model.AccountTableModel;
+import com.moneychanger.ui.model.AssetContractTableModel;
+import com.moneychanger.ui.model.BasketTableModel;
+import com.moneychanger.ui.model.NYMBoxTableModel;
+import com.moneychanger.ui.model.NYMOutboxTableModel;
+import com.moneychanger.ui.model.NYMTableModel;
+import com.moneychanger.ui.model.OTInboxTableModel;
+import com.moneychanger.ui.model.OTOutboxTableModel;
+import com.moneychanger.ui.model.ServerContractTableModel;
 import java.awt.Component;
 import javax.swing.JComponent;
 import javax.swing.JTable;

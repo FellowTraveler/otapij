@@ -88,7 +88,7 @@ AK+ZirdWhhoHeWR1tAkN
 -----END PGP SIGNATURE-----
  **************************************************************/
 
-package com.wrapper.core.datastore;
+package com.moneychanger.core.datastore;
 
 import com.wrapper.core.jni.AddressBook;
 import com.wrapper.core.jni.BitcoinAcct;
@@ -102,7 +102,7 @@ import com.wrapper.core.jni.Storable;
 import com.wrapper.core.jni.StoredObjectType;
 import com.wrapper.core.jni.WalletData;
 import com.wrapper.core.jni.otapi;
-import com.wrapper.core.util.Utility;
+import com.moneychanger.core.util.Utility;
 import java.util.HashMap;
 import java.util.Map;
 

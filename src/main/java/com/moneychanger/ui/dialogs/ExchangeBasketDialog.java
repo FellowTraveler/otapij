@@ -98,13 +98,13 @@ AK+ZirdWhhoHeWR1tAkN
  *
  * Created on Aug 31, 2011, 3:19:48 PM
  */
-package com.wrapper.ui.dialogs;
+package com.moneychanger.ui.dialogs;
 
 //import com.sun.codemodel.internal.JOp;
-import com.wrapper.core.OpenTransactionAccount;
+import com.moneychanger.core.OpenTransactionAccount;
 import com.wrapper.core.jni.otapi;
-import com.wrapper.core.util.Configuration;
-import com.wrapper.core.util.Utility;
+import com.moneychanger.core.util.Configuration;
+import com.moneychanger.core.util.Utility;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -156,7 +156,7 @@ public class ExchangeBasketDialog extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setName("Form"); // NOI18N
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(app.ApplicationLauncher.class).getContext().getResourceMap(ExchangeBasketDialog.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(ExchangeBasketDialog.class);
         jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
         jLabel1.setName("jLabel1"); // NOI18N
 

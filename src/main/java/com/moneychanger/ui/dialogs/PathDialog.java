@@ -97,14 +97,14 @@ AK+ZirdWhhoHeWR1tAkN
  *
  * Created on 4 Apr, 2011, 8:04:41 PM
  */
-package com.wrapper.ui.dialogs;
+package com.moneychanger.ui.dialogs;
 
 import java.util.*;
 import java.io.*;
 
-import com.wrapper.core.util.Utility;
-import com.wrapper.ui.Load;
-import com.wrapper.ui.Settings;
+import com.moneychanger.core.util.Utility;
+import com.moneychanger.ui.Load;
+import com.moneychanger.ui.Settings;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 

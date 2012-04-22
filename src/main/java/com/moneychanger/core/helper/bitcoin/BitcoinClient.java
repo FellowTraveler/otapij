@@ -89,7 +89,7 @@ AK+ZirdWhhoHeWR1tAkN
  **************************************************************/
 
 
-package com.wrapper.core.helper.bitcoin;
+package com.moneychanger.core.helper.bitcoin;
 
 import java.math.BigDecimal;
 import java.net.URI;

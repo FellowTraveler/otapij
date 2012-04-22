@@ -96,11 +96,11 @@ AK+ZirdWhhoHeWR1tAkN
  * Created on 19 Mar, 2011, 8:54:40 AM
  */
 
-package com.wrapper.ui.dialogs;
+package com.moneychanger.ui.dialogs;
 
-import com.wrapper.core.OpenTransactionAccount;
-import com.wrapper.core.util.ComboObject;
-import com.wrapper.core.util.Utility;
+import com.moneychanger.core.OpenTransactionAccount;
+import com.moneychanger.core.util.ComboObject;
+import com.moneychanger.core.util.Utility;
 import java.awt.Frame;
 
 /**
@@ -142,7 +142,7 @@ public class AccountAdditionDialog extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox2 = new com.wrapper.ui.custom.SteppedComboBox();
+        jComboBox2 = new com.moneychanger.ui.custom.SteppedComboBox();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -153,7 +153,7 @@ public class AccountAdditionDialog extends javax.swing.JDialog {
 
         jPanel1.setName("jPanel1"); // NOI18N
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(app.ApplicationLauncher.class).getContext().getResourceMap(AccountAdditionDialog.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(AccountAdditionDialog.class);
         jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
         jButton1.setName("jButton1"); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {

@@ -28,7 +28,7 @@
 
  ***********************************************************/
 
-package com.wrapper.ui.custom;
+package com.moneychanger.ui.custom;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

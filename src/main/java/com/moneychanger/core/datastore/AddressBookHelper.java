@@ -88,11 +88,11 @@ AK+ZirdWhhoHeWR1tAkN
 -----END PGP SIGNATURE-----
  **************************************************************/
 
-package com.wrapper.core.datastore;
+package com.moneychanger.core.datastore;
 
-import com.wrapper.core.dataobjects.ContactAcctDetails;
-import com.wrapper.core.dataobjects.ContactDetails;
-import com.wrapper.core.dataobjects.ContactNymDetails;
+import com.moneychanger.core.dataobjects.ContactAcctDetails;
+import com.moneychanger.core.dataobjects.ContactDetails;
+import com.moneychanger.core.dataobjects.ContactNymDetails;
 import com.wrapper.core.jni.AddressBook;
 import com.wrapper.core.jni.Contact;
 import com.wrapper.core.jni.ContactAcct;
@@ -101,7 +101,7 @@ import com.wrapper.core.jni.ServerInfo;
 import com.wrapper.core.jni.Storable;
 import com.wrapper.core.jni.StoredObjectType;
 import com.wrapper.core.jni.otapi;
-import com.wrapper.core.util.Utility;
+import com.moneychanger.core.util.Utility;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

@@ -92,11 +92,11 @@ AK+ZirdWhhoHeWR1tAkN
  *
  * Created on Feb 11, 2012, 1:39:43 AM
  */
-package com.wrapper.ui.dialogs;
+package com.moneychanger.ui.dialogs;
 
-import com.wrapper.core.Contract;
-import com.wrapper.core.Payments;
-import com.wrapper.core.util.Utility;
+import com.moneychanger.core.Contract;
+import com.moneychanger.core.Payments;
+import com.moneychanger.core.util.Utility;
 import java.awt.Color;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
@@ -136,12 +136,12 @@ public class ServerAcctDialog extends javax.swing.JDialog {
 
         jLayeredPane1 = new javax.swing.JLayeredPane();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox2 = new com.wrapper.ui.custom.SteppedComboBox();
+        jComboBox2 = new com.moneychanger.ui.custom.SteppedComboBox();
         jButton3 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new  com.wrapper.ui.custom.SteppedComboBox();
+        jComboBox1 = new  com.moneychanger.ui.custom.SteppedComboBox();
         jButton4 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();

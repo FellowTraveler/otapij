@@ -101,10 +101,10 @@ AK+ZirdWhhoHeWR1tAkN
  * Created on 26 Mar, 2011, 2:16:11 AM
  */
 
-package com.wrapper.ui.dialogs;
+package com.moneychanger.ui.dialogs;
 
-import com.wrapper.core.NYM;
-import com.wrapper.core.util.Utility;
+import com.moneychanger.core.NYM;
+import com.moneychanger.core.util.Utility;
 import javax.swing.JOptionPane;
 
 /**
@@ -137,7 +137,7 @@ public class NYMEditDialog extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(app.ApplicationLauncher.class).getContext().getResourceMap(NYMEditDialog.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(NYMEditDialog.class);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
         setIconImage(null);
         setModal(true);

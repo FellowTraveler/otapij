@@ -92,9 +92,9 @@ AK+ZirdWhhoHeWR1tAkN
  *
  * Created on Feb 25, 2012, 4:17:21 AM
  */
-package com.wrapper.ui.dialogs;
+package com.moneychanger.ui.dialogs;
 
-import com.wrapper.core.util.Utility;
+import com.moneychanger.core.util.Utility;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.ClipboardOwner;
 import java.awt.datatransfer.StringSelection;

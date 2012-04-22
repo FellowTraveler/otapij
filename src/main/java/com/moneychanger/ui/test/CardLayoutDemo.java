@@ -29,7 +29,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.wrapper.ui.test;
+package com.moneychanger.ui.test;
 
 /*
  * CardLayoutDemo.java

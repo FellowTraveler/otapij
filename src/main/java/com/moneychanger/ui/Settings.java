@@ -82,12 +82,12 @@
  *
  * Created on 4 Apr, 2011, 9:20:06 AM
  */
-package com.wrapper.ui;
+package com.moneychanger.ui;
 
-import com.wrapper.core.util.Configuration;
-import com.wrapper.core.util.Utility;
-import com.wrapper.ui.custom.CustomMenu;
-import com.wrapper.ui.dialogs.PathDialog;
+import com.moneychanger.core.util.Configuration;
+import com.moneychanger.core.util.Utility;
+import com.moneychanger.ui.custom.CustomMenu;
+import com.moneychanger.ui.dialogs.PathDialog;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
@@ -141,7 +141,7 @@ public class Settings extends javax.swing.JFrame {
 
             Load.setTimeout();
             //new MainPage().setVisible(true);
-            com.wrapper.ui.ProgressBar progressBar = new com.wrapper.ui.ProgressBar();
+            com.moneychanger.ui.ProgressBar progressBar = new com.moneychanger.ui.ProgressBar();
             new Thread(progressBar).start();
             progressBar.setVisible(true);
             progressBar.pack();
@@ -210,7 +210,7 @@ public class Settings extends javax.swing.JFrame {
         jButton_DataFolder1 = new javax.swing.JButton();
         jLabel_JavaPath1 = new javax.swing.JLabel();
         jMenuBar_Setting = new javax.swing.JMenuBar();
-        jMenu1 = new com.wrapper.ui.custom.CustomMenu("Look & Feel");
+        jMenu1 = new com.moneychanger.ui.custom.CustomMenu("Look & Feel");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(Settings.class);
@@ -410,7 +410,7 @@ public class Settings extends javax.swing.JFrame {
                         //UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
                         // UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 
-                        com.wrapper.ui.ProgressBar progressBar = new com.wrapper.ui.ProgressBar();
+                        com.moneychanger.ui.ProgressBar progressBar = new com.moneychanger.ui.ProgressBar();
                         new Thread(progressBar).start();
                         progressBar.setVisible(true);
                         progressBar.pack();

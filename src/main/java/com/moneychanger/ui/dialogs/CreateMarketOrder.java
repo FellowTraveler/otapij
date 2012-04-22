@@ -93,13 +93,13 @@ AK+ZirdWhhoHeWR1tAkN
  *
  * Created on Aug 12, 2011, 10:29:51 AM
  */
-package com.wrapper.ui.dialogs;
+package com.moneychanger.ui.dialogs;
 
-import com.wrapper.core.Contract;
-import com.wrapper.core.Market;
-import com.wrapper.core.OpenTransactionAccount;
-import com.wrapper.core.util.Utility;
-import com.wrapper.ui.MainPage;
+import com.moneychanger.core.Contract;
+import com.moneychanger.core.Market;
+import com.moneychanger.core.OpenTransactionAccount;
+import com.moneychanger.core.util.Utility;
+import com.moneychanger.ui.MainPage;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.datatransfer.DataFlavor;
@@ -135,11 +135,11 @@ public class CreateMarketOrder extends javax.swing.JDialog {
     private void initComponents() {
 
         jButton2 = new javax.swing.JButton();
-        jComboBox1 = new com.wrapper.ui.custom.SteppedComboBox();
+        jComboBox1 = new com.moneychanger.ui.custom.SteppedComboBox();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox2 = new com.wrapper.ui.custom.SteppedComboBox();
+        jComboBox2 = new com.moneychanger.ui.custom.SteppedComboBox();
         jButton3 = new javax.swing.JButton();
         jTextField2 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -156,9 +156,9 @@ public class CreateMarketOrder extends javax.swing.JDialog {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jComboBox3 = new javax.swing.JComboBox();
-        jComboBox4 = new com.wrapper.ui.custom.SteppedComboBox();
+        jComboBox4 = new com.moneychanger.ui.custom.SteppedComboBox();
         jButton5 = new javax.swing.JButton();
-        jComboBox5 = new com.wrapper.ui.custom.SteppedComboBox();
+        jComboBox5 = new com.moneychanger.ui.custom.SteppedComboBox();
         jButton6 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
@@ -169,7 +169,7 @@ public class CreateMarketOrder extends javax.swing.JDialog {
         jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(app.ApplicationLauncher.class).getContext().getResourceMap(CreateMarketOrder.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(CreateMarketOrder.class);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
         setAlwaysOnTop(true);
         setName("Form"); // NOI18N

@@ -89,7 +89,7 @@ AK+ZirdWhhoHeWR1tAkN
  **************************************************************/
 
 
-package com.wrapper.core.dataobjects;
+package com.moneychanger.core.dataobjects;
 
 import com.wrapper.core.jni.Contact;
 import java.util.List;

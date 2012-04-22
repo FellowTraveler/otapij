@@ -100,9 +100,9 @@ AK+ZirdWhhoHeWR1tAkN
  *
  * Created on 18 Mar, 2011, 7:01:33 PM
  */
-package com.wrapper.ui.panels;
+package com.moneychanger.ui.panels;
 
-import com.wrapper.core.dataobjects.CashPurseDetails;
+import com.moneychanger.core.dataobjects.CashPurseDetails;
 
 /**
  *
@@ -152,7 +152,7 @@ public class CashPurseAccountTopPanel_backup extends javax.swing.JPanel {
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel2.setName("jPanel2"); // NOI18N
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(app.ApplicationLauncher.class).getContext().getResourceMap(CashPurseAccountTopPanel_backup.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(CashPurseAccountTopPanel_backup.class);
         jTextField1.setBackground(resourceMap.getColor("jTextField1.background")); // NOI18N
         jTextField1.setEditable(false);
         jTextField1.setText(resourceMap.getString("jTextField1.text")); // NOI18N

@@ -93,9 +93,9 @@ AK+ZirdWhhoHeWR1tAkN
  *
  * Created on Feb 12, 2012, 7:43:37 PM
  */
-package com.wrapper.ui.dialogs;
+package com.moneychanger.ui.dialogs;
 
-import com.wrapper.core.util.Utility;
+import com.moneychanger.core.util.Utility;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -159,7 +159,7 @@ public class ServerSelectionDialog extends javax.swing.JDialog {
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jButton1)
                     .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 177, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)

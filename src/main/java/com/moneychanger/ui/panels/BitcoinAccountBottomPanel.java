@@ -88,14 +88,14 @@ AK+ZirdWhhoHeWR1tAkN
 -----END PGP SIGNATURE-----
  **************************************************************/
 
-package com.wrapper.ui.panels;
+package com.moneychanger.ui.panels;
 
-import com.wrapper.core.BitcoinAccount;
-import com.wrapper.core.dataobjects.BitcoinDetails;
-import com.wrapper.ui.dialogs.BitcoinTrnDetailsDialog;
-import com.wrapper.ui.model.BitcoinReceivedTableModel;
-import com.wrapper.ui.model.BitcoinReceivingAddrTableModel;
-import com.wrapper.ui.model.BitcoinSentTableModel;
+import com.moneychanger.core.BitcoinAccount;
+import com.moneychanger.core.dataobjects.BitcoinDetails;
+import com.moneychanger.ui.dialogs.BitcoinTrnDetailsDialog;
+import com.moneychanger.ui.model.BitcoinReceivedTableModel;
+import com.moneychanger.ui.model.BitcoinReceivingAddrTableModel;
+import com.moneychanger.ui.model.BitcoinSentTableModel;
 import java.util.Map;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
@@ -130,12 +130,12 @@ public class BitcoinAccountBottomPanel extends javax.swing.JPanel {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane12 = new javax.swing.JScrollPane();
-        jTable5 = new com.wrapper.ui.custom.CustomTable();
+        jTable5 = new com.moneychanger.ui.custom.CustomTable();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane13 = new javax.swing.JScrollPane();
-        jTable6 = new com.wrapper.ui.custom.CustomTable();
+        jTable6 = new com.moneychanger.ui.custom.CustomTable();
         jScrollPane14 = new javax.swing.JScrollPane();
-        jTable7 = new com.wrapper.ui.custom.CustomTable();
+        jTable7 = new com.moneychanger.ui.custom.CustomTable();
         jButton1 = new javax.swing.JButton();
 
         setName("Form"); // NOI18N
@@ -151,7 +151,7 @@ public class BitcoinAccountBottomPanel extends javax.swing.JPanel {
 
         jScrollPane12.setName("jScrollPane12"); // NOI18N
 
-        jTable5.setModel(new com.wrapper.ui.model.BitcoinSentTableModel());
+        jTable5.setModel(new com.moneychanger.ui.model.BitcoinSentTableModel());
         jTable5.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jTable5.setName("jTable5"); // NOI18N
         jTable5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -179,7 +179,7 @@ public class BitcoinAccountBottomPanel extends javax.swing.JPanel {
 
         jScrollPane13.setName("jScrollPane13"); // NOI18N
 
-        jTable6.setModel(new com.wrapper.ui.model.BitcoinReceivedTableModel());
+        jTable6.setModel(new com.moneychanger.ui.model.BitcoinReceivedTableModel());
         jTable6.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jTable6.setName("jTable6"); // NOI18N
         jTable6.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -205,7 +205,7 @@ public class BitcoinAccountBottomPanel extends javax.swing.JPanel {
 
         jScrollPane14.setName("jScrollPane14"); // NOI18N
 
-        jTable7.setModel(new com.wrapper.ui.model.BitcoinReceivingAddrTableModel());
+        jTable7.setModel(new com.moneychanger.ui.model.BitcoinReceivingAddrTableModel());
         jTable7.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jTable7.setName("jTable7"); // NOI18N
         jTable7.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -216,7 +216,7 @@ public class BitcoinAccountBottomPanel extends javax.swing.JPanel {
         });
         jScrollPane14.setViewportView(jTable7);
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(app.ApplicationLauncher.class).getContext().getResourceMap(BitcoinAccountBottomPanel.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(BitcoinAccountBottomPanel.class);
         jTabbedPane1.addTab(resourceMap.getString("jScrollPane14.TabConstraints.tabTitle"), jScrollPane14); // NOI18N
 
         jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N

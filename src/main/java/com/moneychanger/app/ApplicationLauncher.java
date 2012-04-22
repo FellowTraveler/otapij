@@ -89,9 +89,9 @@ AK+ZirdWhhoHeWR1tAkN
  **************************************************************/
 
 
-package app;
+package com.moneychanger.app;
 
-import com.wrapper.ui.Settings;
+import com.moneychanger.ui.Settings;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.SwingUtilities;

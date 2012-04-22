@@ -87,11 +87,11 @@ AK+ZirdWhhoHeWR1tAkN
 =RcXP
 -----END PGP SIGNATURE-----
  **************************************************************/
-package com.wrapper.core;
+package com.moneychanger.core;
 
 import com.wrapper.core.jni.otapi;
-import com.wrapper.core.util.OTAPI_Func;
-import com.wrapper.core.util.Utility;
+import com.moneychanger.core.util.OTAPI_Func;
+import com.moneychanger.core.util.Utility;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;

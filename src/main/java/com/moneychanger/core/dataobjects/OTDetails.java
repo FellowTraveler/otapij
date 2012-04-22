@@ -95,9 +95,8 @@ AK+ZirdWhhoHeWR1tAkN
  * and open the template in the editor.
  */
 
-package com.wrapper.core.dataobjects;
+package com.moneychanger.core.dataobjects;
 
-import com.wrapper.core.*;
 import java.util.ArrayList;
 import java.util.Map;
 

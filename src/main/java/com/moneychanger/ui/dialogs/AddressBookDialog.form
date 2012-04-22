@@ -234,7 +234,7 @@
         <Component class="javax.swing.JTable" name="jTable5">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new com.wrapper.ui.model.ContactTableModel()" type="code"/>
+              <Connection code="new com.moneychanger.ui.model.ContactTableModel()" type="code"/>
             </Property>
             <Property name="name" type="java.lang.String" value="jTable5" noResource="true"/>
             <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
@@ -245,7 +245,7 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTable5MouseClicked"/>
           </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.wrapper.ui.custom.CustomTable()"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.moneychanger.ui.custom.CustomTable()"/>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
           </AuxValues>
         </Component>
@@ -345,7 +345,7 @@
         <Component class="javax.swing.JTable" name="jTable6">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new com.wrapper.ui.model.ContactDetailsTableModel()" type="code"/>
+              <Connection code="new com.moneychanger.ui.model.ContactDetailsTableModel()" type="code"/>
             </Property>
             <Property name="name" type="java.lang.String" value="jTable6" noResource="true"/>
             <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
@@ -356,7 +356,7 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTable6MouseClicked"/>
           </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.wrapper.ui.custom.CustomTable()"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.moneychanger.ui.custom.CustomTable()"/>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
           </AuxValues>
         </Component>

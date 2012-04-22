@@ -88,17 +88,17 @@ AK+ZirdWhhoHeWR1tAkN
 -----END PGP SIGNATURE-----
  **************************************************************/
 
-package com.wrapper.ui.dialogs;
+package com.moneychanger.ui.dialogs;
 
-import com.wrapper.core.dataobjects.ContactDetails;
-import com.wrapper.core.datastore.AddressBookHelper;
-import com.wrapper.core.util.Utility;
-import com.wrapper.ui.model.ContactDetailsTableModel;
-import com.wrapper.ui.model.ContactNymTableModel;
-import com.wrapper.ui.model.ContactTableModel;
-import com.wrapper.ui.panels.BlankPanel;
-import com.wrapper.ui.panels.ContactAcctPanel;
-import com.wrapper.ui.panels.ContactNymPanel;
+import com.moneychanger.core.dataobjects.ContactDetails;
+import com.moneychanger.core.datastore.AddressBookHelper;
+import com.moneychanger.core.util.Utility;
+import com.moneychanger.ui.model.ContactDetailsTableModel;
+import com.moneychanger.ui.model.ContactNymTableModel;
+import com.moneychanger.ui.model.ContactTableModel;
+import com.moneychanger.ui.panels.BlankPanel;
+import com.moneychanger.ui.panels.ContactAcctPanel;
+import com.moneychanger.ui.panels.ContactNymPanel;
 import java.awt.CardLayout;
 import java.util.List;
 import javax.swing.BorderFactory;
@@ -143,14 +143,14 @@ public class AddressBookDialog extends javax.swing.JDialog {
         jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton1 = new javax.swing.JRadioButton();
         jScrollPane12 = new javax.swing.JScrollPane();
-        jTable5 = new com.wrapper.ui.custom.CustomTable();
+        jTable5 = new com.moneychanger.ui.custom.CustomTable();
         jPanel16 = new javax.swing.JPanel();
         jButton10 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
         jSeparator6 = new javax.swing.JSeparator();
         jScrollPane13 = new javax.swing.JScrollPane();
-        jTable6 = new com.wrapper.ui.custom.CustomTable();
+        jTable6 = new com.moneychanger.ui.custom.CustomTable();
         jSeparator7 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -172,7 +172,7 @@ public class AddressBookDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(app.ApplicationLauncher.class).getContext().getResourceMap(AddressBookDialog.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(AddressBookDialog.class);
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel1.border.title"))); // NOI18N
         jPanel1.setName("jPanel1"); // NOI18N
 
@@ -212,7 +212,7 @@ public class AddressBookDialog extends javax.swing.JDialog {
 
         jScrollPane12.setName("jScrollPane12"); // NOI18N
 
-        jTable5.setModel(new com.wrapper.ui.model.ContactTableModel());
+        jTable5.setModel(new com.moneychanger.ui.model.ContactTableModel());
         jTable5.setName("jTable5"); // NOI18N
         jTable5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTable5.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -225,7 +225,7 @@ public class AddressBookDialog extends javax.swing.JDialog {
         jPanel16.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel16.setName("jPanel16"); // NOI18N
 
-        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/wrapper/ui/images/pencil.jpg"))); // NOI18N
+        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/moneychanger/ui/images/pencil.jpg"))); // NOI18N
         jButton10.setToolTipText(resourceMap.getString("jButton10.toolTipText")); // NOI18N
         jButton10.setName("jButton10"); // NOI18N
         jButton10.addActionListener(new java.awt.event.ActionListener() {
@@ -281,7 +281,7 @@ public class AddressBookDialog extends javax.swing.JDialog {
 
         jScrollPane13.setName("jScrollPane13"); // NOI18N
 
-        jTable6.setModel(new com.wrapper.ui.model.ContactDetailsTableModel());
+        jTable6.setModel(new com.moneychanger.ui.model.ContactDetailsTableModel());
         jTable6.setName("jTable6"); // NOI18N
         jTable6.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTable6.addMouseListener(new java.awt.event.MouseAdapter() {

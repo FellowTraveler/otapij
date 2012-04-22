@@ -101,10 +101,10 @@ AK+ZirdWhhoHeWR1tAkN
  * Created on 16 Apr, 2011, 2:01:03 AM
  */
 
-package com.wrapper.ui.panels;
+package com.moneychanger.ui.panels;
 
-import com.wrapper.core.dataobjects.CashPurseDetails;
-import com.wrapper.ui.dialogs.ImportCashPurse;
+import com.moneychanger.core.dataobjects.CashPurseDetails;
+import com.moneychanger.ui.dialogs.ImportCashPurse;
 
 /**
  *
@@ -151,7 +151,7 @@ public class CashPurseAccountTopPanel extends javax.swing.JPanel {
         jTextField7.setEditable(false);
         jTextField7.setName("jTextField7"); // NOI18N
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(app.ApplicationLauncher.class).getContext().getResourceMap(CashPurseAccountTopPanel.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(CashPurseAccountTopPanel.class);
         jLabel4.setText(resourceMap.getString("jLabel4.text")); // NOI18N
         jLabel4.setName("jLabel4"); // NOI18N
 

@@ -100,10 +100,10 @@ AK+ZirdWhhoHeWR1tAkN
  *
  * Created on 12 Apr, 2011, 8:45:38 AM
  */
-package com.wrapper.ui.panels;
+package com.moneychanger.ui.panels;
 
-import com.wrapper.core.NYM;
-import com.wrapper.core.util.Utility;
+import com.moneychanger.core.NYM;
+import com.moneychanger.core.util.Utility;
 import java.awt.Color;
 import java.util.Map;
 
@@ -143,7 +143,7 @@ public class NameValuePanel extends javax.swing.JPanel {
             }
         });
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(app.ApplicationLauncher.class).getContext().getResourceMap(NameValuePanel.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(NameValuePanel.class);
         jTextField1.setBackground(resourceMap.getColor("jTextField1.background")); // NOI18N
         jTextField1.setText(resourceMap.getString("jTextField1.text")); // NOI18N
         jTextField1.setName("jTextField1"); // NOI18N

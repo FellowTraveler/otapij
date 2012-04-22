@@ -98,80 +98,80 @@ AK+ZirdWhhoHeWR1tAkN
  *
  * Created on 13 Mar, 2011, 10:22:07 PM
  */
-package com.wrapper.ui;
+package com.moneychanger.ui;
 //Recurring, Deed/Title, Escrow, Ripple, Settings, Credits
-import com.wrapper.core.Account;
-import com.wrapper.core.Basket;
-import com.wrapper.core.Contract;
-import com.wrapper.core.Market;
-import com.wrapper.core.NYM;
-import com.wrapper.core.OpenTransactionAccount;
-import com.wrapper.core.Payments;
-import com.wrapper.core.RippleAccount;
-import com.wrapper.core.dataobjects.BitcoinDetails;
-import com.wrapper.core.dataobjects.CashPurseDetails;
-import com.wrapper.core.dataobjects.MarketDetails;
-import com.wrapper.core.dataobjects.MarketTicker;
-import com.wrapper.core.dataobjects.NymOfferDetails;
-import com.wrapper.core.dataobjects.OTDetails;
-import com.wrapper.core.datastore.StorageHelper;
-import com.wrapper.core.util.ComboObject;
-import com.wrapper.core.util.Configuration;
-import com.wrapper.core.util.Utility;
-import com.wrapper.ui.custom.PaymentInboxRightClickListener;
-import com.wrapper.ui.dialogs.AccountAdditionDialog;
-import com.wrapper.ui.dialogs.AccountEditDialog;
-import com.wrapper.ui.dialogs.AddBasketDialog;
-import com.wrapper.ui.dialogs.AddressBookDialog;
-import com.wrapper.ui.dialogs.AssetContractEditDialog;
-import com.wrapper.ui.dialogs.ContractAdditionDialog;
-import com.wrapper.ui.dialogs.CreateMarketOrder;
-import com.wrapper.ui.dialogs.DeleteNYMDialog;
-import com.wrapper.ui.dialogs.ImportNYMDialog;
-import com.wrapper.ui.dialogs.IssueAssetContractDialog;
-import com.wrapper.ui.dialogs.NYMAdditionDialog;
-import com.wrapper.ui.dialogs.NYMEditDialog;
-import com.wrapper.ui.dialogs.NymBoxDetailsDialog;
-import com.wrapper.ui.dialogs.OtherTabAccountEditDialog;
-import com.wrapper.ui.dialogs.OtherTabServerAddDialog;
-import com.wrapper.ui.dialogs.OtherTabServerEditDialog;
-import com.wrapper.ui.dialogs.PaymentOutboxDetailsDialog;
-import com.wrapper.ui.dialogs.ProposePaymentDialog;
-import com.wrapper.ui.dialogs.RegisterNYMDialog;
-import com.wrapper.ui.dialogs.RegisterNymOnServerDialog;
-import com.wrapper.ui.dialogs.SendMessageDialog;
-import com.wrapper.ui.dialogs.ServerAcctDialog;
-import com.wrapper.ui.dialogs.ServerContractEditDialog;
-import com.wrapper.ui.dialogs.ServerSelectionDialog;
-import com.wrapper.ui.model.AccountTableModel;
-import com.wrapper.ui.model.AssetContractTableModel;
-import com.wrapper.ui.model.BasketTableModel;
-import com.wrapper.ui.model.MarketAskTableModel;
-import com.wrapper.ui.model.MarketBidTableModel;
-import com.wrapper.ui.model.MarketOffersTableModel;
-import com.wrapper.ui.model.MarketRecentTradesTableModel;
-import com.wrapper.ui.model.MarketTableModel;
-import com.wrapper.ui.model.MarketTradesTableModel;
-import com.wrapper.ui.model.NYMBoxTableModel;
-import com.wrapper.ui.model.NYMOutboxTableModel;
+import com.moneychanger.core.Account;
+import com.moneychanger.core.Basket;
+import com.moneychanger.core.Contract;
+import com.moneychanger.core.Market;
+import com.moneychanger.core.NYM;
+import com.moneychanger.core.OpenTransactionAccount;
+import com.moneychanger.core.Payments;
+import com.moneychanger.core.RippleAccount;
+import com.moneychanger.core.dataobjects.BitcoinDetails;
+import com.moneychanger.core.dataobjects.CashPurseDetails;
+import com.moneychanger.core.dataobjects.MarketDetails;
+import com.moneychanger.core.dataobjects.MarketTicker;
+import com.moneychanger.core.dataobjects.NymOfferDetails;
+import com.moneychanger.core.dataobjects.OTDetails;
+import com.moneychanger.core.datastore.StorageHelper;
+import com.moneychanger.core.util.ComboObject;
+import com.moneychanger.core.util.Configuration;
+import com.moneychanger.core.util.Utility;
+import com.moneychanger.ui.custom.PaymentInboxRightClickListener;
+import com.moneychanger.ui.dialogs.AccountAdditionDialog;
+import com.moneychanger.ui.dialogs.AccountEditDialog;
+import com.moneychanger.ui.dialogs.AddBasketDialog;
+import com.moneychanger.ui.dialogs.AddressBookDialog;
+import com.moneychanger.ui.dialogs.AssetContractEditDialog;
+import com.moneychanger.ui.dialogs.ContractAdditionDialog;
+import com.moneychanger.ui.dialogs.CreateMarketOrder;
+import com.moneychanger.ui.dialogs.DeleteNYMDialog;
+import com.moneychanger.ui.dialogs.ImportNYMDialog;
+import com.moneychanger.ui.dialogs.IssueAssetContractDialog;
+import com.moneychanger.ui.dialogs.NYMAdditionDialog;
+import com.moneychanger.ui.dialogs.NYMEditDialog;
+import com.moneychanger.ui.dialogs.NymBoxDetailsDialog;
+import com.moneychanger.ui.dialogs.OtherTabAccountEditDialog;
+import com.moneychanger.ui.dialogs.OtherTabServerAddDialog;
+import com.moneychanger.ui.dialogs.OtherTabServerEditDialog;
+import com.moneychanger.ui.dialogs.PaymentOutboxDetailsDialog;
+import com.moneychanger.ui.dialogs.ProposePaymentDialog;
+import com.moneychanger.ui.dialogs.RegisterNYMDialog;
+import com.moneychanger.ui.dialogs.RegisterNymOnServerDialog;
+import com.moneychanger.ui.dialogs.SendMessageDialog;
+import com.moneychanger.ui.dialogs.ServerAcctDialog;
+import com.moneychanger.ui.dialogs.ServerContractEditDialog;
+import com.moneychanger.ui.dialogs.ServerSelectionDialog;
+import com.moneychanger.ui.model.AccountTableModel;
+import com.moneychanger.ui.model.AssetContractTableModel;
+import com.moneychanger.ui.model.BasketTableModel;
+import com.moneychanger.ui.model.MarketAskTableModel;
+import com.moneychanger.ui.model.MarketBidTableModel;
+import com.moneychanger.ui.model.MarketOffersTableModel;
+import com.moneychanger.ui.model.MarketRecentTradesTableModel;
+import com.moneychanger.ui.model.MarketTableModel;
+import com.moneychanger.ui.model.MarketTradesTableModel;
+import com.moneychanger.ui.model.NYMBoxTableModel;
+import com.moneychanger.ui.model.NYMOutboxTableModel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
-import com.wrapper.ui.model.NYMTableModel;
-import com.wrapper.ui.model.OtherTabAccountModel;
-import com.wrapper.ui.model.OtherTabServerTableModel;
-import com.wrapper.ui.model.PaymentInboxTableModel;
-import com.wrapper.ui.model.PaymentOutboxTableModel;
-import com.wrapper.ui.model.PaymentRecordboxTableModel;
-import com.wrapper.ui.model.ServerContractTableModel;
-import com.wrapper.ui.panels.BitcoinAccountBottomPanel;
-import com.wrapper.ui.panels.BitcoinAccountTopPanel;
-import com.wrapper.ui.panels.BlankPanel;
-import com.wrapper.ui.panels.CashPurseAccountBottomPanel;
-import com.wrapper.ui.panels.CashPurseAccountTopPanel;
-import com.wrapper.ui.panels.OpenTransactionAccountBottomPanel;
-import com.wrapper.ui.panels.OpenTransactionAccountTopPanel;
-import com.wrapper.ui.panels.RippleAccountTopPanel;
+import com.moneychanger.ui.model.NYMTableModel;
+import com.moneychanger.ui.model.OtherTabAccountModel;
+import com.moneychanger.ui.model.OtherTabServerTableModel;
+import com.moneychanger.ui.model.PaymentInboxTableModel;
+import com.moneychanger.ui.model.PaymentOutboxTableModel;
+import com.moneychanger.ui.model.PaymentRecordboxTableModel;
+import com.moneychanger.ui.model.ServerContractTableModel;
+import com.moneychanger.ui.panels.BitcoinAccountBottomPanel;
+import com.moneychanger.ui.panels.BitcoinAccountTopPanel;
+import com.moneychanger.ui.panels.BlankPanel;
+import com.moneychanger.ui.panels.CashPurseAccountBottomPanel;
+import com.moneychanger.ui.panels.CashPurseAccountTopPanel;
+import com.moneychanger.ui.panels.OpenTransactionAccountBottomPanel;
+import com.moneychanger.ui.panels.OpenTransactionAccountTopPanel;
+import com.moneychanger.ui.panels.RippleAccountTopPanel;
 import java.awt.AWTException;
 import java.awt.CardLayout;
 import java.awt.Cursor;
@@ -276,7 +276,7 @@ public class MainPage extends javax.swing.JFrame {
             System.out.println("system tray supported");
             tray = SystemTray.getSystemTray();
 
-            ImageIcon image1 = new javax.swing.ImageIcon(getClass().getResource("/com/wrapper/ui/images/images.jpeg"));
+            ImageIcon image1 = new javax.swing.ImageIcon(getClass().getResource("/com/moneychanger/ui/images/images.jpeg"));
             image = image1.getImage();
             ActionListener exitListener = new ActionListener() {
 
@@ -380,13 +380,13 @@ public class MainPage extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
-        jComboBox1 = new com.wrapper.ui.custom.SteppedComboBox();
+        jComboBox1 = new com.moneychanger.ui.custom.SteppedComboBox();
         jScrollPane12 = new javax.swing.JScrollPane();
-        jTable5 = new com.wrapper.ui.custom.CustomTable();
+        jTable5 = new com.moneychanger.ui.custom.CustomTable();
         jSeparator3 = new javax.swing.JSeparator();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox2 = new com.wrapper.ui.custom.SteppedComboBox();
+        jComboBox2 = new com.moneychanger.ui.custom.SteppedComboBox();
         jSeparator2 = new javax.swing.JSeparator();
         jScrollPane14 = new javax.swing.JScrollPane();
         jPanel8 = new javax.swing.JPanel();
@@ -397,7 +397,7 @@ public class MainPage extends javax.swing.JFrame {
         jButton11 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
-        jComboBox3 = new com.wrapper.ui.custom.SteppedComboBox();
+        jComboBox3 = new com.moneychanger.ui.custom.SteppedComboBox();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
@@ -411,7 +411,7 @@ public class MainPage extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new com.wrapper.ui.custom.CustomTable();
+        jTable2 = new com.moneychanger.ui.custom.CustomTable();
         jSeparator4 = new javax.swing.JSeparator();
         jPanel2 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
@@ -419,9 +419,9 @@ public class MainPage extends javax.swing.JFrame {
         jSeparator5 = new javax.swing.JSeparator();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jScrollPane15 = new javax.swing.JScrollPane();
-        jTable8 = new com.wrapper.ui.custom.CustomTable();
+        jTable8 = new com.moneychanger.ui.custom.CustomTable();
         jScrollPane16 = new javax.swing.JScrollPane();
-        jTable10 = new com.wrapper.ui.custom.CustomTable();
+        jTable10 = new com.moneychanger.ui.custom.CustomTable();
         jPanel7 = new javax.swing.JPanel();
         jButton16 = new javax.swing.JButton();
         jButton17 = new javax.swing.JButton();
@@ -441,7 +441,7 @@ public class MainPage extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable7 = new com.wrapper.ui.custom.CustomTable();
+        jTable7 = new com.moneychanger.ui.custom.CustomTable();
         jPanel14 = new javax.swing.JPanel();
         jTextField8 = new javax.swing.JTextField();
         jScrollPane10 = new javax.swing.JScrollPane();
@@ -454,12 +454,12 @@ public class MainPage extends javax.swing.JFrame {
         jButton15 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jTable11 = new com.wrapper.ui.custom.CustomTable();
+        jTable11 = new com.moneychanger.ui.custom.CustomTable();
         jPanel5 = new javax.swing.JPanel();
-        jComboBox7 = new com.wrapper.ui.custom.SteppedComboBox();
+        jComboBox7 = new com.moneychanger.ui.custom.SteppedComboBox();
         jLabel53 = new javax.swing.JLabel();
         jScrollPane26 = new javax.swing.JScrollPane();
-        jTable19 = new com.wrapper.ui.custom.CustomTable();
+        jTable19 = new com.moneychanger.ui.custom.CustomTable();
         jSeparator10 = new javax.swing.JSeparator();
         jLabel54 = new javax.swing.JLabel();
         jTextField9 = new javax.swing.JTextField();
@@ -489,12 +489,12 @@ public class MainPage extends javax.swing.JFrame {
         jSeparator9 = new javax.swing.JSeparator();
         jTabbedPane4 = new javax.swing.JTabbedPane();
         jScrollPane20 = new javax.swing.JScrollPane();
-        jTable15 = new com.wrapper.ui.custom.CustomTable();
+        jTable15 = new com.moneychanger.ui.custom.CustomTable();
         jScrollPane24 = new javax.swing.JScrollPane();
-        jTable17 = new com.wrapper.ui.custom.CustomTable();
+        jTable17 = new com.moneychanger.ui.custom.CustomTable();
         jPanel35 = new javax.swing.JPanel();
         jScrollPane25 = new javax.swing.JScrollPane();
-        jTable18 = new com.wrapper.ui.custom.CustomTable();
+        jTable18 = new com.moneychanger.ui.custom.CustomTable();
         jLabel46 = new javax.swing.JLabel();
         jLabel56 = new javax.swing.JLabel();
         jLabel57 = new javax.swing.JLabel();
@@ -503,11 +503,11 @@ public class MainPage extends javax.swing.JFrame {
         jLabel60 = new javax.swing.JLabel();
         jLabel61 = new javax.swing.JLabel();
         jScrollPane21 = new javax.swing.JScrollPane();
-        jTable13 = new com.wrapper.ui.custom.CustomTable();
+        jTable13 = new com.moneychanger.ui.custom.CustomTable();
         jSeparator8 = new javax.swing.JSeparator();
         jScrollPane23 = new javax.swing.JScrollPane();
-        jTable14 = new com.wrapper.ui.custom.CustomTable();
-        jComboBox5 = new com.wrapper.ui.custom.SteppedComboBox();
+        jTable14 = new com.moneychanger.ui.custom.CustomTable();
+        jComboBox5 = new com.moneychanger.ui.custom.SteppedComboBox();
         jLabel24 = new javax.swing.JLabel();
         jTabbedPane3 = new javax.swing.JTabbedPane();
         jPanel32 = new javax.swing.JPanel();
@@ -520,10 +520,10 @@ public class MainPage extends javax.swing.JFrame {
         jLabel49 = new javax.swing.JLabel();
         jLabel50 = new javax.swing.JLabel();
         jScrollPane22 = new javax.swing.JScrollPane();
-        jTable16 = new com.wrapper.ui.custom.CustomTable();
+        jTable16 = new com.moneychanger.ui.custom.CustomTable();
         jLabel3 = new javax.swing.JLabel();
         jButton29 = new javax.swing.JButton();
-        jComboBox6 = new com.wrapper.ui.custom.SteppedComboBox();
+        jComboBox6 = new com.moneychanger.ui.custom.SteppedComboBox();
         jLabel52 = new javax.swing.JLabel();
         jPanel31 = new javax.swing.JPanel();
         jButton27 = new javax.swing.JButton();
@@ -531,17 +531,17 @@ public class MainPage extends javax.swing.JFrame {
         jLabel51 = new javax.swing.JLabel();
         jPanel18 = new javax.swing.JPanel();
         jScrollPane27 = new javax.swing.JScrollPane();
-        jTable6 = new com.wrapper.ui.custom.CustomTable();
+        jTable6 = new com.moneychanger.ui.custom.CustomTable();
         jSeparator11 = new javax.swing.JSeparator();
         jPanel_PaymentTop = new javax.swing.JPanel();
         jTabbedPane5 = new javax.swing.JTabbedPane();
         jPanel37 = new javax.swing.JPanel();
         jScrollPane28 = new javax.swing.JScrollPane();
-        jTable20 = new com.wrapper.ui.custom.CustomTable();
+        jTable20 = new com.moneychanger.ui.custom.CustomTable();
         jButton34 = new javax.swing.JButton();
         jPanel38 = new javax.swing.JPanel();
         jScrollPane29 = new javax.swing.JScrollPane();
-        jTable21 = new com.wrapper.ui.custom.CustomTable();
+        jTable21 = new com.moneychanger.ui.custom.CustomTable();
         jPanel39 = new javax.swing.JPanel();
         jScrollPane30 = new javax.swing.JScrollPane();
         jTable22 = new javax.swing.JTable();
@@ -570,13 +570,13 @@ public class MainPage extends javax.swing.JFrame {
         jComboBox4 = new javax.swing.JComboBox();
         jLabel23 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new com.wrapper.ui.custom.CustomTable();
+        jTable3 = new com.moneychanger.ui.custom.CustomTable();
         jPanel25 = new javax.swing.JPanel();
         jButton19 = new javax.swing.JButton();
         jButton20 = new javax.swing.JButton();
         jButton21 = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable4 = new com.wrapper.ui.custom.CustomTable();
+        jTable4 = new com.moneychanger.ui.custom.CustomTable();
         jPanel26 = new javax.swing.JPanel();
         jButton22 = new javax.swing.JButton();
         jButton23 = new javax.swing.JButton();
@@ -748,7 +748,7 @@ public class MainPage extends javax.swing.JFrame {
         jPanel16.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel16.setName("jPanel16"); // NOI18N
 
-        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/wrapper/ui/images/pencil.jpg"))); // NOI18N
+        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/moneychanger/ui/images/pencil.jpg"))); // NOI18N
         jButton10.setText(resourceMap.getString("jButton10.text")); // NOI18N
         jButton10.setToolTipText(resourceMap.getString("jButton10.toolTipText")); // NOI18N
         jButton10.setName("jButton10"); // NOI18N
@@ -943,7 +943,7 @@ public class MainPage extends javax.swing.JFrame {
         jPanel10.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel10.setName("jPanel10"); // NOI18N
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/wrapper/ui/images/pencil.jpg"))); // NOI18N
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/moneychanger/ui/images/pencil.jpg"))); // NOI18N
         jButton4.setText(resourceMap.getString("jButton4.text")); // NOI18N
         jButton4.setToolTipText(resourceMap.getString("jButton4.toolTipText")); // NOI18N
         jButton4.setName("jButton4"); // NOI18N
@@ -1291,7 +1291,7 @@ public class MainPage extends javax.swing.JFrame {
         jPanel13.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel13.setName("jPanel13"); // NOI18N
 
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/wrapper/ui/images/pencil.jpg"))); // NOI18N
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/moneychanger/ui/images/pencil.jpg"))); // NOI18N
         jButton7.setText(resourceMap.getString("jButton7.text")); // NOI18N
         jButton7.setName("jButton7"); // NOI18N
         jButton7.addActionListener(new java.awt.event.ActionListener() {
@@ -1411,7 +1411,7 @@ public class MainPage extends javax.swing.JFrame {
         jPanel17.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel17.setName("jPanel17"); // NOI18N
 
-        jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/wrapper/ui/images/pencil.jpg"))); // NOI18N
+        jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/moneychanger/ui/images/pencil.jpg"))); // NOI18N
         jButton13.setText(resourceMap.getString("jButton13.text")); // NOI18N
         jButton13.setToolTipText(resourceMap.getString("jButton13.toolTipText")); // NOI18N
         jButton13.setName("jButton13"); // NOI18N
@@ -1550,7 +1550,7 @@ public class MainPage extends javax.swing.JFrame {
 
         jScrollPane26.setName("jScrollPane26"); // NOI18N
 
-        jTable19.setModel(new com.wrapper.ui.model.BasketTableModel());
+        jTable19.setModel(new com.moneychanger.ui.model.BasketTableModel());
         jTable19.setName("jTable19"); // NOI18N
         jTable19.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTable19.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1597,7 +1597,7 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
 
-        jButton32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/wrapper/ui/images/pencil.jpg"))); // NOI18N
+        jButton32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/moneychanger/ui/images/pencil.jpg"))); // NOI18N
         jButton32.setToolTipText(resourceMap.getString("jButton32.toolTipText")); // NOI18N
         jButton32.setName("jButton32"); // NOI18N
         jButton32.addActionListener(new java.awt.event.ActionListener() {
@@ -1788,7 +1788,7 @@ public class MainPage extends javax.swing.JFrame {
 
         jScrollPane20.setName("jScrollPane20"); // NOI18N
 
-        jTable15.setModel(new com.wrapper.ui.model.MarketBidTableModel());
+        jTable15.setModel(new com.moneychanger.ui.model.MarketBidTableModel());
         jTable15.setToolTipText(resourceMap.getString("jTable15.toolTipText")); // NOI18N
         jTable15.setName("jTable15"); // NOI18N
         jTable15.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1805,7 +1805,7 @@ public class MainPage extends javax.swing.JFrame {
 
         jScrollPane24.setName("jScrollPane24"); // NOI18N
 
-        jTable17.setModel(new com.wrapper.ui.model.MarketAskTableModel());
+        jTable17.setModel(new com.moneychanger.ui.model.MarketAskTableModel());
         jTable17.setToolTipText(resourceMap.getString("jTable17.toolTipText")); // NOI18N
         jTable17.setName("jTable17"); // NOI18N
         jTable17.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1824,7 +1824,7 @@ public class MainPage extends javax.swing.JFrame {
 
         jScrollPane25.setName("jScrollPane25"); // NOI18N
 
-        jTable18.setModel(new com.wrapper.ui.model.MarketRecentTradesTableModel(jTable18));
+        jTable18.setModel(new com.moneychanger.ui.model.MarketRecentTradesTableModel(jTable18));
         jTable18.setToolTipText(resourceMap.getString("jTable18.toolTipText")); // NOI18N
         jTable18.setName("jTable18"); // NOI18N
         jTable18.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1957,7 +1957,7 @@ public class MainPage extends javax.swing.JFrame {
 
         jScrollPane21.setName("jScrollPane21"); // NOI18N
 
-        jTable13.setModel(new com.wrapper.ui.model.MarketTableModel());
+        jTable13.setModel(new com.moneychanger.ui.model.MarketTableModel());
         jTable13.setName("jTable13"); // NOI18N
         jTable13.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTable13.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1971,7 +1971,7 @@ public class MainPage extends javax.swing.JFrame {
 
         jScrollPane23.setName("jScrollPane23"); // NOI18N
 
-        jTable14.setModel(new com.wrapper.ui.model.MarketOffersTableModel());
+        jTable14.setModel(new com.moneychanger.ui.model.MarketOffersTableModel());
         jTable14.setName("jTable14"); // NOI18N
         jTable14.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTable14.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -2071,7 +2071,7 @@ public class MainPage extends javax.swing.JFrame {
 
         jScrollPane22.setName("jScrollPane22"); // NOI18N
 
-        jTable16.setModel(new com.wrapper.ui.model.MarketTradesTableModel());
+        jTable16.setModel(new com.moneychanger.ui.model.MarketTradesTableModel());
         jTable16.setToolTipText(resourceMap.getString("jTable16.toolTipText")); // NOI18N
         jTable16.setName("jTable16"); // NOI18N
         jTable16.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -2275,7 +2275,7 @@ public class MainPage extends javax.swing.JFrame {
 
         jScrollPane28.setName("jScrollPane28"); // NOI18N
 
-        jTable20.setModel(new com.wrapper.ui.model.PaymentInboxTableModel());
+        jTable20.setModel(new com.moneychanger.ui.model.PaymentInboxTableModel());
         jTable20.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jTable20.setName("jTable20"); // NOI18N
         jTable20.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -2319,7 +2319,7 @@ public class MainPage extends javax.swing.JFrame {
 
         jScrollPane29.setName("jScrollPane29"); // NOI18N
 
-        jTable21.setModel(new com.wrapper.ui.model.PaymentOutboxTableModel());
+        jTable21.setModel(new com.moneychanger.ui.model.PaymentOutboxTableModel());
         jTable21.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jTable21.setName("jTable21"); // NOI18N
         jTable21.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -2349,7 +2349,7 @@ public class MainPage extends javax.swing.JFrame {
 
         jScrollPane30.setName("jScrollPane30"); // NOI18N
 
-        jTable22.setModel(new com.wrapper.ui.model.PaymentRecordboxTableModel());
+        jTable22.setModel(new com.moneychanger.ui.model.PaymentRecordboxTableModel());
         jTable22.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jTable22.setName("jTable22"); // NOI18N
         jTable22.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -2647,7 +2647,7 @@ public class MainPage extends javax.swing.JFrame {
 
         jScrollPane3.setName("jScrollPane3"); // NOI18N
 
-        jTable3.setModel(new com.wrapper.ui.model.OtherTabAccountModel());
+        jTable3.setModel(new com.moneychanger.ui.model.OtherTabAccountModel());
         jTable3.setName("jTable3"); // NOI18N
         jTable3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTable3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -2660,7 +2660,7 @@ public class MainPage extends javax.swing.JFrame {
         jPanel25.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel25.setName("jPanel25"); // NOI18N
 
-        jButton19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/wrapper/ui/images/pencil.jpg"))); // NOI18N
+        jButton19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/moneychanger/ui/images/pencil.jpg"))); // NOI18N
         jButton19.setToolTipText(resourceMap.getString("jButton19.toolTipText")); // NOI18N
         jButton19.setName("jButton19"); // NOI18N
         jButton19.addActionListener(new java.awt.event.ActionListener() {
@@ -2713,7 +2713,7 @@ public class MainPage extends javax.swing.JFrame {
 
         jScrollPane5.setName("jScrollPane5"); // NOI18N
 
-        jTable4.setModel(new com.wrapper.ui.model.OtherTabServerTableModel());
+        jTable4.setModel(new com.moneychanger.ui.model.OtherTabServerTableModel());
         jTable4.setName("jTable4"); // NOI18N
         jTable4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTable4.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -2726,7 +2726,7 @@ public class MainPage extends javax.swing.JFrame {
         jPanel26.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel26.setName("jPanel26"); // NOI18N
 
-        jButton22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/wrapper/ui/images/pencil.jpg"))); // NOI18N
+        jButton22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/moneychanger/ui/images/pencil.jpg"))); // NOI18N
         jButton22.setToolTipText(resourceMap.getString("jButton22.toolTipText")); // NOI18N
         jButton22.setName("jButton22"); // NOI18N
         jButton22.addActionListener(new java.awt.event.ActionListener() {
@@ -4488,7 +4488,7 @@ public class MainPage extends javax.swing.JFrame {
                                 try {
                                     topLayout.show(jPanel8, type + "TopPanel");
                                     bottomlayout.show(jPanel15, type + "BottomPanel");
-                                    Class obj = Class.forName("com.wrapper.core." + type);
+                                    Class obj = Class.forName("com.moneychanger.core." + type);
 
 
                                     Account account = (Account) obj.newInstance();
@@ -4550,7 +4550,7 @@ public class MainPage extends javax.swing.JFrame {
 
                 if ("OpenTransactionAccount".equals(Account.allAccounts[i]) || "CashPurseAccount".equals(Account.allAccounts[i])) {
 
-                    Class obj = Class.forName("com.wrapper.core." + Account.allAccounts[i]);
+                    Class obj = Class.forName("com.moneychanger.core." + Account.allAccounts[i]);
                     account = (Account) obj.newInstance();
                     try {
                         account.loadAccount("ALL", "ALL", "ALL");
@@ -4558,11 +4558,11 @@ public class MainPage extends javax.swing.JFrame {
                         Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
-                    Class obj1 = Class.forName("com.wrapper.ui.panels." + Account.allAccounts[i] + "TopPanel");
+                    Class obj1 = Class.forName("com.moneychanger.ui.panels." + Account.allAccounts[i] + "TopPanel");
                     JPanel topPanel = (JPanel) obj1.newInstance();
                     jPanel8.add(topPanel, Account.allAccounts[i] + "TopPanel");
 
-                    Class obj2 = Class.forName("com.wrapper.ui.panels." + Account.allAccounts[i] + "BottomPanel");
+                    Class obj2 = Class.forName("com.moneychanger.ui.panels." + Account.allAccounts[i] + "BottomPanel");
                     JPanel bottomPanel = (JPanel) obj2.newInstance();
 
                     jPanel15.add(bottomPanel, Account.allAccounts[i] + "BottomPanel");
@@ -4605,7 +4605,7 @@ public class MainPage extends javax.swing.JFrame {
                             setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                             try {
                                 try {
-                                    account = (Account) (Class.forName("com.wrapper.core." + type)).newInstance();
+                                    account = (Account) (Class.forName("com.moneychanger.core." + type)).newInstance();
                                     account.setServerID(serverID);
                                 } catch (InstantiationException ex) {
                                     Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
@@ -4680,7 +4680,7 @@ public class MainPage extends javax.swing.JFrame {
                                     try {
                                         topLayout.show(jPanel27, type + "TopPanel");
                                         bottomlayout.show(jPanel28, type + "BottomPanel");
-                                        Class obj = Class.forName("com.wrapper.core." + type);
+                                        Class obj = Class.forName("com.moneychanger.core." + type);
 
                                         Account account = (Account) obj.newInstance();
                                         account.setServerID((String) jTable4.getModel().getValueAt(jTable4.getSelectedRow(), 2));
@@ -4723,11 +4723,11 @@ public class MainPage extends javax.swing.JFrame {
                     if (!"OpenTransactionAccount".equals(Account.allAccounts[i]) && !"CashPurseAccount".equals(Account.allAccounts[i])) {
                         System.out.println("initOtherTabloop --- Account.allAccounts[i]:" + Account.allAccounts[i]);
 
-                        Class obj1 = Class.forName("com.wrapper.ui.panels." + Account.allAccounts[i] + "TopPanel");
+                        Class obj1 = Class.forName("com.moneychanger.ui.panels." + Account.allAccounts[i] + "TopPanel");
                         JPanel topPanel = (JPanel) obj1.newInstance();
                         jPanel27.add(topPanel, Account.allAccounts[i] + "TopPanel");
 
-                        Class obj2 = Class.forName("com.wrapper.ui.panels." + Account.allAccounts[i] + "BottomPanel");
+                        Class obj2 = Class.forName("com.moneychanger.ui.panels." + Account.allAccounts[i] + "BottomPanel");
                         JPanel bottomPanel = (JPanel) obj2.newInstance();
                         // Setting the account account to retrieve in bottom panel
 
@@ -4807,7 +4807,7 @@ public class MainPage extends javax.swing.JFrame {
         for (int i = 0; i < Account.allAccounts.length; i++) {
             try {
                 if ("OpenTransactionAccount".equals(Account.allAccounts[i]) || "CashPurseAccount".equals(Account.allAccounts[i])) {
-                    Class obj = Class.forName("com.wrapper.core." + Account.allAccounts[i]);
+                    Class obj = Class.forName("com.moneychanger.core." + Account.allAccounts[i]);
 
                     account = (Account) obj.newInstance();
 
@@ -4832,7 +4832,7 @@ public class MainPage extends javax.swing.JFrame {
         for (int i = 0; i < Account.allAccounts.length; i++) {
             try {
                 if ("OpenTransactionAccount".equals(Account.allAccounts[i]) || "CashPurseAccount".equals(Account.allAccounts[i])) {
-                    Class obj = Class.forName("com.wrapper.core." + Account.allAccounts[i]);
+                    Class obj = Class.forName("com.moneychanger.core." + Account.allAccounts[i]);
 
                     account = (Account) obj.newInstance();
 
@@ -4866,7 +4866,7 @@ public class MainPage extends javax.swing.JFrame {
         for (int i = 0; i < Account.allAccounts.length; i++) {
             try {
                 if (!"OpenTransactionAccount".equals(Account.allAccounts[i]) && !"CashPurseAccount".equals(Account.allAccounts[i])) {
-                    Class obj = Class.forName("com.wrapper.core." + Account.allAccounts[i]);
+                    Class obj = Class.forName("com.moneychanger.core." + Account.allAccounts[i]);
 
                     account = (Account) obj.newInstance();
                     if (i == 0) {

@@ -88,18 +88,18 @@ AK+ZirdWhhoHeWR1tAkN
 -----END PGP SIGNATURE-----
  **************************************************************/
 
-package com.wrapper.core;
+package com.moneychanger.core;
 
-import com.wrapper.core.dataobjects.BitcoinDetails;
-import com.wrapper.core.helper.bitcoin.BitcoinClient;
-import com.wrapper.core.helper.bitcoin.TransactionInfo;
+import com.moneychanger.core.dataobjects.BitcoinDetails;
+import com.moneychanger.core.helper.bitcoin.BitcoinClient;
+import com.moneychanger.core.helper.bitcoin.TransactionInfo;
 import com.wrapper.core.jni.BitcoinAcct;
 import com.wrapper.core.jni.BitcoinServer;
 import com.wrapper.core.jni.Storable;
 import com.wrapper.core.jni.StoredObjectType;
 import com.wrapper.core.jni.WalletData;
 import com.wrapper.core.jni.otapi;
-import com.wrapper.core.util.Utility;
+import com.moneychanger.core.util.Utility;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;

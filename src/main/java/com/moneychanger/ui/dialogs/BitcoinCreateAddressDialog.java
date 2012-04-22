@@ -98,12 +98,12 @@ AK+ZirdWhhoHeWR1tAkN
  *
  * Created on 29 Apr, 2011, 10:36:11 PM
  */
-package com.wrapper.ui.dialogs;
+package com.moneychanger.ui.dialogs;
 
-import com.wrapper.core.BitcoinAccount;
-import com.wrapper.core.util.Utility;
-import com.wrapper.ui.panels.BitcoinAccountBottomPanel;
-import com.wrapper.ui.panels.BitcoinAccountTopPanel;
+import com.moneychanger.core.BitcoinAccount;
+import com.moneychanger.core.util.Utility;
+import com.moneychanger.ui.panels.BitcoinAccountBottomPanel;
+import com.moneychanger.ui.panels.BitcoinAccountTopPanel;
 import javax.swing.JOptionPane;
 
 /**
@@ -138,7 +138,7 @@ public class BitcoinCreateAddressDialog extends javax.swing.JDialog {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(app.ApplicationLauncher.class).getContext().getResourceMap(BitcoinCreateAddressDialog.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(BitcoinCreateAddressDialog.class);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
         setName("Form"); // NOI18N
 

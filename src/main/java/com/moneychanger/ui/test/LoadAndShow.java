@@ -1,4 +1,4 @@
-package com.wrapper.ui.test;
+package com.moneychanger.ui.test;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

@@ -95,7 +95,7 @@ AK+ZirdWhhoHeWR1tAkN
  * and open the template in the editor.
  */
 
-package com.wrapper.ui.custom;
+package com.moneychanger.ui.custom;
 
 import java.awt.Dimension;
 import java.awt.Rectangle;

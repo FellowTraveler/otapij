@@ -92,11 +92,11 @@ AK+ZirdWhhoHeWR1tAkN
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.wrapper.core;
+package com.moneychanger.core;
 
 import com.wrapper.core.jni.otapi;
-import com.wrapper.core.util.Utility;
-import com.wrapper.core.util.OTAPI_Func;
+import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.OTAPI_Func;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;

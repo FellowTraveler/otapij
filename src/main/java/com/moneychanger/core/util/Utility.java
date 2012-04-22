@@ -92,14 +92,14 @@ AK+ZirdWhhoHeWR1tAkN
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.wrapper.core.util;
+package com.moneychanger.core.util;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.wrapper.core.Account;
-import com.wrapper.core.OpenTransactionAccount;
-import com.wrapper.core.dataobjects.OTDetails;
+import com.moneychanger.core.Account;
+import com.moneychanger.core.OpenTransactionAccount;
+import com.moneychanger.core.dataobjects.OTDetails;
 import com.wrapper.core.jni.AddressBook;
 import com.wrapper.core.jni.MarketList;
 import com.wrapper.core.jni.OTCallback;
@@ -113,11 +113,11 @@ import com.wrapper.core.jni.TradeListMarket;
 import com.wrapper.core.jni.TradeListNym;
 import com.wrapper.core.jni.WalletData;
 import com.wrapper.core.jni.otapi;
-import com.wrapper.ui.Load;
-import com.wrapper.ui.MainPage;
-import com.wrapper.ui.model.AccountTableModel;
-import com.wrapper.ui.panels.OpenTransactionAccountBottomPanel;
-import com.wrapper.ui.panels.OpenTransactionAccountTopPanel;
+import com.moneychanger.ui.Load;
+import com.moneychanger.ui.MainPage;
+import com.moneychanger.ui.model.AccountTableModel;
+import com.moneychanger.ui.panels.OpenTransactionAccountBottomPanel;
+import com.moneychanger.ui.panels.OpenTransactionAccountTopPanel;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
@@ -2577,11 +2577,11 @@ public class Utility {
             component.addItem(new ComboObject(((String[]) data.get(key))[0]));
         }
 
-        if (component instanceof com.wrapper.ui.custom.SteppedComboBox) {
+        if (component instanceof com.moneychanger.ui.custom.SteppedComboBox) {
 
             Dimension d = component.getPreferredSize();
             component.setPreferredSize(new Dimension(100, d.height));
-            ((com.wrapper.ui.custom.SteppedComboBox) component).setPopupWidth(d.width);
+            ((com.moneychanger.ui.custom.SteppedComboBox) component).setPopupWidth(d.width);
         }
     }
 
@@ -2600,11 +2600,11 @@ public class Utility {
             component.addItem(new ComboObject(((String[]) data.get(key))[0]));
         }
 
-        if (component instanceof com.wrapper.ui.custom.SteppedComboBox) {
+        if (component instanceof com.moneychanger.ui.custom.SteppedComboBox) {
 
             Dimension d = component.getPreferredSize();
             component.setPreferredSize(new Dimension(100, d.height));
-            ((com.wrapper.ui.custom.SteppedComboBox) component).setPopupWidth(d.width);
+            ((com.moneychanger.ui.custom.SteppedComboBox) component).setPopupWidth(d.width);
         }
     }
 

@@ -97,15 +97,15 @@ AK+ZirdWhhoHeWR1tAkN
  * Created on 17 Apr, 2011, 9:07:18 PM
  */
 
-package com.wrapper.ui.dialogs;
+package com.moneychanger.ui.dialogs;
 
-import com.wrapper.core.CashPurseAccount;
-import com.wrapper.core.OpenTransactionAccount;
-import com.wrapper.core.dataobjects.CashPurseDetails;
-import com.wrapper.core.util.Utility;
-import com.wrapper.ui.MainPage;
-import com.wrapper.ui.panels.CashPurseAccountBottomPanel;
-import com.wrapper.ui.panels.CashPurseAccountTopPanel;
+import com.moneychanger.core.CashPurseAccount;
+import com.moneychanger.core.OpenTransactionAccount;
+import com.moneychanger.core.dataobjects.CashPurseDetails;
+import com.moneychanger.core.util.Utility;
+import com.moneychanger.ui.MainPage;
+import com.moneychanger.ui.panels.CashPurseAccountBottomPanel;
+import com.moneychanger.ui.panels.CashPurseAccountTopPanel;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.datatransfer.DataFlavor;
@@ -142,7 +142,7 @@ public class CashPurseDepositDialog extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new com.wrapper.ui.custom.SteppedComboBox();
+        jComboBox1 = new com.moneychanger.ui.custom.SteppedComboBox();
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -150,7 +150,7 @@ public class CashPurseDepositDialog extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setName("Form"); // NOI18N
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(app.ApplicationLauncher.class).getContext().getResourceMap(CashPurseDepositDialog.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(CashPurseDepositDialog.class);
         jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
         jLabel1.setName("jLabel1"); // NOI18N
 
