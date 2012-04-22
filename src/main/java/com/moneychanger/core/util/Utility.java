@@ -114,6 +114,8 @@ import com.wrapper.core.jni.TradeListNym;
 import com.wrapper.core.jni.WalletData;
 import com.wrapper.core.jni.otapi;
 import com.moneychanger.ui.Load;
+import com.moneychanger.ui.LoadState;
+import com.moneychanger.ui.LoadState.Stages;
 import com.moneychanger.ui.MainPage;
 import com.moneychanger.ui.model.AccountTableModel;
 import com.moneychanger.ui.panels.OpenTransactionAccountBottomPanel;
@@ -3167,7 +3169,7 @@ public class Utility {
 
         boolean status = false;
 
-        if (Load.IsOTInitialized()) {
+        if (LoadState.isThisStageComplete(Stages.InitOTAPI)) {
             StringMap stringMap = null;  // we are about to create this object
             Storable storable =
                     otapi.CreateObject(StoredObjectType.STORED_OBJ_STRING_MAP);
@@ -3194,7 +3196,7 @@ public class Utility {
         String strDefault = null;
         String strImagePath = strDefault; // Todo: hardcoding
 
-        if (Load.IsOTInitialized()) {
+        if (LoadState.isThisStageComplete(Stages.InitOTAPI)) {
             Storable storable = null;
             StringMap stringMap = null;
 
@@ -3232,5 +3234,12 @@ public class Utility {
             System.out.println("Utility.getImagePath():  Skipping. (OT not initialized yet.)");
         }
         return strImagePath;
+    }
+    
+    public interface ReturnAction {
+
+        public String getAction();
+
+        public void returnAction(String returnValue);
     }
 }

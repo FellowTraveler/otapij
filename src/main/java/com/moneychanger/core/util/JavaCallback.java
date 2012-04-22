@@ -88,15 +88,16 @@ AK+ZirdWhhoHeWR1tAkN
 -----END PGP SIGNATURE-----
  **************************************************************/
 
-package com.wrapper.core.jni;
+package com.moneychanger.core.util;
 
-import com.wrapper.core.jni.OTPassword;
-import com.wrapper.core.jni.OTCallback;
 import com.moneychanger.ui.dialogs.OTPasswordDialog;
 import com.moneychanger.ui.dialogs.OTPwdConfirmDialog;
+import com.wrapper.core.jni.OTCallback;
+import com.wrapper.core.jni.OTPassword;
+
 
 public class JavaCallback extends OTCallback {
-
+    
     public JavaCallback() {
         super();
     }

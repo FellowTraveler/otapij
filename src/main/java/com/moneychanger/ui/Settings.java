@@ -69,7 +69,7 @@
  * XpyRfeyRVowVKeKunV9KUSHgdD5wa6RUeyodAbaHvWrFpIpNkaFIP9OwhRULpjx0
  * arwVNYucbX1qb2I8HBm2u+IRWQTONp74TFFjU0/CVAXu2DeJKY5mL4zDej35c5j9
  * AK+ZirdWhhoHeWR1tAkN =RcXP -----END PGP SIGNATURE-----
- *************************************************************
+ * ************************************************************
  */
 
 /*
@@ -84,15 +84,13 @@
  */
 package com.moneychanger.ui;
 
-import com.moneychanger.core.util.Configuration;
+import com.moneychanger.core.util.ConfigBean;
 import com.moneychanger.core.util.Utility;
-import com.moneychanger.ui.custom.CustomMenu;
+import com.moneychanger.core.util.Utility.ReturnAction;
+import com.moneychanger.ui.Load.JavaPaths;
+import com.moneychanger.ui.LoadState.OutOfOrderException;
 import com.moneychanger.ui.dialogs.PathDialog;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -103,87 +101,42 @@ public class Settings extends javax.swing.JFrame {
 
     private JFileChooser dataFolderChooser;
     private JFileChooser imageChooser;
-    private boolean m_bSettingsLoaded;
-    private boolean m_bComponentsInitialized;
-    private static Load.JavaPaths javaPaths;
-
-    private void loadSettings() {
-        if (false == m_bSettingsLoaded) {
-            javaPaths = new Load.JavaPaths();
-            javaPaths.addDefaultPath(Load.getOS());
-            if (false == m_bComponentsInitialized) {
-                initComponents();
-                m_bComponentsInitialized = true;
-            }
-            Utility.setObj(this);
-            setLocation(Utility.getLocation(this.getSize()));
-            initFileChooser();
-            setPath();
-            m_bSettingsLoaded = true;
-        }
-    }
+    private ConfigBean _configBean;
+    private JavaPaths _javaPaths;
 
     /**
      * Creates new form Settings
      */
-    public Settings() {
-        m_bSettingsLoaded = false;
-        m_bComponentsInitialized = false;
-        //Try and load without settings dilogue:
+    public Settings(ConfigBean configBean) {
+        //Making everything statefull
+        _configBean = configBean;
+
+        // Pass The Config Bean To the Static Load Class
         try {
-            Utility.setSettingsObj(this);
+            Load.Init(_configBean);
+
+            // If we loaded successfull Last time... Atempt The Same Known Good Settings
+            if (Boolean.parseBoolean(_configBean.getConfig(ConfigBean.Keys.LastLoadSuccessfull))) {
+                try {
+                    Load.Atempt();
+                    LoadMoneychangerGUI();
+                } catch (Load.LoadFailedException e) {
+                    System.out.println("We didn't load Successfuly, Showing Seetings...!");
+                }
+            } else {
+                System.out.println("We didn't load Successfuly Last time, Showing Seetings...!");
+            }
+            
+            // Load Up Settings Dialoug
+            initSettings();
             loadSettings();
 
-            Load.loadOTAPI();
-
-            Load.loadAllAppDataButWallet(this);
-            Load.loadAppData(this);
-
-            Load.setTimeout();
-            //new MainPage().setVisible(true);
-            com.moneychanger.ui.ProgressBar progressBar = new com.moneychanger.ui.ProgressBar();
-            new Thread(progressBar).start();
-            progressBar.setVisible(true);
-            progressBar.pack();
-            this.dispose();
-        } catch (Load.ApiNotLoadedException e) {
-            StringBuilder error = new StringBuilder();
-            error.append("Autoload of the Java Path failed: ");
-            error.append(System.getProperty("line.separator"));
-            error.append(e.getError());
-            System.out.println(error.toString());
-            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
-            loadSettings();
-        } catch (Load.AppDataNotLoadedException e) {
-            StringBuilder error = new StringBuilder();
-            error.append("AutoLoad of your MoneyChanger user data failed; Choose the location here: ");
-            error.append(e.getError().replace(":", System.getProperty("line.separator")));
-            System.out.println(error.toString());
-            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
-            loadSettings();
-        } catch (Load.InvalidTimeOutException e) {
-            StringBuilder error = new StringBuilder();
-            error.append("Auto-Timout is invalid; you should never see this message: please contact us for support!");
-            error.append(e.getError());
-            System.out.println(error.toString());
-            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
-            loadSettings();
-        } //        catch (Load.ImageNotLoadedException e) {
-        //            StringBuilder error = new StringBuilder();
-        //            error.append("Autoload of image failed: ");
-        //            error.append(System.getProperty("line.separator"));
-        //            error.append(e.getError());
-        //            System.out.println(error.toString());
-        //            //JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
-        //        }
-        catch (Exception e) {
-            e.printStackTrace();
+        } catch (OutOfOrderException e) {
+            System.err.println(e.toString());
+            System.out.println("SomethingBad Happend! We loaded up stuff in the wrong order!");
+            System.exit(1);
         }
-        Utility.setSettingsObj(this);
-        loadSettings();
-
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -192,6 +145,7 @@ public class Settings extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         jLabel_SettingTitle = new javax.swing.JLabel();
         jLabel_Timeout = new javax.swing.JLabel();
@@ -202,344 +156,227 @@ public class Settings extends javax.swing.JFrame {
         jButton_DataFolder = new javax.swing.JButton();
         jLabel_WalletFile = new javax.swing.JLabel();
         jTextField_WalletFile = new javax.swing.JTextField();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         jLabel_JavaPath = new javax.swing.JLabel();
         jTextField_JavaPath = new javax.swing.JTextField();
         jButton_JavaPath = new javax.swing.JButton();
-        jButton_LoadWallet = new javax.swing.JButton();
+        jLabel_ImagePath = new javax.swing.JLabel();
         jTextField_ImagePath = new javax.swing.JTextField();
-        jButton_DataFolder1 = new javax.swing.JButton();
-        jLabel_JavaPath1 = new javax.swing.JLabel();
-        jMenuBar_Setting = new javax.swing.JMenuBar();
-        jMenu1 = new com.moneychanger.ui.custom.CustomMenu("Look & Feel");
+        jButton_ImagePath = new javax.swing.JButton();
+        jButton_LoadWallet = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(Settings.class);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
-        setName("Form"); // NOI18N
+        setMinimumSize(new java.awt.Dimension(700, 350));
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jLabel_SettingTitle.setFont(resourceMap.getFont("jLabel_SettingTitle.font")); // NOI18N
         jLabel_SettingTitle.setText(resourceMap.getString("jLabel_SettingTitle.text")); // NOI18N
         jLabel_SettingTitle.setName("jLabel_SettingTitle"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
+        getContentPane().add(jLabel_SettingTitle, gridBagConstraints);
 
         jLabel_Timeout.setText(resourceMap.getString("jLabel_Timeout.text")); // NOI18N
+        jLabel_Timeout.setToolTipText(resourceMap.getString("jLabel_Timeout.toolTipText")); // NOI18N
         jLabel_Timeout.setName("jLabel_Timeout"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
+        getContentPane().add(jLabel_Timeout, gridBagConstraints);
 
-        jTextField_Timeout.setText(resourceMap.getString("jTextField_Timeout.text")); // NOI18N
         jTextField_Timeout.setName("jTextField_Timeout"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 10.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
+        getContentPane().add(jTextField_Timeout, gridBagConstraints);
 
         jLabel_TimoutUnit.setText(resourceMap.getString("jLabel_TimoutUnit.text")); // NOI18N
         jLabel_TimoutUnit.setName("jLabel_TimoutUnit"); // NOI18N
+        jLabel_TimoutUnit.setPreferredSize(new java.awt.Dimension(100, 24));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
+        getContentPane().add(jLabel_TimoutUnit, gridBagConstraints);
 
         jLabel_DataFolder.setText(resourceMap.getString("jLabel_DataFolder.text")); // NOI18N
         jLabel_DataFolder.setName("jLabel_DataFolder"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
+        getContentPane().add(jLabel_DataFolder, gridBagConstraints);
 
-        jTextField_DataFolder.setBackground(resourceMap.getColor("jTextField_DataFolder.background")); // NOI18N
         jTextField_DataFolder.setEditable(false);
-        jTextField_DataFolder.setText(resourceMap.getString("jTextField_DataFolder.text")); // NOI18N
         jTextField_DataFolder.setName("jTextField_DataFolder"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 10.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
+        getContentPane().add(jTextField_DataFolder, gridBagConstraints);
 
         jButton_DataFolder.setText(resourceMap.getString("jButton_DataFolder.text")); // NOI18N
         jButton_DataFolder.setName("jButton_DataFolder"); // NOI18N
+        jButton_DataFolder.setPreferredSize(new java.awt.Dimension(100, 24));
         jButton_DataFolder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_DataFolderActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
+        getContentPane().add(jButton_DataFolder, gridBagConstraints);
 
         jLabel_WalletFile.setText(resourceMap.getString("jLabel_WalletFile.text")); // NOI18N
         jLabel_WalletFile.setName("jLabel_WalletFile"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
+        getContentPane().add(jLabel_WalletFile, gridBagConstraints);
 
-        jTextField_WalletFile.setText(resourceMap.getString("jTextField_WalletFile.text")); // NOI18N
+        jTextField_WalletFile.setToolTipText(resourceMap.getString("jTextField_WalletFile.toolTipText")); // NOI18N
         jTextField_WalletFile.setName("jTextField_WalletFile"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 10.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
+        getContentPane().add(jTextField_WalletFile, gridBagConstraints);
+
+        filler1.setName("filler1"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        getContentPane().add(filler1, gridBagConstraints);
 
         jLabel_JavaPath.setText(resourceMap.getString("jLabel_JavaPath.text")); // NOI18N
         jLabel_JavaPath.setName("jLabel_JavaPath"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
+        getContentPane().add(jLabel_JavaPath, gridBagConstraints);
 
-        jTextField_JavaPath.setBackground(resourceMap.getColor("jTextField_JavaPath.background")); // NOI18N
         jTextField_JavaPath.setEditable(false);
-        jTextField_JavaPath.setText(resourceMap.getString("jTextField_JavaPath.text")); // NOI18N
         jTextField_JavaPath.setName("jTextField_JavaPath"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 10.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
+        getContentPane().add(jTextField_JavaPath, gridBagConstraints);
 
         jButton_JavaPath.setText(resourceMap.getString("jButton_JavaPath.text")); // NOI18N
         jButton_JavaPath.setName("jButton_JavaPath"); // NOI18N
+        jButton_JavaPath.setPreferredSize(new java.awt.Dimension(100, 24));
         jButton_JavaPath.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_JavaPathActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
+        getContentPane().add(jButton_JavaPath, gridBagConstraints);
+
+        jLabel_ImagePath.setText(resourceMap.getString("jLabel_ImagePath.text")); // NOI18N
+        jLabel_ImagePath.setName("jLabel_ImagePath"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
+        getContentPane().add(jLabel_ImagePath, gridBagConstraints);
+
+        jTextField_ImagePath.setEditable(false);
+        jTextField_ImagePath.setName("jTextField_ImagePath"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 10.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
+        getContentPane().add(jTextField_ImagePath, gridBagConstraints);
+
+        jButton_ImagePath.setText(resourceMap.getString("jButton_ImagePath.text")); // NOI18N
+        jButton_ImagePath.setName("jButton_ImagePath"); // NOI18N
+        jButton_ImagePath.setPreferredSize(new java.awt.Dimension(100, 24));
+        jButton_ImagePath.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_ImagePathActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
+        getContentPane().add(jButton_ImagePath, gridBagConstraints);
 
         jButton_LoadWallet.setText(resourceMap.getString("jButton_LoadWallet.text")); // NOI18N
         jButton_LoadWallet.setName("jButton_LoadWallet"); // NOI18N
+        jButton_LoadWallet.setPreferredSize(new java.awt.Dimension(100, 24));
         jButton_LoadWallet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_LoadWalletActionPerformed(evt);
             }
         });
-
-        jTextField_ImagePath.setEditable(false);
-        jTextField_ImagePath.setName("jTextField_ImagePath"); // NOI18N
-
-        jButton_DataFolder1.setText(resourceMap.getString("jButton_DataFolder1.text")); // NOI18N
-        jButton_DataFolder1.setName("jButton_DataFolder1"); // NOI18N
-        jButton_DataFolder1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_DataFolder1ActionPerformed(evt);
-            }
-        });
-
-        jLabel_JavaPath1.setText(resourceMap.getString("jLabel_JavaPath1.text")); // NOI18N
-        jLabel_JavaPath1.setName("jLabel_JavaPath1"); // NOI18N
-
-        jMenuBar_Setting.setName("jMenuBar_Setting"); // NOI18N
-
-        jMenu1.setText(resourceMap.getString("jMenu1.text")); // NOI18N
-        jMenu1.setName("jMenu1"); // NOI18N
-        jMenuBar_Setting.add(jMenu1);
-
-        setJMenuBar(jMenuBar_Setting);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(195, 195, 195)
-                .addComponent(jLabel_SettingTitle)
-                .addContainerGap(238, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel_Timeout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel_DataFolder)
-                        .addComponent(jLabel_WalletFile))
-                    .addComponent(jLabel_JavaPath1)
-                    .addComponent(jLabel_JavaPath))
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton_LoadWallet)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jTextField_Timeout)
-                                .addComponent(jTextField_JavaPath)
-                                .addComponent(jTextField_WalletFile)
-                                .addComponent(jTextField_DataFolder, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
-                            .addComponent(jTextField_ImagePath, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton_JavaPath)
-                            .addComponent(jButton_DataFolder)
-                            .addComponent(jLabel_TimoutUnit)
-                            .addComponent(jButton_DataFolder1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(35, 35, 35))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel_SettingTitle)
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField_Timeout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel_TimoutUnit)
-                    .addComponent(jLabel_Timeout))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField_DataFolder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_DataFolder)
-                    .addComponent(jLabel_DataFolder))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField_WalletFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel_WalletFile))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField_JavaPath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_JavaPath)
-                    .addComponent(jLabel_JavaPath1))
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField_ImagePath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_DataFolder1)
-                    .addComponent(jLabel_JavaPath))
-                .addGap(27, 27, 27)
-                .addComponent(jButton_LoadWallet)
-                .addContainerGap(28, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
+        getContentPane().add(jButton_LoadWallet, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton_LoadWalletActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_LoadWalletActionPerformed
-        //Atempt to load with modifed settings:
+
+        // Stage: Settings Update
         try {
-            Utility.setSettingsObj(this);
+            updateSettings();
+            this.setVisible(Boolean.FALSE);
 
-            System.out.println(javaPaths.toString());
-
-            Load.loadOTAPI(javaPaths);
-            Load.loadAppData(this, jTextField_DataFolder.getText(), jTextField_WalletFile.getText());
-
-            Load.setTimeout(jTextField_Timeout.getText());
-            // ---------------------------
-
-            String path = jTextField_ImagePath.getText();
-            BufferedImage image = null;
-
-            if ((null == path) || (path.length() <= 0)) {
-                path = Configuration.getImagePath();
-            }
-            // ---------------------------------
-
-            if ((null != path) && (path.length() > 0)) {
-                try {
-                    File f = new File(path);
-
-                    if (null == f) {
-                        System.out.println("jButton_LoadWalletActionPerformed: new File(path) returned null. Path: " + path);
-                    } else {
-                        image = ImageIO.read(f);
-                        image.getWidth();
-                        // --------------------------------
-                        boolean status = Utility.saveImagePath(path);
-                        System.out.println("Status of image path persistence:" + status);
-                        // -------------------------
-                        // new MainPage().setVisible(true);
-                        //UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-                        // UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-
-                        com.moneychanger.ui.ProgressBar progressBar = new com.moneychanger.ui.ProgressBar();
-                        new Thread(progressBar).start();
-                        progressBar.setVisible(true);
-                        progressBar.pack();
-                        this.dispose();
-                    }
-                    // ------------------------------------------------------
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(this, "Invalid image file. Please select proper image", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-            }
-        } catch (Load.ApiNotLoadedException e) {
-            StringBuilder error = new StringBuilder();
-            error.append("Unable to load your Java Path!");
-            error.append(System.getProperty("line.separator"));
-            error.append(e.getError());
-            JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        } catch (Load.AppDataNotLoadedException e) {
-            StringBuilder error = new StringBuilder();
-            error.append("Loading your MoneyChanger user data failed; Please Choose the correct location:");
-            error.append(e.getError().replace(":", System.getProperty("line.separator")));
-            JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        } catch (Load.InvalidTimeOutException e) {
-            StringBuilder error = new StringBuilder();
-            error.append("Auto-Timout is invalid; you should never see this message: please contact us for support!");
-            error.append(e.getError());
-            JOptionPane.showMessageDialog(this, error, "Initialization Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        } catch (Exception e) {
-            e.printStackTrace();
+            // Now That the Settings are Updated... Lets Try Loading again!
+            Load.Atempt();
+            LoadMoneychangerGUI();
+        } catch (Load.LoadFailedException e) {
+            System.err.println(e.toString());
+            System.out.println("SomethingBad Happend! We couldn't load properly!");
+            System.exit(1);
+        } catch (OutOfOrderException e) {
+            System.err.println(e.toString());
+            System.out.println("SomethingBad Happend! We Loaded in the wrong order!");
+            System.exit(1);
         }
-
-
-
-// <editor-fold defaultstate="collapsed" desc="//Old Code">
-//        try {
-//            /* OTCaller g_theCaller = new OTCaller();
-//            OTCallback g_theCallback = new JavaCallback();
-//            Utility.setG_theCallback(g_theCallback);
-//            Utility.setG_theCaller(g_theCaller);*/
-//            boolean check = true;
-//            long waitTime = Configuration.getWaitTime();
-//            if (!check) {
-//                /*Utility.addDirToRuntime("C:\\~\\Open-Transactions\\testwallet");
-//                Utility.setDataFolder("C:\\~\\Open-Transactions\\testwallet\\data_folder");
-//                System.loadLibrary("libzmq");*/
-//                Utility.addDirToRuntime("/Users/administrator/Open-Transactions/testwallet");
-//                //Utility.setDataFolder("/Users/Administrator/.ot/client_data");
-//                Utility.setDataFolder("~/.ot/client_data");
-//                System.loadLibrary("otapi");
-//
-//                otapi.OT_API_Init("~/.ot/client_data");
-//                //otapi.OT_API_Init("/Users/Administrator/.ot/client_data");
-//
-//                //otapi.OT_API_Init("/Users/administrator/Open-Transactions/testwallet/data_folder");
-//                //otapi.InitDefaultStorage(StorageType.STORE_FILESYSTEM, PackType.PACK_PROTOCOL_BUFFERS, "C:\\~\\Open-Transactions\\testwallet\\data_folder", "wallet.xml");
-//
-//                OTCaller g_theCaller = new OTCaller();
-//                OTCallback g_theCallback = new JavaCallback();
-//                g_theCaller.setCallback(g_theCallback);
-//                otapi.OT_API_Set_PasswordCallback(g_theCaller);
-//                Utility.setG_theCallback(g_theCallback);
-//                Utility.setG_theCaller(g_theCaller);
-//
-//                otapi.OT_API_LoadWallet("wallet.xml");
-//            } else {
-//                try {
-//
-//
-//                    //Java Path
-//                    Utility.addDirToRuntime(jTextField_JavaPath.getText(), true);
-//                    System.out.println("PATH:" + System.getProperty("java.library.path"));
-//                    if (System.getProperty("os.name") != null && (System.getProperty("os.name").startsWith("windows")
-//                            || System.getProperty("os.name").startsWith("Windows"))) {
-//
-//                        System.loadLibrary("libzmq");
-//                    }
-//                    System.out.println(" Before otapi load");
-//                    System.loadLibrary("otapi");
-//                    System.out.println(" After otapi load");
-//                    boolean success = otapi.OT_API_Init(jTextField_DataFolder.getText()) == 1 ? true : false;
-//                    // Uncomment below after fix
-//                    /*if (!success) {
-//                    JOptionPane.showMessageDialog(this, "Invalid Data Folder", "Initialization Error", JOptionPane.ERROR_MESSAGE);
-//                    return;
-//                    
-//                    }*/
-//
-//                    OTCaller g_theCaller = new OTCaller();
-//                    OTCallback g_theCallback = new JavaCallback();
-//                    g_theCaller.setCallback(g_theCallback);
-//                    otapi.OT_API_Set_PasswordCallback(g_theCaller);
-//                    Utility.setG_theCallback(g_theCallback);
-//                    Utility.setG_theCaller(g_theCaller);
-//
-//                    success = otapi.OT_API_LoadWallet(jTextField_WalletFile.getText()) == 1 ? true : false;
-//
-//                    if (!success) {
-//                        JOptionPane.showMessageDialog(this, "Invalid Wallet File", "Initialization Error", JOptionPane.ERROR_MESSAGE);
-//                        return;
-//                    }
-//                } catch (IOException ex) {
-//                    Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
-//                } catch (java.lang.UnsatisfiedLinkError use) {
-//                    JOptionPane.showMessageDialog(this, "Invalid library path", "Initialization Error", JOptionPane.ERROR_MESSAGE);
-//                    use.printStackTrace();
-//                    return;
-//                }
-//                Utility.setDataFolder(jTextField_DataFolder.getText());
-//
-//            }
-//            Configuration.setWaitTime(waitTime);
-//
-//            //Utility.setDataFolder(jTextField1.getText());
-//            Utility.setSettingsObj(this);
-//            //this.dispose();
-//            /*Utility.addDirToRuntime("/opt/local/lib");
-//            Utility.addDirToRuntime("/Users/Chris/Projects/Open-Transactions/testwallet");
-//            System.loadLibrary("otapi");
-//            otapi.OT_API_Init("/Users/Chris/Projects/Open-Transactions/testwallet/data_folder");
-//            otapi.OT_API_LoadWallet("wallet.xml");*/
-//
-//            new MainPage().setVisible(true);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-// </editor-fold>
     }//GEN-LAST:event_jButton_LoadWalletActionPerformed
 
     private void jButton_DataFolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_DataFolderActionPerformed
@@ -547,8 +384,6 @@ public class Settings extends javax.swing.JFrame {
         int returnVal = dataFolderChooser.showOpenDialog(this);
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            // file = contractFileChooser.getSelectedFile();
-            //This is where a real application would open the file.
             jTextField_DataFolder.setText(dataFolderChooser.getSelectedFile().getPath());
 
         } else {
@@ -557,40 +392,24 @@ public class Settings extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_DataFolderActionPerformed
 
     private void jButton_JavaPathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_JavaPathActionPerformed
-        new PathDialog(this, true, javaPaths).setVisible(true);
+        new PathDialog(this, true, _javaPaths).setVisible(true);
     }//GEN-LAST:event_jButton_JavaPathActionPerformed
 
     public void setImagePath(String strPath) {
         jTextField_ImagePath.setText(strPath);
     }
 
-    private void jButton_DataFolder1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_DataFolder1ActionPerformed
+    private void jButton_ImagePathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ImagePathActionPerformed
 
         int returnVal = imageChooser.showOpenDialog(this);
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            // file = contractFileChooser.getSelectedFile();
-            //This is where a real application would open the file.
-
             jTextField_ImagePath.setText(imageChooser.getSelectedFile().getPath());
-            //jTextField_ImagePath.setVisible(true);
-            System.out.println("jTextField_ImagePath:" + jTextField_ImagePath.isVisible());
-
-            Configuration.setImagePath(imageChooser.getSelectedFile().getPath());
-
-            // --------------------------------
-            if (Load.IsOTInitialized()) {
-                boolean status = Utility.saveImagePath(jTextField_ImagePath.getText());
-                System.out.println("jButton_DataFolder1ActionPerformed: Status of image path persistence:" + status);
-            } else {
-                System.out.println("jButton_DataFolder1ActionPerformed: Status of image path persistence: UNABLE to save (at this point) because OTAPI isn't loaded yet.");
-            }
-            // -------------------------
 
         } else {
             System.out.println("Cancelled");
         }
-    }//GEN-LAST:event_jButton_DataFolder1ActionPerformed
+    }//GEN-LAST:event_jButton_ImagePathActionPerformed
 
     /**
      * @param args the command line arguments
@@ -598,25 +417,25 @@ public class Settings extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
+            @Override
             public void run() {
-                new Settings().setVisible(true);
+                new Settings(new ConfigBean()).setVisible(true);
             }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.Box.Filler filler1;
     private javax.swing.JButton jButton_DataFolder;
-    private javax.swing.JButton jButton_DataFolder1;
+    private javax.swing.JButton jButton_ImagePath;
     private javax.swing.JButton jButton_JavaPath;
     private javax.swing.JButton jButton_LoadWallet;
     private javax.swing.JLabel jLabel_DataFolder;
+    private javax.swing.JLabel jLabel_ImagePath;
     private javax.swing.JLabel jLabel_JavaPath;
-    private javax.swing.JLabel jLabel_JavaPath1;
     private javax.swing.JLabel jLabel_SettingTitle;
     private javax.swing.JLabel jLabel_Timeout;
     private javax.swing.JLabel jLabel_TimoutUnit;
     private javax.swing.JLabel jLabel_WalletFile;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuBar jMenuBar_Setting;
     private javax.swing.JTextField jTextField_DataFolder;
     private static javax.swing.JTextField jTextField_ImagePath;
     private static javax.swing.JTextField jTextField_JavaPath;
@@ -624,34 +443,122 @@ public class Settings extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField_WalletFile;
     // End of variables declaration//GEN-END:variables
 
-    private void initFileChooser() {
+    //<editor-fold defaultstate="collapsed" desc="Helpers">
+    private void initSettings() throws OutOfOrderException {
+        LoadState.Progress(LoadState.Stages.Opt_InitSettings);
+        // Stage: Init
+        initFileChoosers();
+        initComponents();
+        _javaPaths = new JavaPaths(new PathReturnAction());
+        
+        this.setLocationRelativeTo(null);
+        
+        // All Done with Init!
+        LoadState.setStageComplete();
+    }
 
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(Load.appdataDirectory(Load.getOS()));
-        sb.append("/.ot/client_data");
-
-        jTextField_DataFolder.setText(sb.toString());
-
+    private void initFileChoosers() {
+        // Data Folder
         dataFolderChooser = new JFileChooser();
 
-        dataFolderChooser.setFileHidingEnabled(false);
+        dataFolderChooser.setFileHidingEnabled(Boolean.FALSE);
         dataFolderChooser.setCurrentDirectory(new java.io.File("."));
         dataFolderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
+        // Image Path
         imageChooser = new JFileChooser();
 
         imageChooser.setFileHidingEnabled(false);
         imageChooser.setCurrentDirectory(new java.io.File("."));
         imageChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
-        jMenu1 = new CustomMenu("Look & Feel");
-        jTextField_Timeout.setText(String.valueOf(Configuration.getWaitTime()));
+        //jMenu1 = new CustomMenu("Look & Feel");
     }
 
-    public static void setPath() {
-        jTextField_JavaPath.setText(javaPaths.toString());
+    // This method loads the configuration (if any) from the ConfigBean
+    private void loadSettings() throws OutOfOrderException {
+
+        // Set that are are going to atempt to do this Stage now
+        LoadState.Progress(LoadState.Stages.Opt_LoadSettings);
+        if (LoadState.getStage() == LoadState.Stages.Opt_LoadSettings) {
+
+            initFileChoosers();
+
+            // Timeout
+            this.jTextField_Timeout.setText(_configBean.getConfig(ConfigBean.Keys.Timeout));
+
+            // Wallet File Name
+            this.jTextField_WalletFile.setText(_configBean.getConfig(ConfigBean.Keys.WalletFilename));
+
+            // User Data Path
+            String userDataPath = _configBean.getConfig(ConfigBean.Keys.UserDataPath);
+            if (userDataPath.isEmpty()) {
+                userDataPath = new StringBuilder(Load.getUserAppDataLocation()).append("/.ot/client_data").toString();
+            }
+            this.jTextField_DataFolder.setText(userDataPath);
+            dataFolderChooser.setCurrentDirectory(new java.io.File(userDataPath));
+
+            // Java Path
+            String javaPath = _configBean.getConfig(ConfigBean.Keys.JavaPath);
+            if (javaPath == null
+                    || javaPath.isEmpty()) {
+                javaPath = "Browse For Where OTAPI-JAVA is on your system";
+            }
+            Settings.jTextField_JavaPath.setText(javaPath);
+            _javaPaths.addPaths(javaPath);
+
+            // Password Image Path
+            String imagePath = ConfigBean.Static.getKey(ConfigBean.Static.Keys.PasswordImagePath);
+            if (imagePath == null
+                    || imagePath.isEmpty()) {
+                imagePath = "";
+            }
+            Settings.jTextField_ImagePath.setText(imagePath);
+
+            // Set this Stage has Been Completed
+            LoadState.setStageComplete();
+        }
     }
+
+    private void updateSettings() throws OutOfOrderException {
+        LoadState.Progress(LoadState.Stages.Opt_UpdateSettings);
+
+        _configBean.setConfig(ConfigBean.Keys.Timeout, this.jTextField_Timeout.getText());
+
+        _configBean.setConfig(ConfigBean.Keys.UserDataPath, this.jTextField_DataFolder.getText());
+
+        _configBean.setConfig(ConfigBean.Keys.WalletFilename, this.jTextField_WalletFile.getText());
+
+        _configBean.setConfig(ConfigBean.Keys.JavaPath, Settings.jTextField_JavaPath.getText());
+
+        ConfigBean.Static.setKey(ConfigBean.Static.Keys.PasswordImagePath, Settings.jTextField_ImagePath.getText()); ;
+
+        LoadState.setStageComplete();
+    }
+
+    private void LoadMoneychangerGUI() throws OutOfOrderException {
+        LoadState.Progress(LoadState.Stages.LoadMoneychangerGUI);
+
+        ProgressBar progressBar = new ProgressBar();
+        new Thread(progressBar).start();
+        progressBar.setVisible(true);
+        progressBar.pack();
+        this.dispose();
+
+        LoadState.setStageComplete();
+    }
+
+    private class PathReturnAction implements ReturnAction {
+
+        @Override
+        public String getAction() {
+            return Settings.jTextField_JavaPath.getText();
+        }
+
+        @Override
+        public void returnAction(String returnValue) {
+            Settings.jTextField_JavaPath.setText(returnValue);
+        }
+    }
+    //</editor-fold>
 }
-// </editor-fold>
-

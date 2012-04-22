@@ -91,6 +91,7 @@ AK+ZirdWhhoHeWR1tAkN
 
 package com.moneychanger.app;
 
+import com.moneychanger.core.util.ConfigBean;
 import com.moneychanger.ui.Settings;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -126,7 +127,7 @@ public class ApplicationLauncher extends SingleFrameApplication {
 
                         Utility.setObj(laf);*/
 
-                        new Settings().setVisible(true);
+                        new Settings(new ConfigBean()).setVisible(true);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
