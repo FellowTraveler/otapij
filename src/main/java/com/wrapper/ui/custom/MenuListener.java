@@ -96,20 +96,10 @@ AK+ZirdWhhoHeWR1tAkN
  */
 package com.wrapper.ui.custom;
 
-import com.wrapper.core.util.Utility;
-import com.wrapper.ui.Settings;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import org.jvnet.substance.SubstanceLookAndFeel;
-import org.jvnet.substance.SubstanceSliderUI;
-import org.jvnet.substance.api.SubstanceApi;
-import org.jvnet.substance.api.SubstanceSkin;
-import org.jvnet.substance.skin.SubstanceNebulaBrickWallLookAndFeel;
-import org.jvnet.substance.skin.SubstanceSaharaLookAndFeel;
 
 /**
  *
@@ -119,14 +109,14 @@ public class MenuListener implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         
-        String substanceClass = (String) CustomMenu.getClassName(e.getActionCommand().trim());
+//        String substanceClass = (String) CustomMenu.getClassName(e.getActionCommand().trim());
         try {
-            Class obj = Class.forName(substanceClass);
-            SubstanceLookAndFeel laf = (SubstanceLookAndFeel) obj.newInstance();
-            Settings utility = (Settings)Utility.getObj();
-            
-            UIManager.setLookAndFeel(laf);
-            utility.repaint();
+//            Class obj = Class.forName(substanceClass);
+//            SubstanceLookAndFeel laf = (SubstanceLookAndFeel) obj.newInstance();
+//            Settings utility = (Settings)Utility.getObj();
+//            
+//            UIManager.setLookAndFeel(laf);
+//            utility.repaint();
            
         } catch (Exception ex) {
             Logger.getLogger(MenuListener.class.getName()).log(Level.SEVERE, null, ex);

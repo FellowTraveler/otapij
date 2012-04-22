@@ -40,7 +40,7 @@
             <name>Ivy 2 Maven2</name>
             <url>http://ivy2maven2.littleware.googlecode.com/hg/maven2/</url>
         </repository>
-        <repository>
+<!--        <repository>
             <id>jspresso</id>
             <name>Jspresso Repository</name>
             <layout>default</layout>
@@ -48,20 +48,20 @@
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
-        </repository>
+        </repository>-->
     </repositories>
 
     <dependencies>
         <dependency>
             <groupId>chrriis</groupId>
             <artifactId>dj-nativeswing-swt</artifactId>
-            <version>0.9.9.20101112</version>
+            <version>1.0.2</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>chrriis</groupId>
             <artifactId>dj-nativeswing</artifactId>
-            <version>0.9.9.20101112</version>
+            <version>1.0.2</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -88,11 +88,11 @@
             <version>RELEASE65</version>
             <type>jar</type>
         </dependency>
-        <dependency>
+<!--        <dependency>
             <groupId>org.jvnet</groupId>
             <artifactId>substance</artifactId>
             <version>5.3</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.swinglabs</groupId>
             <artifactId>swing-layout</artifactId>

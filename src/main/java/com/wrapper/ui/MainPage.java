@@ -200,8 +200,8 @@ import javax.swing.UIManager;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumn;
-import org.jvnet.substance.SubstanceLookAndFeel;
-import org.jvnet.substance.skin.SubstanceModerateLookAndFeel;
+//import org.jvnet.substance.SubstanceLookAndFeel;
+//import org.jvnet.substance.skin.SubstanceModerateLookAndFeel;
 
 /**
  *
@@ -236,8 +236,8 @@ public class MainPage extends javax.swing.JFrame {
 
         try {
 
-            SubstanceLookAndFeel laf = new SubstanceModerateLookAndFeel();
-            UIManager.setLookAndFeel(laf);
+//            SubstanceLookAndFeel laf = new SubstanceModerateLookAndFeel();
+//            UIManager.setLookAndFeel(laf);
 
             if (false == System.getProperty("os.name").toLowerCase().contains("linux")) {
                 setToSystray();

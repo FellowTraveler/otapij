@@ -91,21 +91,13 @@ AK+ZirdWhhoHeWR1tAkN
 
 package app;
 
-import com.wrapper.core.jni.otapi;
-import com.wrapper.core.util.Utility;
-import com.wrapper.ui.MainPage;
 import com.wrapper.ui.Settings;
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
-import org.jvnet.substance.SubstanceLookAndFeel;
-import org.jvnet.substance.skin.SubstanceModerateLookAndFeel;
-import org.jvnet.substance.skin.SubstanceSaharaLookAndFeel;
 
 /**
  * The main class of the application.
