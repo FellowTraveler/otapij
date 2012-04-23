@@ -399,10 +399,6 @@ public class Settings extends javax.swing.JFrame {
         new PathDialog(this, true, _javaPaths).setVisible(true);
     }//GEN-LAST:event_jButton_JavaPathActionPerformed
 
-    public void setImagePath(String strPath) {
-        jTextField_ImagePath.setText(strPath);
-    }
-
     private void jButton_ImagePathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ImagePathActionPerformed
 
         int returnVal = imageChooser.showOpenDialog(this);
@@ -456,7 +452,7 @@ public class Settings extends javax.swing.JFrame {
         _javaPaths = new JavaPaths(new PathReturnAction());
         
         this.setLocationRelativeTo(null);
-        
+        this.setVisible(Boolean.TRUE);
         // All Done with Init!
         LoadState.setStageComplete();
     }
