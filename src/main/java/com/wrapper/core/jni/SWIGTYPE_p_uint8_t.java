@@ -8,9 +8,19 @@
 
 package com.wrapper.core.jni;
 
-public final class PackType {
-  public final static int PACK_MESSAGE_PACK = otapiJNI.PACK_MESSAGE_PACK_get();
-  public final static int PACK_PROTOCOL_BUFFERS = otapiJNI.PACK_PROTOCOL_BUFFERS_get();
-  public final static int PACK_TYPE_ERROR = otapiJNI.PACK_TYPE_ERROR_get();
+public class SWIGTYPE_p_uint8_t {
+  private long swigCPtr;
+
+  protected SWIGTYPE_p_uint8_t(long cPtr, boolean futureUse) {
+    swigCPtr = cPtr;
+  }
+
+  protected SWIGTYPE_p_uint8_t() {
+    swigCPtr = 0;
+  }
+
+  protected static long getCPtr(SWIGTYPE_p_uint8_t obj) {
+    return (obj == null) ? 0 : obj.swigCPtr;
+  }
 }
 

@@ -706,7 +706,9 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
                     theFunction.nTransNumsNeeded  : Configuration.getNbrTransactionCount()))    // Therefore I will grab that many, instead of however many I would normally grab.
         {
             System.out.println("OTAPI_Func.SendTransaction: " + IN_FUNCTION + ", I don't have enough transaction numbers to perform this transaction. Grabbing more now...");
+            
             int configTxnCount = Configuration.getNbrTransactionCount();
+            
             Configuration.setNbrTransactionCount((theFunction.nTransNumsNeeded > configTxnCount) ? theFunction.nTransNumsNeeded : configTxnCount);
             
             bSure = Utility.getTransactionNumbers(theFunction.serverID, theFunction.nymID); // <====================== getTransactionNumbers
@@ -797,7 +799,7 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
         while ((nRetries > 0) && (null == strResult) && 
                 bCanRetryAfterThis.getBooleanValue())
         {
-            nRetries--;
+            --nRetries;
             // -------------------------------
                 Utility.OTBool bWasMsgSent = new Utility.OTBool(false);
                                 

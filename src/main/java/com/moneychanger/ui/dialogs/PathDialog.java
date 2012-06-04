@@ -194,6 +194,8 @@ public class PathDialog extends javax.swing.JDialog {
 
     private void jButton_AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_AddActionPerformed
 
+        pathFolderChooser.setFileHidingEnabled(Boolean.FALSE);
+        
         int returnVal = pathFolderChooser.showOpenDialog(this);
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
