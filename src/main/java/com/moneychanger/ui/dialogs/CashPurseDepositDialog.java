@@ -224,7 +224,7 @@ public class CashPurseDepositDialog extends javax.swing.JDialog {
         try{
             CashPurseAccount cashPurseAccount = new CashPurseAccount();
             setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-            boolean isSuccess = cashPurseAccount.depositCashPurse(details.getServerID(), details.getAssetID(), details.getNymID(), details.getPurse(), selectedIndices,jTextField1.getText());
+            boolean isSuccess = cashPurseAccount.depositCashPurse(details.getServerID(), details.getAssetID(), details.getNymID(), details.getPurse(), selectedIndices, jTextField1.getText());
             if (isSuccess) {
                 JOptionPane.showMessageDialog(this, "Cash Purse deposited successfully", "Cash Purse Deposit Success", JOptionPane.INFORMATION_MESSAGE);
                 CashPurseDetails cashDetails = new CashPurseAccount().getCashPurseDetails(details.getServerID()+":"+details.getAssetID()+":"+details.getNymID());

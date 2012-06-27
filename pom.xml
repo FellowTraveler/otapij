@@ -5,7 +5,7 @@
 
     <groupId>com.moneychanger</groupId>
     <artifactId>MoneyChanger</artifactId>
-    <version>0.8-SNAPSHOT</version>
+    <version>00.10.00-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>MoneyChanger</name>

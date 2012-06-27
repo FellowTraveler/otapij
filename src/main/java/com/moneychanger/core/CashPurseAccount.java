@@ -622,14 +622,14 @@ public class CashPurseAccount extends Account {
             return false;
         }
         // ----------------------------------------
-        OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.DEPOSIT_CASH, serverID, nymID, accountID, newPurse);
+        OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.DEPOSIT_CASH, serverID, recepientNymID, accountID, newPurse);
         String      strResponse  = OTAPI_Func.SendTransaction(theRequest, "DEPOSIT_CASH"); // <========================
         
         if (null == strResponse)
         {
             System.out.println("IN depositCashPurse: OTAPI_Func.SendTransaction(() failed. (I give up.) ");
             // -------------------
-            boolean importStatus = otapi.OT_API_Wallet_ImportPurse(serverID, assetID, nymID, newPurse) == 1 ? true : false;
+            boolean importStatus = otapi.OT_API_Wallet_ImportPurse(serverID, assetID, recepientNymID, newPurse) == 1 ? true : false;
             System.out.println("Since failure in depositCashPurse, OT_API_Wallet_ImportPurse called, status of import:" + importStatus);
             if (!importStatus) {
                 Utility.setObj(newPurse);
