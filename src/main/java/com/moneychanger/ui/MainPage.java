@@ -254,7 +254,7 @@ public class MainPage extends javax.swing.JFrame {
             initSettingsTab();
             initCreditsTab();
             setResizable(false);
-            setLocation(Utility.getLocation(this.getSize()));
+            this.setLocationRelativeTo(null);
             repaint();
         } catch (Exception e) {
             e.printStackTrace();

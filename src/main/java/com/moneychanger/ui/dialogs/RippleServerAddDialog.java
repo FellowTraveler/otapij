@@ -119,7 +119,7 @@ public class RippleServerAddDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.label = label;
-        setLocation(Utility.getLocation(this.getSize()));
+        this.setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to

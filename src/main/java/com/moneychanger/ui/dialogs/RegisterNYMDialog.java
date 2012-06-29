@@ -117,7 +117,7 @@ public class RegisterNYMDialog extends javax.swing.JDialog {
     public RegisterNYMDialog(java.awt.Frame parent, boolean modal, String nymID) {
         super(parent, modal);
         initComponents();
-        setLocation(Utility.getLocation(this.getSize()));
+        this.setLocationRelativeTo(null);
         initValues();
         this.nymID = nymID;
     }

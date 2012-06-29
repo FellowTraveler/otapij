@@ -106,7 +106,7 @@ public class OtherTabServerEditDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         jTextField1.setText(currentLabel);
-        setLocation(Utility.getLocation(this.getSize()));
+        this.setLocationRelativeTo(null);
         this.serverID = serverID;
         this.type = type;
       

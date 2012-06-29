@@ -115,13 +115,16 @@ public class Settings extends javax.swing.JFrame {
         try {
             Load.Init(_configBean);
 
+            System.out.println("DISABLING AUTOLOAD FOR DEBUG!");
+            _configBean.setConfig(ConfigBean.Keys.LastLoadSuccessfull, Boolean.FALSE.toString());
+
             // If we loaded successfull Last time... Attempt The Same Known Good Settings
             if (Boolean.parseBoolean(_configBean.getConfig(ConfigBean.Keys.LastLoadSuccessfull))) {
                 try {
                     // Starting an autoload... lets set the Last Load Succssfull to false...
                     System.out.println("Last Load was Successful! Attempting Autoload!");
                     _configBean.setConfig(ConfigBean.Keys.LastLoadSuccessfull, Boolean.FALSE.toString());
-                    
+
                     Load.Attempt();
                     LoadMoneychangerGUI();
                 } catch (Load.LoadFailedException e) {
@@ -130,7 +133,7 @@ public class Settings extends javax.swing.JFrame {
             } else {
                 System.out.println("We didn't load Successfuly Last time, Showing Seetings...!");
             }
-            
+
             // Load Up Settings Dialoug
             initSettings();
             loadSettings();
@@ -141,6 +144,7 @@ public class Settings extends javax.swing.JFrame {
             System.exit(1);
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -155,9 +159,6 @@ public class Settings extends javax.swing.JFrame {
         jLabel_Timeout = new javax.swing.JLabel();
         jTextField_Timeout = new javax.swing.JTextField();
         jLabel_TimoutUnit = new javax.swing.JLabel();
-        jLabel_DataFolder = new javax.swing.JLabel();
-        jTextField_DataFolder = new javax.swing.JTextField();
-        jButton_DataFolder = new javax.swing.JButton();
         jLabel_WalletFile = new javax.swing.JLabel();
         jTextField_WalletFile = new javax.swing.JTextField();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
@@ -213,40 +214,6 @@ public class Settings extends javax.swing.JFrame {
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
         getContentPane().add(jLabel_TimoutUnit, gridBagConstraints);
-
-        jLabel_DataFolder.setText(resourceMap.getString("jLabel_DataFolder.text")); // NOI18N
-        jLabel_DataFolder.setName("jLabel_DataFolder"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
-        getContentPane().add(jLabel_DataFolder, gridBagConstraints);
-
-        jTextField_DataFolder.setEditable(false);
-        jTextField_DataFolder.setName("jTextField_DataFolder"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.weightx = 10.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
-        getContentPane().add(jTextField_DataFolder, gridBagConstraints);
-
-        jButton_DataFolder.setText(resourceMap.getString("jButton_DataFolder.text")); // NOI18N
-        jButton_DataFolder.setName("jButton_DataFolder"); // NOI18N
-        jButton_DataFolder.setPreferredSize(new java.awt.Dimension(100, 24));
-        jButton_DataFolder.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_DataFolderActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
-        getContentPane().add(jButton_DataFolder, gridBagConstraints);
 
         jLabel_WalletFile.setText(resourceMap.getString("jLabel_WalletFile.text")); // NOI18N
         jLabel_WalletFile.setName("jLabel_WalletFile"); // NOI18N
@@ -383,20 +350,9 @@ public class Settings extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton_LoadWalletActionPerformed
 
-    private void jButton_DataFolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_DataFolderActionPerformed
-
-        int returnVal = dataFolderChooser.showOpenDialog(this);
-
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            jTextField_DataFolder.setText(dataFolderChooser.getSelectedFile().getPath());
-
-        } else {
-            System.out.println("Cancelled");
-        }
-    }//GEN-LAST:event_jButton_DataFolderActionPerformed
-
     private void jButton_JavaPathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_JavaPathActionPerformed
         new PathDialog(this, true, _javaPaths).setVisible(true);
+        _configBean.setConfig(ConfigBean.Keys.JavaPathSet, Boolean.TRUE.toString());
     }//GEN-LAST:event_jButton_JavaPathActionPerformed
 
     private void jButton_ImagePathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ImagePathActionPerformed
@@ -425,18 +381,15 @@ public class Settings extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.Box.Filler filler1;
-    private javax.swing.JButton jButton_DataFolder;
     private javax.swing.JButton jButton_ImagePath;
     private javax.swing.JButton jButton_JavaPath;
     private javax.swing.JButton jButton_LoadWallet;
-    private javax.swing.JLabel jLabel_DataFolder;
     private javax.swing.JLabel jLabel_ImagePath;
     private javax.swing.JLabel jLabel_JavaPath;
     private javax.swing.JLabel jLabel_SettingTitle;
     private javax.swing.JLabel jLabel_Timeout;
     private javax.swing.JLabel jLabel_TimoutUnit;
     private javax.swing.JLabel jLabel_WalletFile;
-    private javax.swing.JTextField jTextField_DataFolder;
     private static javax.swing.JTextField jTextField_ImagePath;
     private static javax.swing.JTextField jTextField_JavaPath;
     private javax.swing.JTextField jTextField_Timeout;
@@ -450,7 +403,7 @@ public class Settings extends javax.swing.JFrame {
         initFileChoosers();
         initComponents();
         _javaPaths = new JavaPaths(new PathReturnAction());
-        
+
         this.setLocationRelativeTo(null);
         this.setVisible(Boolean.TRUE);
         // All Done with Init!
@@ -458,13 +411,6 @@ public class Settings extends javax.swing.JFrame {
     }
 
     private void initFileChoosers() {
-        // Data Folder
-        dataFolderChooser = new JFileChooser();
-
-        dataFolderChooser.setFileHidingEnabled(Boolean.FALSE);
-        dataFolderChooser.setCurrentDirectory(new java.io.File("."));
-        dataFolderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-
         // Image Path
         imageChooser = new JFileChooser();
 
@@ -472,7 +418,6 @@ public class Settings extends javax.swing.JFrame {
         imageChooser.setCurrentDirectory(new java.io.File("."));
         imageChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
-        //jMenu1 = new CustomMenu("Look & Feel");
     }
 
     // This method loads the configuration (if any) from the ConfigBean
@@ -495,8 +440,7 @@ public class Settings extends javax.swing.JFrame {
             if (userDataPath.isEmpty()) {
                 userDataPath = new StringBuilder(Load.getUserAppDataLocation()).append("/.ot/client_data").toString();
             }
-            this.jTextField_DataFolder.setText(userDataPath);
-            dataFolderChooser.setCurrentDirectory(new java.io.File(userDataPath));
+
 
             // Java Path
             String javaPath = _configBean.getConfig(ConfigBean.Keys.JavaPath);
@@ -525,32 +469,32 @@ public class Settings extends javax.swing.JFrame {
 
         _configBean.setConfig(ConfigBean.Keys.Timeout, this.jTextField_Timeout.getText());
 
-        _configBean.setConfig(ConfigBean.Keys.UserDataPath, this.jTextField_DataFolder.getText());
-
         _configBean.setConfig(ConfigBean.Keys.WalletFilename, this.jTextField_WalletFile.getText());
 
         _configBean.setConfig(ConfigBean.Keys.JavaPath, Settings.jTextField_JavaPath.getText());
+        if (4 > Settings.jTextField_JavaPath.getText().length())
+            _configBean.setConfig(ConfigBean.Keys.JavaPathSet, Boolean.FALSE.toString());
 
-        ConfigBean.Static.setKey(ConfigBean.Static.Keys.PasswordImagePath, Settings.jTextField_ImagePath.getText()); ;
+        ConfigBean.Static.setKey(ConfigBean.Static.Keys.PasswordImagePath, Settings.jTextField_ImagePath.getText());;
 
         LoadState.setStageComplete();
     }
 
     private void LoadMoneychangerGUI() throws OutOfOrderException {
         LoadState.Progress(LoadState.Stages.LoadMoneychangerGUI);
-        
+
         this.setVisible(Boolean.FALSE);
         ProgressBar progressBar = new ProgressBar();
         new Thread(progressBar).start();
         progressBar.setVisible(true);
         progressBar.pack();
-        
+
         // since we have got this far... lets set the autoloader bit
-        
+
         System.out.println("Looks like Load was Successful! Setting Autoload for next time!");
         _configBean.setConfig(ConfigBean.Keys.LastLoadSuccessfull, Boolean.TRUE.toString());
-        
-        
+
+
         this.dispose();
         LoadState.setStageComplete();
     }

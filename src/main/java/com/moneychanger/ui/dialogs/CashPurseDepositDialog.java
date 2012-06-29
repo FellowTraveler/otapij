@@ -129,7 +129,7 @@ public class CashPurseDepositDialog extends javax.swing.JDialog {
         this.details = details;
         this.selectedIndices = selectedIndices;
         initValues();
-        setLocation(Utility.getLocation(this.getSize()));
+        this.setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to

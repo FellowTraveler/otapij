@@ -68,7 +68,7 @@ public class ProgressBar
 
         repaint();
 
-        setLocation(Utility.getLocation(this.getSize()));
+        this.setLocationRelativeTo(null);
 
 
         SwingUtilities.invokeLater(new Runnable() {
@@ -85,6 +85,7 @@ public class ProgressBar
                     dispose();
                 } catch (Exception ex) {
                     Logger.getLogger(ProgressBar.class.getName()).log(Level.SEVERE, null, ex);
+                    System.exit(-1);
                 }
             }
         });
@@ -134,6 +135,7 @@ public class ProgressBar
             } while (!stop);
         } catch (Exception ex) {
             Logger.getLogger(ProgressBar.class.getName()).log(Level.SEVERE, null, ex);
+            System.exit(-1);
         }
         /* java.awt.EventQueue.invokeLater(new Runnable() {
         public void run() {

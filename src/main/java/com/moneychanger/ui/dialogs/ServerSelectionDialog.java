@@ -114,7 +114,7 @@ public class ServerSelectionDialog extends javax.swing.JDialog {
         initComponents();
         this.serverMap = serverMap;
         initValues();
-        setLocation(Utility.getLocation(this.getSize()));
+        this.setLocationRelativeTo(null);
 
     }
 

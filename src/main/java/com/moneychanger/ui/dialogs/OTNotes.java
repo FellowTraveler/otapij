@@ -118,7 +118,7 @@ public class OTNotes extends javax.swing.JDialog {
         this.note = note;
         initComponents();
         setTitle("Memo");
-        setLocation(Utility.getLocation(this.getSize()));
+        this.setLocationRelativeTo(null);
         setNote();
     }
 

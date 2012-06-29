@@ -130,7 +130,7 @@ public class ImportCashPurse extends javax.swing.JDialog {
     public ImportCashPurse(java.awt.Frame parent, boolean modal,String serverID,String nymID,String assetID,String purse) {
         super(parent, modal);
         initComponents();
-        setLocation(Utility.getLocation(this.getSize()));
+        this.setLocationRelativeTo(null);
         this.serverID= serverID;
         this.purse = purse;
         this.assetID = assetID;

@@ -42,9 +42,16 @@ public class Load {
     //<editor-fold defaultstate="collapsed" desc="AttemptLoad">
     public static void Attempt() throws LoadFailedException {
 
+        System.out.println();
+        System.out.println("Attempting to load Moneychanger… Here we go!");
+
         try {
+            System.out.println();
             // For some Reason the current stage is not complete... Lets Attempt to complete it.
             if (!LoadState.isStageComplete()) {
+
+                System.out.println("Current Stage not complete... attempting to run uncompleted stage!");
+
                 switch (LoadState.getStage()) {
                     case Init:
                         throw new LoadFailedException("Must Complete init before Attempt!");
@@ -55,11 +62,8 @@ public class Load {
                         throw new LoadFailedException("Must Complete Settings before Attempting to Load!");
 
 
-                    case Opt_LoadNativeDependencies:
-                        LoadNativeDependencies.Attempt();
-                        break;
-                    case LoadOTAPI:
-                        LoadOTAPI.Attempt();
+                    case LoadNativeLibraries:
+                        LoadNativeLibraries.Attempt();
                         break;
                     case InitOTAPI:
                         InitOTAPI.Attempt();
@@ -79,21 +83,24 @@ public class Load {
                 if (LoadState.isStageComplete()) {
                     throw new LoadFailedException("Failed to Complete step!");
                 }
+                System.out.println();
+                System.out.println("That Worked... Stage now complete!!!");
             }
+            System.out.println("Attempting to load the reaming stages!!!");
+            System.out.println();
 
             // Now that the stage we are on is complete... lets load the next step.
             switch (LoadState.getStage()) {
-                
+
+
                 case Opt_InitSettings:
                 case Opt_LoadSettings:
                     throw new LoadFailedException("Must Complete Settings before Attempting to Load!");
 
                 case Init:
                 case Opt_UpdateSettings:
-                    LoadNativeDependencies.Attempt();
-                case Opt_LoadNativeDependencies:
-                    LoadOTAPI.Attempt();
-                case LoadOTAPI:
+                    LoadNativeLibraries.Attempt();
+                case LoadNativeLibraries:
                     InitOTAPI.Attempt();
                 case InitOTAPI:
                     SetupPasswordImage.Attempt();
@@ -129,92 +136,104 @@ public class Load {
     }
     //</editor-fold>
 
-    //<editor-fold defaultstate="collapsed" desc="LoadNativeDependencies">
-    public static class LoadNativeDependencies {
+    //<editor-fold defaultstate="collapsed" desc="LoadNativeLibraries">
+    public static class LoadNativeLibraries {
 
-        private LoadNativeDependencies() {
+        private LoadNativeLibraries() {
         }
 
-        public static void Attempt() throws LoadNativeDependenciesFailedException, OutOfOrderException {
-            LoadState.Progress(LoadState.Stages.Opt_LoadNativeDependencies);
+        public static void Attempt() throws LoadNativeLibrariesFailedException, OutOfOrderException {
+            LoadState.Progress(LoadState.Stages.LoadNativeLibraries);
 
             setJavaPaths(_configBean);
 
+            // If Running on windows... Lets load the windows DLL's
             if (getOS() == typeOS.WIN) {
-                LoadExtraDLLs();
+                System.out.println("We are on Windows!");
+                LoadWindowsDLLs();
+            }
+            // If Running on other than windows... Lets load the libs
+            else
+            {
+                LoadLinuxLIBs();
             }
 
-            LoadState.setStageComplete();
-        }
 
-        private static void LoadExtraDLLs() throws LoadNativeDependenciesFailedException, OutOfOrderException {
-            try {
-                System.loadLibrary("libzmq");
-//                System.loadLibrary("irrxml");
-                System.loadLibrary("chaiscript");
-                System.loadLibrary("otlib");
-            } catch (java.lang.UnsatisfiedLinkError e) {
-                LoadState.setStageFailed();
-                throw new LoadNativeDependenciesFailedException(e.toString());
-            }
-        }
-    }
-
-    public static class LoadNativeDependenciesFailedException extends Exception {
-
-        private String locationsChecked;
-
-        public LoadNativeDependenciesFailedException() {
-            super();             // call superclass constructor
-            locationsChecked = "none";
-        }
-
-        public LoadNativeDependenciesFailedException(String err) {
-            super(err);     // call super class constructor
-            locationsChecked = err;  // save message
-        }
-
-        public String getError() {
-            return locationsChecked;
-        }
-    }
-    //</editor-fold>
-
-    //<editor-fold defaultstate="collapsed" desc="LoadOTAPI">
-    public static class LoadOTAPI {
-
-        private LoadOTAPI() {
-        }
-
-        public static void Attempt() throws LoadOTAPIFailedException, OutOfOrderException {
-            LoadState.Progress(LoadState.Stages.LoadOTAPI);
-
-            setJavaPaths(_configBean);
             LoadNativeOTAPI();
 
             LoadState.setStageComplete();
         }
 
-        private static void LoadNativeOTAPI() throws LoadOTAPIFailedException, OutOfOrderException {
+        private static void LoadWindowsDLLs() throws LoadNativeLibrariesFailedException, OutOfOrderException {
             try {
-                System.loadLibrary("otapi-java");
+                //System.loadLibrary("libeay32");
+                //System.loadLibrary("libssl32");
+                
+                System.out.print("Loading libzmq:   ");
+                System.loadLibrary("libzmq");
+                System.out.println("Success!");
+
+                System.out.print("Loading chaiscript:   ");
+                System.loadLibrary("chaiscript");
+                System.out.println("Success!");
+
+                System.out.print("Loading otlib:   ");
+                System.loadLibrary("otlib");
+                System.out.println("Success!");
+
             } catch (java.lang.UnsatisfiedLinkError e) {
+                System.out.println();
+                System.err.println("ERROR:   Loading Windows DLL's Failed");
+                e.printStackTrace();
                 LoadState.setStageFailed();
-                throw new LoadOTAPIFailedException(e.toString());
+                throw new LoadNativeLibrariesFailedException(e.toString());
+            }
+        }
+
+        private static void LoadLinuxLIBs() throws LoadNativeLibrariesFailedException, OutOfOrderException {
+            try {
+
+            } catch (java.lang.UnsatisfiedLinkError e) {
+                System.out.println();
+                System.err.println("ERROR:   Loading Linux LIB's Failed");
+                e.printStackTrace();
+                LoadState.setStageFailed();
+                throw new LoadNativeLibrariesFailedException(e.toString());
+            }
+        }
+
+        private static void LoadNativeOTAPI() throws LoadNativeLibrariesFailedException, OutOfOrderException {
+            try {
+
+                //TODO:     Add Shutdown code here... otapi-java dosn't automaticly close
+                //          so what happens is that Java keeps on running, even when the
+                //          rest of the program has quit.
+
+                System.out.print("Loading otapi-java:   ");
+                System.loadLibrary("otapi-java");
+                System.out.println("Success!");
+
+            } catch (java.lang.UnsatisfiedLinkError e) {
+                System.out.println();
+                System.err.println("ERROR:   Loading OTAPI Native Failed");
+                e.printStackTrace();
+
+                LoadState.setStageFailed();
+                throw new LoadNativeLibrariesFailedException(e.toString());
             }
         }
     }
 
-    public static class LoadOTAPIFailedException extends Exception {
+    public static class LoadNativeLibrariesFailedException extends Exception {
 
         private String locationsChecked;
 
-        public LoadOTAPIFailedException() {
+        public LoadNativeLibrariesFailedException() {
             super();             // call superclass constructor
             locationsChecked = "none";
         }
 
-        public LoadOTAPIFailedException(String err) {
+        public LoadNativeLibrariesFailedException(String err) {
             super(err);     // call super class constructor
             locationsChecked = err;  // save message
         }
@@ -240,7 +259,7 @@ public class Load {
         }
 
         private static void API_Init() throws InitOTAPIFailedException, OutOfOrderException {
-            String userDataPath = _configBean.getConfig(ConfigBean.Keys.UserDataPath);
+            //String userDataPath = _configBean.getConfig(ConfigBean.Keys.UserDataPath);
 
             // --------------------------------------------
             // This has internal logic so that it only actually is called once.
@@ -251,12 +270,12 @@ public class Load {
             //
             // --------------------------------------------
 
-            if (1 == otapi.OT_API_Init(userDataPath)) {
+            if (1 == otapi.OT_API_Init("client_data")) {
                 System.out.println("Load.initOTAPI: SUCCESS invoking OT_API_Init().");
 
             } else // Failed in OT_API_Init().
             {
-                String strErrorMsg = "Load.initOTAPI: OT_API_Init() call failed(). (Has it already been called?) Location is " + userDataPath + " (End of location.)";
+                String strErrorMsg = "Load.initOTAPI: OT_API_Init() call failed(). (Has it already been called?) Location is " + " (End of location.)";
                 throw new InitOTAPIFailedException(strErrorMsg);
             }
         }
@@ -411,7 +430,7 @@ public class Load {
         private static void API_LoadWallet() throws LoadWalletFailedException, OutOfOrderException {
             String walletFilename = _configBean.getConfig(ConfigBean.Keys.WalletFilename);
 
-            if (1 == otapi.OT_API_LoadWallet(walletFilename)) {
+            if (1 == otapi.OT_API_LoadWallet()) {
                 System.out.println("Load.loadOTWallet: OT_API_LoadWallet() completed successfully.");
             } else {
                 LoadState.setStageFailed();
@@ -455,10 +474,9 @@ public class Load {
         }
 
         private static void API_SwitchWallet() throws SwitchWalletFailedException, OutOfOrderException {
-            String userDataPath = _configBean.getConfig(ConfigBean.Keys.UserDataPath);
             String walletFilename = _configBean.getConfig(ConfigBean.Keys.WalletFilename);
-
-            if (1 == otapi.OT_API_SwitchWallet(userDataPath, walletFilename)) {
+            if (1 == otapi.OT_API_SetWallet(walletFilename))
+            if (1 == otapi.OT_API_SwitchWallet()) {
                 System.out.println("Load.loadOTWallet: OT_API_SwitchWallet() completed successfully.");
             } else {
                 LoadState.setStageFailed();
@@ -489,16 +507,24 @@ public class Load {
 
     //<editor-fold defaultstate="collapsed" desc="Helpers">
     public static void setJavaPaths(ConfigBean configBean) {
+        System.out.println();
+        System.out.print("Updating JavaPaths:  ");
+
         String paths = configBean.getConfig(ConfigBean.Keys.JavaPath);
         if (paths != null
                 && !paths.isEmpty()) {
-
+            System.out.println("Custom JavaPaths... adding now!");
             try {
-
                 Utility.addDirToRuntime(paths);
+                System.out.println("Updating JavaPaths...   Success!");
+                System.out.println();
+
             } catch (IOException e) {
+                System.err.println("Updating JavaPaths...     Failure!");
                 System.err.println(e.toString());
             }
+        } else {
+            System.out.println("Skipping...  No custom Java Paths!");
         }
     }
 
