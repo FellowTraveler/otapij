@@ -2,5 +2,5 @@
 /build/
 /dist/
 /target/
+/project/*.exe
 *.log
-/project/

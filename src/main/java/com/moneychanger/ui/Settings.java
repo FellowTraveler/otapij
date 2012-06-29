@@ -85,11 +85,12 @@
 package com.moneychanger.ui;
 
 import com.moneychanger.core.util.ConfigBean;
-import com.moneychanger.core.util.Utility;
 import com.moneychanger.core.util.Utility.ReturnAction;
 import com.moneychanger.ui.Load.JavaPaths;
+import com.moneychanger.ui.Load.typeOS;
 import com.moneychanger.ui.LoadState.OutOfOrderException;
 import com.moneychanger.ui.dialogs.PathDialog;
+import java.io.File;
 import javax.swing.JFileChooser;
 
 /**
@@ -440,14 +441,36 @@ public class Settings extends javax.swing.JFrame {
             if (userDataPath.isEmpty()) {
                 userDataPath = new StringBuilder(Load.getUserAppDataLocation()).append("/.ot/client_data").toString();
             }
-
-
+            
             // Java Path
             String javaPath = _configBean.getConfig(ConfigBean.Keys.JavaPath);
-            if (javaPath == null
-                    || javaPath.isEmpty()) {
-                javaPath = "";
+            
+            System.out.println(System.getProperty("os.arch"));
+            
+            if (Boolean.parseBoolean(_configBean.getConfig(ConfigBean.Keys.JavaPathSet))) {
+                if (javaPath == null
+                        || javaPath.isEmpty()) {
+                    javaPath = "";
+                }
+            } else {
+                if (Load.getOS() == typeOS.WIN) {
+                    
+                    File directory = new File (".");
+                    
+                    if (System.getProperty("os.arch").contentEquals("x86")) {
+                        javaPath = ".\\lib\\Win32\\Release";
+                    }
+
+                    System.out.println(System.getProperty("os.arch"));
+                    if (System.getProperty("os.arch").contentEquals("amd64")) {
+                        javaPath = ".\\lib\\x64\\Release";
+                    }
+                } else {
+                    javaPath = "";
+                }
             }
+                    
+
             Settings.jTextField_JavaPath.setText(javaPath);
             _javaPaths.addPaths(javaPath);
 

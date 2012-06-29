@@ -18,7 +18,7 @@ public class ConfigBean {
 
     public static enum Keys {
 
-        JavaPath, LoomPasswordID, MarketMaxDepth, NbrTransactionCount, PasswordImageSaved, RipplePasswordID, RippleUsernameID, RetryCount, Timeout, UserDataPath, WaitTime, WalletFilename, LastLoadSuccessfull, LastLoad;
+        JavaPath, JavaPathSet, LoomPasswordID, MarketMaxDepth, NbrTransactionCount, PasswordImageSaved, RipplePasswordID, RippleUsernameID, RetryCount, Timeout, UserDataPath, WaitTime, WalletFilename, LastLoadSuccessfull, LastLoad;
     }
 
     public static class Static {

@@ -379,13 +379,6 @@ public class otapiJNI {
   public final static native long Storable_ot_dynamic_cast(long jarg1, Storable jarg1_);
   public final static native long Storage_GetPacker__SWIG_0(long jarg1, Storage jarg1_, int jarg2);
   public final static native long Storage_GetPacker__SWIG_1(long jarg1, Storage jarg1_);
-  public final static native boolean Storage_Init__SWIG_0(long jarg1, Storage jarg1_, String jarg2, String jarg3, String jarg4, String jarg5, String jarg6, String jarg7);
-  public final static native boolean Storage_Init__SWIG_1(long jarg1, Storage jarg1_, String jarg2, String jarg3, String jarg4, String jarg5, String jarg6);
-  public final static native boolean Storage_Init__SWIG_2(long jarg1, Storage jarg1_, String jarg2, String jarg3, String jarg4, String jarg5);
-  public final static native boolean Storage_Init__SWIG_3(long jarg1, Storage jarg1_, String jarg2, String jarg3, String jarg4);
-  public final static native boolean Storage_Init__SWIG_4(long jarg1, Storage jarg1_, String jarg2, String jarg3);
-  public final static native boolean Storage_Init__SWIG_5(long jarg1, Storage jarg1_, String jarg2);
-  public final static native boolean Storage_Init__SWIG_6(long jarg1, Storage jarg1_);
   public final static native boolean Storage_Exists__SWIG_0(long jarg1, Storage jarg1_, String jarg2, String jarg3, String jarg4, String jarg5);
   public final static native boolean Storage_Exists__SWIG_1(long jarg1, Storage jarg1_, String jarg2, String jarg3, String jarg4);
   public final static native boolean Storage_Exists__SWIG_2(long jarg1, Storage jarg1_, String jarg2, String jarg3);
@@ -424,13 +417,7 @@ public class otapiJNI {
   public final static native long Storage_CreateObject(long jarg1, Storage jarg1_, int jarg2);
   public final static native long Storage_Create(int jarg1, int jarg2);
   public final static native int Storage_GetType(long jarg1, Storage jarg1_);
-  public final static native boolean InitDefaultStorage__SWIG_0(int jarg1, int jarg2, String jarg3, String jarg4, String jarg5, String jarg6, String jarg7, String jarg8);
-  public final static native boolean InitDefaultStorage__SWIG_1(int jarg1, int jarg2, String jarg3, String jarg4, String jarg5, String jarg6, String jarg7);
-  public final static native boolean InitDefaultStorage__SWIG_2(int jarg1, int jarg2, String jarg3, String jarg4, String jarg5, String jarg6);
-  public final static native boolean InitDefaultStorage__SWIG_3(int jarg1, int jarg2, String jarg3, String jarg4, String jarg5);
-  public final static native boolean InitDefaultStorage__SWIG_4(int jarg1, int jarg2, String jarg3, String jarg4);
-  public final static native boolean InitDefaultStorage__SWIG_5(int jarg1, int jarg2, String jarg3);
-  public final static native boolean InitDefaultStorage__SWIG_6(int jarg1, int jarg2);
+  public final static native boolean InitDefaultStorage(int jarg1, int jarg2);
   public final static native long GetDefaultStorage();
   public final static native long CreateStorageContext__SWIG_0(int jarg1, int jarg2);
   public final static native long CreateStorageContext__SWIG_1(int jarg1);
