@@ -448,8 +448,7 @@ public class Settings extends javax.swing.JFrame {
             System.out.println(System.getProperty("os.arch"));
             
             if (Boolean.parseBoolean(_configBean.getConfig(ConfigBean.Keys.JavaPathSet))) {
-                if (javaPath == null
-                        || javaPath.isEmpty()) {
+                if (null == javaPath || javaPath.isEmpty()) {
                     javaPath = "";
                 }
             } else {
@@ -495,8 +494,7 @@ public class Settings extends javax.swing.JFrame {
         _configBean.setConfig(ConfigBean.Keys.WalletFilename, this.jTextField_WalletFile.getText());
 
         _configBean.setConfig(ConfigBean.Keys.JavaPath, Settings.jTextField_JavaPath.getText());
-        if (4 > Settings.jTextField_JavaPath.getText().length())
-            _configBean.setConfig(ConfigBean.Keys.JavaPathSet, Boolean.FALSE.toString());
+        _configBean.setConfig(ConfigBean.Keys.JavaPathSet, "true");
 
         ConfigBean.Static.setKey(ConfigBean.Static.Keys.PasswordImagePath, Settings.jTextField_ImagePath.getText());;
 
