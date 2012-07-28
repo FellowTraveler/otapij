@@ -270,7 +270,7 @@ public class Load {
             //
             // --------------------------------------------
 
-            if (1 == otapi.OT_API_Init("client_data")) {
+            if (1 == otapi.OT_API_Init()) {
                 System.out.println("Load.initOTAPI: SUCCESS invoking OT_API_Init().");
 
             } else // Failed in OT_API_Init().

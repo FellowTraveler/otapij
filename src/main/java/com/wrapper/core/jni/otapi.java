@@ -13,8 +13,8 @@ public class otapi implements otapiConstants {
     return otapiJNI.OT_API_Set_PasswordCallback(OTCaller.getCPtr(theCaller), theCaller);
   }
 
-  public static int OT_API_Init(String szDataFolderKey) {
-    return otapiJNI.OT_API_Init(szDataFolderKey);
+  public static int OT_API_Init() {
+    return otapiJNI.OT_API_Init();
   }
 
   public static int OT_API_SetWallet(String szWalletFilename) {

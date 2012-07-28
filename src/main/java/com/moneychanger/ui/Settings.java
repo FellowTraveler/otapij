@@ -157,12 +157,6 @@ public class Settings extends javax.swing.JFrame {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jLabel_SettingTitle = new javax.swing.JLabel();
-        jLabel_Timeout = new javax.swing.JLabel();
-        jTextField_Timeout = new javax.swing.JTextField();
-        jLabel_TimoutUnit = new javax.swing.JLabel();
-        jLabel_WalletFile = new javax.swing.JLabel();
-        jTextField_WalletFile = new javax.swing.JTextField();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         jLabel_JavaPath = new javax.swing.JLabel();
         jTextField_JavaPath = new javax.swing.JTextField();
         jButton_JavaPath = new javax.swing.JButton();
@@ -186,61 +180,6 @@ public class Settings extends javax.swing.JFrame {
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
         getContentPane().add(jLabel_SettingTitle, gridBagConstraints);
-
-        jLabel_Timeout.setText(resourceMap.getString("jLabel_Timeout.text")); // NOI18N
-        jLabel_Timeout.setToolTipText(resourceMap.getString("jLabel_Timeout.toolTipText")); // NOI18N
-        jLabel_Timeout.setName("jLabel_Timeout"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
-        getContentPane().add(jLabel_Timeout, gridBagConstraints);
-
-        jTextField_Timeout.setName("jTextField_Timeout"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.weightx = 10.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
-        getContentPane().add(jTextField_Timeout, gridBagConstraints);
-
-        jLabel_TimoutUnit.setText(resourceMap.getString("jLabel_TimoutUnit.text")); // NOI18N
-        jLabel_TimoutUnit.setName("jLabel_TimoutUnit"); // NOI18N
-        jLabel_TimoutUnit.setPreferredSize(new java.awt.Dimension(100, 24));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
-        getContentPane().add(jLabel_TimoutUnit, gridBagConstraints);
-
-        jLabel_WalletFile.setText(resourceMap.getString("jLabel_WalletFile.text")); // NOI18N
-        jLabel_WalletFile.setName("jLabel_WalletFile"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
-        getContentPane().add(jLabel_WalletFile, gridBagConstraints);
-
-        jTextField_WalletFile.setToolTipText(resourceMap.getString("jTextField_WalletFile.toolTipText")); // NOI18N
-        jTextField_WalletFile.setName("jTextField_WalletFile"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.weightx = 10.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
-        getContentPane().add(jTextField_WalletFile, gridBagConstraints);
-
-        filler1.setName("filler1"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.weightx = 1.0;
-        getContentPane().add(filler1, gridBagConstraints);
 
         jLabel_JavaPath.setText(resourceMap.getString("jLabel_JavaPath.text")); // NOI18N
         jLabel_JavaPath.setName("jLabel_JavaPath"); // NOI18N
@@ -381,20 +320,14 @@ public class Settings extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.Box.Filler filler1;
     private javax.swing.JButton jButton_ImagePath;
     private javax.swing.JButton jButton_JavaPath;
     private javax.swing.JButton jButton_LoadWallet;
     private javax.swing.JLabel jLabel_ImagePath;
     private javax.swing.JLabel jLabel_JavaPath;
     private javax.swing.JLabel jLabel_SettingTitle;
-    private javax.swing.JLabel jLabel_Timeout;
-    private javax.swing.JLabel jLabel_TimoutUnit;
-    private javax.swing.JLabel jLabel_WalletFile;
     private static javax.swing.JTextField jTextField_ImagePath;
     private static javax.swing.JTextField jTextField_JavaPath;
-    private javax.swing.JTextField jTextField_Timeout;
-    private javax.swing.JTextField jTextField_WalletFile;
     // End of variables declaration//GEN-END:variables
 
     //<editor-fold defaultstate="collapsed" desc="Helpers">
@@ -429,12 +362,6 @@ public class Settings extends javax.swing.JFrame {
         if (LoadState.getStage() == LoadState.Stages.Opt_LoadSettings) {
 
             initFileChoosers();
-
-            // Timeout
-            this.jTextField_Timeout.setText(_configBean.getConfig(ConfigBean.Keys.Timeout));
-
-            // Wallet File Name
-            this.jTextField_WalletFile.setText(_configBean.getConfig(ConfigBean.Keys.WalletFilename));
 
             // User Data Path
             String userDataPath = _configBean.getConfig(ConfigBean.Keys.UserDataPath);
@@ -488,10 +415,6 @@ public class Settings extends javax.swing.JFrame {
 
     private void updateSettings() throws OutOfOrderException {
         LoadState.Progress(LoadState.Stages.Opt_UpdateSettings);
-
-        _configBean.setConfig(ConfigBean.Keys.Timeout, this.jTextField_Timeout.getText());
-
-        _configBean.setConfig(ConfigBean.Keys.WalletFilename, this.jTextField_WalletFile.getText());
 
         _configBean.setConfig(ConfigBean.Keys.JavaPath, Settings.jTextField_JavaPath.getText());
         _configBean.setConfig(ConfigBean.Keys.JavaPathSet, "true");
