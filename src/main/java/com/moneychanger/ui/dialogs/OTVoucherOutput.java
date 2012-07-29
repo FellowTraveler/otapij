@@ -126,7 +126,7 @@ public class OTVoucherOutput extends javax.swing.JDialog implements ClipboardOwn
         initComponents();
         this.accountID = accountID;
         this.voucherText = voucherText;
-        setLocation(Utility.getLocation(this.getSize()));
+        this.setLocationRelativeTo(null);
         jTextArea1.setText(voucherText==null?"withdraw Voucher Failed":voucherText);
     }
 

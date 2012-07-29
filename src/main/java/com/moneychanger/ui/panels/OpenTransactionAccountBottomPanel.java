@@ -116,6 +116,7 @@ import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
+import org.jdesktop.application.Action;
 
 /**
  *
@@ -141,98 +142,81 @@ public class OpenTransactionAccountBottomPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane16 = new javax.swing.JScrollPane();
-        jTable6 = new com.moneychanger.ui.custom.CustomTable();
-        jButton1 = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
-        jScrollPane14 = new javax.swing.JScrollPane();
-        jTable7 = new com.moneychanger.ui.custom.CustomTable();
-        jPanel4 = new javax.swing.JPanel();
+        jPanel_Inbox = new javax.swing.JPanel();
+        jScrollPane_Inbox = new javax.swing.JScrollPane();
+        jTable_Inbox = new com.moneychanger.ui.custom.CustomTable();
+        jButton_ProcessInbox = new javax.swing.JButton();
+        jPanel_Outbox = new javax.swing.JPanel();
+        jScrollPane_Outbox = new javax.swing.JScrollPane();
+        jTable_Outbox = new com.moneychanger.ui.custom.CustomTable();
+        jPanel_Receipts = new javax.swing.JPanel();
         jScrollPane15 = new javax.swing.JScrollPane();
         jTable8 = new javax.swing.JTable();
         jButton8 = new javax.swing.JButton();
 
         setName("Form"); // NOI18N
+        setLayout(new java.awt.CardLayout());
 
         jTabbedPane1.setName("jTabbedPane1"); // NOI18N
 
-        jPanel1.setName("jPanel1"); // NOI18N
+        jPanel_Inbox.setName("jPanel_Inbox"); // NOI18N
+        jPanel_Inbox.setLayout(new java.awt.GridBagLayout());
 
-        jScrollPane16.setName("jScrollPane16"); // NOI18N
+        jScrollPane_Inbox.setMinimumSize(new java.awt.Dimension(200, 100));
+        jScrollPane_Inbox.setName("jScrollPane_Inbox"); // NOI18N
 
-        jTable6.setModel(new com.moneychanger.ui.model.OTInboxTableModel());
-        jTable6.setName("jTable6"); // NOI18N
-        jTable6.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jTable6.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTable_Inbox.setModel(new com.moneychanger.ui.model.OTInboxTableModel());
+        jTable_Inbox.setName("jTable_Inbox"); // NOI18N
+        jTable_Inbox.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTable_Inbox.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable6MouseClicked(evt);
+                jTable_InboxMouseClicked(evt);
             }
         });
-        jScrollPane16.setViewportView(jTable6);
+        jScrollPane_Inbox.setViewportView(jTable_Inbox);
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(OpenTransactionAccountBottomPanel.class);
-        jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
-        jButton1.setName("jButton1"); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        jPanel_Inbox.add(jScrollPane_Inbox, gridBagConstraints);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane16, javax.swing.GroupLayout.DEFAULT_SIZE, 697, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(300, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(296, 296, 296))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane16, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addContainerGap())
-        );
+        javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance().getContext().getActionMap(OpenTransactionAccountBottomPanel.class, this);
+        jButton_ProcessInbox.setAction(actionMap.get("ProcessInbox")); // NOI18N
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(OpenTransactionAccountBottomPanel.class);
+        jButton_ProcessInbox.setText(resourceMap.getString("jButton_ProcessInbox.text")); // NOI18N
+        jButton_ProcessInbox.setName("jButton_ProcessInbox"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel_Inbox.add(jButton_ProcessInbox, gridBagConstraints);
 
-        jTabbedPane1.addTab("INBOX", jPanel1);
+        jTabbedPane1.addTab("INBOX", jPanel_Inbox);
 
-        jPanel3.setName("jPanel3"); // NOI18N
+        jPanel_Outbox.setName("jPanel_Outbox"); // NOI18N
+        jPanel_Outbox.setLayout(new java.awt.CardLayout());
 
-        jScrollPane14.setName("jScrollPane14"); // NOI18N
+        jScrollPane_Outbox.setName("jScrollPane_Outbox"); // NOI18N
 
-        jTable7.setModel(new com.moneychanger.ui.model.OTOutboxTableModel());
-        jTable7.setName("jTable7"); // NOI18N
-        jTable7.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jTable7.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTable_Outbox.setModel(new com.moneychanger.ui.model.OTOutboxTableModel());
+        jTable_Outbox.setName("jTable_Outbox"); // NOI18N
+        jTable_Outbox.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTable_Outbox.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable7MouseClicked(evt);
+                jTable_OutboxMouseClicked(evt);
             }
         });
-        jScrollPane14.setViewportView(jTable7);
+        jScrollPane_Outbox.setViewportView(jTable_Outbox);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane14, javax.swing.GroupLayout.DEFAULT_SIZE, 697, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane14, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        jPanel_Outbox.add(jScrollPane_Outbox, "card2");
 
-        jTabbedPane1.addTab("OUTBOX", jPanel3);
+        jTabbedPane1.addTab("OUTBOX", jPanel_Outbox);
 
-        jPanel4.setName("jPanel4");
+        jPanel_Receipts.setName("jPanel_Receipts");
 
         jScrollPane15.setName("jScrollPane15"); // NOI18N
 
@@ -243,50 +227,39 @@ public class OpenTransactionAccountBottomPanel extends javax.swing.JPanel {
 
         jButton8.setName("jButton8"); // NOI18N
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel_ReceiptsLayout = new javax.swing.GroupLayout(jPanel_Receipts);
+        jPanel_Receipts.setLayout(jPanel_ReceiptsLayout);
+        jPanel_ReceiptsLayout.setHorizontalGroup(
+            jPanel_ReceiptsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_ReceiptsLayout.createSequentialGroup()
                 .addGap(186, 186, 186)
                 .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(470, Short.MAX_VALUE))
-            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_ReceiptsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jScrollPane15, javax.swing.GroupLayout.DEFAULT_SIZE, 697, Short.MAX_VALUE))
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        jPanel_ReceiptsLayout.setVerticalGroup(
+            jPanel_ReceiptsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_ReceiptsLayout.createSequentialGroup()
                 .addGap(226, 226, 226)
                 .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel4Layout.createSequentialGroup()
+            .addGroup(jPanel_ReceiptsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel_ReceiptsLayout.createSequentialGroup()
                     .addGap(8, 8, 8)
                     .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(29, Short.MAX_VALUE)))
+                    .addContainerGap(40, Short.MAX_VALUE)))
         );
 
-        jTabbedPane1.addTab("RECEIPTS", jPanel4);
+        jTabbedPane1.addTab("RECEIPTS", jPanel_Receipts);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 702, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        add(jTabbedPane1, "card2");
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTable7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable7MouseClicked
+    private void jTable_OutboxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_OutboxMouseClicked
         System.out.println("Count:" + evt.getClickCount());
         if (evt.getClickCount() == 2) {
-            String key = (String) jTable7.getModel().getValueAt(jTable7.getSelectedRow(), 7);
+            String key = (String) jTable_Outbox.getModel().getValueAt(jTable_Outbox.getSelectedRow(), 7);
             System.out.println("In outbox double clcik, key:" + key);
             String[] row = (String[]) outbox.get(key);
             if (row != null && "pending".equalsIgnoreCase(row[3])) {
@@ -295,12 +268,12 @@ public class OpenTransactionAccountBottomPanel extends javax.swing.JPanel {
                 otNotes.setVisible(true);
             }
         }
-}//GEN-LAST:event_jTable7MouseClicked
+}//GEN-LAST:event_jTable_OutboxMouseClicked
 
-    private void jTable6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable6MouseClicked
+    private void jTable_InboxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_InboxMouseClicked
         System.out.println("Count:" + evt.getClickCount());
         if (evt.getClickCount() == 2) {
-            String key = (String) jTable6.getModel().getValueAt(jTable6.getSelectedRow(), 9);
+            String key = (String) jTable_Inbox.getModel().getValueAt(jTable_Inbox.getSelectedRow(), 9);
             if (null == key) key = new String("");
             System.out.println("In outbox double clcik, key:" + key);
             String[] row = (String[]) inbox.get(key);
@@ -310,36 +283,120 @@ public class OpenTransactionAccountBottomPanel extends javax.swing.JPanel {
                 otNotes.setVisible(true);
             }
         }
-    }//GEN-LAST:event_jTable6MouseClicked
+    }//GEN-LAST:event_jTable_InboxMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton_ProcessInbox;
+    private javax.swing.JPanel jPanel_Inbox;
+    private javax.swing.JPanel jPanel_Outbox;
+    private javax.swing.JPanel jPanel_Receipts;
+    private javax.swing.JScrollPane jScrollPane15;
+    private javax.swing.JScrollPane jScrollPane_Inbox;
+    private javax.swing.JScrollPane jScrollPane_Outbox;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private static javax.swing.JTable jTable8;
+    private static javax.swing.JTable jTable_Inbox;
+    private static javax.swing.JTable jTable_Outbox;
+    // End of variables declaration//GEN-END:variables
+
+    private void setCustomProperties() {
+
+        int width = 120;
+
+        jTable_Inbox.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        TableColumn col = jTable_Inbox.getColumnModel().getColumn(4);
+
+        col.setPreferredWidth(width);
+
+        col = jTable_Inbox.getColumnModel().getColumn(5);
+        col.setPreferredWidth(width);
+
+        col = jTable_Inbox.getColumnModel().getColumn(6);
+        col.setPreferredWidth(180);
+
+        jTable_Outbox.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+        col = jTable_Outbox.getColumnModel().getColumn(4);
+        col.setPreferredWidth(80);
+
+        col = jTable_Outbox.getColumnModel().getColumn(4);
+        col.setPreferredWidth(width);
+
+        col = jTable_Outbox.getColumnModel().getColumn(5);
+        col.setPreferredWidth(width);
+
+
+        col = jTable_Outbox.getColumnModel().getColumn(6);
+        col.setPreferredWidth(150);
+
+        jTable8.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        col = jTable8.getColumnModel().getColumn(3);
+        col.setPreferredWidth(width);
+
+        col = jTable8.getColumnModel().getColumn(5);
+        col.setPreferredWidth(width);
+
+        // TODO Uncomment below when implementing RECEIPT
+        jTabbedPane1.remove(jPanel_Receipts);
+    }
+
+    public static void clearPanel() {
+        if (jTable_Inbox != null && jTable_Outbox != null && jTable8 != null) {
+            ((OTInboxTableModel) jTable_Inbox.getModel()).clearValue();
+            ((OTOutboxTableModel) jTable_Outbox.getModel()).clearValue();
+            ((OTReceiptTableModel) jTable8.getModel()).clearValue();
+        }
+    }
+
+    public static void setOTTables(Map inboxData, Map outboxData) {
+
+        inbox = inboxData;
+        outbox = outboxData;
+        ((OTInboxTableModel) jTable_Inbox.getModel()).setValue(inbox, jTable_Inbox);
+        ((OTOutboxTableModel) jTable_Outbox.getModel()).setValue(outbox, jTable_Outbox);
+        //((OTReceiptTableModel) jTable8.getModel()).setValue(otDetails.getReceiptData(),jTable8);
+    }
+
+    public static void populateOTDetails(OTDetails otDetails) {
+
+        inbox = otDetails.getInboxData();
+        outbox = otDetails.getOutboxData();
+        accountID = otDetails.getAccountID();
+        ((OTInboxTableModel) jTable_Inbox.getModel()).setValue(inbox, jTable_Inbox);
+        ((OTOutboxTableModel) jTable_Outbox.getModel()).setValue(outbox, jTable_Outbox);
+        //((OTReceiptTableModel) jTable8.getModel()).setValue(otDetails.getReceiptData(),jTable8);
+    }
+
+    @Action
+    public void ProcessInbox() {
+                try {
             OpenTransactionAccount openTransaction = new OpenTransactionAccount();
             Map selectedIndices = new HashMap();
             List finalReceiptRefNo = new ArrayList();
-            for (int i = 0; i < jTable6.getRowCount(); i++) {
-                String key = (String) jTable6.getModel().getValueAt(i, 9);
+            for (int i = 0; i < jTable_Inbox.getRowCount(); i++) {
+                String key = (String) jTable_Inbox.getModel().getValueAt(i, 9);
                 if (null == key) key = new String("");
-                if ((Boolean) jTable6.getModel().getValueAt(i, 7)) {
+                if ((Boolean) jTable_Inbox.getModel().getValueAt(i, 7)) {
                     selectedIndices.put(key, true);
                 }
-                if ((Boolean) jTable6.getModel().getValueAt(i, 8)) {
+                if ((Boolean) jTable_Inbox.getModel().getValueAt(i, 8)) {
                     selectedIndices.put(key, false);
                 }
-                if ("finalReceipt".equalsIgnoreCase((String) jTable6.getModel().getValueAt(i, 3)) && (Boolean) jTable6.getModel().getValueAt(i, 7)) {
-                    finalReceiptRefNo.add((String) jTable6.getModel().getValueAt(i, 1));
+                if ("finalReceipt".equalsIgnoreCase((String) jTable_Inbox.getModel().getValueAt(i, 3)) && (Boolean) jTable_Inbox.getModel().getValueAt(i, 7)) {
+                    finalReceiptRefNo.add((String) jTable_Inbox.getModel().getValueAt(i, 1));
                 }
             }
             System.out.println("selectedIndices:" + selectedIndices.entrySet());
-            if (jTable6.getRowCount() < 1 || selectedIndices.size() < 1) {
+            if (jTable_Inbox.getRowCount() < 1 || selectedIndices.size() < 1) {
                 JOptionPane.showMessageDialog(this, "Please check some transactions to process", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             for (int j = 0; j < finalReceiptRefNo.size(); j++) {
                 String referenceNo = (String) finalReceiptRefNo.get(j);
-                for (int i = 0; i < jTable6.getRowCount(); i++) {
-                    if (referenceNo.equals((String) jTable6.getModel().getValueAt(i, 1)) && !(Boolean) jTable6.getModel().getValueAt(i, 7)) {
+                for (int i = 0; i < jTable_Inbox.getRowCount(); i++) {
+                    if (referenceNo.equals((String) jTable_Inbox.getModel().getValueAt(i, 1)) && !(Boolean) jTable_Inbox.getModel().getValueAt(i, 7)) {
                         JOptionPane.showMessageDialog(this, "To close a finalReceipt, you must also close the other receipts that have the same reference number", "Error", JOptionPane.ERROR_MESSAGE);
                         return;
 
@@ -362,87 +419,5 @@ public class OpenTransactionAccountBottomPanel extends javax.swing.JPanel {
         } finally {
             setCursor(Cursor.getDefaultCursor());
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane14;
-    private javax.swing.JScrollPane jScrollPane15;
-    private javax.swing.JScrollPane jScrollPane16;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private static javax.swing.JTable jTable6;
-    private static javax.swing.JTable jTable7;
-    private static javax.swing.JTable jTable8;
-    // End of variables declaration//GEN-END:variables
-
-    private void setCustomProperties() {
-
-        int width = 120;
-
-        jTable6.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        TableColumn col = jTable6.getColumnModel().getColumn(4);
-
-        col.setPreferredWidth(width);
-
-        col = jTable6.getColumnModel().getColumn(5);
-        col.setPreferredWidth(width);
-
-        col = jTable6.getColumnModel().getColumn(6);
-        col.setPreferredWidth(180);
-
-        jTable7.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-
-        col = jTable7.getColumnModel().getColumn(4);
-        col.setPreferredWidth(80);
-
-        col = jTable7.getColumnModel().getColumn(4);
-        col.setPreferredWidth(width);
-
-        col = jTable7.getColumnModel().getColumn(5);
-        col.setPreferredWidth(width);
-
-
-        col = jTable7.getColumnModel().getColumn(6);
-        col.setPreferredWidth(150);
-
-        jTable8.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        col = jTable8.getColumnModel().getColumn(3);
-        col.setPreferredWidth(width);
-
-        col = jTable8.getColumnModel().getColumn(5);
-        col.setPreferredWidth(width);
-
-        // TODO Uncomment below when implementing RECEIPT
-        jTabbedPane1.remove(jPanel4);
-    }
-
-    public static void clearPanel() {
-        if (jTable6 != null && jTable7 != null && jTable8 != null) {
-            ((OTInboxTableModel) jTable6.getModel()).clearValue();
-            ((OTOutboxTableModel) jTable7.getModel()).clearValue();
-            ((OTReceiptTableModel) jTable8.getModel()).clearValue();
-        }
-    }
-
-    public static void setOTTables(Map inboxData, Map outboxData) {
-
-        inbox = inboxData;
-        outbox = outboxData;
-        ((OTInboxTableModel) jTable6.getModel()).setValue(inbox, jTable6);
-        ((OTOutboxTableModel) jTable7.getModel()).setValue(outbox, jTable7);
-        //((OTReceiptTableModel) jTable8.getModel()).setValue(otDetails.getReceiptData(),jTable8);
-    }
-
-    public static void populateOTDetails(OTDetails otDetails) {
-
-        inbox = otDetails.getInboxData();
-        outbox = otDetails.getOutboxData();
-        accountID = otDetails.getAccountID();
-        ((OTInboxTableModel) jTable6.getModel()).setValue(inbox, jTable6);
-        ((OTOutboxTableModel) jTable7.getModel()).setValue(outbox, jTable7);
-        //((OTReceiptTableModel) jTable8.getModel()).setValue(otDetails.getReceiptData(),jTable8);
     }
 }

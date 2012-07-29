@@ -18,7 +18,7 @@ public class LoadState {
 
     public static enum Stages {
 
-        Init, Opt_InitSettings, Opt_LoadSettings, Opt_UpdateSettings, Opt_LoadNativeDependencies, LoadOTAPI, InitOTAPI, SetupPasswordImage, SetupPasswordCallback, LoadWallet, Opt_SwitchWallet, LoadMoneychangerGUI;
+        Init, Opt_InitSettings, Opt_LoadSettings, Opt_UpdateSettings, LoadNativeLibraries, InitOTAPI, SetupPasswordImage, SetupPasswordCallback, LoadWallet, Opt_SwitchWallet, LoadMoneychangerGUI;
     }
 
     private static class CurrentState {
@@ -28,10 +28,9 @@ public class LoadState {
         private static Set<Stages> _failedStages = EnumSet.noneOf(Stages.class);
         private static Set<Stages> _availabeStages = EnumSet.noneOf(Stages.class);
 
-        static  {
+        static {
             _availabeStages.add(Stages.Opt_InitSettings);
-            _availabeStages.add(Stages.Opt_LoadNativeDependencies);
-            _availabeStages.add(Stages.LoadOTAPI);
+            _availabeStages.add(Stages.LoadNativeLibraries);
         }
 
         public static Stages getState() {
@@ -98,10 +97,14 @@ public class LoadState {
 
     public static void setStageComplete() throws OutOfOrderException {
         CurrentState.setCompletedStage(CurrentState.getState());
+        System.out.println("Completed Stage: " + CurrentState.getState().toString());
+        System.out.println();
     }
 
     public static void setStageFailed() throws OutOfOrderException {
         CurrentState.setFailedStage(CurrentState.getState());
+        System.err.println("Stage " + CurrentState.getState().toString() + " failed!");
+        System.out.println();
     }
 
     public static Boolean isStageComplete() {
@@ -118,24 +121,24 @@ public class LoadState {
 
         switch (CurrentState.getState()) {
             // Add Next Stage Options
-            
+
             case Opt_InitSettings:
                 CurrentState.addAvailableStage(Stages.Opt_LoadSettings);
                 break;
-                
+
             case Opt_LoadSettings:
-                    CurrentState.addAvailableStage(Stages.Opt_UpdateSettings);
+                CurrentState.addAvailableStage(Stages.Opt_UpdateSettings);
                 break;
-                
-            case LoadOTAPI:
+
+            case LoadNativeLibraries:
                 CurrentState.addAvailableStage(Stages.InitOTAPI);
                 break;
 
             case InitOTAPI:
                 CurrentState.addAvailableStage(Stages.SetupPasswordImage);
                 break;
-                
-            case SetupPasswordImage :
+
+            case SetupPasswordImage:
                 CurrentState.addAvailableStage(Stages.SetupPasswordCallback);
                 break;
 
@@ -148,6 +151,10 @@ public class LoadState {
                 CurrentState.addAvailableStage(Stages.LoadMoneychangerGUI);
                 break;
         }
+
+        System.out.println();
+        System.out.println("Started Stage: " + CurrentState.getState().toString());
+
         return CurrentState.getState();
     }
 

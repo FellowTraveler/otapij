@@ -134,247 +134,459 @@ public class OpenTransactionAccountTopPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
-        jLabel6 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jTextField9 = new javax.swing.JTextField();
-        jTextField10 = new javax.swing.JTextField();
-        jTextField11 = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jTextField12 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+        jLabel_AssetTypeName = new javax.swing.JLabel();
+        jTextField_AssetName = new javax.swing.JTextField();
+        jLabel_CurrentBalance = new javax.swing.JLabel();
+        jTextField_Balance = new javax.swing.JTextField();
+        jButton_DownloadAccountFiles = new javax.swing.JButton();
+        jButton_VerifyFiles = new javax.swing.JButton();
+        jLabel_AssetID = new javax.swing.JLabel();
+        jTextField_AssetID = new javax.swing.JTextField();
+        jLabel_NymName = new javax.swing.JLabel();
+        jTextField_NymName = new javax.swing.JTextField();
+        jLabel_NymID = new javax.swing.JLabel();
+        jTextField_NymID = new javax.swing.JTextField();
+        jLabel_AccountName = new javax.swing.JLabel();
+        jTextField_AccountName = new javax.swing.JTextField();
+        jLabel_AccountID = new javax.swing.JLabel();
+        jTextField_AccountID = new javax.swing.JTextField();
+        jLabel_ServerName = new javax.swing.JLabel();
+        jTextField_ServerName = new javax.swing.JTextField();
+        jLabel_ServerID = new javax.swing.JLabel();
+        jTextField_ServerID = new javax.swing.JTextField();
+        jPanel_AccountActions = new javax.swing.JPanel();
+        jButton_WriteCheque = new javax.swing.JButton();
+        jButton_DepositCheque = new javax.swing.JButton();
+        jButton_WithdrawCash = new javax.swing.JButton();
+        jButton_DepositCash = new javax.swing.JButton();
+        jButton_SendTransfer = new javax.swing.JButton();
+        jButton_PurchaseVoucher = new javax.swing.JButton();
+        jPanel_AccountBasket = new javax.swing.JPanel();
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jLabel_BasketName = new javax.swing.JLabel();
 
         setName("Form"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(800, 390));
+        setLayout(new java.awt.GridBagLayout());
 
-        jLabel6.setText("Current Balance");
-        jLabel6.setName("jLabel6"); // NOI18N
-
-        jTextField4.setEditable(false);
-        jTextField4.setName("jTextField4"); // NOI18N
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
-            }
-        });
-
-        jLabel7.setText("Asset Type Name");
-        jLabel7.setName("jLabel7"); // NOI18N
-
+        jLabel_AssetTypeName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(OpenTransactionAccountTopPanel.class);
-        jTextField5.setBackground(resourceMap.getColor("jTextField5.background")); // NOI18N
-        jTextField5.setEditable(false);
-        jTextField5.setName("jTextField5"); // NOI18N
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+        jLabel_AssetTypeName.setText(resourceMap.getString("jLabel_AssetTypeName.text")); // NOI18N
+        jLabel_AssetTypeName.setMinimumSize(new java.awt.Dimension(80, 24));
+        jLabel_AssetTypeName.setName("jLabel_AssetTypeName"); // NOI18N
+        jLabel_AssetTypeName.setPreferredSize(new java.awt.Dimension(100, 24));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.weighty = 0.2;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        add(jLabel_AssetTypeName, gridBagConstraints);
+
+        jTextField_AssetName.setBackground(resourceMap.getColor("jTextField_AssetName.background")); // NOI18N
+        jTextField_AssetName.setEditable(false);
+        jTextField_AssetName.setName("jTextField_AssetName"); // NOI18N
+        jTextField_AssetName.setPreferredSize(new java.awt.Dimension(6, 24));
+        jTextField_AssetName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
+                jTextField_AssetNameActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 0.2;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        add(jTextField_AssetName, gridBagConstraints);
 
-        jLabel8.setText("Server Name");
-        jLabel8.setName("jLabel8"); // NOI18N
+        jLabel_CurrentBalance.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel_CurrentBalance.setText(resourceMap.getString("jLabel_CurrentBalance.text")); // NOI18N
+        jLabel_CurrentBalance.setMinimumSize(new java.awt.Dimension(80, 24));
+        jLabel_CurrentBalance.setName("jLabel_CurrentBalance"); // NOI18N
+        jLabel_CurrentBalance.setPreferredSize(new java.awt.Dimension(100, 24));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.weighty = 0.2;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        add(jLabel_CurrentBalance, gridBagConstraints);
 
-        jTextField6.setBackground(resourceMap.getColor("jTextField6.background")); // NOI18N
-        jTextField6.setEditable(false);
-        jTextField6.setName("jTextField6"); // NOI18N
-        jTextField6.addActionListener(new java.awt.event.ActionListener() {
+        jTextField_Balance.setEditable(false);
+        jTextField_Balance.setName("jTextField_Balance"); // NOI18N
+        jTextField_Balance.setPreferredSize(new java.awt.Dimension(6, 24));
+        jTextField_Balance.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField6ActionPerformed(evt);
+                jTextField_BalanceActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 0.2;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        add(jTextField_Balance, gridBagConstraints);
 
-        jLabel9.setText("NYM Name");
-        jLabel9.setName("jLabel9"); // NOI18N
-
-        jTextField7.setBackground(resourceMap.getColor("jTextField7.background")); // NOI18N
-        jTextField7.setEditable(false);
-        jTextField7.setName("jTextField7"); // NOI18N
-        jTextField7.addActionListener(new java.awt.event.ActionListener() {
+        jButton_DownloadAccountFiles.setText(resourceMap.getString("jButton_DownloadAccountFiles.text")); // NOI18N
+        jButton_DownloadAccountFiles.setMinimumSize(new java.awt.Dimension(140, 25));
+        jButton_DownloadAccountFiles.setName("jButton_DownloadAccountFiles"); // NOI18N
+        jButton_DownloadAccountFiles.setPreferredSize(new java.awt.Dimension(220, 25));
+        jButton_DownloadAccountFiles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField7ActionPerformed(evt);
+                jButton_DownloadAccountFilesActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_END;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 40);
+        add(jButton_DownloadAccountFiles, gridBagConstraints);
 
-        jLabel10.setText("Account Name");
-        jLabel10.setName("jLabel10"); // NOI18N
-
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel1.setName("jPanel1"); // NOI18N
-
-        jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
-        jButton1.setName("jButton1"); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButton_VerifyFiles.setText(resourceMap.getString("jButton_VerifyFiles.text")); // NOI18N
+        jButton_VerifyFiles.setMaximumSize(null);
+        jButton_VerifyFiles.setMinimumSize(new java.awt.Dimension(140, 25));
+        jButton_VerifyFiles.setName("jButton_VerifyFiles"); // NOI18N
+        jButton_VerifyFiles.setPreferredSize(new java.awt.Dimension(220, 25));
+        jButton_VerifyFiles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButton_VerifyFilesActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 40);
+        add(jButton_VerifyFiles, gridBagConstraints);
 
-        jButton3.setText(resourceMap.getString("jButton3.text")); // NOI18N
-        jButton3.setName("jButton3"); // NOI18N
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jLabel_AssetID.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel_AssetID.setText(resourceMap.getString("jLabel_AssetID.text")); // NOI18N
+        jLabel_AssetID.setMinimumSize(new java.awt.Dimension(80, 24));
+        jLabel_AssetID.setName("jLabel_AssetID"); // NOI18N
+        jLabel_AssetID.setPreferredSize(new java.awt.Dimension(100, 24));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LAST_LINE_END;
+        gridBagConstraints.weighty = 0.2;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        add(jLabel_AssetID, gridBagConstraints);
+
+        jTextField_AssetID.setEditable(false);
+        jTextField_AssetID.setName("jTextField_AssetID"); // NOI18N
+        jTextField_AssetID.setPreferredSize(new java.awt.Dimension(6, 24));
+        jTextField_AssetID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jTextField_AssetIDActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LAST_LINE_END;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 0.2;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 20);
+        add(jTextField_AssetID, gridBagConstraints);
 
-        jButton4.setText(resourceMap.getString("jButton4.text")); // NOI18N
-        jButton4.setName("jButton4"); // NOI18N
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        jLabel_NymName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel_NymName.setText(resourceMap.getString("jLabel_NymName.text")); // NOI18N
+        jLabel_NymName.setMinimumSize(new java.awt.Dimension(80, 24));
+        jLabel_NymName.setName("jLabel_NymName"); // NOI18N
+        jLabel_NymName.setPreferredSize(new java.awt.Dimension(100, 24));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LAST_LINE_END;
+        gridBagConstraints.weighty = 0.2;
+        gridBagConstraints.insets = new java.awt.Insets(4, 10, 4, 4);
+        add(jLabel_NymName, gridBagConstraints);
+
+        jTextField_NymName.setText(resourceMap.getString("jTextField_NymName.text")); // NOI18N
+        jTextField_NymName.setName("jTextField_NymName"); // NOI18N
+        jTextField_NymName.setPreferredSize(new java.awt.Dimension(6, 24));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LAST_LINE_END;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 0.2;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        add(jTextField_NymName, gridBagConstraints);
+
+        jLabel_NymID.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel_NymID.setText(resourceMap.getString("jLabel_NymID.text")); // NOI18N
+        jLabel_NymID.setMinimumSize(new java.awt.Dimension(80, 24));
+        jLabel_NymID.setName("jLabel_NymID"); // NOI18N
+        jLabel_NymID.setPreferredSize(new java.awt.Dimension(100, 24));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LAST_LINE_END;
+        gridBagConstraints.weighty = 0.2;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        add(jLabel_NymID, gridBagConstraints);
+
+        jTextField_NymID.setEditable(false);
+        jTextField_NymID.setName("jTextField_NymID"); // NOI18N
+        jTextField_NymID.setPreferredSize(new java.awt.Dimension(6, 24));
+        jTextField_NymID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                jTextField_NymIDActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LAST_LINE_END;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 0.2;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 20);
+        add(jTextField_NymID, gridBagConstraints);
 
-        jButton5.setText(resourceMap.getString("jButton5.text")); // NOI18N
-        jButton5.setName("jButton5"); // NOI18N
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        jLabel_AccountName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel_AccountName.setText(resourceMap.getString("jLabel_AccountName.text")); // NOI18N
+        jLabel_AccountName.setMinimumSize(new java.awt.Dimension(80, 24));
+        jLabel_AccountName.setName("jLabel_AccountName"); // NOI18N
+        jLabel_AccountName.setPreferredSize(new java.awt.Dimension(100, 24));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LAST_LINE_END;
+        gridBagConstraints.weighty = 0.2;
+        gridBagConstraints.insets = new java.awt.Insets(4, 10, 4, 4);
+        add(jLabel_AccountName, gridBagConstraints);
+
+        jTextField_AccountName.setBackground(resourceMap.getColor("jTextField_AccountName.background")); // NOI18N
+        jTextField_AccountName.setEditable(false);
+        jTextField_AccountName.setName("jTextField_AccountName"); // NOI18N
+        jTextField_AccountName.setPreferredSize(new java.awt.Dimension(6, 24));
+        jTextField_AccountName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                jTextField_AccountNameActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LAST_LINE_END;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 0.2;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        add(jTextField_AccountName, gridBagConstraints);
 
-        jButton6.setText(resourceMap.getString("jButton6.text")); // NOI18N
-        jButton6.setName("jButton6"); // NOI18N
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        jLabel_AccountID.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel_AccountID.setText(resourceMap.getString("jLabel_AccountID.text")); // NOI18N
+        jLabel_AccountID.setMinimumSize(new java.awt.Dimension(80, 24));
+        jLabel_AccountID.setName("jLabel_AccountID"); // NOI18N
+        jLabel_AccountID.setPreferredSize(new java.awt.Dimension(100, 24));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LAST_LINE_END;
+        gridBagConstraints.weighty = 0.2;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        add(jLabel_AccountID, gridBagConstraints);
+
+        jTextField_AccountID.setEditable(false);
+        jTextField_AccountID.setName("jTextField_AccountID"); // NOI18N
+        jTextField_AccountID.setPreferredSize(new java.awt.Dimension(6, 24));
+        jTextField_AccountID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                jTextField_AccountIDActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LAST_LINE_END;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 0.2;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 20);
+        add(jTextField_AccountID, gridBagConstraints);
 
-        jButton2.setText(resourceMap.getString("jButton2.text")); // NOI18N
-        jButton2.setName("jButton2"); // NOI18N
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jLabel_ServerName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel_ServerName.setText(resourceMap.getString("jLabel_ServerName.text")); // NOI18N
+        jLabel_ServerName.setMinimumSize(new java.awt.Dimension(80, 24));
+        jLabel_ServerName.setName("jLabel_ServerName"); // NOI18N
+        jLabel_ServerName.setPreferredSize(new java.awt.Dimension(100, 24));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LAST_LINE_END;
+        gridBagConstraints.weighty = 0.2;
+        gridBagConstraints.insets = new java.awt.Insets(4, 10, 4, 4);
+        add(jLabel_ServerName, gridBagConstraints);
+
+        jTextField_ServerName.setBackground(resourceMap.getColor("jTextField_ServerName.background")); // NOI18N
+        jTextField_ServerName.setEditable(false);
+        jTextField_ServerName.setName("jTextField_ServerName"); // NOI18N
+        jTextField_ServerName.setPreferredSize(new java.awt.Dimension(6, 24));
+        jTextField_ServerName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jTextField_ServerNameActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LAST_LINE_END;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 0.2;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        add(jTextField_ServerName, gridBagConstraints);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton3))
-                    .addComponent(jButton6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton4)
-                        .addComponent(jButton5)))
-                .addContainerGap(7, Short.MAX_VALUE))
-        );
+        jLabel_ServerID.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel_ServerID.setText(resourceMap.getString("jLabel_ServerID.text")); // NOI18N
+        jLabel_ServerID.setMinimumSize(new java.awt.Dimension(80, 24));
+        jLabel_ServerID.setName("jLabel_ServerID"); // NOI18N
+        jLabel_ServerID.setPreferredSize(new java.awt.Dimension(100, 24));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LAST_LINE_END;
+        gridBagConstraints.weighty = 0.2;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        add(jLabel_ServerID, gridBagConstraints);
 
-        jTextField9.setEditable(false);
-        jTextField9.setName("jTextField9"); // NOI18N
-        jTextField9.addActionListener(new java.awt.event.ActionListener() {
+        jTextField_ServerID.setEditable(false);
+        jTextField_ServerID.setName("jTextField_ServerID"); // NOI18N
+        jTextField_ServerID.setPreferredSize(new java.awt.Dimension(6, 24));
+        jTextField_ServerID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField9ActionPerformed(evt);
+                jTextField_ServerIDActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LAST_LINE_END;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 0.2;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 20);
+        add(jTextField_ServerID, gridBagConstraints);
 
-        jTextField10.setEditable(false);
-        jTextField10.setName("jTextField10"); // NOI18N
-        jTextField10.addActionListener(new java.awt.event.ActionListener() {
+        jPanel_AccountActions.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel_AccountActions.setName("jPanel_AccountActions"); // NOI18N
+        jPanel_AccountActions.setLayout(new java.awt.GridBagLayout());
+
+        jButton_WriteCheque.setText(resourceMap.getString("jButton_WriteCheque.text")); // NOI18N
+        jButton_WriteCheque.setMinimumSize(new java.awt.Dimension(120, 24));
+        jButton_WriteCheque.setName("jButton_WriteCheque"); // NOI18N
+        jButton_WriteCheque.setPreferredSize(new java.awt.Dimension(160, 24));
+        jButton_WriteCheque.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField10ActionPerformed(evt);
+                jButton_WriteChequeActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
+        jPanel_AccountActions.add(jButton_WriteCheque, gridBagConstraints);
 
-        jTextField11.setEditable(false);
-        jTextField11.setName("jTextField11"); // NOI18N
-        jTextField11.addActionListener(new java.awt.event.ActionListener() {
+        jButton_DepositCheque.setText(resourceMap.getString("jButton_DepositCheque.text")); // NOI18N
+        jButton_DepositCheque.setMinimumSize(new java.awt.Dimension(120, 24));
+        jButton_DepositCheque.setName("jButton_DepositCheque"); // NOI18N
+        jButton_DepositCheque.setPreferredSize(new java.awt.Dimension(160, 24));
+        jButton_DepositCheque.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField11ActionPerformed(evt);
+                jButton_DepositChequeActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
+        jPanel_AccountActions.add(jButton_DepositCheque, gridBagConstraints);
 
-        jLabel11.setText("Account ID");
-        jLabel11.setName("jLabel11"); // NOI18N
-
-        jLabel12.setText("Server ID");
-        jLabel12.setName("jLabel12"); // NOI18N
-
-        jLabel13.setText("Asset ID");
-        jLabel13.setName("jLabel13"); // NOI18N
-
-        jLabel14.setText("Nym ID");
-        jLabel14.setName("jLabel14"); // NOI18N
-
-        jTextField12.setEditable(false);
-        jTextField12.setName("jTextField12"); // NOI18N
-        jTextField12.addActionListener(new java.awt.event.ActionListener() {
+        jButton_WithdrawCash.setText(resourceMap.getString("jButton_WithdrawCash.text")); // NOI18N
+        jButton_WithdrawCash.setMinimumSize(new java.awt.Dimension(120, 24));
+        jButton_WithdrawCash.setName("jButton_WithdrawCash"); // NOI18N
+        jButton_WithdrawCash.setPreferredSize(new java.awt.Dimension(160, 24));
+        jButton_WithdrawCash.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField12ActionPerformed(evt);
+                jButton_WithdrawCashActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
+        jPanel_AccountActions.add(jButton_WithdrawCash, gridBagConstraints);
 
-        jTextField8.setText(resourceMap.getString("jTextField8.text")); // NOI18N
-        jTextField8.setName("jTextField8"); // NOI18N
-
-        jButton7.setText(resourceMap.getString("jButton7.text")); // NOI18N
-        jButton7.setName("jButton7"); // NOI18N
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        jButton_DepositCash.setText(resourceMap.getString("jButton_DepositCash.text")); // NOI18N
+        jButton_DepositCash.setMinimumSize(new java.awt.Dimension(120, 24));
+        jButton_DepositCash.setName("jButton_DepositCash"); // NOI18N
+        jButton_DepositCash.setPreferredSize(new java.awt.Dimension(160, 24));
+        jButton_DepositCash.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                jButton_DepositCashActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
+        jPanel_AccountActions.add(jButton_DepositCash, gridBagConstraints);
 
-        jButton8.setText(resourceMap.getString("jButton8.text")); // NOI18N
-        jButton8.setName("jButton8"); // NOI18N
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        jButton_SendTransfer.setText(resourceMap.getString("jButton_SendTransfer.text")); // NOI18N
+        jButton_SendTransfer.setMinimumSize(new java.awt.Dimension(120, 24));
+        jButton_SendTransfer.setName("jButton_SendTransfer"); // NOI18N
+        jButton_SendTransfer.setPreferredSize(new java.awt.Dimension(160, 24));
+        jButton_SendTransfer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                jButton_SendTransferActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
+        jPanel_AccountActions.add(jButton_SendTransfer, gridBagConstraints);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel2.border.title"))); // NOI18N
-        jPanel2.setName("jPanel2"); // NOI18N
-        jPanel2.setVisible(false);
+        jButton_PurchaseVoucher.setText(resourceMap.getString("jButton_PurchaseVoucher.text")); // NOI18N
+        jButton_PurchaseVoucher.setMinimumSize(new java.awt.Dimension(120, 24));
+        jButton_PurchaseVoucher.setName("jButton_PurchaseVoucher"); // NOI18N
+        jButton_PurchaseVoucher.setPreferredSize(new java.awt.Dimension(160, 24));
+        jButton_PurchaseVoucher.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_PurchaseVoucherActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
+        gridBagConstraints.gridheight = java.awt.GridBagConstraints.RELATIVE;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
+        jPanel_AccountActions.add(jButton_PurchaseVoucher, gridBagConstraints);
+
+        jPanel_AccountBasket.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel_AccountBasket.border.title"))); // NOI18N
+        jPanel_AccountBasket.setMinimumSize(new java.awt.Dimension(180, 80));
+        jPanel_AccountBasket.setName("jPanel_AccountBasket"); // NOI18N
+        jPanel_AccountBasket.setPreferredSize(new java.awt.Dimension(220, 80));
+        jPanel_AccountBasket.setVisible(false);
 
         jButton9.setText(resourceMap.getString("jButton9.text")); // NOI18N
         jButton9.setName("jButton9"); // NOI18N
@@ -395,216 +607,116 @@ public class OpenTransactionAccountTopPanel extends javax.swing.JPanel {
         jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
         jLabel1.setName("jLabel1"); // NOI18N
 
-        jLabel2.setText(resourceMap.getString("jLabel2.text")); // NOI18N
-        jLabel2.setName("jLabel2"); // NOI18N
+        jLabel_BasketName.setText(resourceMap.getString("jLabel_BasketName.text")); // NOI18N
+        jLabel_BasketName.setName("jLabel_BasketName"); // NOI18N
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel_AccountBasketLayout = new javax.swing.GroupLayout(jPanel_AccountBasket);
+        jPanel_AccountBasket.setLayout(jPanel_AccountBasketLayout);
+        jPanel_AccountBasketLayout.setHorizontalGroup(
+            jPanel_AccountBasketLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_AccountBasketLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2)
+                .addComponent(jLabel_BasketName)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(53, Short.MAX_VALUE)
+                .addContainerGap(53, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_AccountBasketLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55))
+                .addGap(460, 460, 460))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        jPanel_AccountBasketLayout.setVerticalGroup(
+            jPanel_AccountBasketLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_AccountBasketLayout.createSequentialGroup()
+                .addGroup(jPanel_AccountBasketLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel_BasketName))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel_AccountBasketLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton10)
                     .addComponent(jButton9))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton8))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
-                        .addComponent(jTextField9, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField8, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
-                            .addComponent(jTextField7, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextField11, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel13)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextField10, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(9, 9, 9)
-                                .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
-                                .addGap(7, 7, 7)
-                                .addComponent(jTextField12, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)))))
-                .addGap(69, 69, 69))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton7)
-                    .addComponent(jButton8))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel1, 0, 90, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel10)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel11)
-                            .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(4, 4, 4)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12)
-                    .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel7)
-                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel13)
-                        .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel9)
-                        .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel14)))
-                .addContainerGap(123, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridheight = 2;
+        jPanel_AccountActions.add(jPanel_AccountBasket, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.weighty = 2.0;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        add(jPanel_AccountActions, gridBagConstraints);
 
         getAccessibleContext().setAccessibleParent(this);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void jTextField_BalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_BalanceActionPerformed
         // TODO add your handling code here:
-}//GEN-LAST:event_jTextField4ActionPerformed
+}//GEN-LAST:event_jTextField_BalanceActionPerformed
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+    private void jTextField_AccountNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_AccountNameActionPerformed
         // TODO add your handling code here:
-}//GEN-LAST:event_jTextField5ActionPerformed
+}//GEN-LAST:event_jTextField_AccountNameActionPerformed
 
-    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+    private void jTextField_ServerNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_ServerNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField6ActionPerformed
+    }//GEN-LAST:event_jTextField_ServerNameActionPerformed
 
-    private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
+    private void jTextField_AssetNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_AssetNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField7ActionPerformed
+    }//GEN-LAST:event_jTextField_AssetNameActionPerformed
 
-    private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed
+    private void jTextField_AccountIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_AccountIDActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField9ActionPerformed
+    }//GEN-LAST:event_jTextField_AccountIDActionPerformed
 
-    private void jTextField10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField10ActionPerformed
+    private void jTextField_AssetIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_AssetIDActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField10ActionPerformed
+    }//GEN-LAST:event_jTextField_AssetIDActionPerformed
 
-    private void jTextField11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField11ActionPerformed
+    private void jTextField_ServerIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_ServerIDActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField11ActionPerformed
+    }//GEN-LAST:event_jTextField_ServerIDActionPerformed
 
-    private void jTextField12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField12ActionPerformed
+    private void jTextField_NymIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_NymIDActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField12ActionPerformed
+    }//GEN-LAST:event_jTextField_NymIDActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        new DepositChequeDialog(null, true, jTextField11.getText(), jTextField12.getText(), jTextField9.getText()).setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void jButton_DepositChequeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_DepositChequeActionPerformed
+        new DepositChequeDialog(null, true, jTextField_ServerID.getText(), jTextField_NymID.getText(), jTextField_AccountID.getText()).setVisible(true);
+    }//GEN-LAST:event_jButton_DepositChequeActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        new WithdrawCashDialog(null, true, jTextField11.getText(), jTextField12.getText(), jTextField9.getText()).setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void jButton_WithdrawCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_WithdrawCashActionPerformed
+        new WithdrawCashDialog(null, true, jTextField_ServerID.getText(), jTextField_NymID.getText(), jTextField_AccountID.getText()).setVisible(true);
+    }//GEN-LAST:event_jButton_WithdrawCashActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        String[] purseDetails = new OpenTransactionAccount().getPurseBalance(jTextField11.getText(), jTextField10.getText(), jTextField12.getText());
+    private void jButton_DepositCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_DepositCashActionPerformed
+        String[] purseDetails = new OpenTransactionAccount().getPurseBalance(jTextField_ServerID.getText(), jTextField_AssetID.getText(), jTextField_NymID.getText());
         /*if(purseDetails==null){
         JOptionPane.showMessageDialog(this, "Error in cash deposit. Empty purse","Error",JOptionPane.ERROR_MESSAGE);
         return;
         }*/
-        new DepositCashDialog(null, true, purseDetails, jTextField11.getText(), jTextField12.getText(), jTextField9.getText()).setVisible(true);
-    }//GEN-LAST:event_jButton4ActionPerformed
+        new DepositCashDialog(null, true, purseDetails, jTextField_ServerID.getText(), jTextField_NymID.getText(), jTextField_AccountID.getText()).setVisible(true);
+    }//GEN-LAST:event_jButton_DepositCashActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        new WithdrawVoucherDialog(null, true, jTextField11.getText(), jTextField12.getText(), jTextField9.getText()).setVisible(true);
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void jButton_PurchaseVoucherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_PurchaseVoucherActionPerformed
+        new WithdrawVoucherDialog(null, true, jTextField_ServerID.getText(), jTextField_NymID.getText(), jTextField_AccountID.getText()).setVisible(true);
+    }//GEN-LAST:event_jButton_PurchaseVoucherActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        new OTWriteCheque(null, true, jTextField11.getText(), jTextField12.getText(), jTextField9.getText(),"").setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void jButton_WriteChequeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_WriteChequeActionPerformed
+        new OTWriteCheque(null, true, jTextField_ServerID.getText(), jTextField_NymID.getText(), jTextField_AccountID.getText(),"").setVisible(true);
+    }//GEN-LAST:event_jButton_WriteChequeActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        new SendTransferDialog(null, true, jTextField11.getText(), jTextField12.getText(), jTextField9.getText()).setVisible(true);
-    }//GEN-LAST:event_jButton6ActionPerformed
+    private void jButton_SendTransferActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SendTransferActionPerformed
+        new SendTransferDialog(null, true, jTextField_ServerID.getText(), jTextField_NymID.getText(), jTextField_AccountID.getText()).setVisible(true);
+    }//GEN-LAST:event_jButton_SendTransferActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        String accountID = jTextField9.getText();
+    private void jButton_DownloadAccountFilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_DownloadAccountFilesActionPerformed
+        String accountID = jTextField_AccountID.getText();
         try {
             OpenTransactionAccount openTransaction = new OpenTransactionAccount();
             setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -620,11 +732,11 @@ public class OpenTransactionAccountTopPanel extends javax.swing.JPanel {
         } finally {
             setCursor(Cursor.getDefaultCursor());
         }
-}//GEN-LAST:event_jButton7ActionPerformed
+}//GEN-LAST:event_jButton_DownloadAccountFilesActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+    private void jButton_VerifyFilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_VerifyFilesActionPerformed
         OpenTransactionAccount otAccount = new OpenTransactionAccount();
-        int isSuccess = otAccount.verifyFiles(jTextField11.getText(), jTextField12.getText(), jTextField9.getText());
+        int isSuccess = otAccount.verifyFiles(jTextField_ServerID.getText(), jTextField_NymID.getText(), jTextField_AccountID.getText());
         if (isSuccess == 0) {
             JOptionPane.showMessageDialog(null, "The intermediary files for this account have all been VERIFIED against the last signed receipt", "Verified", JOptionPane.INFORMATION_MESSAGE);
         } else if (isSuccess == 1) {
@@ -632,14 +744,14 @@ public class OpenTransactionAccountTopPanel extends javax.swing.JPanel {
         } else if (isSuccess == 2) {
             JOptionPane.showMessageDialog(null, "There is no receipt for this account", "Empty", JOptionPane.INFORMATION_MESSAGE);
         }
-    }//GEN-LAST:event_jButton8ActionPerformed
+    }//GEN-LAST:event_jButton_VerifyFilesActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         try {
             OpenTransactionAccount otAccount = new OpenTransactionAccount();
-            String basket = otAccount.showBasket(jTextField11.getText(), jTextField12.getText(), jTextField10.getText());
+            String basket = otAccount.showBasket(jTextField_ServerID.getText(), jTextField_NymID.getText(), jTextField_AssetID.getText());
             if (basket != null && basket.length() > 0) {
-                new ExchangeBasketDialog(null, true, basket, true, jTextField11.getText(), jTextField12.getText(), jTextField9.getText(), jTextField10.getText()).setVisible(true);
+                new ExchangeBasketDialog(null, true, basket, true, jTextField_ServerID.getText(), jTextField_NymID.getText(), jTextField_AccountID.getText(), jTextField_AssetID.getText()).setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null, "Error getting basket curreny list", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -651,9 +763,9 @@ public class OpenTransactionAccountTopPanel extends javax.swing.JPanel {
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         try {
             OpenTransactionAccount otAccount = new OpenTransactionAccount();
-            String basket = otAccount.showBasket(jTextField11.getText(), jTextField12.getText(), jTextField10.getText());
+            String basket = otAccount.showBasket(jTextField_ServerID.getText(), jTextField_NymID.getText(), jTextField_AssetID.getText());
             if (basket != null && basket.length() > 0) {
-                new ExchangeBasketDialog(null, true, basket, false, jTextField11.getText(), jTextField12.getText(), jTextField9.getText(), jTextField10.getText()).setVisible(true);
+                new ExchangeBasketDialog(null, true, basket, false, jTextField_ServerID.getText(), jTextField_NymID.getText(), jTextField_AccountID.getText(), jTextField_AssetID.getText()).setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null, "Error getting basket curreny list", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -662,70 +774,70 @@ public class OpenTransactionAccountTopPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton10ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
+    private javax.swing.JButton jButton_DepositCash;
+    private javax.swing.JButton jButton_DepositCheque;
+    private javax.swing.JButton jButton_DownloadAccountFiles;
+    private javax.swing.JButton jButton_PurchaseVoucher;
+    private javax.swing.JButton jButton_SendTransfer;
+    private javax.swing.JButton jButton_VerifyFiles;
+    private javax.swing.JButton jButton_WithdrawCash;
+    private javax.swing.JButton jButton_WriteCheque;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private static javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private static javax.swing.JPanel jPanel2;
-    private static javax.swing.JTextField jTextField10;
-    private static javax.swing.JTextField jTextField11;
-    private static javax.swing.JTextField jTextField12;
-    private static javax.swing.JTextField jTextField4;
-    private static javax.swing.JTextField jTextField5;
-    private static javax.swing.JTextField jTextField6;
-    private static javax.swing.JTextField jTextField7;
-    private static javax.swing.JTextField jTextField8;
-    private static javax.swing.JTextField jTextField9;
+    private javax.swing.JLabel jLabel_AccountID;
+    private javax.swing.JLabel jLabel_AccountName;
+    private javax.swing.JLabel jLabel_AssetID;
+    private javax.swing.JLabel jLabel_AssetTypeName;
+    private static javax.swing.JLabel jLabel_BasketName;
+    private javax.swing.JLabel jLabel_CurrentBalance;
+    private javax.swing.JLabel jLabel_NymID;
+    private javax.swing.JLabel jLabel_NymName;
+    private javax.swing.JLabel jLabel_ServerID;
+    private javax.swing.JLabel jLabel_ServerName;
+    private javax.swing.JPanel jPanel_AccountActions;
+    private static javax.swing.JPanel jPanel_AccountBasket;
+    private static javax.swing.JTextField jTextField_AccountID;
+    private static javax.swing.JTextField jTextField_AccountName;
+    private static javax.swing.JTextField jTextField_AssetID;
+    private static javax.swing.JTextField jTextField_AssetName;
+    private static javax.swing.JTextField jTextField_Balance;
+    private static javax.swing.JTextField jTextField_NymID;
+    private static javax.swing.JTextField jTextField_NymName;
+    private static javax.swing.JTextField jTextField_ServerID;
+    private static javax.swing.JTextField jTextField_ServerName;
     // End of variables declaration//GEN-END:variables
 
     public static void populateOTDetails(OTDetails otDetails) {
 
-        jTextField4.setText(otDetails.getBalance());
-        jTextField9.setText(otDetails.getAccountID());
-        jTextField10.setText(otDetails.getAssetID());
-        jTextField11.setText(otDetails.getServerID());
-        jTextField12.setText(otDetails.getNymID());
-        jTextField5.setText(otDetails.getAccountName());
-        jTextField6.setText(otDetails.getServerName());
-        jTextField7.setText(otDetails.getAssetName());
-        jTextField8.setText(otDetails.getNymName());
+        jTextField_Balance.setText(otDetails.getBalance());
+        jTextField_AccountID.setText(otDetails.getAccountID());
+        jTextField_AssetID.setText(otDetails.getAssetID());
+        jTextField_ServerID.setText(otDetails.getServerID());
+        jTextField_NymID.setText(otDetails.getNymID());
+        jTextField_AccountName.setText(otDetails.getAccountName());
+        jTextField_ServerName.setText(otDetails.getServerName());
+        jTextField_AssetName.setText(otDetails.getAssetName());
+        jTextField_NymName.setText(otDetails.getNymName());
 
         if (otDetails.getBasketName() != null) {
             System.out.println("otDetails.getBasketName():"+otDetails.getBasketName());
-            jPanel2.setVisible(true);
-            jLabel2.setToolTipText(otDetails.getBasketName());
-            jLabel2.setText(otDetails.getBasketName());
+            jPanel_AccountBasket.setVisible(true);
+            jLabel_BasketName.setToolTipText(otDetails.getBasketName());
+            jLabel_BasketName.setText(otDetails.getBasketName());
         } else {
-            jPanel2.setVisible(false);
+            jPanel_AccountBasket.setVisible(false);
         }
 
-        jTextField4.setCaretPosition(0);
-        jTextField9.setCaretPosition(0);
-        jTextField10.setCaretPosition(0);
-        jTextField11.setCaretPosition(0);
-        jTextField12.setCaretPosition(0);
-        jTextField5.setCaretPosition(0);
-        jTextField6.setCaretPosition(0);
-        jTextField7.setCaretPosition(0);
-        jTextField8.setCaretPosition(0);
+        jTextField_Balance.setCaretPosition(0);
+        jTextField_AccountID.setCaretPosition(0);
+        jTextField_AssetID.setCaretPosition(0);
+        jTextField_ServerID.setCaretPosition(0);
+        jTextField_NymID.setCaretPosition(0);
+        jTextField_AccountName.setCaretPosition(0);
+        jTextField_ServerName.setCaretPosition(0);
+        jTextField_AssetName.setCaretPosition(0);
+        jTextField_NymName.setCaretPosition(0);
 
 
 
@@ -733,18 +845,18 @@ public class OpenTransactionAccountTopPanel extends javax.swing.JPanel {
 
     public static void clearPanel() {
 
-        if (jTextField4 != null && jTextField5 != null && jTextField6 != null
-                && jTextField7 != null && jTextField8 != null && jTextField9 != null
-                && jTextField10 != null && jTextField11 != null && jTextField12 != null) {
-            jTextField4.setText("");
-            jTextField5.setText("");
-            jTextField6.setText("");
-            jTextField7.setText("");
-            jTextField8.setText("");
-            jTextField9.setText("");
-            jTextField10.setText("");
-            jTextField11.setText("");
-            jTextField12.setText("");
+        if (jTextField_Balance != null && jTextField_AccountName != null && jTextField_ServerName != null
+                && jTextField_AssetName != null && jTextField_NymName != null && jTextField_AccountID != null
+                && jTextField_AssetID != null && jTextField_ServerID != null && jTextField_NymID != null) {
+            jTextField_Balance.setText("");
+            jTextField_AccountName.setText("");
+            jTextField_ServerName.setText("");
+            jTextField_AssetName.setText("");
+            jTextField_NymName.setText("");
+            jTextField_AccountID.setText("");
+            jTextField_AssetID.setText("");
+            jTextField_ServerID.setText("");
+            jTextField_NymID.setText("");
         }
     }
 }

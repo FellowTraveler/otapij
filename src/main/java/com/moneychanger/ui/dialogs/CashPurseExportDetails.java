@@ -125,7 +125,7 @@ public class CashPurseExportDetails extends javax.swing.JDialog implements Clipb
         }
         jTextArea1.setText(purse);
         jTextArea1.setCaretPosition(0);
-        setLocation(Utility.getLocation(this.getSize()));
+        this.setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to

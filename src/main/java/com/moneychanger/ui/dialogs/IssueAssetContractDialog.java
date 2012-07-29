@@ -133,7 +133,7 @@ public class IssueAssetContractDialog extends javax.swing.JDialog {
         this.serverID = serverID;
         this.nymID = nymID;
         initValues();
-        setLocation(Utility.getLocation(this.getSize()));
+        this.setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to

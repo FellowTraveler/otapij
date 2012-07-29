@@ -126,7 +126,7 @@ public class ExchangeBasketAcctDialog extends javax.swing.JDialog {
 
         System.out.println("In ExchangeBasketAcctDialog,assetID:" + assetID + " nymID:" + nymID + " serverID:" + serverID);
         initValues();
-        setLocation(Utility.getLocation(this.getSize()));
+        this.setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to

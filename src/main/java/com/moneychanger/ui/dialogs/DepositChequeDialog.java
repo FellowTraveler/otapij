@@ -127,7 +127,7 @@ public class DepositChequeDialog extends javax.swing.JDialog {
         this.serverID = serverID;
         this.nymID = nymID;
         this.accountID = accountID;
-        setLocation(Utility.getLocation(this.getSize()));
+        this.setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to

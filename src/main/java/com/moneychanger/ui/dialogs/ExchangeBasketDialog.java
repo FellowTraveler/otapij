@@ -134,7 +134,7 @@ public class ExchangeBasketDialog extends javax.swing.JDialog {
         this.accountID = accountID;
         jLabel1.setText(basket);
         jLabel1.setToolTipText(basket);
-        setLocation(Utility.getLocation(this.getSize()));
+        this.setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to

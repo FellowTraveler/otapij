@@ -119,7 +119,7 @@ public class ServerContractEditDialog extends javax.swing.JDialog {
         super(parent, modal);
         this.serverID = serverID;
         initComponents();
-        setLocation(Utility.getLocation(this.getSize()));
+        this.setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to

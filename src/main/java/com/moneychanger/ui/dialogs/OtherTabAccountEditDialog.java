@@ -124,7 +124,7 @@ public class OtherTabAccountEditDialog extends javax.swing.JDialog {
         this.row = selectedRow;
         this.type = type;
         jTextField1.setText(currentLabel);
-        setLocation(Utility.getLocation(this.getSize()));
+        this.setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to

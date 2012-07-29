@@ -121,7 +121,7 @@ public class AddBasketDialog extends javax.swing.JDialog {
         this.serverID = serverID;
         init();
 
-        setLocation(Utility.getLocation(this.getSize()));
+        this.setLocationRelativeTo(null);
 
     }
 
