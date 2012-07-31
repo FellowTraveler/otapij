@@ -121,8 +121,8 @@ public class OTPwdConfirmDialog extends javax.swing.JDialog {
     public OTPwdConfirmDialog(java.awt.Frame parent, boolean modal,String passphrase) {
         super(parent, modal);
         initComponents();
-        jLabel1.setText(passphrase);
-        setLocation(Utility.getLocation(this.getSize()));
+        jLabel_password1.setText(passphrase);
+        this.setLocationRelativeTo(null);
 
         count = 0;
     }
@@ -135,83 +135,95 @@ public class OTPwdConfirmDialog extends javax.swing.JDialog {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
+        jLabel_password1 = new javax.swing.JLabel();
         jPasswordField1 = new javax.swing.JPasswordField();
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        jLabel_password2 = new javax.swing.JLabel();
         jPasswordField2 = new javax.swing.JPasswordField();
+        jButton_passwordOK = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(OTPwdConfirmDialog.class);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
+        setMinimumSize(new java.awt.Dimension(500, 200));
         setName("Form"); // NOI18N
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        jPasswordField1.setName("jPasswordField1"); // NOI18N
+        jLabel_password1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel_password1.setText(resourceMap.getString("jLabel_password1.text")); // NOI18N
+        jLabel_password1.setMaximumSize(new java.awt.Dimension(200, 30));
+        jLabel_password1.setMinimumSize(new java.awt.Dimension(100, 10));
+        jLabel_password1.setName("jLabel_password1"); // NOI18N
+        jLabel_password1.setPreferredSize(new java.awt.Dimension(150, 20));
+        jLabel_password1.setToolTipText(jLabel_password1.getText());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        getContentPane().add(jLabel_password1, gridBagConstraints);
+
+        jPasswordField1.setMaximumSize(new java.awt.Dimension(200, 30));
+        jPasswordField1.setMinimumSize(new java.awt.Dimension(100, 10));
+        jPasswordField1.setName(""); // NOI18N
+        jPasswordField1.setPreferredSize(new java.awt.Dimension(150, 20));
         jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPasswordField1ActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 5.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        getContentPane().add(jPasswordField1, gridBagConstraints);
 
-        jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
-        jLabel1.setName("jLabel1"); // NOI18N
-        jLabel1.setToolTipText(jLabel1.getText());
+        jLabel_password2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel_password2.setText(resourceMap.getString("jLabel_password2.text")); // NOI18N
+        jLabel_password2.setMaximumSize(new java.awt.Dimension(200, 30));
+        jLabel_password2.setMinimumSize(new java.awt.Dimension(100, 10));
+        jLabel_password2.setName("jLabel_password2"); // NOI18N
+        jLabel_password2.setPreferredSize(new java.awt.Dimension(150, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        getContentPane().add(jLabel_password2, gridBagConstraints);
 
-        jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
-        jButton1.setName("jButton1"); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setText(resourceMap.getString("jLabel2.text")); // NOI18N
-        jLabel2.setName("jLabel2"); // NOI18N
-
-        jPasswordField2.setName("jPasswordField2"); // NOI18N
+        jPasswordField2.setMaximumSize(new java.awt.Dimension(200, 30));
+        jPasswordField2.setMinimumSize(new java.awt.Dimension(100, 10));
+        jPasswordField2.setName(""); // NOI18N
+        jPasswordField2.setPreferredSize(new java.awt.Dimension(150, 20));
         jPasswordField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPasswordField2ActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 5.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        getContentPane().add(jPasswordField2, gridBagConstraints);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(52, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(34, Short.MAX_VALUE))
-        );
+        jButton_passwordOK.setText(resourceMap.getString("jButton_passwordOK.text")); // NOI18N
+        jButton_passwordOK.setName("jButton_passwordOK"); // NOI18N
+        jButton_passwordOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_passwordOKActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        getContentPane().add(jButton_passwordOK, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton_passwordOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_passwordOKActionPerformed
         password = jPasswordField1.getPassword();
 
         StringBuilder str1 = new StringBuilder();
@@ -235,7 +247,7 @@ public class OTPwdConfirmDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Passwords dont match.","Error",JOptionPane.ERROR_MESSAGE);
 
         }
-}//GEN-LAST:event_jButton1ActionPerformed
+}//GEN-LAST:event_jButton_passwordOKActionPerformed
 
     private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
     }//GEN-LAST:event_jPasswordField1ActionPerformed
@@ -263,9 +275,9 @@ public class OTPwdConfirmDialog extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private static javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton jButton_passwordOK;
+    private static javax.swing.JLabel jLabel_password1;
+    private javax.swing.JLabel jLabel_password2;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JPasswordField jPasswordField2;
     // End of variables declaration//GEN-END:variables

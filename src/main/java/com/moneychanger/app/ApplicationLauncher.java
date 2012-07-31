@@ -68,7 +68,7 @@ Hash: SHA256
  *   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
  *   PURPOSE.  See the GNU General Public License for more
  *   details.
- 
+
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.11 (Darwin)
 
@@ -87,8 +87,6 @@ AK+ZirdWhhoHeWR1tAkN
 =RcXP
 -----END PGP SIGNATURE-----
  **************************************************************/
-
-
 package com.moneychanger.app;
 
 import com.moneychanger.core.util.ConfigBean;
@@ -104,42 +102,44 @@ import org.jdesktop.application.SingleFrameApplication;
  * The main class of the application.
  */
 public class ApplicationLauncher extends SingleFrameApplication {
-
+    
+    
     /**
      * At startup create and show the main frame of the application.
      */
     @Override
     protected void startup() {
         try {
-            //show(new DesktopApplication1View(this));
-            SwingUtilities.invokeLater(new Runnable() {
+
+
+
+            final Runnable doHelloWorld = new Runnable() {
+
+                public void run() {
+                    new Settings(new ConfigBean()).setVisible(true);
+                }
+            };
+
+            Thread appThread = new Thread() {
 
                 @Override
                 public void run() {
                     try {
-
-                        /**
-                         * Comment below 2 lines to restore the default
-                         * look and feel.
-                         */
-                        /*SubstanceLookAndFeel laf = new SubstanceModerateLookAndFeel();
-                        UIManager.setLookAndFeel(laf);
-
-                        Utility.setObj(laf);*/
-
-                        new Settings(new ConfigBean()).setVisible(true);
+                        SwingUtilities.invokeAndWait(doHelloWorld);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
-
+                    System.out.println("Finished on " + Thread.currentThread());
                 }
-            });
-
+            };
+            
+            appThread.setDaemon(true);
+            appThread.start();
 
 
         } catch (Exception ex) {
             Logger.getLogger(ApplicationLauncher.class.getName()).log(Level.SEVERE, null, ex);
+            System.exit(-1);
         }
     }
 

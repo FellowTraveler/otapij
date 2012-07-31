@@ -120,7 +120,7 @@ public class OTWriteChequeOutput extends javax.swing.JDialog implements Clipboar
         super(parent, modal);
         setTitle("The Cheque");
         initComponents();
-        setLocation(Utility.getLocation(this.getSize()));
+        this.setLocationRelativeTo(null);
         jTextArea1.setText(chequeString==null?"Write Cheque Failed":chequeString);
     }
 

@@ -127,7 +127,7 @@ public class AddressBookDialog extends javax.swing.JDialog {
         initComponents();
         this.mode = mode;
         initValues();
-        setLocation(Utility.getLocation(this.getSize()));
+        this.setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to

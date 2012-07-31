@@ -127,7 +127,7 @@ public class AccountAdditionDialog extends javax.swing.JDialog {
         setTitle("Account Addition");
         initComponents();
         initValues(type);
-        setLocation(Utility.getLocation(this.getSize()));
+        this.setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to

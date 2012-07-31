@@ -111,7 +111,7 @@ public class SubCurrencyDetailDialog extends javax.swing.JDialog {
     public SubCurrencyDetailDialog(java.awt.Frame parent, boolean modal, String serverID, String nymID) {
         super(parent, modal);
         initComponents();
-        setLocation(Utility.getLocation(this.getSize()));
+        this.setLocationRelativeTo(null);
 
         assetList = Basket.getAssetList(serverID,nymID, Utility.getBasketExistingAssets());
         Utility.populateComboWithoutAll(assetList, jComboBox6);

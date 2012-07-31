@@ -274,7 +274,7 @@ public class PathDialog extends javax.swing.JDialog {
         pathFolderChooser = new JFileChooser();
         pathFolderChooser.setCurrentDirectory(new java.io.File("."));
         pathFolderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-
+        pathFolderChooser.setFileHidingEnabled(Boolean.FALSE);
 
     }
 }

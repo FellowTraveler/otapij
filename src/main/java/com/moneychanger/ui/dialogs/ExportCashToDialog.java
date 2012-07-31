@@ -134,7 +134,7 @@ public class ExportCashToDialog extends javax.swing.JDialog {
         details = cashDetails;
         selectedIndices = selectedIndices1;
         nymMap = new NYM().loadNYM();
-        setLocation(Utility.getLocation(this.getSize()));
+        this.setLocationRelativeTo(null);
         Utility.populateCombo(nymMap, jComboBox2);
     }
 
