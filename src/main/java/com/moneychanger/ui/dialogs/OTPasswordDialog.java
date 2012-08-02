@@ -1,253 +1,111 @@
-/************************************************************
------BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
-
- *                 M O N E Y C H A N G E R
- *
- *  Open Transactions:
- *       Financial Cryptography and Digital Cash
- *       Library, Protocol, API, Server, and GUI 
- *    
- *    	 -- Anonymous Numbered Accounts.
- *    	 -- Untraceable Digital Cash.
- *    	 -- Triple-Signed Receipts.
- *    	 -- Cheques, Vouchers, Transfers, Inboxes.
- *    	 -- Basket Currencies, Markets, Payment Plans.
- *    	 -- Signed, XML, Ricardian-style Contracts.
- *    
- *  Copyright (C) 2010-2012 by "Fellow Traveler" (A pseudonym)
- *
- *  EMAIL:
- *  FellowTraveler@rayservers.net
- *  
- *  FINGERPRINT:
- *  9DD5 90EB 9292 4B48 0484  7910 0308 00ED F951 BB8E
- *
- *  BITCOIN:  1NtTPVVjDsUfDWybS4BwvHpG2pdS9RnYyQ
- *
- *  OFFICIAL PROJECT WIKI:
- *  https://github.com/FellowTraveler/Moneychanger
- *  https://github.com/FellowTraveler/Open-Transactions/wiki
- *
- *  WEBSITE:
- *  http://www.OpenTransactions.org/
- *    
- *  Components and licensing:
- *   -- Moneychanger..A Java client GUI.....LICENSE:.....GPLv3
- *   -- OTLib.........A class library.......LICENSE:...LAGPLv3 
- *   -- OT-API........A client API..........LICENSE:...LAGPLv3
- *   -- testwallet....Command-line client...LICENSE:...LAGPLv3
- *   -- OT-Server.....Server Application....LICENSE:....AGPLv3
- *  Github.com/FellowTraveler/Open-Transactions/wiki/Components
- *
- *  All of the above OT components were designed and written by
- *  Fellow Traveler, with the exception of Moneychanger, which
- *  was contracted out to Vicky C (livewire_3001@yahoo.com).
- *
- *  -----------------------------------------------------
- *
- *   LICENSE:
- *   This program is free software: you can redistribute it
- *   and/or modify it under the terms of the GNU General
- *   Public License as published by the Free Software
- *   Foundation, either version 3 of the License, or (at your
- *   option) any later version.
- *
- *   You should have received a copy of the GNU General
- *   Public License along with this program.  If not, see:
- *   http://www.gnu.org/licenses/
- *
- *   If you would like to use this software outside of the free
- *   software license, please contact FellowTraveler.
- *   (Unfortunately many will run anonymously and untraceably,
- *   so who could really stop them?)
- *   
- *   DISCLAIMER:
- *   This program is distributed in the hope that it will be
- *   useful, but WITHOUT ANY WARRANTY; without even the implied
- *   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- *   PURPOSE.  See the GNU General Public License for more
- *   details.
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v1.4.11 (Darwin)
-
-iQIcBAEBCAAGBQJOj7gfAAoJEAMIAO35UbuOs3sP/2rrjSdYu/AsXcgLK9/9CP4a
-lIJfw3KLvybKZjZW5r5j+4xUlCYIqPZSI66PGDChGPMPFcZQN6M4Ddpn9kbctymS
-sdTXvbdFhpbV6k2wSa1Fz97ygfXJc/7MDTmHYbZ53hVV8AoUBrCHWtVttkQD31o3
-Pn/qGmy+jOgTvjEXhjEpV66pDkMWze1SiI1MArHUziCYoxItuM45x0EfzwQIqlo3
-ku2R7rRTtqm47Dgea12psWrjbPS5XRL1Q8Hs38Z1J0JdFlfn6cJYe52Iiluzof6M
-kCLhy6FH8QfIADfrKkFP48EIhnVquDlkV9AlJ1r217K3cpK2jEjlZUnGBECMAMEo
-pSXXk1BLNgxsa4yaXCgHY92/MhgtcdCMLkcCq6MWUTGZsLGiWIiQGmO9mwBfNIlY
-SawlIviuS5DiE/D16A290Byxhha/5e144cIiKm27fSQra8eogUXNfZdZeuv6n69v
-t8QjeBjoLhe5/KnRNoGLpSXhPphsWLRSJBru77ZU2msHfmkNfcP2UoEUCfNTfTbE
-XpyRfeyRVowVKeKunV9KUSHgdD5wa6RUeyodAbaHvWrFpIpNkaFIP9OwhRULpjx0
-arwVNYucbX1qb2I8HBm2u+IRWQTONp74TFFjU0/CVAXu2DeJKY5mL4zDej35c5j9
-AK+ZirdWhhoHeWR1tAkN
-=RcXP
------END PGP SIGNATURE-----
- **************************************************************/
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.moneychanger.ui.dialogs;
 
-import com.wrapper.core.jni.OTPassword;
 import com.moneychanger.core.util.Configuration;
-import com.moneychanger.core.util.Utility;
 import com.moneychanger.ui.custom.LoadImage;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.Transferable;
+import com.wrapper.core.jni.OTPassword;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
+/**
+ *
+ * @author Cameron Garnham
+ */
 public class OTPasswordDialog extends javax.swing.JDialog {
 
+    /**
+     * Creates new form OTPasswordDialog
+     */
+    
     private static char[] password;
-
+    private javax.swing.JPanel pasword_image;
+    
     public OTPasswordDialog(java.awt.Frame parent, boolean modal, String passphrase) {
         super(parent, modal);
+        
+        boolean loadPasswordImageSuccess = setPasswordImage();
+        if (!loadPasswordImageSuccess) this.dispose();
+        
         initComponents();
-        jLabel2.setText(passphrase);
         this.setLocationRelativeTo(null);
+        
+        jTextField_Info.setText(passphrase);
     }
+    
+    private boolean setPasswordImage() {
+                String path = Configuration.getImagePath();
+        if (null == path) {
+            JOptionPane.showMessageDialog(this, "Image Path is Bad! Set In Config!", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
 
-    /** This method is called from within the constructor to
-     * initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is
-     * always regenerated by the Form Editor.
-     */
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+        if (3 > path.length()) {
+            JOptionPane.showMessageDialog(this, "Image Path is Too Short! Set In Config!", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
 
-        jLabel1 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        String path = Configuration.getImagePath();
-        BufferedImage image = null;
-        try{
-            image = ImageIO.read(new File(path));
-            image.getWidth();
-        }catch(Exception e){
+        File filePath = null;
+
+        try {
+            filePath = new File(path);
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(this, "Image Path is Invalid!", e.getMessage(), JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "1111Invalid image file. Please select proper image", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+            return false;
         }
-        jPanel1 = new LoadImage(image);
-        jLabel2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(OTPasswordDialog.class);
-        setTitle(resourceMap.getString("Form.title")); // NOI18N
-        setName("Form"); // NOI18N
-
-        jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
-        jLabel1.setName("jLabel1"); // NOI18N
-
-        jPasswordField1.setText(resourceMap.getString("jPasswordField1.text")); // NOI18N
-        jPasswordField1.setName("jPasswordField1"); // NOI18N
-
-        jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
-        jButton1.setName("jButton1"); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText(resourceMap.getString("jButton2.text")); // NOI18N
-        jButton2.setName("jButton2"); // NOI18N
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jPanel1.setAutoscrolls(true);
-        jPanel1.setName("jPanel1"); // NOI18N
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 467, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 260, Short.MAX_VALUE)
-        );
-
-        jLabel2.setText(resourceMap.getString("jLabel2.text")); // NOI18N
-        jLabel2.setName("jLabel2"); // NOI18N
-        jLabel2.setText(""); // NOI18N
-        jLabel2.setToolTipText(jLabel2.getText());
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap(34, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(34, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(45, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(31, 31, 31)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addGap(30, 30, 30))
-        );
-
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        password = jPasswordField1.getPassword();
-        this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
-        Transferable clipboardContent = getToolkit().getSystemClipboard().getContents(this);
-
-        if ((clipboardContent != null)
-                && (clipboardContent.isDataFlavorSupported(DataFlavor.stringFlavor))) {
-            try {
-                String tempString;
-                tempString = (String) clipboardContent.getTransferData(DataFlavor.stringFlavor);
-                jPasswordField1.setText(tempString);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        if (null == filePath) {
+            JOptionPane.showMessageDialog(this, "Image Path is NULL!", "Error!", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+        
+        if (!filePath.exists()) {
+            JOptionPane.showMessageDialog(this, "Image Path dosn't exist!", "Error!", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(filePath);
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, "Unable To Load Image!", e.getMessage(), JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+            return false;
+
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Unable To Read Image!", e.getMessage(), JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+            return false;
+        }
+        
+        if (null == image) {
+            JOptionPane.showMessageDialog(this, "Image Is Null!", "Error!", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+        try {
+        image.getWidth();
+        pasword_image = new LoadImage(image);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Unable to Load Image!!", e.getMessage(), JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+            return false;
+        }
+        
+        if (null == pasword_image) {
+            JOptionPane.showMessageDialog(this, "Our Password Image JPanel is NULL!", "Error!", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+        return true;
+    }
+    
     public static boolean getPassword(OTPassword theOutput) {
         if (null == password) {
             return false;
@@ -264,15 +122,174 @@ public class OTPasswordDialog extends javax.swing.JDialog {
     }
 
     /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
+
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(300, 0), new java.awt.Dimension(32767, 32767));
+        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+        jPanel_Image = pasword_image;
+        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+        filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+        filler5 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+        jTextField_Info = new javax.swing.JTextField();
+        filler6 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+        filler7 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+        jPasswordField_Password = new javax.swing.JPasswordField();
+        jButton_OK = new javax.swing.JButton();
+        filler8 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+        filler9 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Please Enter Your Password");
+        setAlwaysOnTop(true);
+        setPreferredSize(new java.awt.Dimension(600, 400));
+        getContentPane().setLayout(new java.awt.GridBagLayout());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weighty = 1.0;
+        getContentPane().add(filler1, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        getContentPane().add(filler2, gridBagConstraints);
+
+        jPanel_Image.setPreferredSize(new java.awt.Dimension(200, 200));
+
+        javax.swing.GroupLayout jPanel_ImageLayout = new javax.swing.GroupLayout(jPanel_Image);
+        jPanel_Image.setLayout(jPanel_ImageLayout);
+        jPanel_ImageLayout.setHorizontalGroup(
+            jPanel_ImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 341, Short.MAX_VALUE)
+        );
+        jPanel_ImageLayout.setVerticalGroup(
+            jPanel_ImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 206, Short.MAX_VALUE)
+        );
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        getContentPane().add(jPanel_Image, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        getContentPane().add(filler3, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        getContentPane().add(filler4, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        getContentPane().add(filler5, gridBagConstraints);
+
+        jTextField_Info.setText("Password Info");
+        jTextField_Info.setEnabled(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        getContentPane().add(jTextField_Info, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        getContentPane().add(filler6, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        getContentPane().add(filler7, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 5.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        getContentPane().add(jPasswordField_Password, gridBagConstraints);
+
+        jButton_OK.setText("OK");
+        jButton_OK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_OKActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        getContentPane().add(jButton_OK, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        getContentPane().add(filler8, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weighty = 1.0;
+        getContentPane().add(filler9, gridBagConstraints);
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton_OKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_OKActionPerformed
+        password = jPasswordField_Password.getPassword();
+        this.dispose();
+    }//GEN-LAST:event_jButton_OKActionPerformed
+
+    /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        /*
+         * Set the Nimbus look and feel
+         */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /*
+         * If Nimbus (introduced in Java SE 6) is not available, stay with the
+         * default look and feel. For details see
+         * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(OTPasswordDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(OTPasswordDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(OTPasswordDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(OTPasswordDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /*
+         * Create and display the dialog
+         */
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
                 OTPasswordDialog dialog = new OTPasswordDialog(new javax.swing.JFrame(), true, "");
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
+                    @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
                     }
@@ -282,11 +299,18 @@ public class OTPasswordDialog extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private static javax.swing.JLabel jLabel2;
-    private static javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.Box.Filler filler1;
+    private javax.swing.Box.Filler filler2;
+    private javax.swing.Box.Filler filler3;
+    private javax.swing.Box.Filler filler4;
+    private javax.swing.Box.Filler filler5;
+    private javax.swing.Box.Filler filler6;
+    private javax.swing.Box.Filler filler7;
+    private javax.swing.Box.Filler filler8;
+    private javax.swing.Box.Filler filler9;
+    private javax.swing.JButton jButton_OK;
+    private javax.swing.JPanel jPanel_Image;
+    private javax.swing.JPasswordField jPasswordField_Password;
+    private javax.swing.JTextField jTextField_Info;
     // End of variables declaration//GEN-END:variables
 }

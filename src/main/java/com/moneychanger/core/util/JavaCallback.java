@@ -108,6 +108,11 @@ public class JavaCallback extends OTCallback {
             System.out.println("JavaCallback.runOne: Failure: theOutput variable (for password to be returned) is null!");
             return;
         }
+        if (null == strDisplay)
+        {
+            System.out.println("JavaCallback.runOne: Failure: strDisplay string (telling you what password to type) is null!");
+            return;
+        }
         new OTPasswordDialog(null, true,strDisplay).setVisible(true);
         OTPasswordDialog.getPassword(theOutput);
     }
@@ -117,7 +122,12 @@ public class JavaCallback extends OTCallback {
 	{
             System.out.println("JavaCallback.runTwo: Failure: theOutput variable (for password to be returned) is null!");
             return;
-	}		
+	}
+        if (null == strDisplay)
+        {
+            System.out.println("JavaCallback.runOne: Failure: strDisplay string (telling you what password to type) is null!");
+            return;
+        }
         new OTPwdConfirmDialog(null, true,strDisplay).setVisible(true);
         OTPwdConfirmDialog.getPassword(theOutput);
     }
