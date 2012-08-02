@@ -4,8 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.moneychanger</groupId>
-    <artifactId>MoneyChanger</artifactId>
-    <version>00.10.01-SNAPSHOT</version>
+    <artifactId>Moneychanger</artifactId>
+    <version>00.10.02-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Moneychanger</name>
