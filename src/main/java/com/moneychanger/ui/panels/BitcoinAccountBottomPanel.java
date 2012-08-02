@@ -126,30 +126,49 @@ public class BitcoinAccountBottomPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane12 = new javax.swing.JScrollPane();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+        jTabbedPane_BitcoinInfo = new javax.swing.JTabbedPane();
+        jScrollPane_Sent = new javax.swing.JScrollPane();
         jTable5 = new com.moneychanger.ui.custom.CustomTable();
-        jPanel3 = new javax.swing.JPanel();
-        jScrollPane13 = new javax.swing.JScrollPane();
+        jScrollPane_Recived = new javax.swing.JScrollPane();
         jTable6 = new com.moneychanger.ui.custom.CustomTable();
-        jScrollPane14 = new javax.swing.JScrollPane();
+        jScrollPane_Addresses = new javax.swing.JScrollPane();
         jTable7 = new com.moneychanger.ui.custom.CustomTable();
-        jButton1 = new javax.swing.JButton();
+        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+        filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+        filler5 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+        jButton_Refresh = new javax.swing.JButton();
+        filler6 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+        filler7 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
 
         setName("Form"); // NOI18N
+        setLayout(new java.awt.GridBagLayout());
 
-        jTabbedPane1.setName("jTabbedPane1"); // NOI18N
-        jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
+        filler1.setName("filler1"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weighty = 2.0;
+        add(filler1, gridBagConstraints);
+
+        filler2.setName("filler2"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        add(filler2, gridBagConstraints);
+
+        jTabbedPane_BitcoinInfo.setName("jTabbedPane_BitcoinInfo"); // NOI18N
+        jTabbedPane_BitcoinInfo.setPreferredSize(new java.awt.Dimension(200, 200));
+        jTabbedPane_BitcoinInfo.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                jTabbedPane1StateChanged(evt);
+                jTabbedPane_BitcoinInfoStateChanged(evt);
             }
         });
 
-        jPanel1.setName("jPanel1"); // NOI18N
-
-        jScrollPane12.setName("jScrollPane12"); // NOI18N
+        jScrollPane_Sent.setName("jScrollPane_Sent"); // NOI18N
 
         jTable5.setModel(new com.moneychanger.ui.model.BitcoinSentTableModel());
         jTable5.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
@@ -160,24 +179,12 @@ public class BitcoinAccountBottomPanel extends javax.swing.JPanel {
                 jTable5MouseClicked(evt);
             }
         });
-        jScrollPane12.setViewportView(jTable5);
+        jScrollPane_Sent.setViewportView(jTable5);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 713, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
-        );
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(BitcoinAccountBottomPanel.class);
+        jTabbedPane_BitcoinInfo.addTab(resourceMap.getString("jScrollPane_Sent.TabConstraints.tabTitle"), jScrollPane_Sent); // NOI18N
 
-        jTabbedPane1.addTab("SENT", jPanel1);
-
-        jPanel3.setName("jPanel3"); // NOI18N
-
-        jScrollPane13.setName("jScrollPane13"); // NOI18N
+        jScrollPane_Recived.setName("jScrollPane_Recived"); // NOI18N
 
         jTable6.setModel(new com.moneychanger.ui.model.BitcoinReceivedTableModel());
         jTable6.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
@@ -188,22 +195,11 @@ public class BitcoinAccountBottomPanel extends javax.swing.JPanel {
                 jTable6MouseClicked(evt);
             }
         });
-        jScrollPane13.setViewportView(jTable6);
+        jScrollPane_Recived.setViewportView(jTable6);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane13, javax.swing.GroupLayout.DEFAULT_SIZE, 713, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane13, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
-        );
+        jTabbedPane_BitcoinInfo.addTab(resourceMap.getString("jScrollPane_Recived.TabConstraints.tabTitle"), jScrollPane_Recived); // NOI18N
 
-        jTabbedPane1.addTab("RECEIVED", jPanel3);
-
-        jScrollPane14.setName("jScrollPane14"); // NOI18N
+        jScrollPane_Addresses.setName("jScrollPane_Addresses"); // NOI18N
 
         jTable7.setModel(new com.moneychanger.ui.model.BitcoinReceivingAddrTableModel());
         jTable7.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
@@ -214,39 +210,64 @@ public class BitcoinAccountBottomPanel extends javax.swing.JPanel {
                 jTable7MouseClicked(evt);
             }
         });
-        jScrollPane14.setViewportView(jTable7);
+        jScrollPane_Addresses.setViewportView(jTable7);
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(BitcoinAccountBottomPanel.class);
-        jTabbedPane1.addTab(resourceMap.getString("jScrollPane14.TabConstraints.tabTitle"), jScrollPane14); // NOI18N
+        jTabbedPane_BitcoinInfo.addTab(resourceMap.getString("jScrollPane_Addresses.TabConstraints.tabTitle"), jScrollPane_Addresses); // NOI18N
 
-        jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
-        jButton1.setToolTipText(resourceMap.getString("jButton1.toolTipText")); // NOI18N
-        jButton1.setName("jButton1");
-        jButton1.setVisible(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 25.0;
+        gridBagConstraints.weighty = 50.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        add(jTabbedPane_BitcoinInfo, gridBagConstraints);
+
+        filler3.setName("filler3"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        add(filler3, gridBagConstraints);
+
+        filler4.setName("filler4"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weighty = 1.0;
+        add(filler4, gridBagConstraints);
+
+        filler5.setName("filler5"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        add(filler5, gridBagConstraints);
+
+        jButton_Refresh.setText(resourceMap.getString("jButton_Refresh.text")); // NOI18N
+        jButton_Refresh.setToolTipText(resourceMap.getString("jButton_Refresh.toolTipText")); // NOI18N
+        jButton_Refresh.setName("jButton_Refresh");
+        jButton_Refresh.setVisible(false);
+        jButton_Refresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButton_RefreshActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        add(jButton_Refresh, gridBagConstraints);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(317, 317, 317)
-                .addComponent(jButton1)
-                .addContainerGap(330, Short.MAX_VALUE))
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 718, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addGap(23, 23, 23))
-        );
+        filler6.setName("filler6"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        add(filler6, gridBagConstraints);
+
+        filler7.setName("filler7"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weighty = 2.0;
+        add(filler7, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTable5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable5MouseClicked
@@ -279,33 +300,38 @@ public class BitcoinAccountBottomPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTable7MouseClicked
 
-    private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
+    private void jTabbedPane_BitcoinInfoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane_BitcoinInfoStateChanged
         JTabbedPane pane = (JTabbedPane) evt.getSource();
         int sel = pane.getSelectedIndex();
         System.out.println("State changed:" + sel);
         if (sel == 1) {
-            jButton1.setVisible(true);
+            jButton_Refresh.setVisible(true);
             repaint();
         } else {
-            jButton1.setVisible(false);
+            jButton_Refresh.setVisible(false);
             repaint();
         }
-    }//GEN-LAST:event_jTabbedPane1StateChanged
+    }//GEN-LAST:event_jTabbedPane_BitcoinInfoStateChanged
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton_RefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_RefreshActionPerformed
         receivedBoxMap = new BitcoinAccount(serverID).getReceivedBoxData("");
         ((BitcoinReceivedTableModel) jTable6.getModel()).setValue(receivedBoxMap,jTable6);
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButton_RefreshActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane12;
-    private javax.swing.JScrollPane jScrollPane13;
-    private javax.swing.JScrollPane jScrollPane14;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.Box.Filler filler1;
+    private javax.swing.Box.Filler filler2;
+    private javax.swing.Box.Filler filler3;
+    private javax.swing.Box.Filler filler4;
+    private javax.swing.Box.Filler filler5;
+    private javax.swing.Box.Filler filler6;
+    private javax.swing.Box.Filler filler7;
+    private javax.swing.JButton jButton_Refresh;
+    private javax.swing.JScrollPane jScrollPane_Addresses;
+    private javax.swing.JScrollPane jScrollPane_Recived;
+    private javax.swing.JScrollPane jScrollPane_Sent;
+    private javax.swing.JTabbedPane jTabbedPane_BitcoinInfo;
     private static javax.swing.JTable jTable5;
     private static javax.swing.JTable jTable6;
     private static javax.swing.JTable jTable7;
