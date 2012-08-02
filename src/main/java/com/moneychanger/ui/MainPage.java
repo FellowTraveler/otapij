@@ -376,20 +376,36 @@ public class MainPage extends javax.swing.JFrame {
         jTabbedPane_MainPage = new javax.swing.JTabbedPane();
         jPanel_Main = new javax.swing.JPanel();
         jPanel_Accounts = new javax.swing.JPanel();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
         jLabel_FilterAccounts = new javax.swing.JLabel();
+        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+        filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
         jLabel_Nyms = new javax.swing.JLabel();
         jComboBox_Nyms = new com.moneychanger.ui.custom.SteppedComboBox();
+        filler5 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+        filler6 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
         jLabel_ServerContracts = new javax.swing.JLabel();
         jComboBoxServerContracts = new com.moneychanger.ui.custom.SteppedComboBox();
+        filler7 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+        filler8 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
         jLabel_AssetContracts = new javax.swing.JLabel();
         jComboBox_AssetContracts = new com.moneychanger.ui.custom.SteppedComboBox();
+        filler9 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+        filler10 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+        filler11 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
         jScrollPane_Accounts = new javax.swing.JScrollPane();
         jTable_AccountTable = new com.moneychanger.ui.custom.CustomTable();
+        filler12 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+        filler13 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+        filler14 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
         jPanel_ListActions = new javax.swing.JPanel();
         jButton_AddAccount = new javax.swing.JButton();
         jButton_EditAccount = new javax.swing.JButton();
         jButton_RemoveAccount = new javax.swing.JButton();
-        jPanel_MainInfo = new javax.swing.JPanel();
+        filler15 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+        filler16 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+        filler17 = new javax.swing.Box.Filler(new java.awt.Dimension(500, 0), new java.awt.Dimension(500, 0), new java.awt.Dimension(32767, 32767));
         jPanel_TopPanel = new javax.swing.JPanel();
         jPanel_BottomPanel = new javax.swing.JPanel();
         jPanel_Nyms = new javax.swing.JPanel();
@@ -591,46 +607,69 @@ public class MainPage extends javax.swing.JFrame {
         jPanel24 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(800, 600));
+        setMinimumSize(new java.awt.Dimension(700, 500));
         setName("MainPageForm"); // NOI18N
-        getContentPane().setLayout(new java.awt.CardLayout());
+        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
-        jTabbedPane_MainPage.setMinimumSize(new java.awt.Dimension(800, 600));
-        jTabbedPane_MainPage.setPreferredSize(new java.awt.Dimension(800, 600));
+        jTabbedPane_MainPage.setMinimumSize(new java.awt.Dimension(700, 500));
+        jTabbedPane_MainPage.setPreferredSize(new java.awt.Dimension(700, 500));
         jTabbedPane_MainPage.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jTabbedPane_MainPageStateChanged(evt);
             }
         });
 
-        jPanel_Main.setMinimumSize(new java.awt.Dimension(800, 600));
+        jPanel_Main.setMinimumSize(new java.awt.Dimension(700, 0));
         jPanel_Main.setName("jPanel_Main"); // NOI18N
-        jPanel_Main.setPreferredSize(new java.awt.Dimension(800, 600));
-        jPanel_Main.setLayout(new javax.swing.BoxLayout(jPanel_Main, javax.swing.BoxLayout.X_AXIS));
+        jPanel_Main.setPreferredSize(new java.awt.Dimension(700, 0));
+        jPanel_Main.setLayout(new java.awt.GridBagLayout());
 
-        jPanel_Accounts.setMinimumSize(new java.awt.Dimension(200, 300));
-        jPanel_Accounts.setPreferredSize(new java.awt.Dimension(250, 400));
+        jPanel_Accounts.setMinimumSize(new java.awt.Dimension(200, 500));
+        jPanel_Accounts.setPreferredSize(new java.awt.Dimension(200, 500));
         jPanel_Accounts.setLayout(new java.awt.GridBagLayout());
+
+        filler1.setName("filler1"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weighty = 10.0;
+        jPanel_Accounts.add(filler1, gridBagConstraints);
+
+        filler2.setName("filler2"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        jPanel_Accounts.add(filler2, gridBagConstraints);
 
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(MainPage.class);
         jLabel_FilterAccounts.setText(resourceMap.getString("jLabel_FilterAccounts.text")); // NOI18N
         jLabel_FilterAccounts.setPreferredSize(new java.awt.Dimension(100, 28));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LAST_LINE_START;
-        gridBagConstraints.weighty = 0.5;
-        gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 30);
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel_Accounts.add(jLabel_FilterAccounts, gridBagConstraints);
+
+        filler3.setName("filler3"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        jPanel_Accounts.add(filler3, gridBagConstraints);
+
+        filler4.setName("filler4"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        jPanel_Accounts.add(filler4, gridBagConstraints);
 
         jLabel_Nyms.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel_Nyms.setText(resourceMap.getString("jLabel_Nyms.text")); // NOI18N
         jLabel_Nyms.setMaximumSize(new java.awt.Dimension(32767, 32767));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        gridBagConstraints.insets = new java.awt.Insets(3, 30, 3, 10);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel_Accounts.add(jLabel_Nyms, gridBagConstraints);
 
         jComboBox_Nyms.setSelectedItem("ALL");
@@ -648,23 +687,32 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 10, 3, 30);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 5.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel_Accounts.add(jComboBox_Nyms, gridBagConstraints);
+
+        filler5.setName("filler5"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        jPanel_Accounts.add(filler5, gridBagConstraints);
+
+        filler6.setName("filler6"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        jPanel_Accounts.add(filler6, gridBagConstraints);
 
         jLabel_ServerContracts.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel_ServerContracts.setText(resourceMap.getString("jLabel_ServerContracts.text")); // NOI18N
         jLabel_ServerContracts.setMaximumSize(new java.awt.Dimension(32767, 32767));
         jLabel_ServerContracts.setName(""); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        gridBagConstraints.insets = new java.awt.Insets(3, 30, 3, 10);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel_Accounts.add(jLabel_ServerContracts, gridBagConstraints);
 
         jComboBoxServerContracts.setSelectedItem("ALL");
@@ -677,23 +725,32 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 10, 3, 30);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 5.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel_Accounts.add(jComboBoxServerContracts, gridBagConstraints);
+
+        filler7.setName("filler7"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        jPanel_Accounts.add(filler7, gridBagConstraints);
+
+        filler8.setName("filler8"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        jPanel_Accounts.add(filler8, gridBagConstraints);
 
         jLabel_AssetContracts.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel_AssetContracts.setText(resourceMap.getString("jLabel_AssetContracts.text")); // NOI18N
         jLabel_AssetContracts.setMaximumSize(new java.awt.Dimension(32767, 32767));
         jLabel_AssetContracts.setName(""); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        gridBagConstraints.insets = new java.awt.Insets(3, 30, 3, 10);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel_Accounts.add(jLabel_AssetContracts, gridBagConstraints);
 
         jComboBox_AssetContracts.setSelectedItem("ALL");
@@ -706,13 +763,30 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 10, 3, 30);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 5.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel_Accounts.add(jComboBox_AssetContracts, gridBagConstraints);
+
+        filler9.setName("filler9"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        jPanel_Accounts.add(filler9, gridBagConstraints);
+
+        filler10.setName("filler10"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weighty = 4.0;
+        jPanel_Accounts.add(filler10, gridBagConstraints);
+
+        filler11.setName("filler11"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        jPanel_Accounts.add(filler11, gridBagConstraints);
 
         jScrollPane_Accounts.setMinimumSize(new java.awt.Dimension(50, 50));
         jScrollPane_Accounts.setName("jScrollPane_Accounts"); // NOI18N
@@ -728,14 +802,34 @@ public class MainPage extends javax.swing.JFrame {
         jScrollPane_Accounts.setViewportView(jTable_AccountTable);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weighty = 5.0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 30, 10, 30);
+        gridBagConstraints.weighty = 100.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel_Accounts.add(jScrollPane_Accounts, gridBagConstraints);
 
+        filler12.setName("filler12"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        jPanel_Accounts.add(filler12, gridBagConstraints);
+
+        filler13.setName("filler13"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weighty = 1.0;
+        jPanel_Accounts.add(filler13, gridBagConstraints);
+
+        filler14.setName("filler14"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        jPanel_Accounts.add(filler14, gridBagConstraints);
+
         jPanel_ListActions.setName("jPanel_ListActions"); // NOI18N
+        jPanel_ListActions.setLayout(new java.awt.GridBagLayout());
 
         jButton_AddAccount.setText(resourceMap.getString("jButton_AddAccount.text")); // NOI18N
         jButton_AddAccount.setToolTipText(resourceMap.getString("jButton_AddAccount.toolTipText")); // NOI18N
@@ -743,13 +837,16 @@ public class MainPage extends javax.swing.JFrame {
         jButton_AddAccount.setMaximumSize(new java.awt.Dimension(32767, 32767));
         jButton_AddAccount.setMinimumSize(new java.awt.Dimension(20, 20));
         jButton_AddAccount.setName(""); // NOI18N
-        jButton_AddAccount.setPreferredSize(new java.awt.Dimension(60, 30));
+        jButton_AddAccount.setPreferredSize(new java.awt.Dimension(50, 25));
         jButton_AddAccount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_AddAccountActionPerformed(evt);
             }
         });
-        jPanel_ListActions.add(jButton_AddAccount);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        jPanel_ListActions.add(jButton_AddAccount, gridBagConstraints);
 
         jButton_EditAccount.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/moneychanger/ui/images/pencil.jpg"))); // NOI18N
         jButton_EditAccount.setText(resourceMap.getString("jButton_EditAccount.text")); // NOI18N
@@ -758,13 +855,16 @@ public class MainPage extends javax.swing.JFrame {
         jButton_EditAccount.setMaximumSize(new java.awt.Dimension(32767, 32767));
         jButton_EditAccount.setMinimumSize(new java.awt.Dimension(20, 20));
         jButton_EditAccount.setName(""); // NOI18N
-        jButton_EditAccount.setPreferredSize(new java.awt.Dimension(60, 30));
+        jButton_EditAccount.setPreferredSize(new java.awt.Dimension(50, 25));
         jButton_EditAccount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_EditAccountActionPerformed(evt);
             }
         });
-        jPanel_ListActions.add(jButton_EditAccount);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        jPanel_ListActions.add(jButton_EditAccount, gridBagConstraints);
 
         jButton_RemoveAccount.setText(resourceMap.getString("jButton_RemoveAccount.text")); // NOI18N
         jButton_RemoveAccount.setToolTipText(resourceMap.getString("jButton_RemoveAccount.toolTipText")); // NOI18N
@@ -772,77 +872,91 @@ public class MainPage extends javax.swing.JFrame {
         jButton_RemoveAccount.setMaximumSize(new java.awt.Dimension(32767, 32767));
         jButton_RemoveAccount.setMinimumSize(new java.awt.Dimension(20, 20));
         jButton_RemoveAccount.setName(""); // NOI18N
-        jButton_RemoveAccount.setPreferredSize(new java.awt.Dimension(60, 30));
+        jButton_RemoveAccount.setPreferredSize(new java.awt.Dimension(50, 25));
         jButton_RemoveAccount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_RemoveAccountActionPerformed(evt);
             }
         });
-        jPanel_ListActions.add(jButton_RemoveAccount);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        jPanel_ListActions.add(jButton_RemoveAccount, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
-        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel_Accounts.add(jPanel_ListActions, gridBagConstraints);
 
-        jPanel_Main.add(jPanel_Accounts);
+        filler15.setName("filler15"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        jPanel_Accounts.add(filler15, gridBagConstraints);
 
-        jPanel_MainInfo.setName("jPanel_MainInfo"); // NOI18N
-        jPanel_MainInfo.setPreferredSize(new java.awt.Dimension(1000, 800));
-        jPanel_MainInfo.setLayout(new java.awt.GridBagLayout());
+        filler16.setName("filler16"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weighty = 10.0;
+        jPanel_Accounts.add(filler16, gridBagConstraints);
 
-        jPanel_TopPanel.setMaximumSize(new java.awt.Dimension(800, 450));
-        jPanel_TopPanel.setPreferredSize(new java.awt.Dimension(600, 350));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        jPanel_Main.add(jPanel_Accounts, gridBagConstraints);
+
+        filler17.setName("filler17"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        jPanel_Main.add(filler17, gridBagConstraints);
+
+        jPanel_TopPanel.setMinimumSize(new java.awt.Dimension(500, 250));
+        jPanel_TopPanel.setPreferredSize(new java.awt.Dimension(500, 250));
         jPanel_TopPanel.setVisible(false);
 
         javax.swing.GroupLayout jPanel_TopPanelLayout = new javax.swing.GroupLayout(jPanel_TopPanel);
         jPanel_TopPanel.setLayout(jPanel_TopPanelLayout);
         jPanel_TopPanelLayout.setHorizontalGroup(
             jPanel_TopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 527, Short.MAX_VALUE)
+            .addGap(0, 576, Short.MAX_VALUE)
         );
         jPanel_TopPanelLayout.setVerticalGroup(
             jPanel_TopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 140, Short.MAX_VALUE)
+            .addGap(0, 264, Short.MAX_VALUE)
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
-        gridBagConstraints.gridheight = java.awt.GridBagConstraints.RELATIVE;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 0.4;
-        gridBagConstraints.insets = new java.awt.Insets(30, 10, 10, 30);
-        jPanel_MainInfo.add(jPanel_TopPanel, gridBagConstraints);
+        gridBagConstraints.weightx = 4.0;
+        gridBagConstraints.weighty = 1.0;
+        jPanel_Main.add(jPanel_TopPanel, gridBagConstraints);
 
-        jPanel_BottomPanel.setPreferredSize(new java.awt.Dimension(600, 350));
+        jPanel_BottomPanel.setMinimumSize(new java.awt.Dimension(500, 250));
+        jPanel_BottomPanel.setPreferredSize(new java.awt.Dimension(500, 250));
         jPanel_BottomPanel.setVisible(false);
 
         javax.swing.GroupLayout jPanel_BottomPanelLayout = new javax.swing.GroupLayout(jPanel_BottomPanel);
         jPanel_BottomPanel.setLayout(jPanel_BottomPanelLayout);
         jPanel_BottomPanelLayout.setHorizontalGroup(
             jPanel_BottomPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 527, Short.MAX_VALUE)
+            .addGap(0, 576, Short.MAX_VALUE)
         );
         jPanel_BottomPanelLayout.setVerticalGroup(
             jPanel_BottomPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 351, Short.MAX_VALUE)
+            .addGap(0, 307, Short.MAX_VALUE)
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
-        gridBagConstraints.gridheight = java.awt.GridBagConstraints.RELATIVE;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 30, 30);
-        jPanel_MainInfo.add(jPanel_BottomPanel, gridBagConstraints);
-
-        jPanel_Main.add(jPanel_MainInfo);
+        gridBagConstraints.weightx = 4.0;
+        gridBagConstraints.weighty = 4.0;
+        jPanel_Main.add(jPanel_BottomPanel, gridBagConstraints);
 
         jTabbedPane_MainPage.addTab(resourceMap.getString("jPanel_Main.TabConstraints.tabTitle"), jPanel_Main); // NOI18N
 
@@ -2423,16 +2537,16 @@ public class MainPage extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jPanel40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jSeparator11, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
+            .addComponent(jSeparator11, javax.swing.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE)
             .addGroup(jPanel_PaymentsLayout.createSequentialGroup()
                 .addGap(11, 11, 11)
                 .addComponent(jPanel_PaymentTop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(275, Short.MAX_VALUE))
+                .addContainerGap(271, Short.MAX_VALUE))
             .addGroup(jPanel_PaymentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel_PaymentsLayout.createSequentialGroup()
                     .addGap(344, 344, 344)
                     .addComponent(jSeparator12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(256, Short.MAX_VALUE)))
+                    .addContainerGap(252, Short.MAX_VALUE)))
         );
 
         jTabbedPane_MainPage.addTab(resourceMap.getString("jPanel_Payments.TabConstraints.tabTitle"), jPanel_Payments); // NOI18N
@@ -2916,7 +3030,7 @@ public class MainPage extends javax.swing.JFrame {
                 .addGroup(jPanel_SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel_SettingsLayout.createSequentialGroup()
                         .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, 150, Short.MAX_VALUE))
                 .addGap(1465, 1465, 1465))
         );
@@ -2972,7 +3086,7 @@ public class MainPage extends javax.swing.JFrame {
 
         jTabbedPane_MainPage.addTab(resourceMap.getString("jPanel_Credits.TabConstraints.tabTitle"), jPanel_Credits); // NOI18N
 
-        getContentPane().add(jTabbedPane_MainPage, "card2");
+        getContentPane().add(jTabbedPane_MainPage);
         jTabbedPane_MainPage.getAccessibleContext().setAccessibleName(resourceMap.getString("jTabbedPane_MainPage.AccessibleContext.accessibleName")); // NOI18N
 
         pack();
@@ -4127,6 +4241,23 @@ public class MainPage extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.Box.Filler filler1;
+    private javax.swing.Box.Filler filler10;
+    private javax.swing.Box.Filler filler11;
+    private javax.swing.Box.Filler filler12;
+    private javax.swing.Box.Filler filler13;
+    private javax.swing.Box.Filler filler14;
+    private javax.swing.Box.Filler filler15;
+    private javax.swing.Box.Filler filler16;
+    private javax.swing.Box.Filler filler17;
+    private javax.swing.Box.Filler filler2;
+    private javax.swing.Box.Filler filler3;
+    private javax.swing.Box.Filler filler4;
+    private javax.swing.Box.Filler filler5;
+    private javax.swing.Box.Filler filler6;
+    private javax.swing.Box.Filler filler7;
+    private javax.swing.Box.Filler filler8;
+    private javax.swing.Box.Filler filler9;
     private javax.swing.JButton jButton18;
     private javax.swing.JButton jButton19;
     private javax.swing.JButton jButton20;
@@ -4261,7 +4392,6 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel_ListActions2;
     private javax.swing.JPanel jPanel_ListActions3;
     private javax.swing.JPanel jPanel_Main;
-    private javax.swing.JPanel jPanel_MainInfo;
     private javax.swing.JPanel jPanel_Markets;
     private javax.swing.JPanel jPanel_NmysList;
     private javax.swing.JPanel jPanel_NymInfo;

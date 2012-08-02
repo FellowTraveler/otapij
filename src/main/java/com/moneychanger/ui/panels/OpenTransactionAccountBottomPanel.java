@@ -144,26 +144,59 @@ public class OpenTransactionAccountBottomPanel extends javax.swing.JPanel {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        filler9 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+        filler11 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel_Inbox = new javax.swing.JPanel();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
         jScrollPane_Inbox = new javax.swing.JScrollPane();
         jTable_Inbox = new com.moneychanger.ui.custom.CustomTable();
+        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
         jButton_ProcessInbox = new javax.swing.JButton();
+        filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
         jPanel_Outbox = new javax.swing.JPanel();
+        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
         jScrollPane_Outbox = new javax.swing.JScrollPane();
         jTable_Outbox = new com.moneychanger.ui.custom.CustomTable();
+        filler5 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
         jPanel_Receipts = new javax.swing.JPanel();
-        jScrollPane15 = new javax.swing.JScrollPane();
+        filler6 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+        jScrollPane_Recepts = new javax.swing.JScrollPane();
         jTable8 = new javax.swing.JTable();
-        jButton8 = new javax.swing.JButton();
+        filler7 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+        jButton_OK = new javax.swing.JButton();
+        filler8 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+        filler12 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+        filler10 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
 
         setName("Form"); // NOI18N
-        setLayout(new java.awt.CardLayout());
+        setLayout(new java.awt.GridBagLayout());
+
+        filler9.setName("filler9"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        add(filler9, gridBagConstraints);
+
+        filler11.setName("filler11"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        add(filler11, gridBagConstraints);
 
         jTabbedPane1.setName("jTabbedPane1"); // NOI18N
+        jTabbedPane1.setPreferredSize(new java.awt.Dimension(200, 200));
 
         jPanel_Inbox.setName("jPanel_Inbox"); // NOI18N
         jPanel_Inbox.setLayout(new java.awt.GridBagLayout());
+
+        filler1.setName("filler1"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.weighty = 1.0;
+        jPanel_Inbox.add(filler1, gridBagConstraints);
 
         jScrollPane_Inbox.setMinimumSize(new java.awt.Dimension(200, 100));
         jScrollPane_Inbox.setName("jScrollPane_Inbox"); // NOI18N
@@ -179,11 +212,18 @@ public class OpenTransactionAccountBottomPanel extends javax.swing.JPanel {
         jScrollPane_Inbox.setViewportView(jTable_Inbox);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.weighty = 50.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel_Inbox.add(jScrollPane_Inbox, gridBagConstraints);
+
+        filler2.setName("filler2"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.weighty = 1.0;
+        jPanel_Inbox.add(filler2, gridBagConstraints);
 
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance().getContext().getActionMap(OpenTransactionAccountBottomPanel.class, this);
         jButton_ProcessInbox.setAction(actionMap.get("ProcessInbox")); // NOI18N
@@ -191,14 +231,27 @@ public class OpenTransactionAccountBottomPanel extends javax.swing.JPanel {
         jButton_ProcessInbox.setText(resourceMap.getString("jButton_ProcessInbox.text")); // NOI18N
         jButton_ProcessInbox.setName("jButton_ProcessInbox"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel_Inbox.add(jButton_ProcessInbox, gridBagConstraints);
+
+        filler4.setName("filler4"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.weighty = 1.0;
+        jPanel_Inbox.add(filler4, gridBagConstraints);
 
         jTabbedPane1.addTab("INBOX", jPanel_Inbox);
 
         jPanel_Outbox.setName("jPanel_Outbox"); // NOI18N
-        jPanel_Outbox.setLayout(new java.awt.CardLayout());
+        jPanel_Outbox.setLayout(new java.awt.GridBagLayout());
+
+        filler3.setName("filler3"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weighty = 1.0;
+        jPanel_Outbox.add(filler3, gridBagConstraints);
 
         jScrollPane_Outbox.setName("jScrollPane_Outbox"); // NOI18N
 
@@ -212,48 +265,92 @@ public class OpenTransactionAccountBottomPanel extends javax.swing.JPanel {
         });
         jScrollPane_Outbox.setViewportView(jTable_Outbox);
 
-        jPanel_Outbox.add(jScrollPane_Outbox, "card2");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 50.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        jPanel_Outbox.add(jScrollPane_Outbox, gridBagConstraints);
+
+        filler5.setName("filler5"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weighty = 1.0;
+        jPanel_Outbox.add(filler5, gridBagConstraints);
 
         jTabbedPane1.addTab("OUTBOX", jPanel_Outbox);
 
         jPanel_Receipts.setName("jPanel_Receipts");
+        jPanel_Receipts.setLayout(new java.awt.GridBagLayout());
 
-        jScrollPane15.setName("jScrollPane15"); // NOI18N
+        filler6.setName("filler6"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weighty = 1.0;
+        jPanel_Receipts.add(filler6, gridBagConstraints);
+
+        jScrollPane_Recepts.setName("jScrollPane_Recepts"); // NOI18N
 
         jTable8.setModel(new com.moneychanger.ui.model.OTReceiptTableModel());
         jTable8.setName("jTable8");
         jTable8.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane15.setViewportView(jTable8);
+        jScrollPane_Recepts.setViewportView(jTable8);
 
-        jButton8.setName("jButton8"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 50.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        jPanel_Receipts.add(jScrollPane_Recepts, gridBagConstraints);
 
-        javax.swing.GroupLayout jPanel_ReceiptsLayout = new javax.swing.GroupLayout(jPanel_Receipts);
-        jPanel_Receipts.setLayout(jPanel_ReceiptsLayout);
-        jPanel_ReceiptsLayout.setHorizontalGroup(
-            jPanel_ReceiptsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel_ReceiptsLayout.createSequentialGroup()
-                .addGap(186, 186, 186)
-                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(470, Short.MAX_VALUE))
-            .addGroup(jPanel_ReceiptsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane15, javax.swing.GroupLayout.DEFAULT_SIZE, 697, Short.MAX_VALUE))
-        );
-        jPanel_ReceiptsLayout.setVerticalGroup(
-            jPanel_ReceiptsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel_ReceiptsLayout.createSequentialGroup()
-                .addGap(226, 226, 226)
-                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel_ReceiptsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel_ReceiptsLayout.createSequentialGroup()
-                    .addGap(8, 8, 8)
-                    .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(40, Short.MAX_VALUE)))
-        );
+        filler7.setName("filler7"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weighty = 1.0;
+        jPanel_Receipts.add(filler7, gridBagConstraints);
+
+        jButton_OK.setText(resourceMap.getString("jButton_OK.text")); // NOI18N
+        jButton_OK.setName("jButton_OK"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        jPanel_Receipts.add(jButton_OK, gridBagConstraints);
+
+        filler8.setName("filler8"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weighty = 1.0;
+        jPanel_Receipts.add(filler8, gridBagConstraints);
 
         jTabbedPane1.addTab("RECEIPTS", jPanel_Receipts);
 
-        add(jTabbedPane1, "card2");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 50.0;
+        gridBagConstraints.weighty = 50.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        add(jTabbedPane1, gridBagConstraints);
+
+        filler12.setName("filler12"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        add(filler12, gridBagConstraints);
+
+        filler10.setName("filler10"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        add(filler10, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTable_OutboxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_OutboxMouseClicked
@@ -286,14 +383,26 @@ public class OpenTransactionAccountBottomPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jTable_InboxMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton8;
+    private javax.swing.Box.Filler filler1;
+    private javax.swing.Box.Filler filler10;
+    private javax.swing.Box.Filler filler11;
+    private javax.swing.Box.Filler filler12;
+    private javax.swing.Box.Filler filler2;
+    private javax.swing.Box.Filler filler3;
+    private javax.swing.Box.Filler filler4;
+    private javax.swing.Box.Filler filler5;
+    private javax.swing.Box.Filler filler6;
+    private javax.swing.Box.Filler filler7;
+    private javax.swing.Box.Filler filler8;
+    private javax.swing.Box.Filler filler9;
+    private javax.swing.JButton jButton_OK;
     private javax.swing.JButton jButton_ProcessInbox;
     private javax.swing.JPanel jPanel_Inbox;
     private javax.swing.JPanel jPanel_Outbox;
     private javax.swing.JPanel jPanel_Receipts;
-    private javax.swing.JScrollPane jScrollPane15;
     private javax.swing.JScrollPane jScrollPane_Inbox;
     private javax.swing.JScrollPane jScrollPane_Outbox;
+    private javax.swing.JScrollPane jScrollPane_Recepts;
     private javax.swing.JTabbedPane jTabbedPane1;
     private static javax.swing.JTable jTable8;
     private static javax.swing.JTable jTable_Inbox;
