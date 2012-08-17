@@ -1025,12 +1025,15 @@ public class OpenTransactionAccount extends Account {
         return output;
     }
 
-    public boolean withdrawCash(String serverID, String nymID, String accountID, String amount) {
+    public boolean withdrawCash(String serverID, String nymID, String accountID, String amount) 
+    {
         String serverResponseMessage = null;
         System.out.println("In withdrawCash serverID:" + serverID + " nymID:" + nymID + " acount ID:" + accountID);
         String assetID = otapi.OT_API_GetAccountWallet_AssetTypeID(accountID);
 
-        // ----------------------------------------        
+        // ---------------------------------------- 
+        // Make sure we have the proper asset contract for the withdrawal.
+        //
         String assetContract = otapi.OT_API_LoadAssetContract(assetID);
         if (assetContract == null) {
             OTAPI_Func theRequest = new OTAPI_Func(OTAPI_Func.FT.GET_CONTRACT, serverID, nymID, assetID);
@@ -1048,25 +1051,44 @@ public class OpenTransactionAccount extends Account {
             }
         }
         // ---------------------------------------------------------
+        // Download the public mintfile if it's not there, or if it's expired.
+        // Also load it up into memory as a string (just to make sure it works.)
+        // Then we can actually send the withdrawal transaction request. (Until
+        // then, why bother?)
+        //
+        String mintFile;
 
-        String mintFile = otapi.OT_API_LoadMint(serverID, assetID);
-        if (mintFile == null) {
+        // expired or missing.
+        if (1 != otapi.OT_API_Mint_IsStillGood(serverID, assetID)) 
+        {
             // ----------------------------------------
             OTAPI_Func theRequest = new OTAPI_Func(OTAPI_Func.FT.GET_MINT, serverID, nymID, assetID);
             String strResponse = OTAPI_Func.SendRequest(theRequest, "GET_MINT");
 
             if (null == strResponse) {
-                System.out.println("IN withdrawCash: OTAPI_Func.SendRequest(GET_MINT) failed. (I give up.) (Unable to find mint.)");
+                System.out.println("IN withdrawCash: OTAPI_Func.SendRequest(GET_MINT) failed. (I give up.) (Unable to get mint.)");
                 return false;
             }
             // ----------------------------------------
             mintFile = otapi.OT_API_LoadMint(serverID, assetID);
             if (mintFile == null) {
-                System.out.println("OT_API_LoadMint returned null even after OT_API_getContract (I give up.) (Unable to find mint.)");
+                System.out.println("OT_API_LoadMint returned null even after OT_API_getMint (I give up.) (Unable to find mint.)");
                 return false;
             }
         }
+        else // current mint IS available already on local storage (and not expired.)
+        {
+            mintFile = otapi.OT_API_LoadMint(serverID, assetID);
+            if (mintFile == null) {
+                System.out.println("OT_API_LoadMint returned null even after successful OT_API_Mint_IsStillGood (I give up.) (Unable to find mint.)");
+                return false;
+            }
+        }        
         // ---------------------------------------------------
+        // By this point, the mintfile is DEFINITELY good (available, not null, 
+        // not expired, and loaded up.) Now we know for a fact that when the API
+        // call is made to withdraw cash, that it will find the mint properly.
+        //
         OTAPI_Func theRequest = new OTAPI_Func(OTAPI_Func.FT.WITHDRAW_CASH, serverID, nymID, accountID, amount);
         String strResponse = OTAPI_Func.SendTransaction(theRequest, "WITHDRAW_CASH"); // <========================
 
