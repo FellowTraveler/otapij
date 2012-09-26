@@ -826,7 +826,8 @@ public class Utility {
                     //
                     final int nRemovedMsg = otapi.OT_API_RemoveSentMessage(Integer.toString(nRequestNumber), serverID, nymID);
                     System.out.println("Utility.getAndProcessNymbox(): OT_API_RemoveSentMessage: " + nRemovedMsg);
-                } else // Didn't find it in the nymbox, so we can harvest it:
+                }
+                else // Didn't find it in the nymbox, so we can harvest it:
                 {
 
                     // NOTE: This may always fail, 
@@ -932,7 +933,7 @@ public class Utility {
                     // Todo: might want to remove the sent message here, IF bMsgWasSent is true.
                     // (Just like case 0.)
                     //
-                    System.out.println("Utility.getAndProcessNymbox(): Failure: Utility.insureHaveAllBoxReceipts: error (-1), when calling sendProcessNymboxLowLevel. (It couldn't send. I give up.)");
+                    System.out.println("Utility.getAndProcessNymbox(): Failure: Utility.processNymbox: error (-1). (It couldn't send. I give up.)");
                     return (-1); // (It didn't even send.)
                 case (0):   // Nymbox was empty. (So we didn't send any process message because there was nothing to process.)
                     if (false == bWasMsgSent.getBooleanValue()) {
@@ -942,7 +943,7 @@ public class Utility {
                 //       in its REPLY to that message! Thus we continue...
                 default:
                     if (nProcess < 0) {
-                        System.out.println("Utility.getAndProcessNymbox(): Failure: Utility.insureHaveAllBoxReceipts: unexpected: " + nProcess + ", when calling sendProcessNymboxLowLevel. (I give up.)");
+                        System.out.println("Utility.getAndProcessNymbox(): Failure:  unexpected: " + nProcess + ", when calling Utility.processNymbox. (I give up.)");
                         return (-1);
                     }
                     // (else break)
@@ -1063,7 +1064,8 @@ public class Utility {
                         // already removed the sent message from the sent buffer (so no need to do that here.)
 
                         System.out.println("Utility.getAndProcessNymbox(): FYI: I *did* find the @processNymbox reply in my Nymbox, so NO NEED to clawback any transaction numbers.");
-                    } else // was NOT found... we need to clawback.
+                    } 
+                    else // was NOT found... we need to clawback.
                     {
                         // This means the server's reply was definitely NOT found in the
                         // Nymbox, even after successfully DOWNLOADING that Nymbox. Which
@@ -1202,13 +1204,13 @@ public class Utility {
 
         switch (nProcess) {
             case (-1):
-                System.out.println("Utility.processNymbox(): Failure: Utility.insureHaveAllBoxReceipts: error (-1), when calling sendProcessNymboxLowLevel. (It couldn't send. I give up.)");
+                System.out.println("Utility.processNymbox(): Failure: error (-1), when calling sendProcessNymboxLowLevel. (It couldn't send. I give up.)");
                 return (-1); // (It didn't even send.)
             case (0):   // Nymbox was empty. (So we didn't send any process message because there was nothing to process.)
                 return 0; // success. done.
             default:
                 if (nProcess < 0) {
-                    System.out.println("Utility.processNymbox(): Failure: Utility.insureHaveAllBoxReceipts: unexpected: " + nProcess + ", when calling sendProcessNymboxLowLevel. (I give up.)");
+                    System.out.println("Utility.processNymbox(): Failure: unexpected: " + nProcess + ", when calling sendProcessNymboxLowLevel. (I give up.)");
                     return (-1);
                 }
                 // (else break)
@@ -1285,16 +1287,16 @@ public class Utility {
 
         // ------------------------------------------
         if ((-1) == nRequestNum) {
-            otapi.OT_API_Output(0, " Utility.processNymbox: Failure sending. OT_API_processNymbox() returned -1. \n");
+            otapi.OT_API_Output(0, " Utility.sendProcessNymboxLowLevel: Failure sending. OT_API_processNymbox() returned -1. \n");
             return (-1); // no need to check for any reply.
         } // ------------------------------------------
         else if (nRequestNum < 0) {
-            otapi.OT_API_Output(0, " Utility.processNymbox: Failure: OT_API_processNymbox() returned unexpected value: " + nRequestNum);
+            otapi.OT_API_Output(0, " Utility.sendProcessNymboxLowLevel: Failure: OT_API_processNymbox() returned unexpected value: " + nRequestNum);
             otapi.OT_API_Output(0, "\n");
             return (-1); // no need to check for any reply.
         } // ------------------------------------------
         else if (0 == nRequestNum) {
-            otapi.OT_API_Output(0, " Utility.processNymbox: Nymbox was empty; no need to process it. \n");
+            otapi.OT_API_Output(0, " Utility.sendProcessNymboxLowLevel: Nymbox was empty; no need to process it. \n");
             return 0;	// Nymbox is empty, thus no need to process it.
         }
 

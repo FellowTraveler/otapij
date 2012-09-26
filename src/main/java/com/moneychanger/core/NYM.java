@@ -428,9 +428,12 @@ public class NYM {
         return deleteNym;
     }
 
-    public String importNYM(String name, String key) {
-        String nymID = null;
-        otapi.OT_API_Wallet_ImportNym(name, key);
+    public String importCert(String name, String key) {
+        // OT now supports ImportNym **AND** ImportCert,
+        // So we need to update Moneychanger to support both as well.
+        // This is just a hack in the meantime.
+        //
+        String nymID = otapi.OT_API_Wallet_ImportCert(name, key);
         return nymID;
     }
 

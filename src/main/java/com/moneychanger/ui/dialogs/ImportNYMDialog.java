@@ -207,7 +207,7 @@ public class ImportNYMDialog extends javax.swing.JDialog {
 
         try{
         setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        String importedNymID = nym.importNYM(jTextField1.getText(),jTextArea1.getText());
+        String importedNymID = nym.importCert(jTextField1.getText(),jTextArea1.getText());
         if(importedNymID!=null){
             JOptionPane.showMessageDialog(null, "Nym Imported Successfully. NYM ID:"+importedNymID,"Import Success",JOptionPane.INFORMATION_MESSAGE);
         }else{
