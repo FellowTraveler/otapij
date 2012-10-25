@@ -23,7 +23,7 @@ Radio interview about Open Transactions, Moneychanger (and Bitcoin):
 
 THIS IS ONLY EXPERIMENTAL SOFTWARE AND IS NOT YET READY FOR PRIME TIME.
 
-## INSTALLATION
+## INSTALLATION - (Bounty to creat MoneyChanger and OT .deb - https://propster.me/tipjar/0cfdnyi )
 
 From the [Open-Transactions Install Instructions.](https://github.com/FellowTraveler/Open-Transactions/wiki/Install) Also: [Troubleshooting](https://github.com/FellowTraveler/Moneychanger/wiki/Troubleshooting)
 
@@ -95,6 +95,8 @@ From a separate terminal:
  
      $ cd Open-Transactions/testwallet
      $ java -jar JavaWrapper.jar
+
+(Bounty to creat MoneyChanger and OT .deb - https://propster.me/tipjar/0cfdnyi )
 
 --------------------------------------------------------
 
