@@ -241,14 +241,14 @@ public class CashPurseAccount extends Account {
         System.out.println("importCashPurse, userInput purse:" + userInput);
         if (!isPurse) {
             System.out.println("importCashPurse, isPurse:" + isPurse);
-            String purse = otapi.OT_API_CreatePurse(serverID, assetID, nymID);
+            String purse = otapi.OT_API_CreatePurse(serverID, assetID, nymID, nymID);
             if (purse == null) {
                 System.out.println("OT_API_CreatePurse returned null");
                 return false;
             }
             System.out.println("importCashPurse, OT_API_CreatePurse returne :" + purse);
 
-            String newPurse = otapi.OT_API_Purse_Push(serverID, assetID, nymID, purse, userInput);
+            String newPurse = otapi.OT_API_Purse_Push(serverID, assetID, nymID, nymID, purse, userInput);
             if (newPurse == null) {
                 System.out.println("OT_API_Purse_Push returned null");
                 return false;
@@ -280,7 +280,7 @@ public class CashPurseAccount extends Account {
 
             // newPurse is created, OWNED BY RECIPIENT.
             //
-            newPurse = otapi.OT_API_CreatePurse(serverID, assetID, recepientNymID);
+            newPurse = otapi.OT_API_CreatePurse(serverID, assetID, recepientNymID, nymID);
 
             if (newPurse == null) {
                 System.out.println("IN processCashPurse, OT_API_CreatePurse returned null");
@@ -317,7 +317,7 @@ public class CashPurseAccount extends Account {
                 // Change the OWNER on token, from NymID to RECIPIENT.
                 // (In this block, we change ALL the tokens in the purse.)
                 //
-                String exportedToken = otapi.OT_API_Token_ChangeOwner(serverID, assetID, token, nymID, recepientNymID);
+                String exportedToken = otapi.OT_API_Token_ChangeOwner(serverID, assetID, token, nymID, nymID, recepientNymID);
 
                 // If change failed, then continue.
                 if (exportedToken == null) {
@@ -328,7 +328,7 @@ public class CashPurseAccount extends Account {
                 // PUSH the EXPORTED TOKEN (new owner) into the new purse (again, recipient is new owner) and save results in "str".
                 // Results are, FYI, newPurse+exportedToken.
                 //
-                String str = otapi.OT_API_Purse_Push(serverID, assetID, recepientNymID, newPurse, exportedToken);
+                String str = otapi.OT_API_Purse_Push(serverID, assetID, nymID, recepientNymID, newPurse, exportedToken);
 
                 // If push failed, then continue.
                 if (str == null) {
@@ -365,8 +365,8 @@ public class CashPurseAccount extends Account {
             // newPurseSelectedTokens is created (CORRECTLY) with recepientNymID as owner.
             // newPurseUnSelectedTokens is created (CORRECTLY) with NymID as owner. (Unselected tokens aren't being exported...)
             //
-            String newPurseSelectedTokens = otapi.OT_API_CreatePurse(serverID, assetID, recepientNymID);
-            String newPurseUnSelectedTokens = otapi.OT_API_CreatePurse(serverID, assetID, nymID);
+            String newPurseSelectedTokens = otapi.OT_API_CreatePurse(serverID, assetID, recepientNymID, nymID);
+            String newPurseUnSelectedTokens = otapi.OT_API_CreatePurse(serverID, assetID, nymID, nymID);
 
             if ((newPurseSelectedTokens == null) || (newPurseUnSelectedTokens == null)) {
                 System.out.println("IN processCashPurse,1st or 2nd OT_API_CreatePurse returned null");
@@ -418,7 +418,7 @@ public class CashPurseAccount extends Account {
                     // CHANGE OWNER from NYM to RECIPIENT
                     // "token" now contains EXPORTED TOKEN, with NEW OWNER.
                     //
-                    String exportedToken = otapi.OT_API_Token_ChangeOwner(serverID, assetID, token, nymID, recepientNymID);
+                    String exportedToken = otapi.OT_API_Token_ChangeOwner(serverID, assetID, token, nymID, nymID, recepientNymID);
 
                     if (exportedToken == null) {
                         System.out.println("IN processCashPurse, OT_API_Token_GetID or OT_API_Token_ChangeOwner returned null... SHOULD NEVER HAPPEN. Returning now.");
@@ -427,7 +427,7 @@ public class CashPurseAccount extends Account {
 
                     // Thus, push exported version of token into new purse for recipient (for selected tokens.)
                     //
-                    String str = otapi.OT_API_Purse_Push(serverID, assetID, recepientNymID, newPurseSelectedTokens, exportedToken);
+                    String str = otapi.OT_API_Purse_Push(serverID, assetID, nymID, recepientNymID, newPurseSelectedTokens, exportedToken);
                     if (str == null) {
                         System.out.println("IN processCashPurse,OT_API_Purse_Push newPurseSelectedTokens returned null... SHOULD NEVER HAPPEN (returning.)");
                         return null;
@@ -435,7 +435,7 @@ public class CashPurseAccount extends Account {
                     newPurseSelectedTokens = str;
                 } else // The token, this iteration, is NOT being exported, but is remaining with the original owner.
                 {
-                    String str = otapi.OT_API_Purse_Push(serverID, assetID, nymID, newPurseUnSelectedTokens, token);
+                    String str = otapi.OT_API_Purse_Push(serverID, assetID, nymID, nymID, newPurseUnSelectedTokens, token);
 
                     if (str == null) {
                         System.out.println("IN processCashPurse,OT_API_Purse_Push newPurseUnSelectedTokens returned null... SHOULD NEVER HAPPEN. Returning null.");
@@ -523,7 +523,7 @@ public class CashPurseAccount extends Account {
         if (selectedTokens.size() == 1) {
             // New Purse is created with Nym as the owner (NOT!!!!!! recipient.)
             //
-            String newPurse = otapi.OT_API_CreatePurse(serverID, assetID, nymID);
+            String newPurse = otapi.OT_API_CreatePurse(serverID, assetID, nymID, nymID);
             if (newPurse == null) {
                 System.out.println("OT_API_CreatePurse returned null");
                 return null;
@@ -563,14 +563,14 @@ public class CashPurseAccount extends Account {
                 // "exportedToken" will contain the output version.
                 //
                 if (selectedTokens.contains(tokenID)) {
-                    exportedToken = otapi.OT_API_Token_ChangeOwner(serverID, assetID, token, nymID, recepientNymID);
+                    exportedToken = otapi.OT_API_Token_ChangeOwner(serverID, assetID, token, nymID, nymID, recepientNymID);
                     // Normally I'd "break" here, since we were only looking to export a single token.
                     // However, I still need to iterate the rest of the tokens onto the NEW PURSE, and then SAVE IT.
                     // That's why I don't break here, and instead allow the loop to continue.
                 } // If the token was NOT selected for export, just push it onto the new purse (for OLD owner, since he still owns it.)
                 else // This will happen with ALL TOKENS except ONE.
                 {
-                    returnStringVal = otapi.OT_API_Purse_Push(serverID, assetID, nymID, newPurse, token);
+                    returnStringVal = otapi.OT_API_Purse_Push(serverID, assetID, nymID, nymID, newPurse, token);
                     if (returnStringVal == null) // this should never happen
                     {
                         System.out.println("IN export cash, OT_API_Purse_Push returned null... (should never happen.) Returning null.");

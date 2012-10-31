@@ -1166,12 +1166,12 @@ public class OpenTransactionAccount extends Account {
     private String getNewPurse(String purse, String serverID, String nymID, String accountID) {
         String updatedPurse = purse;
         String assetID = otapi.OT_API_GetAccountWallet_AssetTypeID(accountID);
-        String newPurse = otapi.OT_API_CreatePurse(serverID, assetID, nymID);
+        String newPurse = otapi.OT_API_CreatePurse(serverID, assetID, nymID, nymID);
         if (newPurse == null) {
             System.out.println("getNewPurse , OT_API_CreatePurse returns null, hence passing back same purse");
             return updatedPurse;
         }
-        updatedPurse = otapi.OT_API_Purse_Push(serverID, assetID, nymID, newPurse, purse);
+        updatedPurse = otapi.OT_API_Purse_Push(serverID, assetID, nymID, nymID, newPurse, purse);
         System.out.println("getNewPurse ,updatedPurse");
         return updatedPurse;
 
