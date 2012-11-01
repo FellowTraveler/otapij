@@ -94,26 +94,10 @@ AK+ZirdWhhoHeWR1tAkN
  */
 package com.moneychanger.core.util;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import com.moneychanger.core.Account;
 import com.moneychanger.core.OpenTransactionAccount;
 import com.moneychanger.core.dataobjects.OTDetails;
-import com.wrapper.core.jni.AddressBook;
-import com.wrapper.core.jni.MarketList;
-import com.wrapper.core.jni.OTCallback;
-import com.wrapper.core.jni.OTCaller;
-import com.wrapper.core.jni.OfferListMarket;
-import com.wrapper.core.jni.OfferListNym;
-import com.wrapper.core.jni.Storable;
-import com.wrapper.core.jni.StoredObjectType;
-import com.wrapper.core.jni.StringMap;
-import com.wrapper.core.jni.TradeListMarket;
-import com.wrapper.core.jni.TradeListNym;
-import com.wrapper.core.jni.WalletData;
-import com.wrapper.core.jni.otapi;
-import com.moneychanger.ui.Load;
 import com.moneychanger.ui.LoadState;
 import com.moneychanger.ui.LoadState.Stages;
 import com.moneychanger.ui.MainPage;
@@ -146,6 +130,19 @@ import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.LookAndFeel;
+import org.opentransactions.jni.core.AddressBook;
+import org.opentransactions.jni.core.MarketList;
+import org.opentransactions.jni.core.OTCallback;
+import org.opentransactions.jni.core.OTCaller;
+import org.opentransactions.jni.core.OfferListMarket;
+import org.opentransactions.jni.core.OfferListNym;
+import org.opentransactions.jni.core.Storable;
+import org.opentransactions.jni.core.StoredObjectType;
+import org.opentransactions.jni.core.StringMap;
+import org.opentransactions.jni.core.TradeListMarket;
+import org.opentransactions.jni.core.TradeListNym;
+import org.opentransactions.jni.core.WalletData;
+import org.opentransactions.jni.core.otapi;
 
 /**
  *

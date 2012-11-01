@@ -9,14 +9,14 @@ import com.moneychanger.core.util.JavaCallback;
 import com.moneychanger.core.util.Utility;
 import com.moneychanger.core.util.Utility.ReturnAction;
 import com.moneychanger.ui.LoadState.OutOfOrderException;
-import com.wrapper.core.jni.OTCallback;
-import com.wrapper.core.jni.OTCaller;
-import com.wrapper.core.jni.otapi;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import javax.swing.AbstractListModel;
+import org.opentransactions.jni.core.OTCallback;
+import org.opentransactions.jni.core.OTCaller;
+import org.opentransactions.jni.core.otapi;
 
 /**
  *
@@ -179,6 +179,10 @@ public class Load {
 
                 System.out.print("Loading otlib:   ");
                 System.loadLibrary("otlib");
+                System.out.println("Success!");
+                
+                System.out.print("Loading otlib:   ");
+                System.loadLibrary("otapi");
                 System.out.println("Success!");
 
             } catch (java.lang.UnsatisfiedLinkError e) {
