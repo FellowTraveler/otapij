@@ -6,8 +6,6 @@ package com.moneychanger.core.util;
 
 import org.opentransactions.jni.core.otapiJNI;
 
-import com.moneychanger.core.util.Utility;
-
 /**
  *
  * @author FT

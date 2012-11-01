@@ -93,6 +93,9 @@ package com.moneychanger.core.datastore;
 import com.moneychanger.core.dataobjects.ContactAcctDetails;
 import com.moneychanger.core.dataobjects.ContactDetails;
 import com.moneychanger.core.dataobjects.ContactNymDetails;
+import com.moneychanger.core.util.Utility;
+import java.util.ArrayList;
+import java.util.List;
 import org.opentransactions.jni.core.AddressBook;
 import org.opentransactions.jni.core.Contact;
 import org.opentransactions.jni.core.ContactAcct;
@@ -101,11 +104,6 @@ import org.opentransactions.jni.core.ServerInfo;
 import org.opentransactions.jni.core.Storable;
 import org.opentransactions.jni.core.StoredObjectType;
 import org.opentransactions.jni.core.otapi;
-import com.moneychanger.core.util.Utility;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class AddressBookHelper {
 

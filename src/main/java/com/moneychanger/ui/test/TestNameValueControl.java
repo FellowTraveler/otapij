@@ -103,15 +103,14 @@ AK+ZirdWhhoHeWR1tAkN
 
 package com.moneychanger.ui.test;
 
-import org.opentransactions.jni.core.otapi;
-import org.opentransactions.jni.core.otapiJNI;
-import com.moneychanger.core.util.Utility;
+
 import com.moneychanger.ui.panels.NameValuePanel;
 import java.awt.BorderLayout;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
+import org.opentransactions.jni.core.otapiJNI;
 
 /**
  *

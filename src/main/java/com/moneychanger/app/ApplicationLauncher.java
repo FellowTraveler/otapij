@@ -97,7 +97,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.UnsupportedLookAndFeelException;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
-import org.opentransactions.jni.core.otapi;
 import org.opentransactions.jni.core.otapiJNI;
 
 /**

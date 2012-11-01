@@ -97,14 +97,12 @@ package com.moneychanger.ui.dialogs;
 
 import com.moneychanger.core.Basket;
 import com.moneychanger.core.NYM;
-import org.opentransactions.jni.core.otapi;
-import org.opentransactions.jni.core.otapiJNI;
 import com.moneychanger.core.util.OTAPI_Func;
 import com.moneychanger.core.util.Utility;
 import com.moneychanger.ui.MainPage;
-import com.moneychanger.ui.model.BasketTableModel;
 import java.util.Map;
 import javax.swing.JOptionPane;
+import org.opentransactions.jni.core.otapiJNI;
 
 /**
  *

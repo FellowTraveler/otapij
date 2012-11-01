@@ -7,12 +7,12 @@ package com.moneychanger.ui.dialogs;
 import com.moneychanger.core.util.Configuration;
 import com.moneychanger.core.util.Utility;
 import com.moneychanger.ui.custom.LoadImage;
-import org.opentransactions.jni.core.OTPassword;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
+import org.opentransactions.jni.core.OTPassword;
 
 /**
  *

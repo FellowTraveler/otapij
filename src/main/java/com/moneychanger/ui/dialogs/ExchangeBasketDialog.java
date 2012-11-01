@@ -100,14 +100,13 @@ AK+ZirdWhhoHeWR1tAkN
  */
 package com.moneychanger.ui.dialogs;
 
-//import com.sun.codemodel.internal.JOp;
+
 import com.moneychanger.core.OpenTransactionAccount;
-import org.opentransactions.jni.core.otapiJNI;
-import com.moneychanger.core.util.Configuration;
 import com.moneychanger.core.util.Utility;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import org.opentransactions.jni.core.otapiJNI;
 
 /**
  *

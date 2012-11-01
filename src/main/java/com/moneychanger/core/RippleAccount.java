@@ -90,10 +90,10 @@ AK+ZirdWhhoHeWR1tAkN
 
 package com.moneychanger.core;
 
-import org.opentransactions.jni.core.RippleServer;
-import org.opentransactions.jni.core.WalletData;
 import com.moneychanger.core.util.Configuration;
 import com.moneychanger.core.util.Utility;
+import org.opentransactions.jni.core.RippleServer;
+import org.opentransactions.jni.core.WalletData;
 
 /**
  *

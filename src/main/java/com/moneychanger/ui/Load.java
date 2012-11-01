@@ -9,15 +9,15 @@ import com.moneychanger.core.util.JavaCallback;
 import com.moneychanger.core.util.Utility;
 import com.moneychanger.core.util.Utility.ReturnAction;
 import com.moneychanger.ui.LoadState.OutOfOrderException;
-import org.opentransactions.jni.core.OTCallback;
-import org.opentransactions.jni.core.OTCaller;
-import org.opentransactions.jni.core.otapi;
-import org.opentransactions.jni.core.otapiJNI;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import javax.swing.AbstractListModel;
+import org.opentransactions.jni.core.OTCallback;
+import org.opentransactions.jni.core.OTCaller;
+import org.opentransactions.jni.core.otapi;
+import org.opentransactions.jni.core.otapiJNI;
 
 /**
  *
@@ -180,6 +180,10 @@ public class Load {
 
                 System.out.print("Loading otlib:   ");
                 System.loadLibrary("otlib");
+                System.out.println("Success!");
+                
+                System.out.print("Loading otlib:   ");
+                System.loadLibrary("otapi");
                 System.out.println("Success!");
 
             } catch (java.lang.UnsatisfiedLinkError e) {
@@ -486,13 +490,14 @@ public class Load {
 
         private static void API_SwitchWallet() throws SwitchWalletFailedException, OutOfOrderException {
             String walletFilename = _configBean.getConfig(ConfigBean.Keys.WalletFilename);
-            if (Utility.VerifyStringVal(walletFilename) && otapiJNI.OTAPI_Basic_SetWallet(walletFilename))
+            if (Utility.VerifyStringVal(walletFilename) && otapiJNI.OTAPI_Basic_SetWallet(walletFilename)) {
                 if (otapiJNI.OTAPI_Basic_SwitchWallet()) {
                     System.out.println("Load.loadOTWallet: OT_API_SwitchWallet() completed successfully.");
                 } else {
                     LoadState.setStageFailed();
                     throw new SwitchWalletFailedException("Load.loadOTWallet: Unable To Switch Wallet, Maybe Wrong Password?");
                 }
+            }
         }
     }
 

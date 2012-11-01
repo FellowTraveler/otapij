@@ -89,9 +89,18 @@ AK+ZirdWhhoHeWR1tAkN
  **************************************************************/
 package com.moneychanger.core;
 
+
 import com.moneychanger.core.dataobjects.MarketDetails;
 import com.moneychanger.core.dataobjects.MarketTicker;
 import com.moneychanger.core.dataobjects.NymOfferDetails;
+import com.moneychanger.core.util.Configuration;
+import com.moneychanger.core.util.OTAPI_Func;
+import com.moneychanger.core.util.Utility;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.opentransactions.jni.core.AskData;
 import org.opentransactions.jni.core.BidData;
 import org.opentransactions.jni.core.MarketData;
@@ -104,14 +113,6 @@ import org.opentransactions.jni.core.TradeDataNym;
 import org.opentransactions.jni.core.TradeListMarket;
 import org.opentransactions.jni.core.TradeListNym;
 import org.opentransactions.jni.core.otapiJNI;
-import com.moneychanger.core.util.OTAPI_Func;
-import com.moneychanger.core.util.Configuration;
-import com.moneychanger.core.util.Utility;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class Market {
 

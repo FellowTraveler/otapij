@@ -95,16 +95,16 @@ AK+ZirdWhhoHeWR1tAkN
 package com.moneychanger.core;
 
 import com.moneychanger.core.dataobjects.OTDetails;
-import org.opentransactions.jni.core.otapi;
-import org.opentransactions.jni.core.otapiJNI;
 import com.moneychanger.core.util.Configuration;
-import com.moneychanger.core.util.Utility;
 import com.moneychanger.core.util.OTAPI_Func;
+import com.moneychanger.core.util.Utility;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.opentransactions.jni.core.otapi;
+import org.opentransactions.jni.core.otapiJNI;
 
 // *********************************************************
 /**

@@ -90,21 +90,17 @@ AK+ZirdWhhoHeWR1tAkN
 
 package com.moneychanger.core.datastore;
 
-import org.opentransactions.jni.core.AddressBook;
+
+import com.moneychanger.core.util.Utility;
+import java.util.HashMap;
+import java.util.Map;
 import org.opentransactions.jni.core.BitcoinAcct;
 import org.opentransactions.jni.core.BitcoinServer;
-import org.opentransactions.jni.core.Contact;
-import org.opentransactions.jni.core.ContactAcct;
-import org.opentransactions.jni.core.ContactNym;
 import org.opentransactions.jni.core.RippleServer;
-import org.opentransactions.jni.core.ServerInfo;
 import org.opentransactions.jni.core.Storable;
 import org.opentransactions.jni.core.StoredObjectType;
 import org.opentransactions.jni.core.WalletData;
 import org.opentransactions.jni.core.otapi;
-import com.moneychanger.core.util.Utility;
-import java.util.HashMap;
-import java.util.Map;
 
 public class StorageHelper {
 

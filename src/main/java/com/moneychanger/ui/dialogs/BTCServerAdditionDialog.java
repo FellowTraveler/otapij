@@ -101,14 +101,8 @@ AK+ZirdWhhoHeWR1tAkN
 package com.moneychanger.ui.dialogs;
 
 import com.moneychanger.core.datastore.StorageHelper;
-import org.opentransactions.jni.core.BitcoinServer;
-import org.opentransactions.jni.core.Storage;
-import org.opentransactions.jni.core.StoredObjectType;
-import org.opentransactions.jni.core.WalletData;
-import org.opentransactions.jni.core.otapi;
 import com.moneychanger.core.util.Utility;
 import com.moneychanger.ui.MainPage;
-import java.util.HashMap;
 import javax.swing.JOptionPane;
 
 public class BTCServerAdditionDialog extends javax.swing.JDialog {

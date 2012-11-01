@@ -90,20 +90,21 @@ AK+ZirdWhhoHeWR1tAkN
 
 package com.moneychanger.core;
 
+
 import com.moneychanger.core.dataobjects.BitcoinDetails;
-import com.moneychanger.core.helper.bitcoin.BitcoinClient;
 import com.moneychanger.core.helper.bitcoin.TransactionInfo;
+import com.moneychanger.core.util.Utility;
+import com.moneychanger.ui.test.BitcoinClient;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.opentransactions.jni.core.BitcoinAcct;
 import org.opentransactions.jni.core.BitcoinServer;
 import org.opentransactions.jni.core.Storable;
 import org.opentransactions.jni.core.StoredObjectType;
 import org.opentransactions.jni.core.WalletData;
 import org.opentransactions.jni.core.otapi;
-import com.moneychanger.core.util.Utility;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import ru.paradoxs.bitcoin.client.ValidatedAddressInfo;
 import ru.paradoxs.bitcoin.client.exceptions.BitcoinClientException;
 

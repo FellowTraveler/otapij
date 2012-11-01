@@ -94,13 +94,14 @@ AK+ZirdWhhoHeWR1tAkN
  */
 package com.moneychanger.core;
 
-import org.opentransactions.jni.core.otapiJNI;
-import com.moneychanger.core.util.Utility;
+
 import com.moneychanger.core.util.OTAPI_Func;
+import com.moneychanger.core.util.Utility;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import org.opentransactions.jni.core.otapiJNI;
 
 /**
  *
