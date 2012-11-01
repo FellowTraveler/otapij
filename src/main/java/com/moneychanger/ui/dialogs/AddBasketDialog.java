@@ -97,7 +97,7 @@ package com.moneychanger.ui.dialogs;
 
 import com.moneychanger.core.Basket;
 import com.moneychanger.core.NYM;
-import com.wrapper.core.jni.otapi;
+import org.opentransactions.jni.core.otapi;
 import com.moneychanger.core.util.OTAPI_Func;
 import com.moneychanger.core.util.Utility;
 import com.moneychanger.ui.MainPage;

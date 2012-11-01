@@ -4,7 +4,7 @@
  */
 package com.moneychanger.core.util;
 
-import com.wrapper.core.jni.otapi;
+import org.opentransactions.jni.core.otapi;
 
 import com.moneychanger.core.util.Utility;
 

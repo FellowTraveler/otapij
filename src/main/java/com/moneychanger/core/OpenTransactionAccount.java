@@ -95,7 +95,7 @@ AK+ZirdWhhoHeWR1tAkN
 package com.moneychanger.core;
 
 import com.moneychanger.core.dataobjects.OTDetails;
-import com.wrapper.core.jni.otapi;
+import org.opentransactions.jni.core.otapi;
 import com.moneychanger.core.util.Configuration;
 import com.moneychanger.core.util.Utility;
 import com.moneychanger.core.util.OTAPI_Func;

@@ -102,7 +102,7 @@ package com.moneychanger.ui.dialogs;
 
 //import com.sun.codemodel.internal.JOp;
 import com.moneychanger.core.OpenTransactionAccount;
-import com.wrapper.core.jni.otapi;
+import org.opentransactions.jni.core.otapi;
 import com.moneychanger.core.util.Configuration;
 import com.moneychanger.core.util.Utility;
 import java.util.logging.Level;

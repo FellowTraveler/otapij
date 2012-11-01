@@ -92,8 +92,9 @@ package com.moneychanger.core.util;
 
 import com.moneychanger.ui.dialogs.OTPasswordDialog;
 import com.moneychanger.ui.dialogs.OTPwdConfirmDialog;
-import com.wrapper.core.jni.OTCallback;
-import com.wrapper.core.jni.OTPassword;
+import org.opentransactions.jni.core.OTCallback;
+import org.opentransactions.jni.core.OTPassword;
+
 
 
 public class JavaCallback extends OTCallback {
