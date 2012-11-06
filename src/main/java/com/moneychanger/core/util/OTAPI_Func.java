@@ -4,6 +4,7 @@
  */
 package com.moneychanger.core.util;
 
+
 import org.opentransactions.jni.core.otapiJNI;
 
 /**
@@ -1107,11 +1108,12 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
                         String strNymbox = otapiJNI.OTAPI_Basic_LoadNymboxNoVerify(theFunction.serverID, theFunction.nymID);      // FLUSH SENT MESSAGES!!!!  (AND HARVEST.)
 
                         // *******************************************************
-                        if (Utility.isValid(strNymbox))
-                             otapiJNI.OTAPI_Basic_FlushSentMessages(false, //harvesting for retry == false
-                                                           theFunction.serverID,
-                                                           theFunction.nymID,
-                                                           strNymbox);                        
+                        if (Utility.isValid(strNymbox)) {
+                            otapiJNI.OTAPI_Basic_FlushSentMessages(false, //harvesting for retry == false
+                                                          theFunction.serverID,
+                                                          theFunction.nymID,
+                                                          strNymbox);
+                        }
                     }
                 } // if (bIsTransaction)
                 // -----------------------------------------------------------------------                                    

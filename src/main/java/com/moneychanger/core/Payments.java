@@ -116,6 +116,7 @@ public class Payments {
         for (int i = 0; i < count; i++) {
             String key = otapiJNI.OTAPI_Basic_GetServer_ID(i);
             String label = otapiJNI.OTAPI_Basic_GetServer_Name(key);
+
             if (!Utility.VerifyStringVal(key)) {
                 continue;
             }

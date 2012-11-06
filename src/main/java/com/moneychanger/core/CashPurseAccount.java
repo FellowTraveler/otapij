@@ -145,6 +145,7 @@ public class CashPurseAccount extends Account {
         cashDetails.setPurse(cashPurse);
         cashDetails.setServeName(otapiJNI.OTAPI_Basic_GetServer_Name(serverID));
         cashDetails.setAssetType(otapiJNI.OTAPI_Basic_GetAssetType_Name(assetID));
+
         if (!Utility.VerifyStringVal(nymID)) {
             cashDetails.setNymName("");
         } else {
@@ -243,6 +244,7 @@ public class CashPurseAccount extends Account {
         if (!isPurse) {
             System.out.println("importCashPurse, isPurse:" + isPurse);
             String purse = otapiJNI.OTAPI_Basic_CreatePurse(serverID, assetID, nymID, nymID);
+
             if (!Utility.VerifyStringVal(purse)) {
                 System.out.println("OT_API_CreatePurse returned null");
                 return false;
@@ -250,6 +252,7 @@ public class CashPurseAccount extends Account {
             System.out.println("importCashPurse, OT_API_CreatePurse returne :" + purse);
 
             String newPurse = otapiJNI.OTAPI_Basic_Purse_Push(serverID, assetID, nymID, nymID, purse, userInput);
+
             if (!Utility.VerifyStringVal(newPurse)) {
                 System.out.println("OT_API_Purse_Push returned null");
                 return false;
@@ -429,6 +432,7 @@ public class CashPurseAccount extends Account {
                     // Thus, push exported version of token into new purse for recipient (for selected tokens.)
                     //
                     String str = otapiJNI.OTAPI_Basic_Purse_Push(serverID, assetID, nymID, recepientNymID, newPurseSelectedTokens, exportedToken);
+
                     if (!Utility.VerifyStringVal(str)) {
                         System.out.println("IN processCashPurse,OT_API_Purse_Push newPurseSelectedTokens returned null... SHOULD NEVER HAPPEN (returning.)");
                         return null;
@@ -525,6 +529,7 @@ public class CashPurseAccount extends Account {
             // New Purse is created with Nym as the owner (NOT!!!!!! recipient.)
             //
             String newPurse = otapiJNI.OTAPI_Basic_CreatePurse(serverID, assetID, nymID, nymID);
+
             if (!Utility.VerifyStringVal(newPurse)) {
                 System.out.println("OT_API_CreatePurse returned null");
                 return null;
@@ -572,6 +577,7 @@ public class CashPurseAccount extends Account {
                 else // This will happen with ALL TOKENS except ONE.
                 {
                     returnStringVal = otapiJNI.OTAPI_Basic_Purse_Push(serverID, assetID, nymID, nymID, newPurse, token);
+                    
                     if (!Utility.VerifyStringVal(returnStringVal)) // this should never happen
                     {
                         System.out.println("IN export cash, OT_API_Purse_Push returned null... (should never happen.) Returning null.");
@@ -692,6 +698,7 @@ public class CashPurseAccount extends Account {
         for (int i = 0; i < count; i++) {
             String row[] = new String[6];
             String token = otapiJNI.OTAPI_Basic_Purse_Peek(serverID, assetID, nymID, purse);
+
             if (Utility.VerifyStringVal(token)) {
                 row[3] = otapiJNI.OTAPI_Basic_Token_GetID(serverID, assetID, token);
                 row[0] = otapiJNI.OTAPI_Basic_Token_GetDenomination(serverID, assetID, token);

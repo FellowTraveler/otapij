@@ -152,10 +152,8 @@ public class Load {
             if (getOS() == typeOS.WIN) {
                 System.out.println("We are on Windows!");
                 LoadWindowsDLLs();
-            }
-            // If Running on other than windows... Lets load the libs
-            else
-            {
+            } // If Running on other than windows... Lets load the libs
+            else {
                 LoadLinuxLIBs();
             }
 
@@ -169,7 +167,7 @@ public class Load {
             try {
                 //System.loadLibrary("libeay32");
                 //System.loadLibrary("libssl32");
-                
+
                 System.out.print("Loading libzmq:   ");
                 System.loadLibrary("libzmq");
                 System.out.println("Success!");
@@ -181,7 +179,7 @@ public class Load {
                 System.out.print("Loading otlib:   ");
                 System.loadLibrary("otlib");
                 System.out.println("Success!");
-                
+
                 System.out.print("Loading otlib:   ");
                 System.loadLibrary("otapi");
                 System.out.println("Success!");
@@ -197,7 +195,6 @@ public class Load {
 
         private static void LoadLinuxLIBs() throws LoadNativeLibrariesFailedException, OutOfOrderException {
             try {
-
             } catch (java.lang.UnsatisfiedLinkError e) {
                 System.out.println();
                 System.err.println("ERROR:   Loading Linux LIB's Failed");
@@ -274,18 +271,17 @@ public class Load {
             // itself to trigger again.  This I think should fix that.
             //
             // --------------------------------------------
+
             boolean bSuccess = false;
-            
-            if (otapiJNI.OTAPI_Basic_AppStartup())  // Call once at startup. Sets up OpenSSL, signal handlers, etc.
+
+            if (otapiJNI.OTAPI_Basic_AppStartup()) // Call once at startup. Sets up OpenSSL, signal handlers, etc.
             {
                 bSuccess = otapiJNI.OTAPI_Basic_Init(); // Initialize OTAPI context. Loads config file, etc.
             }
             // -------------------------------------------------
-            if (bSuccess)
-            {
+            if (bSuccess) {
                 System.out.println("Load.initOTAPI: SUCCESS invoking OTAPI_Basic_AppStartup and OTAPI_Basic_Init.");
-            }
-            else // Failed in OTAPI_Basic_AppStartup or OTAPI_Basic_Init.
+            } else // Failed in OTAPI_Basic_AppStartup or OTAPI_Basic_Init.
             {
                 String strErrorMsg = "Load.initOTAPI: Failed calling OTAPI_Basic_AppStartup or OTAPI_Basic_Init.";
                 throw new InitOTAPIFailedException(strErrorMsg);
@@ -367,7 +363,7 @@ public class Load {
     //<editor-fold defaultstate="collapsed" desc="SetupPasswordCallback">
     public static class SetupPasswordCallback {
 
-        private static OTCaller   s_theCaller   = null;
+        private static OTCaller s_theCaller = null;
         private static OTCallback s_theCallback = null;
 
         public static void Attempt() throws SetupPasswordCallbackFailedException, OutOfOrderException {
@@ -381,11 +377,11 @@ public class Load {
 
         private static void SetCallerAndCallback() throws SetupPasswordCallbackFailedException, OutOfOrderException {
 
-            s_theCaller   = new OTCaller();
+            s_theCaller = new OTCaller();
             s_theCallback = new JavaCallback();
 
             if ((null == s_theCaller) || (null == s_theCallback)) {
-                s_theCaller   = null;
+                s_theCaller = null;
                 s_theCallback = null;
                 LoadState.setStageFailed();
                 throw new SetupPasswordCallbackFailedException("OneTimeOnly.GiveItAShot(): ERROR: Failure instantiating caller or callback objects.");
@@ -395,7 +391,7 @@ public class Load {
             Boolean bSuccess = otapi.OT_API_Set_PasswordCallback(s_theCaller);
 
             if (!bSuccess) {
-                s_theCaller   = null;
+                s_theCaller = null;
                 s_theCallback = null;
                 LoadState.setStageFailed();
                 throw new SetupPasswordCallbackFailedException("OneTimeOnly.GiveItAShot(): ERROR: Failure instantiating caller or callback objects.");
@@ -442,9 +438,10 @@ public class Load {
         private static void API_LoadWallet() throws LoadWalletFailedException, OutOfOrderException {
             String walletFilename = _configBean.getConfig(ConfigBean.Keys.WalletFilename);
 
-            if (Utility.VerifyStringVal(walletFilename))
+            if (Utility.VerifyStringVal(walletFilename)) {
                 otapiJNI.OTAPI_Basic_SetWallet(walletFilename);
-            
+            }
+
             if (otapiJNI.OTAPI_Basic_LoadWallet()) {
                 System.out.println("Load.loadOTWallet: OT_API_LoadWallet() completed successfully.");
             } else {
@@ -490,6 +487,7 @@ public class Load {
 
         private static void API_SwitchWallet() throws SwitchWalletFailedException, OutOfOrderException {
             String walletFilename = _configBean.getConfig(ConfigBean.Keys.WalletFilename);
+
             if (Utility.VerifyStringVal(walletFilename) && otapiJNI.OTAPI_Basic_SetWallet(walletFilename)) {
                 if (otapiJNI.OTAPI_Basic_SwitchWallet()) {
                     System.out.println("Load.loadOTWallet: OT_API_SwitchWallet() completed successfully.");

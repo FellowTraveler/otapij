@@ -396,32 +396,32 @@ public class OpenTransactionAccount extends Account {
         otDetails.setAccountID(accountID);
 
         // ---------------------------------------------
-        String serverID = otapiJNI.OTAPI_Basic_GetAccountWallet_ServerID(accountID);
-        if (!Utility.VerifyStringVal(serverID)) {
+        String strServerID = otapiJNI.OTAPI_Basic_GetAccountWallet_ServerID(accountID);
+        if (!Utility.VerifyStringVal(strServerID)) {
             System.out.println("Failure: serverID is null for accountID: " + accountID);
             return otDetails;
         }
-        otDetails.setServerID(serverID);
+        otDetails.setServerID(strServerID);
 
-        String serverName = otapiJNI.OTAPI_Basic_GetServer_Name(serverID);
+        String serverName = otapiJNI.OTAPI_Basic_GetServer_Name(strServerID);
         if (!Utility.VerifyStringVal(serverName)) {
-            System.out.println("Failure: serverName is null for serverID: " + serverID);
+            System.out.println("Failure: serverName is null for serverID: " + strServerID);
             return otDetails;
         }
         otDetails.setServerName(serverName);
         // ---------------------------------------------
-        String assetID = otapiJNI.OTAPI_Basic_GetAccountWallet_AssetTypeID(accountID);
+        String strAssetID = otapiJNI.OTAPI_Basic_GetAccountWallet_AssetTypeID(accountID);
 
-        if (!Utility.VerifyStringVal(assetID)) {
+        if (!Utility.VerifyStringVal(strAssetID)) {
             System.out.println("Failure: assetID is null for accountID: " + accountID);
             return otDetails;
         }
-        otDetails.setAssetID(assetID);
+        otDetails.setAssetID(strAssetID);
 
-        String assetName = otapiJNI.OTAPI_Basic_GetAssetType_Name(assetID);
+        String assetName = otapiJNI.OTAPI_Basic_GetAssetType_Name(strAssetID);
 
         if (!Utility.VerifyStringVal(assetName)) {
-            System.out.println("Failure: assetName is null for assetID: " + assetID);
+            System.out.println("Failure: assetName is null for assetID: " + strAssetID);
             return otDetails;
         }
         otDetails.setAssetName(assetName);
@@ -434,24 +434,24 @@ public class OpenTransactionAccount extends Account {
         }
         otDetails.setAccountName(strAccountName);
         // ---------------------------------------------
-        String nymID = otapiJNI.OTAPI_Basic_GetAccountWallet_NymID(accountID);
+        String strNymID = otapiJNI.OTAPI_Basic_GetAccountWallet_NymID(accountID);
 
-        if (!Utility.VerifyStringVal(nymID)) {
+        if (!Utility.VerifyStringVal(strNymID)) {
             System.out.println("Failure: nymID is null for accountID: " + accountID);
             return otDetails;
         }
-        otDetails.setNymID(nymID);
+        otDetails.setNymID(strNymID);
 
-        String strNymName = !Utility.VerifyStringVal(nymID) ? new String("") : otapiJNI.OTAPI_Basic_GetNym_Name(nymID);
+        String strNymName = !Utility.VerifyStringVal(strNymID) ? "" : otapiJNI.OTAPI_Basic_GetNym_Name(strNymID);
 
         if (!Utility.VerifyStringVal(strNymName)) {
-            System.out.println("Failure: strNymName is null for nymID: " + nymID);
+            System.out.println("Failure: strNymName is null for nymID: " + strNymID);
             return otDetails;
         }
         otDetails.setNymName(strNymName);
         // ----------------------------------        
         try {
-            if (Utility.getIntermediaryFiles(serverID, nymID, accountID)) {
+            if (Utility.getIntermediaryFiles(strServerID, strNymID, accountID)) {
                 otDetails.setInboxData(getInboxData(accountID));
                 otDetails.setOutboxData(getOutboxData(accountID));
             } else {
@@ -526,6 +526,7 @@ public class OpenTransactionAccount extends Account {
         for (int i = 0; i < basketMemberCount; i++) {
             String memberAssetID = otapiJNI.OTAPI_Basic_Basket_GetMemberType(assetID, i);
             System.out.println("showBasket memberAssetID:" + memberAssetID);
+            
             if (Utility.VerifyStringVal(memberAssetID)) {
                 String minTransferAmtMember = otapiJNI.OTAPI_Basic_Basket_GetMemberMinimumTransferAmount(assetID, i);
                 System.out.println("showBasket minTransferAmtMember:" + minTransferAmtMember);
@@ -777,6 +778,7 @@ public class OpenTransactionAccount extends Account {
             String amount = otapiJNI.OTAPI_Basic_Transaction_GetAmount(serverID, nymID, accountID, transaction);
             String referenceNumber = otapiJNI.OTAPI_Basic_Transaction_GetDisplayReferenceToNum(serverID, nymID, accountID, transaction);
             String timestamp = otapiJNI.OTAPI_Basic_Transaction_GetDateSigned(serverID, nymID, accountID, transaction);
+
             if (!Utility.VerifyStringVal(timestamp)) {
                 timestamp = "";
             } else {
@@ -850,6 +852,7 @@ public class OpenTransactionAccount extends Account {
 
             String transactionID = otapiJNI.OTAPI_Basic_Ledger_GetTransactionIDByIndex(serverID, nymID, accountID, ledger, i);
             String transaction = otapiJNI.OTAPI_Basic_Ledger_GetTransactionByIndex(serverID, nymID, accountID, ledger, i);
+
             if (!Utility.VerifyStringVal(transaction)) {
                 System.out.println("Skip this record, since OT_API_Ledger_GetTransactionByIndex has returned null");
                 continue;

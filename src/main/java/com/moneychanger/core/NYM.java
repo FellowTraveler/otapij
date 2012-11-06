@@ -281,6 +281,7 @@ public class NYM {
             rowData[0] = subject;
             String senderNym = otapiJNI.OTAPI_Basic_GetNym_MailSenderIDByIndex(nymID, i);
             String nymName = null;
+            
             if (Utility.VerifyStringVal(senderNym))
                 nymName = otapiJNI.OTAPI_Basic_GetNym_Name(senderNym);
             rowData[1] = !Utility.VerifyStringVal(nymName) ? !Utility.VerifyStringVal(senderNym) ? "" : senderNym : nymName;
@@ -327,6 +328,7 @@ public class NYM {
             rowData[0] = subject;
             String recepientNymID = otapiJNI.OTAPI_Basic_GetNym_OutmailRecipientIDByIndex(nymID, i);
             String nymName = null;
+
             if (Utility.VerifyStringVal(recepientNymID)) {
                 nymName = otapiJNI.OTAPI_Basic_GetNym_Name(recepientNymID);
             }

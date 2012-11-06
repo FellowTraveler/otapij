@@ -171,6 +171,7 @@ public class ApplicationLauncher extends SingleFrameApplication {
     			new Runnable() {
     				public void run() {
     					System.out.println( "Shutdown hook ran." );
+
                                         otapiJNI.OTAPI_Basic_AppShutdown();
     				}	
     			}
