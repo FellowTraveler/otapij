@@ -196,7 +196,7 @@ public class BitcoinCreateAddressDialog extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         BitcoinAccount btcAcct = new BitcoinAccount(serverID);
         String newAddress = btcAcct.createNewAddress(jTextField1.getText(), account);
-        if (newAddress != null) {
+        if (Utility.VerifyStringVal(newAddress)) {
             JOptionPane.showMessageDialog(this, "New address created successfully - " + newAddress);
             BitcoinAccountTopPanel.setValues(newAddress, jTextField1.getText());
             BitcoinAccountBottomPanel.setReceivingAddrTable(account);

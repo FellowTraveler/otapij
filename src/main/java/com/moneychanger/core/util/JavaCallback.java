@@ -92,8 +92,8 @@ package com.moneychanger.core.util;
 
 import com.moneychanger.ui.dialogs.OTPasswordDialog;
 import com.moneychanger.ui.dialogs.OTPwdConfirmDialog;
-import com.wrapper.core.jni.OTCallback;
-import com.wrapper.core.jni.OTPassword;
+import org.opentransactions.jni.core.OTCallback;
+import org.opentransactions.jni.core.OTPassword;
 
 
 public class JavaCallback extends OTCallback {
@@ -108,12 +108,12 @@ public class JavaCallback extends OTCallback {
             System.out.println("JavaCallback.runOne: Failure: theOutput variable (for password to be returned) is null!");
             return;
         }
-        if (null == strDisplay)
+        if (!Utility.VerifyStringVal(strDisplay))
         {
             System.out.println("JavaCallback.runOne: Failure: strDisplay string (telling you what password to type) is null!");
             return;
         }
-        new OTPasswordDialog(null, true,strDisplay).setVisible(true);
+        new OTPasswordDialog(null, true, strDisplay).setVisible(true);
         OTPasswordDialog.getPassword(theOutput);
     }
 
@@ -123,12 +123,12 @@ public class JavaCallback extends OTCallback {
             System.out.println("JavaCallback.runTwo: Failure: theOutput variable (for password to be returned) is null!");
             return;
 	}
-        if (null == strDisplay)
+        if (!Utility.VerifyStringVal(strDisplay))
         {
             System.out.println("JavaCallback.runOne: Failure: strDisplay string (telling you what password to type) is null!");
             return;
         }
-        new OTPwdConfirmDialog(null, true,strDisplay).setVisible(true);
+        new OTPwdConfirmDialog(null, true, strDisplay).setVisible(true);
         OTPwdConfirmDialog.getPassword(theOutput);
     }
 }

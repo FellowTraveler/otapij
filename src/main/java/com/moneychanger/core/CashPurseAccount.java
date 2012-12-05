@@ -91,7 +91,8 @@ AK+ZirdWhhoHeWR1tAkN
 package com.moneychanger.core;
 import com.moneychanger.core.util.OTAPI_Func;
 import com.moneychanger.core.dataobjects.CashPurseDetails;
-import com.wrapper.core.jni.otapi;
+import org.opentransactions.jni.core.otapi;
+import org.opentransactions.jni.core.otapiJNI;
 import com.moneychanger.core.util.Utility;
 import java.util.ArrayList;
 import java.util.Date;
@@ -125,29 +126,29 @@ public class CashPurseAccount extends Account {
         String[] key = cashPurseID.split(":");
 
         String serverID = key[0];
-        String assetID = key[1];
-        String nymID = key[2];
+        String assetID  = key[1];
+        String nymID    = key[2];
 
-        String cashPurse = otapi.OT_API_LoadPurse(serverID, assetID, nymID);
+        String cashPurse = otapiJNI.OTAPI_Basic_LoadPurse(serverID, assetID, nymID);
 
-        if (cashPurse == null) {
+        if (!Utility.VerifyStringVal(cashPurse)) {
             System.out.println("Purse is null");
             return null;
         }
         gridData = getGridData(serverID, assetID, nymID, cashPurse);
         CashPurseDetails cashDetails = new CashPurseDetails();
         cashDetails.setPurseGrid(gridData);
-        cashDetails.setBalance(otapi.OT_API_Purse_GetTotalValue(serverID, assetID, cashPurse));
+        cashDetails.setBalance(otapiJNI.OTAPI_Basic_Purse_GetTotalValue(serverID, assetID, cashPurse));
         cashDetails.setServerID(serverID);
         cashDetails.setAssetID(assetID);
         cashDetails.setNymID(nymID);
         cashDetails.setPurse(cashPurse);
-        cashDetails.setServeName(otapi.OT_API_GetServer_Name(serverID));
-        cashDetails.setAssetType(otapi.OT_API_GetAssetType_Name(assetID));
-        if (nymID == null) {
+        cashDetails.setServeName(otapiJNI.OTAPI_Basic_GetServer_Name(serverID));
+        cashDetails.setAssetType(otapiJNI.OTAPI_Basic_GetAssetType_Name(assetID));
+        if (!Utility.VerifyStringVal(nymID)) {
             cashDetails.setNymName("");
         } else {
-            cashDetails.setNymName(otapi.OT_API_GetNym_Name(nymID));
+            cashDetails.setNymName(otapiJNI.OTAPI_Basic_GetNym_Name(nymID));
         }
 
         return cashDetails;
@@ -160,51 +161,51 @@ public class CashPurseAccount extends Account {
         return;
         }*/
 
-        int countServer = otapi.OT_API_GetServerCount();
-        int countAsset = otapi.OT_API_GetAssetTypeCount();
-        int countNyms = otapi.OT_API_GetNymCount();
+        int countServer = otapiJNI.OTAPI_Basic_GetServerCount();
+        int countAsset = otapiJNI.OTAPI_Basic_GetAssetTypeCount();
+        int countNyms = otapiJNI.OTAPI_Basic_GetNymCount();
 
         final String selectedServerID = serverID;
         final String selectedAssetID = assetID;
         final String selectedNymID = nymID;
 
         System.out.println("assetID:" + assetID);
-        System.out.println("serverID:" + serverID + " countServer " + otapi.OT_API_GetServerCount());
+        System.out.println("serverID:" + serverID + " countServer " + otapiJNI.OTAPI_Basic_GetServerCount());
         System.out.println("nymID:" + nymID);
 
         for (int j = 0; j < countServer; j++) {
             if ("ALL".equalsIgnoreCase(selectedServerID)) {
-                serverID = otapi.OT_API_GetServer_ID(j);
+                serverID = otapiJNI.OTAPI_Basic_GetServer_ID(j);
                 System.out.println("INNN LOOP serverID:" + serverID);
             } else {
                 j = countServer + 1;
             }
             for (int i = 0; i < countAsset; i++) {
                 if ("ALL".equalsIgnoreCase(selectedAssetID)) {
-                    assetID = otapi.OT_API_GetAssetType_ID(i);
+                    assetID = otapiJNI.OTAPI_Basic_GetAssetType_ID(i);
                 } else {
                     i = countAsset + 1;
                 }
                 for (int k = 0; k < countNyms; k++) {
                     if ("ALL".equalsIgnoreCase(selectedNymID)) {
-                        nymID = otapi.OT_API_GetNym_ID(k);
+                        nymID = otapiJNI.OTAPI_Basic_GetNym_ID(k);
                     } else {
                         k = countNyms + 1;
                     }
-                    //String cashPurse = otapi.OT_API_LoadPurse(serverID,assetID);
+                    //String cashPurse = otapiJNI.OTAPI_Basic_LoadPurse(serverID,assetID);
                     System.out.println("qqassetID:" + assetID);
                     System.out.println("aaserverID:" + serverID);
                     System.out.println("ccnymID:" + nymID);
 
-                    if (assetID != null && serverID != null && nymID != null &&
+                    if (Utility.VerifyStringVal(assetID) && Utility.VerifyStringVal(serverID) && Utility.VerifyStringVal(nymID) &&
                             otapi.Exists("purse", serverID, nymID, assetID) ) {
-                        String cashPurse = otapi.OT_API_LoadPurse(serverID, assetID, nymID);
+                        String cashPurse = otapiJNI.OTAPI_Basic_LoadPurse(serverID, assetID, nymID);
                         System.out.println("cashPurse:" + cashPurse);
-                        if (cashPurse != null) {
+                        if (Utility.VerifyStringVal(cashPurse)) {
                             try {
                                 key = serverID + ":" + assetID + ":" + nymID;
-                                label = otapi.OT_API_GetAssetType_Name(assetID);
-                                amount = otapi.OT_API_Purse_GetTotalValue(serverID, assetID, cashPurse);
+                                label = otapiJNI.OTAPI_Basic_GetAssetType_Name(assetID);
+                                amount = otapiJNI.OTAPI_Basic_Purse_GetTotalValue(serverID, assetID, cashPurse);
                                 accountListOT.put(key, new String[]{label, amount, type, key});
 
                             } catch (Exception nfe) {
@@ -241,15 +242,15 @@ public class CashPurseAccount extends Account {
         System.out.println("importCashPurse, userInput purse:" + userInput);
         if (!isPurse) {
             System.out.println("importCashPurse, isPurse:" + isPurse);
-            String purse = otapi.OT_API_CreatePurse(serverID, assetID, nymID, nymID);
-            if (purse == null) {
+            String purse = otapiJNI.OTAPI_Basic_CreatePurse(serverID, assetID, nymID, nymID);
+            if (!Utility.VerifyStringVal(purse)) {
                 System.out.println("OT_API_CreatePurse returned null");
                 return false;
             }
             System.out.println("importCashPurse, OT_API_CreatePurse returne :" + purse);
 
-            String newPurse = otapi.OT_API_Purse_Push(serverID, assetID, nymID, nymID, purse, userInput);
-            if (newPurse == null) {
+            String newPurse = otapiJNI.OTAPI_Basic_Purse_Push(serverID, assetID, nymID, nymID, purse, userInput);
+            if (!Utility.VerifyStringVal(newPurse)) {
                 System.out.println("OT_API_Purse_Push returned null");
                 return false;
             }
@@ -258,7 +259,7 @@ public class CashPurseAccount extends Account {
         }
         System.out.println("importCashPurse, Before calling OT_API_Wallet_ImportPurse, final purse:" + userInput);
         System.out.println("importCashPurse just before api , serverID:" + serverID + " nymID:" + nymID + " assetID:" + assetID);
-        isSuccess = otapi.OT_API_Wallet_ImportPurse(serverID, assetID, nymID, userInput) == 1 ? true : false;
+        isSuccess = otapiJNI.OTAPI_Basic_Wallet_ImportPurse(serverID, assetID, nymID, userInput);
         return isSuccess;
 
     }
@@ -266,7 +267,7 @@ public class CashPurseAccount extends Account {
     private String processCashPurse(String serverID, String assetID, String nymID, String oldPurse, ArrayList selectedTokens, String recepientNymID) {
 
         String newPurse = null;
-        //oldPurse = otapi.OT_API_LoadPurse(serverID, assetID, nymID);
+        //oldPurse = otapiJNI.OTAPI_Basic_LoadPurse(serverID, assetID, nymID);
 
         // By this point, we know that "selected tokens" has a size of 0, or MORE THAN ONE. (But NOT 1 exactly.)
         // (At least, if this function was called by exportCashPurse.)
@@ -280,29 +281,29 @@ public class CashPurseAccount extends Account {
 
             // newPurse is created, OWNED BY RECIPIENT.
             //
-            newPurse = otapi.OT_API_CreatePurse(serverID, assetID, recepientNymID, nymID);
+            newPurse = otapiJNI.OTAPI_Basic_CreatePurse(serverID, assetID, recepientNymID, nymID);
 
-            if (newPurse == null) {
+            if (!Utility.VerifyStringVal(newPurse)) {
                 System.out.println("IN processCashPurse, OT_API_CreatePurse returned null");
                 return null;
             }
 
             // Iterate through the OLD PURSE. (as tempPurse.)
             //
-            int count = otapi.OT_API_Purse_Count(serverID, assetID, oldPurse);
+            int count = otapiJNI.OTAPI_Basic_Purse_Count(serverID, assetID, oldPurse);
             String tempPurse = oldPurse;
 
             for (int i = 0; i < count; i++) {
                 // Peek into TOKEN, from the top token on the stack. (And it's STILL on top after this call.)
                 //
-                String token = otapi.OT_API_Purse_Peek(serverID, assetID, nymID, tempPurse);
+                String token = otapiJNI.OTAPI_Basic_Purse_Peek(serverID, assetID, nymID, tempPurse);
 
                 // Now pop the token off of tempPurse (our iterator for the old purse).
                 // Store updated copy of purse (sans token) into "str1".
                 //
-                String str1 = otapi.OT_API_Purse_Pop(serverID, assetID, nymID, tempPurse);
+                String str1 = otapiJNI.OTAPI_Basic_Purse_Pop(serverID, assetID, nymID, tempPurse);
 
-                if ((token == null) || (str1 == null)) {
+                if (!Utility.VerifyStringVal(token) || !Utility.VerifyStringVal(str1)) {
                     System.out.println("IN processCashPurse,OT_API_Purse_Peek or OT_API_Purse_Pop returned null... SHOULD NEVER HAPPEN. Returning null.");
                     return null;
                 }
@@ -317,10 +318,10 @@ public class CashPurseAccount extends Account {
                 // Change the OWNER on token, from NymID to RECIPIENT.
                 // (In this block, we change ALL the tokens in the purse.)
                 //
-                String exportedToken = otapi.OT_API_Token_ChangeOwner(serverID, assetID, token, nymID, nymID, recepientNymID);
+                String exportedToken = otapiJNI.OTAPI_Basic_Token_ChangeOwner(serverID, assetID, token, nymID, nymID, recepientNymID);
 
                 // If change failed, then continue.
-                if (exportedToken == null) {
+                if (!Utility.VerifyStringVal(exportedToken)) {
                     System.out.println("IN processCashPurse,OT_API_Token_ChangeOwner returned null...(should never happen) Returning null.");
                     return null;
                 }
@@ -328,10 +329,10 @@ public class CashPurseAccount extends Account {
                 // PUSH the EXPORTED TOKEN (new owner) into the new purse (again, recipient is new owner) and save results in "str".
                 // Results are, FYI, newPurse+exportedToken.
                 //
-                String str = otapi.OT_API_Purse_Push(serverID, assetID, nymID, recepientNymID, newPurse, exportedToken);
+                String str = otapiJNI.OTAPI_Basic_Purse_Push(serverID, assetID, nymID, recepientNymID, newPurse, exportedToken);
 
                 // If push failed, then continue.
-                if (str == null) {
+                if (!Utility.VerifyStringVal(str)) {
                     System.out.println("IN processCashPurse,OT_API_Purse_Push returned null... (should never happen) Returning null.");
                     return null;
                 }
@@ -348,7 +349,7 @@ public class CashPurseAccount extends Account {
             // "Moneychanger will now save your purse, EMPTY, back to local storage. Are you sure you want to do this?"
             //
             
-            if (otapi.OT_API_SavePurse(serverID, assetID, nymID, tempPurse) == 0) // if FAILURE.
+            if (!otapiJNI.OTAPI_Basic_SavePurse(serverID, assetID, nymID, tempPurse)) // if FAILURE.
             {
                 // No error message if saving fails??
                 // No modal?
@@ -365,10 +366,10 @@ public class CashPurseAccount extends Account {
             // newPurseSelectedTokens is created (CORRECTLY) with recepientNymID as owner.
             // newPurseUnSelectedTokens is created (CORRECTLY) with NymID as owner. (Unselected tokens aren't being exported...)
             //
-            String newPurseSelectedTokens = otapi.OT_API_CreatePurse(serverID, assetID, recepientNymID, nymID);
-            String newPurseUnSelectedTokens = otapi.OT_API_CreatePurse(serverID, assetID, nymID, nymID);
+            String newPurseSelectedTokens = otapiJNI.OTAPI_Basic_CreatePurse(serverID, assetID, recepientNymID, nymID);
+            String newPurseUnSelectedTokens = otapiJNI.OTAPI_Basic_CreatePurse(serverID, assetID, nymID, nymID);
 
-            if ((newPurseSelectedTokens == null) || (newPurseUnSelectedTokens == null)) {
+            if (!Utility.VerifyStringVal(newPurseSelectedTokens) || !Utility.VerifyStringVal(newPurseUnSelectedTokens)) {
                 System.out.println("IN processCashPurse,1st or 2nd OT_API_CreatePurse returned null");
                 return null;
             }
@@ -376,20 +377,20 @@ public class CashPurseAccount extends Account {
             // ----------------------------------------------------------
             // Iterate through oldPurse, using tempPurse as iterator.
             //
-            int count = otapi.OT_API_Purse_Count(serverID, assetID, oldPurse);
+            int count = otapiJNI.OTAPI_Basic_Purse_Count(serverID, assetID, oldPurse);
             String tempPurse = oldPurse;
 
             for (int i = 0; i < count; i++) {
                 // Peek at the token on top of the stack.
                 // (Without removing it.)
                 //
-                String token = otapi.OT_API_Purse_Peek(serverID, assetID, nymID, tempPurse);
+                String token = otapiJNI.OTAPI_Basic_Purse_Peek(serverID, assetID, nymID, tempPurse);
 
                 // Remove the top token from the stack, and return the updated stack in "str1".
                 //
-                String str1 = otapi.OT_API_Purse_Pop(serverID, assetID, nymID, tempPurse);
+                String str1 = otapiJNI.OTAPI_Basic_Purse_Pop(serverID, assetID, nymID, tempPurse);
 
-                if ((str1 == null) || (token == null)) {
+                if (!Utility.VerifyStringVal(str1) || !Utility.VerifyStringVal(token)) {
                     System.out.println("IN processCashPurse,OT_API_Purse_Peek or OT_API_Purse_Pop returned null... returning Null. (SHOULD NEVER HAPPEN.)");
                     return null;
                 }
@@ -402,9 +403,9 @@ public class CashPurseAccount extends Account {
 
                 // Grab the TokenID for that token. (Token still has OLD OWNER.)
                 //
-                String tokenID = otapi.OT_API_Token_GetID(serverID, assetID, token);
+                String tokenID = otapiJNI.OTAPI_Basic_Token_GetID(serverID, assetID, token);
 
-                if (tokenID == null) {
+                if (!Utility.VerifyStringVal(tokenID)) {
                     System.out.println("IN processCashPurse, OT_API_Token_GetID returned null... SHOULD NEVER HAPPEN. Returning now.");
                     return null;
                 }
@@ -418,26 +419,26 @@ public class CashPurseAccount extends Account {
                     // CHANGE OWNER from NYM to RECIPIENT
                     // "token" now contains EXPORTED TOKEN, with NEW OWNER.
                     //
-                    String exportedToken = otapi.OT_API_Token_ChangeOwner(serverID, assetID, token, nymID, nymID, recepientNymID);
+                    String exportedToken = otapiJNI.OTAPI_Basic_Token_ChangeOwner(serverID, assetID, token, nymID, nymID, recepientNymID);
 
-                    if (exportedToken == null) {
+                    if (!Utility.VerifyStringVal(exportedToken)) {
                         System.out.println("IN processCashPurse, OT_API_Token_GetID or OT_API_Token_ChangeOwner returned null... SHOULD NEVER HAPPEN. Returning now.");
                         return null;
                     }
 
                     // Thus, push exported version of token into new purse for recipient (for selected tokens.)
                     //
-                    String str = otapi.OT_API_Purse_Push(serverID, assetID, nymID, recepientNymID, newPurseSelectedTokens, exportedToken);
-                    if (str == null) {
+                    String str = otapiJNI.OTAPI_Basic_Purse_Push(serverID, assetID, nymID, recepientNymID, newPurseSelectedTokens, exportedToken);
+                    if (!Utility.VerifyStringVal(str)) {
                         System.out.println("IN processCashPurse,OT_API_Purse_Push newPurseSelectedTokens returned null... SHOULD NEVER HAPPEN (returning.)");
                         return null;
                     }
                     newPurseSelectedTokens = str;
                 } else // The token, this iteration, is NOT being exported, but is remaining with the original owner.
                 {
-                    String str = otapi.OT_API_Purse_Push(serverID, assetID, nymID, nymID, newPurseUnSelectedTokens, token);
+                    String str = otapiJNI.OTAPI_Basic_Purse_Push(serverID, assetID, nymID, nymID, newPurseUnSelectedTokens, token);
 
-                    if (str == null) {
+                    if (!Utility.VerifyStringVal(str)) {
                         System.out.println("IN processCashPurse,OT_API_Purse_Push newPurseUnSelectedTokens returned null... SHOULD NEVER HAPPEN. Returning null.");
                         return null;
                     }
@@ -448,7 +449,7 @@ public class CashPurseAccount extends Account {
 
             // We SAVE newPurseUnSelectedTokens... These remain as the Nym's purse, in local storage.
             //
-            if (otapi.OT_API_SavePurse(serverID, assetID, nymID, newPurseUnSelectedTokens) == 0) // if FAILURE.
+            if (!otapiJNI.OTAPI_Basic_SavePurse(serverID, assetID, nymID, newPurseUnSelectedTokens)) // if FAILURE.
             {
                 // No error message if saving fails??
                 // No modal?
@@ -474,7 +475,7 @@ public class CashPurseAccount extends Account {
 
         // If no recipient, then recipient == Nym.
         //
-        if (recepientNymID == null || recepientNymID.length() == 0) {
+        if (!Utility.VerifyStringVal(recepientNymID) || recepientNymID.length() == 0) {
             System.out.println("exportCashPurse: recepientNym empty--using NymID for recipient instead: " + nymID);
             recepientNymID = nymID;
         }
@@ -483,28 +484,28 @@ public class CashPurseAccount extends Account {
         // Question: meaning of isPasted ?
         //
         if (isPasted && !recepientNymID.equals(nymID)) {
-            String recepientPubKey = otapi.OT_API_LoadPubkey(recepientNymID);
+            String recepientPubKey = otapiJNI.OTAPI_Basic_LoadPubkey(recepientNymID);
             System.out.println("recepientPubKey:" + recepientPubKey);
 
             // This whole block is all just about loading the pubkey for the recipient, (if I don't already have it.)
             //
-            if (recepientPubKey == null) {
+            if (!Utility.VerifyStringVal(recepientPubKey)) {
                 // ----------------------------------------------------------
                 OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.CHECK_USER, serverID, nymID, recepientNymID);
                 String      strResponse  = OTAPI_Func.SendRequest(theRequest, "CHECK_USER");
 
-                if (null == strResponse)
+                if (!Utility.VerifyStringVal(strResponse))
                 {
                     System.out.println("IN exportCashPurse: OTAPI_Func.SendRequest() failed. (I give up.) ");
                     return null;
                 }
                 // ----------------------------------------------------------
                 
-                recepientPubKey = otapi.OT_API_LoadPubkey(recepientNymID);                
+                recepientPubKey = otapiJNI.OTAPI_Basic_LoadPubkey(recepientNymID);                
             }
 
             // Still?
-            if (recepientPubKey == null) {
+            if (!Utility.VerifyStringVal(recepientPubKey)) {
                 System.out.println("exportCashPurse: recepientPubKey is null");
                 return null;
             }
@@ -514,7 +515,7 @@ public class CashPurseAccount extends Account {
         // By this point, we have verified that we can load the public key for the recipient.
         // (At least, as long as "isPasted" is true.)
 
-        String token = null;
+        String token         = null;
         String exportedToken = null;
 
         // If a single token is selected, then execute this block.
@@ -523,28 +524,28 @@ public class CashPurseAccount extends Account {
         if (selectedTokens.size() == 1) {
             // New Purse is created with Nym as the owner (NOT!!!!!! recipient.)
             //
-            String newPurse = otapi.OT_API_CreatePurse(serverID, assetID, nymID, nymID);
-            if (newPurse == null) {
+            String newPurse = otapiJNI.OTAPI_Basic_CreatePurse(serverID, assetID, nymID, nymID);
+            if (!Utility.VerifyStringVal(newPurse)) {
                 System.out.println("OT_API_CreatePurse returned null");
                 return null;
             }
 
             // "int count" starts out containing the count of the tokens in OLD PURSE.
             //
-            int count = otapi.OT_API_Purse_Count(serverID, assetID, oldPurse);
+            int count = otapiJNI.OTAPI_Basic_Purse_Count(serverID, assetID, oldPurse);
 
             String tempPurse = oldPurse; // tempPurse now contains a COPY of OLD PURSE. (From old owner...)
 
             for (int i = 0; i < count; i++) // iterate through tempPurse, all the tokens.
             {
                 // "token" now contains the token for this iteration.
-                token = otapi.OT_API_Purse_Peek(serverID, assetID, nymID, tempPurse); // DOESN'T POP!! Only peeks.
+                token = otapiJNI.OTAPI_Basic_Purse_Peek(serverID, assetID, nymID, tempPurse); // DOESN'T POP!! Only peeks.
 
                 // Here we explicitly "pop" as well, so we are positioned in case of any "continue"s.
                 //
-                String returnStringVal = otapi.OT_API_Purse_Pop(serverID, assetID, nymID, tempPurse);
+                String returnStringVal = otapiJNI.OTAPI_Basic_Purse_Pop(serverID, assetID, nymID, tempPurse);
 
-                if ((token == null) || (returnStringVal == null)) // this should never happen
+                if (!Utility.VerifyStringVal(token) || !Utility.VerifyStringVal(returnStringVal)) // this should never happen
                 {
                     System.out.println("IN export cash, OT_API_Purse_Peek returned null... (should never happen.) ");
                     return null;
@@ -557,21 +558,21 @@ public class CashPurseAccount extends Account {
                 // -----------------------------------
 
                 // We read the token's ID, so we can see if it is on the list of SELECTED tokens (to be exported...)
-                String tokenID = otapi.OT_API_Token_GetID(serverID, assetID, token);
+                String tokenID = otapiJNI.OTAPI_Basic_Token_GetID(serverID, assetID, token);
 
                 // If the Token was selected for export, CHANGE OWNER from NYM to RECIPIENT.
                 // "exportedToken" will contain the output version.
                 //
                 if (selectedTokens.contains(tokenID)) {
-                    exportedToken = otapi.OT_API_Token_ChangeOwner(serverID, assetID, token, nymID, nymID, recepientNymID);
+                    exportedToken = otapiJNI.OTAPI_Basic_Token_ChangeOwner(serverID, assetID, token, nymID, nymID, recepientNymID);
                     // Normally I'd "break" here, since we were only looking to export a single token.
                     // However, I still need to iterate the rest of the tokens onto the NEW PURSE, and then SAVE IT.
                     // That's why I don't break here, and instead allow the loop to continue.
                 } // If the token was NOT selected for export, just push it onto the new purse (for OLD owner, since he still owns it.)
                 else // This will happen with ALL TOKENS except ONE.
                 {
-                    returnStringVal = otapi.OT_API_Purse_Push(serverID, assetID, nymID, nymID, newPurse, token);
-                    if (returnStringVal == null) // this should never happen
+                    returnStringVal = otapiJNI.OTAPI_Basic_Purse_Push(serverID, assetID, nymID, nymID, newPurse, token);
+                    if (!Utility.VerifyStringVal(returnStringVal)) // this should never happen
                     {
                         System.out.println("IN export cash, OT_API_Purse_Push returned null... (should never happen.) Returning null.");
                         return null;
@@ -587,7 +588,7 @@ public class CashPurseAccount extends Account {
             // Therefore now we save newPurse, which overwrites the oldPurse that was previously stored there,
             // and contains the remaining, non-exported tokens of the old owner.
             //
-            if (otapi.OT_API_SavePurse(serverID, assetID, nymID, newPurse) == 0) {
+            if (!otapiJNI.OTAPI_Basic_SavePurse(serverID, assetID, nymID, newPurse)) {
                 // If SAVE FAILS (==0) then set Utility obj to OLD PURSE.
                 Utility.setObj(oldPurse);   // Displays on screen??
                 return null;
@@ -614,10 +615,10 @@ public class CashPurseAccount extends Account {
 
         Utility.setObj(null);
         System.out.println("depositCashPurse starts, selectedTokens:" + selectedTokens);
-        String recepientNymID = otapi.OT_API_GetAccountWallet_NymID(accountID);
+        String recepientNymID = otapiJNI.OTAPI_Basic_GetAccountWallet_NymID(accountID);
         String newPurse = processCashPurse(serverID, assetID, nymID, oldPurse, selectedTokens, recepientNymID);
 
-        if (newPurse == null) {
+        if (!Utility.VerifyStringVal(newPurse)) {
             System.out.println("Before server OT_API_exchangePurse call, new Purse is emtpty.. returning false ");
             return false;
         }
@@ -625,11 +626,11 @@ public class CashPurseAccount extends Account {
         OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.DEPOSIT_CASH, serverID, recepientNymID, accountID, newPurse);
         String      strResponse  = OTAPI_Func.SendTransaction(theRequest, "DEPOSIT_CASH"); // <========================
         
-        if (null == strResponse)
+        if (!Utility.VerifyStringVal(strResponse))
         {
             System.out.println("IN depositCashPurse: OTAPI_Func.SendTransaction(() failed. (I give up.) ");
             // -------------------
-            boolean importStatus = otapi.OT_API_Wallet_ImportPurse(serverID, assetID, recepientNymID, newPurse) == 1 ? true : false;
+            boolean importStatus = otapiJNI.OTAPI_Basic_Wallet_ImportPurse(serverID, assetID, recepientNymID, newPurse);
             System.out.println("Since failure in depositCashPurse, OT_API_Wallet_ImportPurse called, status of import:" + importStatus);
             if (!importStatus) {
                 Utility.setObj(newPurse);
@@ -649,7 +650,7 @@ public class CashPurseAccount extends Account {
         System.out.println(" Cash Purse exchange starts, selectedTokens:" + selectedTokens);
         String newPurse = processCashPurse(serverID, assetID, nymID, oldPurse, selectedTokens, nymID);
 
-        if (newPurse == null) {
+        if (!Utility.VerifyStringVal(newPurse)) {
             System.out.println("exchangeCashPurse: Before server OT_API_exchangePurse call, new Purse is empty.. returning false ");
             return false;
         }
@@ -657,11 +658,11 @@ public class CashPurseAccount extends Account {
         OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.EXCHANGE_CASH, serverID, nymID, assetID, newPurse);
         String      strResponse  = OTAPI_Func.SendTransaction(theRequest, "EXCHANGE_CASH"); // <========================
         
-        if (null == strResponse)
+        if (!Utility.VerifyStringVal(strResponse))
         {
             System.out.println("IN exchangeCashPurse: OTAPI_Func.SendTransaction(() failed. (I give up.) ");
             // -------------------
-            boolean importStatus = otapi.OT_API_Wallet_ImportPurse(serverID, assetID, nymID, newPurse) == 1 ? true : false;
+            boolean importStatus = otapiJNI.OTAPI_Basic_Wallet_ImportPurse(serverID, assetID, nymID, newPurse);
             System.out.println("Since failure in exchangeCashPurse, OT_API_Wallet_ImportPurse called, status of import:" + importStatus);
             if (!importStatus) {
                 Utility.setObj(newPurse);
@@ -685,27 +686,27 @@ public class CashPurseAccount extends Account {
         if(true)
         return gridMap;*/
 
-        int count = otapi.OT_API_Purse_Count(serverID, assetID, purse);
+        int count = otapiJNI.OTAPI_Basic_Purse_Count(serverID, assetID, purse);
         Date d = null;
         long seconds = 0;
         for (int i = 0; i < count; i++) {
             String row[] = new String[6];
-            String token = otapi.OT_API_Purse_Peek(serverID, assetID, nymID, purse);
-            if (token != null) {
-                row[3] = otapi.OT_API_Token_GetID(serverID, assetID, token);
-                row[0] = otapi.OT_API_Token_GetDenomination(serverID, assetID, token);
-                row[4] = String.valueOf(otapi.OT_API_Token_GetSeries(serverID, assetID, token));
+            String token = otapiJNI.OTAPI_Basic_Purse_Peek(serverID, assetID, nymID, purse);
+            if (Utility.VerifyStringVal(token)) {
+                row[3] = otapiJNI.OTAPI_Basic_Token_GetID(serverID, assetID, token);
+                row[0] = otapiJNI.OTAPI_Basic_Token_GetDenomination(serverID, assetID, token);
+                row[4] = String.valueOf(otapiJNI.OTAPI_Basic_Token_GetSeries(serverID, assetID, token));
                 // TODO: convert beow to date
-                seconds = Long.parseLong(otapi.OT_API_Token_GetValidFrom(serverID, assetID, token));
+                seconds = Long.parseLong(otapiJNI.OTAPI_Basic_Token_GetValidFrom(serverID, assetID, token));
                 d = new Date(seconds * 1000);
                 row[1] = String.valueOf(d);
-                seconds = Long.parseLong(otapi.OT_API_Token_GetValidTo(serverID, assetID, token));
+                seconds = Long.parseLong(otapiJNI.OTAPI_Basic_Token_GetValidTo(serverID, assetID, token));
                 d = new Date(seconds * 1000);
                 row[2] = String.valueOf(d);
                 d = null;
                 gridMap.put(token, row);
             }
-            purse = otapi.OT_API_Purse_Pop(serverID, assetID, nymID, purse);
+            purse = otapiJNI.OTAPI_Basic_Purse_Pop(serverID, assetID, nymID, purse);
         }
         return gridMap;
     }
@@ -722,11 +723,10 @@ public class CashPurseAccount extends Account {
     }
 
     public Map refreshGridData(String serverID, String assetID, String nymID) {
-        String purse = otapi.OT_API_LoadPurse(serverID, assetID, nymID);
-        if (purse == null) {
+        String purse = otapiJNI.OTAPI_Basic_LoadPurse(serverID, assetID, nymID);
+        if (!Utility.VerifyStringVal(purse)) {
             return null;
         }
         return getGridData(serverID, assetID, nymID, purse);
-
     }
 }

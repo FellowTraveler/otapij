@@ -91,6 +91,7 @@ AK+ZirdWhhoHeWR1tAkN
 
 package com.moneychanger.ui.test;
 
+import com.moneychanger.core.util.Utility;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -161,7 +162,7 @@ public class BitcoinClient
 
   public List<String> getAddressesByAccount(String account)
   {
-    if (account == null) {
+    if (!Utility.VerifyStringVal(account)) {
       account = "";
     }
     try
@@ -235,7 +236,7 @@ public class BitcoinClient
 
   public double getBalance(String account)
   {
-    if (account == null) {
+    if (!Utility.VerifyStringVal(account)) {
       account = "";
     }
     try
@@ -435,7 +436,7 @@ public class BitcoinClient
 
   public String getAccountAddress(String account)
   {
-    if (account == null) {
+    if (!Utility.VerifyStringVal(account)) {
       account = "";
     }
     try
@@ -591,7 +592,7 @@ public class BitcoinClient
 
   public List<TransactionInfo> listTransactions(String account, int count)
   {
-    if (account == null) {
+    if (!Utility.VerifyStringVal(account)) {
       account = "";
     }
 
@@ -740,7 +741,7 @@ public class BitcoinClient
 
   public String sendFrom(String account, String bitcoinAddress, double amount, int minimumConfirmations, String comment, String commentTo)
   {
-    if (account == null) {
+    if (!Utility.VerifyStringVal(account)) {
       account = "";
     }
 
@@ -764,7 +765,7 @@ public class BitcoinClient
 
   public boolean move(String fromAccount, String toAccount, double amount, int minimumConfirmations, String comment)
   {
-    if (fromAccount == null) {
+    if (!Utility.VerifyStringVal(fromAccount)) {
       fromAccount = "";
     }
 

@@ -96,14 +96,14 @@ public class ConfigBean {
 
     public String getConfig(Keys key) {
         String ret = _prefs.get(key.name(), null);
-        if (ret == null) {
+        if (!Utility.VerifyStringVal(ret)) {
             return "";
         }
         return ret;
     }
 
     public void setConfig(Keys key, String value) {
-        if (value == null) {
+        if (!Utility.VerifyStringVal(value)) {
             value = "";
         }
         _prefs.put(key.name(), value);
@@ -117,7 +117,7 @@ public class ConfigBean {
         for (Keys key : Keys.values()) {
             String value = Static.getKey(key.name());
 
-            if (value != null) {
+            if (Utility.VerifyStringVal(value)) {
                 setConfig(key, value);
             } else {
                 setConfig(key, "");

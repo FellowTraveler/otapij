@@ -90,18 +90,18 @@ AK+ZirdWhhoHeWR1tAkN
 
 package com.moneychanger.core.datastore;
 
-import com.wrapper.core.jni.AddressBook;
-import com.wrapper.core.jni.BitcoinAcct;
-import com.wrapper.core.jni.BitcoinServer;
-import com.wrapper.core.jni.Contact;
-import com.wrapper.core.jni.ContactAcct;
-import com.wrapper.core.jni.ContactNym;
-import com.wrapper.core.jni.RippleServer;
-import com.wrapper.core.jni.ServerInfo;
-import com.wrapper.core.jni.Storable;
-import com.wrapper.core.jni.StoredObjectType;
-import com.wrapper.core.jni.WalletData;
-import com.wrapper.core.jni.otapi;
+import org.opentransactions.jni.core.AddressBook;
+import org.opentransactions.jni.core.BitcoinAcct;
+import org.opentransactions.jni.core.BitcoinServer;
+import org.opentransactions.jni.core.Contact;
+import org.opentransactions.jni.core.ContactAcct;
+import org.opentransactions.jni.core.ContactNym;
+import org.opentransactions.jni.core.RippleServer;
+import org.opentransactions.jni.core.ServerInfo;
+import org.opentransactions.jni.core.Storable;
+import org.opentransactions.jni.core.StoredObjectType;
+import org.opentransactions.jni.core.WalletData;
+import org.opentransactions.jni.core.otapi;
 import com.moneychanger.core.util.Utility;
 import java.util.HashMap;
 import java.util.Map;

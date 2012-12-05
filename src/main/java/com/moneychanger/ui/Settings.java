@@ -85,6 +85,7 @@
 package com.moneychanger.ui;
 
 import com.moneychanger.core.util.ConfigBean;
+import com.moneychanger.core.util.Utility;
 import com.moneychanger.core.util.Utility.ReturnAction;
 import com.moneychanger.ui.Load.JavaPaths;
 import com.moneychanger.ui.Load.typeOS;
@@ -116,23 +117,23 @@ public class Settings extends javax.swing.JFrame {
         try {
             Load.Init(_configBean);
 
-            System.out.println("DISABLING AUTOLOAD FOR DEBUG!");
-            _configBean.setConfig(ConfigBean.Keys.LastLoadSuccessfull, Boolean.FALSE.toString());
+//            System.out.println("DISABLING AUTOLOAD FOR DEBUG!");
+//            _configBean.setConfig(ConfigBean.Keys.LastLoadSuccessfull, Boolean.FALSE.toString());
 
             // If we loaded successfull Last time... Attempt The Same Known Good Settings
             if (Boolean.parseBoolean(_configBean.getConfig(ConfigBean.Keys.LastLoadSuccessfull))) {
                 try {
                     // Starting an autoload... lets set the Last Load Succssfull to false...
-                    System.out.println("Last Load was Successful! Attempting Autoload!");
+                    System.out.println("Last load was successful. Attempting autoload...");
                     _configBean.setConfig(ConfigBean.Keys.LastLoadSuccessfull, Boolean.FALSE.toString());
 
                     Load.Attempt();
                     LoadMoneychangerGUI();
                 } catch (Load.LoadFailedException e) {
-                    System.out.println("We didn't load Successfuly, Showing Seetings...!");
+                    System.out.println("We didn't load successfuly. Showing settings...!");
                 }
             } else {
-                System.out.println("We didn't load Successfuly Last time, Showing Seetings...!");
+                System.out.println("We didn't load successfuly last time, showing settings...");
             }
 
             // Load Up Settings Dialoug
@@ -141,7 +142,7 @@ public class Settings extends javax.swing.JFrame {
 
         } catch (OutOfOrderException e) {
             System.err.println(e.toString());
-            System.out.println("SomethingBad Happend! We loaded up stuff in the wrong order!");
+            System.out.println("Something bad happened: We loaded up stuff in the wrong order!");
             System.exit(1);
         }
     }
@@ -281,11 +282,11 @@ public class Settings extends javax.swing.JFrame {
             LoadMoneychangerGUI();
         } catch (Load.LoadFailedException e) {
             System.err.println(e.toString());
-            System.out.println("SomethingBad Happend! We couldn't load properly!");
+            System.out.println("Something bad happened: We couldn't load properly...");
             System.exit(1);
         } catch (OutOfOrderException e) {
             System.err.println(e.toString());
-            System.out.println("SomethingBad Happend! We Loaded in the wrong order!");
+            System.out.println("Something bad happened: We loaded in the wrong order!");
             System.exit(1);
         }
     }//GEN-LAST:event_jButton_LoadWalletActionPerformed
@@ -365,7 +366,7 @@ public class Settings extends javax.swing.JFrame {
 
             // User Data Path
             String userDataPath = _configBean.getConfig(ConfigBean.Keys.UserDataPath);
-            if (userDataPath.isEmpty()) {
+            if (!Utility.VerifyStringVal(userDataPath)) {
                 userDataPath = new StringBuilder(Load.getUserAppDataLocation()).append("/.ot/client_data").toString();
             }
             
@@ -375,7 +376,7 @@ public class Settings extends javax.swing.JFrame {
             System.out.println(System.getProperty("os.arch"));
             
             if (Boolean.parseBoolean(_configBean.getConfig(ConfigBean.Keys.JavaPathSet))) {
-                if (null == javaPath || javaPath.isEmpty()) {
+                if (!Utility.VerifyStringVal(javaPath)) {
                     javaPath = "";
                 }
             } else {
@@ -402,8 +403,7 @@ public class Settings extends javax.swing.JFrame {
 
             // Password Image Path
             String imagePath = ConfigBean.Static.getKey(ConfigBean.Static.Keys.PasswordImagePath);
-            if (imagePath == null
-                    || imagePath.isEmpty()) {
+            if (!Utility.VerifyStringVal(imagePath)) {
                 imagePath = "";
             }
             Settings.jTextField_ImagePath.setText(imagePath);

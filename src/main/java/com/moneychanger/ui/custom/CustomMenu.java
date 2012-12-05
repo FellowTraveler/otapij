@@ -95,6 +95,7 @@ AK+ZirdWhhoHeWR1tAkN
  */
 package com.moneychanger.ui.custom;
 
+import com.moneychanger.core.util.Utility;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -123,7 +124,7 @@ public class CustomMenu extends JMenu {
 
     public static Object getClassName(String key) {
 
-        if (key == null) {
+        if (!Utility.VerifyStringVal(key)) {
             return null;
         }
 

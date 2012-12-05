@@ -91,13 +91,14 @@ package com.moneychanger.app;
 
 import com.moneychanger.core.util.ConfigBean;
 import com.moneychanger.ui.Settings;
-import com.wrapper.core.jni.otapi;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
 import javax.swing.UnsupportedLookAndFeelException;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
+import org.opentransactions.jni.core.otapi;
+import org.opentransactions.jni.core.otapiJNI;
 
 /**
  * The main class of the application.
@@ -171,7 +172,7 @@ public class ApplicationLauncher extends SingleFrameApplication {
     			new Runnable() {
     				public void run() {
     					System.out.println( "Shutdown hook ran." );
-                                        otapi.OT_API_Cleanup();
+                                        otapiJNI.OTAPI_Basic_AppShutdown();
     				}	
     			}
     		)

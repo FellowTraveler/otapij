@@ -4,7 +4,7 @@
  */
 package com.moneychanger.core.util;
 
-import com.wrapper.core.jni.otapi;
+import org.opentransactions.jni.core.otapiJNI;
 
 import com.moneychanger.core.util.Utility;
 
@@ -83,25 +83,25 @@ public class OTAPI_Func {
            String scale, String minIncrement, String quantity, String price,
            boolean bSelling) { // 12 args
 
-       if (null == serverID)
+       if (!Utility.VerifyStringVal(serverID))
            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as serverID");
-       if (null == nymID)
+       if (!Utility.VerifyStringVal(nymID))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as nymID");
-       if (null == assetTypeID)
+       if (!Utility.VerifyStringVal(assetTypeID))
            System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as assetTypeID");
-       if (null == assetAccountID)
+       if (!Utility.VerifyStringVal(assetAccountID))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as assetAccountID");
-       if (null == currencyTypeID)
+       if (!Utility.VerifyStringVal(currencyTypeID))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as currencyTypeID");
-       if (null == currencyAcctID)
+       if (!Utility.VerifyStringVal(currencyAcctID))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as currencyAcctID");
-       if (null == scale)
+       if (!Utility.VerifyStringVal(scale))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as scale");
-       if (null == minIncrement)
+       if (!Utility.VerifyStringVal(minIncrement))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as minIncrement");
-       if (null == quantity)
+       if (!Utility.VerifyStringVal(quantity))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as quantity");
-       if (null == price)
+       if (!Utility.VerifyStringVal(price))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as price");
 
 
@@ -129,15 +129,15 @@ public class OTAPI_Func {
     public OTAPI_Func(FT theType, String serverID, String nymID, String assetID,
             String basket, String accountID, boolean bBool, int nTransNumsNeeded) { // 8 args
 
-        if (null == serverID)
+        if (!Utility.VerifyStringVal(serverID))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as serverID");
-        if (null == nymID)
+        if (!Utility.VerifyStringVal(nymID))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as nymID");
-        if (null == assetID)
+        if (!Utility.VerifyStringVal(assetID))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as assetID");
-        if (null == accountID)
+        if (!Utility.VerifyStringVal(accountID))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as accountID");
-        if (null == basket)
+        if (!Utility.VerifyStringVal(basket))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as basket");
 
         this.funcType   = theType;
@@ -155,9 +155,9 @@ public class OTAPI_Func {
 
     public OTAPI_Func(FT theType, String serverID, String nymID) { // 3 args
 
-        if (null == serverID)
+        if (!Utility.VerifyStringVal(serverID))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as serverID");
-        if (null == nymID)
+        if (!Utility.VerifyStringVal(nymID))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as nymID");
 
         this.funcType   = theType;
@@ -170,14 +170,14 @@ public class OTAPI_Func {
     }
 
     public OTAPI_Func(FT theType, String serverID, String nymID, String strParam, String strData) { // 5 args
-        if (null == serverID)
+        if (!Utility.VerifyStringVal(serverID))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as serverID");
-        if (null == nymID)
+        if (!Utility.VerifyStringVal(nymID))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as nymID");
 
-        if (null == strParam)
+        if (!Utility.VerifyStringVal(strParam))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as strParam");
-        if (null == strData)
+        if (!Utility.VerifyStringVal(strData))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as strData");
 
         this.funcType   = theType;
@@ -214,18 +214,18 @@ public class OTAPI_Func {
     }
     public OTAPI_Func(FT theType, String serverID, String nymID, String accountID, String strParam, String strData, String strData2) { // 7 args
 
-        if (null == serverID)
+        if (!Utility.VerifyStringVal(serverID))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as serverID");
-        if (null == nymID)
+        if (!Utility.VerifyStringVal(nymID))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as nymID");
-        if (null == accountID)
+        if (!Utility.VerifyStringVal(accountID))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as accountID");
 
-        if (null == strParam)
+        if (!Utility.VerifyStringVal(strParam))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as strParam");
-        if (null == strData)
+        if (!Utility.VerifyStringVal(strData))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as strData");
-        if (null == strData2)
+        if (!Utility.VerifyStringVal(strData2))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as strData2");
 
         this.funcType   = theType;
@@ -256,12 +256,12 @@ public class OTAPI_Func {
 
 
     public OTAPI_Func(FT theType, String serverID, String nymID, String strParam) { // 4 args
-        if (null == serverID)
+        if (!Utility.VerifyStringVal(serverID))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as serverID");
-        if (null == nymID)
+        if (!Utility.VerifyStringVal(nymID))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as nymID");
 
-        if (null == strParam)
+        if (!Utility.VerifyStringVal(strParam))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as strParam");
 
         this.funcType   = theType;
@@ -300,16 +300,16 @@ public class OTAPI_Func {
     }
 
     public OTAPI_Func(FT theType, String serverID, String nymID, String nymID2, String strData, String strData2) { // 6 args with string
-        if (null == serverID)
+        if (!Utility.VerifyStringVal(serverID))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as serverID");
-        if (null == nymID)
+        if (!Utility.VerifyStringVal(nymID))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as nymID");
-        if (null == nymID2)
+        if (!Utility.VerifyStringVal(nymID2))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as nymID2");
 
-        if (null == strData)
+        if (!Utility.VerifyStringVal(strData))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as strData");
-        if (null == strData2)
+        if (!Utility.VerifyStringVal(strData2))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as strData2");
 
         this.funcType   = theType;
@@ -338,14 +338,14 @@ public class OTAPI_Func {
     }
 
     public OTAPI_Func(FT theType, String serverID, String nymID, String accountID, int nData, String strData) { // 6 args with long
-        if (null == serverID)
+        if (!Utility.VerifyStringVal(serverID))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as serverID");
-        if (null == nymID)
+        if (!Utility.VerifyStringVal(nymID))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as nymID");
-        if (null == accountID)
+        if (!Utility.VerifyStringVal(accountID))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as accountID");
 
-        if (null == strData)
+        if (!Utility.VerifyStringVal(strData))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as strData");
 
         this.funcType   = theType;
@@ -375,92 +375,92 @@ public class OTAPI_Func {
         int nRetVal = (-1);
         switch (this.funcType) {
             case CHECK_USER:
-                nRetVal = otapi.OT_API_checkUser(this.serverID, this.nymID, this.nymID2);
+                nRetVal = otapiJNI.OTAPI_Basic_checkUser(this.serverID, this.nymID, this.nymID2);
                 break;
             case CREATE_USER_ACCT:
-                nRetVal = otapi.OT_API_createUserAccount(this.serverID, this.nymID);
+                nRetVal = otapiJNI.OTAPI_Basic_createUserAccount(this.serverID, this.nymID);
                 break;
             case DELETE_USER_ACCT:
-                nRetVal = otapi.OT_API_deleteUserAccount(this.serverID, this.nymID);
+                nRetVal = otapiJNI.OTAPI_Basic_deleteUserAccount(this.serverID, this.nymID);
                 break;
             case SEND_USER_MESSAGE:
-                nRetVal = otapi.OT_API_sendUserMessage(this.serverID, this.nymID, this.nymID2, this.strData, this.strData2);
+                nRetVal = otapiJNI.OTAPI_Basic_sendUserMessage(this.serverID, this.nymID, this.nymID2, this.strData, this.strData2);
                 break;
             case SEND_USER_INSTRUMENT:
-                nRetVal = otapi.OT_API_sendUserInstrument(this.serverID, this.nymID, this.nymID2, this.strData, this.strData2);
+                nRetVal = otapiJNI.OTAPI_Basic_sendUserInstrument(this.serverID, this.nymID, this.nymID2, this.strData, this.strData2);
                 break;
             case GET_NYM_MARKET_OFFERS:
-                nRetVal = otapi.OT_API_getNym_MarketOffers(this.serverID, this.nymID);
+                nRetVal = otapiJNI.OTAPI_Basic_getNym_MarketOffers(this.serverID, this.nymID);
                 break;
             case CREATE_ASSET_ACCT:
-                nRetVal = otapi.OT_API_createAssetAccount(this.serverID, this.nymID, this.assetID);
+                nRetVal = otapiJNI.OTAPI_Basic_createAssetAccount(this.serverID, this.nymID, this.assetID);
                 break;
             case DELETE_ASSET_ACCT:
-                nRetVal = otapi.OT_API_deleteAssetAccount(this.serverID, this.nymID, this.accountID);
+                nRetVal = otapiJNI.OTAPI_Basic_deleteAssetAccount(this.serverID, this.nymID, this.accountID);
                 break;
             case EXCHANGE_BASKET:
-                nRetVal = otapi.OT_API_exchangeBasket(this.serverID, this.nymID, this.assetID, this.basket, this.bBool == true ? 1 : 0);
+                nRetVal = otapiJNI.OTAPI_Basic_exchangeBasket(this.serverID, this.nymID, this.assetID, this.basket, this.bBool);
                 break;
             case GET_CONTRACT:
-                nRetVal = otapi.OT_API_getContract(this.serverID, this.nymID, this.assetID);
+                nRetVal = otapiJNI.OTAPI_Basic_getContract(this.serverID, this.nymID, this.assetID);
                 break;
             case QUERY_ASSET_TYPES:
-                nRetVal = otapi.OT_API_queryAssetTypes(this.serverID, this.nymID, this.strData);
+                nRetVal = otapiJNI.OTAPI_Basic_queryAssetTypes(this.serverID, this.nymID, this.strData);
                 break;
             case GET_MINT:
-                nRetVal = otapi.OT_API_getMint(this.serverID, this.nymID, this.assetID);
+                nRetVal = otapiJNI.OTAPI_Basic_getMint(this.serverID, this.nymID, this.assetID);
                 break;
             case ISSUE_ASSET_TYPE:
-                nRetVal = otapi.OT_API_issueAssetType(this.serverID, this.nymID, this.strData);
+                nRetVal = otapiJNI.OTAPI_Basic_issueAssetType(this.serverID, this.nymID, this.strData);
                 break;
             case ISSUE_BASKET:
-                nRetVal = otapi.OT_API_issueBasket(this.serverID, this.nymID, this.basket);
+                nRetVal = otapiJNI.OTAPI_Basic_issueBasket(this.serverID, this.nymID, this.basket);
                 break;
             case EXCHANGE_CASH:
-                nRetVal = otapi.OT_API_exchangePurse(this.serverID, this.assetID, this.nymID, this.strData);
+                nRetVal = otapiJNI.OTAPI_Basic_exchangePurse(this.serverID, this.assetID, this.nymID, this.strData);
                 break;
             case CANCEL_MARKET_OFFER:
-                nRetVal = otapi.OT_API_cancelMarketOffer(this.serverID, this.nymID, this.accountID, this.strData);
+                nRetVal = otapiJNI.OTAPI_Basic_cancelMarketOffer(this.serverID, this.nymID, this.accountID, this.strData);
                 break;
             case CANCEL_PAYMENT_PLAN:
-                nRetVal = otapi.OT_API_cancelPaymentPlan(this.serverID, this.nymID, this.accountID, this.strData);
+                nRetVal = otapiJNI.OTAPI_Basic_cancelPaymentPlan(this.serverID, this.nymID, this.accountID, this.strData);
                 break;
             case GET_BOX_RECEIPT:
-                nRetVal = otapi.OT_API_getBoxReceipt(this.serverID, this.nymID, this.accountID, this.nData, this.strData);
+                nRetVal = otapiJNI.OTAPI_Basic_getBoxReceipt(this.serverID, this.nymID, this.accountID, this.nData, this.strData);
                 break;
             case PROCESS_INBOX:
-                nRetVal = otapi.OT_API_processInbox(this.serverID, this.nymID, this.accountID, this.strData);
+                nRetVal = otapiJNI.OTAPI_Basic_processInbox(this.serverID, this.nymID, this.accountID, this.strData);
                 break;
             case DEPOSIT_CASH:
-                nRetVal = otapi.OT_API_notarizeDeposit(this.serverID, this.nymID, this.accountID, this.strData);
+                nRetVal = otapiJNI.OTAPI_Basic_notarizeDeposit(this.serverID, this.nymID, this.accountID, this.strData);
                 break;
             case DEPOSIT_CHEQUE:
-                nRetVal = otapi.OT_API_depositCheque(this.serverID, this.nymID, this.accountID, this.strData);
+                nRetVal = otapiJNI.OTAPI_Basic_depositCheque(this.serverID, this.nymID, this.accountID, this.strData);
                 break;
             case DEPOSIT_PAYMENT_PLAN:
-                nRetVal = otapi.OT_API_depositPaymentPlan(this.serverID, this.nymID, this.strData);
+                nRetVal = otapiJNI.OTAPI_Basic_depositPaymentPlan(this.serverID, this.nymID, this.strData);
                 break;
             case WITHDRAW_CASH:
-                nRetVal = otapi.OT_API_notarizeWithdrawal(this.serverID, this.nymID, this.accountID, this.strData);
+                nRetVal = otapiJNI.OTAPI_Basic_notarizeWithdrawal(this.serverID, this.nymID, this.accountID, this.strData);
                 break;
             case WITHDRAW_VOUCHER:
-                nRetVal = otapi.OT_API_withdrawVoucher(this.serverID, this.nymID, this.accountID, this.nymID2, this.strData, this.strData2);
+                nRetVal = otapiJNI.OTAPI_Basic_withdrawVoucher(this.serverID, this.nymID, this.accountID, this.nymID2, this.strData, this.strData2);
                 break;
             case SEND_TRANSFER:
-                nRetVal = otapi.OT_API_notarizeTransfer(this.serverID, this.nymID, this.accountID, this.accountID2,   this.strData, this.strData2); // amount and note, for the last two.
+                nRetVal = otapiJNI.OTAPI_Basic_notarizeTransfer(this.serverID, this.nymID, this.accountID, this.accountID2,   this.strData, this.strData2); // amount and note, for the last two.
                 break;
             case GET_MARKET_LIST:
-                nRetVal = otapi.OT_API_getMarketList(this.serverID, this.nymID);
+                nRetVal = otapiJNI.OTAPI_Basic_getMarketList(this.serverID, this.nymID);
                 break;
             case GET_MARKET_OFFERS:
-                nRetVal = otapi.OT_API_getMarketOffers(this.serverID, this.nymID, this.strData, this.strData2);
+                nRetVal = otapiJNI.OTAPI_Basic_getMarketOffers(this.serverID, this.nymID, this.strData, this.strData2);
                 break;
             case GET_MARKET_RECENT_TRADES:
-                nRetVal = otapi.OT_API_getMarketRecentTrades(this.serverID, this.nymID, this.strData);
+                nRetVal = otapiJNI.OTAPI_Basic_getMarketRecentTrades(this.serverID, this.nymID, this.strData);
                 break;
             case CREATE_MARKET_OFFER:
-                nRetVal = otapi.OT_API_issueMarketOffer(this.serverID, this.nymID, this.assetID, this.accountID, this.assetID2, this.accountID2,
-                        this.strData, this.strData2, this.strData3, this.strData4, this.bBool ? 1 : 0);
+                nRetVal = otapiJNI.OTAPI_Basic_issueMarketOffer(this.serverID, this.nymID, this.assetID, this.accountID, this.assetID2, this.accountID2,
+                        this.strData, this.strData2, this.strData3, this.strData4, this.bBool);
                 break;
             default:
                 System.out.println("ERROR! OTAPI_Func.Send() activated, with bad function type!!!! ERROR!");
@@ -480,16 +480,16 @@ public class OTAPI_Func {
 
         String strResponseMessage = null;
 
-        otapi.OT_API_FlushMessageBuffer();
+        otapiJNI.OTAPI_Basic_FlushMessageBuffer();
         int nRun1 = theFunction.Run(); // <===== FIRST ATTEMPT
         Utility.delay();
-        strResponseMessage = otapi.OT_API_PopMessageBuffer();
+        strResponseMessage = otapiJNI.OTAPI_Basic_PopMessageBuffer();
 
 //      System.out.println("DEBUGGING SendRequest " + strResponseMessage);
 
         if ((null == strResponseMessage) ||
             (strResponseMessage.length() < 10) ||
-            (0 == otapi.OT_API_Message_GetSuccess(strResponseMessage))) {
+            (0 == otapiJNI.OTAPI_Basic_Message_GetSuccess(strResponseMessage))) {
             if (false == Utility.getRequestNumber(theFunction.serverID, theFunction.nymID)) {
                 System.out.println("IN SendRequest (" + IN_FUNCTION + " ): After first failure, Utility.getRequestNumber() failed as well. (I give up.) ");
                 return null;
@@ -498,9 +498,9 @@ public class OTAPI_Func {
             else {
                 int nRun2 = theFunction.Run(); // <===== SECOND ATTEMPT
                 Utility.delay();
-                strResponseMessage = otapi.OT_API_PopMessageBuffer();
+                strResponseMessage = otapiJNI.OTAPI_Basic_PopMessageBuffer();
                 if ((null == strResponseMessage) || (strResponseMessage.length() < 10) ||
-                    (0 == otapi.OT_API_Message_GetSuccess(strResponseMessage))) {
+                    (0 == otapiJNI.OTAPI_Basic_Message_GetSuccess(strResponseMessage))) {
                     System.out.println("IN SendRequest (" + IN_FUNCTION + " ): Function retry failed, even after Utility.getRequestNumber() succeeded. (I give up.) ");
                     return null;
                 }
@@ -557,7 +557,7 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
     //
     public static int SendRequestLowLevel(OTAPI_Func theFunction, String IN_FUNCTION)  
     {
-        otapi.OT_API_FlushMessageBuffer();
+        otapiJNI.OTAPI_Basic_FlushMessageBuffer();
         // --------------------------------------------------------------------
         final int nRun = theFunction.Run(); // <===== ATTEMPT TO SEND THE MESSAGE HERE...
                 
@@ -700,7 +700,7 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
         //
         boolean bSure = true;
 
-        if (otapi.OT_API_GetNym_TransactionNumCount(theFunction.serverID, theFunction.nymID)    // If the current trans# count is LESS than what's needed...
+        if (otapiJNI.OTAPI_Basic_GetNym_TransactionNumCount(theFunction.serverID, theFunction.nymID)    // If the current trans# count is LESS than what's needed...
                 <
                 (theFunction.nTransNumsNeeded > Configuration.getNbrTransactionCount() ?        //theFunction needs more than my normal minimum in my configuration
                     theFunction.nTransNumsNeeded  : Configuration.getNbrTransactionCount()))    // Therefore I will grab that many, instead of however many I would normally grab.
@@ -719,7 +719,7 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
         
         if (
 //              !bSure || 
-                (otapi.OT_API_GetNym_TransactionNumCount(theFunction.serverID, theFunction.nymID) < theFunction.nTransNumsNeeded))  // Try a second time.
+                (otapiJNI.OTAPI_Basic_GetNym_TransactionNumCount(theFunction.serverID, theFunction.nymID) < theFunction.nTransNumsNeeded))  // Try a second time.
         {
             System.out.println("In OTAPI_Func.SendTransaction, for: " + IN_FUNCTION + ", first failure:  Utility.getTransactionNumbers. (Trying again...)");
             
@@ -729,7 +729,7 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
         // -------------------------------------
         if (
 //              !bSure || 
-                (otapi.OT_API_GetNym_TransactionNumCount(theFunction.serverID, theFunction.nymID) < theFunction.nTransNumsNeeded))  // Try a third time.
+                (otapiJNI.OTAPI_Basic_GetNym_TransactionNumCount(theFunction.serverID, theFunction.nymID) < theFunction.nTransNumsNeeded))  // Try a third time.
         {
             System.out.println("In OTAPI_Func.SendTransaction, for: " + IN_FUNCTION + ", second failure:  Utility.getTransactionNumbers. (Trying again...)");
             
@@ -741,10 +741,10 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
         //
         if (
 //              !bSure || 
-                (otapi.OT_API_GetNym_TransactionNumCount(theFunction.serverID, theFunction.nymID) < theFunction.nTransNumsNeeded))
+                (otapiJNI.OTAPI_Basic_GetNym_TransactionNumCount(theFunction.serverID, theFunction.nymID) < theFunction.nTransNumsNeeded))
         {
             System.out.println("In OTAPI_Func.SendTransaction, for: " + IN_FUNCTION + ", third failure. bSure: " + bSure + ". OT_API_GetNym_TransactionNumCount: " +
-                    otapi.OT_API_GetNym_TransactionNumCount(theFunction.serverID, theFunction.nymID));
+                    otapiJNI.OTAPI_Basic_GetNym_TransactionNumCount(theFunction.serverID, theFunction.nymID));
             return null;
         }
         
@@ -762,7 +762,7 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
         
         // -------------------------------------------------------
         
-        if (null != strResult) // success.
+        if (Utility.VerifyStringVal(strResult)) // success.
         {
             if (false == Utility.getIntermediaryFiles(theFunction.serverID,
                     theFunction.nymID, theFunction.accountID, true)) // bForceDownload=true
@@ -796,7 +796,7 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
         
         int nRetries = 2;
         
-        while ((nRetries > 0) && (null == strResult) && 
+        while ((nRetries > 0) && (!Utility.VerifyStringVal(strResult)) && 
                 bCanRetryAfterThis.getBooleanValue())
         {
             --nRetries;
@@ -820,7 +820,7 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
                     // But in case of success, we also want to get these, so we can
                     // see the results of our success. So we get these either way...
                     //
-                    if (strResult != null)
+                    if (Utility.VerifyStringVal(strResult))
                     {
                         if (false == Utility.getIntermediaryFiles(theFunction.serverID,
                                 theFunction.nymID, theFunction.accountID, true)) // bForceDownload=true
@@ -851,7 +851,7 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
                                             bCanRetryAfterThis);
         // -------------------------------------------------------
         
-        if ((null == strResult) && 
+        if ((!Utility.VerifyStringVal(strResult)) && 
                 bCanRetryAfterThis.getBooleanValue())
             strResult = SendRequestOnce( theFunction,
                                          IN_FUNCTION,
@@ -950,17 +950,17 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
         {
             if (bMsgReplySuccess) // If message was success, then let's see if the transaction was, too.
             {
-                nBalanceSuccess = otapi.OT_API_Message_GetBalanceAgreementSuccess(theFunction.serverID, theFunction.nymID, theFunction.accountID, strReply); 
+                nBalanceSuccess = otapiJNI.OTAPI_Basic_Message_GetBalanceAgreementSuccess(theFunction.serverID, theFunction.nymID, theFunction.accountID, strReply); 
 
 //                if (nBalanceSuccess < 0)
 //                    nTransSuccess = (-1);
 //                else if (0 == nBalanceSuccess) // balance agreement was explicit failure.
 //                    nTransSuccess = 0; // NOTE: VERY RECENT CHANGE (SEE COMMENTED SECTION BELOW) SO MIGHT NEED TO CHANGE THIS BACK... DEBUGGING RIGHT NOW...
 //                else
-//                    nTransSuccess   = otapi.OT_API_Message_GetTransactionSuccess (theFunction.serverID, theFunction.nymID, theFunction.accountID, strReply); 
+//                    nTransSuccess   = otapiJNI.OTAPI_Basic_Message_GetTransactionSuccess (theFunction.serverID, theFunction.nymID, theFunction.accountID, strReply); 
                 
                 if (nBalanceSuccess > 0)
-                    nTransSuccess   = otapi.OT_API_Message_GetTransactionSuccess (theFunction.serverID, theFunction.nymID, theFunction.accountID, strReply); 
+                    nTransSuccess   = otapiJNI.OTAPI_Basic_Message_GetTransactionSuccess (theFunction.serverID, theFunction.nymID, theFunction.accountID, strReply); 
                 else
                     nTransSuccess = (-1);
             }
@@ -1030,7 +1030,7 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
             // (Thus I RemoveSentMessage for the message, since 
             // I'm totally done with it now. NO NEED TO HARVEST anything, either.)
             //
-//            final int nRemoved = otapi.OT_API_RemoveSentMessage(Integer.toString(nRequestNum), theFunction.serverID, theFunction.nymID);
+//            final int nRemoved = otapiJNI.OTAPI_Basic_RemoveSentMessage(Integer.toString(nRequestNum), theFunction.serverID, theFunction.nymID);
 //            
             // NOTE: The above call is unnecessary, since a successful reply means
             // we already received the successful server reply, and OT's "ProcessServerReply"
@@ -1106,11 +1106,11 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
                     //
                     else if (bWasSent.getBooleanValue() && (nProcessNymboxResult > 1))
                     {
-                        String strNymbox = otapi.OT_API_LoadNymboxNoVerify(theFunction.serverID, theFunction.nymID);      // FLUSH SENT MESSAGES!!!!  (AND HARVEST.)
+                        String strNymbox = otapiJNI.OTAPI_Basic_LoadNymboxNoVerify(theFunction.serverID, theFunction.nymID);      // FLUSH SENT MESSAGES!!!!  (AND HARVEST.)
 
                         // *******************************************************
                         if (Utility.isValid(strNymbox))
-                             otapi.OT_API_FlushSentMessages(0, //harvesting for retry == OT_FALSE
+                             otapiJNI.OTAPI_Basic_FlushSentMessages(false, //harvesting for retry == false
                                                            theFunction.serverID,
                                                            theFunction.nymID,
                                                            strNymbox);                        
@@ -1336,7 +1336,7 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
 //                        return null; 
 //                    }
 //                    // -------------------------------------------
-//                    final String strOriginalMsg = otapi.OT_API_GetSentMessage(strRequestNum, theFunction.serverID, theFunction.nymID);
+//                    final String strOriginalMsg = otapiJNI.OTAPI_Basic_GetSentMessage(strRequestNum, theFunction.serverID, theFunction.nymID);
 //
 //                    if (null == strOriginalMsg)
 //                    {
@@ -1367,7 +1367,7 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
 //                    // true  == no errors.
 //                    // false == errors.
 //                    //
-//                    int nBool = otapi.OT_API_Msg_HarvestTransactionNumbers(strOriginalMsg, 
+//                    int nBool = otapiJNI.OTAPI_Basic_Msg_HarvestTransactionNumbers(strOriginalMsg, 
 //                                                                           theFunction.nymID,
 //                                                                           1,   // bHarvestingForRetry == true
 //                                                                           0,   // bReplyWasSuccess,       // RECEIVED server reply: explicit success.
@@ -1421,7 +1421,7 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
 //                // -------------------------------------------------------
 //                // (strReply2 is valid string by this point.)
 //
-//                final int nReplyMsgSuccess = otapi.OT_API_Message_GetSuccess(strReply2);
+//                final int nReplyMsgSuccess = otapiJNI.OTAPI_Basic_Message_GetSuccess(strReply2);
 //
 //                if (1 == nReplyMsgSuccess)
 //                {
@@ -1521,7 +1521,7 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
 //        if ((null == strResponseMessage) ||
 //            (strResponseMessage.length() < 10) ||
 //                
-//            (0 == otapi.OT_API_Message_GetSuccess(strResponseMessage))) {
+//            (0 == otapiJNI.OTAPI_Basic_Message_GetSuccess(strResponseMessage))) {
 //            
 //            
 //            
@@ -1536,9 +1536,9 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
 //            else {
 //                final int nRun2 = theFunction.Run(); // <===== SECOND ATTEMPT                
 //                Utility.delay();
-//                strResponseMessage = otapi.OT_API_PopMessageBuffer();
+//                strResponseMessage = otapiJNI.OTAPI_Basic_PopMessageBuffer();
 //                if ((null == strResponseMessage) || (strResponseMessage.length() < 10) ||
-//                    (0 == otapi.OT_API_Message_GetSuccess(strResponseMessage))) {
+//                    (0 == otapiJNI.OTAPI_Basic_Message_GetSuccess(strResponseMessage))) {
 //                    System.out.println("IN SendRequest (" + IN_FUNCTION + " ): Function retry failed, even after Utility.getRequestNumber() succeeded. (I give up.) ");
 //                    return null;
 //                }
@@ -1559,7 +1559,7 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
 
         boolean bSure = true;
 
-        if (otapi.OT_API_GetNym_TransactionNumCount(theFunction.serverID, theFunction.nymID)    // If the current trans# count is LESS than what's needed...
+        if (otapiJNI.OTAPI_Basic_GetNym_TransactionNumCount(theFunction.serverID, theFunction.nymID)    // If the current trans# count is LESS than what's needed...
                 <
                 (theFunction.nTransNumsNeeded > Configuration.getNbrTransactionCount() ?        //theFunction needs more than my normal minimum in my configuration
                     theFunction.nTransNumsNeeded  : Configuration.getNbrTransactionCount())) {  // Therefore I will grab that many, instead of however many I would normally grab.
@@ -1569,9 +1569,9 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
             bSure = Utility.getTransactionNumbers(theFunction.serverID, theFunction.nymID);
             Configuration.setNbrTransactionCount(configTxnCount);
         }
-        if (!bSure || otapi.OT_API_GetNym_TransactionNumCount(theFunction.serverID, theFunction.nymID) < theFunction.nTransNumsNeeded) {
+        if (!bSure || otapiJNI.OTAPI_Basic_GetNym_TransactionNumCount(theFunction.serverID, theFunction.nymID) < theFunction.nTransNumsNeeded) {
             System.out.println("In " + IN_FUNCTION + " , failed to get transaction numbers, OT_API_GetNym_TransactionNumCount:" +
-                    otapi.OT_API_GetNym_TransactionNumCount(theFunction.serverID, theFunction.nymID));
+                    otapiJNI.OTAPI_Basic_GetNym_TransactionNumCount(theFunction.serverID, theFunction.nymID));
             return null;
         }
         // --------------------------------------
@@ -1596,7 +1596,7 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
         //  was successful, or the balance agreement...)
 
         boolean bBalanceAgreement =
-                (otapi.OT_API_Message_GetBalanceAgreementSuccess(
+                (otapiJNI.OTAPI_Basic_Message_GetBalanceAgreementSuccess(
                     theFunction.serverID,
                     theFunction.nymID,
                     theFunction.accountID,
@@ -1650,7 +1650,7 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
             // ----------------------------------------
             // Now we'll try again..
             //
-            otapi.OT_API_FlushMessageBuffer();
+            otapiJNI.OTAPI_Basic_FlushMessageBuffer();
             System.out.println("In " + IN_FUNCTION + ", serverID:"+theFunction.serverID+" nymID:"+theFunction.nymID);
 
 
@@ -1658,7 +1658,7 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
 
 
             Utility.delay();
-            strResponseMessage = otapi.OT_API_PopMessageBuffer();
+            strResponseMessage = otapiJNI.OTAPI_Basic_PopMessageBuffer();
 
             // Balance agreement STILL FAILURE <=========
             //
@@ -1670,7 +1670,7 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
               // that case as well anyway. Since we already went through the request number stuff above,
               // there's no point / need in repeating it.
               //
-            else if (0 == otapi.OT_API_Message_GetBalanceAgreementSuccess( // Failure
+            else if (0 == otapiJNI.OTAPI_Basic_Message_GetBalanceAgreementSuccess( // Failure
                     theFunction.serverID,
                     theFunction.nymID,
                     theFunction.accountID,
@@ -1685,7 +1685,7 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
         // *********************************************************************************
         // Was transaction successful?
 
-        if (0 == otapi.OT_API_Message_GetTransactionSuccess( // Failure.
+        if (0 == otapiJNI.OTAPI_Basic_Message_GetTransactionSuccess( // Failure.
                 theFunction.serverID,
                 theFunction.nymID,
                 theFunction.accountID,

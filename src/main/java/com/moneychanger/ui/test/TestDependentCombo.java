@@ -103,7 +103,7 @@ AK+ZirdWhhoHeWR1tAkN
 
 package com.moneychanger.ui.test;
 
-import com.wrapper.core.jni.otapi;
+import org.opentransactions.jni.core.otapi;
 import com.moneychanger.core.util.Utility;
 import com.moneychanger.ui.panels.NameValuePanel;
 import java.awt.BorderLayout;
@@ -124,8 +124,8 @@ public class TestDependentCombo extends javax.swing.JDialog {
         try {
            /* Utility.addDirToRuntime("C:\\~\\Open-Transactions\\testwallet");
             System.loadLibrary("otapi");
-            otapi.OT_API_Init("C:\\~\\Open-Transactions\\testwallet\\data_folder");
-            otapi.OT_API_LoadWallet("wallet.xml");*/
+            otapiJNI.OTAPI_Basic_Init("C:\\~\\Open-Transactions\\testwallet\\data_folder");
+            otapiJNI.OTAPI_Basic_LoadWallet("wallet.xml");*/
             initComponents();
             initPanel();
         } catch (Exception ex) {

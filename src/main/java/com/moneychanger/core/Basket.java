@@ -89,11 +89,13 @@ AK+ZirdWhhoHeWR1tAkN
  **************************************************************/
 package com.moneychanger.core;
 
-import com.wrapper.core.jni.Storable;
-import com.wrapper.core.jni.StoredObjectType;
-import com.wrapper.core.jni.StringMap;
-import com.wrapper.core.jni.otapi;
+import org.opentransactions.jni.core.Storable;
+import org.opentransactions.jni.core.StoredObjectType;
+import org.opentransactions.jni.core.StringMap;
+import org.opentransactions.jni.core.otapi;
+import org.opentransactions.jni.core.otapiJNI;
 import com.moneychanger.core.util.OTAPI_Func;
+import com.moneychanger.core.util.Utility;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -142,14 +144,14 @@ public class Basket {
 
         /* TODO: This loop will be replaced by server call 
         which returns only those assets registered at the server */
-        if (nymID == null) {
+        if (Utility.VerifyStringVal(nymID)) {
             nymID = new NYM().registeredNYM(serverID);
         }
 
         System.out.println("--nymID:" + nymID);
 
 
-        if (nymID == null) {
+        if (Utility.VerifyStringVal(nymID)) {
             basketList.add(new String[]{"Popup Dialog"});
             return basketList;
         }
@@ -161,21 +163,21 @@ public class Basket {
             for (int i = 0; i < registeredAssets.size(); i++) {
                 String key = (String) registeredAssets.get(i);
                 System.out.println("key:" + key);
-                if (key != null && otapi.OT_API_IsBasketCurrency(key) == 1) {
-                    String label = otapi.OT_API_GetAssetType_Name(key);
+                if (Utility.VerifyStringVal(key) && otapiJNI.OTAPI_Basic_IsBasketCurrency(key)) {
+                    String label = otapiJNI.OTAPI_Basic_GetAssetType_Name(key);
                     basketList.add(new String[]{label, key});
                 }
             }
         }
 
 
-        /* int count = otapi.OT_API_GetAssetTypeCount();
+        /* int count = otapiJNI.OTAPI_Basic_GetAssetTypeCount();
 
         for (int i = 0; i < count; i++) {
-        String key = otapi.OT_API_GetAssetType_ID(i);
+        String key = otapiJNI.OTAPI_Basic_GetAssetType_ID(i);
         System.out.println("key:" + key);
-        if (key != null && otapi.OT_API_IsBasketCurrency(key) == 1) {
-        String label = otapi.OT_API_GetAssetType_Name(key);
+        if (Utility.VerifyStringVal(key) && otapiJNI.OTAPI_Basic_IsBasketCurrency(key) == 1) {
+        String label = otapiJNI.OTAPI_Basic_GetAssetType_Name(key);
         basketList.add(new String[]{label, key});
         }
         }*/
@@ -201,10 +203,10 @@ public class Basket {
                 // ADD ALL THE ASSET IDs HERE (To the string map, so you
                 // can ask the server about them...)
                 //
-                int count = otapi.OT_API_GetAssetTypeCount();
+                int count = otapiJNI.OTAPI_Basic_GetAssetTypeCount();
                 System.out.println(" count:" + count);
                 for (int i = 0; i < count; i++) {
-                    String key = otapi.OT_API_GetAssetType_ID(i);
+                    String key = otapiJNI.OTAPI_Basic_GetAssetType_ID(i);
                     System.out.println("key:" + key);
                     stringMap.SetValue(key, "exists");
 
@@ -216,7 +218,7 @@ public class Basket {
         }
         System.out.println(" fter ENCODE,strEncodedObj:" + strEncodedObj);
 
-        if (null == strEncodedObj) {
+        if (!Utility.VerifyStringVal(strEncodedObj)) {
             System.out.println("strEncodedObj is null");
             return null;
             //Error;
@@ -234,14 +236,14 @@ public class Basket {
 
         // When the server reply comes back, get the payload from it:
 
-        if (strResponse != null) {
-            strReplyMap = otapi.OT_API_Message_GetPayload(strResponse);
+        if (Utility.VerifyStringVal(strResponse)) {
+            strReplyMap = otapiJNI.OTAPI_Basic_Message_GetPayload(strResponse);
         }
         System.out.println("strResponse is " + strResponse);
 
         //	Pass the payload (the StringMap from the server's reply) to otapi.DecodeObject:
 
-        if (strReplyMap != null) {
+        if (Utility.VerifyStringVal(strReplyMap)) {
             StringMap stringMapOutput = null;
             storable = otapi.DecodeObject(StoredObjectType.STORED_OBJ_STRING_MAP, strReplyMap);
             if (storable != null) {
@@ -249,10 +251,10 @@ public class Basket {
                 if (stringMapOutput != null) {
                     // Loop through string map. For each asset ID key, the value will
                     // say either "true" or "false".
-                    int count = otapi.OT_API_GetAssetTypeCount();
+                    int count = otapiJNI.OTAPI_Basic_GetAssetTypeCount();
 
                     for (int i = 0; i < count; i++) {
-                        String key = otapi.OT_API_GetAssetType_ID(i);
+                        String key = otapiJNI.OTAPI_Basic_GetAssetType_ID(i);
                         System.out.println("key in output:" + key);
                         String isRegistered = stringMapOutput.GetValue(key);
                         System.out.println("isRegistered in output:" + isRegistered);
@@ -286,7 +288,7 @@ public class Basket {
             System.out.println("count:" + count);
             while (j < count) {
                 String key = (String) registeredAssets.get(j);
-                if (key == null) {
+                if (!Utility.VerifyStringVal(key)) {
                     continue;
                 }
                 boolean addToList = true;
@@ -300,18 +302,18 @@ public class Basket {
 
                 }
                 if (addToList) {
-                    String label = otapi.OT_API_GetAssetType_Name(key);
+                    String label = otapiJNI.OTAPI_Basic_GetAssetType_Name(key);
                     basketList.put(i, new String[]{label, key});
                     i++;
                 }
                 j++;
             }
         }
-        /*int count = otapi.OT_API_GetAssetTypeCount();
+        /*int count = otapiJNI.OTAPI_Basic_GetAssetTypeCount();
         int i = 0, j = 0;
         System.out.println("count:" + count);
         while (j < count) {
-        String key = otapi.OT_API_GetAssetType_ID(j);
+        String key = otapiJNI.OTAPI_Basic_GetAssetType_ID(j);
         System.out.println("existingAssets.contains(key):" + existingAssets.contains(key) + "existingAssets size:" + existingAssets.size());
         boolean addToList = true;
         if (existingAssets != null && !existingAssets.isEmpty()) {
@@ -324,7 +326,7 @@ public class Basket {
 
         }
         if (addToList) {
-        String label = otapi.OT_API_GetAssetType_Name(key);
+        String label = otapiJNI.OTAPI_Basic_GetAssetType_Name(key);
         System.out.println("label:" + label + " i:" + i);
         basketList.put(i, new String[]{label, key});
         i++;
@@ -340,7 +342,7 @@ public class Basket {
 
         StringBuilder basket = new StringBuilder();
 
-        String minTransferAmt = otapi.OT_API_Basket_GetMinimumTransferAmount(assetID);
+        String minTransferAmt = otapiJNI.OTAPI_Basic_Basket_GetMinimumTransferAmount(assetID);
 
         System.out.println("getBasketDetailsLabel --minTransferAmt:" + minTransferAmt + " assetName:" + assetName);
 
@@ -353,19 +355,19 @@ public class Basket {
         baseValue = minTransferAmt;
 
 
-        int basketMemberCount = otapi.OT_API_Basket_GetMemberCount(assetID);
+        int basketMemberCount = otapiJNI.OTAPI_Basic_Basket_GetMemberCount(assetID);
 
         System.out.println("getBasketDetailsLabel --basketMemberCount:" + basketMemberCount);
         for (int i = 0; i < basketMemberCount; i++) {
-            String memberAssetID = otapi.OT_API_Basket_GetMemberType(assetID, i);
+            String memberAssetID = otapiJNI.OTAPI_Basic_Basket_GetMemberType(assetID, i);
             System.out.println("getBasketDetailsLabel memberAssetID:" + memberAssetID);
-            if (memberAssetID != null) {
-                String minTransferAmtMember = otapi.OT_API_Basket_GetMemberMinimumTransferAmount(assetID, i);
+            if (Utility.VerifyStringVal(memberAssetID)) {
+                String minTransferAmtMember = otapiJNI.OTAPI_Basic_Basket_GetMemberMinimumTransferAmount(assetID, i);
                 System.out.println("getBasketDetailsLabel minTransferAmtMember:" + minTransferAmtMember);
                 basket.append(minTransferAmtMember);
                 basket.append(" ");
-                basket.append(otapi.OT_API_GetAssetType_Name(memberAssetID));
-                addSubCurrency(new String[]{minTransferAmtMember, otapi.OT_API_GetAssetType_Name(memberAssetID)});
+                basket.append(otapiJNI.OTAPI_Basic_GetAssetType_Name(memberAssetID));
+                addSubCurrency(new String[]{minTransferAmtMember, otapiJNI.OTAPI_Basic_GetAssetType_Name(memberAssetID)});
                 if (i != basketMemberCount - 1) {
                     basket.append(", ");
                 }
@@ -413,35 +415,35 @@ public class Basket {
 
     public static String getAssetTypeName(String assetTypeID, String serverID) {
 
-        String name = otapi.OT_API_GetAssetType_Name(assetTypeID);
+        String name = otapiJNI.OTAPI_Basic_GetAssetType_Name(assetTypeID);
 
-        if (name != null) {
+        if (Utility.VerifyStringVal(name)) {
             return name;
         }
 
-        if (otapi.OT_API_LoadAssetContract(assetTypeID) == null) {
+        if (!Utility.VerifyStringVal(otapiJNI.OTAPI_Basic_LoadAssetContract(assetTypeID))) {
             System.out.println("IN getAssetTypeName, OT_API_LoadAssetContract is null");
 
             // ----------------------------------------
 
             String nymID = new NYM().registeredNYM(serverID);
 
-            if (nymID == null) {
+            if (!Utility.VerifyStringVal(nymID)) {
                 return "Popup Dialog";
             }
 
             OTAPI_Func theRequest = new OTAPI_Func(OTAPI_Func.FT.GET_CONTRACT, serverID, nymID, assetTypeID);
             String strResponse = OTAPI_Func.SendRequest(theRequest, "GET_CONTRACT");
 
-            if (null == strResponse) {
+            if (!Utility.VerifyStringVal(strResponse)) {
                 System.out.println("IN getAssetTypeName: OTAPI_Func.SendRequest(() failed. (I give up.) ");
                 return null;
             }
 
 
         }
-
-        return otapi.OT_API_GetAssetType_Name(assetTypeID) == null ? "" : otapi.OT_API_GetAssetType_Name(assetTypeID);
+        String strAssetID = new String(Utility.VerifyStringVal(otapiJNI.OTAPI_Basic_GetAssetType_Name(assetTypeID)) ? otapiJNI.OTAPI_Basic_GetAssetType_Name(assetTypeID) : "");
+        return strAssetID;
 
 
     }
@@ -449,7 +451,7 @@ public class Basket {
     public static void loadAsset(String assetTypeID, String nymID, String serverID) {
 
 
-        if (otapi.OT_API_LoadAssetContract(assetTypeID) == null) {
+        if (!Utility.VerifyStringVal(otapiJNI.OTAPI_Basic_LoadAssetContract(assetTypeID))) {
             System.out.println("IN getAssetTypeName, OT_API_LoadAssetContract is null");
 
             // ----------------------------------------
@@ -457,7 +459,7 @@ public class Basket {
             OTAPI_Func theRequest = new OTAPI_Func(OTAPI_Func.FT.GET_CONTRACT, serverID, nymID, assetTypeID);
             String strResponse = OTAPI_Func.SendRequest(theRequest, "GET_CONTRACT");
 
-            if (null == strResponse) {
+            if (!Utility.VerifyStringVal(strResponse)) {
                 System.out.println("IN getAssetTypeName: OTAPI_Func.SendRequest(() failed. (I give up.) ");
             }
 
@@ -468,17 +470,14 @@ public class Basket {
 
     public static String getAssetTypeNameForRegNym(String assetTypeID, String serverID, String nymID) {
 
-
         OTAPI_Func theRequest = new OTAPI_Func(OTAPI_Func.FT.GET_CONTRACT, serverID, nymID, assetTypeID);
         String strResponse = OTAPI_Func.SendRequest(theRequest, "GET_CONTRACT");
 
-        if (null == strResponse) {
+        if (!Utility.VerifyStringVal(strResponse)) {
             System.out.println("IN getAssetTypeNameForRegNym: OTAPI_Func.SendRequest(() failed. (I give up.) ");
             return null;
         }
 
-        return otapi.OT_API_GetAssetType_Name(assetTypeID) == null ? "" : otapi.OT_API_GetAssetType_Name(assetTypeID);
-
-
+        return !Utility.VerifyStringVal(otapiJNI.OTAPI_Basic_GetAssetType_Name(assetTypeID)) ? "" : otapiJNI.OTAPI_Basic_GetAssetType_Name(assetTypeID);
     }
 }

@@ -3919,7 +3919,7 @@ public class MainPage extends javax.swing.JFrame {
 
             // Show dialog asking for register
             new RegisterNymOnServerDialog(this, true, currentServerID).setVisible(true);
-            if (Utility.getNymID() == null) {
+            if (!Utility.VerifyStringVal(Utility.getNymID())) {
                 return;
             }
             String nymID = Utility.getNymID();
@@ -3974,10 +3974,10 @@ public class MainPage extends javax.swing.JFrame {
 
             if (baskets != null && baskets.size() > 0 && !"Popup Dialog".equalsIgnoreCase(((String[]) baskets.get(0))[0])) {
                 ((BasketTableModel) jTable19.getModel()).setValue(baskets);
-                if (assetID != null) {
+                if (Utility.VerifyStringVal(assetID)) {
                     for (int i = 0; i < jTable19.getRowCount(); i++) {
                         String id = (String) jTable19.getModel().getValueAt(i, 1);
-                        if (id == null) {
+                        if (!Utility.VerifyStringVal(id)) {
                             continue;
                         }
                         if (assetID.equals(id)) {
@@ -4822,7 +4822,7 @@ public class MainPage extends javax.swing.JFrame {
         boolean isAccountPresent = false;
         for (int i = 0; i < jTable_AccountTable.getRowCount(); i++) {
             String accountID = (String) jTable_AccountTable.getModel().getValueAt(i, 3);
-            if (selectedAccount != null && selectedAccount.equals(accountID)) {
+            if (Utility.VerifyStringVal(selectedAccount) && selectedAccount.equals(accountID)) {
                 isAccountPresent = true;
                 jTable_AccountTable.setRowSelectionInterval(i, i);
             }
@@ -4884,7 +4884,7 @@ public class MainPage extends javax.swing.JFrame {
 
         for (int i = 0; i < jTable_AccountTable.getModel().getRowCount(); i++) {
             System.out.println("selectedID:" + selectedID + "jTable5.getModel().getValueAt(i, 3" + (String) jTable_AccountTable.getModel().getValueAt(i, 3));
-            if (selectedID != null && jTable_AccountTable.getModel().getValueAt(i, 3) != null && selectedID.equals(jTable_AccountTable.getModel().getValueAt(i, 3))) {
+            if (Utility.VerifyStringVal(selectedID) && jTable_AccountTable.getModel().getValueAt(i, 3) != null && selectedID.equals(jTable_AccountTable.getModel().getValueAt(i, 3))) {
                 jTable_AccountTable.setRowSelectionInterval(i, i);
                 break;
             }
@@ -5064,10 +5064,10 @@ public class MainPage extends javax.swing.JFrame {
             ((BasketTableModel) jTable19.getModel()).setValue(baskets);
         }
         refreshAssetContractList();
-        if (assetID != null) {
+        if (Utility.VerifyStringVal(assetID)) {
             for (int i = 0; i < jTable19.getRowCount(); i++) {
                 String id = (String) jTable19.getModel().getValueAt(i, 1);
-                if (id == null) {
+                if (!Utility.VerifyStringVal(id)) {
                     continue;
                 }
                 if (assetID.equals(id)) {
@@ -5224,27 +5224,27 @@ public class MainPage extends javax.swing.JFrame {
                     MarketTicker marketTicker = marketDetails.getMarketTicker();
                     jLabel3.setText("Last:" + marketTicker.getLastPrice() + "          Bid:" + marketTicker.getHighestBid() + "          Ask:" + marketTicker.getLowestAsk());
                     jLabel46.setVisible(true);
-                    jLabel46.setText(marketDetails.getAssetTypeID() == null ? "" : marketDetails.getAssetTypeID());
+                    jLabel46.setText(!Utility.VerifyStringVal(marketDetails.getAssetTypeID()) ? "" : marketDetails.getAssetTypeID());
                     jLabel46.setToolTipText(jLabel46.getText());
                     jLabel25.setVisible(true);
-                    jLabel25.setText(marketDetails.getAssetTypeName() == null ? "" : marketDetails.getAssetTypeName());
+                    jLabel25.setText(!Utility.VerifyStringVal(marketDetails.getAssetTypeName()) ? "" : marketDetails.getAssetTypeName());
                     jLabel30.setVisible(true);
                     jLabel25.setToolTipText(jLabel25.getText());
-                    jLabel30.setText(marketDetails.getCurrencyName() == null ? "" : marketDetails.getCurrencyName());
+                    jLabel30.setText(!Utility.VerifyStringVal(marketDetails.getCurrencyName()) ? "" : marketDetails.getCurrencyName());
                     jLabel30.setToolTipText(jLabel30.getText());
                     jLabel27.setVisible(true);
-                    jLabel27.setText(marketDetails.getCurrencyID() == null ? "" : marketDetails.getCurrencyID());
+                    jLabel27.setText(!Utility.VerifyStringVal(marketDetails.getCurrencyID()) ? "" : marketDetails.getCurrencyID());
                     jLabel27.setToolTipText(jLabel27.getText());
                     jLabel39.setVisible(true);
-                    jLabel39.setText(marketDetails.getServerName() == null ? "" : marketDetails.getServerName());
+                    jLabel39.setText(!Utility.VerifyStringVal(marketDetails.getServerName()) ? "" : marketDetails.getServerName());
                     jLabel39.setToolTipText(jLabel39.getText());
                     jLabel32.setVisible(true);
-                    jLabel32.setText(marketDetails.getServerID() == null ? "" : marketDetails.getServerID());
+                    jLabel32.setText(!Utility.VerifyStringVal(marketDetails.getServerID()) ? "" : marketDetails.getServerID());
                     jLabel32.setToolTipText(jLabel32.getText());
                     jLabel41.setVisible(true);
                     jLabel40.setVisible(true);
                     jLabel40.setText("Scale");
-                    jLabel41.setText(marketDetails.getGranularity() == null ? "" : marketDetails.getGranularity());
+                    jLabel41.setText(!Utility.VerifyStringVal(marketDetails.getGranularity()) ? "" : marketDetails.getGranularity());
                     jLabel41.setToolTipText(jLabel41.getText());
 
                     jLabel59.setText(marketDetails.getTotalAssets());
@@ -5295,7 +5295,7 @@ public class MainPage extends javax.swing.JFrame {
 
             // Show dialog asking for register
             new RegisterNymOnServerDialog(this, true, currentServerID).setVisible(true);
-            if (Utility.getNymID() == null) {
+            if (!Utility.VerifyStringVal(Utility.getNymID())) {
                 return;
             }
             String nymID = Utility.getNymID();
@@ -5336,7 +5336,7 @@ public class MainPage extends javax.swing.JFrame {
                 if ("Popup Dialog".equals(assetTypeName)) {
                     // Show dialog asking for register
                     new RegisterNymOnServerDialog(this, true, serverID).setVisible(true);
-                    if (Utility.getNymID() == null) {
+                    if (!Utility.VerifyStringVal(Utility.getNymID())) {
                         return;
                     }
                     String nymID = Utility.getNymID();
@@ -5411,7 +5411,7 @@ public class MainPage extends javax.swing.JFrame {
                 registerNYM.setVisible(true);
                 String serverID = registerNYM.getPaymentServerID();
                 System.out.println("PaymentClick - after reg nym, serverID:" + serverID);
-                if (serverID != null) {
+                if (Utility.VerifyStringVal(serverID)) {
                     inbox = Payments.getPaymentInboxRecords(nymID, serverID);
                 }
             } else if (inbox.get("serverList") != null) {
@@ -5419,7 +5419,7 @@ public class MainPage extends javax.swing.JFrame {
                 selectServer.setVisible(true);
                 String serverID = selectServer.getPaymentServerID();
                 System.out.println("PaymentClick - after selecting server, serverID:" + serverID);
-                if (serverID != null) {
+                if (Utility.VerifyStringVal(serverID)) {
                     inbox = Payments.getPaymentInboxRecords(nymID, serverID);
                     outbox = Payments.getPaymentOutboxRecords(nymID, serverID);
 

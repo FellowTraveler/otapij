@@ -255,7 +255,7 @@ public class RippleServerAddDialog extends javax.swing.JDialog {
         // Save to server datastore
 
         String serverID = StorageHelper.addRippleServer(label,jTextField1.getText(),jTextField2.getText(),jPasswordField1.getText(),jTextField3.getText(),jTextField4.getText());
-        if (serverID != null) {
+        if (Utility.VerifyStringVal(serverID)) {
             JOptionPane.showMessageDialog(null, "Ripple server added successflly","Ripple Server Addition",JOptionPane.INFORMATION_MESSAGE);
             MainPage.loadOtherTabServers();
         } else {

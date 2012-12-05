@@ -957,7 +957,7 @@ public class OpenTransactionAccountTopPanel extends javax.swing.JPanel {
         jTextField_AssetName.setText(otDetails.getAssetName());
         jTextField_NymName.setText(otDetails.getNymName());
 
-        if (otDetails.getBasketName() != null) {
+        if (Utility.VerifyStringVal(otDetails.getBasketName())) {
             System.out.println("otDetails.getBasketName():"+otDetails.getBasketName());
             jPanel_AccountBasket.setVisible(true);
             jLabel_BasketName.setToolTipText(otDetails.getBasketName());

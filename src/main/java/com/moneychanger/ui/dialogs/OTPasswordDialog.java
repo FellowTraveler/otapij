@@ -5,8 +5,9 @@
 package com.moneychanger.ui.dialogs;
 
 import com.moneychanger.core.util.Configuration;
+import com.moneychanger.core.util.Utility;
 import com.moneychanger.ui.custom.LoadImage;
-import com.wrapper.core.jni.OTPassword;
+import org.opentransactions.jni.core.OTPassword;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -39,8 +40,9 @@ public class OTPasswordDialog extends javax.swing.JDialog {
     }
     
     private boolean setPasswordImage() {
-                String path = Configuration.getImagePath();
-        if (null == path) {
+                
+        String path = Configuration.getImagePath();
+        if (!Utility.VerifyStringVal(path)) {
             JOptionPane.showMessageDialog(this, "Image Path is Bad! Set In Config!", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }

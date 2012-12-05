@@ -90,8 +90,9 @@ AK+ZirdWhhoHeWR1tAkN
 
 package com.moneychanger.core;
 
-import com.wrapper.core.jni.otapi;
+import org.opentransactions.jni.core.otapiJNI;
 import com.moneychanger.core.util.OTAPI_Func;
+import com.moneychanger.core.util.Utility;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -111,10 +112,10 @@ public class Contract {
         return mapServContractAccountList;
         }*/
 
-        int count = otapi.OT_API_GetServerCount();
+        int count = otapiJNI.OTAPI_Basic_GetServerCount();
         for (int i = 0; i < count; i++) {
-            String key = otapi.OT_API_GetServer_ID(i);
-            String label = otapi.OT_API_GetServer_Name(key);
+            String key = otapiJNI.OTAPI_Basic_GetServer_ID(i);
+            String label = otapiJNI.OTAPI_Basic_GetServer_Name(key);
             //mapServContractAccountList.put(key, label);
             mapServContractAccountList.put((i), new String[]{label, key});
         }
@@ -133,10 +134,10 @@ public class Contract {
         return mapAssetContractAccountList;
         }*/
 
-        int count = otapi.OT_API_GetAssetTypeCount();
+        int count = otapiJNI.OTAPI_Basic_GetAssetTypeCount();
         for (int i = 0; i < count; i++) {
-            String key = otapi.OT_API_GetAssetType_ID(i);
-            String label = otapi.OT_API_GetAssetType_Name(key);
+            String key = otapiJNI.OTAPI_Basic_GetAssetType_ID(i);
+            String label = otapiJNI.OTAPI_Basic_GetAssetType_Name(key);
             //mapAssetContractAccountList.put(key, label);
             mapAssetContractAccountList.put((i), new String[]{label, key});
         }
@@ -145,56 +146,56 @@ public class Contract {
     }
 
     public void createServerContract(String fileText) {
-        otapi.OT_API_AddServerContract(fileText);
+        otapiJNI.OTAPI_Basic_AddServerContract(fileText);
     }
 
     public void createAssetContract(String fileText) {
-        otapi.OT_API_AddAssetContract(fileText);
+        otapiJNI.OTAPI_Basic_AddAssetContract(fileText);
     }
 
     public String getRawServerFileData(String serverID) {
-        return otapi.OT_API_LoadServerContract(serverID);
+        return otapiJNI.OTAPI_Basic_LoadServerContract(serverID);
     }
 
     public String getRawAssetFileData(String assetID) {
-        return otapi.OT_API_LoadAssetContract(assetID);
+        return otapiJNI.OTAPI_Basic_LoadAssetContract(assetID);
     }
 
     public boolean editLabel(String contractID, String contractName, String newLabel) {
         if ("Asset".equalsIgnoreCase(contractName)) {
-            return otapi.OT_API_SetAssetType_Name(contractID, newLabel) == 1 ? true : false;
+            return otapiJNI.OTAPI_Basic_SetAssetType_Name(contractID, newLabel);
         } else if ("Server".equalsIgnoreCase(contractName)) {
-            return otapi.OT_API_SetServer_Name(contractID, newLabel) == 1 ? true : false;
+            return otapiJNI.OTAPI_Basic_SetServer_Name(contractID, newLabel);
         }
         return false;
     }
 
     public boolean deleteServerContract(String serverID) {
-        boolean deleteServerContract = otapi.OT_API_Wallet_CanRemoveServer(serverID) == 1 ? true : false;
+        boolean deleteServerContract = otapiJNI.OTAPI_Basic_Wallet_CanRemoveServer(serverID);
         if (!deleteServerContract) {
             return deleteServerContract;
         }
-        deleteServerContract = otapi.OT_API_Wallet_RemoveServer(serverID) == 1 ? true : false;
+        deleteServerContract = otapiJNI.OTAPI_Basic_Wallet_RemoveServer(serverID);
         return deleteServerContract;
     }
 
     public boolean deleteAssetContract(String assetID) {
-        boolean deleteAssetContract = otapi.OT_API_Wallet_CanRemoveAssetType(assetID) == 1 ? true : false;
+        boolean deleteAssetContract = otapiJNI.OTAPI_Basic_Wallet_CanRemoveAssetType(assetID);
         if (!deleteAssetContract) {
             return deleteAssetContract;
         }
-        deleteAssetContract = otapi.OT_API_Wallet_RemoveAssetType(assetID) == 1 ? true : false;
+        deleteAssetContract = otapiJNI.OTAPI_Basic_Wallet_RemoveAssetType(assetID);
         return deleteAssetContract;
     }
 
     public boolean issueAssetType(String serverID, String nymID, String contract) throws InterruptedException {
 
-        if (0 == otapi.OT_API_IsNym_RegisteredAtServer(nymID, serverID)) {
+        if (!otapiJNI.OTAPI_Basic_IsNym_RegisteredAtServer(nymID, serverID)) {
 
             OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.CREATE_USER_ACCT, serverID, nymID);
             String      strResponse  = OTAPI_Func.SendRequest(theRequest, "CREATE_USER_ACCT");
 
-            if (null == strResponse)
+            if (!Utility.VerifyStringVal(strResponse))
             {
                 System.out.println("IN issueAssetType: OTAPI_Func.SendRequest(() failed. (I give up.) ");
                 return false;
@@ -205,7 +206,7 @@ public class Contract {
         OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.ISSUE_ASSET_TYPE, serverID, nymID, contract);
         String      strResponse  = OTAPI_Func.SendRequest(theRequest, "ISSUE_ASSET_TYPE");
 
-        if (null == strResponse)
+        if (!Utility.VerifyStringVal(strResponse))
         {
             System.out.println("IN issueAssetType: OTAPI_Func.SendRequest(() failed. (I give up.) ");
             return false;

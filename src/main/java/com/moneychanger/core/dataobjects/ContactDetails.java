@@ -91,7 +91,7 @@ AK+ZirdWhhoHeWR1tAkN
 
 package com.moneychanger.core.dataobjects;
 
-import com.wrapper.core.jni.Contact;
+import org.opentransactions.jni.core.Contact;
 import java.util.List;
 import java.util.Map;
 

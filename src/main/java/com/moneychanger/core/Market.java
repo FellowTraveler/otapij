@@ -92,18 +92,18 @@ package com.moneychanger.core;
 import com.moneychanger.core.dataobjects.MarketDetails;
 import com.moneychanger.core.dataobjects.MarketTicker;
 import com.moneychanger.core.dataobjects.NymOfferDetails;
-import com.wrapper.core.jni.AskData;
-import com.wrapper.core.jni.BidData;
-import com.wrapper.core.jni.MarketData;
-import com.wrapper.core.jni.MarketList;
-import com.wrapper.core.jni.OfferDataNym;
-import com.wrapper.core.jni.OfferListMarket;
-import com.wrapper.core.jni.OfferListNym;
-import com.wrapper.core.jni.TradeDataMarket;
-import com.wrapper.core.jni.TradeDataNym;
-import com.wrapper.core.jni.TradeListMarket;
-import com.wrapper.core.jni.TradeListNym;
-import com.wrapper.core.jni.otapi;
+import org.opentransactions.jni.core.AskData;
+import org.opentransactions.jni.core.BidData;
+import org.opentransactions.jni.core.MarketData;
+import org.opentransactions.jni.core.MarketList;
+import org.opentransactions.jni.core.OfferDataNym;
+import org.opentransactions.jni.core.OfferListMarket;
+import org.opentransactions.jni.core.OfferListNym;
+import org.opentransactions.jni.core.TradeDataMarket;
+import org.opentransactions.jni.core.TradeDataNym;
+import org.opentransactions.jni.core.TradeListMarket;
+import org.opentransactions.jni.core.TradeListNym;
+import org.opentransactions.jni.core.otapiJNI;
 import com.moneychanger.core.util.OTAPI_Func;
 import com.moneychanger.core.util.Configuration;
 import com.moneychanger.core.util.Utility;
@@ -121,13 +121,13 @@ public class Market {
         OTAPI_Func theRequest = new OTAPI_Func(OTAPI_Func.FT.GET_MARKET_LIST, serverID, nymID);
         String strResponse = OTAPI_Func.SendRequest(theRequest, "GET_MARKET_LIST");
 
-        if (null == strResponse) {
+        if (!Utility.VerifyStringVal(strResponse)) {
             System.out.println("IN getTicker: OTAPI_Func.SendRequest(() failed. (I give up.) ");
             return null;
         }
         // ----------------------------------------------------------
 
-        if (otapi.OT_API_Message_GetDepth(strResponse) == 0) {
+        if (otapiJNI.OTAPI_Basic_Message_GetDepth(strResponse) == 0) {
             System.out.println("getTicker: OT_API_Message_GetDepth returned zero");
             return null;
         }
@@ -148,8 +148,8 @@ public class Market {
                 continue;
             }
 
-            if ((null == marketID)
-                    || (null != marketID) && marketID.equals(marketData.getMarket_id())) {
+            if (!Utility.VerifyStringVal(marketID)
+             || (Utility.VerifyStringVal(marketID) && marketID.equals(marketData.getMarket_id()))) {
 
                 MarketTicker marketTicker = new MarketTicker();
                 marketTicker.setLastPrice(marketData.getLast_sale_price());
@@ -171,13 +171,13 @@ public class Market {
         OTAPI_Func theRequest = new OTAPI_Func(OTAPI_Func.FT.GET_MARKET_LIST, serverID, nymID);
         String strResponse = OTAPI_Func.SendRequest(theRequest, "GET_MARKET_LIST");
 
-        if (null == strResponse) {
+        if (!Utility.VerifyStringVal(strResponse)) {
             System.out.println("IN loadMarketList: OTAPI_Func.SendRequest(() failed. (I give up.) ");
             return null;
         }
         // ----------------------------------------------------------
 
-        if (otapi.OT_API_Message_GetDepth(strResponse) == 0) {
+        if (otapiJNI.OTAPI_Basic_Message_GetDepth(strResponse) == 0) {
             System.out.println("loadMarketList - marketList returns with a OT_API_Message_GetDepth() of 0 elements.");
             return marketListMap;
         }
@@ -203,18 +203,18 @@ public class Market {
             }
             if ("ALL".equalsIgnoreCase(serverID) || serverID.equals(marketData.getServer_id())) {
                 String[] data = new String[2];
-                if (marketData.getAsset_type_id() != null && marketData.getCurrency_type_id() != null) {
-                    String assetName = otapi.OT_API_GetAssetType_Name(marketData.getAsset_type_id());
-                    String currencyName = otapi.OT_API_GetAssetType_Name(marketData.getCurrency_type_id());
-                    if (assetName != null && currencyName != null) {
+                if (Utility.VerifyStringVal(marketData.getAsset_type_id()) && Utility.VerifyStringVal(marketData.getCurrency_type_id())) {
+                    String assetName    = otapiJNI.OTAPI_Basic_GetAssetType_Name(marketData.getAsset_type_id());
+                    String currencyName = otapiJNI.OTAPI_Basic_GetAssetType_Name(marketData.getCurrency_type_id());
+                    if (Utility.VerifyStringVal(assetName) && Utility.VerifyStringVal(currencyName)) {
                         data[0] = assetName + "-" + currencyName;
                 }
 
                 } else {
-                    data[0] = marketData.getMarket_id() == null ? "" : marketData.getMarket_id();
+                    data[0] = !Utility.VerifyStringVal(marketData.getMarket_id()) ? "" : marketData.getMarket_id();
                 }
-                //data[0] = marketData.getGui_label() == null ? "" : marketData.getGui_label();
-                data[1] = marketData.getMarket_id() == null ? "" : marketData.getMarket_id();
+                //data[0] = !Utility.VerifyStringVal(marketData.getGui_label()) ? "" : marketData.getGui_label();
+                data[1] = !Utility.VerifyStringVal(marketData.getMarket_id()) ? "" : marketData.getMarket_id();
                 marketListMap.put(data[1], data);
             }
         }
@@ -236,7 +236,7 @@ public class Market {
         for (int j = 0; j < offerListNym.GetOfferDataNymCount(); j++) {
 
             OfferDataNym offerDataNym = offerListNym.GetOfferDataNym(j);
-            if (offerDataNym == null || transactionID == null) {
+            if (offerDataNym == null || !Utility.VerifyStringVal(transactionID)) {
                 continue;
             }
             if (transactionID.equals(offerDataNym.getTransaction_id())) {
@@ -267,7 +267,7 @@ public class Market {
                 scale, minIncrement, quantity, price, selling == 1 ? true : false);
         String strResponse = OTAPI_Func.SendTransaction(theRequest, "CREATE_MARKET_OFFER");
 
-        if (null == strResponse) {
+        if (!Utility.VerifyStringVal(strResponse)) {
             System.out.println("IN createOrder: OTAPI_Func.SendTransaction(() failed. (I give up.) ");
             return false;
         }
@@ -283,7 +283,7 @@ public class Market {
         OTAPI_Func theRequest = new OTAPI_Func(OTAPI_Func.FT.CANCEL_MARKET_OFFER, serverID, nymID, assetAccountID, transactionID);
         String strResponse = OTAPI_Func.SendTransaction(theRequest, "CANCEL_MARKET_OFFER");
 
-        if (null == strResponse) {
+        if (!Utility.VerifyStringVal(strResponse)) {
             System.out.println("IN cancelOrder: OTAPI_Func.SendTransaction(() failed. (I give up.) ");
             return false;
         }
@@ -300,13 +300,13 @@ public class Market {
         OTAPI_Func theRequest = new OTAPI_Func(OTAPI_Func.FT.GET_NYM_MARKET_OFFERS, serverID, nymID);
         String strResponse = OTAPI_Func.SendRequest(theRequest, "GET_NYM_MARKET_OFFERS");
 
-        if (null == strResponse) {
+        if (!Utility.VerifyStringVal(strResponse)) {
             System.out.println("IN getNymOfferList: OTAPI_Func.SendRequest(() failed. (I give up.) ");
             return null;
         }
         // ----------------------------------------------------------
 
-        if (otapi.OT_API_Message_GetDepth(strResponse) == 0) {
+        if (otapiJNI.OTAPI_Basic_Message_GetDepth(strResponse) == 0) {
             return nymOffersData;
         }
 
@@ -338,7 +338,7 @@ public class Market {
 
     public static MarketDetails getMarketDetails(String marketID, String serverID, String nymID) throws InterruptedException {
 
-        if (marketID == null || serverID == null || nymID == null) {
+        if (!Utility.VerifyStringVal(marketID) || !Utility.VerifyStringVal(serverID) || !Utility.VerifyStringVal(nymID)) {
             System.out.println("getMarketDetails - returns null , marketID:" + marketID + " serverID:" + serverID + " nymID:" + nymID);
             return null;
         }
@@ -375,44 +375,44 @@ public class Market {
 
                 marketDetails.setMarketTicker(marketTicker);
 
-                marketDetails.setAssetTypeID(marketData.getAsset_type_id() == null ? "" : marketData.getAsset_type_id());
-                marketDetails.setCurrencyID(marketData.getCurrency_type_id() == null ? "" : marketData.getCurrency_type_id());
-                marketDetails.setServerID(marketData.getServer_id() == null ? "" : marketData.getServer_id());
-                marketDetails.setGranularity(marketData.getScale() == null ? "" : marketData.getScale().toString());
+                marketDetails.setAssetTypeID(  !Utility.VerifyStringVal(marketData.getAsset_type_id())    ? "" : marketData.getAsset_type_id());
+                marketDetails.setCurrencyID(   !Utility.VerifyStringVal(marketData.getCurrency_type_id()) ? "" : marketData.getCurrency_type_id());
+                marketDetails.setServerID(     !Utility.VerifyStringVal(marketData.getServer_id())        ? "" : marketData.getServer_id());
+                marketDetails.setGranularity(  !Utility.VerifyStringVal(marketData.getScale())            ? "" : marketData.getScale().toString());
 
                 if (marketDetails.getAssetTypeID().equals("")) {
                     marketDetails.setAssetTypeName("");
                 } else {
-                    marketDetails.setAssetTypeName(otapi.OT_API_GetAssetType_Name(marketDetails.getAssetTypeID()));
+                    marketDetails.setAssetTypeName(otapiJNI.OTAPI_Basic_GetAssetType_Name(marketDetails.getAssetTypeID()));
                 }
 
                 if (marketDetails.getServerID().equals("")) {
                     marketDetails.setServerName("");
                 } else {
-                    marketDetails.setServerName(otapi.OT_API_GetServer_Name(marketDetails.getServerID()));
+                    marketDetails.setServerName(otapiJNI.OTAPI_Basic_GetServer_Name(marketDetails.getServerID()));
                 }
 
                 if (marketDetails.getCurrencyID().equals("")) {
                     marketDetails.setCurrencyName("");
                 } else {
-                    marketDetails.setCurrencyName(otapi.OT_API_GetAssetType_Name(marketDetails.getCurrencyID()));
+                    marketDetails.setCurrencyName(otapiJNI.OTAPI_Basic_GetAssetType_Name(marketDetails.getCurrencyID()));
                 }
 
-                marketDetails.setNbrAsks(marketData.getNumber_asks() == null ? "" : marketData.getNumber_asks());
-                marketDetails.setNbrBids(marketData.getNumber_bids() == null ? "" : marketData.getNumber_bids());
-                marketDetails.setTotalAssets(marketData.getTotal_assets() == null ? "" : marketData.getTotal_assets());
+                marketDetails.setNbrAsks(     !Utility.VerifyStringVal(marketData.getNumber_asks())  ? "" : marketData.getNumber_asks());
+                marketDetails.setNbrBids(     !Utility.VerifyStringVal(marketData.getNumber_bids())  ? "" : marketData.getNumber_bids());
+                marketDetails.setTotalAssets( !Utility.VerifyStringVal(marketData.getTotal_assets()) ? "" : marketData.getTotal_assets());
 
                 // ----------------------------------------------------------
                 OTAPI_Func theRequest = new OTAPI_Func(OTAPI_Func.FT.GET_MARKET_OFFERS, serverID, nymID, marketID, Configuration.getMarketMaxDepth());
                 String strResponse = OTAPI_Func.SendRequest(theRequest, "GET_MARKET_OFFERS");
 
-                if (null == strResponse) {
+                if (!Utility.VerifyStringVal(strResponse)) {
                     System.out.println("IN getMarketDetails: OTAPI_Func.SendRequest(() failed. (I give up.) ");
                     return null;
                 }
                 // ----------------------------------------------------------
 
-                if (otapi.OT_API_Message_GetDepth(strResponse) > 0) {
+                if (otapiJNI.OTAPI_Basic_Message_GetDepth(strResponse) > 0) {
 
                     OfferListMarket offerListMarket = Utility.getMarketOffer(serverID, marketID);
 
@@ -485,13 +485,13 @@ public class Market {
                 OTAPI_Func theRequest2 = new OTAPI_Func(OTAPI_Func.FT.GET_MARKET_RECENT_TRADES, serverID, nymID, marketID);
                 String strResponse2 = OTAPI_Func.SendRequest(theRequest2, "GET_MARKET_RECENT_TRADES");
 
-                if (null == strResponse2) {
+                if (!Utility.VerifyStringVal(strResponse2)) {
                     System.out.println("IN getMarketDetails: OTAPI_Func.SendRequest(() failed. (I give up.) ");
                     return null;
                 }
                 // ----------------------------------------------------------
 
-                if (otapi.OT_API_Message_GetDepth(strResponse2) > 0) {
+                if (otapiJNI.OTAPI_Basic_Message_GetDepth(strResponse2) > 0) {
 
                     TradeListMarket tradeListMarket = Utility.getMarketTradeList(serverID, marketID);
 
@@ -508,8 +508,8 @@ public class Market {
 
                         String[] tradeDataRow = new String[5];
 
-                        tradeDataRow[2] = tradeDataMarket.getAmount_sold() == null ? "" : tradeDataMarket.getAmount_sold();
-                        tradeDataRow[4] = tradeDataMarket.getDate() == null ? "" : tradeDataMarket.getDate();
+                        tradeDataRow[2] = !Utility.VerifyStringVal(tradeDataMarket.getAmount_sold()) ? "" : tradeDataMarket.getAmount_sold();
+                        tradeDataRow[4] = !Utility.VerifyStringVal(tradeDataMarket.getDate())        ? "" : tradeDataMarket.getDate();
                         System.out.println("tradeDataMarket.getDate():"+tradeDataMarket.getDate());
                         try {
                             tradeDataRow[4] = String.valueOf(new Date(Long.parseLong(tradeDataRow[4]) * 1000));
@@ -520,8 +520,8 @@ public class Market {
                             tradeDataRow[4] = "";
                         }
 
-                        tradeDataRow[1] = tradeDataMarket.getPrice() == null ? "" : tradeDataMarket.getPrice();
-                        tradeDataRow[0] = tradeDataMarket.getTransaction_id() == null ? "" : tradeDataMarket.getTransaction_id();
+                        tradeDataRow[1] = !Utility.VerifyStringVal(tradeDataMarket.getPrice())          ? "" : tradeDataMarket.getPrice();
+                        tradeDataRow[0] = !Utility.VerifyStringVal(tradeDataMarket.getTransaction_id()) ? "" : tradeDataMarket.getTransaction_id();
 
                         try {
                             Long lScale = Long.valueOf(marketDetails.getGranularity());
@@ -545,13 +545,13 @@ public class Market {
                 OTAPI_Func theRequest3 = new OTAPI_Func(OTAPI_Func.FT.GET_NYM_MARKET_OFFERS, serverID, nymID);
                 String strResponse3 = OTAPI_Func.SendRequest(theRequest3, "GET_NYM_MARKET_OFFERS");
 
-                if (null == strResponse3) {
+                if (!Utility.VerifyStringVal(strResponse3)) {
                     System.out.println("IN getMarketDetails: OTAPI_Func.SendRequest(() failed. (I give up.) ");
                     return null;
                 }
                 // ----------------------------------------------------------
 
-                if (otapi.OT_API_Message_GetDepth(strResponse3) > 0) {
+                if (otapiJNI.OTAPI_Basic_Message_GetDepth(strResponse3) > 0) {
 
                     OfferListNym offerListNym = Utility.getNYMOffer(serverID, nymID);
 
@@ -568,12 +568,12 @@ public class Market {
 
                         String[] nymDataRow = new String[3];
                         //offerDataNym.getSelling()
-                        if(marketData.getAsset_type_id()!=null
-                          && marketData.getCurrency_type_id()!=null
-                          && marketData.getScale()!=null
-                          && offerDataNym.getAsset_type_id()!=null
-                          && offerDataNym.getScale()!=null
-                          && offerDataNym.getCurrency_type_id()!=null
+                        if(Utility.VerifyStringVal(marketData.getAsset_type_id())
+                          && Utility.VerifyStringVal(marketData.getCurrency_type_id())
+                          && Utility.VerifyStringVal(marketData.getScale())
+                          && Utility.VerifyStringVal(offerDataNym.getAsset_type_id())
+                          && Utility.VerifyStringVal(offerDataNym.getScale())
+                          && Utility.VerifyStringVal(offerDataNym.getCurrency_type_id())
                           && marketData.getAsset_type_id().equals(offerDataNym.getAsset_type_id())
                           && marketData.getCurrency_type_id().equals(offerDataNym.getCurrency_type_id())
                           && marketData.getScale().equals(offerDataNym.getScale())
@@ -618,11 +618,11 @@ public class Market {
             }
 
             String[] tradeDataRow = new String[5];
-            tradeDataRow[0] = tradeDataNym.getTransaction_id() == null ? "" : tradeDataNym.getTransaction_id();
-            tradeDataRow[1] = tradeDataNym.getPrice() == null ? "" : tradeDataNym.getPrice();
-            tradeDataRow[2] = tradeDataNym.getAmount_sold() == null ? "" : tradeDataNym.getAmount_sold();
-            tradeDataRow[3] = tradeDataNym.getCompleted_count() == null ? "" : tradeDataNym.getCompleted_count();
-            tradeDataRow[4] = tradeDataNym.getDate() == null ? "" : tradeDataNym.getDate();
+            tradeDataRow[0] = !Utility.VerifyStringVal(tradeDataNym.getTransaction_id())  ? "" : tradeDataNym.getTransaction_id();
+            tradeDataRow[1] = !Utility.VerifyStringVal(tradeDataNym.getPrice())           ? "" : tradeDataNym.getPrice();
+            tradeDataRow[2] = !Utility.VerifyStringVal(tradeDataNym.getAmount_sold())     ? "" : tradeDataNym.getAmount_sold();
+            tradeDataRow[3] = !Utility.VerifyStringVal(tradeDataNym.getCompleted_count()) ? "" : tradeDataNym.getCompleted_count();
+            tradeDataRow[4] = !Utility.VerifyStringVal(tradeDataNym.getDate())            ? "" : tradeDataNym.getDate();
             if (!tradeDataRow[4].equals("")) {
 
                 try {

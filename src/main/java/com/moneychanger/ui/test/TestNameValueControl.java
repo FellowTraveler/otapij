@@ -103,7 +103,8 @@ AK+ZirdWhhoHeWR1tAkN
 
 package com.moneychanger.ui.test;
 
-import com.wrapper.core.jni.otapi;
+import org.opentransactions.jni.core.otapi;
+import org.opentransactions.jni.core.otapiJNI;
 import com.moneychanger.core.util.Utility;
 import com.moneychanger.ui.panels.NameValuePanel;
 import java.awt.BorderLayout;
@@ -124,8 +125,7 @@ public class TestNameValueControl extends javax.swing.JFrame {
 //        Utility.addDirToRuntime("C:\\~\\Open-Transactions\\testwallet");
 
         System.loadLibrary("otapi");
-        otapi.OT_API_Init();
-        otapi.OT_API_LoadWallet();
+        otapiJNI.OTAPI_Basic_LoadWallet();
 
         initComponents();
         initPanel();

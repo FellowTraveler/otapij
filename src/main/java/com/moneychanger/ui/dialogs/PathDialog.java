@@ -261,7 +261,7 @@ public class PathDialog extends javax.swing.JDialog {
 
             @Override
             public void returnAction(String returnValue) {
-                if (null != returnValue) {
+                if (Utility.VerifyStringVal(returnValue)) {
                     if (returnValue.contentEquals("Enabled")) {
                         jButton_Remove.setEnabled(Boolean.TRUE);
                     } else {

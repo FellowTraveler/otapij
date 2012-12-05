@@ -9,9 +9,10 @@ import com.moneychanger.core.util.JavaCallback;
 import com.moneychanger.core.util.Utility;
 import com.moneychanger.core.util.Utility.ReturnAction;
 import com.moneychanger.ui.LoadState.OutOfOrderException;
-import com.wrapper.core.jni.OTCallback;
-import com.wrapper.core.jni.OTCaller;
-import com.wrapper.core.jni.otapi;
+import org.opentransactions.jni.core.OTCallback;
+import org.opentransactions.jni.core.OTCaller;
+import org.opentransactions.jni.core.otapi;
+import org.opentransactions.jni.core.otapiJNI;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -43,23 +44,23 @@ public class Load {
     public static void Attempt() throws LoadFailedException {
 
         System.out.println();
-        System.out.println("Attempting to load Moneychanger… Here we go!");
+        System.out.println("Attempting to load Moneychanger...");
 
         try {
             System.out.println();
-            // For some Reason the current stage is not complete... Lets Attempt to complete it.
+            // For some reason the current stage is not complete... Let's attempt to complete it.
             if (!LoadState.isStageComplete()) {
 
-                System.out.println("Current Stage not complete... attempting to run uncompleted stage!");
+                System.out.println("Current stage not complete... attempting to run uncompleted stage.");
 
                 switch (LoadState.getStage()) {
                     case Init:
-                        throw new LoadFailedException("Must Complete init before Attempt!");
+                        throw new LoadFailedException("Must complete init before attempt.");
 
                     case Opt_InitSettings:
                     case Opt_LoadSettings:
                     case Opt_UpdateSettings:
-                        throw new LoadFailedException("Must Complete Settings before Attempting to Load!");
+                        throw new LoadFailedException("Must complete settings before attempting to load.");
 
 
                     case LoadNativeLibraries:
@@ -81,12 +82,12 @@ public class Load {
 
                 // Well that didn't fix it... lets throw a big error.
                 if (LoadState.isStageComplete()) {
-                    throw new LoadFailedException("Failed to Complete step!");
+                    throw new LoadFailedException("Failed to complete step.");
                 }
                 System.out.println();
-                System.out.println("That Worked... Stage now complete!!!");
+                System.out.println("That worked... stage now complete.");
             }
-            System.out.println("Attempting to load the reaming stages!!!");
+            System.out.println("Attempting to load the stages.");
             System.out.println();
 
             // Now that the stage we are on is complete... lets load the next step.
@@ -95,7 +96,7 @@ public class Load {
 
                 case Opt_InitSettings:
                 case Opt_LoadSettings:
-                    throw new LoadFailedException("Must Complete Settings before Attempting to Load!");
+                    throw new LoadFailedException("Must complete settings before attempting to load!");
 
                 case Init:
                 case Opt_UpdateSettings:
@@ -269,13 +270,20 @@ public class Load {
             // itself to trigger again.  This I think should fix that.
             //
             // --------------------------------------------
-
-            if (1 == otapi.OT_API_Init()) {
-                System.out.println("Load.initOTAPI: SUCCESS invoking OT_API_Init().");
-
-            } else // Failed in OT_API_Init().
+            boolean bSuccess = false;
+            
+            if (otapiJNI.OTAPI_Basic_AppStartup())  // Call once at startup. Sets up OpenSSL, signal handlers, etc.
             {
-                String strErrorMsg = "Load.initOTAPI: OT_API_Init() call failed(). (Has it already been called?) Location is " + " (End of location.)";
+                bSuccess = otapiJNI.OTAPI_Basic_Init(); // Initialize OTAPI context. Loads config file, etc.
+            }
+            // -------------------------------------------------
+            if (bSuccess)
+            {
+                System.out.println("Load.initOTAPI: SUCCESS invoking OTAPI_Basic_AppStartup and OTAPI_Basic_Init.");
+            }
+            else // Failed in OTAPI_Basic_AppStartup or OTAPI_Basic_Init.
+            {
+                String strErrorMsg = "Load.initOTAPI: Failed calling OTAPI_Basic_AppStartup or OTAPI_Basic_Init.";
                 throw new InitOTAPIFailedException(strErrorMsg);
             }
         }
@@ -316,17 +324,17 @@ public class Load {
             // Set In Config... Update Image...
             String path = ConfigBean.Static.getKey(ConfigBean.Static.Keys.PasswordImagePath);
             System.out.println(path);
-            if (path != null && !path.isEmpty()) {
+            if (Utility.VerifyStringVal(path)) {
                 Utility.saveImagePath(path);
             } // Try Loding pre-ezxisting path
             else {
                 path = Utility.getImagePath();
                 System.out.println(path);
-                if (path != null && !path.isEmpty()) {
+                if (Utility.VerifyStringVal(path)) {
                     ConfigBean.Static.setKey(ConfigBean.Static.Keys.PasswordImagePath, path);
                 } // Throw Eception... no Path
                 else {
-                    throw new SetupPasswordImageFailedException("No Path available");
+                    throw new SetupPasswordImageFailedException("No path available. \n Please set the image path on the settings dialog (to any gif on your computer.)");
                 }
             }
         }
@@ -355,7 +363,7 @@ public class Load {
     //<editor-fold defaultstate="collapsed" desc="SetupPasswordCallback">
     public static class SetupPasswordCallback {
 
-        private static OTCaller s_theCaller = null;
+        private static OTCaller   s_theCaller   = null;
         private static OTCallback s_theCallback = null;
 
         public static void Attempt() throws SetupPasswordCallbackFailedException, OutOfOrderException {
@@ -369,11 +377,11 @@ public class Load {
 
         private static void SetCallerAndCallback() throws SetupPasswordCallbackFailedException, OutOfOrderException {
 
-            s_theCaller = new OTCaller();
+            s_theCaller   = new OTCaller();
             s_theCallback = new JavaCallback();
 
             if ((null == s_theCaller) || (null == s_theCallback)) {
-                s_theCaller = null;
+                s_theCaller   = null;
                 s_theCallback = null;
                 LoadState.setStageFailed();
                 throw new SetupPasswordCallbackFailedException("OneTimeOnly.GiveItAShot(): ERROR: Failure instantiating caller or callback objects.");
@@ -383,7 +391,7 @@ public class Load {
             Boolean bSuccess = otapi.OT_API_Set_PasswordCallback(s_theCaller);
 
             if (!bSuccess) {
-                s_theCaller = null;
+                s_theCaller   = null;
                 s_theCallback = null;
                 LoadState.setStageFailed();
                 throw new SetupPasswordCallbackFailedException("OneTimeOnly.GiveItAShot(): ERROR: Failure instantiating caller or callback objects.");
@@ -430,7 +438,10 @@ public class Load {
         private static void API_LoadWallet() throws LoadWalletFailedException, OutOfOrderException {
             String walletFilename = _configBean.getConfig(ConfigBean.Keys.WalletFilename);
 
-            if (1 == otapi.OT_API_LoadWallet()) {
+            if (Utility.VerifyStringVal(walletFilename))
+                otapiJNI.OTAPI_Basic_SetWallet(walletFilename);
+            
+            if (otapiJNI.OTAPI_Basic_LoadWallet()) {
                 System.out.println("Load.loadOTWallet: OT_API_LoadWallet() completed successfully.");
             } else {
                 LoadState.setStageFailed();
@@ -475,13 +486,13 @@ public class Load {
 
         private static void API_SwitchWallet() throws SwitchWalletFailedException, OutOfOrderException {
             String walletFilename = _configBean.getConfig(ConfigBean.Keys.WalletFilename);
-            if (1 == otapi.OT_API_SetWallet(walletFilename))
-            if (1 == otapi.OT_API_SwitchWallet()) {
-                System.out.println("Load.loadOTWallet: OT_API_SwitchWallet() completed successfully.");
-            } else {
-                LoadState.setStageFailed();
-                throw new SwitchWalletFailedException("Load.loadOTWallet: Unable To Switch Wallet, Maybe Wrong Password?");
-            }
+            if (Utility.VerifyStringVal(walletFilename) && otapiJNI.OTAPI_Basic_SetWallet(walletFilename))
+                if (otapiJNI.OTAPI_Basic_SwitchWallet()) {
+                    System.out.println("Load.loadOTWallet: OT_API_SwitchWallet() completed successfully.");
+                } else {
+                    LoadState.setStageFailed();
+                    throw new SwitchWalletFailedException("Load.loadOTWallet: Unable To Switch Wallet, Maybe Wrong Password?");
+                }
         }
     }
 
@@ -511,8 +522,7 @@ public class Load {
         System.out.print("Updating JavaPaths:  ");
 
         String paths = configBean.getConfig(ConfigBean.Keys.JavaPath);
-        if (paths != null
-                && !paths.isEmpty()) {
+        if (Utility.VerifyStringVal(paths)) {
             System.out.println("Custom JavaPaths... adding now!");
             try {
                 Utility.addDirToRuntime(paths);
@@ -572,7 +582,7 @@ public class Load {
         public JavaPaths(ReturnAction returnAction, String paths) {
             _javaPathsListModel = new JavaPathsListModel();
             _returnActionToSettings = returnAction;
-            if (null != paths
+            if (Utility.VerifyStringVal(paths)
                     && !paths.isEmpty()) {
                 addPaths(paths);
             }
@@ -635,14 +645,14 @@ public class Load {
         }
 
         public final void addPath(String path) {
-            if (path != null
+            if (Utility.VerifyStringVal(path)
                     || path.isEmpty()) {
                 addPaths(path);
             }
         }
 
         public final void remove(String path) {
-            if (path != null
+            if (Utility.VerifyStringVal(path)
                     && !_paths.isEmpty()) {
                 _paths.remove(path);
                 _javaPathsListModel.fireContentsChanged();

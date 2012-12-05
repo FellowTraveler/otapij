@@ -100,19 +100,20 @@ import java.util.List;
 import com.moneychanger.core.Account;
 import com.moneychanger.core.OpenTransactionAccount;
 import com.moneychanger.core.dataobjects.OTDetails;
-import com.wrapper.core.jni.AddressBook;
-import com.wrapper.core.jni.MarketList;
-import com.wrapper.core.jni.OTCallback;
-import com.wrapper.core.jni.OTCaller;
-import com.wrapper.core.jni.OfferListMarket;
-import com.wrapper.core.jni.OfferListNym;
-import com.wrapper.core.jni.Storable;
-import com.wrapper.core.jni.StoredObjectType;
-import com.wrapper.core.jni.StringMap;
-import com.wrapper.core.jni.TradeListMarket;
-import com.wrapper.core.jni.TradeListNym;
-import com.wrapper.core.jni.WalletData;
-import com.wrapper.core.jni.otapi;
+import org.opentransactions.jni.core.AddressBook;
+import org.opentransactions.jni.core.MarketList;
+import org.opentransactions.jni.core.OTCallback;
+import org.opentransactions.jni.core.OTCaller;
+import org.opentransactions.jni.core.OfferListMarket;
+import org.opentransactions.jni.core.OfferListNym;
+import org.opentransactions.jni.core.Storable;
+import org.opentransactions.jni.core.StoredObjectType;
+import org.opentransactions.jni.core.StringMap;
+import org.opentransactions.jni.core.TradeListMarket;
+import org.opentransactions.jni.core.TradeListNym;
+import org.opentransactions.jni.core.WalletData;
+import org.opentransactions.jni.core.otapi;
+import org.opentransactions.jni.core.otapiJNI;
 import com.moneychanger.ui.Load;
 import com.moneychanger.ui.LoadState;
 import com.moneychanger.ui.LoadState.Stages;
@@ -209,6 +210,15 @@ public class Utility {
     private static String m_nymID, lastReplyReceived;
     private static List basketExistingAssets = new ArrayList();
 
+    public static boolean VerifyStringVal(String strValue) {
+        if ((null == strValue) || strValue.isEmpty())
+        {
+            return false;
+        }
+        
+        return true;
+    }
+    
     public static List getBasketExistingAssets() {
         return basketExistingAssets;
     }
@@ -422,7 +432,7 @@ public class Utility {
             return "ALL";
         }
 
-        if (value == null) {
+        if (!Utility.VerifyStringVal(value)) {
             return null;
         }
 
@@ -447,10 +457,10 @@ public class Utility {
     // Called by getAndProcessNymbox.   
     // DONE
     public static int getNymboxLowLevel(String serverID, String nymID, OTBool bWasSent) {
-        otapi.OT_API_FlushMessageBuffer();
+        otapiJNI.OTAPI_Basic_FlushMessageBuffer();
         bWasSent.setBooleanValue(false);
         // --------------------------------------------------------------------
-        final int nRequestNum = otapi.OT_API_getNymbox(serverID, nymID); // <===== ATTEMPT TO SEND THE MESSAGE HERE...
+        final int nRequestNum = otapiJNI.OTAPI_Basic_getNymbox(serverID, nymID); // <===== ATTEMPT TO SEND THE MESSAGE HERE...
 
         switch (nRequestNum) {
             case (-2):
@@ -504,7 +514,7 @@ public class Utility {
         // 
         //
 
-//        final int nRemovedSentMsg = otapi.OT_API_RemoveSentMessage(Integer.toString(nRequestNum), serverID, nymID);
+//        final int nRemovedSentMsg = otapiJNI.OTAPI_Basic_RemoveSentMessage(Integer.toString(nRequestNum), serverID, nymID);
 //
 //        if (nRemovedSentMsg < 1)
 //        {
@@ -533,14 +543,14 @@ public class Utility {
 
     public static int getNymbox(String serverID, String nymID, boolean bForceDownload) {
         //-------------------------------------------------                        
-        final String strRecentHash = otapi.OT_API_GetNym_RecentHash(serverID, nymID);
+        final String strRecentHash = otapiJNI.OTAPI_Basic_GetNym_RecentHash(serverID, nymID);
         final boolean bRecentHash = Utility.isValid(strRecentHash);
         if (!bRecentHash) {
             System.out.println("Utility.getNymbox(): Warning: Unable to retrieve recent cached copy of server-side "
                     + "NymboxHash from client-side nym (perhaps he's never downloaded it before?)\n\n");
         }
         //-------------------------------------------------                
-        String strLocalHash = otapi.OT_API_GetNym_NymboxHash(serverID, nymID);
+        String strLocalHash = otapiJNI.OTAPI_Basic_GetNym_NymboxHash(serverID, nymID);
         boolean bLocalHash = Utility.isValid(strLocalHash);
         if (!bLocalHash) {
             System.out.println("Utility.getNymbox(): Warning: Unable to retrieve client-side NymboxHash "
@@ -639,7 +649,7 @@ public class Utility {
             //-------------------------------------------------       
             // Grabbing again in case it's changed.
             //
-            final String strServerHash = otapi.OT_API_Message_GetNymboxHash(strLastReplyReceived);
+            final String strServerHash = otapiJNI.OTAPI_Basic_Message_GetNymboxHash(strLastReplyReceived);
             final boolean bServerHash = Utility.isValid(strServerHash);
             if (!bServerHash) {
                 System.out.println("Utility.getNymbox(): Warning: Unable to retrieve server-side "
@@ -647,7 +657,7 @@ public class Utility {
                         + strLastReplyReceived);
             }
             //-------------------------------------------------                
-            strLocalHash = otapi.OT_API_GetNym_NymboxHash(serverID, nymID);
+            strLocalHash = otapiJNI.OTAPI_Basic_GetNym_NymboxHash(serverID, nymID);
             bLocalHash = Utility.isValid(strLocalHash);
 
             if (!bLocalHash) {
@@ -824,8 +834,8 @@ public class Utility {
                     // FIRST, before trying to remove.
                     // (Might want different messages in either case.)
                     //
-                    final int nRemovedMsg = otapi.OT_API_RemoveSentMessage(Integer.toString(nRequestNumber), serverID, nymID);
-                    System.out.println("Utility.getAndProcessNymbox(): OT_API_RemoveSentMessage: " + nRemovedMsg);
+                    final boolean bRemovedMsg = otapiJNI.OTAPI_Basic_RemoveSentMessage(Integer.toString(nRequestNumber), serverID, nymID);
+                    System.out.println("Utility.getAndProcessNymbox(): OT_API_RemoveSentMessage: " + bRemovedMsg);
                 }
                 else // Didn't find it in the nymbox, so we can harvest it:
                 {
@@ -834,7 +844,7 @@ public class Utility {
 
                     System.out.println("Utility.getAndProcessNymbox(): FYI: Calling OT_API_GetSentMessage...");
 
-                    final String strSentMsg = otapi.OT_API_GetSentMessage(Integer.toString(nRequestNumber), serverID, nymID);
+                    final String strSentMsg = otapiJNI.OTAPI_Basic_GetSentMessage(Integer.toString(nRequestNumber), serverID, nymID);
 
                     if (!Utility.isValid(strSentMsg)) {
                         System.out.println("Utility.getAndProcessNymbox(): ERROR: (SHOULD NEVER HAPPEN 1) Expected OT_API_GetSentMessage to return the sent message (for clawback) but couldn't find it. (Expected it--I JUST supposedly sent it!) Request number: " + nRequestNumber);
@@ -842,16 +852,16 @@ public class Utility {
                     {
                         System.out.println("Utility.getAndProcessNymbox(): FYI: Harvesting transaction numbers from failed Msg attempt...");
                         // ------------------------------------
-                        final int nHarvested = otapi.OT_API_Msg_HarvestTransactionNumbers(strSentMsg, nymID,
-                                bHarvestingForRetry ? 1 : 0, // bHarvestingForRetry.
-                                bMsgReplySuccess ? 1 : 0, // bReplyWasSuccess,       // RECEIVED server reply: explicit success.
-                                bMsgReplyFailure ? 1 : 0, // bReplyWasFailure,       // RECEIVED server reply: explicit failure.
-                                bMsgTransSuccess ? 1 : 0, // bTransactionWasSuccess, // MESSAGE success, Transaction success. (Explicit.)
-                                bMsgTransFailure ? 1 : 0);   // bTransactionWasFailure  // MESSAGE success, Transaction failure. (Explicit.)
-                        System.out.println("Utility.getAndProcessNymbox(): OT_API_Msg_HarvestTransactionNumbers: " + nHarvested);
+                        final boolean bHarvested = otapiJNI.OTAPI_Basic_Msg_HarvestTransactionNumbers(strSentMsg, nymID,
+                                bHarvestingForRetry, // bHarvestingForRetry.
+                                bMsgReplySuccess, // bReplyWasSuccess,       // RECEIVED server reply: explicit success.
+                                bMsgReplyFailure, // bReplyWasFailure,       // RECEIVED server reply: explicit failure.
+                                bMsgTransSuccess, // bTransactionWasSuccess, // MESSAGE success, Transaction success. (Explicit.)
+                                bMsgTransFailure);   // bTransactionWasFailure  // MESSAGE success, Transaction failure. (Explicit.)
+                        System.out.println("Utility.getAndProcessNymbox(): OT_API_Msg_HarvestTransactionNumbers: " + bHarvested);
 
-                        final int nRemovedMsg = otapi.OT_API_RemoveSentMessage(Integer.toString(nRequestNumber), serverID, nymID);
-                        System.out.println("Utility.getAndProcessNymbox(): OT_API_RemoveSentMessage: " + nRemovedMsg);
+                        final boolean bRemovedMsg = otapiJNI.OTAPI_Basic_RemoveSentMessage(Integer.toString(nRequestNumber), serverID, nymID);
+                        System.out.println("Utility.getAndProcessNymbox(): OT_API_RemoveSentMessage: " + bRemovedMsg);
 
                     } // strSentMsg NOT null!
                 }
@@ -882,12 +892,12 @@ public class Utility {
             // box receipts (because the Nymbox contains enough of an abbreviated record already
             // for each one, that we will have the info we need already.)
             //
-            String strNymbox = otapi.OT_API_LoadNymboxNoVerify(serverID, nymID);      // FLUSH SENT MESSAGES!!!!  (AND HARVEST.)
+            String strNymbox = otapiJNI.OTAPI_Basic_LoadNymboxNoVerify(serverID, nymID);      // FLUSH SENT MESSAGES!!!!  (AND HARVEST.)
 
             // *******************************************************
             if (Utility.isValid(strNymbox)) // ---------------------------
             {
-                otapi.OT_API_FlushSentMessages(0, //harvesting for retry == OT_FALSE. None of the things are being re-tried by the time they are being flushed.  They were already old news.
+                otapiJNI.OTAPI_Basic_FlushSentMessages(false, //harvesting for retry == false. None of the things are being re-tried by the time they are being flushed.  They were already old news.
                         serverID,
                         nymID,
                         strNymbox);
@@ -1021,7 +1031,7 @@ public class Utility {
             // meantime, it allows us to store a record of EXACTLY which messages were MISSED.
             //
 
-            int nHarvested = -1;
+            boolean bHarvested = false;
 
             if (bProcessAllSuccess) {
                 // the processNymbox was a complete success, including the message
@@ -1031,7 +1041,7 @@ public class Utility {
                 // (Thus I RemoveSentMessage for the processNymbox message, since 
                 // I'm totally done with it now.)
                 //
-//                final int nRemoved = otapi.OT_API_RemoveSentMessage(Integer.toString(nProcess), serverID, nymID);
+//                final int nRemoved = otapiJNI.OTAPI_Basic_RemoveSentMessage(Integer.toString(nProcess), serverID, nymID);
                 // NOTE: The above call is unnecessary, since a successful process means
                 // we already received the successful server reply, and OT's "ProcessServerReply"
                 // already removed the sent message from the sent buffer (so no need to do that here.)
@@ -1057,7 +1067,7 @@ public class Utility {
                         // since the server clearly already processed this processNymbox
                         // transaction, since I have a reply to it already sitting in my Nymbox.
                         //
-//                        final int nRemoved = otapi.OT_API_RemoveSentMessage(Integer.toString(nProcess), serverID, nymID);
+//                        final int nRemoved = otapiJNI.OTAPI_Basic_RemoveSentMessage(Integer.toString(nProcess), serverID, nymID);
                         //
                         // NOTE: The above call is unnecessary, since a successful process means
                         // we already received the successful server reply, and OT's "ProcessServerReply"
@@ -1078,7 +1088,7 @@ public class Utility {
 
                         System.out.println("Utility.getAndProcessNymbox 2: FYI: Calling OT_API_GetSentMessage...");
 
-                        final String strSentProcessNymboxMsg = otapi.OT_API_GetSentMessage(Integer.toString(nProcess), serverID, nymID);
+                        final String strSentProcessNymboxMsg = otapiJNI.OTAPI_Basic_GetSentMessage(Integer.toString(nProcess), serverID, nymID);
 
                         if (!Utility.isValid(strSentProcessNymboxMsg)) {
                             System.out.println("Utility.getAndProcessNymbox(): ERROR: (SHOULD NEVER HAPPEN 2) Expected OT_API_GetSentMessage to return the sent processNymbox message (for clawback) but couldn't find it. (Expected it--I JUST sent it!)");
@@ -1086,28 +1096,28 @@ public class Utility {
                         {
                             System.out.println("Utility.getAndProcessNymbox(): FYI: Harvesting transaction numbers from failed processNymbox attempt...");
                             // ------------------------------------
-                            nHarvested = otapi.OT_API_Msg_HarvestTransactionNumbers(strSentProcessNymboxMsg, nymID,
-                                    0, // bHarvestingForRetry == false
-                                    bProcessNymboxReplySuccess ? 1 : 0, // bReplyWasSuccess,       // RECEIVED server reply: explicit success.
-                                    bProcessNymboxReplyFailure ? 1 : 0, // bReplyWasFailure,       // RECEIVED server reply: explicit failure.
-                                    bProcessNymboxTransSuccess ? 1 : 0, // bTransactionWasSuccess, // MESSAGE success, Transaction success. (Explicit.)
-                                    bProcessNymboxTransFailure ? 1 : 0);  // bTransactionWasFailure  // MESSAGE success, Transaction failure. (Explicit.)
+                            bHarvested = otapiJNI.OTAPI_Basic_Msg_HarvestTransactionNumbers(strSentProcessNymboxMsg, nymID,
+                                    false, // bHarvestingForRetry == false
+                                    bProcessNymboxReplySuccess, // bReplyWasSuccess,       // RECEIVED server reply: explicit success.
+                                    bProcessNymboxReplyFailure, // bReplyWasFailure,       // RECEIVED server reply: explicit failure.
+                                    bProcessNymboxTransSuccess, // bTransactionWasSuccess, // MESSAGE success, Transaction success. (Explicit.)
+                                    bProcessNymboxTransFailure);  // bTransactionWasFailure  // MESSAGE success, Transaction failure. (Explicit.)
 
-                            System.out.println("Utility.getAndProcessNymbox(): OT_API_Msg_HarvestTransactionNumbers: " + nHarvested);
+                            System.out.println("Utility.getAndProcessNymbox(): OT_API_Msg_HarvestTransactionNumbers: " + bHarvested);
 
-                            final int nRemovedProcessNymboxMsg = otapi.OT_API_RemoveSentMessage(Integer.toString(nProcess), serverID, nymID);
+                            final boolean bRemovedProcessNymboxMsg = otapiJNI.OTAPI_Basic_RemoveSentMessage(Integer.toString(nProcess), serverID, nymID);
 
-                            System.out.println("Utility.getAndProcessNymbox(): OT_API_RemoveSentMessage: " + nRemovedProcessNymboxMsg);
+                            System.out.println("Utility.getAndProcessNymbox(): OT_API_RemoveSentMessage: " + bRemovedProcessNymboxMsg);
 
                         } // strSentProcessNymboxMsg NOT null!
                     } // a specific receipt was not found in the nymbox (need to clawback the transaction numbers on that receipt.)
                     // ----------------------------------------------------------------
 
-                    strNymbox = otapi.OT_API_LoadNymboxNoVerify(serverID, nymID);      // FLUSH SENT MESSAGES!!!!  (AND HARVEST.)
+                    strNymbox = otapiJNI.OTAPI_Basic_LoadNymboxNoVerify(serverID, nymID);      // FLUSH SENT MESSAGES!!!!  (AND HARVEST.)
 
                     // *******************************************************
                     if (Utility.isValid(strNymbox)) {
-                        otapi.OT_API_FlushSentMessages(0, //harvesting for retry == OT_FALSE
+                        otapiJNI.OTAPI_Basic_FlushSentMessages(false, //harvesting for retry == false
                                 serverID,
                                 nymID,
                                 strNymbox);
@@ -1143,7 +1153,7 @@ public class Utility {
                 return 1;  // We don't need the sent message after this, and we've already removed it from sent queue.
             }
             if (bProcessAnyFailure || bProcessAnyError) {
-                if (nHarvested < 1) // If the message failed, and the harvesting failed, then we return the request 
+                if (false == bHarvested) // If the message failed, and the harvesting failed, then we return the request 
                 {
                     return nProcess; // number for the process nymbox, so the caller has a choice of what to do next.
                 }
@@ -1243,10 +1253,10 @@ public class Utility {
 
         if (nReplySuccess > 0) // If message was success, then let's see if the transaction was, too.
         {
-            nBalanceSuccess = otapi.OT_API_Message_GetBalanceAgreementSuccess(serverID, nymID, nymID, strReplyProcess); // the processNymbox transaction.
+            nBalanceSuccess = otapiJNI.OTAPI_Basic_Message_GetBalanceAgreementSuccess(serverID, nymID, nymID, strReplyProcess); // the processNymbox transaction.
 
             if (nBalanceSuccess > 0) {
-                nTransSuccess = otapi.OT_API_Message_GetTransactionSuccess(serverID, nymID, nymID, strReplyProcess); // the processNymbox transaction.
+                nTransSuccess = otapiJNI.OTAPI_Basic_Message_GetTransactionSuccess(serverID, nymID, nymID, strReplyProcess); // the processNymbox transaction.
             } else {
                 nTransSuccess = (-1);
             }
@@ -1281,22 +1291,22 @@ public class Utility {
     {
         // ------------------------------------------
         // Send message..
-        otapi.OT_API_FlushMessageBuffer();
+        otapiJNI.OTAPI_Basic_FlushMessageBuffer();
 
-        int nRequestNum = otapi.OT_API_processNymbox(serverID, nymID);
+        int nRequestNum = otapiJNI.OTAPI_Basic_processNymbox(serverID, nymID);
 
         // ------------------------------------------
         if ((-1) == nRequestNum) {
-            otapi.OT_API_Output(0, " Utility.sendProcessNymboxLowLevel: Failure sending. OT_API_processNymbox() returned -1. \n");
+            otapiJNI.OTAPI_Basic_Output(0, " Utility.sendProcessNymboxLowLevel: Failure sending. OT_API_processNymbox() returned -1. \n");
             return (-1); // no need to check for any reply.
         } // ------------------------------------------
         else if (nRequestNum < 0) {
-            otapi.OT_API_Output(0, " Utility.sendProcessNymboxLowLevel: Failure: OT_API_processNymbox() returned unexpected value: " + nRequestNum);
-            otapi.OT_API_Output(0, "\n");
+            otapiJNI.OTAPI_Basic_Output(0, " Utility.sendProcessNymboxLowLevel: Failure: OT_API_processNymbox() returned unexpected value: " + nRequestNum);
+            otapiJNI.OTAPI_Basic_Output(0, "\n");
             return (-1); // no need to check for any reply.
         } // ------------------------------------------
         else if (0 == nRequestNum) {
-            otapi.OT_API_Output(0, " Utility.sendProcessNymboxLowLevel: Nymbox was empty; no need to process it. \n");
+            otapiJNI.OTAPI_Basic_Output(0, " Utility.sendProcessNymboxLowLevel: Nymbox was empty; no need to process it. \n");
             return 0;	// Nymbox is empty, thus no need to process it.
         }
 
@@ -1344,7 +1354,7 @@ public class Utility {
         }
         // ---------------------------------------------------  
 
-        int nSuccess = otapi.OT_API_Message_GetSuccess(strInput); // <==================
+        int nSuccess = otapiJNI.OTAPI_Basic_Message_GetSuccess(strInput); // <==================
 
         // ---------------------------------------------------
 
@@ -1400,7 +1410,7 @@ public class Utility {
         Utility.delay();
         Utility.setLastReplyReceived(null);
         // --------------------------------------------------------------------
-        final String strResponseMessage = otapi.OT_API_PopMessageBuffer(Integer.toString(nRequestNumber),
+        final String strResponseMessage = otapiJNI.OTAPI_Basic_PopMessageBuffer(Integer.toString(nRequestNumber),
                 serverID, nymID);
 
         if (!Utility.isValid(strResponseMessage)) {
@@ -1432,9 +1442,9 @@ public class Utility {
     // DONE
     public static int getRequestNumber(String serverID, String nymID, OTBool bWasSent) // bWasSent is an output param allowing to return whether the request was even sent.
     {
-        otapi.OT_API_FlushMessageBuffer();
+        otapiJNI.OTAPI_Basic_FlushMessageBuffer();
 
-        final int nResult = otapi.OT_API_getRequest(serverID, nymID);
+        final int nResult = otapiJNI.OTAPI_Basic_getRequest(serverID, nymID);
 
         if (nResult == (-1)) // if error (-1), that means it DIDN'T SEND (error)
         {
@@ -1462,7 +1472,7 @@ public class Utility {
         // later to query for a copy of that sent message.
         // Let's go ahead, in this case, and remove that now:
         //
-        //final int nRemovedGetRequest = otapi.OT_API_RemoveSentMessage(Integer.toString(nResult), serverID, nymID);
+        //final int nRemovedGetRequest = otapiJNI.OTAPI_Basic_RemoveSentMessage(Integer.toString(nResult), serverID, nymID);
 
         // NOTE: The above call is unnecessary, since a successful reply means
         // we already received the successful server reply, and OT's "ProcessServerReply"
@@ -1484,9 +1494,9 @@ public class Utility {
     // Called by getAndProcessNymbox.
     public static int getNymboxLowLevel(String serverID, String nymID)
     {
-    otapi.OT_API_FlushMessageBuffer();
+    otapiJNI.OTAPI_Basic_FlushMessageBuffer();
     // --------------------------------------------------------------------
-    final int nRequestNum = otapi.OT_API_getNymbox(serverID, nymID); // <===== ATTEMPT TO SEND THE MESSAGE HERE...
+    final int nRequestNum = otapiJNI.OTAPI_Basic_getNymbox(serverID, nymID); // <===== ATTEMPT TO SEND THE MESSAGE HERE...
     
     switch(nRequestNum)
     {
@@ -1522,9 +1532,9 @@ public class Utility {
     public static boolean getBoxReceiptLowLevel(String serverID, String nymID, String accountID, int nBoxType, String strTransactionNum, OTBool bWasSent) {
         bWasSent.setBooleanValue(false);
 
-        otapi.OT_API_FlushMessageBuffer();
+        otapiJNI.OTAPI_Basic_FlushMessageBuffer();
         // --------------------------------------------------------------------
-        final int nRequestNum = otapi.OT_API_getBoxReceipt(serverID, nymID, accountID, nBoxType, strTransactionNum); // <===== ATTEMPT TO SEND THE MESSAGE HERE...
+        final int nRequestNum = otapiJNI.OTAPI_Basic_getBoxReceipt(serverID, nymID, accountID, nBoxType, strTransactionNum); // <===== ATTEMPT TO SEND THE MESSAGE HERE...
 
         switch (nRequestNum) {
             case (-2):
@@ -1560,7 +1570,7 @@ public class Utility {
 
         // ---------------------------------------------
 
-//        final int nRemovedGetBoxReceipt = otapi.OT_API_RemoveSentMessage(Integer.toString(nRequestNum), serverID, nymID);
+//        final int nRemovedGetBoxReceipt = otapiJNI.OTAPI_Basic_RemoveSentMessage(Integer.toString(nRequestNum), serverID, nymID);
 //
 //        // NOTE: The above call is unnecessary, since a successful reply means
 //        // we already received the successful server reply, and OT's "ProcessServerReply"
@@ -1627,13 +1637,13 @@ public class Utility {
             // through them and download the box receipt for each, as necessary.
             //
             case 0:
-                ledger = otapi.OT_API_LoadNymboxNoVerify(serverID, nymID);
+                ledger = otapiJNI.OTAPI_Basic_LoadNymboxNoVerify(serverID, nymID);
                 break;
             case 1:
-                ledger = otapi.OT_API_LoadInboxNoVerify(serverID, nymID, accountID);
+                ledger = otapiJNI.OTAPI_Basic_LoadInboxNoVerify(serverID, nymID, accountID);
                 break;
             case 2:
-                ledger = otapi.OT_API_LoadOutboxNoVerify(serverID, nymID, accountID);
+                ledger = otapiJNI.OTAPI_Basic_LoadOutboxNoVerify(serverID, nymID, accountID);
                 break;
             default:
                 System.out.println("Utility.insureHaveAllBoxReceipts(): Error. Expected nBoxType of 0,1,2 (nymbox, inbox, or outbox.)");
@@ -1650,7 +1660,7 @@ public class Utility {
         // the box receipts are, and download them from the server. No point trying
         // to load them before that time, when I know it will fail.
         // 
-        if (!Utility.isValid(ledger) || (0 == otapi.OT_API_VerifySignature(nymID, ledger))) {
+        if (!Utility.isValid(ledger) || (!otapiJNI.OTAPI_Basic_VerifySignature(nymID, ledger))) {
             System.out.println("Utility.insureHaveAllBoxReceipts(): Unable to load or verify signature on ledger. (Failure.) Contents: " + ledger);
             return false;
         }
@@ -1663,41 +1673,40 @@ public class Utility {
         //
         boolean bReturnValue = true; // Assuming an empty box, we return success by default.
 
-        final int nReceiptCount = otapi.OT_API_Ledger_GetCount(serverID, nymID, accountID, ledger);
+        final int nReceiptCount = otapiJNI.OTAPI_Basic_Ledger_GetCount(serverID, nymID, accountID, ledger);
 
         if (nReceiptCount > 0) {
             for (int i = 0; i < nReceiptCount; i++) {
-                final String strTransactionNum = otapi.OT_API_Ledger_GetTransactionIDByIndex(serverID, nymID, accountID, ledger, i);
+                final String strTransactionNum = otapiJNI.OTAPI_Basic_Ledger_GetTransactionIDByIndex(serverID, nymID, accountID, ledger, i);
 
                 if (Utility.isValid(strTransactionNum) && !strTransactionNum.equals("-1")) {
                     final Long lTransactionNum = Long.valueOf(strTransactionNum);
 
                     if (lTransactionNum > 0) {
-                        final String strTransaction = otapi.OT_API_Ledger_GetTransactionByID(serverID, nymID, accountID, ledger, strTransactionNum);
+                        final String strTransaction = otapiJNI.OTAPI_Basic_Ledger_GetTransactionByID(serverID, nymID, accountID, ledger, strTransactionNum);
 
-                        if (null == strTransaction) {
+                        if (!Utility.VerifyStringVal(strTransaction)) {
                             System.out.println("Utility.insureHaveAllBoxReceipts(): Error: Null transaction somehow returned, even though I had a good ID for this index: " + i);
                             return false;
                         } else {
-                            final String strTransType = otapi.OT_API_Transaction_GetType(serverID, nymID, accountID, strTransaction);
-                            final boolean bIsReplyNotice = ((null != strTransType) && strTransType.equals("replyNotice"));
+                            final String strTransType = otapiJNI.OTAPI_Basic_Transaction_GetType(serverID, nymID, accountID, strTransaction);
+                            final boolean bIsReplyNotice = (Utility.VerifyStringVal(strTransType) && strTransType.equals("replyNotice"));
                             final String strRequestNum;
 
                             if (bIsReplyNotice) {
-                                strRequestNum = otapi.OT_API_ReplyNotice_GetRequestNum(serverID, nymID, strTransaction);
+                                strRequestNum = otapiJNI.OTAPI_Basic_ReplyNotice_GetRequestNum(serverID, nymID, strTransaction);
                             } else {
                                 strRequestNum = null;
                             }
                             // ----------------------------------------
 
                             final boolean bShouldDownload = (!bIsReplyNotice
-                                    || (bIsReplyNotice && (null != strRequestNum) && (0 == otapi.OT_API_HaveAlreadySeenReply(serverID, nymID, strRequestNum))));
+                                    || (bIsReplyNotice && Utility.VerifyStringVal(strRequestNum) && (!otapiJNI.OTAPI_Basic_HaveAlreadySeenReply(serverID, nymID, strRequestNum))));
                             // ----------------------------------------
                             if (bShouldDownload) // This block executes if we should download it (assuming we haven't already, which it also checks for.)
                             {
                                 final boolean bHaveBoxReceipt =
-                                        (1 == otapi.OT_API_DoesBoxReceiptExist(serverID, nymID, accountID, nBoxType, strTransactionNum))
-                                        ? true : false;
+                                        otapiJNI.OTAPI_Basic_DoesBoxReceiptExist(serverID, nymID, accountID, nBoxType, strTransactionNum);
 
                                 if (!bHaveBoxReceipt) {
                                     System.out.println("Utility.insureHaveAllBoxReceipts(): Downloading box receipt to add to my collection...");
@@ -1822,7 +1831,7 @@ public class Utility {
             // only change involved the removal of some old receipt I already acknowledged. (No need to force
             // any downloads based on THAT case, after all.)
             //
-            final String strReplyNotice = otapi.OT_API_Nymbox_GetReplyNotice(serverID, nymID, Integer.toString(nRequestSeeking));
+            final String strReplyNotice = otapiJNI.OTAPI_Basic_Nymbox_GetReplyNotice(serverID, nymID, Integer.toString(nRequestSeeking));
 
             if (Utility.isValid(strReplyNotice)) {
                 bFoundIt.setBooleanValue(true);
@@ -1854,10 +1863,10 @@ public class Utility {
     // even if your request number IS out of sync. Sorry :-)
     //
     public static int getTransactionNumLowLevel(String serverID, String nymID, OTBool bWasSent) {
-        otapi.OT_API_FlushMessageBuffer();
+        otapiJNI.OTAPI_Basic_FlushMessageBuffer();
         bWasSent.setBooleanValue(false);
         // --------------------------------------------------------------------
-        final int nRequestNum = otapi.OT_API_getTransactionNumber(serverID, nymID); // <===== ATTEMPT TO SEND THE MESSAGE HERE...
+        final int nRequestNum = otapiJNI.OTAPI_Basic_getTransactionNumber(serverID, nymID); // <===== ATTEMPT TO SEND THE MESSAGE HERE...
 
         switch (nRequestNum) {
             case (-2):
@@ -1911,7 +1920,7 @@ public class Utility {
         //
         // 
         //
-//        final int nRemovedSentMsg = otapi.OT_API_RemoveSentMessage(Integer.toString(nRequestNum), serverID, nymID);
+//        final int nRemovedSentMsg = otapiJNI.OTAPI_Basic_RemoveSentMessage(Integer.toString(nRequestNum), serverID, nymID);
 //
 //        if (nRemovedSentMsg < 1)
 //        {
@@ -2021,13 +2030,13 @@ public class Utility {
                 if (bWasProcessSent.getBooleanValue() && nProcessNymbox > 1) {
                     // System.out.println("DEBUGGING -- 12.");
 
-                    String strNymbox = otapi.OT_API_LoadNymboxNoVerify(serverID, nymID);      // FLUSH SENT MESSAGES!!!!  (AND HARVEST.)
+                    String strNymbox = otapiJNI.OTAPI_Basic_LoadNymboxNoVerify(serverID, nymID);      // FLUSH SENT MESSAGES!!!!  (AND HARVEST.)
 
                     // System.out.println("DEBUGGING -- 13.");
 
                     // *******************************************************
                     if (Utility.isValid(strNymbox)) {
-                        otapi.OT_API_FlushSentMessages(0, //harvesting for retry == OT_FALSE
+                        otapiJNI.OTAPI_Basic_FlushSentMessages(false, //harvesting for retry == false
                                 serverID,
                                 nymID,
                                 strNymbox);
@@ -2096,13 +2105,13 @@ public class Utility {
 
                         // System.out.println("DEBUGGING -- 24.");
 
-                        String strNymbox = otapi.OT_API_LoadNymboxNoVerify(serverID, nymID);      // FLUSH SENT MESSAGES!!!!  (AND HARVEST.)
+                        String strNymbox = otapiJNI.OTAPI_Basic_LoadNymboxNoVerify(serverID, nymID);      // FLUSH SENT MESSAGES!!!!  (AND HARVEST.)
 
                         // System.out.println("DEBUGGING -- 25.");
 
                         // *******************************************************
                         if (Utility.isValid(strNymbox)) {
-                            otapi.OT_API_FlushSentMessages(0, //harvesting for retry == OT_FALSE
+                            otapiJNI.OTAPI_Basic_FlushSentMessages(false, //harvesting for retry == false
                                     serverID,
                                     nymID,
                                     strNymbox);
@@ -2175,7 +2184,7 @@ public class Utility {
         // Grab the NymboxHash on the @getTransactionNum reply, and also the one I
         // already had on my client-side Nym... (So we can compare them.)
         //
-        final String strServerHash = otapi.OT_API_Message_GetNymboxHash(strLastReplyReceived);
+        final String strServerHash = otapiJNI.OTAPI_Basic_Message_GetNymboxHash(strLastReplyReceived);
         final boolean bServerhash = Utility.isValid(strServerHash);
         if (!bServerhash) {
             System.out.println("Utility.getTransactionNumbers: Warning: Unable to retrieve server-side "
@@ -2184,7 +2193,7 @@ public class Utility {
 //            return false; 
         }
         //-------------------------------------------------                
-        final String strLocalHash = otapi.OT_API_GetNym_NymboxHash(serverID, nymID);
+        final String strLocalHash = otapiJNI.OTAPI_Basic_GetNym_NymboxHash(serverID, nymID);
         final boolean bLocalhash = Utility.isValid(strLocalHash);
         if (!bLocalhash) {
             System.out.println("Utility.getTransactionNumbers: Warning: Unable to retrieve client-side NymboxHash from OT, "
@@ -2212,11 +2221,11 @@ public class Utility {
                     || ((true == bWasProcessSent.getBooleanValue()) && (nGetNymbox != 1))) // -1 error, 0 failed (harvesting success), 1 success, >1 failed (harvesting NOT done) RequestNum is returned.
             {
                 if (nGetNymbox > 1) {
-                    String strNymbox = otapi.OT_API_LoadNymboxNoVerify(serverID, nymID);      // FLUSH SENT MESSAGES!!!!  (AND HARVEST.)
+                    String strNymbox = otapiJNI.OTAPI_Basic_LoadNymboxNoVerify(serverID, nymID);      // FLUSH SENT MESSAGES!!!!  (AND HARVEST.)
 
                     // *******************************************************
                     if (Utility.isValid(strNymbox)) {
-                        otapi.OT_API_FlushSentMessages(0, //harvesting for retry == OT_FALSE
+                        otapiJNI.OTAPI_Basic_FlushSentMessages(false, //harvesting for retry == false
                                 serverID,
                                 nymID,
                                 strNymbox);
@@ -2539,15 +2548,15 @@ public class Utility {
     public static boolean getIntermediaryFiles(String serverID, String nymID, String accountID, boolean bForceDownload) // bForceDownload=false
     {
 
-        if (null == serverID || serverID.length() < 10) {
+        if (!Utility.VerifyStringVal(serverID)) {
             System.out.println("Utility.getIntermediaryFiles: invalid serverID: " + serverID);
             return false;
         }
-        if (null == nymID || nymID.length() < 10) {
+        if (!Utility.VerifyStringVal(nymID)) {
             System.out.println("Utility.getIntermediaryFiles: invalid nymID: " + nymID);
             return false;
         }
-        if (null == accountID || accountID.length() < 10) {
+        if (!Utility.VerifyStringVal(accountID)) {
             System.out.println("Utility.getIntermediaryFiles: invalid accountID: " + accountID);
             return false;
         }
@@ -2657,13 +2666,13 @@ public class Utility {
     public static boolean getInboxOutboxAccount(String accountID, boolean bForceDownload) //bForceDownload=false
     {
 
-        if (null == accountID || accountID.length() < 10) {
+        if (!Utility.VerifyStringVal(accountID)) {
             System.out.println("getInboxOutboxAccount: invalid accountID: " + accountID);
             return false;
         }
         // ------------------------------------------------------------------------
-        String serverID = otapi.OT_API_GetAccountWallet_ServerID(accountID);
-        String nymID = otapi.OT_API_GetAccountWallet_NymID(accountID);
+        String serverID = otapiJNI.OTAPI_Basic_GetAccountWallet_ServerID(accountID);
+        String nymID = otapiJNI.OTAPI_Basic_GetAccountWallet_NymID(accountID);
         // ------------------------------------------------------------------------
 
         if (false == Utility.getIntermediaryFiles(serverID, nymID, accountID, bForceDownload)) {
@@ -2707,11 +2716,11 @@ public class Utility {
         // ***************************************************
         // GET ACCOUNT
         //
-        otapi.OT_API_FlushMessageBuffer();
+        otapiJNI.OTAPI_Basic_FlushMessageBuffer();
         
-        System.out.println("otapi.OT_API_getAccount(serverID = "+serverID+", nymID = "+nymID+", accountID = " +accountID+")");
+        System.out.println("otapiJNI.OTAPI_Basic_getAccount(serverID = "+serverID+", nymID = "+nymID+", accountID = " +accountID+")");
 
-        final int nRequestNum = otapi.OT_API_getAccount(serverID, nymID, accountID); // <===== ATTEMPT TO SEND THE MESSAGE HERE...
+        final int nRequestNum = otapiJNI.OTAPI_Basic_getAccount(serverID, nymID, accountID); // <===== ATTEMPT TO SEND THE MESSAGE HERE...
 
         switch (nRequestNum) {
             case (-2):
@@ -2748,7 +2757,7 @@ public class Utility {
         // Let's go ahead, in this case, and remove that now:
         //
         // ----------------------------------------------
-//        final int nRemovedSentMsg = otapi.OT_API_RemoveSentMessage(Integer.toString(nRequestNum), serverID, nymID);
+//        final int nRemovedSentMsg = otapiJNI.OTAPI_Basic_RemoveSentMessage(Integer.toString(nRequestNum), serverID, nymID);
 //
 //        // NOTE: The above call is unnecessary, since a successful process means
 //        // we already received the successful server reply, and OT's "ProcessServerReply"
@@ -2803,7 +2812,7 @@ public class Utility {
         // 
         // Use OT_API_GetAccountWallet_InboxHash(ACCT_ID) to see the server's most recent inbox hash (on the OTAccount for that box)
 
-        final String strRecentHash = otapi.OT_API_GetAccountWallet_InboxHash(accountID);
+        final String strRecentHash = otapiJNI.OTAPI_Basic_GetAccountWallet_InboxHash(accountID);
         final boolean bRecentHash = Utility.isValid(strRecentHash);
         if (!bRecentHash) {
             System.out.println("Utility.getInboxLowLevel: Warning: Unable to retrieve recent cached copy of server-side "
@@ -2814,7 +2823,7 @@ public class Utility {
         // Use OT_API_GetNym_InboxHash(ACCT_ID, NYM_ID) to see the client's copy of the inbox hash,
         // from whenever the client last actually downloaded the inbox.
 
-        String strLocalHash = otapi.OT_API_GetNym_InboxHash(accountID, nymID);
+        String strLocalHash = otapiJNI.OTAPI_Basic_GetNym_InboxHash(accountID, nymID);
         boolean bLocalHash = Utility.isValid(strLocalHash);
         if (!bLocalHash) {
             System.out.println("Utility.getInboxLowLevel: Warning: Unable to retrieve client-side InboxHash "
@@ -2834,9 +2843,9 @@ public class Utility {
 
         // Now that we dealt with the Inbox Hash, let's do the download!!
         //
-        otapi.OT_API_FlushMessageBuffer();
+        otapiJNI.OTAPI_Basic_FlushMessageBuffer();
         // --------------------------------------------------------------------
-        final int nRequestNum = otapi.OT_API_getInbox(serverID, nymID, accountID); // <===== ATTEMPT TO SEND THE MESSAGE HERE...
+        final int nRequestNum = otapiJNI.OTAPI_Basic_getInbox(serverID, nymID, accountID); // <===== ATTEMPT TO SEND THE MESSAGE HERE...
 
         switch (nRequestNum) {
             case (-2):
@@ -2871,7 +2880,7 @@ public class Utility {
         // Let's go ahead, in this case, and remove that now:
         //
         // ----------------------------------------------
-//        final int nRemovedSentMsg = otapi.OT_API_RemoveSentMessage(Integer.toString(nRequestNum), serverID, nymID);
+//        final int nRemovedSentMsg = otapiJNI.OTAPI_Basic_RemoveSentMessage(Integer.toString(nRequestNum), serverID, nymID);
 //
 //        // NOTE: The above call is unnecessary, since a successful process means
 //        // we already received the successful server reply, and OT's "ProcessServerReply"
@@ -2916,7 +2925,7 @@ public class Utility {
         // 
         // Use OT_API_GetAccountWallet_OutboxHash(ACCT_ID) to see the server's most recent outbox hash (on the OTAccount for that box)
 
-        final String strRecentHash = otapi.OT_API_GetAccountWallet_OutboxHash(accountID);
+        final String strRecentHash = otapiJNI.OTAPI_Basic_GetAccountWallet_OutboxHash(accountID);
         final boolean bRecentHash = Utility.isValid(strRecentHash);
         if (!bRecentHash) {
             System.out.println("Utility.getOutboxLowLevel: Warning: Unable to retrieve recent cached copy of server-side "
@@ -2927,7 +2936,7 @@ public class Utility {
         // Use OT_API_GetNym_OutboxHash(ACCT_ID, NYM_ID) to see the client's copy of the outbox hash,
         // from whenever the client last actually downloaded the outbox.
 
-        String strLocalHash = otapi.OT_API_GetNym_OutboxHash(accountID, nymID);
+        String strLocalHash = otapiJNI.OTAPI_Basic_GetNym_OutboxHash(accountID, nymID);
         boolean bLocalHash = Utility.isValid(strLocalHash);
         if (!bLocalHash) {
             System.out.println("Utility.getOutboxLowLevel: Warning: Unable to retrieve client-side OutboxHash "
@@ -2947,9 +2956,9 @@ public class Utility {
 
         // Now that we dealt with the Outbox Hash, let's do the download!!
         //
-        otapi.OT_API_FlushMessageBuffer();
+        otapiJNI.OTAPI_Basic_FlushMessageBuffer();
         // --------------------------------------------------------------------
-        final int nRequestNum = otapi.OT_API_getOutbox(serverID, nymID, accountID); // <===== ATTEMPT TO SEND THE MESSAGE HERE...
+        final int nRequestNum = otapiJNI.OTAPI_Basic_getOutbox(serverID, nymID, accountID); // <===== ATTEMPT TO SEND THE MESSAGE HERE...
 
         switch (nRequestNum) {
             case (-2):
@@ -2984,7 +2993,7 @@ public class Utility {
         // Let's go ahead, in this case, and remove that now:
         //
         // ----------------------------------------------
-//        final int nRemovedSentMsg = otapi.OT_API_RemoveSentMessage(Integer.toString(nRequestNum), serverID, nymID);
+//        final int nRemovedSentMsg = otapiJNI.OTAPI_Basic_RemoveSentMessage(Integer.toString(nRequestNum), serverID, nymID);
 //
 //        // NOTE: The above call is unnecessary, since a successful process means
 //        // we already received the successful server reply, and OT's "ProcessServerReply"
@@ -3072,7 +3081,7 @@ public class Utility {
                 System.out.println("Utility.getImagePath():  File does not exist: (OT_MAIN_PATH)/moneychanger/settings.dat");
             }
 
-            if ((null == strImagePath) || (strImagePath.length() < 1)) {
+            if (!Utility.VerifyStringVal(strImagePath)) {
                 strImagePath = strDefault;
             }
         } else {

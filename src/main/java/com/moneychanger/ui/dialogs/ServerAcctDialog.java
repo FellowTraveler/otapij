@@ -327,7 +327,7 @@ public class ServerAcctDialog extends javax.swing.JDialog {
             return;
         }
 
-        if (type != null) {
+        if (Utility.VerifyStringVal(type)) {
 
             String serverID = jTextField1.getText();
             String acctID = jTextField2.getText();

@@ -102,7 +102,7 @@ package com.moneychanger.ui.dialogs;
 
 //import com.sun.codemodel.internal.JOp;
 import com.moneychanger.core.OpenTransactionAccount;
-import com.wrapper.core.jni.otapi;
+import org.opentransactions.jni.core.otapiJNI;
 import com.moneychanger.core.util.Configuration;
 import com.moneychanger.core.util.Utility;
 import java.util.logging.Level;
@@ -324,14 +324,14 @@ public class ExchangeBasketDialog extends javax.swing.JDialog {
 
     private void doExchangeBasket() throws InterruptedException {
 
-        int memberCount = otapi.OT_API_Basket_GetMemberCount(assetID);
+        int memberCount = otapiJNI.OTAPI_Basic_Basket_GetMemberCount(assetID);
         boolean bSure = true;
-         if (otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < (2+memberCount)) {
+         if (otapiJNI.OTAPI_Basic_GetNym_TransactionNumCount(serverID, nymID) < (2+memberCount)) {
             bSure = Utility.getTransactionNumbers(serverID, nymID);
         }
 
-        if (!bSure || otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID) < (2+memberCount)) {
-            System.out.println("IN doExchangeBasket , failed to get transaction numbers, OT_API_GetNym_TransactionNumCount:" + otapi.OT_API_GetNym_TransactionNumCount(serverID, nymID));
+        if (!bSure || otapiJNI.OTAPI_Basic_GetNym_TransactionNumCount(serverID, nymID) < (2+memberCount)) {
+            System.out.println("IN doExchangeBasket , failed to get transaction numbers, OT_API_GetNym_TransactionNumCount:" + otapiJNI.OTAPI_Basic_GetNym_TransactionNumCount(serverID, nymID));
             return;
         }
 
@@ -340,7 +340,7 @@ public class ExchangeBasketDialog extends javax.swing.JDialog {
 
         
         for (int i = 0; i < memberCount; i++) {
-            String memberAssetID = otapi.OT_API_Basket_GetMemberType(assetID, i);
+            String memberAssetID = otapiJNI.OTAPI_Basic_Basket_GetMemberType(assetID, i);
 
             System.out.println("In doExchangeBasket,memberAssetID:" + memberAssetID + " assetID:" + assetID + " nymID:" + nymID + " serverID:" + serverID);
 
@@ -351,7 +351,7 @@ public class ExchangeBasketDialog extends javax.swing.JDialog {
                 return;
             }
             String memberAccountID = Utility.getBasketXAcct();
-            exchangeRequest = otapi.OT_API_AddBasketExchangeItem(serverID, nymID, exchangeRequest, memberAssetID, memberAccountID);
+            exchangeRequest = otapiJNI.OTAPI_Basic_AddBasketExchangeItem(serverID, nymID, exchangeRequest, memberAssetID, memberAccountID);
 
         }
         String xchangeType = inXchange == true ? "IN" : "OUT";

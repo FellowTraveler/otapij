@@ -101,11 +101,11 @@ AK+ZirdWhhoHeWR1tAkN
 package com.moneychanger.ui.dialogs;
 
 import com.moneychanger.core.datastore.StorageHelper;
-import com.wrapper.core.jni.BitcoinServer;
-import com.wrapper.core.jni.Storage;
-import com.wrapper.core.jni.StoredObjectType;
-import com.wrapper.core.jni.WalletData;
-import com.wrapper.core.jni.otapi;
+import org.opentransactions.jni.core.BitcoinServer;
+import org.opentransactions.jni.core.Storage;
+import org.opentransactions.jni.core.StoredObjectType;
+import org.opentransactions.jni.core.WalletData;
+import org.opentransactions.jni.core.otapi;
 import com.moneychanger.core.util.Utility;
 import com.moneychanger.ui.MainPage;
 import java.util.HashMap;
@@ -242,7 +242,7 @@ public class BTCServerAdditionDialog extends javax.swing.JDialog {
        // Save to server datastore
       
         String serverID = StorageHelper.addBitcoinServer(label,jTextField2.getText(),jTextField1.getText(),jPasswordField1.getText(),jTextField3.getText());
-        if (serverID != null) {
+        if (Utility.VerifyStringVal(serverID)) {
             JOptionPane.showMessageDialog(null, "Bitcoin server added successflly","Bitcoin Server Addition",JOptionPane.INFORMATION_MESSAGE);
             MainPage.loadOtherTabServers();
         } else {

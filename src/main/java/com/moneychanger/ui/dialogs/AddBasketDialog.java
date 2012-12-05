@@ -97,7 +97,8 @@ package com.moneychanger.ui.dialogs;
 
 import com.moneychanger.core.Basket;
 import com.moneychanger.core.NYM;
-import com.wrapper.core.jni.otapi;
+import org.opentransactions.jni.core.otapi;
+import org.opentransactions.jni.core.otapiJNI;
 import com.moneychanger.core.util.OTAPI_Func;
 import com.moneychanger.core.util.Utility;
 import com.moneychanger.ui.MainPage;
@@ -275,7 +276,7 @@ public class AddBasketDialog extends javax.swing.JDialog {
 
         System.out.println("nymID:" + nymID);
 
-        String basket = otapi.OT_API_GenerateBasketCreation(nymID, jTextField1.getText());
+        String basket = otapiJNI.OTAPI_Basic_GenerateBasketCreation(nymID, jTextField1.getText());
         System.out.println("basketID:" + basket);
 
 
@@ -291,7 +292,7 @@ public class AddBasketDialog extends javax.swing.JDialog {
                 break;
             }
 
-            basket = otapi.OT_API_AddBasketCreationItem(nymID, basket, Utility.getSubCurrency(), Utility.getMinTransfer());
+            basket = otapiJNI.OTAPI_Basic_AddBasketCreationItem(nymID, basket, Utility.getSubCurrency(), Utility.getMinTransfer());
                           System.out.println("End");
 
         }
@@ -302,12 +303,12 @@ public class AddBasketDialog extends javax.swing.JDialog {
 
             String strResponse = OTAPI_Func.SendRequest(theRequest, "ISSUE_BASKET");
             System.out.println("strResponse:" + strResponse);
-            if (strResponse == null) {
+            if (!Utility.VerifyStringVal(strResponse)) {
 
                 JOptionPane.showMessageDialog(null, "Basket cannot be issued", "Issue basket Error", JOptionPane.ERROR_MESSAGE);
             } else {
 
-                String assetTypeID = otapi.OT_API_Message_GetNewAssetTypeID(strResponse);
+                String assetTypeID = otapiJNI.OTAPI_Basic_Message_GetNewAssetTypeID(strResponse);
                 System.out.println("New assetTypeID:" + assetTypeID);
                 Basket.loadAsset(assetTypeID, nymID, serverID);
 

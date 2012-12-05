@@ -92,6 +92,7 @@ AK+ZirdWhhoHeWR1tAkN
 
 package com.moneychanger.app;
 
+import com.moneychanger.core.util.Utility;
 import com.moneychanger.ui.MainPage;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.ResourceMap;
@@ -158,7 +159,7 @@ public class ApplicationView extends FrameView {
                     progressBar.setValue(0);
                 } else if ("message".equals(propertyName)) {
                     String text = (String)(evt.getNewValue());
-                    statusMessageLabel.setText((text == null) ? "" : text);
+                    statusMessageLabel.setText(!Utility.VerifyStringVal(text) ? "" : text);
                     messageTimer.restart();
                 } else if ("progress".equals(propertyName)) {
                     int value = (Integer)(evt.getNewValue());

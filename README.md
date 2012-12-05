@@ -17,7 +17,9 @@ Video Walkthru:
 [Part 1](http://vimeo.com/28141679)
 [Part 2](http://vimeo.com/28142096)
 
-Radio interview about Open Transactions, Moneychanger (and Bitcoin):
+[New Videos](http://open-transactions-tv.github.com/)
+
+Radio interview about Open Transactions and Moneychanger:
 [Part 1](http://agoristradio.com/?p=234)
 [Part 2](http://agoristradio.com/?p=246)
 
@@ -25,76 +27,26 @@ THIS IS ONLY EXPERIMENTAL SOFTWARE AND IS NOT YET READY FOR PRIME TIME.
 
 ## INSTALLATION
 
-From the [Open-Transactions Install Instructions.](https://github.com/FellowTraveler/Open-Transactions/wiki/Install) Also: [Troubleshooting](https://github.com/FellowTraveler/Moneychanger/wiki/Troubleshooting)
+First, install Open-Transactions and its dependencies:
+[Open-Transactions Install Instructions.](https://github.com/FellowTraveler/Open-Transactions/wiki/Install) Also: [Troubleshooting](https://github.com/FellowTraveler/Moneychanger/wiki/Troubleshooting)
 
 
-[Get OpenSSL 1.0.0](https://github.com/FellowTraveler/Open-Transactions/wiki/Install-OpenSSL) if you don't have it already. (You don't have to install it system-wide, but you still need to download it and build it.)
-NOTE for 64-bit Linux: MAKE SURE you configure OpenSSL explicitly for 64-bit and for shared binaries, then re-build it (OpenSSL). It does not come built that way by default. Again: For 64-bit Linux, use "./configure -m64 shared" in the openssl folder BEFORE building OpenSSL 1.0.0, and then it should work when you build and run Open-Transactions.)
-
-INSTALL: Message Pack, [available here.](http://msgpack.org/)
-[install instructions.](http://wiki.msgpack.org/display/MSGPACK/QuickStart+for+C+Language)
-To install from command line: 
-
-     $ port install msgpack   (OR)
-     $ brew install msgpack
-
-INSTALL: Google's Protocol Buffers library (another data packer.) [Available here.](http://code.google.com/p/protobuf/downloads/list)
-
-INSTALL: Zero MQ (transport library)
-[Available here.](http://www.zeromq.org/intro:get-the-software) 
-OT now uses this library for all transport. USE VERSION 2.1.
-
-INSTALL: Boost.
-[Available here.](http://www.boost.org/)
-
-INSTALL: ChaiScript.
-[Available here.](http://www.chaiscript.com/)
- 
-     $ git clone git://github.com/ChaiScript/ChaiScript
-     $ cd ChaiScript
-     $ mkdir build
-     $ cd build
-     $ cmake ..
-     $ make
-     $ sudo make install
-
-Clone into Open-Transactions:
-
-     $ git clone git://github.com/FellowTraveler/Open-Transactions.git
-
-[YOU CAN DOWNLOAD BINARIES HERE](https://github.com/FellowTraveler/Open-Transactions/downloads)
-(You must download the code either way, because it includes the SAMPLE DATA FOLDERS.)
-
-If you prefer to build OT yourself:
-
-     $ cd Open-Transactions
-     $ make && make install      (This installs ot_server and ot command line.)
-     $ make clean && make java   (This builds the OT Java API.)
-
-To download the Moneychanger source code:
+Next, download the Moneychanger source code:
 
      $ cd ..
      $ git clone git://github.com/FellowTraveler/Moneychanger.git
 
 [Pre-Built Jarfiles for Moneychanger are available here.](https://github.com/FellowTraveler/Moneychanger/downloads)
 
-Uncompress the Moneychanger binaries into the Moneychanger folder, and into OT:
-
-     $ cd Moneychanger
-     $ tar -xzvf Moneychanger-64bit.tgz
-     $ cp -r lib ../Open-Transactions/testwallet
-     $ cp JavaWrapper.jar ../Open-Transactions/testwallet
-
 ## TO RUN OPEN TRANSACTIONS SERVER
 
-     $ ot_server
+     $ otserver
 
 ## TO RUN MONEYCHANGER 
 
 From a separate terminal:
  
-     $ cd Open-Transactions/testwallet
-     $ java -jar JavaWrapper.jar
+     $ java -jar Moneychanger.jar
 
 --------------------------------------------------------
 

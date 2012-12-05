@@ -94,7 +94,7 @@ AK+ZirdWhhoHeWR1tAkN
  */
 package com.moneychanger.core;
 
-import com.wrapper.core.jni.otapi;
+import org.opentransactions.jni.core.otapiJNI;
 import com.moneychanger.core.util.Utility;
 import com.moneychanger.core.util.OTAPI_Func;
 import java.util.HashMap;
@@ -114,10 +114,10 @@ public class NYM {
 
         mapNYMAccountList.clear();
 
-        int count = otapi.OT_API_GetNymCount();
+        int count = otapiJNI.OTAPI_Basic_GetNymCount();
         for (int i = 0; i < count; i++) {
-            String key = otapi.OT_API_GetNym_ID(i);
-            String label = otapi.OT_API_GetNym_Name(key);
+            String key = otapiJNI.OTAPI_Basic_GetNym_ID(i);
+            String label = otapiJNI.OTAPI_Basic_GetNym_Name(key);
             mapNYMAccountList.put((i), new String[]{label, key});
         }
 
@@ -133,13 +133,13 @@ public class NYM {
         }
 
         int count = 0;
-        for (int i = 0; i < otapi.OT_API_GetNymCount(); i++) {
-            String key = otapi.OT_API_GetNym_ID(i);
-            if (key == null) {
+        for (int i = 0; i < otapiJNI.OTAPI_Basic_GetNymCount(); i++) {
+            String key = otapiJNI.OTAPI_Basic_GetNym_ID(i);
+            if (!Utility.VerifyStringVal(key)) {
                 continue;
             }
-            if (otapi.OT_API_IsNym_RegisteredAtServer(key, serverID) == 1) {
-                String label = otapi.OT_API_GetNym_Name(key);
+            if (otapiJNI.OTAPI_Basic_IsNym_RegisteredAtServer(key, serverID)) {
+                String label = otapiJNI.OTAPI_Basic_GetNym_Name(key);
                 mapNYMList.put(count, new String[]{label, key});
                 count++;
             }
@@ -151,17 +151,17 @@ public class NYM {
 
     public String registeredNYM(String serverID) {
 
-        if(serverID == null)
+        if(!Utility.VerifyStringVal(serverID))
             return null;
 
         String nymID = null;
 
-        for (int i = 0; i < otapi.OT_API_GetNymCount(); i++) {
-            String key = otapi.OT_API_GetNym_ID(i);
-            if (key == null) {
+        for (int i = 0; i < otapiJNI.OTAPI_Basic_GetNymCount(); i++) {
+            String key = otapiJNI.OTAPI_Basic_GetNym_ID(i);
+            if (!Utility.VerifyStringVal(key)) {
                 continue;
             }
-            if (otapi.OT_API_IsNym_RegisteredAtServer(key, serverID) == 1) {
+            if (otapiJNI.OTAPI_Basic_IsNym_RegisteredAtServer(key, serverID)) {
                 nymID = key;
                 break;
             }
@@ -172,16 +172,16 @@ public class NYM {
     }
 
     public String getRawFileData(String nymID) {
-        return otapi.OT_API_GetNym_Stats(nymID);
+        return otapiJNI.OTAPI_Basic_GetNym_Stats(nymID);
     }
 
     public boolean deleteMail(String nymID, int index) {
-        return otapi.OT_API_Nym_RemoveMailByIndex(nymID, index) == 1 ? true : false;
+        return otapiJNI.OTAPI_Basic_Nym_RemoveMailByIndex(nymID, index);
 
     }
 
     public boolean deleteOutboxMail(String nymID, int index) {
-        return otapi.OT_API_Nym_RemoveOutmailByIndex(nymID, index) == 1 ? true : false;
+        return otapiJNI.OTAPI_Basic_Nym_RemoveOutmailByIndex(nymID, index);
 
     }
 
@@ -191,13 +191,13 @@ public class NYM {
 
         int status = 2;
 
-        if (otapi.OT_API_IsNym_RegisteredAtServer(nymID, serverID) == 1) {
+        if (otapiJNI.OTAPI_Basic_IsNym_RegisteredAtServer(nymID, serverID)) {
             status = 1;
         } else {
             OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.CREATE_USER_ACCT, serverID, nymID);
             String      strResponse  = OTAPI_Func.SendRequest(theRequest, "CREATE_USER_ACCT");
 
-            if (null == strResponse)
+            if (!Utility.VerifyStringVal(strResponse))
             {
                 System.out.println("IN registerNym: OTAPI_Func.SendRequest() failed. (I give up.) ");
                 return status;
@@ -214,8 +214,8 @@ public class NYM {
             }
 
             status = 0;
-            System.out.println("registerNYm otapi.OT_API_IsNym_RegisteredAtServer(nymID, serverID):" + 
-                    otapi.OT_API_IsNym_RegisteredAtServer(nymID, serverID));
+            System.out.println("registerNYm otapiJNI.OTAPI_Basic_IsNym_RegisteredAtServer(nymID, serverID):" + 
+                    otapiJNI.OTAPI_Basic_IsNym_RegisteredAtServer(nymID, serverID));
 
         }
         return status;
@@ -224,12 +224,12 @@ public class NYM {
     public Map downloadNymBox(String nymID) {
         System.out.println("downloadNymBox starts, nymID:" + nymID);
 
-        int countServer = otapi.OT_API_GetServerCount();
+        int countServer = otapiJNI.OTAPI_Basic_GetServerCount();
         for (int i = 0; i < countServer; i++) {
-            String serverID = otapi.OT_API_GetServer_ID(i);
+            String serverID = otapiJNI.OTAPI_Basic_GetServer_ID(i);
             System.out.println("IN FOR,i=" + i + " server id:" + serverID);
-            if (serverID != null) {
-                if (otapi.OT_API_IsNym_RegisteredAtServer(nymID, serverID) == 1) 
+            if (Utility.VerifyStringVal(serverID)) {
+                if (otapiJNI.OTAPI_Basic_IsNym_RegisteredAtServer(nymID, serverID)) 
                 {
                     System.out.println("nym is registered");
                     
@@ -262,15 +262,15 @@ public class NYM {
         System.out.println("loadNymBox starts");
         Map nymBox = new HashMap();
 
-        int count = otapi.OT_API_GetNym_MailCount(nymID);
+        int count = otapiJNI.OTAPI_Basic_GetNym_MailCount(nymID);
 
         for (int i = 0; i < count; i++) {
-            String message = otapi.OT_API_GetNym_MailContentsByIndex(nymID, i);
+            String message = otapiJNI.OTAPI_Basic_GetNym_MailContentsByIndex(nymID, i);
             String[] rowData = new String[8];
 
             String subject = "";
             String messageBody = "";
-            if (message != null && (message.startsWith("Subject") || message.startsWith("subject")) && message.contains("\n")) {
+            if (Utility.VerifyStringVal(message) && (message.startsWith("Subject") || message.startsWith("subject")) && message.contains("\n")) {
                 subject = message.substring(0, message.indexOf("\n"));
                 messageBody = message.substring(subject.length());
                 subject = subject.substring(8);
@@ -278,22 +278,22 @@ public class NYM {
                 messageBody = message;
             }
             rowData[0] = subject;
-            String senderNym = otapi.OT_API_GetNym_MailSenderIDByIndex(nymID, i);
+            String senderNym = otapiJNI.OTAPI_Basic_GetNym_MailSenderIDByIndex(nymID, i);
             String nymName = null;
-            if (senderNym != null);
-            nymName = otapi.OT_API_GetNym_Name(senderNym);
-            rowData[1] = nymName == null ? senderNym == null ? "" : senderNym : nymName;
-            String serverID = otapi.OT_API_GetNym_MailServerIDByIndex(nymID, i);
+            if (Utility.VerifyStringVal(senderNym))
+                nymName = otapiJNI.OTAPI_Basic_GetNym_Name(senderNym);
+            rowData[1] = !Utility.VerifyStringVal(nymName) ? !Utility.VerifyStringVal(senderNym) ? "" : senderNym : nymName;
+            String serverID = otapiJNI.OTAPI_Basic_GetNym_MailServerIDByIndex(nymID, i);
             String serverName = null;
-            if (serverID != null) {
-                serverName = otapi.OT_API_GetServer_Name(serverID);
+            if (Utility.VerifyStringVal(serverID)) {
+                serverName = otapiJNI.OTAPI_Basic_GetServer_Name(serverID);
             }
-            rowData[2] = serverName == null ? serverID == null ? "" : serverID : serverName;
-            String isVerified = otapi.OT_API_Nym_VerifyMailByIndex(nymID, i) == 1 ? "true" : "false";
+            rowData[2] = !Utility.VerifyStringVal(serverName) ? !Utility.VerifyStringVal(serverID) ? "" : serverID : serverName;
+            String isVerified = otapiJNI.OTAPI_Basic_Nym_VerifyMailByIndex(nymID, i) ? "true" : "false";
             // This is the key
             rowData[3] = String.valueOf(i);
-            rowData[6] = messageBody == null ? "" : messageBody;
-            rowData[7] = isVerified == null ? "" : isVerified;
+            rowData[6] = !Utility.VerifyStringVal(messageBody) ? "" : messageBody;
+            rowData[7] = !Utility.VerifyStringVal(isVerified)  ? "" : isVerified;
             rowData[4] = senderNym;
             rowData[5] = serverID;
             nymBox.put(rowData[3], rowData);
@@ -307,16 +307,16 @@ public class NYM {
 
         Map nymOutBox = new HashMap();
 
-        int count = otapi.OT_API_GetNym_OutmailCount(nymID);
+        int count = otapiJNI.OTAPI_Basic_GetNym_OutmailCount(nymID);
 
         for (int i = 0; i < count; i++) {
-            String message = otapi.OT_API_GetNym_OutmailContentsByIndex(nymID, i);
+            String message = otapiJNI.OTAPI_Basic_GetNym_OutmailContentsByIndex(nymID, i);
 
             String[] rowData = new String[8];
 
             String subject = "";
             String messageBody = "";
-            if (message != null && (message.startsWith("Subject") || message.startsWith("subject")) && message.contains("\n")) {
+            if (Utility.VerifyStringVal(message) && (message.startsWith("Subject") || message.startsWith("subject")) && message.contains("\n")) {
                 subject = message.substring(0, message.indexOf("\n"));
                 messageBody = message.substring(subject.length());
                 subject = subject.substring(8);
@@ -324,23 +324,23 @@ public class NYM {
                 messageBody = message;
             }
             rowData[0] = subject;
-            String recepientNymID = otapi.OT_API_GetNym_OutmailRecipientIDByIndex(nymID, i);
+            String recepientNymID = otapiJNI.OTAPI_Basic_GetNym_OutmailRecipientIDByIndex(nymID, i);
             String nymName = null;
-            if (recepientNymID != null) {
-                nymName = otapi.OT_API_GetNym_Name(recepientNymID);
+            if (Utility.VerifyStringVal(recepientNymID)) {
+                nymName = otapiJNI.OTAPI_Basic_GetNym_Name(recepientNymID);
             }
-            rowData[1] = nymName == null ? recepientNymID == null ? "" : recepientNymID : nymName;
-            String serverID = otapi.OT_API_GetNym_OutmailServerIDByIndex(nymID, i);
+            rowData[1] = !Utility.VerifyStringVal(nymName) ? !Utility.VerifyStringVal(recepientNymID) ? "" : recepientNymID : nymName;
+            String serverID = otapiJNI.OTAPI_Basic_GetNym_OutmailServerIDByIndex(nymID, i);
             String serverName = null;
-            if (serverID != null) {
-                serverName = otapi.OT_API_GetServer_Name(serverID);
+            if (Utility.VerifyStringVal(serverID)) {
+                serverName = otapiJNI.OTAPI_Basic_GetServer_Name(serverID);
             }
-            rowData[2] = serverName == null ? serverID == null ? "" : serverID : serverName;
-            String isVerified = otapi.OT_API_Nym_VerifyOutmailByIndex(nymID, i) == 1 ? "true" : "false";
+            rowData[2] = !Utility.VerifyStringVal(serverName) ? !Utility.VerifyStringVal(serverID) ? "" : serverID : serverName;
+            String isVerified = otapiJNI.OTAPI_Basic_Nym_VerifyOutmailByIndex(nymID, i) ? "true" : "false";
             // This is the key
             rowData[3] = String.valueOf(i);
-            rowData[6] = messageBody == null ? "" : messageBody;
-            rowData[7] = isVerified == null ? "" : isVerified;
+            rowData[6] = !Utility.VerifyStringVal(messageBody) ? "" : messageBody;
+            rowData[7] = !Utility.VerifyStringVal(isVerified) ? "" : isVerified;
             rowData[4] = recepientNymID;
             rowData[5] = serverID;
             nymOutBox.put(rowData[3], rowData);
@@ -349,13 +349,13 @@ public class NYM {
     }
 
     public boolean editLabel(String nymID, String signNymID, String nymName) {
-        return otapi.OT_API_SetNym_Name(nymID, signNymID, nymName) == 1 ? true : false;
+        return otapiJNI.OTAPI_Basic_SetNym_Name(nymID, signNymID, nymName);
     }
 
     public String createNym(String nymName) {
-        String nymID = otapi.OT_API_CreateNym(1024); // TODO:  Dropdown:  1024, 2048, 4096, 8192
-        if (nymID != null) {
-            otapi.OT_API_SetNym_Name(nymID, nymID, nymName);
+        String nymID = otapiJNI.OTAPI_Basic_CreateNym(1024); // TODO:  Dropdown:  1024, 2048, 4096, 8192
+        if (Utility.VerifyStringVal(nymID)) {
+            otapiJNI.OTAPI_Basic_SetNym_Name(nymID, nymID, nymName);
         }
         return nymID;
     }
@@ -366,12 +366,12 @@ public class NYM {
 
         // If the Nym's not registered at the server, we do that first...
         //
-        if (0 == otapi.OT_API_IsNym_RegisteredAtServer(nymID, serverID)) {
+        if (!otapiJNI.OTAPI_Basic_IsNym_RegisteredAtServer(nymID, serverID)) {
 
             OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.CREATE_USER_ACCT, serverID, nymID);
             String      strResponse  = OTAPI_Func.SendRequest(theRequest, "CREATE_USER_ACCT");
 
-            if (null == strResponse)
+            if (!Utility.VerifyStringVal(strResponse))
             {
                 System.out.println("IN sendMessage: OTAPI_Func.SendRequest() failed. (I give up.) ");
                 return false;
@@ -380,24 +380,24 @@ public class NYM {
         // -----------------------------------------------
         // Okay the Nym is definitely registered at the server        
         
-        String recipientPubKey = otapi.OT_API_LoadPubkey(recipientNymID);
+        String recipientPubKey = otapiJNI.OTAPI_Basic_LoadPubkey(recipientNymID);
         System.out.println("recepientPubKey:" + recipientPubKey);
         // Download the recipient's pubkey since we don't already have it.
-        if (recipientPubKey == null) {
+        if (!Utility.VerifyStringVal(recipientPubKey)) {
             
             // ----------------------------------------------------------
             OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.CHECK_USER, serverID, nymID, recipientNymID);
             String      strResponse  = OTAPI_Func.SendRequest(theRequest, "CHECK_USER");
 
-            if (null == strResponse)
+            if (!Utility.VerifyStringVal(strResponse))
             {
                 System.out.println("IN sendMessage: OTAPI_Func.SendRequest() failed. (I give up.) ");
                 return false;
             }
             // ----------------------------------------------------------
-            recipientPubKey = otapi.OT_API_LoadPubkey(recipientNymID);
+            recipientPubKey = otapiJNI.OTAPI_Basic_LoadPubkey(recipientNymID);
         }
-        if (recipientPubKey == null) {
+        if (!Utility.VerifyStringVal(recipientPubKey)) {
             System.out.println("recepientPubKey is null");
             return false;
         }
@@ -407,7 +407,7 @@ public class NYM {
         OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.SEND_USER_MESSAGE, serverID, nymID, recipientNymID, recipientPubKey, message);
         String      strResponse  = OTAPI_Func.SendRequest(theRequest, "SEND_USER_MESSAGE");
 
-        if (null == strResponse)
+        if (!Utility.VerifyStringVal(strResponse))
         {
             System.out.println("IN sendMessage: OTAPI_Func.SendRequest() failed. (I give up.) ");
             return false;
@@ -418,12 +418,12 @@ public class NYM {
 
     public boolean deleteWalletNym(String nymID) {
         System.out.println("deleteUnregisteredNym....nymID -- " + nymID);
-        boolean deleteNym = otapi.OT_API_Wallet_CanRemoveNym(nymID) == 1 ? true : false;
+        boolean deleteNym = otapiJNI.OTAPI_Basic_Wallet_CanRemoveNym(nymID);
         System.out.println("deleteNym:" + deleteNym);
         if (!deleteNym) {
             return deleteNym;
         }
-        deleteNym = otapi.OT_API_Wallet_RemoveNym(nymID) == 1 ? true : false;
+        deleteNym = otapiJNI.OTAPI_Basic_Wallet_RemoveNym(nymID);
         System.out.println("Is Nym Deleted :" + deleteNym);
         return deleteNym;
     }
@@ -433,7 +433,7 @@ public class NYM {
         // So we need to update Moneychanger to support both as well.
         // This is just a hack in the meantime.
         //
-        String nymID = otapi.OT_API_Wallet_ImportCert(name, key);
+        String nymID = otapiJNI.OTAPI_Basic_Wallet_ImportCert(name, key);
         return nymID;
     }
 
@@ -448,8 +448,8 @@ public class NYM {
             Integer key = (Integer) iterator.next();
             if (serverMap.get(key) != null) {
                 String serverID = ((String[]) serverMap.get(key))[1];
-                if (otapi.OT_API_IsNym_RegisteredAtServer(nymID, serverID) == 1) {
-                    registeredServers.put((count), new String[]{otapi.OT_API_GetServer_Name(serverID), serverID});
+                if (otapiJNI.OTAPI_Basic_IsNym_RegisteredAtServer(nymID, serverID)) {
+                    registeredServers.put((count), new String[]{otapiJNI.OTAPI_Basic_GetServer_Name(serverID), serverID});
                     count++;
                 }
             }
@@ -464,7 +464,7 @@ public class NYM {
         OTAPI_Func  theRequest   = new OTAPI_Func(OTAPI_Func.FT.DELETE_USER_ACCT, serverID, nymID);
         String      strResponse  = OTAPI_Func.SendRequest(theRequest, "DELETE_USER_ACCT");
 
-        if (null == strResponse)
+        if (!Utility.VerifyStringVal(strResponse))
         {
             System.out.println("IN deleteNym: OTAPI_Func.SendRequest() failed. (I give up.) ");
             return false;
