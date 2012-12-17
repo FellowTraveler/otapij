@@ -459,7 +459,7 @@ public class OTAPI_Func {
                 nRetVal = otapiJNI.OTAPI_Basic_getMarketRecentTrades(this.serverID, this.nymID, this.strData);
                 break;
             case CREATE_MARKET_OFFER:
-                nRetVal = otapiJNI.OTAPI_Basic_issueMarketOffer(this.serverID, this.nymID, this.assetID, this.accountID, this.assetID2, this.accountID2,
+                nRetVal = otapiJNI.OTAPI_Basic_issueMarketOffer(this.serverID, this.nymID, this.accountID, this.accountID2,
                         this.strData, this.strData2, this.strData3, this.strData4, this.bBool);
                 break;
             default:
