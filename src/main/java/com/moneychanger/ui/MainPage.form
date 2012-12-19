@@ -2,7 +2,7 @@
 
 <Form version="1.6" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="2"/>
+    <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[700, 500]"/>
     </Property>
@@ -4036,9 +4036,20 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
                       <Component id="jPanel33" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-                      <Component id="jPanel34" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="257" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jButton_ResetJavaPath" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jPanel34" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
+                              <Component id="jButton_ResetConfig" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace pref="175" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -4049,11 +4060,14 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jPanel34" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="82" max="-2" attributes="0"/>
+                              <EmptySpace pref="59" max="32767" attributes="0"/>
+                              <Component id="jButton_ResetConfig" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jPanel33" alignment="0" min="-2" pref="150" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="1465" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+                      <Component id="jButton_ResetJavaPath" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="315" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -4183,6 +4197,24 @@
                 </Component>
               </SubComponents>
             </Container>
+            <Component class="javax.swing.JButton" name="jButton_ResetJavaPath">
+              <Properties>
+                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+                  <action class="com.moneychanger.ui.MainPage" id="ResetJavaPath" methodName="ResetJavaPath"/>
+                </Property>
+                <Property name="text" type="java.lang.String" resourceKey="jButton_ResetJavaPath.text"/>
+                <Property name="name" type="java.lang.String" value="jButton_ResetJavaPath" noResource="true"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="jButton_ResetConfig">
+              <Properties>
+                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+                  <action class="com.moneychanger.ui.MainPage" id="ResetMoneychangerConfig" methodName="ResetMoneychangerConfig"/>
+                </Property>
+                <Property name="text" type="java.lang.String" resourceKey="jButton_ResetConfig.text"/>
+                <Property name="name" type="java.lang.String" value="jButton_ResetConfig" noResource="true"/>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanel_Credits">

@@ -13,6 +13,7 @@ import javax.swing.JFileChooser;
 public class GetJavaPath extends javax.swing.JDialog {
     
     private static boolean bAccepted = false;
+    private static boolean bUserCancelled = false;
     private JFileChooser chooser = new JFileChooser();
     
 
@@ -22,20 +23,22 @@ public class GetJavaPath extends javax.swing.JDialog {
     public GetJavaPath() {
         initComponents();
         this.setLocationRelativeTo(null);
-        
+
         chooser.setFileHidingEnabled(false);
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        
+
     }
 
-    
     static public String GetJavaPath() {
         if (bAccepted) {
             return jTextField_PathView.getText();
-        }
-        else {
+        } else {
             return "";
         }
+    }
+
+    static public Boolean GetIfUserHasCancelled() {
+        return bUserCancelled;
     }
     
     
@@ -61,7 +64,9 @@ public class GetJavaPath extends javax.swing.JDialog {
         filler7 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
         jButton_Accept = new javax.swing.JButton();
         filler8 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+        jButton_Cancel = new javax.swing.JButton();
         filler9 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+        filler10 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
 
         setMinimumSize(new java.awt.Dimension(600, 250));
         setPreferredSize(new java.awt.Dimension(600, 250));
@@ -129,30 +134,46 @@ public class GetJavaPath extends javax.swing.JDialog {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.weighty = 1.0;
         getContentPane().add(jButton_Accept, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        getContentPane().add(filler8, gridBagConstraints);
+
+        jButton_Cancel.setText("Cancel");
+        jButton_Cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_CancelActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.weighty = 1.0;
+        getContentPane().add(jButton_Cancel, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
-        getContentPane().add(filler8, gridBagConstraints);
+        getContentPane().add(filler9, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weighty = 10.0;
-        getContentPane().add(filler9, gridBagConstraints);
+        getContentPane().add(filler10, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton_AcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_AcceptActionPerformed
        bAccepted = true;
+       bUserCancelled = false;
        setVisible(false);
     }//GEN-LAST:event_jButton_AcceptActionPerformed
 
     private void jButton_FindPathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_FindPathActionPerformed
         int returnVal = chooser.showOpenDialog(this);
+        
+        bUserCancelled = false;
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             jTextField_PathView.setText(chooser.getSelectedFile().getPath());
@@ -161,6 +182,12 @@ public class GetJavaPath extends javax.swing.JDialog {
             System.out.println("Cancelled");
         }
     }//GEN-LAST:event_jButton_FindPathActionPerformed
+
+    private void jButton_CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CancelActionPerformed
+       bAccepted = false;
+       bUserCancelled = true;
+       setVisible(false);
+    }//GEN-LAST:event_jButton_CancelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -198,6 +225,7 @@ public class GetJavaPath extends javax.swing.JDialog {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.Box.Filler filler1;
+    private javax.swing.Box.Filler filler10;
     private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler3;
     private javax.swing.Box.Filler filler4;
@@ -207,6 +235,7 @@ public class GetJavaPath extends javax.swing.JDialog {
     private javax.swing.Box.Filler filler8;
     private javax.swing.Box.Filler filler9;
     private javax.swing.JButton jButton_Accept;
+    private javax.swing.JButton jButton_Cancel;
     private javax.swing.JButton jButton_FindPath;
     private javax.swing.JLabel jLabel_Title;
     private static javax.swing.JTextField jTextField_PathView;

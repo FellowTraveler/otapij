@@ -38,13 +38,13 @@ public class Load {
     private boolean isWalletLoaded = false;
 
     public interface IJavaPath {
-        String GetJavaPathFromUser(String message);
+        Boolean GetIfUserCancelled();
+        String  GetJavaPathFromUser(String message);
     }
     
     public interface IPasswordImage {
-
+        Boolean GetIfUserCancelled();
         String GetPasswordImageFromUser(String message);
-
         boolean SetPasswordImage(String path);
     }
     
@@ -55,11 +55,15 @@ public class Load {
     private Load() {
     }
 
-    boolean GetIsLoaded() {
+    public boolean GetIsLoaded() {
         return isWalletLoaded;
     }
+    
+    public boolean GetInitialized() {
+        return isInitialized;
+    }
 
-    public void InitNative(IJavaPath javaPathCallback, String optionalPath) throws LoadingOpenTransactionsFailure {
+    public boolean InitNative(IJavaPath javaPathCallback, String optionalPath) throws LoadingOpenTransactionsFailure {
         final Logger l = Logger.getLogger(Load.class.getName());
 
         String extra_path = optionalPath.isEmpty() ? "" : optionalPath;
@@ -69,7 +73,7 @@ public class Load {
         }
 
         boolean bFirstAttempt = true;
-        boolean bUsingDefaultPath = false;
+        boolean bLoadSuccess = false;
         
         for (;;) {
 
@@ -78,18 +82,17 @@ public class Load {
 
                 if (extra_path.isEmpty()) {
                     pathsSet = Tools.appendPathToRuntime(Tools.getDefaultLibPath(Tools.getOS()));
-                    bUsingDefaultPath = true;
                 } else {
                     pathsSet = Tools.appendPathToRuntime(extra_path);
                 }
 
-                l.log(Level.INFO, null, pathsSet);
+                l.log(Level.FINE, pathsSet.toString());
 
             } catch (IllegalAccessException ex) {
-                l.log(Level.SEVERE, null, ex);
+                l.log(Level.SEVERE, "Unable To Access Java Paths", ex);
                 System.exit(-1); // bad excetion
             } catch (NoSuchFieldException ex) {
-                l.log(Level.SEVERE, null, ex);
+                l.log(Level.SEVERE, "Unable to Set Feild", ex);
                 System.exit(-1); // bad excetion
             }
 
@@ -98,22 +101,36 @@ public class Load {
             } catch (UnsatisfiedLinkError ex) {
 
                 if (bFirstAttempt) {
-                    l.log(Level.INFO, null, ex);
+                    l.log(Level.FINE, "This error can be safely ignored", ex);
                     bFirstAttempt = false;
                 }
                 else {
-                    l.log(Level.SEVERE, null, ex);
+                    l.log(Level.SEVERE, "Failed to Load Second Attempt! (Bad)", ex);
                 }
                     
                 extra_path = javaPathCallback.GetJavaPathFromUser("Failed To Find OT");
+                
+                if (javaPathCallback.GetIfUserCancelled()) {
+                    break;
+                }
+                
                 continue;
             }
+            bLoadSuccess = true;
             break; //success
         }
+        if (bLoadSuccess)
+        {
         isNativeLoaded = true;
+        return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
-    public void Init() throws LoadingOpenTransactionsFailure {
+    public boolean Init() throws LoadingOpenTransactionsFailure {
         final Logger l = Logger.getLogger(Load.class.getName());
 
         if (!isNativeLoaded) {
@@ -148,9 +165,10 @@ public class Load {
         }
 
         isInitialized = true;
+        return true;
     }
 
-    public void SetupPasswordImage(IPasswordImage passwordImage) throws LoadingOpenTransactionsFailure {
+    public boolean SetupPasswordImage(IPasswordImage passwordImage) throws LoadingOpenTransactionsFailure {
 
         if (!isInitialized) {
             throw new LoadingOpenTransactionsFailure("Is Not Initialized");
@@ -188,12 +206,23 @@ public class Load {
 
             for (;;) {
                 imagePath = passwordImage.GetPasswordImageFromUser("passwordImage");
+                
+                if (passwordImage.GetIfUserCancelled()) {
+                    bHaveImage = false;
+                    break;
+                }
 
                 File f = new File(imagePath);
                 if (f.exists()) {
+                    bHaveImage = true;
                     // Good we have a password Image
                     break;
                 }
+            }
+            
+            if (!bHaveImage)
+            {
+                return false;
             }
 
             StringMap stringMap = null;  // we are about to create this object
@@ -217,9 +246,10 @@ public class Load {
             throw new LoadingOpenTransactionsFailure("Password image not Set!");
         }
         isPasswordImageSet = true;
+        return true;
     }
 
-    public void SetupPasswordCallback(OTCaller passwordCaller, OTCallback passwordCallback) throws LoadingOpenTransactionsFailure {
+    public boolean SetupPasswordCallback(OTCaller passwordCaller, OTCallback passwordCallback) throws LoadingOpenTransactionsFailure {
 
         if (!isPasswordImageSet) {
             throw new LoadingOpenTransactionsFailure("Must Set Password Image First!");
@@ -248,9 +278,10 @@ public class Load {
         }
         
         isPasswordCallbackSet = true;
+        return true;
     }
 
-    public void LoadWallet() throws LoadingOpenTransactionsFailure {
+    public boolean LoadWallet() throws LoadingOpenTransactionsFailure {
 
         if (!isPasswordCallbackSet) {
             throw new LoadingOpenTransactionsFailure("Must Set Password Callback First!");
@@ -264,6 +295,7 @@ public class Load {
         }
 
         isWalletLoaded = true;
+        return true;
     }
 
     static public class LoadingOpenTransactionsFailure extends Exception {

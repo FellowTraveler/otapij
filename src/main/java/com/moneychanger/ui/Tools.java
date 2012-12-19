@@ -91,31 +91,35 @@ public class Tools {
 
         // If windows, load up the dependancy libaries:
 
+        l.log(Level.INFO, "Loading Native OpenTransactions...");
+        
         if (os.equals(typeOS.WINDOWS)) {
             
-            l.log(Level.INFO, "Atempting to load libzmq");
+            l.log(Level.FINE, "Atempting to load libzmq");
             System.loadLibrary("libzmq");
-            l.log(Level.INFO, "Success loading libzmq");
+            l.log(Level.FINE, "Success loading libzmq");
 
-            l.log(Level.INFO, "Atempting to load chaiscript");
+            l.log(Level.FINE, "Atempting to load chaiscript");
             System.loadLibrary("chaiscript");
-            l.log(Level.INFO, "Success loading chaiscript");
+            l.log(Level.FINE, "Success loading chaiscript");
 
-            l.log(Level.INFO, "Atempting to load otlib");
+            l.log(Level.FINE, "Atempting to load otlib");
             System.loadLibrary("otlib");
-            l.log(Level.INFO, "Success loading otlib");
+            l.log(Level.FINE, "Success loading otlib");
 
-            l.log(Level.INFO, "Atempting to load otapi");
+            l.log(Level.FINE, "Atempting to load otapi");
             System.loadLibrary("otapi");
-            l.log(Level.INFO, "Success loading otapi");
+            l.log(Level.FINE, "Success loading otapi");
         }
 
         // all
         {
-            l.log(Level.INFO, "Atempting to load otapi-java");
+            l.log(Level.FINE, "Atempting to load otapi-java");
             System.loadLibrary("otapi-java");
-            l.log(Level.INFO, "Success loading otapi-java");
+            l.log(Level.FINE, "Success loading otapi-java");
         }
+        
+        l.log(Level.INFO, "Success Loading Native OpenTransactions!");
     }
     
     static typeOS getOS() {

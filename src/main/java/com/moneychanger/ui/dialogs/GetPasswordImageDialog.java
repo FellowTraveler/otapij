@@ -16,26 +16,27 @@ public class GetPasswordImageDialog extends javax.swing.JDialog {
     /**
      * Creates new form GetPasswordImageDialog
      */
-    
     private JFileChooser imageChooser = new JFileChooser();
-    
     private static boolean bAccepted = false;
-    
+    private static boolean bUserCancelled = false;
+
     public GetPasswordImageDialog() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
-    
+
     static public String GetPasswordImagePath() {
         if (bAccepted) {
             return jTextField_PathDisplay.getText();
-        }
-        else {
+        } else {
             return "";
         }
     }
-    
-      
+
+    static public Boolean GetIfUserHasCancelled() {
+        return bUserCancelled;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,7 +62,9 @@ public class GetPasswordImageDialog extends javax.swing.JDialog {
         filler10 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
         jButton_Accept = new javax.swing.JButton();
         filler9 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+        jButton_Cancel = new javax.swing.JButton();
         filler11 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+        filler12 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
 
         setMaximumSize(new java.awt.Dimension(500, 400));
         setMinimumSize(new java.awt.Dimension(400, 300));
@@ -99,11 +102,11 @@ public class GetPasswordImageDialog extends javax.swing.JDialog {
         jPanel_ImageView.setLayout(jPanel_ImageViewLayout);
         jPanel_ImageViewLayout.setHorizontalGroup(
             jPanel_ImageViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 372, Short.MAX_VALUE)
+            .addGap(0, 373, Short.MAX_VALUE)
         );
         jPanel_ImageViewLayout.setVerticalGroup(
             jPanel_ImageViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 193, Short.MAX_VALUE)
+            .addGap(0, 187, Short.MAX_VALUE)
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -161,19 +164,33 @@ public class GetPasswordImageDialog extends javax.swing.JDialog {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.weighty = 1.0;
         getContentPane().add(jButton_Accept, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        getContentPane().add(filler9, gridBagConstraints);
+
+        jButton_Cancel.setText("Cancel");
+        jButton_Cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_CancelActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        getContentPane().add(jButton_Cancel, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
-        getContentPane().add(filler9, gridBagConstraints);
+        getContentPane().add(filler11, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weighty = 1.0;
-        getContentPane().add(filler11, gridBagConstraints);
+        gridBagConstraints.weighty = 2.0;
+        getContentPane().add(filler12, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -183,19 +200,26 @@ public class GetPasswordImageDialog extends javax.swing.JDialog {
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             jTextField_PathDisplay.setText(imageChooser.getSelectedFile().getPath());
-            ((ImagePanel)jPanel_ImageView).SetImage(jTextField_PathDisplay.getText());
+            ((ImagePanel) jPanel_ImageView).SetImage(jTextField_PathDisplay.getText());
             invalidate();
             validate();
-            
+
         } else {
             System.out.println("Cancelled");
         }
     }//GEN-LAST:event_jButton_SelectImageActionPerformed
 
     private void jButton_AcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_AcceptActionPerformed
-       bAccepted = true;
-       setVisible(false);
+        bAccepted = true;
+        bUserCancelled = false;
+        setVisible(false);
     }//GEN-LAST:event_jButton_AcceptActionPerformed
+
+    private void jButton_CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CancelActionPerformed
+        bAccepted = false;
+        bUserCancelled = true;
+        setVisible(false);
+    }//GEN-LAST:event_jButton_CancelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -226,6 +250,7 @@ public class GetPasswordImageDialog extends javax.swing.JDialog {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new GetPasswordImageDialog().setVisible(true);
             }
@@ -235,6 +260,7 @@ public class GetPasswordImageDialog extends javax.swing.JDialog {
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler10;
     private javax.swing.Box.Filler filler11;
+    private javax.swing.Box.Filler filler12;
     private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler3;
     private javax.swing.Box.Filler filler4;
@@ -244,6 +270,7 @@ public class GetPasswordImageDialog extends javax.swing.JDialog {
     private javax.swing.Box.Filler filler8;
     private javax.swing.Box.Filler filler9;
     private javax.swing.JButton jButton_Accept;
+    private javax.swing.JButton jButton_Cancel;
     private javax.swing.JButton jButton_SelectImage;
     private javax.swing.JLabel jLabel_Title;
     private javax.swing.JPanel jPanel_ImageView;

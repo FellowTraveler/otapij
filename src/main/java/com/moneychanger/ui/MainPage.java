@@ -100,6 +100,7 @@ AK+ZirdWhhoHeWR1tAkN
  */
 package com.moneychanger.ui;
 //Recurring, Deed/Title, Escrow, Ripple, Settings, Credits
+import com.moneychanger.app.Moneychanger;
 import com.moneychanger.core.Account;
 import com.moneychanger.core.Basket;
 import com.moneychanger.core.Contract;
@@ -116,6 +117,7 @@ import com.moneychanger.core.dataobjects.NymOfferDetails;
 import com.moneychanger.core.dataobjects.OTDetails;
 import com.moneychanger.core.datastore.StorageHelper;
 import com.moneychanger.core.util.ComboObject;
+import com.moneychanger.core.util.ConfigBean.Keys;
 import com.moneychanger.core.util.Configuration;
 import com.moneychanger.core.util.Utility;
 import com.moneychanger.ui.custom.PaymentInboxRightClickListener;
@@ -199,6 +201,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumn;
+import org.jdesktop.application.Action;
 //import org.jvnet.substance.SubstanceLookAndFeel;
 //import org.jvnet.substance.skin.SubstanceModerateLookAndFeel;
 
@@ -600,12 +603,14 @@ public class MainPage extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jPanel34 = new javax.swing.JPanel();
         jButton25 = new javax.swing.JButton();
+        jButton_ResetJavaPath = new javax.swing.JButton();
+        jButton_ResetConfig = new javax.swing.JButton();
         jPanel_Credits = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jPanel24 = new javax.swing.JPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(700, 500));
         setName("MainPageForm"); // NOI18N
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
@@ -3011,6 +3016,15 @@ public class MainPage extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance().getContext().getActionMap(MainPage.class, this);
+        jButton_ResetJavaPath.setAction(actionMap.get("ResetJavaPath")); // NOI18N
+        jButton_ResetJavaPath.setText(resourceMap.getString("jButton_ResetJavaPath.text")); // NOI18N
+        jButton_ResetJavaPath.setName("jButton_ResetJavaPath"); // NOI18N
+
+        jButton_ResetConfig.setAction(actionMap.get("ResetMoneychangerConfig")); // NOI18N
+        jButton_ResetConfig.setText(resourceMap.getString("jButton_ResetConfig.text")); // NOI18N
+        jButton_ResetConfig.setName("jButton_ResetConfig"); // NOI18N
+
         javax.swing.GroupLayout jPanel_SettingsLayout = new javax.swing.GroupLayout(jPanel_Settings);
         jPanel_Settings.setLayout(jPanel_SettingsLayout);
         jPanel_SettingsLayout.setHorizontalGroup(
@@ -3018,9 +3032,16 @@ public class MainPage extends javax.swing.JFrame {
             .addGroup(jPanel_SettingsLayout.createSequentialGroup()
                 .addGap(57, 57, 57)
                 .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
-                .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(257, Short.MAX_VALUE))
+                .addGroup(jPanel_SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel_SettingsLayout.createSequentialGroup()
+                        .addGap(49, 49, 49)
+                        .addGroup(jPanel_SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton_ResetJavaPath)
+                            .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel_SettingsLayout.createSequentialGroup()
+                        .addGap(66, 66, 66)
+                        .addComponent(jButton_ResetConfig)))
+                .addContainerGap(175, Short.MAX_VALUE))
         );
         jPanel_SettingsLayout.setVerticalGroup(
             jPanel_SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3029,9 +3050,12 @@ public class MainPage extends javax.swing.JFrame {
                 .addGroup(jPanel_SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel_SettingsLayout.createSequentialGroup()
                         .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                        .addComponent(jButton_ResetConfig))
                     .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, 150, Short.MAX_VALUE))
-                .addGap(1465, 1465, 1465))
+                .addGap(44, 44, 44)
+                .addComponent(jButton_ResetJavaPath)
+                .addGap(315, 315, 315))
         );
 
         jTabbedPane_MainPage.addTab(resourceMap.getString("jPanel_Settings.TabConstraints.tabTitle"), jPanel_Settings); // NOI18N
@@ -4294,6 +4318,8 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JButton jButton_RemoveAccount1;
     private javax.swing.JButton jButton_RemoveAccount2;
     private javax.swing.JButton jButton_RemoveAccount3;
+    private javax.swing.JButton jButton_ResetConfig;
+    private javax.swing.JButton jButton_ResetJavaPath;
     private static javax.swing.JComboBox jComboBox4;
     private static javax.swing.JComboBox jComboBox5;
     private static javax.swing.JComboBox jComboBox6;
@@ -5454,5 +5480,18 @@ public class MainPage extends javax.swing.JFrame {
         col = jTable22.getColumnModel().getColumn(5);
         col.setPreferredWidth(width);
 
+    }
+
+    @Action
+    public void ResetJavaPath() {
+       
+        Moneychanger.GetConfigBean().setConfig(Keys.JavaPath, null);
+        
+    }
+
+    @Action
+    public void ResetMoneychangerConfig() {
+        
+        Moneychanger.GetConfigBean().resetConfig();
     }
 }
