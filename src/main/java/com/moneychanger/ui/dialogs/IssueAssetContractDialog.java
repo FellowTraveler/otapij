@@ -156,7 +156,7 @@ public class IssueAssetContractDialog extends javax.swing.JDialog {
         jComboBox2 = new com.moneychanger.ui.custom.SteppedComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(IssueAssetContractDialog.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.Moneychanger.class).getContext().getResourceMap(IssueAssetContractDialog.class);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
         setName("Form"); // NOI18N
 

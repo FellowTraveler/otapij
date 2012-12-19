@@ -128,7 +128,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>com.moneychanger.app.ApplicationLauncher</mainClass>
+                            <mainClass>com.moneychanger.app.Moneychanger</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
