@@ -227,6 +227,9 @@ public class Moneychanger extends SingleFrameApplication {
             }
 
             JDialog j = new GetJavaPath();
+            
+            GetJavaPath.SetDisplayMessage(message);
+            
             j.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
             j.setAlwaysOnTop(true);
             j.setVisible(true);

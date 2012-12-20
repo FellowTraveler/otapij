@@ -36,6 +36,12 @@ public class GetJavaPath extends javax.swing.JDialog {
             return "";
         }
     }
+    
+    static public Boolean SetDisplayMessage(String strDisplayMessage)
+    {
+        jLabel_Title.setText(strDisplayMessage);
+        return true;
+    }
 
     static public Boolean GetIfUserHasCancelled() {
         return bUserCancelled;
@@ -237,7 +243,7 @@ public class GetJavaPath extends javax.swing.JDialog {
     private javax.swing.JButton jButton_Accept;
     private javax.swing.JButton jButton_Cancel;
     private javax.swing.JButton jButton_FindPath;
-    private javax.swing.JLabel jLabel_Title;
+    private static javax.swing.JLabel jLabel_Title;
     private static javax.swing.JTextField jTextField_PathView;
     // End of variables declaration//GEN-END:variables
 }

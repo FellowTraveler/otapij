@@ -74,6 +74,7 @@ public class Load {
 
         boolean bFirstAttempt = true;
         boolean bLoadSuccess = false;
+
         
         for (;;) {
 
@@ -108,7 +109,7 @@ public class Load {
                     l.log(Level.SEVERE, "Failed to Load Second Attempt! (Bad)", ex);
                 }
                     
-                extra_path = javaPathCallback.GetJavaPathFromUser("Failed To Find OT");
+                extra_path = javaPathCallback.GetJavaPathFromUser(Tools.getJavaPathUserMessage(Tools.getOS()));
                 
                 if (javaPathCallback.GetIfUserCancelled()) {
                     break;

@@ -68,14 +68,7 @@ public class Tools {
     static String getDefaultLibPath(final typeOS os) {
         if (os.equals(typeOS.WINDOWS)) {
                  
-            if (System.getProperty("os.arch").contentEquals("x86")) {
-                 Logger.getLogger(Tools.class.getName()).log(Level.INFO, "We are on x86 Java");
-            }
 
-            if (System.getProperty("os.arch").contentEquals("amd64")) {
-                 Logger.getLogger(Tools.class.getName()).log(Level.INFO, "We are on x64 Java");
-            }
-            
             
                 try {
                     String value = WinRegistry.readString(WinRegistry.HKEY_LOCAL_MACHINE, "SOFTWARE\\Open-Transactions", "Path");
@@ -98,6 +91,29 @@ public class Tools {
             }
         return "";
     }
+    
+    static String getJavaPathUserMessage(final typeOS os)
+    {
+        if (os.equals(typeOS.WINDOWS)) {
+            if (System.getProperty("os.arch").contentEquals("x86")) {
+                Logger.getLogger(Tools.class.getName()).log(Level.INFO, "We are on x32 Java");
+                return "Windows x32 Java: You need to select the x32 Opentransctions runrimes.";
+            }
+
+            if (System.getProperty("os.arch").contentEquals("amd64")) {
+                Logger.getLogger(Tools.class.getName()).log(Level.INFO, "We are on x32 Java");
+                return "Windows x64 Java: You need to select the x64 Opentransctions runrimes.";
+            }
+        }
+        
+        if (os.equals(typeOS.UNIX)) {
+                Logger.getLogger(Tools.class.getName()).log(Level.INFO, "We are on UNIX");
+                return "We are running on UNIX, please select the correct lib folder.";
+        }
+        
+        return "";
+    }
+    
     
     static enum typeOS {
         WINDOWS, UNIX
