@@ -4,8 +4,10 @@
  */
 package com.moneychanger.ui;
 
+import com.moneychanger.core.util.WinRegistry;
 import java.io.File;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
@@ -65,20 +67,36 @@ public class Tools {
     
     static String getDefaultLibPath(final typeOS os) {
         if (os.equals(typeOS.WINDOWS)) {
+                 
             if (System.getProperty("os.arch").contentEquals("x86")) {
-                return ".\\lib\\Win32\\Release";
+                 Logger.getLogger(Tools.class.getName()).log(Level.INFO, "We are on x86 Java");
             }
 
-            System.out.println(System.getProperty("os.arch"));
             if (System.getProperty("os.arch").contentEquals("amd64")) {
-                return ".\\lib\\x64\\Release";
-            } else {
-                return "";
+                 Logger.getLogger(Tools.class.getName()).log(Level.INFO, "We are on x64 Java");
             }
-        } else {
-            // I don't know if we can have a default place on non-windows oses.
-            return "";
-        }
+            
+            
+                try {
+                    String value = WinRegistry.readString(WinRegistry.HKEY_LOCAL_MACHINE, "SOFTWARE\\Open-Transactions", "Path");
+                    if (null == value) {
+                        return "";
+                    }
+                    Logger.getLogger(Tools.class.getName()).log(Level.INFO, "Found OT path in registry:{0}", value);
+                    
+                    
+                    return value;
+
+                } catch (IllegalArgumentException ex) {
+                    Logger.getLogger(Tools.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IllegalAccessException ex) {
+                    Logger.getLogger(Tools.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InvocationTargetException ex) {
+                    Logger.getLogger(Tools.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+            }
+        return "";
     }
     
     static enum typeOS {
