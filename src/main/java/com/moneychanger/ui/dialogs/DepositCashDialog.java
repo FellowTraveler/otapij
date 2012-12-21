@@ -104,7 +104,7 @@ AK+ZirdWhhoHeWR1tAkN
 package com.moneychanger.ui.dialogs;
 
 import com.moneychanger.core.OpenTransactionAccount;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import com.moneychanger.ui.MainPage;
 import com.moneychanger.ui.custom.ClipboardClass;
 import java.awt.Cursor;
@@ -243,12 +243,12 @@ public class DepositCashDialog extends javax.swing.JDialog {
              */
             if(success){
                 JOptionPane.showMessageDialog(this, "Cash deposited successfully","Success",JOptionPane.INFORMATION_MESSAGE);
-                Utility.reloadOTDetails(accountID);
+                Helpers.reloadOTDetails(accountID);
                 MainPage.reLoadAccount();
             }
             else{
-                if(Utility.getOtDepositCash()!=null){
-                    new CashPurseExportDetails(null, true,(String)Utility.getOtDepositCash(),false).setVisible(true);
+                if(Helpers.getOtDepositCash()!=null){
+                    new CashPurseExportDetails(null, true,(String)Helpers.getOtDepositCash(),false).setVisible(true);
                 }else
                 JOptionPane.showMessageDialog(this, "Error in cash deposit","Error",JOptionPane.ERROR_MESSAGE);
             }

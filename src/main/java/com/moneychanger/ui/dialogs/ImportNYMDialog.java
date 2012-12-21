@@ -92,7 +92,7 @@ AK+ZirdWhhoHeWR1tAkN
 package com.moneychanger.ui.dialogs;
 
 import com.moneychanger.core.NYM;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import java.awt.Cursor;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;

@@ -93,7 +93,7 @@ package com.moneychanger.core;
 
 import com.moneychanger.core.dataobjects.BitcoinDetails;
 import com.moneychanger.core.helper.bitcoin.TransactionInfo;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import com.moneychanger.ui.test.BitcoinClient;
 import java.util.Date;
 import java.util.HashMap;
@@ -105,6 +105,7 @@ import org.opentransactions.jni.core.Storable;
 import org.opentransactions.jni.core.StoredObjectType;
 import org.opentransactions.jni.core.WalletData;
 import org.opentransactions.jni.core.otapi;
+import org.opentransactions.otjavalib.util.Utility;
 import ru.paradoxs.bitcoin.client.ValidatedAddressInfo;
 import ru.paradoxs.bitcoin.client.exceptions.BitcoinClientException;
 
@@ -132,7 +133,7 @@ public class BitcoinAccount extends Account {
 
             if (!btcClientMap.containsKey(serverID)) {
                 // get the details from bitcoin object from datastore
-                WalletData walletData = Utility.getWalletData();
+                WalletData walletData = Helpers.getWalletData();
                 if (walletData == null) {
                     System.out.println("setBTCClient - walletData returns null");
                     return;
@@ -186,7 +187,7 @@ public class BitcoinAccount extends Account {
         for (int j = 0; j < accountsList.size(); j++) {
 
             String data[] = (String[]) accountsList.get(j);
-            WalletData walletData = Utility.getWalletData();
+            WalletData walletData = Helpers.getWalletData();
             if (walletData == null) {
                 System.out.println("getBitcoinAccountList - walletData returns null");
                 return;
@@ -276,7 +277,7 @@ public class BitcoinAccount extends Account {
     public boolean editLabel(String accountID, String newLabel) {
         //Loop
         boolean status = false;
-        WalletData walletData = Utility.getWalletData();
+        WalletData walletData = Helpers.getWalletData();
         if (walletData == null) {
             System.out.println("editLabel - walletData returns null");
             return false;
@@ -376,7 +377,7 @@ public class BitcoinAccount extends Account {
 
                 row[0] = btcClient.getLabel(address);
                 row[1] = address;
-                row[2] = String.valueOf(Utility.roundTwoDecimals(amount));
+                row[2] = String.valueOf(Helpers.roundTwoDecimals(amount));
 
                 data.put(row[1], row);
             }

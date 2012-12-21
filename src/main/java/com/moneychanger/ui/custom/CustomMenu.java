@@ -95,13 +95,13 @@ AK+ZirdWhhoHeWR1tAkN
  */
 package com.moneychanger.ui.custom;
 
-import com.moneychanger.core.util.Utility;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import org.opentransactions.otjavalib.util.Utility;
 
 /**
  *

@@ -102,7 +102,7 @@ AK+ZirdWhhoHeWR1tAkN
 package com.moneychanger.ui.dialogs;
 
 import com.moneychanger.core.Account;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import com.moneychanger.ui.MainPage;
 import javax.swing.JOptionPane;
 

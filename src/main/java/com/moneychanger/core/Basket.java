@@ -91,7 +91,6 @@ package com.moneychanger.core;
 
 
 import com.moneychanger.core.util.OTAPI_Func;
-import com.moneychanger.core.util.Utility;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -101,6 +100,7 @@ import org.opentransactions.jni.core.StoredObjectType;
 import org.opentransactions.jni.core.StringMap;
 import org.opentransactions.jni.core.otapi;
 import org.opentransactions.jni.core.otapiJNI;
+import org.opentransactions.otjavalib.util.Utility;
 
 /**
  *

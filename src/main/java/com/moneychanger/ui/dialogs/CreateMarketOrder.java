@@ -98,7 +98,7 @@ package com.moneychanger.ui.dialogs;
 import com.moneychanger.core.Contract;
 import com.moneychanger.core.Market;
 import com.moneychanger.core.OpenTransactionAccount;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import com.moneychanger.ui.MainPage;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -513,7 +513,7 @@ public class CreateMarketOrder extends javax.swing.JDialog {
         }
 
         accountMap = new OpenTransactionAccount().getAccountID(serverID, nymID,jTextField1.getText().trim());
-        Utility.populateCombo(accountMap, jComboBox4);
+        Helpers.populateCombo(accountMap, jComboBox4);
 
 }//GEN-LAST:event_jComboBox1ActionPerformed1
 
@@ -529,7 +529,7 @@ public class CreateMarketOrder extends javax.swing.JDialog {
 
 
         accountMapCurrency = new OpenTransactionAccount().getAccountID(serverID, nymID,jTextField3.getText().trim());
-        Utility.populateCombo(accountMapCurrency, jComboBox5);
+        Helpers.populateCombo(accountMapCurrency, jComboBox5);
     }//GEN-LAST:event_jComboBox2ActionPerformed1
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -573,7 +573,7 @@ public class CreateMarketOrder extends javax.swing.JDialog {
             if (status) {
                 JOptionPane.showMessageDialog(this, "Order created successfully", "Order Creation", JOptionPane.INFORMATION_MESSAGE);
                 
-                Utility.longDelay();
+                Helpers.longDelay();
                 
                 MainPage.refreshMarketOfferList(serverID, nymID);
                 // DEBUGGING: The above call is what happens after the order creation.
@@ -661,8 +661,8 @@ public class CreateMarketOrder extends javax.swing.JDialog {
 
     private void initValues() {
         assetMap = new Contract().loadAssetContract();
-        Utility.populateCombo(assetMap, jComboBox1);
-        Utility.populateCombo(assetMap, jComboBox2);
+        Helpers.populateCombo(assetMap, jComboBox1);
+        Helpers.populateCombo(assetMap, jComboBox2);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

@@ -92,7 +92,7 @@ package com.moneychanger.ui.dialogs;
 
 import com.moneychanger.core.dataobjects.ContactDetails;
 import com.moneychanger.core.datastore.AddressBookHelper;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import com.moneychanger.ui.model.ContactDetailsTableModel;
 import com.moneychanger.ui.model.ContactNymTableModel;
 import com.moneychanger.ui.model.ContactTableModel;

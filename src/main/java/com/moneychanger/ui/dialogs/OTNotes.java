@@ -103,7 +103,7 @@ AK+ZirdWhhoHeWR1tAkN
 
 package com.moneychanger.ui.dialogs;
 
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 
 /**
  *

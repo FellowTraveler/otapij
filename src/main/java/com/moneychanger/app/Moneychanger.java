@@ -6,11 +6,6 @@ package com.moneychanger.app;
 
 import com.moneychanger.core.util.ConfigBean;
 import com.moneychanger.core.util.JavaCallback;
-import com.moneychanger.core.util.Utility.ReturnAction;
-import com.moneychanger.ui.Load;
-import com.moneychanger.ui.Load.IJavaPath;
-import com.moneychanger.ui.Load.IPasswordImage;
-import com.moneychanger.ui.Load.LoadingOpenTransactionsFailure;
 import com.moneychanger.ui.ProgressBar;
 import com.moneychanger.ui.dialogs.GetJavaPath;
 import com.moneychanger.ui.dialogs.GetPasswordImageDialog;
@@ -24,6 +19,10 @@ import org.jdesktop.application.SingleFrameApplication;
 import org.opentransactions.jni.core.OTCallback;
 import org.opentransactions.jni.core.OTCaller;
 import org.opentransactions.jni.core.otapiJNI;
+import org.opentransactions.otjavalib.Load;
+import org.opentransactions.otjavalib.Load.IJavaPath;
+import org.opentransactions.otjavalib.Load.IPasswordImage;
+import org.opentransactions.otjavalib.Load.LoadingOpenTransactionsFailure;
 
 /**
  *

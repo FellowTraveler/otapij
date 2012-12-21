@@ -103,7 +103,7 @@ AK+ZirdWhhoHeWR1tAkN
 package com.moneychanger.ui.dialogs;
 
 import com.moneychanger.core.Contract;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -237,9 +237,9 @@ public class ContractAdditionDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Invalid File. Please select valid file to continue", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             if ("Server".equalsIgnoreCase(type)) {
-                new Contract().createServerContract(Utility.fileToString(file).trim());
+                new Contract().createServerContract(Helpers.fileToString(file).trim());
             } else if ("Asset".equalsIgnoreCase(type)){
-                new Contract().createAssetContract(Utility.fileToString(file).trim());
+                new Contract().createAssetContract(Helpers.fileToString(file).trim());
             }
             this.dispose();
         }

@@ -104,7 +104,7 @@ AK+ZirdWhhoHeWR1tAkN
 package com.moneychanger.ui.dialogs;
 
 import com.moneychanger.core.OpenTransactionAccount;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import com.moneychanger.ui.MainPage;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -269,7 +269,7 @@ public class SendTransferDialog extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try{
-            if(!Utility.isValidDouble(jTextField2.getText())){
+            if(!Helpers.isValidDouble(jTextField2.getText())){
                 JOptionPane.showMessageDialog(this, "Please enter valid number for amount", "Number Format Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
@@ -281,7 +281,7 @@ public class SendTransferDialog extends javax.swing.JDialog {
              */
             if(success){
                 JOptionPane.showMessageDialog(this, "Account to Account Transfer done successfully","Success",JOptionPane.INFORMATION_MESSAGE);
-                Utility.reloadOTDetails(accountID);
+                Helpers.reloadOTDetails(accountID);
                 MainPage.reLoadAccount();
             }
 
@@ -360,7 +360,7 @@ public class SendTransferDialog extends javax.swing.JDialog {
 private void initValues() {
         OpenTransactionAccount otAccount = new OpenTransactionAccount();
         accountMap = otAccount.getAccounts(accountID,serverID);
-        Utility.populateCombo(accountMap, jComboBox1);
+        Helpers.populateCombo(accountMap, jComboBox1);
 
     }
 }

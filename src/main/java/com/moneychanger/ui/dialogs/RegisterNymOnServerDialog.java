@@ -101,7 +101,7 @@ AK+ZirdWhhoHeWR1tAkN
 package com.moneychanger.ui.dialogs;
 
 import com.moneychanger.core.NYM;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import com.moneychanger.ui.MainPage;
 import java.awt.Cursor;
 import java.util.Map;
@@ -207,7 +207,7 @@ public class RegisterNymOnServerDialog extends javax.swing.JDialog {
             ex.printStackTrace();
         } finally {
             setCursor(Cursor.getDefaultCursor());
-            Utility.setNymID(nymID);
+            Helpers.setNymID(nymID);
             dispose();
         }
 }//GEN-LAST:event_jButton1ActionPerformed
@@ -239,7 +239,7 @@ public class RegisterNymOnServerDialog extends javax.swing.JDialog {
     private void initValues() {
         
         nymMap = new NYM().loadNYM();
-        Utility.populateComboWithoutAll(nymMap, jComboBox1);
+        Helpers.populateComboWithoutAll(nymMap, jComboBox1);
     }
 
 }

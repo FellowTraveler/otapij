@@ -106,7 +106,7 @@ package com.moneychanger.ui.dialogs;
 import com.moneychanger.core.Contract;
 import com.moneychanger.core.NYM;
 import com.moneychanger.core.OpenTransactionAccount;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import com.moneychanger.ui.MainPage;
 import java.awt.Cursor;
 import java.util.Map;
@@ -323,15 +323,15 @@ public class OTAccountAdditionDialog extends javax.swing.JDialog {
 
         nymMap = new NYM().loadNYM();
 
-        Utility.populateCombo(nymMap, jComboBox1);
+        Helpers.populateCombo(nymMap, jComboBox1);
 
         Contract contract = new Contract();
 
         serverMap = contract.loadServerContract();
-        Utility.populateCombo(serverMap, jComboBox2);
+        Helpers.populateCombo(serverMap, jComboBox2);
 
         assetMap = contract.loadAssetContract();
-        Utility.populateCombo(assetMap, jComboBox3);
+        Helpers.populateCombo(assetMap, jComboBox3);
     }
 
 }

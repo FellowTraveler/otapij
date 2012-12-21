@@ -103,7 +103,7 @@ AK+ZirdWhhoHeWR1tAkN
 package com.moneychanger.ui.dialogs;
 
 import com.moneychanger.core.OpenTransactionAccount;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import com.moneychanger.ui.MainPage;
 import java.awt.Cursor;
 import javax.swing.JOptionPane;
@@ -189,7 +189,7 @@ public class WithdrawCashDialog extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            if (!Utility.isValidDouble(jTextField1.getText())) {
+            if (!Helpers.isValidDouble(jTextField1.getText())) {
                 JOptionPane.showMessageDialog(this, "Please enter valid number", "Number Format Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
@@ -200,7 +200,7 @@ public class WithdrawCashDialog extends javax.swing.JDialog {
              */
             if (success) {
                 JOptionPane.showMessageDialog(this, "Cash withdrawn successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-                Utility.reloadOTDetails(accountID);
+                Helpers.reloadOTDetails(accountID);
                 MainPage.reLoadAccount();
             } else {
                 JOptionPane.showMessageDialog(this, "Error in cash withdrawal", "Error", JOptionPane.ERROR_MESSAGE);

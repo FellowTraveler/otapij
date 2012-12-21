@@ -95,6 +95,7 @@ import java.awt.Dialog;
 import javax.swing.JDialog;
 import org.opentransactions.jni.core.OTCallback;
 import org.opentransactions.jni.core.OTPassword;
+import org.opentransactions.otjavalib.util.Utility;
 
 
 public class JavaCallback extends OTCallback {

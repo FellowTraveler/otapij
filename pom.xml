@@ -5,7 +5,7 @@
 
     <groupId>com.moneychanger</groupId>
     <artifactId>Moneychanger</artifactId>
-    <version>00.11.11-SNAPSHOT</version>
+    <version>00.12.00-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Moneychanger</name>
@@ -113,6 +113,12 @@
             <groupId>org.netbeans.external</groupId>
             <artifactId>swing-worker-1.1</artifactId>
             <version>RELEASE701</version>
+        </dependency>
+        <dependency>
+            <groupId>org.opentransactions</groupId>
+            <artifactId>ot-java-lib</artifactId>
+            <version>0.1.0-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

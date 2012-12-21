@@ -102,7 +102,7 @@ package com.moneychanger.ui.dialogs;
 
 
 import com.moneychanger.core.OpenTransactionAccount;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -326,7 +326,7 @@ public class ExchangeBasketDialog extends javax.swing.JDialog {
         int memberCount = otapiJNI.OTAPI_Basic_Basket_GetMemberCount(assetID);
         boolean bSure = true;
          if (otapiJNI.OTAPI_Basic_GetNym_TransactionNumCount(serverID, nymID) < (2+memberCount)) {
-            bSure = Utility.getTransactionNumbers(serverID, nymID);
+            bSure = Helpers.getTransactionNumbers(serverID, nymID);
         }
 
         if (!bSure || otapiJNI.OTAPI_Basic_GetNym_TransactionNumCount(serverID, nymID) < (2+memberCount)) {
@@ -344,12 +344,12 @@ public class ExchangeBasketDialog extends javax.swing.JDialog {
             System.out.println("In doExchangeBasket,memberAssetID:" + memberAssetID + " assetID:" + assetID + " nymID:" + nymID + " serverID:" + serverID);
 
             new ExchangeBasketAcctDialog(null, true, memberAssetID, serverID, nymID).setVisible(true);
-            if (Utility.isBasketXCancelled()) {
-                Utility.setBasketXCancelled(false);
+            if (Helpers.isBasketXCancelled()) {
+                Helpers.setBasketXCancelled(false);
                 JOptionPane.showMessageDialog(null, "The basket exchange has been cancelled", "Basket Exchange Canellation", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
-            String memberAccountID = Utility.getBasketXAcct();
+            String memberAccountID = Helpers.getBasketXAcct();
             exchangeRequest = otapiJNI.OTAPI_Basic_AddBasketExchangeItem(serverID, nymID, exchangeRequest, memberAssetID, memberAccountID);
 
         }

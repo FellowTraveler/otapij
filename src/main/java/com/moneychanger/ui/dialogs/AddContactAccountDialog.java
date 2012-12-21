@@ -93,7 +93,7 @@ package com.moneychanger.ui.dialogs;
 
 import com.moneychanger.core.datastore.AddressBookHelper;
 import com.moneychanger.core.datastore.StorageHelper;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import javax.swing.JOptionPane;
 
 public class AddContactAccountDialog extends javax.swing.JDialog {

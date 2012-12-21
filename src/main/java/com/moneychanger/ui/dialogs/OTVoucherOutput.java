@@ -103,7 +103,7 @@ AK+ZirdWhhoHeWR1tAkN
 
 package com.moneychanger.ui.dialogs;
 
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import com.moneychanger.ui.MainPage;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.ClipboardOwner;
@@ -201,7 +201,7 @@ public class OTVoucherOutput extends javax.swing.JDialog implements ClipboardOwn
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if(voucherText!=null){
-            Utility.reloadOTDetails(accountID);
+            Helpers.reloadOTDetails(accountID);
             MainPage.reLoadAccount();
         }
         this.dispose();

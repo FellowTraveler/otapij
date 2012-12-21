@@ -104,7 +104,7 @@ AK+ZirdWhhoHeWR1tAkN
 package com.moneychanger.ui.dialogs;
 
 import com.moneychanger.core.OpenTransactionAccount;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import com.moneychanger.ui.MainPage;
 import java.awt.Cursor;
 import java.awt.datatransfer.DataFlavor;
@@ -242,7 +242,7 @@ public class DepositChequeDialog extends javax.swing.JDialog {
              */
             if(success){
                 JOptionPane.showMessageDialog(this, "Cheque deposited successfully","Success",JOptionPane.INFORMATION_MESSAGE);
-                Utility.reloadOTDetails(accountID);
+                Helpers.reloadOTDetails(accountID);
                 MainPage.reLoadAccount();
             }
             else

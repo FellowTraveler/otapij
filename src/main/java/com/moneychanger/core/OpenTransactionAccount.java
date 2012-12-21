@@ -97,7 +97,7 @@ package com.moneychanger.core;
 import com.moneychanger.core.dataobjects.OTDetails;
 import com.moneychanger.core.util.Configuration;
 import com.moneychanger.core.util.OTAPI_Func;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -105,6 +105,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.opentransactions.jni.core.otapi;
 import org.opentransactions.jni.core.otapiJNI;
+import org.opentransactions.otjavalib.util.Utility;
 
 // *********************************************************
 /**
@@ -159,7 +160,7 @@ public class OpenTransactionAccount extends Account {
         // (Or create an empty one, which would save us sending the message here. Todo.)
         //
         Utility.OTBool bWasMsgSent = new Utility.OTBool (false);
-        Utility.getOutboxLowLevel(serverID, nymID, strNewAcctID, bWasMsgSent, true);
+        Helpers.getOutboxLowLevel(serverID, nymID, strNewAcctID, bWasMsgSent, true);
         // ----------------------------------------------------------
 
         return true;
@@ -186,7 +187,7 @@ public class OpenTransactionAccount extends Account {
                 // to prevent sync issues.) Therefore I feel *somewhat* safe in going ahead here
                 // and calling Utility.getRequestNumber(), since this is a brand new Nym and will
                 // need to sync it for the first time, in order to do any other messages.
-                if (Utility.getRequestNumber(serverID, nymID) < 1) {
+                if (Helpers.getRequestNumber(serverID, nymID) < 1) {
                     System.out.println("In createAccount: Failure to call getRequestNumber() after supposedly creating user acct at server.");
                     //return false; // commenting this out, so for moa7 types with bad connections, even if this call fails, it'll go ahead and try the next one, and when THAT fails it does another getRequestNumber followed by a retry. So we have plenty of chances to succeed here...
                 }
@@ -451,7 +452,7 @@ public class OpenTransactionAccount extends Account {
         otDetails.setNymName(strNymName);
         // ----------------------------------        
         try {
-            if (Utility.getIntermediaryFiles(strServerID, strNymID, accountID)) {
+            if (Helpers.getIntermediaryFiles(strServerID, strNymID, accountID)) {
                 otDetails.setInboxData(getInboxData(accountID));
                 otDetails.setOutboxData(getOutboxData(accountID));
             } else {
@@ -598,7 +599,7 @@ public class OpenTransactionAccount extends Account {
         // If it HAS, and our download fails, then we have failed.
         // (Can't sign any balance agreements anyway without that download...)
         //
-        if (false == Utility.getIntermediaryFiles(serverID,
+        if (false == Helpers.getIntermediaryFiles(serverID,
                 nymID, accountID, false)) // bForceDownload=false
         {
             System.out.println("In: " + IN_FUNCTION + ", getIntermediaryFiles returned false. (It couldn't download files that it needed.)");
@@ -621,7 +622,7 @@ public class OpenTransactionAccount extends Account {
             int configTxnCount = Configuration.getNbrTransactionCount();
             Configuration.setNbrTransactionCount((nTransNumsNeeded > configTxnCount) ? nTransNumsNeeded : configTxnCount);
             
-            bSure = Utility.getTransactionNumbers(serverID, nymID); // <====================== getTransactionNumbers
+            bSure = Helpers.getTransactionNumbers(serverID, nymID); // <====================== getTransactionNumbers
             
             Configuration.setNbrTransactionCount(configTxnCount);
         }
@@ -633,7 +634,7 @@ public class OpenTransactionAccount extends Account {
         {
             System.out.println("In: " + IN_FUNCTION + ", first failure:  Utility.getTransactionNumbers. (Trying again...)");
             
-            bSure = Utility.getTransactionNumbers( serverID, nymID,    // Try a second time.        
+            bSure = Helpers.getTransactionNumbers( serverID, nymID,    // Try a second time.        
                                                    false); // We tell getTransNumbers that it can skip the first call to getTransNumLowLevel        
         }
         // -------------------------------------
@@ -643,7 +644,7 @@ public class OpenTransactionAccount extends Account {
         {
             System.out.println("In: " + IN_FUNCTION + ", second failure:  Utility.getTransactionNumbers. (Trying again...)");
             
-            bSure = Utility.getTransactionNumbers( serverID, nymID, // Try a third time.   
+            bSure = Helpers.getTransactionNumbers( serverID, nymID, // Try a third time.   
                                                    false); // We tell getTransNumbers that it can skip the first call to getTransNumLowLevel        
         }
         // -------------------------------------
@@ -968,13 +969,13 @@ public class OpenTransactionAccount extends Account {
     public boolean depositCash(String serverID, String nymID, String accountID, String purse, boolean isToken) {
 
         System.out.println("In depositCash serverID:" + serverID + " nymID:" + nymID + " acount ID:" + accountID + " isToken:" + isToken);
-        Utility.setOtDepositCash(null);
+        Helpers.setOtDepositCash(null);
         String oldPurse = purse;
         if (isToken) {
             purse = getNewPurse(purse, serverID, nymID, accountID);
             System.out.println("purse after getting from push purse:" + purse);
             if (!Utility.VerifyStringVal(purse)) {
-                Utility.setOtDepositCash(oldPurse);
+                Helpers.setOtDepositCash(oldPurse);
                 return false;
             }
         }
@@ -991,7 +992,7 @@ public class OpenTransactionAccount extends Account {
                 boolean importStatus = otapiJNI.OTAPI_Basic_Wallet_ImportPurse(serverID, assetID, nymID, purse);
                 System.out.println("Since failure of depositCashPurse, OT_API_Wallet_ImportPurse called, status of import:" + importStatus);
                 if (!importStatus) {
-                    Utility.setOtDepositCash(purse);
+                    Helpers.setOtDepositCash(purse);
                 }
             }
 
@@ -1156,8 +1157,8 @@ public class OpenTransactionAccount extends Account {
         boolean bSure = true;
         if (otapiJNI.OTAPI_Basic_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
 
-            Utility.getTransactionNumbers(serverID, nymID);
-            bSure = Utility.getTransactionNumbers(serverID, nymID);
+            Helpers.getTransactionNumbers(serverID, nymID);
+            bSure = Helpers.getTransactionNumbers(serverID, nymID);
         }
         if (!bSure || otapiJNI.OTAPI_Basic_GetNym_TransactionNumCount(serverID, nymID) < Configuration.getNbrTransactionCount()) {
             System.out.println("In writeCheque , failed to get transaction numbers, OT_API_GetNym_TransactionNumCount:" + otapiJNI.OTAPI_Basic_GetNym_TransactionNumCount(serverID, nymID));

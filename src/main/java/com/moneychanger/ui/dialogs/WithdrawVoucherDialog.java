@@ -105,7 +105,7 @@ package com.moneychanger.ui.dialogs;
 
 import com.moneychanger.core.NYM;
 import com.moneychanger.core.OpenTransactionAccount;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.datatransfer.DataFlavor;
@@ -354,7 +354,7 @@ public class WithdrawVoucherDialog extends javax.swing.JDialog {
     private void initValues() {
 
         nymMap = new NYM().loadNYM();
-        Utility.populateCombo(nymMap, jComboBox1);
+        Helpers.populateCombo(nymMap, jComboBox1);
     }
 
 }

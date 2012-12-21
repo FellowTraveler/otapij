@@ -95,7 +95,7 @@ AK+ZirdWhhoHeWR1tAkN
  */
 package com.moneychanger.ui.custom;
 
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import com.moneychanger.ui.model.AccountTableModel;
 import com.moneychanger.ui.model.AssetContractTableModel;
 import com.moneychanger.ui.model.BasketTableModel;

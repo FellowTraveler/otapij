@@ -119,7 +119,7 @@ import com.moneychanger.core.datastore.StorageHelper;
 import com.moneychanger.core.util.ComboObject;
 import com.moneychanger.core.util.ConfigBean.Keys;
 import com.moneychanger.core.util.Configuration;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import com.moneychanger.ui.custom.PaymentInboxRightClickListener;
 import com.moneychanger.ui.dialogs.AccountAdditionDialog;
 import com.moneychanger.ui.dialogs.AccountEditDialog;
@@ -202,6 +202,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumn;
 import org.jdesktop.application.Action;
+import org.opentransactions.otjavalib.util.Utility;
 //import org.jvnet.substance.SubstanceLookAndFeel;
 //import org.jvnet.substance.skin.SubstanceModerateLookAndFeel;
 
@@ -220,7 +221,7 @@ public class MainPage extends javax.swing.JFrame {
         }
         if (serverID != null && serverID.equals(currentServerID)) {
             nymRegisteredMap = new NYM().loadRegisteredNYM(serverID);
-            Utility.populateComboWithoutAll(nymRegisteredMap, jComboBox6);
+            Helpers.populateComboWithoutAll(nymRegisteredMap, jComboBox6);
         }
     }
     private Map nymBox;
@@ -261,8 +262,8 @@ public class MainPage extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (Utility.getSettingsObj() != null) {
-                ((JFrame) Utility.getSettingsObj()).dispose();
+            if (Helpers.getSettingsObj() != null) {
+                ((JFrame) Helpers.getSettingsObj()).dispose();
             }
             setCursor(Cursor.getDefaultCursor());
         }
@@ -3649,7 +3650,7 @@ public class MainPage extends javax.swing.JFrame {
         System.out.println("Mrkets tab - nym selected index - " + jComboBox6.getSelectedIndex());
 
         nymRegisteredMap = new NYM().loadRegisteredNYM(serverID);
-        Utility.populateComboWithoutAll(nymRegisteredMap, jComboBox6);
+        Helpers.populateComboWithoutAll(nymRegisteredMap, jComboBox6);
 
         if (nymRegisteredMap != null && nymRegisteredMap.size() > 0 && jComboBox6.getSelectedIndex() > -1) {
             nymID = ((String[]) nymRegisteredMap.get((Integer) jComboBox6.getSelectedIndex()))[1];
@@ -3887,7 +3888,7 @@ public class MainPage extends javax.swing.JFrame {
         JTabbedPane pane = (JTabbedPane) evt.getSource();
         int sel = pane.getSelectedIndex();
         System.out.println("Mainpage tab eventState changed:" + sel);
-        if (sel == 4 && Utility.isLoadNymTrades()) {
+        if (sel == 4 && Helpers.isLoadNymTrades()) {
             String serverID = "ALL";
             String nymID = "ALL";
 
@@ -3902,7 +3903,7 @@ public class MainPage extends javax.swing.JFrame {
                 if (nymTrades != null) {
                     ((MarketTradesTableModel) jTable16.getModel()).setValue(nymTrades, jTable16);
                 }
-                Utility.setLoadNymTrades(false);
+                Helpers.setLoadNymTrades(false);
             }
         }
 
@@ -3942,10 +3943,10 @@ public class MainPage extends javax.swing.JFrame {
 
             // Show dialog asking for register
             new RegisterNymOnServerDialog(this, true, currentServerID).setVisible(true);
-            if (!Utility.VerifyStringVal(Utility.getNymID())) {
+            if (!Utility.VerifyStringVal(Helpers.getNymID())) {
                 return;
             }
-            String nymID = Utility.getNymID();
+            String nymID = Helpers.getNymID();
             ((BasketTableModel) jTable19.getModel()).setValue(Basket.getBasketList(currentServerID, nymID));
 
         }
@@ -4556,7 +4557,7 @@ public class MainPage extends javax.swing.JFrame {
                                     }
                                     if ("OpenTransactionAccount".equalsIgnoreCase(type)) {
                                         OTDetails otDetails = (OTDetails) details;
-                                        Utility.populateOTDetails(otDetails);
+                                        Helpers.populateOTDetails(otDetails);
                                         ((AccountTableModel) jTable_AccountTable.getModel()).setValueAt(otDetails.getBalance(), jTable_AccountTable.getSelectedRow(), 1);
                                     } else if ("CashPurseAccount".equalsIgnoreCase(type)) {
                                         CashPurseDetails cashDetails = (CashPurseDetails) details;
@@ -4590,15 +4591,15 @@ public class MainPage extends javax.swing.JFrame {
         jComboBoxServerContracts.addItem(new ComboObject("ALL"));
         jComboBox_AssetContracts.addItem(new ComboObject("ALL"));
 
-        Utility.populateCombo(nymMap, jComboBox_Nyms);
+        Helpers.populateCombo(nymMap, jComboBox_Nyms);
 
         Contract contract = new Contract();
 
         serverMap = contract.loadServerContract();
-        Utility.populateCombo(serverMap, jComboBoxServerContracts);
+        Helpers.populateCombo(serverMap, jComboBoxServerContracts);
 
         assetMap = contract.loadAssetContract();
-        Utility.populateCombo(assetMap, jComboBox_AssetContracts);
+        Helpers.populateCombo(assetMap, jComboBox_AssetContracts);
 
 
         Account account = null;
@@ -5052,8 +5053,8 @@ public class MainPage extends javax.swing.JFrame {
 
         nymRegisteredMap = new NYM().loadRegisteredNYM(serverID);
 
-        Utility.populateCombo(nymMap, jComboBox_Nyms);
-        Utility.populateComboWithoutAll(nymRegisteredMap, jComboBox6);
+        Helpers.populateCombo(nymMap, jComboBox_Nyms);
+        Helpers.populateComboWithoutAll(nymRegisteredMap, jComboBox6);
     }
 
     private static void refreshAssetContractList() {
@@ -5062,7 +5063,7 @@ public class MainPage extends javax.swing.JFrame {
         ((AssetContractTableModel) jTable_AssetList.getModel()).setValue(contract.loadAssetContract(), jTable_AssetList);
         assetMap.clear();
         assetMap = contract.loadAssetContract();
-        Utility.populateCombo(assetMap, jComboBox_AssetContracts);
+        Helpers.populateCombo(assetMap, jComboBox_AssetContracts);
 
     }
 
@@ -5072,8 +5073,8 @@ public class MainPage extends javax.swing.JFrame {
         serverMap.clear();
         serverMap = contract.loadServerContract();
         System.out.println("serverv" + serverMap.entrySet());
-        Utility.populateCombo(serverMap, jComboBoxServerContracts);
-        Utility.populateComboWithoutAll(serverMap, jComboBox5);
+        Helpers.populateCombo(serverMap, jComboBoxServerContracts);
+        Helpers.populateComboWithoutAll(serverMap, jComboBox5);
 
     }
 
@@ -5114,7 +5115,7 @@ public class MainPage extends javax.swing.JFrame {
         /*System.out.println("Path:" + Utility.getDataFolder() + File.separator + fileName);
         jTextArea1.setText(Utility.fileToString(new File(Utility.getDataFolder() + File.separator + fileName)));
          */
-        String creditsFileContents = Utility.getCreditsFile(fileName);
+        String creditsFileContents = Helpers.getCreditsFile(fileName);
         jTextArea1.setText(creditsFileContents);
         jTextArea1.setCaretPosition(0);
     }
@@ -5148,7 +5149,7 @@ public class MainPage extends javax.swing.JFrame {
         MarketTableModel.removeCols(jTable13);
         MarketOffersTableModel.removeCols(jTable14);
 
-        Utility.populateComboWithoutAll(serverMap, jComboBox5);
+        Helpers.populateComboWithoutAll(serverMap, jComboBox5);
 
         String serverID = "ALL";
         String nymID = "ALL";
@@ -5158,7 +5159,7 @@ public class MainPage extends javax.swing.JFrame {
         }
 
         nymRegisteredMap = new NYM().loadRegisteredNYM(serverID);
-        Utility.populateComboWithoutAll(nymRegisteredMap, jComboBox6);
+        Helpers.populateComboWithoutAll(nymRegisteredMap, jComboBox6);
 
         jTable14.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
@@ -5298,7 +5299,7 @@ public class MainPage extends javax.swing.JFrame {
 
     private void initBasketsTab() {
 
-        Utility.populateComboWithoutAll(serverMap, jComboBox7);
+        Helpers.populateComboWithoutAll(serverMap, jComboBox7);
         BasketTableModel.removeCols(jTable19);
         jLabel62.setText("");
 
@@ -5320,10 +5321,10 @@ public class MainPage extends javax.swing.JFrame {
 
             // Show dialog asking for register
             new RegisterNymOnServerDialog(this, true, currentServerID).setVisible(true);
-            if (!Utility.VerifyStringVal(Utility.getNymID())) {
+            if (!Utility.VerifyStringVal(Helpers.getNymID())) {
                 return;
             }
-            String nymID = Utility.getNymID();
+            String nymID = Helpers.getNymID();
             ((BasketTableModel) jTable19.getModel()).setValue(Basket.getBasketList(currentServerID, nymID));
 
         }
@@ -5361,10 +5362,10 @@ public class MainPage extends javax.swing.JFrame {
                 if ("Popup Dialog".equals(assetTypeName)) {
                     // Show dialog asking for register
                     new RegisterNymOnServerDialog(this, true, serverID).setVisible(true);
-                    if (!Utility.VerifyStringVal(Utility.getNymID())) {
+                    if (!Utility.VerifyStringVal(Helpers.getNymID())) {
                         return;
                     }
-                    String nymID = Utility.getNymID();
+                    String nymID = Helpers.getNymID();
                     assetTypeName = Basket.getAssetTypeNameForRegNym(assetTypeID, serverID, nymID);
                 }
 

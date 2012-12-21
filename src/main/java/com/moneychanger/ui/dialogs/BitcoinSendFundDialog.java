@@ -93,7 +93,7 @@ AK+ZirdWhhoHeWR1tAkN
 package com.moneychanger.ui.dialogs;
 
 import com.moneychanger.core.BitcoinAccount;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import com.moneychanger.ui.MainPage;
 import com.moneychanger.ui.panels.BitcoinAccountBottomPanel;
 import com.moneychanger.ui.panels.BitcoinAccountTopPanel;

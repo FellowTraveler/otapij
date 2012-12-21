@@ -91,13 +91,14 @@ AK+ZirdWhhoHeWR1tAkN
 package com.moneychanger.core;
 import com.moneychanger.core.dataobjects.CashPurseDetails;
 import com.moneychanger.core.util.OTAPI_Func;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import org.opentransactions.jni.core.otapi;
 import org.opentransactions.jni.core.otapiJNI;
+import org.opentransactions.otjavalib.util.Utility;
 
 public class CashPurseAccount extends Account {
 
@@ -475,7 +476,7 @@ public class CashPurseAccount extends Account {
     //
     public String exportCashPurse(String serverID, String assetID, String nymID, String oldPurse, ArrayList selectedTokens, String recepientNymID, boolean isPasted) {
         System.out.println("exportCashPurse starts, selectedTokens:" + selectedTokens);
-        Utility.setObj(null);
+        Helpers.setObj(null);
 
         // If no recipient, then recipient == Nym.
         //
@@ -596,7 +597,7 @@ public class CashPurseAccount extends Account {
             //
             if (!otapiJNI.OTAPI_Basic_SavePurse(serverID, assetID, nymID, newPurse)) {
                 // If SAVE FAILS (==0) then set Utility obj to OLD PURSE.
-                Utility.setObj(oldPurse);   // Displays on screen??
+                Helpers.setObj(oldPurse);   // Displays on screen??
                 return null;
             }
 
@@ -619,7 +620,7 @@ public class CashPurseAccount extends Account {
 
     public boolean depositCashPurse(String serverID, String assetID, String nymID, String oldPurse, ArrayList selectedTokens, String accountID) {
 
-        Utility.setObj(null);
+        Helpers.setObj(null);
         System.out.println("depositCashPurse starts, selectedTokens:" + selectedTokens);
         String recepientNymID = otapiJNI.OTAPI_Basic_GetAccountWallet_NymID(accountID);
         String newPurse = processCashPurse(serverID, assetID, nymID, oldPurse, selectedTokens, recepientNymID);
@@ -639,7 +640,7 @@ public class CashPurseAccount extends Account {
             boolean importStatus = otapiJNI.OTAPI_Basic_Wallet_ImportPurse(serverID, assetID, recepientNymID, newPurse);
             System.out.println("Since failure in depositCashPurse, OT_API_Wallet_ImportPurse called, status of import:" + importStatus);
             if (!importStatus) {
-                Utility.setObj(newPurse);
+                Helpers.setObj(newPurse);
             }
 
             return false;
@@ -652,7 +653,7 @@ public class CashPurseAccount extends Account {
 
     public boolean exchangeCashPurse(String serverID, String assetID, String nymID, String oldPurse, ArrayList selectedTokens) throws InterruptedException {
 
-        Utility.setObj(null);
+        Helpers.setObj(null);
         System.out.println(" Cash Purse exchange starts, selectedTokens:" + selectedTokens);
         String newPurse = processCashPurse(serverID, assetID, nymID, oldPurse, selectedTokens, nymID);
 
@@ -671,7 +672,7 @@ public class CashPurseAccount extends Account {
             boolean importStatus = otapiJNI.OTAPI_Basic_Wallet_ImportPurse(serverID, assetID, nymID, newPurse);
             System.out.println("Since failure in exchangeCashPurse, OT_API_Wallet_ImportPurse called, status of import:" + importStatus);
             if (!importStatus) {
-                Utility.setObj(newPurse);
+                Helpers.setObj(newPurse);
             }
 
             return false;
