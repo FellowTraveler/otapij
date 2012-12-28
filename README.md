@@ -25,7 +25,7 @@ Radio interview about Open Transactions and Moneychanger:
 
 THIS IS ONLY EXPERIMENTAL SOFTWARE AND IS NOT YET READY FOR PRIME TIME.
 
-## INSTALLATION
+## INSTALLATION - (Bounty to creat MoneyChanger and OT .deb - https://propster.me/tipjar/0cfdnyi )
 
 First, install Open-Transactions and its dependencies:
 [Open-Transactions Install Instructions.](https://github.com/FellowTraveler/Open-Transactions/wiki/Install) Also: [Troubleshooting](https://github.com/FellowTraveler/Moneychanger/wiki/Troubleshooting)
@@ -47,6 +47,8 @@ Next, download the Moneychanger source code:
 From a separate terminal:
  
      $ java -jar Moneychanger.jar
+
+(Bounty to creat MoneyChanger and OT .deb - https://propster.me/tipjar/0cfdnyi )
 
 --------------------------------------------------------
 
