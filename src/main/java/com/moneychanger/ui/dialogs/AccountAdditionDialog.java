@@ -100,7 +100,7 @@ package com.moneychanger.ui.dialogs;
 
 import com.moneychanger.core.OpenTransactionAccount;
 import com.moneychanger.core.util.ComboObject;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import java.awt.Frame;
 
 /**

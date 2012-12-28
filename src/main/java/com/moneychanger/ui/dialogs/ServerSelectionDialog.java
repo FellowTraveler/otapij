@@ -95,7 +95,7 @@ AK+ZirdWhhoHeWR1tAkN
  */
 package com.moneychanger.ui.dialogs;
 
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -218,7 +218,7 @@ public class ServerSelectionDialog extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void initValues() {
-        Utility.populateComboWithoutAll(serverMap, jComboBox1);
+        Helpers.populateComboWithoutAll(serverMap, jComboBox1);
     }
 
     public String getPaymentServerID() {

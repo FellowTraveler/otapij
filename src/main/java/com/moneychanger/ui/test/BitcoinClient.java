@@ -91,7 +91,6 @@ AK+ZirdWhhoHeWR1tAkN
 
 package com.moneychanger.ui.test;
 
-import com.moneychanger.core.util.Utility;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -104,6 +103,7 @@ import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.opentransactions.otjavalib.util.Utility;
 import ru.paradoxs.bitcoin.client.AccountInfo;
 import ru.paradoxs.bitcoin.client.AddressInfo;
 import ru.paradoxs.bitcoin.client.LabelInfo;

@@ -95,7 +95,7 @@ AK+ZirdWhhoHeWR1tAkN
 package com.moneychanger.ui.dialogs;
 
 import com.moneychanger.core.Basket;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import java.util.List;
 import java.util.Map;
 
@@ -113,8 +113,8 @@ public class SubCurrencyDetailDialog extends javax.swing.JDialog {
         initComponents();
         this.setLocationRelativeTo(null);
 
-        assetList = Basket.getAssetList(serverID,nymID, Utility.getBasketExistingAssets());
-        Utility.populateComboWithoutAll(assetList, jComboBox6);
+        assetList = Basket.getAssetList(serverID,nymID, Helpers.getBasketExistingAssets());
+        Helpers.populateComboWithoutAll(assetList, jComboBox6);
     }
 
     /** This method is called from within the constructor to
@@ -223,7 +223,7 @@ public class SubCurrencyDetailDialog extends javax.swing.JDialog {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
-        Utility.setMinTransfer(jTextField1.getText());
+        Helpers.setMinTransfer(jTextField1.getText());
 
         String assetID = "ALL";
 
@@ -234,9 +234,9 @@ public class SubCurrencyDetailDialog extends javax.swing.JDialog {
             assetID = ((String[]) assetList.get((Integer) jComboBox6.getSelectedIndex()))[1];
         }
 
-        Utility.addBasketExistingAssets(assetID);
+        Helpers.addBasketExistingAssets(assetID);
 
-        Utility.setSubCurrency(assetID);
+        Helpers.setSubCurrency(assetID);
 
         this.dispose();
 
@@ -244,7 +244,7 @@ public class SubCurrencyDetailDialog extends javax.swing.JDialog {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        Utility.setCancelBasket(true);
+        Helpers.setCancelBasket(true);
         this.dispose();
 
     }//GEN-LAST:event_jButton3ActionPerformed

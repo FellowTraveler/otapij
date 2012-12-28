@@ -91,11 +91,6 @@ AK+ZirdWhhoHeWR1tAkN
 
 package com.moneychanger.ui.test;
 
-import com.moneychanger.core.util.Utility;
-import com.moneychanger.ui.dialogs.OTPasswordDialog;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 
 public class Testing {
 public static void main(String a[]){

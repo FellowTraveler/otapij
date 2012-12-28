@@ -101,15 +101,9 @@ AK+ZirdWhhoHeWR1tAkN
 package com.moneychanger.ui.dialogs;
 
 import com.moneychanger.core.datastore.StorageHelper;
-import org.opentransactions.jni.core.BitcoinServer;
-import org.opentransactions.jni.core.Storage;
-import org.opentransactions.jni.core.StoredObjectType;
-import org.opentransactions.jni.core.WalletData;
-import org.opentransactions.jni.core.otapi;
-import com.moneychanger.core.util.Utility;
 import com.moneychanger.ui.MainPage;
-import java.util.HashMap;
 import javax.swing.JOptionPane;
+import org.opentransactions.otjavalib.util.Utility;
 
 public class BTCServerAdditionDialog extends javax.swing.JDialog {
 
@@ -144,7 +138,7 @@ public class BTCServerAdditionDialog extends javax.swing.JDialog {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(BTCServerAdditionDialog.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.Moneychanger.class).getContext().getResourceMap(BTCServerAdditionDialog.class);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
         setName("Form"); // NOI18N
 

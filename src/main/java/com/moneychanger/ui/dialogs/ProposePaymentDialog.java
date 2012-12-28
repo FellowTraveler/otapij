@@ -96,7 +96,7 @@ AK+ZirdWhhoHeWR1tAkN
 package com.moneychanger.ui.dialogs;
 
 import com.moneychanger.core.Payments;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import com.moneychanger.ui.custom.DateField;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -545,7 +545,7 @@ public class ProposePaymentDialog extends javax.swing.JDialog {
                 serverID = ((String[]) serverMap.get((Integer) jComboBox2.getSelectedIndex()-1))[1];
             }
         acctMap = Payments.getAccountList(serverID, nymID);
-        Utility.populateCombo(acctMap, jComboBox1);
+        Helpers.populateCombo(acctMap, jComboBox1);
     }//GEN-LAST:event_jComboBox2ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -679,7 +679,7 @@ public class ProposePaymentDialog extends javax.swing.JDialog {
         jButton7.setVisible(false);
 
         serverMap = Payments.getServerList(nymID);
-        Utility.populateCombo(serverMap, jComboBox2);
+        Helpers.populateCombo(serverMap, jComboBox2);
 
         jTextField1.setText(nymID);
         //jTextArea1.setLineWrap(true);

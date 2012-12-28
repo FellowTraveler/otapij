@@ -101,7 +101,7 @@ AK+ZirdWhhoHeWR1tAkN
 package com.moneychanger.ui.dialogs;
 
 import com.moneychanger.core.OpenTransactionAccount;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import java.util.Map;
 
 /**
@@ -146,7 +146,7 @@ public class ExchangeBasketAcctDialog extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setName("Form"); // NOI18N
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(ExchangeBasketAcctDialog.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.Moneychanger.class).getContext().getResourceMap(ExchangeBasketAcctDialog.class);
         jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
         jLabel1.setName("jLabel1"); // NOI18N
 
@@ -203,12 +203,12 @@ public class ExchangeBasketAcctDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Utility.setBasketXAcct(((String[]) accountMap.get((Integer) jComboBox1.getSelectedIndex()))[1]);
+        Helpers.setBasketXAcct(((String[]) accountMap.get((Integer) jComboBox1.getSelectedIndex()))[1]);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        Utility.setBasketXCancelled(true);
+        Helpers.setBasketXCancelled(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -240,6 +240,6 @@ public class ExchangeBasketAcctDialog extends javax.swing.JDialog {
 
         OpenTransactionAccount otAccount = new OpenTransactionAccount();
         accountMap = otAccount.getAccounts(assetID, nymID, serverID);
-        Utility.populateComboWithoutAll(accountMap, jComboBox1);
+        Helpers.populateComboWithoutAll(accountMap, jComboBox1);
     }
 }

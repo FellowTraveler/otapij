@@ -92,7 +92,7 @@ package com.moneychanger.ui.dialogs;
 
 import com.moneychanger.core.dataobjects.ContactDetails;
 import com.moneychanger.core.datastore.AddressBookHelper;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import com.moneychanger.ui.model.ContactDetailsTableModel;
 import com.moneychanger.ui.model.ContactNymTableModel;
 import com.moneychanger.ui.model.ContactTableModel;
@@ -172,7 +172,7 @@ public class AddressBookDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(AddressBookDialog.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.Moneychanger.class).getContext().getResourceMap(AddressBookDialog.class);
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel1.border.title"))); // NOI18N
         jPanel1.setName("jPanel1"); // NOI18N
 

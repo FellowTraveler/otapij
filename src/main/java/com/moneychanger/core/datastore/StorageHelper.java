@@ -90,28 +90,24 @@ AK+ZirdWhhoHeWR1tAkN
 
 package com.moneychanger.core.datastore;
 
-import org.opentransactions.jni.core.AddressBook;
+
+import com.moneychanger.core.util.Helpers;
+import java.util.HashMap;
+import java.util.Map;
 import org.opentransactions.jni.core.BitcoinAcct;
 import org.opentransactions.jni.core.BitcoinServer;
-import org.opentransactions.jni.core.Contact;
-import org.opentransactions.jni.core.ContactAcct;
-import org.opentransactions.jni.core.ContactNym;
 import org.opentransactions.jni.core.RippleServer;
-import org.opentransactions.jni.core.ServerInfo;
 import org.opentransactions.jni.core.Storable;
 import org.opentransactions.jni.core.StoredObjectType;
 import org.opentransactions.jni.core.WalletData;
 import org.opentransactions.jni.core.otapi;
-import com.moneychanger.core.util.Utility;
-import java.util.HashMap;
-import java.util.Map;
 
 public class StorageHelper {
 
     //Other Tab
     public static String addBitcoinServer(String label, String host, String user, String pwd, String port) {
-        String serverID = Utility.generateID();
-        WalletData walletData = Utility.getWalletData();
+        String serverID = Helpers.generateID();
+        WalletData walletData = Helpers.getWalletData();
 
         if (walletData == null) {
             System.out.println("addBitcoinServer - walletData returns null");
@@ -141,8 +137,8 @@ public class StorageHelper {
     //Ripple,Loom
 
     public static String addRippleServer(String label, String url, String user, String pwd, String userTextID, String pwdTextID) {
-        String serverID = Utility.generateID();
-        WalletData walletData = Utility.getWalletData();
+        String serverID = Helpers.generateID();
+        WalletData walletData = Helpers.getWalletData();
 
         if (walletData == null) {
             System.out.println("addRippleServer - walletData returns null");
@@ -173,7 +169,7 @@ public class StorageHelper {
 
     public static Map getOtherTabServerList(String type) {
 
-        WalletData walletData = Utility.getWalletData();
+        WalletData walletData = Helpers.getWalletData();
         HashMap dataMap = new HashMap();
 
         if (walletData == null) {
@@ -234,7 +230,7 @@ public class StorageHelper {
     public static boolean editOtherTabServerLabel(String serverID, String newLabel, String type) {
 
         boolean status = false;
-        WalletData walletData = Utility.getWalletData();
+        WalletData walletData = Helpers.getWalletData();
         if (walletData == null) {
             System.out.println("editOtherTabServerLabel - walletData returns null");
             return false;
@@ -273,7 +269,7 @@ public class StorageHelper {
     public static boolean removeOtherTabServer(String serverID, String type) {
 
         boolean status = false;
-        WalletData walletData = Utility.getWalletData();
+        WalletData walletData = Helpers.getWalletData();
         if (walletData == null) {
             System.out.println("removeOtherTabServer - walletData returns null");
             return false;
@@ -309,7 +305,7 @@ public class StorageHelper {
                     if (serverID.equals(btcAcct.getServer_id())) {
                         walletData.RemoveBitcoinAcct(j);
                         if (otapi.StoreObject(walletData, "moneychanger", "gui_wallet.dat")) {
-                            walletData = Utility.getWalletData();
+                            walletData = Helpers.getWalletData();
                             if (walletData == null) {
                                 System.out.println("removeOtherTabServer After RemoveBitcoinAcct - walletData returns null");
                                 return false;

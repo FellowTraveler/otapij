@@ -90,10 +90,10 @@ AK+ZirdWhhoHeWR1tAkN
 
 package com.moneychanger.core;
 
+import com.moneychanger.core.util.Configuration;
+import com.moneychanger.core.util.Helpers;
 import org.opentransactions.jni.core.RippleServer;
 import org.opentransactions.jni.core.WalletData;
-import com.moneychanger.core.util.Configuration;
-import com.moneychanger.core.util.Utility;
 
 /**
  *
@@ -134,7 +134,7 @@ public class RippleAccount extends Account {
     public String[] loadServerDetails(String serverID){
 
         String[] details = null;
-        WalletData walletData = Utility.getWalletData();
+        WalletData walletData = Helpers.getWalletData();
         if (walletData == null) {
             System.out.println("loadServerDetails - walletData returns null");
             return null;

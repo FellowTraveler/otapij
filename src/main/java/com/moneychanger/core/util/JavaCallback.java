@@ -68,7 +68,7 @@ Hash: SHA256
  *   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
  *   PURPOSE.  See the GNU General Public License for more
  *   details.
- 
+
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.11 (Darwin)
 
@@ -87,77 +87,59 @@ AK+ZirdWhhoHeWR1tAkN
 =RcXP
 -----END PGP SIGNATURE-----
  **************************************************************/
-
 package com.moneychanger.core.util;
 
 import com.moneychanger.ui.dialogs.OTPasswordDialog;
 import com.moneychanger.ui.dialogs.OTPwdConfirmDialog;
+import java.awt.Dialog;
+import javax.swing.JDialog;
 import org.opentransactions.jni.core.OTCallback;
 import org.opentransactions.jni.core.OTPassword;
+import org.opentransactions.otjavalib.util.Utility;
 
 
 public class JavaCallback extends OTCallback {
-    
+
     public JavaCallback() {
         super();
     }
 
-    public void runOne(String strDisplay, OTPassword theOutput) {
-        if (null == theOutput)
-        {
+    @Override
+    public void runOne(String szDisplay, OTPassword theOutput) {
+        if (null == theOutput) {
             System.out.println("JavaCallback.runOne: Failure: theOutput variable (for password to be returned) is null!");
             return;
         }
-        if (!Utility.VerifyStringVal(strDisplay))
-        {
+        if (!Utility.VerifyStringVal(szDisplay)) {
             System.out.println("JavaCallback.runOne: Failure: strDisplay string (telling you what password to type) is null!");
             return;
         }
-        new OTPasswordDialog(null, true, strDisplay).setVisible(true);
+        
+        JDialog j = new OTPasswordDialog(null, true, szDisplay);
+        j.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+        j.setAlwaysOnTop(true);
+        j.setVisible(true);
+        
+
         OTPasswordDialog.getPassword(theOutput);
     }
 
-    public void runTwo(String strDisplay, OTPassword theOutput) {
-	if (null == theOutput)
-	{
+    @Override
+    public void runTwo(String szDisplay, OTPassword theOutput) {
+        if (null == theOutput) {
             System.out.println("JavaCallback.runTwo: Failure: theOutput variable (for password to be returned) is null!");
             return;
-	}
-        if (!Utility.VerifyStringVal(strDisplay))
-        {
+        }
+        if (!Utility.VerifyStringVal(szDisplay)) {
             System.out.println("JavaCallback.runOne: Failure: strDisplay string (telling you what password to type) is null!");
             return;
         }
-        new OTPwdConfirmDialog(null, true, strDisplay).setVisible(true);
+
+        JDialog j = new OTPwdConfirmDialog(null, true, szDisplay);
+        j.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+        j.setAlwaysOnTop(true);
+        j.setVisible(true);
+        
         OTPwdConfirmDialog.getPassword(theOutput);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

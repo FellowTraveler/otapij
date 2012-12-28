@@ -97,14 +97,13 @@ package com.moneychanger.ui.dialogs;
 
 import com.moneychanger.core.Basket;
 import com.moneychanger.core.NYM;
-import org.opentransactions.jni.core.otapi;
-import org.opentransactions.jni.core.otapiJNI;
 import com.moneychanger.core.util.OTAPI_Func;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import com.moneychanger.ui.MainPage;
-import com.moneychanger.ui.model.BasketTableModel;
 import java.util.Map;
 import javax.swing.JOptionPane;
+import org.opentransactions.jni.core.otapiJNI;
+import org.opentransactions.otjavalib.util.Utility;
 
 /**
  *
@@ -280,7 +279,7 @@ public class AddBasketDialog extends javax.swing.JDialog {
         System.out.println("basketID:" + basket);
 
 
-        if (Basket.getAssetList(serverID,nymID, Utility.getBasketExistingAssets()).size() < nbrSubCurrency) {
+        if (Basket.getAssetList(serverID,nymID, Helpers.getBasketExistingAssets()).size() < nbrSubCurrency) {
             JOptionPane.showMessageDialog(null, "Sorry, you do not have enough assets as number of sub currencies", "Sub currency Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -288,16 +287,16 @@ public class AddBasketDialog extends javax.swing.JDialog {
         for (int i = 0; i < nbrSubCurrency; i++) {
               System.out.println("Start");
             new SubCurrencyDetailDialog(null, true, serverID, nymID).setVisible(true);
-            if (Utility.getCancelBasket()) {
+            if (Helpers.getCancelBasket()) {
                 break;
             }
 
-            basket = otapiJNI.OTAPI_Basic_AddBasketCreationItem(nymID, basket, Utility.getSubCurrency(), Utility.getMinTransfer());
+            basket = otapiJNI.OTAPI_Basic_AddBasketCreationItem(nymID, basket, Helpers.getSubCurrency(), Helpers.getMinTransfer());
                           System.out.println("End");
 
         }
-        Utility.clearBasketExistingAssets();
-        if (!Utility.getCancelBasket()) {
+        Helpers.clearBasketExistingAssets();
+        if (!Helpers.getCancelBasket()) {
 
             OTAPI_Func theRequest = new OTAPI_Func(OTAPI_Func.FT.ISSUE_BASKET, serverID, nymID, basket);
 
@@ -321,7 +320,7 @@ public class AddBasketDialog extends javax.swing.JDialog {
 
         } else {
             JOptionPane.showMessageDialog(null, "Issue of basket cancelled", "Issue basket", JOptionPane.INFORMATION_MESSAGE);
-            Utility.setCancelBasket(false);
+            Helpers.setCancelBasket(false);
 
         }
 
@@ -353,7 +352,7 @@ public class AddBasketDialog extends javax.swing.JDialog {
         nymRegisteredMap = new NYM().loadRegisteredNYM(serverID);
         System.out.println("serverI22D:" + serverID);
 
-        Utility.populateComboWithoutAll(nymRegisteredMap, jComboBox6);
+        Helpers.populateComboWithoutAll(nymRegisteredMap, jComboBox6);
         System.out.println("server33ID:" + serverID);
 
     }

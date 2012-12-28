@@ -104,7 +104,7 @@ AK+ZirdWhhoHeWR1tAkN
 package com.moneychanger.ui.test;
 
 import org.opentransactions.jni.core.otapi;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import com.moneychanger.ui.panels.NameValuePanel;
 import java.awt.BorderLayout;
 import java.io.IOException;

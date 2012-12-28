@@ -101,7 +101,7 @@ package com.moneychanger.ui.dialogs;
 
 import com.moneychanger.core.NYM;
 import com.moneychanger.core.OpenTransactionAccount;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import com.moneychanger.ui.custom.DateField;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -169,7 +169,7 @@ public class OTWriteCheque extends javax.swing.JDialog {
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(OTWriteCheque.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.Moneychanger.class).getContext().getResourceMap(OTWriteCheque.class);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
         setName("Form"); // NOI18N
 
@@ -416,7 +416,7 @@ public class OTWriteCheque extends javax.swing.JDialog {
         jTextArea1.setLineWrap(true);
 
         nymMap = new NYM().loadNYM();
-        Utility.populateCombo(nymMap, jComboBox1);
+        Helpers.populateCombo(nymMap, jComboBox1);
         /*jPanel1.setLayout(new FlowLayout());
         jPanel1.add(calendarpanel);
         jPanel1.repaint();

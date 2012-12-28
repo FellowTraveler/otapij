@@ -102,11 +102,10 @@ AK+ZirdWhhoHeWR1tAkN
 package com.moneychanger.ui.dialogs;
 
 
-import org.opentransactions.jni.core.OTPassword;
-import com.moneychanger.core.util.Utility;
-import org.opentransactions.jni.core.OTPassword;
+import com.moneychanger.core.util.Helpers;
 
 import javax.swing.JOptionPane;
+import org.opentransactions.jni.core.OTPassword;
 
 /**
  *

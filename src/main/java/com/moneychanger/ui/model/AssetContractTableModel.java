@@ -134,7 +134,7 @@ public class AssetContractTableModel   extends AbstractTableModel implements Wra
         }
 
         public int getRowCount() {
-             if(data==null)
+             if(null == data)
                 return 0;
             return data.length;
         }
@@ -144,7 +144,7 @@ public class AssetContractTableModel   extends AbstractTableModel implements Wra
         }
 
         public Object getValueAt(int row, int col) {
-             if(data==null)
+             if(null == data)
                 return null;
             return data[row][col];
         }

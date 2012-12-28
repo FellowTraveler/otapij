@@ -104,7 +104,7 @@ AK+ZirdWhhoHeWR1tAkN
 package com.moneychanger.ui.dialogs;
 
 import com.moneychanger.core.OpenTransactionAccount;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import com.moneychanger.ui.MainPage;
 import com.moneychanger.ui.custom.ClipboardClass;
 import java.awt.Cursor;
@@ -155,7 +155,7 @@ public class DepositCashDialog extends javax.swing.JDialog {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(DepositCashDialog.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.Moneychanger.class).getContext().getResourceMap(DepositCashDialog.class);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
         setName("Form"); // NOI18N
 
@@ -243,12 +243,12 @@ public class DepositCashDialog extends javax.swing.JDialog {
              */
             if(success){
                 JOptionPane.showMessageDialog(this, "Cash deposited successfully","Success",JOptionPane.INFORMATION_MESSAGE);
-                Utility.reloadOTDetails(accountID);
+                Helpers.reloadOTDetails(accountID);
                 MainPage.reLoadAccount();
             }
             else{
-                if(Utility.getOtDepositCash()!=null){
-                    new CashPurseExportDetails(null, true,(String)Utility.getOtDepositCash(),false).setVisible(true);
+                if(Helpers.getOtDepositCash()!=null){
+                    new CashPurseExportDetails(null, true,(String)Helpers.getOtDepositCash(),false).setVisible(true);
                 }else
                 JOptionPane.showMessageDialog(this, "Error in cash deposit","Error",JOptionPane.ERROR_MESSAGE);
             }

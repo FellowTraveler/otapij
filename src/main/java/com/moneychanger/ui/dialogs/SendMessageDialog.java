@@ -105,7 +105,7 @@ package com.moneychanger.ui.dialogs;
 
 import com.moneychanger.core.Contract;
 import com.moneychanger.core.NYM;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import com.moneychanger.ui.MainPage;
 import com.moneychanger.ui.model.NYMOutboxTableModel;
 import java.awt.Color;
@@ -162,7 +162,7 @@ public class SendMessageDialog extends javax.swing.JDialog {
         jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(SendMessageDialog.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.Moneychanger.class).getContext().getResourceMap(SendMessageDialog.class);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
         setName("Form"); // NOI18N
 
@@ -435,9 +435,9 @@ public class SendMessageDialog extends javax.swing.JDialog {
 
     private void initValues() {
         nymMap = new NYM().loadNYM();
-        Utility.populateCombo(nymMap, jComboBox2);
+        Helpers.populateCombo(nymMap, jComboBox2);
         serverMap = new Contract().loadServerContract();
-        Utility.populateCombo(serverMap, jComboBox1);
+        Helpers.populateCombo(serverMap, jComboBox1);
     }
 
 }

@@ -129,7 +129,7 @@ public class NYMBoxTableModel extends AbstractTableModel implements WrapperTable
         }
 
         public int getRowCount() {
-             if(data==null)
+             if(null == data)
                 return 0;
             return data.length;
         }
@@ -139,7 +139,7 @@ public class NYMBoxTableModel extends AbstractTableModel implements WrapperTable
         }
         
 public Object getValueAt(int row, int col) {
-             if(data==null)
+             if(null == data)
                 return null;
             if(col>=columnNames.length || col<0 || row<0)
                 return null;

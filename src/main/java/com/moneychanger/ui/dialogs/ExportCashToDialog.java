@@ -106,7 +106,7 @@ package com.moneychanger.ui.dialogs;
 import com.moneychanger.core.CashPurseAccount;
 import com.moneychanger.core.NYM;
 import com.moneychanger.core.dataobjects.CashPurseDetails;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import com.moneychanger.ui.MainPage;
 import com.moneychanger.ui.panels.CashPurseAccountBottomPanel;
 import com.moneychanger.ui.panels.CashPurseAccountTopPanel;
@@ -135,7 +135,7 @@ public class ExportCashToDialog extends javax.swing.JDialog {
         selectedIndices = selectedIndices1;
         nymMap = new NYM().loadNYM();
         this.setLocationRelativeTo(null);
-        Utility.populateCombo(nymMap, jComboBox2);
+        Helpers.populateCombo(nymMap, jComboBox2);
     }
 
     /** This method is called from within the constructor to
@@ -155,7 +155,7 @@ public class ExportCashToDialog extends javax.swing.JDialog {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(ExportCashToDialog.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.Moneychanger.class).getContext().getResourceMap(ExportCashToDialog.class);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
         setAlwaysOnTop(true);
         setName("Form"); // NOI18N
@@ -258,7 +258,7 @@ public class ExportCashToDialog extends javax.swing.JDialog {
                 
                 //((CashPurseTableModel) jTable5.getModel()).setValue(cashPurseAccount.refreshGridData(details.getServerID(), details.getAssetID(), details.getNymID()), jTable5);
             }
-            if(Utility.getObj()!=null){
+            if(Helpers.getObj()!=null){
                 new CashPurseExportDetails(null, true,purse,false).setVisible(true);
                 dispose();
             }else{

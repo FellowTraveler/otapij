@@ -7,6 +7,7 @@ package com.moneychanger.core.util;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.prefs.Preferences;
+import org.opentransactions.otjavalib.util.Utility;
 
 /**
  *
