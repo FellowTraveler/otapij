@@ -1,5 +1,5 @@
-00.10.08 --- (experimental)
+00.12.00 --- (experimental)
 
-Requires (minimum) OT version 0.87.h
+Recommend OT version 0.88.e
 
 
