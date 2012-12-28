@@ -103,7 +103,7 @@ package com.moneychanger.ui.dialogs;
 
 import com.moneychanger.core.Contract;
 import com.moneychanger.core.NYM;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import com.moneychanger.ui.MainPage;
 import java.awt.Cursor;
 import java.util.Map;
@@ -143,7 +143,7 @@ public class DeleteNYMDialog extends javax.swing.JDialog {
 
         jComboBox1.setName("jComboBox1"); // NOI18N
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(DeleteNYMDialog.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.Moneychanger.class).getContext().getResourceMap(DeleteNYMDialog.class);
         jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
         jButton1.setName("jButton1"); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -236,7 +236,7 @@ public class DeleteNYMDialog extends javax.swing.JDialog {
 
         private void initValues() {
         serverMap = new NYM().registeredServers(nymID);
-        Utility.populateComboWithoutAll(serverMap, jComboBox1);
+        Helpers.populateComboWithoutAll(serverMap, jComboBox1);
     }
 
 }

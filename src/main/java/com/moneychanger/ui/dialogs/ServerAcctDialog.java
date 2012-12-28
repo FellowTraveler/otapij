@@ -94,14 +94,14 @@ AK+ZirdWhhoHeWR1tAkN
  */
 package com.moneychanger.ui.dialogs;
 
-import com.moneychanger.core.Contract;
 import com.moneychanger.core.Payments;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import java.awt.Color;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.util.Map;
 import javax.swing.JOptionPane;
+import org.opentransactions.otjavalib.util.Utility;
 
 /**
  *
@@ -272,7 +272,7 @@ public class ServerAcctDialog extends javax.swing.JDialog {
       
             jTextField1.setText(((String[]) serverMap.get((Integer) jComboBox2.getSelectedIndex() - 1))[1]);
             acctMap = Payments.getAccountList(jTextField1.getText(),nymID);
-            Utility.populateCombo(acctMap, jComboBox1);
+            Helpers.populateCombo(acctMap, jComboBox1);
         
 
 
@@ -289,7 +289,7 @@ public class ServerAcctDialog extends javax.swing.JDialog {
                 tempString = (String) clipboardContent.getTransferData(DataFlavor.stringFlavor);
                 jTextField1.setText(tempString);
                 acctMap = Payments.getAccountList(jTextField1.getText(),nymID);
-                Utility.populateCombo(acctMap, jComboBox1);
+                Helpers.populateCombo(acctMap, jComboBox1);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -371,7 +371,7 @@ public class ServerAcctDialog extends javax.swing.JDialog {
     private void initValues() {
 
         serverMap = Payments.getServerList(nymID);
-        Utility.populateCombo(serverMap, jComboBox2);
+        Helpers.populateCombo(serverMap, jComboBox2);
 
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

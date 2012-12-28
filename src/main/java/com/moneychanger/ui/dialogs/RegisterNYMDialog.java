@@ -97,7 +97,7 @@ package com.moneychanger.ui.dialogs;
 
 import com.moneychanger.core.Contract;
 import com.moneychanger.core.NYM;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import com.moneychanger.ui.MainPage;
 import java.awt.Cursor;
 import java.util.Map;
@@ -235,7 +235,7 @@ public class RegisterNYMDialog extends javax.swing.JDialog {
 
     private void initValues() {
         serverMap = new Contract().loadServerContract();
-        Utility.populateComboWithoutAll(serverMap, jComboBox1);
+        Helpers.populateComboWithoutAll(serverMap, jComboBox1);
     }
 
     public String getPaymentServerID() {

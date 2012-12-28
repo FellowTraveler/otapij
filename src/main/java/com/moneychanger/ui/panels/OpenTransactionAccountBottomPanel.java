@@ -102,7 +102,7 @@ package com.moneychanger.ui.panels;
 
 import com.moneychanger.core.OpenTransactionAccount;
 import com.moneychanger.core.dataobjects.OTDetails;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import com.moneychanger.ui.MainPage;
 import com.moneychanger.ui.dialogs.OTNotes;
 import com.moneychanger.ui.model.OTInboxTableModel;
@@ -117,6 +117,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 import org.jdesktop.application.Action;
+import org.opentransactions.otjavalib.util.Utility;
 
 /**
  *
@@ -516,9 +517,9 @@ public class OpenTransactionAccountBottomPanel extends javax.swing.JPanel {
             boolean success = openTransaction.processInbox(accountID, selectedIndices);
             if (success) {
                 JOptionPane.showMessageDialog(this, "Inbox processed successfully", "Processing Success", JOptionPane.INFORMATION_MESSAGE);
-                Utility.reloadOTDetails(accountID);
+                Helpers.reloadOTDetails(accountID);
                 MainPage.reLoadAccount();
-                Utility.setLoadNymTrades(true);
+                Helpers.setLoadNymTrades(true);
             } else {
                 JOptionPane.showMessageDialog(this, "Error in processing Inbox", "Server Error", JOptionPane.ERROR_MESSAGE);
             }

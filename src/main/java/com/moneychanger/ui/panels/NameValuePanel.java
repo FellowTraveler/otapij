@@ -103,7 +103,7 @@ AK+ZirdWhhoHeWR1tAkN
 package com.moneychanger.ui.panels;
 
 import com.moneychanger.core.NYM;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import java.awt.Color;
 import java.util.Map;
 
@@ -249,6 +249,6 @@ public class NameValuePanel extends javax.swing.JPanel {
 
     private void initValues() {
         nymMap = new NYM().loadNYM();
-        Utility.populateCombo(nymMap, jComboBox_PasteID);
+        Helpers.populateCombo(nymMap, jComboBox_PasteID);
     }
 }

@@ -105,7 +105,7 @@ package com.moneychanger.ui.dialogs;
 
 import com.moneychanger.core.Contract;
 import com.moneychanger.core.NYM;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import com.moneychanger.ui.MainPage;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -156,7 +156,7 @@ public class IssueAssetContractDialog extends javax.swing.JDialog {
         jComboBox2 = new com.moneychanger.ui.custom.SteppedComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(IssueAssetContractDialog.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.Moneychanger.class).getContext().getResourceMap(IssueAssetContractDialog.class);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
         setName("Form"); // NOI18N
 
@@ -329,9 +329,9 @@ public class IssueAssetContractDialog extends javax.swing.JDialog {
     private void initValues() {
         Contract contract = new Contract();
         serverMap = contract.loadServerContract();
-        Utility.populateCombo(serverMap, jComboBox2);
+        Helpers.populateCombo(serverMap, jComboBox2);
         nymMap = new NYM().loadNYM();
-        Utility.populateCombo(nymMap, jComboBox1);
+        Helpers.populateCombo(nymMap, jComboBox1);
     }
 
 }

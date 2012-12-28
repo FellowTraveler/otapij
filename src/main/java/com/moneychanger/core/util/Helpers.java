@@ -94,29 +94,10 @@ AK+ZirdWhhoHeWR1tAkN
  */
 package com.moneychanger.core.util;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import com.moneychanger.core.Account;
 import com.moneychanger.core.OpenTransactionAccount;
 import com.moneychanger.core.dataobjects.OTDetails;
-import org.opentransactions.jni.core.AddressBook;
-import org.opentransactions.jni.core.MarketList;
-import org.opentransactions.jni.core.OTCallback;
-import org.opentransactions.jni.core.OTCaller;
-import org.opentransactions.jni.core.OfferListMarket;
-import org.opentransactions.jni.core.OfferListNym;
-import org.opentransactions.jni.core.Storable;
-import org.opentransactions.jni.core.StoredObjectType;
-import org.opentransactions.jni.core.StringMap;
-import org.opentransactions.jni.core.TradeListMarket;
-import org.opentransactions.jni.core.TradeListNym;
-import org.opentransactions.jni.core.WalletData;
-import org.opentransactions.jni.core.otapi;
-import org.opentransactions.jni.core.otapiJNI;
-import com.moneychanger.ui.Load;
-import com.moneychanger.ui.LoadState;
-import com.moneychanger.ui.LoadState.Stages;
 import com.moneychanger.ui.MainPage;
 import com.moneychanger.ui.model.AccountTableModel;
 import com.moneychanger.ui.panels.OpenTransactionAccountBottomPanel;
@@ -129,14 +110,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Field;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -147,77 +124,31 @@ import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.LookAndFeel;
+import org.opentransactions.jni.core.AddressBook;
+import org.opentransactions.jni.core.MarketList;
+import org.opentransactions.jni.core.OfferListMarket;
+import org.opentransactions.jni.core.OfferListNym;
+import org.opentransactions.jni.core.Storable;
+import org.opentransactions.jni.core.StoredObjectType;
+import org.opentransactions.jni.core.TradeListMarket;
+import org.opentransactions.jni.core.TradeListNym;
+import org.opentransactions.jni.core.WalletData;
+import org.opentransactions.jni.core.otapi;
+import org.opentransactions.jni.core.otapiJNI;
+import org.opentransactions.otjavalib.util.Utility;
+import org.opentransactions.otjavalib.util.Utility.OTBool;
+import org.opentransactions.otjavalib.util.Utility.OTInteger;
 
 /**
  *
  * @author Vicky C and Cameron
  */
-public class Utility {
+public class Helpers {
 
-    public static class OTBool {
-
-        private boolean value = false;
-        private boolean value2 = false;
-        // ----------------------------
-
-        public OTBool(boolean value) {
-            this.value = value;
-        }
-        // ----------------------------
-
-        public boolean getBooleanValue() {
-            return value;
-        }
-        // ----------------------------
-
-        public void setBooleanValue(boolean value) {
-            this.value = value;
-        }
-        // ----------------------------
-
-        public boolean getSecondValue() {
-            return value2;
-        }
-        // ----------------------------
-
-        public void setSecondValue(boolean value) {
-            this.value2 = value;
-        }
-    }
-
-// ------------------------------------
-    public static class OTInteger {
-
-        private int value = 0;
-        // ----------------------------
-
-        public OTInteger(int value) {
-            this.value = value;
-        }
-        // ----------------------------
-
-        public int getIntegerValue() {
-            return value;
-        }
-        // ----------------------------
-
-        public void setIntegerValue(int value) {
-            this.value = value;
-        }
-    }
 // ------------------------------------
     private static Object settingsObj;
     private static String m_nymID, lastReplyReceived;
     private static List basketExistingAssets = new ArrayList();
-
-    public static boolean VerifyStringVal(String strValue) {
-        if ((null == strValue) || strValue.isEmpty())
-        {
-            return false;
-        }
-        
-        return true;
-    }
     
     public static List getBasketExistingAssets() {
         return basketExistingAssets;
@@ -232,15 +163,15 @@ public class Utility {
     }
 
     public static void addBasketExistingAssets(String assetID) {
-        Utility.basketExistingAssets.add(assetID);
+        Helpers.basketExistingAssets.add(assetID);
     }
 
     public static void clearBasketExistingAssets() {
-        Utility.basketExistingAssets.clear();
+        Helpers.basketExistingAssets.clear();
     }
 
     public static void setBasketExistingAssets(List basketExistingAssets) {
-        Utility.basketExistingAssets = basketExistingAssets;
+        Helpers.basketExistingAssets = basketExistingAssets;
     }
 
     public static String getMinTransfer() {
@@ -248,7 +179,7 @@ public class Utility {
     }
 
     public static void setMinTransfer(String minTransfer) {
-        Utility.minTransfer = minTransfer;
+        Helpers.minTransfer = minTransfer;
     }
 
     public static String getSubCurrency() {
@@ -256,7 +187,7 @@ public class Utility {
     }
 
     public static void setSubCurrency(String subCurrency) {
-        Utility.subCurrency = subCurrency;
+        Helpers.subCurrency = subCurrency;
     }
 
     public static boolean getCancelBasket() {
@@ -264,7 +195,7 @@ public class Utility {
     }
 
     public static void setCancelBasket(boolean cancelBasket) {
-        Utility.cancelBasket = cancelBasket;
+        Helpers.cancelBasket = cancelBasket;
     }
     private static String minTransfer;
     private static String subCurrency;
@@ -275,7 +206,7 @@ public class Utility {
     }
 
     public static void setNymID(String nymID) {
-        Utility.m_nymID = nymID;
+        Helpers.m_nymID = nymID;
     }
 
     public static Object getSettingsObj() {
@@ -283,62 +214,18 @@ public class Utility {
     }
 
     public static void setSettingsObj(Object settingsObj) {
-        Utility.settingsObj = settingsObj;
+        Helpers.settingsObj = settingsObj;
     }
     private static String dataFolder;
 
     public static String getDataFolder() {
-        return Utility.dataFolder;
+        return Helpers.dataFolder;
     }
 
     public static void setDataFolder(String dataFolder) {
-        Utility.dataFolder = dataFolder;
+        Helpers.dataFolder = dataFolder;
     }
 
-    // <editor-fold defaultstate="collapsed" desc="Add Directory To Runtime" >
-    public static void addDirToRuntime(String javaPaths) throws IOException {
-
-        try {
-            Field field = ClassLoader.class.getDeclaredField("usr_paths");
-            field.setAccessible(true);
-
-            List<String> pathList = new ArrayList<String>();
-            pathList.addAll(Arrays.asList((String[]) field.get(null)));
-            pathList.addAll(Arrays.asList(javaPaths.split(File.pathSeparator)));
-
-            Collection<String> pathSet = new HashSet<String>();
-            Iterator<String> listIterator = pathList.iterator();
-            String path;
-            while (listIterator.hasNext()) {
-                path = listIterator.next(); //.toLowerCase();
-                if (!path.equalsIgnoreCase(".")) {
-                    pathSet.add(path);
-                }
-            }
-
-            StringBuilder pathsString = new StringBuilder();
-            Iterator<String> setIterator = pathSet.iterator();
-            while (setIterator.hasNext()) {
-                String next = setIterator.next();
-                System.out.println("Path:  " + next);
-                pathsString.append(next);
-                if (setIterator.hasNext()) {
-                    pathsString.append(File.pathSeparator);
-                }
-            }
-
-            field.set(null, pathSet.toArray(new String[0]));
-            System.setProperty("java.library.path", pathsString.toString());
-            //System.out.println("Utility.addDirToRuntime: Setting java.library.path: " + pathsString.toString());
-
-        } catch (IllegalAccessException e) {
-            throw new IOException("Failed to get permissions to set library path");
-        } catch (NoSuchFieldException e) {
-            throw new IOException("Failed to get field handle to set library path");
-        }
-
-    }
-    // </editor-fold>
     public static Object obj;
 
     public static Object getObj() {
@@ -346,7 +233,7 @@ public class Utility {
     }
 
     public static void setObj(Object obj) {
-        Utility.obj = obj;
+        Helpers.obj = obj;
     }
 
     // OT Helpers
@@ -378,7 +265,7 @@ public class Utility {
     }
 
     public static void setBasketXCancelled(boolean basketXCancelled) {
-        Utility.basketXCancelled = basketXCancelled;
+        Helpers.basketXCancelled = basketXCancelled;
     }
 
     public static String getBasketXAcct() {
@@ -386,7 +273,7 @@ public class Utility {
     }
 
     public static void setBasketXAcct(String basketXAcct) {
-        Utility.basketXAcct = basketXAcct;
+        Helpers.basketXAcct = basketXAcct;
     }
     private static boolean loadNymTrades = false;
 
@@ -395,26 +282,9 @@ public class Utility {
     }
 
     public static void setLoadNymTrades(boolean loadNymTrades) {
-        Utility.loadNymTrades = loadNymTrades;
-    }
-    private static OTCallback g_theCallback = null;
-
-    public static OTCallback getG_theCallback() {
-        return g_theCallback;
+        Helpers.loadNymTrades = loadNymTrades;
     }
 
-    public static void setG_theCallback(OTCallback g_theCallback) {
-        Utility.g_theCallback = g_theCallback;
-    }
-    private static OTCaller g_theCaller;
-
-    public static OTCaller getG_theCaller() {
-        return g_theCaller;
-    }
-
-    public static void setG_theCaller(OTCaller g_theCaller) {
-        Utility.g_theCaller = g_theCaller;
-    }
     public static Object otDepositCash;
 
     public static Object getOtDepositCash() {
@@ -422,7 +292,7 @@ public class Utility {
     }
 
     public static void setOtDepositCash(Object otDepositCash) {
-        Utility.otDepositCash = otDepositCash;
+        Helpers.otDepositCash = otDepositCash;
     }
 
     // Get Helpers:
@@ -449,7 +319,7 @@ public class Utility {
     public static int getNymboxLowLevel(String serverID, String nymID) {
         OTBool bWasSent = new OTBool(false);
 
-        return Utility.getNymboxLowLevel(serverID, nymID, bWasSent);
+        return Helpers.getNymboxLowLevel(serverID, nymID, bWasSent);
     }
 
     // This returns -1 if error, or a positive request number if it was sent.
@@ -483,7 +353,7 @@ public class Utility {
         bWasSent.setBooleanValue(true);
         // ***************************************************
         //
-        final int nResult = Utility.receiveReplySuccessLowLevel(serverID, nymID, nRequestNum, "Utility.getNymboxLowLevel");
+        final int nResult = Helpers.receiveReplySuccessLowLevel(serverID, nymID, nRequestNum, "Utility.getNymboxLowLevel");
 //        System.out.println("IN Utility.getNymboxLowLevel " + Utility.getLastReplyReceived());
 
         // BY this point, we definitely have the request number in nResult, which means
@@ -538,20 +408,20 @@ public class Utility {
     //    OT_API_RemoveSentMessage(Integer.toString(nRequestNum));
     //
     public static int getNymbox(String serverID, String nymID) {
-        return Utility.getNymbox(serverID, nymID, false); // bForceDownload=false
+        return Helpers.getNymbox(serverID, nymID, false); // bForceDownload=false
     }
 
     public static int getNymbox(String serverID, String nymID, boolean bForceDownload) {
         //-------------------------------------------------                        
         final String strRecentHash = otapiJNI.OTAPI_Basic_GetNym_RecentHash(serverID, nymID);
-        final boolean bRecentHash = Utility.isValid(strRecentHash);
+        final boolean bRecentHash = Helpers.isValid(strRecentHash);
         if (!bRecentHash) {
             System.out.println("Utility.getNymbox(): Warning: Unable to retrieve recent cached copy of server-side "
                     + "NymboxHash from client-side nym (perhaps he's never downloaded it before?)\n\n");
         }
         //-------------------------------------------------                
         String strLocalHash = otapiJNI.OTAPI_Basic_GetNym_NymboxHash(serverID, nymID);
-        boolean bLocalHash = Utility.isValid(strLocalHash);
+        boolean bLocalHash = Helpers.isValid(strLocalHash);
         if (!bLocalHash) {
             System.out.println("Utility.getNymbox(): Warning: Unable to retrieve client-side NymboxHash "
                     + "for:\n serverID: " + serverID + "\n nymID: " + nymID);
@@ -572,7 +442,7 @@ public class Utility {
         //
         OTBool bWasMsgSent = new OTBool(false);
 
-        int nGetNymbox = Utility.getNymboxLowLevel(serverID, nymID, bWasMsgSent); // bWasMsgSent is output from this call.        
+        int nGetNymbox = Helpers.getNymboxLowLevel(serverID, nymID, bWasMsgSent); // bWasMsgSent is output from this call.        
 
         if (bWasMsgSent.getBooleanValue()) {
             System.out.println("Utility.getNymbox(): FYI: Utility.getNymboxLowLevel apparently SENT the request. nGetNymbox is: " + nGetNymbox);
@@ -588,7 +458,7 @@ public class Utility {
         {
             System.out.println("Utility.getNymbox(): FYI: Utility.getNymboxLowLevel returned -1. (Re-trying...)");
 
-            final int nGetRequest = Utility.getRequestNumber(serverID, nymID);
+            final int nGetRequest = Helpers.getRequestNumber(serverID, nymID);
 
             if (1 != nGetRequest) {
                 System.out.println("Utility.getNymbox(): Failure: Utility.getNymboxLowLevel failed, then I tried to resync with getRequestNumber and then that failed too. (I give up.)");
@@ -596,10 +466,10 @@ public class Utility {
             }
             // ---------------------------------
 
-            final String strLastReplyReceived = Utility.getLastReplyReceived();
+            final String strLastReplyReceived = Helpers.getLastReplyReceived();
             // I had to do this bit because getRequestNumber doesn't return the actual
             // reply itself. But in this case, I needed it.
-            if (!Utility.isValid(strLastReplyReceived)) // THIS SHOULD NEVER HAPPEN.
+            if (!Helpers.isValid(strLastReplyReceived)) // THIS SHOULD NEVER HAPPEN.
             {
                 System.out.println("Utility.getNymbox(): "
                         + "ERROR in Utility.getLastReplyReceived(): why was this string not set, when Utility.getRequestNumber was otherwise an apparent success?");
@@ -650,7 +520,7 @@ public class Utility {
             // Grabbing again in case it's changed.
             //
             final String strServerHash = otapiJNI.OTAPI_Basic_Message_GetNymboxHash(strLastReplyReceived);
-            final boolean bServerHash = Utility.isValid(strServerHash);
+            final boolean bServerHash = Helpers.isValid(strServerHash);
             if (!bServerHash) {
                 System.out.println("Utility.getNymbox(): Warning: Unable to retrieve server-side "
                         + "NymboxHash from server @getRequest reply:\n\n"
@@ -658,7 +528,7 @@ public class Utility {
             }
             //-------------------------------------------------                
             strLocalHash = otapiJNI.OTAPI_Basic_GetNym_NymboxHash(serverID, nymID);
-            bLocalHash = Utility.isValid(strLocalHash);
+            bLocalHash = Helpers.isValid(strLocalHash);
 
             if (!bLocalHash) {
                 System.out.println("Utility.getNymbox(2): Warning: Unable to retrieve client-side NymboxHash "
@@ -675,7 +545,7 @@ public class Utility {
                 // the getRequest worked, and the server hashes don't match,
                 // so let's try the call again...
                 //
-                nGetNymbox = Utility.getNymboxLowLevel(serverID, nymID, bWasMsgSent);
+                nGetNymbox = Helpers.getNymboxLowLevel(serverID, nymID, bWasMsgSent);
 
                 if ((false == bWasMsgSent.getBooleanValue())
                         || ((nGetNymbox <= 0) && ((-1) != nGetNymbox))) {
@@ -701,7 +571,7 @@ public class Utility {
 //  public static int receiveNymboxLowLevel(String serverID, String nymID, final int nRequestNum)
 //  public static int processNymboxLowLevel(String serverID, String nymID) {
     public static int getAndProcessNymbox(String serverID, String nymID, OTBool bWasMsgSent) {
-        return Utility.getAndProcessNymbox(serverID, nymID, bWasMsgSent, false); // bForceDownload=false
+        return Helpers.getAndProcessNymbox(serverID, nymID, bWasMsgSent, false); // bForceDownload=false
     }
 
     public static int getAndProcessNymbox(String serverID, String nymID, OTBool bWasMsgSent, boolean bForceDownload) {
@@ -709,7 +579,7 @@ public class Utility {
 
         OTBool bFoundNymboxItem = new OTBool(false); // bFoundNymboxItem is output bool, telling caller whether it was found.
 
-        return Utility.getAndProcessNymbox(serverID, nymID, bWasMsgSent, bForceDownload, nRequestNumber, bFoundNymboxItem,
+        return Helpers.getAndProcessNymbox(serverID, nymID, bWasMsgSent, bForceDownload, nRequestNumber, bFoundNymboxItem,
                 false, false, false, false, false);
     }
 
@@ -779,7 +649,7 @@ public class Utility {
         // built into it. That's why you don't see me re-trying the getNymbox if it
         // fails.
         //
-        int nGetNymbox = Utility.getNymbox(serverID, nymID, bForceDownload);
+        int nGetNymbox = Helpers.getNymbox(serverID, nymID, bForceDownload);
 
         if (nGetNymbox < 1) {
             System.out.println("Utility.getAndProcessNymbox(): Failure: Utility.getNymbox returned: " + nGetNymbox);
@@ -813,7 +683,7 @@ public class Utility {
 
         //-------------------------------------------------------------------------------
 
-        if (Utility.insureHaveAllBoxReceipts(serverID, nymID, nymID, 0, // nBoxType = 0 aka nymbox
+        if (Helpers.insureHaveAllBoxReceipts(serverID, nymID, nymID, 0, // nBoxType = 0 aka nymbox
                 nRequestNumber, bFoundNymboxItem)) // If the caller wanted to know whether a certain reply (by request number) was in the Nymbox, then bFoundNymboxItem
         {                                           // will be set true in this call, if it was there. That way he can Harvest his own msg if he needs to. (Just like I 
             // harvest my own processNymbox call below, if necessary.)
@@ -846,7 +716,7 @@ public class Utility {
 
                     final String strSentMsg = otapiJNI.OTAPI_Basic_GetSentMessage(Integer.toString(nRequestNumber), serverID, nymID);
 
-                    if (!Utility.isValid(strSentMsg)) {
+                    if (!Helpers.isValid(strSentMsg)) {
                         System.out.println("Utility.getAndProcessNymbox(): ERROR: (SHOULD NEVER HAPPEN 1) Expected OT_API_GetSentMessage to return the sent message (for clawback) but couldn't find it. (Expected it--I JUST supposedly sent it!) Request number: " + nRequestNumber);
                     } else // OT_API_GetSentMessage success.
                     {
@@ -895,7 +765,7 @@ public class Utility {
             String strNymbox = otapiJNI.OTAPI_Basic_LoadNymboxNoVerify(serverID, nymID);      // FLUSH SENT MESSAGES!!!!  (AND HARVEST.)
 
             // *******************************************************
-            if (Utility.isValid(strNymbox)) // ---------------------------
+            if (Helpers.isValid(strNymbox)) // ---------------------------
             {
                 otapiJNI.OTAPI_Basic_FlushSentMessages(false, //harvesting for retry == false. None of the things are being re-tried by the time they are being flushed.  They were already old news.
                         serverID,
@@ -931,7 +801,7 @@ public class Utility {
             // >0 If the Transaction status (from the server reply) is SUCCESS, then this function
             //    returns the REQUEST NUMBER from when it was originally sent. 
 
-            int nProcess = Utility.processNymbox(serverID, nymID,
+            int nProcess = Helpers.processNymbox(serverID, nymID,
                     bWasMsgSent,
                     // ---------------
                     nMsgSentRequestNumOut,
@@ -987,10 +857,10 @@ public class Utility {
             // SHOULD NEVER HAPPEN (processNymbox call just above was successful,
             // therefore the sent message SHOULD be here in my cache.)
             //
-            final String strReplyProcess = Utility.getLastReplyReceived();
+            final String strReplyProcess = Helpers.getLastReplyReceived();
             // I had to do this bit because getRequestNumber doesn't return the actual
             // reply itself. But in this case, I needed it.
-            if (!Utility.isValid(strReplyProcess)) // THIS SHOULD NEVER HAPPEN.
+            if (!Helpers.isValid(strReplyProcess)) // THIS SHOULD NEVER HAPPEN.
             {
                 System.out.println("Utility.getAndProcessNymbox(): "
                         + "ERROR in Utility.getLastReplyReceived(): why was this string not set, when Utility.getRequestNumber was otherwise an apparent success?");
@@ -998,9 +868,9 @@ public class Utility {
             }
             //-------------------------------------------------
 
-            final boolean bProcessNymboxReplyError = (!Utility.isValid(strReplyProcess) || (nReplySuccess < 0));
-            final boolean bProcessNymboxBalanceError = (!Utility.isValid(strReplyProcess) || (nBalanceSuccess < 0));
-            final boolean bProcessNymboxTransError = (!Utility.isValid(strReplyProcess) || (nTransSuccess < 0));
+            final boolean bProcessNymboxReplyError = (!Helpers.isValid(strReplyProcess) || (nReplySuccess < 0));
+            final boolean bProcessNymboxBalanceError = (!Helpers.isValid(strReplyProcess) || (nBalanceSuccess < 0));
+            final boolean bProcessNymboxTransError = (!Helpers.isValid(strReplyProcess) || (nTransSuccess < 0));
             // -----------------------------------------------------------------------------------------------------
             final boolean bProcessNymboxReplySuccess = (!bProcessNymboxReplyError && (nReplySuccess > 0));
             final boolean bProcessNymboxReplyFailure = (!bProcessNymboxReplyError && (nReplySuccess == 0));
@@ -1048,7 +918,7 @@ public class Utility {
                 //
             } else if (bProcessAnyError || bProcessAnyFailure) // let's resync, and clawback whatever transaction numbers we might have used on the processNymbox request...
             {
-                nGetNymbox = Utility.getNymbox(serverID, nymID, true); // bForceDownload=true - NOTE: could maybe change this to false and have it still work.
+                nGetNymbox = Helpers.getNymbox(serverID, nymID, true); // bForceDownload=true - NOTE: could maybe change this to false and have it still work.
 
                 if (nGetNymbox < 1) {
                     System.out.println("Utility.getAndProcessNymbox(): Failure: Utility.getNymbox returned: " + nGetNymbox);
@@ -1057,7 +927,7 @@ public class Utility {
 
                 OTBool bWasFound = new OTBool(false);
 
-                if (Utility.insureHaveAllBoxReceipts(serverID, nymID, nymID, 0, // nBoxType = 0 aka nymbox
+                if (Helpers.insureHaveAllBoxReceipts(serverID, nymID, nymID, 0, // nBoxType = 0 aka nymbox
                         nProcess, bWasFound)) // This will tell us whether the processNymbox reply was found in the Nymbox
                 {
                     // we FOUND the processNymbox reply in the Nymbox!
@@ -1090,7 +960,7 @@ public class Utility {
 
                         final String strSentProcessNymboxMsg = otapiJNI.OTAPI_Basic_GetSentMessage(Integer.toString(nProcess), serverID, nymID);
 
-                        if (!Utility.isValid(strSentProcessNymboxMsg)) {
+                        if (!Helpers.isValid(strSentProcessNymboxMsg)) {
                             System.out.println("Utility.getAndProcessNymbox(): ERROR: (SHOULD NEVER HAPPEN 2) Expected OT_API_GetSentMessage to return the sent processNymbox message (for clawback) but couldn't find it. (Expected it--I JUST sent it!)");
                         } else // strSentProcessNymboxMsg NOT null!
                         {
@@ -1116,7 +986,7 @@ public class Utility {
                     strNymbox = otapiJNI.OTAPI_Basic_LoadNymboxNoVerify(serverID, nymID);      // FLUSH SENT MESSAGES!!!!  (AND HARVEST.)
 
                     // *******************************************************
-                    if (Utility.isValid(strNymbox)) {
+                    if (Helpers.isValid(strNymbox)) {
                         otapiJNI.OTAPI_Basic_FlushSentMessages(false, //harvesting for retry == false
                                 serverID,
                                 nymID,
@@ -1210,7 +1080,7 @@ public class Utility {
         //-------------------------------------------------------------------------------
 
         //
-        final int nProcess = Utility.sendProcessNymboxLowLevel(serverID, nymID); // <===================== SEND PROCESS NYMBOX!!
+        final int nProcess = Helpers.sendProcessNymboxLowLevel(serverID, nymID); // <===================== SEND PROCESS NYMBOX!!
 
         switch (nProcess) {
             case (-1):
@@ -1237,7 +1107,7 @@ public class Utility {
         // But was it received?
         //
         final String strReplyProcess =
-                Utility.ReceiveReplyLowLevel(serverID, nymID, nProcess,
+                Helpers.ReceiveReplyLowLevel(serverID, nymID, nProcess,
                 "Utility.processNymbox / sendProcessNymboxLowLevel / ReceiveReplyLowLevel"); // <=============== Here we RECEIVE the REPLY...
 
         // -----------------------------------------------        
@@ -1248,7 +1118,7 @@ public class Utility {
         // ReceiveReplyLowLevel returns null unless there was a string returned.
         // So we can directly check it for success...
 
-        final int nReplySuccess = Utility.getMessageSuccess(strReplyProcess); // sendProcessNymboxLowLevel
+        final int nReplySuccess = Helpers.getMessageSuccess(strReplyProcess); // sendProcessNymboxLowLevel
         final int nTransSuccess, nBalanceSuccess;
 
         if (nReplySuccess > 0) // If message was success, then let's see if the transaction was, too.
@@ -1348,7 +1218,7 @@ public class Utility {
     // and 1 if the message is a sucess
     //
     public static int getMessageSuccess(String strInput) {
-        if (!Utility.isValid(strInput)) {
+        if (!Helpers.isValid(strInput)) {
             System.out.println("Utility.getMessageSuccess(): null or empty input string. (Returning error condition of -1.)");
             return (-1);
         }
@@ -1384,7 +1254,7 @@ public class Utility {
     //  1 for server reply of success
     //
     public static int receiveReplySuccessLowLevel(String serverID, String nymID, int nRequestNumber, String IN_FUNC) {
-        final String strReply = Utility.ReceiveReplyLowLevel(serverID, nymID, nRequestNumber,
+        final String strReply = Helpers.ReceiveReplyLowLevel(serverID, nymID, nRequestNumber,
                 "Utility.receiveReplySuccessLowLevel: " + IN_FUNC); // <=============== Here we RECEIVE the REPLY...
 
         // -----------------------------------------------        
@@ -1395,7 +1265,7 @@ public class Utility {
         // ReceiveReplyLowLevel returns null unless there was a string returned.
         // So we can directly check it for success...
 
-        return Utility.getMessageSuccess(strReply);
+        return Helpers.getMessageSuccess(strReply);
     }
     // ------------------------------------------------------
 
@@ -1407,17 +1277,17 @@ public class Utility {
     // that out for himself.)
     //
     public static String ReceiveReplyLowLevel(String serverID, String nymID, int nRequestNumber, String IN_FUNCTION) {
-        Utility.delay();
-        Utility.setLastReplyReceived(null);
+        Helpers.delay();
+        Helpers.setLastReplyReceived(null);
         // --------------------------------------------------------------------
         final String strResponseMessage = otapiJNI.OTAPI_Basic_PopMessageBuffer(Integer.toString(nRequestNumber),
                 serverID, nymID);
 
-        if (!Utility.isValid(strResponseMessage)) {
+        if (!Helpers.isValid(strResponseMessage)) {
             System.out.println("Utility.ReceiveReplyLowLevel (" + IN_FUNCTION + "): null server reply!");
             return null;
         }
-        Utility.setLastReplyReceived(strResponseMessage);
+        Helpers.setLastReplyReceived(strResponseMessage);
         // --------------------------------------------------------------------
         return strResponseMessage;
     }
@@ -1426,7 +1296,7 @@ public class Utility {
     public static int getRequestNumber(String serverID, String nymID) {
         OTBool bWasSent = new OTBool(false);
 
-        return Utility.getRequestNumber(serverID, nymID, bWasSent);
+        return Helpers.getRequestNumber(serverID, nymID, bWasSent);
     }
 
     // -1 == error (couldn't send, or couldn't receive)
@@ -1464,7 +1334,7 @@ public class Utility {
         bWasSent.setBooleanValue(true);
         // ***************************************************
         //
-        final int nReturn = Utility.receiveReplySuccessLowLevel(serverID, nymID, nResult, "Utility.getRequestNumber");
+        final int nReturn = Helpers.receiveReplySuccessLowLevel(serverID, nymID, nResult, "Utility.getRequestNumber");
 //        System.out.println("IN Utility.getRequestNumber " + Utility.getLastReplyReceived());
 
         // BY this point, we definitely have the request number in nResult, which means
@@ -1564,7 +1434,7 @@ public class Utility {
         //
         // ***************************************************
         //
-        int nReturn = Utility.receiveReplySuccessLowLevel(serverID, nymID, nRequestNum, "Utility.getBoxReceiptLowLevel");
+        int nReturn = Helpers.receiveReplySuccessLowLevel(serverID, nymID, nRequestNum, "Utility.getBoxReceiptLowLevel");
 
         System.out.println("IN Utility.getBoxReceiptLowLevel: nRequestNum: " + nRequestNum + " /  nReturn: " + nReturn);
 
@@ -1586,7 +1456,7 @@ public class Utility {
             return true;
         }
 
-        System.out.println("Failure in Utility.getBoxReceiptLowLevel : Response from server: " + Utility.getLastReplyReceived());
+        System.out.println("Failure in Utility.getBoxReceiptLowLevel : Response from server: " + Helpers.getLastReplyReceived());
 
         return false;
     }
@@ -1595,12 +1465,12 @@ public class Utility {
     public static boolean getBoxReceiptWithErrorCorrection(String serverID, String nymID, String accountID, int nBoxType, String strTransactionNum) {
         OTBool bWasSent = new OTBool(false), bWasRequestSent = new OTBool(false);
         // ------------------------------------------
-        if (Utility.getBoxReceiptLowLevel(serverID, nymID, accountID, nBoxType, strTransactionNum, bWasSent)) {
+        if (Helpers.getBoxReceiptLowLevel(serverID, nymID, accountID, nBoxType, strTransactionNum, bWasSent)) {
             return true;
-        } else if (bWasSent.getBooleanValue() && (1 == Utility.getRequestNumber(serverID, nymID, bWasRequestSent))) // this might be out of sync, if it failed... we'll re-sync, and re-try.
+        } else if (bWasSent.getBooleanValue() && (1 == Helpers.getRequestNumber(serverID, nymID, bWasRequestSent))) // this might be out of sync, if it failed... we'll re-sync, and re-try.
         {
             if (bWasRequestSent.getBooleanValue()
-                    && Utility.getBoxReceiptLowLevel(serverID, nymID, accountID, nBoxType, strTransactionNum, bWasSent)) {
+                    && Helpers.getBoxReceiptLowLevel(serverID, nymID, accountID, nBoxType, strTransactionNum, bWasSent)) {
                 return true;
             } else {
                 System.out.println("Utility.getBoxReceiptWithErrorCorrection(): Utility.getBoxReceiptLowLevel failed, then Utility.getRequestNumber succeeded, then Utility.getBoxReceiptLowLevel failed again. (I give up.)");
@@ -1660,7 +1530,7 @@ public class Utility {
         // the box receipts are, and download them from the server. No point trying
         // to load them before that time, when I know it will fail.
         // 
-        if (!Utility.isValid(ledger) || (!otapiJNI.OTAPI_Basic_VerifySignature(nymID, ledger))) {
+        if (!Helpers.isValid(ledger) || (!otapiJNI.OTAPI_Basic_VerifySignature(nymID, ledger))) {
             System.out.println("Utility.insureHaveAllBoxReceipts(): Unable to load or verify signature on ledger. (Failure.) Contents: " + ledger);
             return false;
         }
@@ -1679,7 +1549,7 @@ public class Utility {
             for (int i = 0; i < nReceiptCount; i++) {
                 final String strTransactionNum = otapiJNI.OTAPI_Basic_Ledger_GetTransactionIDByIndex(serverID, nymID, accountID, ledger, i);
 
-                if (Utility.isValid(strTransactionNum) && !strTransactionNum.equals("-1")) {
+                if (Helpers.isValid(strTransactionNum) && !strTransactionNum.equals("-1")) {
                     final Long lTransactionNum = Long.valueOf(strTransactionNum);
 
                     if (lTransactionNum > 0) {
@@ -1711,7 +1581,7 @@ public class Utility {
                                 if (!bHaveBoxReceipt) {
                                     System.out.println("Utility.insureHaveAllBoxReceipts(): Downloading box receipt to add to my collection...");
 
-                                    final boolean bDownloaded = Utility.getBoxReceiptWithErrorCorrection(serverID, nymID, accountID, nBoxType, strTransactionNum);
+                                    final boolean bDownloaded = Helpers.getBoxReceiptWithErrorCorrection(serverID, nymID, accountID, nBoxType, strTransactionNum);
 
                                     if (!bDownloaded) {
                                         System.out.println("Utility.insureHaveAllBoxReceipts(): Failed downloading box receipt. (Skipping any others.) Transaction number: " + strTransactionNum);
@@ -1833,7 +1703,7 @@ public class Utility {
             //
             final String strReplyNotice = otapiJNI.OTAPI_Basic_Nymbox_GetReplyNotice(serverID, nymID, Integer.toString(nRequestSeeking));
 
-            if (Utility.isValid(strReplyNotice)) {
+            if (Helpers.isValid(strReplyNotice)) {
                 bFoundIt.setBooleanValue(true);
             }
         }
@@ -1889,7 +1759,7 @@ public class Utility {
         bWasSent.setBooleanValue(true);
         // ***************************************************
         //
-        final int nReturn = Utility.receiveReplySuccessLowLevel(serverID, nymID, nRequestNum, "Utility.getTransactionNum");
+        final int nReturn = Helpers.receiveReplySuccessLowLevel(serverID, nymID, nRequestNum, "Utility.getTransactionNum");
 //        System.out.println("IN Utility.getTransactionNum " + Utility.getLastReplyReceived());
 
         // BY this point, we definitely have the request number in nResult, which means
@@ -1936,7 +1806,7 @@ public class Utility {
 
     // DONE
     public static boolean getTransactionNumbers(String serverID, String nymID) {
-        return Utility.getTransactionNumbers(serverID, nymID, true); // bForceFirstCall == true (by default) but in special cases you can override it and set it to false.
+        return Helpers.getTransactionNumbers(serverID, nymID, true); // bForceFirstCall == true (by default) but in special cases you can override it and set it to false.
     }
 
     public static boolean getTransactionNumbers(String serverID, String nymID, boolean bForceFirstCall) // defaults to true.
@@ -1947,7 +1817,7 @@ public class Utility {
         int nGetNumbers = -1;
 
         if (bForceFirstCall) {
-            nGetNumbers = Utility.getTransactionNumLowLevel(serverID, nymID, bWasSent);   // <============ FIRST TRY
+            nGetNumbers = Helpers.getTransactionNumLowLevel(serverID, nymID, bWasSent);   // <============ FIRST TRY
         } else {
             nGetNumbers = -1;
         }
@@ -1961,7 +1831,7 @@ public class Utility {
 
             // Because it was successful, we have to now SIGN FOR those numbers we requested.
             //
-            int nProcess = Utility.getAndProcessNymbox(serverID, nymID, bWasSent, true); // bForceDownload=true
+            int nProcess = Helpers.getAndProcessNymbox(serverID, nymID, bWasSent, true); // bForceDownload=true
 
             // System.out.println("DEBUGGING -- 4.");
 
@@ -1993,7 +1863,7 @@ public class Utility {
             }
 
             // ---------------------------------
-            final int nGetRequest = Utility.getRequestNumber(serverID, nymID);
+            final int nGetRequest = Helpers.getRequestNumber(serverID, nymID);
 
 // System.out.println("DEBUGGING -- 8.");
 
@@ -2009,7 +1879,7 @@ public class Utility {
             OTBool bWasProcessSent = new OTBool(false);
             OTBool bFoundNymboxItem = new OTBool(false);
 
-            final int nProcessNymbox = Utility.getAndProcessNymbox(serverID, nymID, bWasProcessSent, true);   //boolean bForceDownload=true
+            final int nProcessNymbox = Helpers.getAndProcessNymbox(serverID, nymID, bWasProcessSent, true);   //boolean bForceDownload=true
 
 // System.out.println("DEBUGGING -- 10.");
 
@@ -2035,7 +1905,7 @@ public class Utility {
                     // System.out.println("DEBUGGING -- 13.");
 
                     // *******************************************************
-                    if (Utility.isValid(strNymbox)) {
+                    if (Helpers.isValid(strNymbox)) {
                         otapiJNI.OTAPI_Basic_FlushSentMessages(false, //harvesting for retry == false
                                 serverID,
                                 nymID,
@@ -2052,7 +1922,7 @@ public class Utility {
 
             // -----------------------------------------------------------------
 
-            nGetNumbers = Utility.getTransactionNumLowLevel(serverID, nymID, bWasSent);  // <================= SECOND TRY
+            nGetNumbers = Helpers.getTransactionNumLowLevel(serverID, nymID, bWasSent);  // <================= SECOND TRY
 
 // System.out.println("DEBUGGING -- 16.");
 
@@ -2063,7 +1933,7 @@ public class Utility {
             {
 // System.out.println("DEBUGGING -- 17.");
 
-                int nProcess = Utility.getAndProcessNymbox(serverID, nymID, bWasSent, true); // bForceDownload=true
+                int nProcess = Helpers.getAndProcessNymbox(serverID, nymID, bWasSent, true); // bForceDownload=true
 
 // System.out.println("DEBUGGING -- 18.");
 
@@ -2094,7 +1964,7 @@ public class Utility {
 
                 // System.out.println("DEBUGGING -- 22.");
 
-                int nLast = Utility.getAndProcessNymbox(serverID, nymID, bWasProcessSent, true);   //boolean bForceDownload=true
+                int nLast = Helpers.getAndProcessNymbox(serverID, nymID, bWasProcessSent, true);   //boolean bForceDownload=true
                 if (((false == bWasProcessSent.getBooleanValue()) && ((nLast < 0) || (nLast > 1)))
                         || ((true == bWasProcessSent.getBooleanValue()) && (nLast != 1))) // -1 error, 0 failed (harvesting success), 1 success, >1 failed (harvesting NOT done) RequestNum is returned.
                 {
@@ -2110,7 +1980,7 @@ public class Utility {
                         // System.out.println("DEBUGGING -- 25.");
 
                         // *******************************************************
-                        if (Utility.isValid(strNymbox)) {
+                        if (Helpers.isValid(strNymbox)) {
                             otapiJNI.OTAPI_Basic_FlushSentMessages(false, //harvesting for retry == false
                                     serverID,
                                     nymID,
@@ -2124,7 +1994,7 @@ public class Utility {
 
                 // System.out.println("DEBUGGING -- 27.");
 
-                nGetNumbers = Utility.getTransactionNumLowLevel(serverID, nymID, bWasSent);   // <============ FIRST TRY      
+                nGetNumbers = Helpers.getTransactionNumLowLevel(serverID, nymID, bWasSent);   // <============ FIRST TRY      
 
                 // System.out.println("DEBUGGING -- 28.");
 
@@ -2133,7 +2003,7 @@ public class Utility {
                     // System.out.println("DEBUGGING -- 29.");
 
 
-                    int nProcess = Utility.getAndProcessNymbox(serverID, nymID, bWasSent, true); // bForceDownload=true
+                    int nProcess = Helpers.getAndProcessNymbox(serverID, nymID, bWasSent, true); // bForceDownload=true
 
 
                     // System.out.println("DEBUGGING -- 30.");
@@ -2167,9 +2037,9 @@ public class Utility {
         // and and it's available anytime via Utility.getLastReplyReceived()
         // -------------------------------------------------------------------------
 
-        final String strLastReplyReceived = Utility.getLastReplyReceived();
+        final String strLastReplyReceived = Helpers.getLastReplyReceived();
 
-        if (!Utility.isValid(strLastReplyReceived)) {
+        if (!Helpers.isValid(strLastReplyReceived)) {
             System.out.println("Utility.getTransactionNumbers: "
                     + "ERROR in Utility.getLastReplyReceived(): why was this string not set, when Utility.getRequestNumber was otherwise an apparent success?");
             return false; // (SHOULD NEVER HAPPEN. This string is set in the getRequestNumber function.)
@@ -2185,7 +2055,7 @@ public class Utility {
         // already had on my client-side Nym... (So we can compare them.)
         //
         final String strServerHash = otapiJNI.OTAPI_Basic_Message_GetNymboxHash(strLastReplyReceived);
-        final boolean bServerhash = Utility.isValid(strServerHash);
+        final boolean bServerhash = Helpers.isValid(strServerHash);
         if (!bServerhash) {
             System.out.println("Utility.getTransactionNumbers: Warning: Unable to retrieve server-side "
                     + "NymboxHash from OT, from server @getTransactionNum reply:\n\n"
@@ -2194,7 +2064,7 @@ public class Utility {
         }
         //-------------------------------------------------                
         final String strLocalHash = otapiJNI.OTAPI_Basic_GetNym_NymboxHash(serverID, nymID);
-        final boolean bLocalhash = Utility.isValid(strLocalHash);
+        final boolean bLocalhash = Helpers.isValid(strLocalHash);
         if (!bLocalhash) {
             System.out.println("Utility.getTransactionNumbers: Warning: Unable to retrieve client-side NymboxHash from OT, "
                     + "for:\n serverID: " + serverID + "\n nymID: " + nymID);
@@ -2215,7 +2085,7 @@ public class Utility {
 
             OTBool bWasProcessSent = new OTBool(false);
             OTBool bFoundNymboxItem = new OTBool(false);
-            final int nGetNymbox = Utility.getAndProcessNymbox(serverID, nymID, bWasProcessSent, true);   //boolean bForceDownload=true
+            final int nGetNymbox = Helpers.getAndProcessNymbox(serverID, nymID, bWasProcessSent, true);   //boolean bForceDownload=true
 
             if (((false == bWasProcessSent.getBooleanValue()) && ((nGetNymbox < 0) || (nGetNymbox > 1)))
                     || ((true == bWasProcessSent.getBooleanValue()) && (nGetNymbox != 1))) // -1 error, 0 failed (harvesting success), 1 success, >1 failed (harvesting NOT done) RequestNum is returned.
@@ -2224,7 +2094,7 @@ public class Utility {
                     String strNymbox = otapiJNI.OTAPI_Basic_LoadNymboxNoVerify(serverID, nymID);      // FLUSH SENT MESSAGES!!!!  (AND HARVEST.)
 
                     // *******************************************************
-                    if (Utility.isValid(strNymbox)) {
+                    if (Helpers.isValid(strNymbox)) {
                         otapiJNI.OTAPI_Basic_FlushSentMessages(false, //harvesting for retry == false
                                 serverID,
                                 nymID,
@@ -2417,7 +2287,7 @@ public class Utility {
     }
 
     public static void setDefautLAF(LookAndFeel defautLAF) {
-        Utility.defautLAF = defautLAF;
+        Helpers.defautLAF = defautLAF;
     }
 
     public static String fileToString(File file) {
@@ -2434,7 +2304,7 @@ public class Utility {
             fileText = sb.toString();
 
         } catch (IOException ex) {
-            Logger.getLogger(Utility.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Helpers.class.getName()).log(Level.SEVERE, null, ex);
         }
         return fileText;
     }
@@ -2542,7 +2412,7 @@ public class Utility {
     }
 
     public static boolean getIntermediaryFiles(String serverID, String nymID, String accountID) {
-        return Utility.getIntermediaryFiles(serverID, nymID, accountID, false); //bForceDownload=false
+        return Helpers.getIntermediaryFiles(serverID, nymID, accountID, false); //bForceDownload=false
     }
 
     public static boolean getIntermediaryFiles(String serverID, String nymID, String accountID, boolean bForceDownload) // bForceDownload=false
@@ -2564,7 +2434,7 @@ public class Utility {
         OTBool bWasSentInbox = new OTBool(false),
                 bWasSentAccount = new OTBool(false);
         // -----------------------------------------------------
-        int nGetInboxAcct = Utility.getInboxAccount(serverID, nymID, accountID, bWasSentInbox, bWasSentAccount, bForceDownload);
+        int nGetInboxAcct = Helpers.getInboxAccount(serverID, nymID, accountID, bWasSentInbox, bWasSentAccount, bForceDownload);
 
         if ( // if we received an error state, and the "getAccount" message wasn't even sent,
                 // then no point doing a bunch of retries -- it failed.
@@ -2580,14 +2450,14 @@ public class Utility {
             System.out.println("Utility.getIntermediaryFiles: getInboxAccount failed. (Trying one more time...)");
 
             // --------------------------------------
-            final int nGetRequest = Utility.getRequestNumber(serverID, nymID);
+            final int nGetRequest = Helpers.getRequestNumber(serverID, nymID);
 
             if (1 != nGetRequest) {
                 System.out.println("Utility.getIntermediaryFiles(): Failure: Utility.getInboxAccount failed, then I tried to resync with getRequestNumber and then that failed too. (I give up.)");
                 return false;
             }
             // --------------------------------------
-            final int nSecondtry = Utility.getInboxAccount(serverID, nymID, accountID, bWasSentInbox, bWasSentAccount, bForceDownload);
+            final int nSecondtry = Helpers.getInboxAccount(serverID, nymID, accountID, bWasSentInbox, bWasSentAccount, bForceDownload);
 
             if (((-1) == nSecondtry) && !bWasSentAccount.getBooleanValue()) {
                 // if we received an error state, and the "getAccount" message wasn't even sent,
@@ -2610,7 +2480,7 @@ public class Utility {
 
         OTBool bWasSentOutbox = new OTBool(false);
 
-        int nGetOutbox = Utility.getOutboxLowLevel(serverID, nymID, accountID, bWasSentOutbox, bForceDownload);
+        int nGetOutbox = Helpers.getOutboxLowLevel(serverID, nymID, accountID, bWasSentOutbox, bForceDownload);
 
         if (((-1) == nGetOutbox) && !bWasSentOutbox.getBooleanValue()) {
             // if we received an error state, and the "getOutbox" message wasn't even sent,
@@ -2626,14 +2496,14 @@ public class Utility {
             System.out.println("Utility.getIntermediaryFiles: getOutboxLowLevel failed. (Trying one more time...)");
 
             // --------------------------------------
-            final int nGetRequest = Utility.getRequestNumber(serverID, nymID);
+            final int nGetRequest = Helpers.getRequestNumber(serverID, nymID);
 
             if (1 != nGetRequest) {
                 System.out.println("Utility.getIntermediaryFiles(): Failure: Utility.getOutboxLowLevel failed, then I tried to resync with getRequestNumber and then that failed too. (I give up.)");
                 return false;
             }
             // --------------------------------------
-            final int nSecondtry = Utility.getOutboxLowLevel(serverID, nymID, accountID, bWasSentOutbox, bForceDownload);
+            final int nSecondtry = Helpers.getOutboxLowLevel(serverID, nymID, accountID, bWasSentOutbox, bForceDownload);
 
             if (((-1) == nSecondtry) && !bWasSentOutbox.getBooleanValue()) {
                 // if we received an error state, and the "getOutbox" message wasn't even sent,
@@ -2660,7 +2530,7 @@ public class Utility {
     // (instead of 3 IDs...)
     //
     public static boolean getInboxOutboxAccount(String accountID) {
-        return Utility.getInboxOutboxAccount(accountID, false); //bForceDownload=false
+        return Helpers.getInboxOutboxAccount(accountID, false); //bForceDownload=false
     }
 
     public static boolean getInboxOutboxAccount(String accountID, boolean bForceDownload) //bForceDownload=false
@@ -2675,7 +2545,7 @@ public class Utility {
         String nymID = otapiJNI.OTAPI_Basic_GetAccountWallet_NymID(accountID);
         // ------------------------------------------------------------------------
 
-        if (false == Utility.getIntermediaryFiles(serverID, nymID, accountID, bForceDownload)) {
+        if (false == Helpers.getIntermediaryFiles(serverID, nymID, accountID, bForceDownload)) {
             System.out.println("getInboxOutboxAccount: getIntermediaryFiles failed. (Returning.)");
             return false;
         }
@@ -2699,7 +2569,7 @@ public class Utility {
     // is, and then each is verified against a hash kept inside its abbreviated version.)
     // DONE
     public static int getInboxAccount(String serverID, String nymID, String accountID, OTBool bWasSentInbox, OTBool bWasSentAccount) {
-        return Utility.getInboxAccount(serverID, nymID, accountID, bWasSentInbox, bWasSentAccount, false); // bForceDownload = false
+        return Helpers.getInboxAccount(serverID, nymID, accountID, bWasSentInbox, bWasSentAccount, false); // bForceDownload = false
     }
 
     public static int getInboxAccount(String serverID, String nymID, String accountID, OTBool bWasSentInbox, OTBool bWasSentAccount, boolean bForceDownload) //bForceDownload=false
@@ -2746,7 +2616,7 @@ public class Utility {
         //  0 for reply: failure
         //  1 for reply: success
         //
-        final int nReturn = Utility.receiveReplySuccessLowLevel(serverID, nymID, nRequestNum, "Utility.getInboxAccount"); // <============ RETURN VALUE
+        final int nReturn = Helpers.receiveReplySuccessLowLevel(serverID, nymID, nRequestNum, "Utility.getInboxAccount"); // <============ RETURN VALUE
 //        System.out.println("IN Utility.getInboxAccount " + Utility.getLastReplyReceived());
 
         final boolean bAccount = ((1 == nReturn) ? true : false);
@@ -2780,7 +2650,7 @@ public class Utility {
         }
         // --------------------------
 
-        final int nReturn2 = Utility.getInboxLowLevel(serverID, nymID, accountID, bWasSentInbox, bForceDownload);
+        final int nReturn2 = Helpers.getInboxLowLevel(serverID, nymID, accountID, bWasSentInbox, bForceDownload);
 
         if (!bWasSentInbox.getBooleanValue() && // If it wasn't sent, and 0 was returned, that means
                 (0 == nReturn2)) // no error: we already have the latest inbox. (Nothing done.)
@@ -2802,7 +2672,7 @@ public class Utility {
     //  bWasSent gets set to TRUE once the message is confirmed as sent.
     //
     public static int getInboxLowLevel(String serverID, String nymID, String accountID, OTBool bWasSent) {
-        return Utility.getInboxLowLevel(serverID, nymID, accountID, bWasSent, false); // bForce defaults to FALSE 
+        return Helpers.getInboxLowLevel(serverID, nymID, accountID, bWasSent, false); // bForce defaults to FALSE 
     }
 
     public static int getInboxLowLevel(String serverID, String nymID, String accountID, OTBool bWasSent, boolean bForce) // bForce defaults to FALSE 
@@ -2813,7 +2683,7 @@ public class Utility {
         // Use OT_API_GetAccountWallet_InboxHash(ACCT_ID) to see the server's most recent inbox hash (on the OTAccount for that box)
 
         final String strRecentHash = otapiJNI.OTAPI_Basic_GetAccountWallet_InboxHash(accountID);
-        final boolean bRecentHash = Utility.isValid(strRecentHash);
+        final boolean bRecentHash = Helpers.isValid(strRecentHash);
         if (!bRecentHash) {
             System.out.println("Utility.getInboxLowLevel: Warning: Unable to retrieve recent cached copy of server-side "
                     + "InboxHash from client-side nym (perhaps he's never downloaded it before?)\n\n");
@@ -2824,7 +2694,7 @@ public class Utility {
         // from whenever the client last actually downloaded the inbox.
 
         String strLocalHash = otapiJNI.OTAPI_Basic_GetNym_InboxHash(accountID, nymID);
-        boolean bLocalHash = Utility.isValid(strLocalHash);
+        boolean bLocalHash = Helpers.isValid(strLocalHash);
         if (!bLocalHash) {
             System.out.println("Utility.getInboxLowLevel: Warning: Unable to retrieve client-side InboxHash "
                     + "for:\n accountID: " + accountID + "\n nymID: " + nymID);
@@ -2869,7 +2739,7 @@ public class Utility {
         // ***************************************************
         //
         //
-        final int nReturn = Utility.receiveReplySuccessLowLevel(serverID, nymID, nRequestNum, "Utility.getInboxLowLevel");
+        final int nReturn = Helpers.receiveReplySuccessLowLevel(serverID, nymID, nRequestNum, "Utility.getInboxLowLevel");
 //        System.out.println("IN Utility.getInboxLowLevel " + Utility.getLastReplyReceived());
 
         final boolean bInbox = ((1 == nReturn) ? true : false);
@@ -2896,7 +2766,7 @@ public class Utility {
         // Now let's make sure we have all the box receipts for this outbox.
         // (They will be needed when it is used for something.)
         //
-        if (bInbox && !Utility.insureHaveAllBoxReceipts(serverID, nymID, accountID, 1)) // <===== nBoxType = 1 aka INBOX
+        if (bInbox && !Helpers.insureHaveAllBoxReceipts(serverID, nymID, accountID, 1)) // <===== nBoxType = 1 aka INBOX
         {
             System.out.println("Utility.getInboxLowLevel: getInbox succeeded, but then insureHaveAllBoxReceipts failed. (I give up.)");
             return (-1);
@@ -2914,7 +2784,7 @@ public class Utility {
     //  bWasSent gets set to TRUE once the message is confirmed as sent.
     //
     public static int getOutboxLowLevel(String serverID, String nymID, String accountID, OTBool bWasSent) {
-        return Utility.getOutboxLowLevel(serverID, nymID, accountID, bWasSent, false); // bForce defaults to FALSE 
+        return Helpers.getOutboxLowLevel(serverID, nymID, accountID, bWasSent, false); // bForce defaults to FALSE 
     }
 
     public static int getOutboxLowLevel(String serverID, String nymID, String accountID, OTBool bWasSent, boolean bForce) // bForce defaults to FALSE 
@@ -2926,7 +2796,7 @@ public class Utility {
         // Use OT_API_GetAccountWallet_OutboxHash(ACCT_ID) to see the server's most recent outbox hash (on the OTAccount for that box)
 
         final String strRecentHash = otapiJNI.OTAPI_Basic_GetAccountWallet_OutboxHash(accountID);
-        final boolean bRecentHash = Utility.isValid(strRecentHash);
+        final boolean bRecentHash = Helpers.isValid(strRecentHash);
         if (!bRecentHash) {
             System.out.println("Utility.getOutboxLowLevel: Warning: Unable to retrieve recent cached copy of server-side "
                     + "OutboxHash from client-side nym (perhaps he's never downloaded it before?)\n\n");
@@ -2937,7 +2807,7 @@ public class Utility {
         // from whenever the client last actually downloaded the outbox.
 
         String strLocalHash = otapiJNI.OTAPI_Basic_GetNym_OutboxHash(accountID, nymID);
-        boolean bLocalHash = Utility.isValid(strLocalHash);
+        boolean bLocalHash = Helpers.isValid(strLocalHash);
         if (!bLocalHash) {
             System.out.println("Utility.getOutboxLowLevel: Warning: Unable to retrieve client-side OutboxHash "
                     + "for:\n accountID: " + accountID + "\n nymID: " + nymID);
@@ -2982,7 +2852,7 @@ public class Utility {
         // ***************************************************
         //
         //
-        final int nReturn = Utility.receiveReplySuccessLowLevel(serverID, nymID, nRequestNum, "Utility.getOutboxLowLevel");
+        final int nReturn = Helpers.receiveReplySuccessLowLevel(serverID, nymID, nRequestNum, "Utility.getOutboxLowLevel");
 //        System.out.println("IN Utility.getOutboxLowLevel " + Utility.getLastReplyReceived());
 
         final boolean bOutbox = ((1 == nReturn) ? true : false);
@@ -3009,7 +2879,7 @@ public class Utility {
         // Now let's make sure we have all the box receipts for this outbox.
         // (They will be needed when it is used for something.)
         //
-        if (bOutbox && !Utility.insureHaveAllBoxReceipts(serverID, nymID, accountID, 2)) // <===== nBoxType = 2 aka OUTBOX
+        if (bOutbox && !Helpers.insureHaveAllBoxReceipts(serverID, nymID, accountID, 2)) // <===== nBoxType = 2 aka OUTBOX
         {
             System.out.println("Utility.getOutboxLowLevel: getOutbox succeeded, but then insureHaveAllBoxReceipts failed. (I give up.)");
             return (-1);
@@ -3017,77 +2887,6 @@ public class Utility {
         // ***************************************************
 
         return nReturn;
-    }
-
-    public static boolean saveImagePath(String imagePath) {
-
-        boolean status = false;
-
-        if (LoadState.isThisStageComplete(Stages.InitOTAPI)) {
-            StringMap stringMap = null;  // we are about to create this object
-            Storable storable =
-                    otapi.CreateObject(StoredObjectType.STORED_OBJ_STRING_MAP);
-            System.out.println("storable:" + storable);
-            if (storable != null) {
-                stringMap = StringMap.ot_dynamic_cast(storable);
-                System.out.println("stringMap:" + stringMap);
-
-                if (stringMap != null) {
-                    //stringMap.SetValue("ImagePath", "~/.ot/default.gif");
-                    stringMap.SetValue("ImagePath", imagePath);
-                    status = otapi.StoreObject(stringMap, "moneychanger",
-                            "settings.dat");
-                }
-            }
-        } else {
-            System.out.println("Utility.getImagePath():  Skipping. (OT not initialized yet.)");
-        }
-        return status;
-    }
-
-    public static String getImagePath() {
-
-        String strDefault = null;
-        String strImagePath = strDefault; // Todo: hardcoding
-
-        if (LoadState.isThisStageComplete(Stages.InitOTAPI)) {
-            Storable storable = null;
-            StringMap stringMap = null;
-
-            System.out.println("getImagePath top...");
-
-            if (otapi.Exists("moneychanger", "settings.dat")) {
-                storable =
-                        otapi.QueryObject(StoredObjectType.STORED_OBJ_STRING_MAP,
-                        "moneychanger", "settings.dat");
-                System.out.println("getImagePath, storable:" + storable);
-
-                if (storable == null) {
-                    System.out.println("Utility.getImagePath, failed querying storable from local storage.");
-                    return strDefault;
-                }
-
-                stringMap = StringMap.ot_dynamic_cast(storable);
-
-                System.out.println("getImagePath, stringMap:" + stringMap);
-
-                if (stringMap == null) {
-                    System.out.println("Utility.getImagePath, failed casting stringmap from storable.");
-                    return strDefault;
-                }
-
-                strImagePath = stringMap.GetValue("ImagePath");
-            } else {
-                System.out.println("Utility.getImagePath():  File does not exist: (OT_MAIN_PATH)/moneychanger/settings.dat");
-            }
-
-            if (!Utility.VerifyStringVal(strImagePath)) {
-                strImagePath = strDefault;
-            }
-        } else {
-            System.out.println("Utility.getImagePath():  Skipping. (OT not initialized yet.)");
-        }
-        return strImagePath;
     }
 
     public interface ReturnAction {

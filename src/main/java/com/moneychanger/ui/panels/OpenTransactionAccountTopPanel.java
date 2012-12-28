@@ -109,11 +109,12 @@ import com.moneychanger.ui.dialogs.OTWriteCheque;
 import com.moneychanger.ui.dialogs.SendTransferDialog;
 import com.moneychanger.ui.dialogs.WithdrawCashDialog;
 import com.moneychanger.ui.dialogs.WithdrawVoucherDialog;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import java.awt.Cursor;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import org.opentransactions.otjavalib.util.Utility;
 
 /**
  *
@@ -831,7 +832,7 @@ public class OpenTransactionAccountTopPanel extends javax.swing.JPanel {
         try {
             OpenTransactionAccount openTransaction = new OpenTransactionAccount();
             setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-            boolean isSuccess = Utility.getInboxOutboxAccount(accountID, true); // download the data.
+            boolean isSuccess = Helpers.getInboxOutboxAccount(accountID, true); // download the data.
             if (isSuccess) {
                 JOptionPane.showMessageDialog(this, "Files downloaded successfully", "Processing Success", JOptionPane.INFORMATION_MESSAGE);
                 OpenTransactionAccountBottomPanel.setOTTables(openTransaction.getInboxData(accountID), openTransaction.getOutboxData(accountID));

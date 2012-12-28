@@ -89,13 +89,14 @@ AK+ZirdWhhoHeWR1tAkN
  **************************************************************/
 package com.moneychanger.core;
 
-import org.opentransactions.jni.core.otapi;
-import org.opentransactions.jni.core.otapiJNI;
 import com.moneychanger.core.util.OTAPI_Func;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import org.opentransactions.jni.core.otapi;
+import org.opentransactions.jni.core.otapiJNI;
+import org.opentransactions.otjavalib.util.Utility;
 
 /**
  *
@@ -116,6 +117,7 @@ public class Payments {
         for (int i = 0; i < count; i++) {
             String key = otapiJNI.OTAPI_Basic_GetServer_ID(i);
             String label = otapiJNI.OTAPI_Basic_GetServer_Name(key);
+
             if (!Utility.VerifyStringVal(key)) {
                 continue;
             }
@@ -240,7 +242,7 @@ public class Payments {
 
         Utility.OTBool bWasMsgSent = new Utility.OTBool (false);
         
-        if (Utility.getAndProcessNymbox(unusedServerID, nymID, bWasMsgSent) == (-1)) {
+        if (Helpers.getAndProcessNymbox(unusedServerID, nymID, bWasMsgSent) == (-1)) {
             return data;
 
         }
@@ -313,7 +315,7 @@ public class Payments {
 
        Utility.OTBool bWasMsgSent = new Utility.OTBool (false);
 
-        if (Utility.getAndProcessNymbox(serverID, nymID, bWasMsgSent) == (-1)) {
+        if (Helpers.getAndProcessNymbox(serverID, nymID, bWasMsgSent) == (-1)) {
             return data;
 
         }

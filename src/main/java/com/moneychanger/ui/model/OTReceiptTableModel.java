@@ -115,7 +115,7 @@ public class OTReceiptTableModel extends AbstractTableModel implements WrapperTa
         }
 
         public int getRowCount() {
-             if(data==null)
+             if(null == data)
                 return 0;
             return data.length;
         }
@@ -125,7 +125,7 @@ public class OTReceiptTableModel extends AbstractTableModel implements WrapperTa
         }
 
         public Object getValueAt(int row, int col) {
-            if(data==null)
+            if(null == data)
                 return null;
             return data[row][col];
         }

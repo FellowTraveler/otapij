@@ -93,6 +93,9 @@ package com.moneychanger.core.datastore;
 import com.moneychanger.core.dataobjects.ContactAcctDetails;
 import com.moneychanger.core.dataobjects.ContactDetails;
 import com.moneychanger.core.dataobjects.ContactNymDetails;
+import com.moneychanger.core.util.Helpers;
+import java.util.ArrayList;
+import java.util.List;
 import org.opentransactions.jni.core.AddressBook;
 import org.opentransactions.jni.core.Contact;
 import org.opentransactions.jni.core.ContactAcct;
@@ -101,11 +104,6 @@ import org.opentransactions.jni.core.ServerInfo;
 import org.opentransactions.jni.core.Storable;
 import org.opentransactions.jni.core.StoredObjectType;
 import org.opentransactions.jni.core.otapi;
-import com.moneychanger.core.util.Utility;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class AddressBookHelper {
 
@@ -113,7 +111,7 @@ public class AddressBookHelper {
 
         String contactID = "error";
         System.out.println("in createContact");
-        AddressBook addressBook = Utility.getAddressBook();
+        AddressBook addressBook = Helpers.getAddressBook();
         if (addressBook == null) {
             System.out.println("createContact - addressBook returns null");
             return contactID;
@@ -125,7 +123,7 @@ public class AddressBookHelper {
             Contact contact = Contact.ot_dynamic_cast(storable);
             System.out.println("contact:"+contact);
             if (contact != null) {
-                contact.setContact_id(Utility.generateID());
+                contact.setContact_id(Helpers.generateID());
                 contact.setEmail(email);
                 contact.setGui_label(name);
                 contact.setMemo(memo);
@@ -140,7 +138,7 @@ public class AddressBookHelper {
                 if (!status) {
                     return contactID;
                 }
-                contactID = Utility.generateID();
+                contactID = Helpers.generateID();
             }
         }
         return contactID;
@@ -149,7 +147,7 @@ public class AddressBookHelper {
     public static boolean createContactNym(int index, String contactID, String label, String nymID, String nymType, String[] serverID, String[] serverType, String publickey, String memo) {
 
         boolean status = false;
-        AddressBook addressBook = Utility.getAddressBook();
+        AddressBook addressBook = Helpers.getAddressBook();
         if (addressBook == null) {
             System.out.println("createContactNym - addressBook returns null");
             return false;
@@ -210,7 +208,7 @@ public class AddressBookHelper {
     public static boolean createContactAccount(int index, String contactID, String label, String nymID, String acctID, String assetID, String serverID, String serverType, String publickey, String memo) {
         System.out.println("createContactAccount contactID:"+contactID);
         boolean status = false;
-        AddressBook addressBook = Utility.getAddressBook();
+        AddressBook addressBook = Helpers.getAddressBook();
         if (addressBook == null) {
             System.out.println("createContactAccount - addressBook returns null");
             return false;
@@ -257,7 +255,7 @@ public class AddressBookHelper {
 
     public static boolean removeContact(String contactID) {
         boolean status = false;
-        AddressBook addressBook = Utility.getAddressBook();
+        AddressBook addressBook = Helpers.getAddressBook();
         if (addressBook == null) {
             System.out.println("removeContact - addressBook returns null");
             return false;
@@ -282,7 +280,7 @@ public class AddressBookHelper {
 
     public static boolean removeContactNym(String contactID,int index){
         boolean status = false;
-        AddressBook addressBook = Utility.getAddressBook();
+        AddressBook addressBook = Helpers.getAddressBook();
         if (addressBook == null) {
             System.out.println("removeContactNym - addressBook returns null");
             return false;
@@ -307,7 +305,7 @@ public class AddressBookHelper {
     public static boolean removeContactAcct(String contactID,int index){
 
         boolean status = false;
-        AddressBook addressBook = Utility.getAddressBook();
+        AddressBook addressBook = Helpers.getAddressBook();
         if (addressBook == null) {
             System.out.println("removeContactAcct - addressBook returns null");
             return false;
@@ -333,7 +331,7 @@ public class AddressBookHelper {
     public static List getContactList(){
 
         List contactList = new ArrayList();
-        AddressBook addressBook = Utility.getAddressBook();
+        AddressBook addressBook = Helpers.getAddressBook();
         if (addressBook == null) {
             System.out.println("getContactList - addressBook returns null");
             return null;
@@ -356,7 +354,7 @@ public class AddressBookHelper {
 
     public static ContactDetails getContactDetails(String contactID,int mode){
         ContactDetails contactDetails = null;
-        AddressBook addressBook = Utility.getAddressBook();
+        AddressBook addressBook = Helpers.getAddressBook();
         if (addressBook == null) {
             System.out.println("getContactDetails - addressBook returns null");
             return null;
@@ -427,7 +425,7 @@ public class AddressBookHelper {
     }
 
     public static ContactAcctDetails getContactAccDetails(Contact contact,int index){
-        AddressBook addressBook = Utility.getAddressBook();
+        AddressBook addressBook = Helpers.getAddressBook();
         if (addressBook == null) {
             System.out.println("getContactAccDetails - addressBook returns null");
             return null;

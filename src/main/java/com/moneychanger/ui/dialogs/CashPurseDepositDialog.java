@@ -102,7 +102,7 @@ package com.moneychanger.ui.dialogs;
 import com.moneychanger.core.CashPurseAccount;
 import com.moneychanger.core.OpenTransactionAccount;
 import com.moneychanger.core.dataobjects.CashPurseDetails;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import com.moneychanger.ui.MainPage;
 import com.moneychanger.ui.panels.CashPurseAccountBottomPanel;
 import com.moneychanger.ui.panels.CashPurseAccountTopPanel;
@@ -150,7 +150,7 @@ public class CashPurseDepositDialog extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setName("Form"); // NOI18N
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.ApplicationLauncher.class).getContext().getResourceMap(CashPurseDepositDialog.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.moneychanger.app.Moneychanger.class).getContext().getResourceMap(CashPurseDepositDialog.class);
         jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
         jLabel1.setName("jLabel1"); // NOI18N
 
@@ -233,8 +233,8 @@ public class CashPurseDepositDialog extends javax.swing.JDialog {
                 MainPage.reLoadAccount();
                 //CashPurseAccountBottomPanel.refreshGrid(cashPurseAccount.refreshGridData(details.getServerID(), details.getAssetID(), details.getNymID()));
             } else {
-                if(Utility.getObj()!=null){
-                  new CashPurseExportDetails(null, true,(String)Utility.getObj(),false).setVisible(true);
+                if(Helpers.getObj()!=null){
+                  new CashPurseExportDetails(null, true,(String)Helpers.getObj(),false).setVisible(true);
                 }else
                 JOptionPane.showMessageDialog(this, "Error in cash purse deposit", "Server Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -302,7 +302,7 @@ public class CashPurseDepositDialog extends javax.swing.JDialog {
     private void initValues() {
         OpenTransactionAccount otAccount = new OpenTransactionAccount();
         accountMap = otAccount.getAccountsForAssetServer(details.getAssetID(), details.getServerID());
-        Utility.populateCombo(accountMap, jComboBox1);
+        Helpers.populateCombo(accountMap, jComboBox1);
 
     }
 }

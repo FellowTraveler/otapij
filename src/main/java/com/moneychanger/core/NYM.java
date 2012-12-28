@@ -94,13 +94,15 @@ AK+ZirdWhhoHeWR1tAkN
  */
 package com.moneychanger.core;
 
-import org.opentransactions.jni.core.otapiJNI;
-import com.moneychanger.core.util.Utility;
+
 import com.moneychanger.core.util.OTAPI_Func;
+import com.moneychanger.core.util.Helpers;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import org.opentransactions.jni.core.otapiJNI;
+import org.opentransactions.otjavalib.util.Utility;
 
 /**
  *
@@ -206,7 +208,7 @@ public class NYM {
             else // Since we just registered, let's sync the request number 
                  // (for the first time.)
             {
-                if (Utility.getRequestNumber(serverID, nymID) < 1)
+                if (Helpers.getRequestNumber(serverID, nymID) < 1)
                 {
                     System.out.println("IN registerNym: Utility.getRequestNumber() failed. (The first one ever for this Nym on this server.) ");
                     return status;
@@ -245,13 +247,13 @@ public class NYM {
     //      number is being returned, so the caller can choose what to do next.)
                     
                     Utility.OTBool bWasMsgSent = new Utility.OTBool (false);
-                    Utility.getAndProcessNymbox(serverID, nymID, bWasMsgSent, true); // bForceDownload=true
+                    Helpers.getAndProcessNymbox(serverID, nymID, bWasMsgSent, true); // bForceDownload=true
                 }
             }
         }
         System.out.println("Before wait");
         
-        Utility.delay();
+        Helpers.delay();
 
         System.out.println("After wait");
         return loadNymBox(nymID);
@@ -280,6 +282,7 @@ public class NYM {
             rowData[0] = subject;
             String senderNym = otapiJNI.OTAPI_Basic_GetNym_MailSenderIDByIndex(nymID, i);
             String nymName = null;
+            
             if (Utility.VerifyStringVal(senderNym))
                 nymName = otapiJNI.OTAPI_Basic_GetNym_Name(senderNym);
             rowData[1] = !Utility.VerifyStringVal(nymName) ? !Utility.VerifyStringVal(senderNym) ? "" : senderNym : nymName;
@@ -326,6 +329,7 @@ public class NYM {
             rowData[0] = subject;
             String recepientNymID = otapiJNI.OTAPI_Basic_GetNym_OutmailRecipientIDByIndex(nymID, i);
             String nymName = null;
+
             if (Utility.VerifyStringVal(recepientNymID)) {
                 nymName = otapiJNI.OTAPI_Basic_GetNym_Name(recepientNymID);
             }

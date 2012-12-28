@@ -89,9 +89,18 @@ AK+ZirdWhhoHeWR1tAkN
  **************************************************************/
 package com.moneychanger.core;
 
+
 import com.moneychanger.core.dataobjects.MarketDetails;
 import com.moneychanger.core.dataobjects.MarketTicker;
 import com.moneychanger.core.dataobjects.NymOfferDetails;
+import com.moneychanger.core.util.Configuration;
+import com.moneychanger.core.util.OTAPI_Func;
+import com.moneychanger.core.util.Helpers;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.opentransactions.jni.core.AskData;
 import org.opentransactions.jni.core.BidData;
 import org.opentransactions.jni.core.MarketData;
@@ -104,14 +113,7 @@ import org.opentransactions.jni.core.TradeDataNym;
 import org.opentransactions.jni.core.TradeListMarket;
 import org.opentransactions.jni.core.TradeListNym;
 import org.opentransactions.jni.core.otapiJNI;
-import com.moneychanger.core.util.OTAPI_Func;
-import com.moneychanger.core.util.Configuration;
-import com.moneychanger.core.util.Utility;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.opentransactions.otjavalib.util.Utility;
 
 public class Market {
 
@@ -132,7 +134,7 @@ public class Market {
             return null;
         }
 
-        MarketList marketList = Utility.getMarketList(serverID);
+        MarketList marketList = Helpers.getMarketList(serverID);
 
         if (marketList == null) {
             System.out.println("getTicker - marketList returns null");
@@ -182,7 +184,7 @@ public class Market {
             return marketListMap;
         }
 
-        MarketList marketList = Utility.getMarketList(serverID);
+        MarketList marketList = Helpers.getMarketList(serverID);
 
         if (marketList == null) {
             System.out.println("loadMarketList - marketList returns null");
@@ -226,7 +228,7 @@ public class Market {
 
         NymOfferDetails nymOfferDetails = new NymOfferDetails();
 
-        OfferListNym offerListNym = Utility.getNYMOffer(serverID, nymID);
+        OfferListNym offerListNym = Helpers.getNYMOffer(serverID, nymID);
 
         if (offerListNym == null) {
             System.out.println("getNymOfferDetails - offerListNym returns null");
@@ -310,7 +312,7 @@ public class Market {
             return nymOffersData;
         }
 
-        OfferListNym offerListNym = Utility.getNYMOffer(serverID, nymID);
+        OfferListNym offerListNym = Helpers.getNYMOffer(serverID, nymID);
 
         if (offerListNym == null) {
             System.out.println("getNymOfferList - offerListNym returns null");
@@ -350,7 +352,7 @@ public class Market {
         //Map tradeMarketData = new HashMap();
         List tradeMarketData = new ArrayList();
 
-        MarketList marketList = Utility.getMarketList(serverID);
+        MarketList marketList = Helpers.getMarketList(serverID);
         MarketDetails marketDetails = null;
         if (marketList == null) {
             System.out.println("getMarketDetails - marketList returns null");
@@ -414,7 +416,7 @@ public class Market {
 
                 if (otapiJNI.OTAPI_Basic_Message_GetDepth(strResponse) > 0) {
 
-                    OfferListMarket offerListMarket = Utility.getMarketOffer(serverID, marketID);
+                    OfferListMarket offerListMarket = Helpers.getMarketOffer(serverID, marketID);
 
                     if (offerListMarket == null) {
                         System.out.println("getMarketDetails - offerListMarket returns null");
@@ -493,7 +495,7 @@ public class Market {
 
                 if (otapiJNI.OTAPI_Basic_Message_GetDepth(strResponse2) > 0) {
 
-                    TradeListMarket tradeListMarket = Utility.getMarketTradeList(serverID, marketID);
+                    TradeListMarket tradeListMarket = Helpers.getMarketTradeList(serverID, marketID);
 
                     if (tradeListMarket == null) {
                         System.out.println("getMarketDetails - tradeListMarket returns null");
@@ -553,7 +555,7 @@ public class Market {
 
                 if (otapiJNI.OTAPI_Basic_Message_GetDepth(strResponse3) > 0) {
 
-                    OfferListNym offerListNym = Utility.getNYMOffer(serverID, nymID);
+                    OfferListNym offerListNym = Helpers.getNYMOffer(serverID, nymID);
 
                     if (offerListNym == null) {
                         System.out.println("getMarketDetails - offerListNym returns null");
@@ -603,7 +605,7 @@ public class Market {
 
         Map tradeNymData = new HashMap();
 
-        TradeListNym tradeListNym = Utility.getNYMTrades(serverID, nymID);
+        TradeListNym tradeListNym = Helpers.getNYMTrades(serverID, nymID);
 
         if (tradeListNym == null) {
             System.out.println("getNymTrades - tradeListNym returns null");

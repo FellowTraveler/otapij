@@ -104,7 +104,7 @@ package com.moneychanger.ui.panels;
 
 import com.moneychanger.core.CashPurseAccount;
 import com.moneychanger.core.dataobjects.CashPurseDetails;
-import com.moneychanger.core.util.Utility;
+import com.moneychanger.core.util.Helpers;
 import com.moneychanger.ui.MainPage;
 import com.moneychanger.ui.dialogs.CashPurseDepositDialog;
 import com.moneychanger.ui.dialogs.CashPurseExportDetails;
@@ -367,8 +367,8 @@ public class CashPurseAccountBottomPanel extends javax.swing.JPanel {
                 MainPage.reLoadAccount();
                 //((CashPurseTableModel) jTable5.getModel()).setValue(cashPurseAccount.refreshGridData(details.getServerID(), details.getAssetID(), details.getNymID()), jTable5);
             } else {
-                if(Utility.getObj()!=null){
-                  new CashPurseExportDetails(null, true,(String)Utility.getObj(),false).setVisible(true);
+                if(Helpers.getObj()!=null){
+                  new CashPurseExportDetails(null, true,(String)Helpers.getObj(),false).setVisible(true);
                 }else
                 JOptionPane.showMessageDialog(this, "Error in cash purse exchange", "Server Error", JOptionPane.ERROR_MESSAGE);
     }

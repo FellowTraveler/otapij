@@ -4,9 +4,9 @@
  */
 package com.moneychanger.core.util;
 
-import org.opentransactions.jni.core.otapiJNI;
 
-import com.moneychanger.core.util.Utility;
+import org.opentransactions.jni.core.otapiJNI;
+import org.opentransactions.otjavalib.util.Utility;
 
 /**
  *
@@ -686,7 +686,7 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
         // If it HAS, and our download fails, then we have failed.
         // (Can't sign any balance agreements anyway without that download...)
         //
-        if (false == Utility.getIntermediaryFiles(theFunction.serverID,
+        if (false == Helpers.getIntermediaryFiles(theFunction.serverID,
                 theFunction.nymID, theFunction.accountID, false)) // bForceDownload=false
         {
             System.out.println(IN_FUNCTION + " getIntermediaryFiles returned false. (It couldn't download files that it needed.)");
@@ -711,7 +711,7 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
             
             Configuration.setNbrTransactionCount((theFunction.nTransNumsNeeded > configTxnCount) ? theFunction.nTransNumsNeeded : configTxnCount);
             
-            bSure = Utility.getTransactionNumbers(theFunction.serverID, theFunction.nymID); // <====================== getTransactionNumbers
+            bSure = Helpers.getTransactionNumbers(theFunction.serverID, theFunction.nymID); // <====================== getTransactionNumbers
             
             Configuration.setNbrTransactionCount(configTxnCount);
         }
@@ -723,7 +723,7 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
         {
             System.out.println("In OTAPI_Func.SendTransaction, for: " + IN_FUNCTION + ", first failure:  Utility.getTransactionNumbers. (Trying again...)");
             
-            bSure = Utility.getTransactionNumbers( theFunction.serverID, theFunction.nymID,    // Try a second time.        
+            bSure = Helpers.getTransactionNumbers( theFunction.serverID, theFunction.nymID,    // Try a second time.        
                                                    false); // We tell getTransNumbers that it can skip the first call to getTransNumLowLevel        
         }
         // -------------------------------------
@@ -733,7 +733,7 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
         {
             System.out.println("In OTAPI_Func.SendTransaction, for: " + IN_FUNCTION + ", second failure:  Utility.getTransactionNumbers. (Trying again...)");
             
-            bSure = Utility.getTransactionNumbers( theFunction.serverID, theFunction.nymID, // Try a third time.   
+            bSure = Helpers.getTransactionNumbers( theFunction.serverID, theFunction.nymID, // Try a third time.   
                                                    false); // We tell getTransNumbers that it can skip the first call to getTransNumLowLevel        
         }
         // -------------------------------------
@@ -764,7 +764,7 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
         
         if (Utility.VerifyStringVal(strResult)) // success.
         {
-            if (false == Utility.getIntermediaryFiles(theFunction.serverID,
+            if (false == Helpers.getIntermediaryFiles(theFunction.serverID,
                     theFunction.nymID, theFunction.accountID, true)) // bForceDownload=true
             {
                 System.out.println(IN_FUNCTION + " getIntermediaryFiles returned false. (After a success sending the transaction. Strange...)");
@@ -822,7 +822,7 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
                     //
                     if (Utility.VerifyStringVal(strResult))
                     {
-                        if (false == Utility.getIntermediaryFiles(theFunction.serverID,
+                        if (false == Helpers.getIntermediaryFiles(theFunction.serverID,
                                 theFunction.nymID, theFunction.accountID, true)) // bForceDownload=true
                         {
                             System.out.println(IN_FUNCTION + " getIntermediaryFiles (loop) returned false even after successfully sending the transaction.");
@@ -898,7 +898,7 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
                 if (nRequestNum < (-1))
                     return null;
                 
-                strReply = Utility.ReceiveReplyLowLevel(theFunction.serverID, theFunction.nymID, nRequestNum, IN_FUNCTION);  // <=============== Here we RECEIVE the REPLY...
+                strReply = Helpers.ReceiveReplyLowLevel(theFunction.serverID, theFunction.nymID, nRequestNum, IN_FUNCTION);  // <=============== Here we RECEIVE the REPLY...
             }
                 break;  // ===> (Reply IS expected.)
         }
@@ -917,9 +917,9 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
         //
         // strReply contains the reply itself (or null.)
         //
-        final int     nReplySuccess      = Utility.getMessageSuccess(strReply); 
+        final int     nReplySuccess      = Helpers.getMessageSuccess(strReply); 
         // -----------------------------------------------------------------------------------------------------
-        final boolean bMsgReplyError     = (!Utility.isValid(strReply) || (nReplySuccess   < 0));
+        final boolean bMsgReplyError     = (!Helpers.isValid(strReply) || (nReplySuccess   < 0));
         // -----------------------------------------------------------------------------------------------------
         final boolean bMsgReplySuccess   = (!bMsgReplyError && (nReplySuccess  > 0));
         final boolean bMsgReplyFailure   = (!bMsgReplyError && (nReplySuccess == 0));
@@ -974,11 +974,11 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
             // Rather, it means "DEFINITELY got a reply, and that reply says status==failure."
             //
             // -----------------------------------------------------------------------------------------------------
-            bMsgBalanceError   = (!Utility.isValid(strReply) || (nBalanceSuccess < 0));
+            bMsgBalanceError   = (!Helpers.isValid(strReply) || (nBalanceSuccess < 0));
             bMsgBalanceSuccess = (!bMsgReplyError && !bMsgBalanceError && (nBalanceSuccess  > 0));
             bMsgBalanceFailure = (!bMsgReplyError && !bMsgBalanceError && (nBalanceSuccess == 0));
             // -----------------------------------------------------------------------------------------------------
-            bMsgTransError     = (!Utility.isValid(strReply) || (nTransSuccess   < 0));
+            bMsgTransError     = (!Helpers.isValid(strReply) || (nTransSuccess   < 0));
             bMsgTransSuccess   = (!bMsgReplyError && !bMsgBalanceError && !bMsgTransError && (nTransSuccess  > 0));
             bMsgTransFailure   = (!bMsgReplyError && !bMsgBalanceError && !bMsgTransError && (nTransSuccess == 0));
             // -----------------------------------------------------------------------------------------------------
@@ -1051,7 +1051,7 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
         {                
             Utility.OTBool bWasGetReqSent = new Utility.OTBool(false);
             
-            final int nGetRequest = Utility.getRequestNumber(theFunction.serverID, theFunction.nymID, bWasGetReqSent);  // <==== RE-SYNC ATTEMPT...
+            final int nGetRequest = Helpers.getRequestNumber(theFunction.serverID, theFunction.nymID, bWasGetReqSent);  // <==== RE-SYNC ATTEMPT...
             // ------------------------------------------
             // GET REQUEST WAS A SUCCESS.
             //
@@ -1071,7 +1071,7 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
                     // Maybe we have an old Inbox or something.
                     // NEW CODE HERE FOR DEBUGGING (THIS BLOCK)
                     //
-                    if (false == Utility.getIntermediaryFiles(theFunction.serverID,
+                    if (false == Helpers.getIntermediaryFiles(theFunction.serverID,
                             theFunction.nymID, theFunction.accountID, true)) // bForceDownload=true
                     {
                         System.out.println(IN_FUNCTION + " getIntermediaryFiles returned false. (After a failure to send the transaction. Thus, I give up.)");
@@ -1084,7 +1084,7 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
                                     bWasSent  = new Utility.OTBool(false);
 
                     final int nProcessNymboxResult = 
-                            Utility.getAndProcessNymbox(theFunction.serverID, theFunction.nymID, bWasSent, false, // bForceDownload=false
+                            Helpers.getAndProcessNymbox(theFunction.serverID, theFunction.nymID, bWasSent, false, // bForceDownload=false
                                           nRequestNum, bWasFound,
                                           bWillRetryAfterThis, // bHarvestingForRetry,    // bHarvestingForRetry is INPUT, in the case nRequestNumber needs to be harvested before a flush occurs.
                                           // --------------------
@@ -1109,11 +1109,12 @@ UNLESS I SAVE A COPY OF OUTGOING MESSAGES…!!!!!
                         String strNymbox = otapiJNI.OTAPI_Basic_LoadNymboxNoVerify(theFunction.serverID, theFunction.nymID);      // FLUSH SENT MESSAGES!!!!  (AND HARVEST.)
 
                         // *******************************************************
-                        if (Utility.isValid(strNymbox))
-                             otapiJNI.OTAPI_Basic_FlushSentMessages(false, //harvesting for retry == false
-                                                           theFunction.serverID,
-                                                           theFunction.nymID,
-                                                           strNymbox);                        
+                        if (Helpers.isValid(strNymbox)) {
+                            otapiJNI.OTAPI_Basic_FlushSentMessages(false, //harvesting for retry == false
+                                                          theFunction.serverID,
+                                                          theFunction.nymID,
+                                                          strNymbox);
+                        }
                     }
                 } // if (bIsTransaction)
                 // -----------------------------------------------------------------------                                    
