@@ -212,6 +212,7 @@ public class OTAPI_Func {
                 break;
         }
     }
+    
     public OTAPI_Func(FT theType, String serverID, String nymID, String accountID, String strParam, String strData, String strData2) { // 7 args
 
         if (!Utility.VerifyStringVal(serverID))
@@ -220,7 +221,6 @@ public class OTAPI_Func {
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as nymID");
         if (!Utility.VerifyStringVal(accountID))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as accountID");
-
         if (!Utility.VerifyStringVal(strParam))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as strParam");
         if (!Utility.VerifyStringVal(strData))
@@ -240,6 +240,12 @@ public class OTAPI_Func {
         this.nRequestNum  = (-1);
 
         switch(theType) {
+            case SEND_USER_INSTRUMENT:
+                this.nymID2     = accountID;
+                this.strData    = strParam;
+                this.strData2   = strData;
+                this.accountID  = strData2; // This is optional and is where the sender's copy of the outgoing instrument is stored (used only for cash purses.)
+                break;
             case WITHDRAW_VOUCHER:
                 this.nymID2     = strParam;
                 break;
@@ -250,11 +256,10 @@ public class OTAPI_Func {
                 System.out.print("ERROR! WRONG TYPE passed to OTAPI_Func.OTAPI_Func() ERROR!!!!!!");
                 break;
         }
-
-
     }
 
 
+ 
     public OTAPI_Func(FT theType, String serverID, String nymID, String strParam) { // 4 args
         if (!Utility.VerifyStringVal(serverID))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as serverID");
@@ -330,6 +335,7 @@ public class OTAPI_Func {
                 this.nymID2     = nymID2;
                 this.strData    = strData;
                 this.strData2   = strData2;
+                this.accountID  = null; // This is optional and is where the sender's copy of the outgoing instrument is stored (used only for cash purses.)
                 break;
             default:
                 System.out.print("ERROR! WRONG TYPE passed to OTAPI_Func.OTAPI_Func() ERROR!!!!!!");
@@ -344,7 +350,6 @@ public class OTAPI_Func {
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as nymID");
         if (!Utility.VerifyStringVal(accountID))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as accountID");
-
         if (!Utility.VerifyStringVal(strData))
             System.out.print("ERROR! NULL passed to OTAPI_Func.OTAPI_Func() as strData");
 
@@ -368,6 +373,7 @@ public class OTAPI_Func {
         }
     }
 
+ 
     // -1 means error, no message was sent.
     //  0 means NO error, yet still no message was sent.
     // >0 means (usually) the request number is being returned.
@@ -387,8 +393,11 @@ public class OTAPI_Func {
                 nRetVal = otapiJNI.OTAPI_Basic_sendUserMessage(this.serverID, this.nymID, this.nymID2, this.strData, this.strData2);
                 break;
             case SEND_USER_INSTRUMENT:
-                nRetVal = otapiJNI.OTAPI_Basic_sendUserInstrument(this.serverID, this.nymID, this.nymID2, this.strData, this.strData2);
+            {
+                String strTemp = new String((null == this.accountID) ? "" : this.accountID);
+                nRetVal = otapiJNI.OTAPI_Basic_sendUserInstrument(this.serverID, this.nymID, this.nymID2, this.strData, this.strData2, strTemp);
                 break;
+            }
             case GET_NYM_MARKET_OFFERS:
                 nRetVal = otapiJNI.OTAPI_Basic_getNym_MarketOffers(this.serverID, this.nymID);
                 break;

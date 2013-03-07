@@ -471,7 +471,7 @@ public class Payments {
             return false;
         }
 
-        String pubKey = otapiJNI.OTAPI_Basic_LoadUserPubkey(recepientNymID);
+        String pubKey = otapiJNI.OTAPI_Basic_LoadUserPubkey_Encryption(recepientNymID);
 
         if (!Utility.VerifyStringVal(pubKey)) {
             System.out.println("proposePaymentPlan - OT_API_LoadUserPubkey returned null for recipient nym:" + recepientNymID);

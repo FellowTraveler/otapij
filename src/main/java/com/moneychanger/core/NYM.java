@@ -384,7 +384,7 @@ public class NYM {
         // -----------------------------------------------
         // Okay the Nym is definitely registered at the server        
         
-        String recipientPubKey = otapiJNI.OTAPI_Basic_LoadPubkey(recipientNymID);
+        String recipientPubKey = otapiJNI.OTAPI_Basic_LoadPubkey_Encryption(recipientNymID);
         System.out.println("recepientPubKey:" + recipientPubKey);
         // Download the recipient's pubkey since we don't already have it.
         if (!Utility.VerifyStringVal(recipientPubKey)) {
@@ -399,7 +399,7 @@ public class NYM {
                 return false;
             }
             // ----------------------------------------------------------
-            recipientPubKey = otapiJNI.OTAPI_Basic_LoadPubkey(recipientNymID);
+            recipientPubKey = otapiJNI.OTAPI_Basic_LoadPubkey_Encryption(recipientNymID);
         }
         if (!Utility.VerifyStringVal(recipientPubKey)) {
             System.out.println("recepientPubKey is null");

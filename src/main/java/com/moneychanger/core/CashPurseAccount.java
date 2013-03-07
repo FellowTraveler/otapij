@@ -489,7 +489,7 @@ public class CashPurseAccount extends Account {
         // Question: meaning of isPasted ?
         //
         if (isPasted && !recepientNymID.equals(nymID)) {
-            String recepientPubKey = otapiJNI.OTAPI_Basic_LoadPubkey(recepientNymID);
+            String recepientPubKey = otapiJNI.OTAPI_Basic_LoadPubkey_Encryption(recepientNymID);
             System.out.println("recepientPubKey:" + recepientPubKey);
 
             // This whole block is all just about loading the pubkey for the recipient, (if I don't already have it.)
@@ -506,7 +506,7 @@ public class CashPurseAccount extends Account {
                 }
                 // ----------------------------------------------------------
                 
-                recepientPubKey = otapiJNI.OTAPI_Basic_LoadPubkey(recepientNymID);                
+                recepientPubKey = otapiJNI.OTAPI_Basic_LoadPubkey_Encryption(recepientNymID);                
             }
 
             // Still?
