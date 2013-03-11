@@ -12,11 +12,11 @@
     <url>http://maven.apache.org</url>
 
     <distributionManagement>
-        <repository>
+        <!--repository>
             <id>internal.repo</id>
             <name>Moneychanger Internal Repository</name>
             <url>https://github.com/da2ce7/Moneychanger/</url>
-        </repository>
+        </repository -->
     </distributionManagement>
 
     <properties>
