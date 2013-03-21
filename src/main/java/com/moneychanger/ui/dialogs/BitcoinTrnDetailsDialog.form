@@ -45,7 +45,7 @@
                               <Component id="jTextField2" alignment="0" pref="409" max="32767" attributes="1"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="33" max="32767" attributes="0"/>
+                      <EmptySpace pref="40" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>

@@ -45,7 +45,7 @@
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jTextField1" alignment="0" pref="283" max="32767" attributes="0"/>
+                          <Component id="jTextField1" alignment="0" pref="287" max="32767" attributes="0"/>
                           <Component id="jButton1" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jComboBox1" alignment="0" min="-2" pref="151" max="-2" attributes="1"/>
                       </Group>
