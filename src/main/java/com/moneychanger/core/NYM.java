@@ -362,7 +362,7 @@ public class NYM {
 
     public String createNym(String nymName) {
         String nymID = otapiJNI.OTAPI_Basic_CreateNym(1024, // TODO:  Dropdown:  1024, 2048, 4096, 8192
-                "", ""); // TODO: This is where we'd put the NymID Source, and alternate location for downloading it. 
+                new String(""), new String("")); // TODO: This is where we'd put the NymID Source, and alternate location for downloading it. 
         if (Utility.VerifyStringVal(nymID)) {
             otapiJNI.OTAPI_Basic_SetNym_Name(nymID, nymID, nymName);
         }

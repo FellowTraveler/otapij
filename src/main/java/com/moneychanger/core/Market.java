@@ -270,7 +270,7 @@ public class Market {
 
         // ----------------------------------------
         OTAPI_Func theRequest = new OTAPI_Func(OTAPI_Func.FT.CREATE_MARKET_OFFER, serverID, nymID, assetTypeID, assetAcctID, currencyTypeID, currencyAcctID,
-                scale, minIncrement, quantity, price, selling == 1 ? true : false, "86400"); // 86400 seconds == 1 day. TODO: Allow the USER to select the length for the offer...
+                scale, minIncrement, quantity, price, selling == 1 ? true : false, new String("86400")); // 86400 seconds == 1 day. TODO: Allow the USER to select the length for the offer...
         
         String strResponse = OTAPI_Func.SendTransaction(theRequest, "CREATE_MARKET_OFFER");
 
