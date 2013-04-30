@@ -263,6 +263,7 @@ public class MainPage extends javax.swing.JFrame {
             initCreditsTab();
             setResizable(true);
             this.setLocationRelativeTo(null);
+            setSize(900, 700);
             repaint();
         } catch (Exception e) {
             e.printStackTrace();
@@ -566,6 +567,8 @@ public class MainPage extends javax.swing.JFrame {
         jPanel40 = new javax.swing.JPanel();
         jButton36 = new javax.swing.JButton();
         jButton37 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jComboSrvPay = new javax.swing.JComboBox();
         jPanel_Deed = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
@@ -1972,7 +1975,7 @@ public class MainPage extends javax.swing.JFrame {
         );
         jPanel30Layout.setVerticalGroup(
             jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator9, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+            .addComponent(jSeparator9, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
             .addGroup(jPanel30Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -2003,11 +2006,11 @@ public class MainPage extends javax.swing.JFrame {
                 .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel58)
                     .addComponent(jLabel61))
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addContainerGap(129, Short.MAX_VALUE))
             .addGroup(jPanel30Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jTabbedPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
 
         jScrollPane21.setName("jScrollPane21"); // NOI18N
@@ -2265,7 +2268,7 @@ public class MainPage extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(13, 13, 13)
-                        .addComponent(jScrollPane21, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE))
+                        .addComponent(jScrollPane21, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE))
                     .addGroup(jPanel29Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -2511,6 +2514,16 @@ public class MainPage extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
+        jLabel1.setName("jLabel1"); // NOI18N
+
+        jComboSrvPay.setName("jComboSrvPay"); // NOI18N
+        jComboSrvPay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboSrvPayActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel_PaymentsLayout = new javax.swing.GroupLayout(jPanel_Payments);
         jPanel_Payments.setLayout(jPanel_PaymentsLayout);
         jPanel_PaymentsLayout.setHorizontalGroup(
@@ -2524,7 +2537,11 @@ public class MainPage extends javax.swing.JFrame {
                             .addComponent(jLabel17)
                             .addGap(9, 9, 9)
                             .addComponent(jComboBox8, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addComponent(jPanel40, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel40, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel_PaymentsLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jComboSrvPay, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2538,8 +2555,12 @@ public class MainPage extends javax.swing.JFrame {
         jPanel_PaymentsLayout.setVerticalGroup(
             jPanel_PaymentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_PaymentsLayout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addComponent(jScrollPane27, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addGroup(jPanel_PaymentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jComboSrvPay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane27, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel_PaymentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
@@ -2547,16 +2568,16 @@ public class MainPage extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jPanel40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jSeparator11, javax.swing.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE)
+            .addComponent(jSeparator11, javax.swing.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
             .addGroup(jPanel_PaymentsLayout.createSequentialGroup()
                 .addGap(11, 11, 11)
                 .addComponent(jPanel_PaymentTop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(271, Short.MAX_VALUE))
+                .addContainerGap(277, Short.MAX_VALUE))
             .addGroup(jPanel_PaymentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel_PaymentsLayout.createSequentialGroup()
                     .addGap(344, 344, 344)
                     .addComponent(jSeparator12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(252, Short.MAX_VALUE)))
+                    .addContainerGap(258, Short.MAX_VALUE)))
         );
 
         jTabbedPane_MainPage.addTab(resourceMap.getString("jPanel_Payments.TabConstraints.tabTitle"), jPanel_Payments); // NOI18N
@@ -2973,9 +2994,9 @@ public class MainPage extends javax.swing.JFrame {
                 .addGroup(jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel33Layout.createSequentialGroup()
                         .addComponent(jButton18)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel33Layout.createSequentialGroup()
-                        .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+                        .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel14)
                         .addGap(6, 6, 6)))
@@ -3047,7 +3068,7 @@ public class MainPage extends javax.swing.JFrame {
                     .addGroup(jPanel_SettingsLayout.createSequentialGroup()
                         .addGap(66, 66, 66)
                         .addComponent(jButton_ResetConfig)))
-                .addContainerGap(175, Short.MAX_VALUE))
+                .addContainerGap(172, Short.MAX_VALUE))
         );
         jPanel_SettingsLayout.setVerticalGroup(
             jPanel_SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -4103,7 +4124,8 @@ public class MainPage extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Please select nym", "Nym selection Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        new ServerAcctDialog(this, true, (String) jTable6.getModel().getValueAt(jTable6.getSelectedRow(), 1), "Send Invoice").setVisible(true);
+        String serverID = ((String[]) serverMap.get((Integer) jComboSrvPay.getSelectedIndex()))[1];
+        new ServerAcctDialog(this, true, (String) jTable6.getModel().getValueAt(jTable6.getSelectedRow(), 1), "Send Invoice",serverID).setVisible(true);
 
     }//GEN-LAST:event_jButton36ActionPerformed
 
@@ -4125,8 +4147,8 @@ public class MainPage extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Please select Send Funds", "Nym selection Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
-        new ServerAcctDialog(this, true, (String) jTable6.getModel().getValueAt(jTable6.getSelectedRow(), 1), (String) jComboBox8.getSelectedItem()).setVisible(true);
+        String serverID = ((String[]) serverMap.get((Integer) jComboSrvPay.getSelectedIndex()))[1];
+        new ServerAcctDialog(this, true, (String) jTable6.getModel().getValueAt(jTable6.getSelectedRow(), 1), (String) jComboBox8.getSelectedItem(),serverID).setVisible(true);
     }//GEN-LAST:event_jComboBox8ActionPerformed
 
     private void jButton_AddAccount2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_AddAccount2ActionPerformed
@@ -4250,6 +4272,14 @@ public class MainPage extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton_RemoveAccount1ActionPerformed
 
+private void jComboSrvPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboSrvPayActionPerformed
+        try {
+            paymentClick();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+}//GEN-LAST:event_jComboSrvPayActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -4334,6 +4364,8 @@ public class MainPage extends javax.swing.JFrame {
     private static javax.swing.JComboBox jComboBoxServerContracts;
     private static javax.swing.JComboBox jComboBox_AssetContracts;
     private static javax.swing.JComboBox jComboBox_Nyms;
+    private javax.swing.JComboBox jComboSrvPay;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel17;
@@ -5058,6 +5090,8 @@ public class MainPage extends javax.swing.JFrame {
 
         nymRegisteredMap = new NYM().loadRegisteredNYM(serverID);
 
+        ((NYMTableModel) jTable6.getModel()).setValue(new NYM().loadNYM(), jTable6);
+        
         Helpers.populateCombo(nymMap, jComboBox_Nyms);
         Helpers.populateComboWithoutAll(nymRegisteredMap, jComboBox6);
     }
@@ -5400,6 +5434,8 @@ public class MainPage extends javax.swing.JFrame {
 
         setCustomWidthPayments();
         NYMTableModel.removeCols(jTable6);
+        
+        Helpers.populateComboWithoutAll(serverMap, jComboSrvPay);
 
         ((NYMTableModel) jTable6.getModel()).setValue(new NYM().loadNYM(), jTable6);
 
@@ -5428,13 +5464,38 @@ public class MainPage extends javax.swing.JFrame {
 
     private void paymentClick() throws InterruptedException {
 
+        if(jTable6.getRowCount()<1)
+            return;
+        
         if (jTable6.getSelectedRow() < 0) {
             JOptionPane.showMessageDialog(this, "Please select NYM", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         String nymID = (String) jTable6.getModel().getValueAt(jTable6.getSelectedRow(), 1);
-
-        Map inbox = Payments.getPaymentInboxData(nymID);
+        String serverID = ((String[]) serverMap.get((Integer) jComboSrvPay.getSelectedIndex()))[1];
+        boolean isReg = Payments.checkNym(nymID, serverID);
+        if(isReg){
+           populatePaymentDetails(serverID, nymID);
+        }else{
+            int option = JOptionPane.showConfirmDialog(this, "This Nym is not registered on server "+(String)jComboSrvPay.getSelectedItem()+", Do you want to register?", "Confirn Nym registration", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if(option == 0){
+                int status = new NYM().registerNym(serverID, nymID);
+            if (status == 0) {
+                System.out.println("Nym registered sucessfully on the server"); 
+                populatePaymentDetails(serverID, nymID);
+                // Refresh Market NYM list
+                MainPage.refreshMarketNym(serverID);
+            } else if (status == 1) {
+                System.out.println("Nym is already registered on server " + serverID);
+                populatePaymentDetails(serverID, nymID);
+            } else {
+                System.out.println("Cannot register nym on server");
+            }
+            }else{
+                clearPaymentDetails();
+            }
+        }
+        /*Map inbox = Payments.getPaymentInboxData(nymID);
         Map outbox = null;
         if (inbox != null) {
             if (inbox.get("Popup") != null) {
@@ -5459,10 +5520,25 @@ public class MainPage extends javax.swing.JFrame {
                     ((PaymentRecordboxTableModel) jTable22.getModel()).setValue(inbox, jTable22);
                 }
             }
+        }*/
 
+    }
+    
+    private void clearPaymentDetails() {
+        ((PaymentInboxTableModel) jTable20.getModel()).clearValue();
+        ((PaymentOutboxTableModel) jTable21.getModel()).clearValue();
+        ((PaymentRecordboxTableModel) jTable22.getModel()).clearValue();
+    }
 
-        }
+    private void populatePaymentDetails(String serverID, String nymID) throws InterruptedException{
+          if (Utility.VerifyStringVal(serverID)) {
+                    Map inbox = Payments.getPaymentInboxRecords(nymID, serverID);
+                    Map outbox = Payments.getPaymentOutboxRecords(nymID, serverID);
 
+                    ((PaymentInboxTableModel) jTable20.getModel()).setValue(inbox, jTable20);
+                    ((PaymentOutboxTableModel) jTable21.getModel()).setValue(outbox, jTable21);
+                    ((PaymentRecordboxTableModel) jTable22.getModel()).setValue(inbox, jTable22);
+                }
     }
 
     private void setCustomWidthPayments() {

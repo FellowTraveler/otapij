@@ -108,6 +108,15 @@ import org.opentransactions.otjavalib.util.Utility;
  */
 public class Payments {
 
+    public static boolean checkNym(String nymID, String serverID){
+        boolean result = false;
+        if (otapiJNI.OTAPI_Basic_IsNym_RegisteredAtServer(nymID, serverID)) {
+            result = true;
+        }
+
+        return result;
+    }
+    
     public static Map getServerList(String nymID) {
 
         Map serverMap = new HashMap();

@@ -114,7 +114,9 @@ import java.util.logging.Logger;
  * @author Cameron Garnham
  */
 public class Tools {
-    
+    private static boolean LOCAL = true;
+    //private static boolean LOCAL = false;
+
     static Collection<String> appendPathToRuntime(final String strPath) throws IllegalAccessException, NoSuchFieldException {
         Set<String> pathSet = new HashSet<String>();
 
@@ -212,12 +214,24 @@ public class Tools {
         WINDOWS, UNIX
     }
     
+    private static void deletePIDFile(){
+           try{
+            File pidFile = new File("C:\\Users\\waqqas\\AppData\\Roaming\\OpenTransactions\\client_data\\ot.pid");
+            if(pidFile.exists()){
+                System.out.println("Existing pid file deleted:"+pidFile.delete());
+            }
+        }catch(Exception e){}
+    }
+    
     static void loadNative(final typeOS os) throws UnsatisfiedLinkError {
         
         final Logger l = Logger.getLogger(Tools.class.getName());
-
+        
+        if(LOCAL)
+            deletePIDFile();
+        
         // If windows, load up the dependancy libaries:
-
+     
         l.log(Level.INFO, "Loading Native OpenTransactions...");
         
         if (os.equals(typeOS.WINDOWS)) {

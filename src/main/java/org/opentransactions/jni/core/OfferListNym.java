@@ -11,6 +11,7 @@ package org.opentransactions.jni.core;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class OfferListNym extends Storable {
   private long swigCPtr;
 
@@ -38,10 +39,10 @@ public class OfferListNym extends Storable {
     super.delete();
   }
 // ------------------------
-	/*@SWIG:otapi/OTAPI.i,339,OT_CONTAINER_TYPE_MEMBERS@*/
+	/*@SWIG:otapi/OTAPI.i,86,OT_CONTAINER_TYPE_MEMBERS@*/
 	private List elementList = new ArrayList();
 /*@SWIG@*/
-	/*@SWIG:otapi/OTAPI.i,420,OT_ADD_ELEMENT@*/  // THIS BLOCK CONTAINS JAVA CODE.
+	/*@SWIG:otapi/OTAPI.i,163,OT_ADD_ELEMENT@*/  // THIS BLOCK CONTAINS JAVA CODE.
 private long removeRefOfferDataNym(long lIndex) {
 	// 
 	// loop through the elements in the actual container, in order to find the one
@@ -101,7 +102,9 @@ private long getCPtrAddRefOfferDataNym(OfferDataNym element) {
 	return OfferDataNym.getCPtr(element);
 }	// Hope I get away with overloading this for every type. Otherwise,
 /*@SWIG@*/
-  public long GetOfferDataNymCount() { return otapiJNI.OfferListNym_GetOfferDataNymCount(swigCPtr, this); }
+  public long GetOfferDataNymCount() {
+    return otapiJNI.OfferListNym_GetOfferDataNymCount(swigCPtr, this);
+  }
 
   public OfferDataNym GetOfferDataNym(long nIndex) {
     long cPtr = otapiJNI.OfferListNym_GetOfferDataNym(swigCPtr, this, nIndex);

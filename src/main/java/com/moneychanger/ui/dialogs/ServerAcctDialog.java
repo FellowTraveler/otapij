@@ -113,16 +113,17 @@ import org.opentransactions.otjavalib.util.Utility;
  */
 public class ServerAcctDialog extends javax.swing.JDialog {
 
-    private Map serverMap;
     private Map acctMap;
     private final String nymID;
     private final String type;
+    private final String serverID;
 
     /** Creates new form ServerAcctDialog */
-    public ServerAcctDialog(java.awt.Frame parent, boolean modal, String nymID, String type) {
+    public ServerAcctDialog(java.awt.Frame parent, boolean modal, String nymID, String type, String serverID) {
         super(parent, modal);
         initComponents();
         this.nymID = nymID;
+        this.serverID = serverID;
         this.type = type;
         initValues();
         this.setLocationRelativeTo(null);
@@ -139,11 +140,6 @@ public class ServerAcctDialog extends javax.swing.JDialog {
     private void initComponents() {
 
         jLayeredPane1 = new javax.swing.JLayeredPane();
-        jLabel1 = new javax.swing.JLabel();
-        jComboBox2 = new com.moneychanger.ui.custom.SteppedComboBox();
-        jButton3 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jComboBox1 = new  com.moneychanger.ui.custom.SteppedComboBox();
         jButton4 = new javax.swing.JButton();
@@ -155,32 +151,6 @@ public class ServerAcctDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Server/Acct ID selection");
-
-        jLabel1.setText("Server ID");
-        jLabel1.setName("jLabel1"); // NOI18N
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Select ID" }));
-        jComboBox2.setName("jComboBox2"); // NOI18N
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
-            }
-        });
-
-        jButton3.setText("Paste from clipboard");
-        jButton3.setName("jButton3");
-        jButton3.setVisible(false);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        jTextField1.setEditable(false);
-        jTextField1.setName("jTextField1"); // NOI18N
-
-        jLabel6.setText("ID");
-        jLabel6.setName("jLabel6"); // NOI18N
 
         jLabel2.setText("Account ID");
         jLabel2.setName("jLabel2"); // NOI18N
@@ -223,82 +193,45 @@ public class ServerAcctDialog extends javax.swing.JDialog {
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jLabel1)
-                    .add(jLabel5)
-                    .add(jLabel2)
-                    .add(jLabel6))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(jButton1)
                     .add(layout.createSequentialGroup()
-                        .add(jComboBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(jButton3))
-                    .add(layout.createSequentialGroup()
+                        .add(jLabel2)
+                        .add(4, 4, 4)
                         .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(18, 18, 18)
                         .add(jButton4))
-                    .add(jTextField1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)
-                    .add(jTextField2))
-                .addContainerGap(29, Short.MAX_VALUE))
+                    .add(layout.createSequentialGroup()
+                        .add(jLabel5)
+                        .add(46, 46, 46)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jButton1)
+                            .add(jTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 294, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel1)
-                    .add(jComboBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jButton3))
-                .add(18, 18, 18)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel6)
-                    .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(18, 18, 18)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel2)
-                    .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(28, 28, 28)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(layout.createSequentialGroup()
+                        .add(4, 4, 4)
+                        .add(jLabel2))
+                    .add(layout.createSequentialGroup()
+                        .add(1, 1, 1)
+                        .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jButton4))
                 .add(18, 18, 18)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel5)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(layout.createSequentialGroup()
+                        .add(3, 3, 3)
+                        .add(jLabel5))
                     .add(jTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(26, 26, 26)
+                .add(18, 18, 18)
                 .add(jButton1)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
-        jTextField1.setBackground(Color.WHITE);
-      
-            jTextField1.setText(((String[]) serverMap.get((Integer) jComboBox2.getSelectedIndex() - 1))[1]);
-            acctMap = Payments.getAccountList(jTextField1.getText(),nymID);
-            Helpers.populateCombo(acctMap, jComboBox1);
-        
-
-
-}//GEN-LAST:event_jComboBox2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-
-        Transferable clipboardContent = getToolkit().getSystemClipboard().getContents(this);
-
-        if ((clipboardContent != null)
-                && (clipboardContent.isDataFlavorSupported(DataFlavor.stringFlavor))) {
-            try {
-                String tempString;
-                tempString = (String) clipboardContent.getTransferData(DataFlavor.stringFlavor);
-                jTextField1.setText(tempString);
-                acctMap = Payments.getAccountList(jTextField1.getText(),nymID);
-                Helpers.populateCombo(acctMap, jComboBox1);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-}//GEN-LAST:event_jButton3ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         jTextField2.setBackground(Color.WHITE);
@@ -324,8 +257,7 @@ public class ServerAcctDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (jTextField1.getText() == null || jTextField1.getText().length() < 1
-                || jTextField2.getText() == null || jTextField2.getText().length() < 1) {
+        if (jTextField2.getText() == null || jTextField2.getText().length() < 1) {
 
             JOptionPane.showMessageDialog(this, "Please select valid server/account id", "Error", JOptionPane.ERROR_MESSAGE);
             return;
@@ -333,7 +265,6 @@ public class ServerAcctDialog extends javax.swing.JDialog {
 
         if (Utility.VerifyStringVal(type)) {
 
-            String serverID = jTextField1.getText();
             String acctID = jTextField2.getText();
 
             if (type.equals("Send Transfer")) {
@@ -360,7 +291,7 @@ public class ServerAcctDialog extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                ServerAcctDialog dialog = new ServerAcctDialog(new javax.swing.JFrame(), true, "", "");
+                ServerAcctDialog dialog = new ServerAcctDialog(new javax.swing.JFrame(), true, "", "","");
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -373,23 +304,16 @@ public class ServerAcctDialog extends javax.swing.JDialog {
     }
 
     private void initValues() {
-
-        serverMap = Payments.getServerList(nymID);
-        Helpers.populateCombo(serverMap, jComboBox2);
-
+        acctMap = Payments.getAccountList(serverID,nymID);
+        Helpers.populateCombo(acctMap, jComboBox1);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private static javax.swing.JButton jButton3;
     private static javax.swing.JButton jButton4;
     private static javax.swing.JComboBox jComboBox1;
-    private static javax.swing.JComboBox jComboBox2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLayeredPane jLayeredPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }

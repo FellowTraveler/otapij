@@ -81,7 +81,6 @@ public class otapiJNI {
   public final static native boolean OTCaller_isCallbackSet(long jarg1, OTCaller jarg1_);
   public final static native void OTCaller_callOne(long jarg1, OTCaller jarg1_);
   public final static native void OTCaller_callTwo(long jarg1, OTCaller jarg1_);
-  public final static native boolean OT_API_Set_PasswordCallback(long jarg1, OTCaller jarg1_);
   public final static native long new_OTAPI_Basic();
   public final static native void delete_OTAPI_Basic(long jarg1);
   public final static native boolean OTAPI_Basic_AppStartup();
@@ -202,6 +201,7 @@ public class otapiJNI {
   public final static native String OTAPI_Basic_WriteCheque(String jarg1, String jarg2, String jarg3, String jarg4, String jarg5, String jarg6, String jarg7, String jarg8);
   public final static native boolean OTAPI_Basic_DiscardCheque(String jarg1, String jarg2, String jarg3, String jarg4);
   public final static native String OTAPI_Basic_ProposePaymentPlan(String jarg1, String jarg2, String jarg3, String jarg4, String jarg5, String jarg6, String jarg7, String jarg8, String jarg9, String jarg10, String jarg11, String jarg12, String jarg13, String jarg14, int jarg15);
+  public final static native String OTAPI_Basic_EasyProposePlan(String jarg1, String jarg2, String jarg3, String jarg4, String jarg5, String jarg6, String jarg7, String jarg8, String jarg9, String jarg10);
   public final static native String OTAPI_Basic_ConfirmPaymentPlan(String jarg1, String jarg2, String jarg3, String jarg4, String jarg5);
   public final static native String OTAPI_Basic_Create_SmartContract(String jarg1, String jarg2, String jarg3);
   public final static native String OTAPI_Basic_SmartContract_AddBylaw(String jarg1, String jarg2, String jarg3);
@@ -522,6 +522,8 @@ public class otapiJNI {
   public final static native long CreateStorageContext__SWIG_0(int jarg1, int jarg2);
   public final static native long CreateStorageContext__SWIG_1(int jarg1);
   public final static native long CreateObject(int jarg1);
+  public final static native boolean CheckStringsExistInOrder__SWIG_0(long jarg1, long jarg2, long jarg3, long jarg4, String jarg5);
+  public final static native boolean CheckStringsExistInOrder__SWIG_1(long jarg1, long jarg2, long jarg3, long jarg4);
   public final static native boolean Exists__SWIG_0(String jarg1, String jarg2, String jarg3, String jarg4);
   public final static native boolean Exists__SWIG_1(String jarg1, String jarg2, String jarg3);
   public final static native boolean Exists__SWIG_2(String jarg1, String jarg2);
@@ -910,6 +912,7 @@ public class otapiJNI {
   public final static native boolean AddressBook_RemoveContact(long jarg1, AddressBook jarg1_, long jarg2);
   public final static native boolean AddressBook_AddContact(long jarg1, AddressBook jarg1_, long jarg2, Contact jarg2_);
   public final static native long AddressBook_ot_dynamic_cast(long jarg1, Storable jarg1_);
+  public final static native boolean OT_API_Set_PasswordCallback(long jarg1, OTCaller jarg1_);
   public final static native long OTDBString_SWIGUpcast(long jarg1);
   public final static native long Blob_SWIGUpcast(long jarg1);
   public final static native long StringMap_SWIGUpcast(long jarg1);
