@@ -98,8 +98,8 @@ import com.moneychanger.core.util.Helpers;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import org.opentransactions.jni.core.otapi;
-import org.opentransactions.jni.core.otapiJNI;
+import org.opentransactions.otapi.otapi;
+import org.opentransactions.otapi.otapiJNI;
 import org.opentransactions.otjavalib.util.Utility;
 
 /**

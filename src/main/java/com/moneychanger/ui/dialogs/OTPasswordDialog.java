@@ -104,7 +104,7 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
-import org.opentransactions.jni.core.OTPassword;
+import org.opentransactions.otapi.OTPassword;
 import org.opentransactions.otjavalib.util.Utility;
 
 /**

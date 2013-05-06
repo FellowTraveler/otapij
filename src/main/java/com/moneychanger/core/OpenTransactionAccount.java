@@ -107,8 +107,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.opentransactions.jni.core.otapi;
-import org.opentransactions.jni.core.otapiJNI;
+import org.opentransactions.otapi.otapi;
+import org.opentransactions.otapi.otapiJNI;
 import org.opentransactions.otjavalib.util.Utility;
 
 // *********************************************************

@@ -98,13 +98,13 @@ package com.moneychanger.core.datastore;
 import com.moneychanger.core.util.Helpers;
 import java.util.HashMap;
 import java.util.Map;
-import org.opentransactions.jni.core.BitcoinAcct;
-import org.opentransactions.jni.core.BitcoinServer;
-import org.opentransactions.jni.core.RippleServer;
-import org.opentransactions.jni.core.Storable;
-import org.opentransactions.jni.core.StoredObjectType;
-import org.opentransactions.jni.core.WalletData;
-import org.opentransactions.jni.core.otapi;
+import org.opentransactions.otapi.BitcoinAcct;
+import org.opentransactions.otapi.BitcoinServer;
+import org.opentransactions.otapi.RippleServer;
+import org.opentransactions.otapi.Storable;
+import org.opentransactions.otapi.StoredObjectType;
+import org.opentransactions.otapi.WalletData;
+import org.opentransactions.otapi.otapi;
 
 public class StorageHelper {
 

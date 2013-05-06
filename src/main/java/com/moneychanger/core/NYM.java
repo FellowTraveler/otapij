@@ -105,7 +105,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-import org.opentransactions.jni.core.otapiJNI;
+import org.opentransactions.otapi.otapiJNI;
 import org.opentransactions.otjavalib.util.Utility;
 
 /**

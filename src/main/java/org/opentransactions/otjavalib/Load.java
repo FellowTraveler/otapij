@@ -101,14 +101,14 @@ import java.io.File;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.opentransactions.jni.core.OTAPI_Basic;
-import org.opentransactions.jni.core.OTCallback;
-import org.opentransactions.jni.core.OTCaller;
-import org.opentransactions.jni.core.Storable;
-import org.opentransactions.jni.core.StoredObjectType;
-import org.opentransactions.jni.core.StringMap;
-import org.opentransactions.jni.core.otapi;
-import org.opentransactions.jni.core.otapiJNI;
+import org.opentransactions.otapi.OTAPI_Basic;
+import org.opentransactions.otapi.OTCallback;
+import org.opentransactions.otapi.OTCaller;
+import org.opentransactions.otapi.Storable;
+import org.opentransactions.otapi.StoredObjectType;
+import org.opentransactions.otapi.StringMap;
+import org.opentransactions.otapi.otapi;
+import org.opentransactions.otapi.otapiJNI;
 
 /**
  *

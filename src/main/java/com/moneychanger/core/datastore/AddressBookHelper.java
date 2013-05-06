@@ -100,14 +100,14 @@ import com.moneychanger.core.dataobjects.ContactNymDetails;
 import com.moneychanger.core.util.Helpers;
 import java.util.ArrayList;
 import java.util.List;
-import org.opentransactions.jni.core.AddressBook;
-import org.opentransactions.jni.core.Contact;
-import org.opentransactions.jni.core.ContactAcct;
-import org.opentransactions.jni.core.ContactNym;
-import org.opentransactions.jni.core.ServerInfo;
-import org.opentransactions.jni.core.Storable;
-import org.opentransactions.jni.core.StoredObjectType;
-import org.opentransactions.jni.core.otapi;
+import org.opentransactions.otapi.AddressBook;
+import org.opentransactions.otapi.Contact;
+import org.opentransactions.otapi.ContactAcct;
+import org.opentransactions.otapi.ContactNym;
+import org.opentransactions.otapi.ServerInfo;
+import org.opentransactions.otapi.Storable;
+import org.opentransactions.otapi.StoredObjectType;
+import org.opentransactions.otapi.otapi;
 
 public class AddressBookHelper {
 

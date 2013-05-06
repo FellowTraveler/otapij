@@ -98,7 +98,7 @@ package com.moneychanger.core;
 import com.moneychanger.core.util.OTAPI_Func;
 import java.util.HashMap;
 import java.util.Map;
-import org.opentransactions.jni.core.otapiJNI;
+import org.opentransactions.otapi.otapiJNI;
 import org.opentransactions.otjavalib.util.Utility;
 
 public class Contract {

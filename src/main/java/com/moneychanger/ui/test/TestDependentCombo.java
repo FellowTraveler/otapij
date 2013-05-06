@@ -107,7 +107,7 @@ HS4/gWtdVEVnXDda0wk9
 
 package com.moneychanger.ui.test;
 
-import org.opentransactions.jni.core.otapi;
+import org.opentransactions.otapi.otapi;
 import com.moneychanger.core.util.Helpers;
 import com.moneychanger.ui.panels.NameValuePanel;
 import java.awt.BorderLayout;

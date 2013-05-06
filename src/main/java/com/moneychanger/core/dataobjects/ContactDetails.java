@@ -96,7 +96,7 @@ HS4/gWtdVEVnXDda0wk9
 package com.moneychanger.core.dataobjects;
 
 import java.util.List;
-import org.opentransactions.jni.core.Contact;
+import org.opentransactions.otapi.Contact;
 
 public class ContactDetails {
 

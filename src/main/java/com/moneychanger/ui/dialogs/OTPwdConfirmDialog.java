@@ -109,7 +109,7 @@ package com.moneychanger.ui.dialogs;
 import com.moneychanger.core.util.Helpers;
 
 import javax.swing.JOptionPane;
-import org.opentransactions.jni.core.OTPassword;
+import org.opentransactions.otapi.OTPassword;
 
 /**
  *

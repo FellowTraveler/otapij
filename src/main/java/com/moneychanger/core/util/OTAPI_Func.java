@@ -99,7 +99,7 @@ HS4/gWtdVEVnXDda0wk9
 package com.moneychanger.core.util;
 
 
-import org.opentransactions.jni.core.otapiJNI;
+import org.opentransactions.otapi.otapiJNI;
 import org.opentransactions.otjavalib.util.Utility;
 
 /**

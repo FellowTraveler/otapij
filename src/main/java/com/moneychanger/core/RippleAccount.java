@@ -96,8 +96,8 @@ package com.moneychanger.core;
 
 import com.moneychanger.core.util.Configuration;
 import com.moneychanger.core.util.Helpers;
-import org.opentransactions.jni.core.RippleServer;
-import org.opentransactions.jni.core.WalletData;
+import org.opentransactions.otapi.RippleServer;
+import org.opentransactions.otapi.WalletData;
 
 /**
  *
