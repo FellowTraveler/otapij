@@ -168,8 +168,6 @@ import com.moneychanger.ui.model.PaymentInboxTableModel;
 import com.moneychanger.ui.model.PaymentOutboxTableModel;
 import com.moneychanger.ui.model.PaymentRecordboxTableModel;
 import com.moneychanger.ui.model.ServerContractTableModel;
-import com.moneychanger.ui.panels.BitcoinAccountBottomPanel;
-import com.moneychanger.ui.panels.BitcoinAccountTopPanel;
 import com.moneychanger.ui.panels.BlankPanel;
 import com.moneychanger.ui.panels.CashPurseAccountBottomPanel;
 import com.moneychanger.ui.panels.CashPurseAccountTopPanel;
@@ -4857,8 +4855,9 @@ private void jComboSrvPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     }
 
     private void populateBitcoinDetails(BitcoinDetails details) {
-        BitcoinAccountTopPanel.populateBitcoinDetails(details);
-        BitcoinAccountBottomPanel.populateBitcoinDetails(details);
+        // do nothing
+//        BitcoinAccountTopPanel.populateBitcoinDetails(details);
+//        BitcoinAccountBottomPanel.populateBitcoinDetails(details);
     }
 
     public static void reLoadAccount() {
@@ -4980,10 +4979,10 @@ private void jComboSrvPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     }
 
     private static void clearOtherTabDetailPage() {
-
-        BitcoinAccountTopPanel.clearPanel();
-
-        BitcoinAccountBottomPanel.clearPanel();
+// do nothing
+//        BitcoinAccountTopPanel.clearPanel();
+//
+//        BitcoinAccountBottomPanel.clearPanel();
     }
 
     private static void clearDetailPage() {
