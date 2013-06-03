@@ -496,6 +496,7 @@ public final class DatePicker extends JPanel {
                 selectedDate.get(Calendar.YEAR),
                 selectedDate.get(Calendar.MONTH),
                 1);
+        c.setMinimalDaysInFirstWeek(1);// fix for different locales
 
         // figure out the maximum number of days in the month
         final int maxDay = calculateDaysInMonth(c);
