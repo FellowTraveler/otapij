@@ -6,3 +6,4 @@
 *.log
 /moneychanger/target/
 /otapi/target/
+/otapij/target/

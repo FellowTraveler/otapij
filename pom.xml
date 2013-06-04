@@ -8,7 +8,7 @@
 
   <modules>
       <module>moneychanger</module>
-      <module>otapi</module>
+      <module>otapij</module>
   </modules>
  
   <name>moneychanger Parent</name>
