@@ -1,118 +1,39 @@
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.opentransactions</groupId>
+  <artifactId>moneychanger-parent</artifactId>
+  <version>0.14-SNAPSHOT</version>
+  <packaging>pom</packaging>
 
-    <groupId>com.moneychanger</groupId>
-    <artifactId>Moneychanger</artifactId>
-    <version>00.13.04-SNAPSHOT</version>
-    <packaging>jar</packaging>
-
-    <name>Moneychanger</name>
-    <url>http://maven.apache.org</url>
-
-    <distributionManagement>
-        <!--repository>
-            <id>internal.repo</id>
-            <name>Moneychanger Internal Repository</name>
-            <url>https://github.com/da2ce7/Moneychanger/</url>
-        </repository -->
-    </distributionManagement>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-
-    <repositories>
-        <repository>
-            <id>project.local</id>
-            <name>project</name>
-            <url>file:${project.basedir}/repo</url>
-        </repository>
-    </repositories>
-
-    <dependencies>
-        <dependency>
-            <groupId>chrriis</groupId>
-            <artifactId>dj-nativeswing-swt</artifactId>
-            <version>1.0.2</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>chrriis</groupId>
-            <artifactId>dj-nativeswing</artifactId>
-            <version>1.0.2</version>
-            <scope>compile</scope>
-        </dependency>
+  <modules>
+      <module>moneychanger</module>
+      <module>otapi</module>
+  </modules>
+ 
+  <name>moneychanger Parent</name>
+  <description>Provides the common configuration for the moneychanger modules</description>
+  <url>https://github.com/FellowTraveler/Moneychanger</url>
+  
+  
+  <licenses>
+    <license>
+      <name>GNU Affero General Public License</name>
+      <url>http://www.gnu.org/licenses/agpl.html</url>
+      <distribution>repo</distribution>
+      <comments>A free, copyleft license for software and other kinds of works, specifically designed to ensure cooperation with the community in the case of network server software</comments>
+    </license>
+  </licenses>
+  
+  <dependencyManagement>
+      <dependencies>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>3.8.1</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.swinglabs</groupId>
-            <artifactId>swing-layout</artifactId>
-            <version>1.0.3</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jdesktop</groupId>
-            <artifactId>appframework</artifactId>
-            <version>1.0.3</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.netbeans.external</groupId>
-            <artifactId>AbsoluteLayout</artifactId>
-            <version>RELEASE71</version>
-            <scope>compile</scope>
-        </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.4</version>
-                <configuration>
-                    <!-- to have the jar plugin pickup the nbm generated manifest -->
-                    <useDefaultManifestFile>true</useDefaultManifestFile>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.3</version>
-                <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                    <archive>
-                        <manifest>
-                            <mainClass>com.moneychanger.app.Moneychanger</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-                <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+  </dependencyManagement>
+  
 </project>
