@@ -109,6 +109,7 @@ import org.opentransactions.otapi.StoredObjectType;
 import org.opentransactions.otapi.StringMap;
 import org.opentransactions.otapi.otapi;
 import org.opentransactions.otapi.otapiJNI;
+import org.opentransactions.otjavalib.Load.LoadingOpenTransactionsFailure.LoadErrorType;
 
 /**
  *
@@ -162,7 +163,7 @@ public class Load {
         String extra_path = optionalPath.isEmpty() ? "" : optionalPath;
 
         if (isNativeLoaded) {
-            throw new LoadingOpenTransactionsFailure("Native Already Loaded!");
+            throw new LoadingOpenTransactionsFailure(LoadErrorType.NATIVE_ALREADY_LOADED, "Native Already Loaded!");
         }
 
         boolean bFirstAttempt = true;
@@ -228,10 +229,10 @@ public class Load {
         final Logger l = Logger.getLogger(Load.class.getName());
 
         if (!isNativeLoaded) {
-            throw new LoadingOpenTransactionsFailure("Native Libs Not Loaded!");
+            throw new LoadingOpenTransactionsFailure(LoadErrorType.NATIVE_NOT_LOADED, "Native Libs Not Loaded!");
         }
         if (isInitialized) {
-            throw new LoadingOpenTransactionsFailure("Is Already Initialized");
+            throw new LoadingOpenTransactionsFailure(LoadErrorType.OTAPI_ALREADY_INSTIGATED, "Is Already Initialized");
         }
 
         // --------------------------------------------
@@ -255,7 +256,7 @@ public class Load {
         } else // Failed in OTAPI_Basic_AppStartup or OTAPI_Basic_Init.
         {
             String strErrorMsg = "Load.initOTAPI: Failed calling OTAPI_Basic_AppStartup or OTAPI_Basic_Init.";
-            throw new LoadingOpenTransactionsFailure(strErrorMsg);
+            throw new LoadingOpenTransactionsFailure(LoadErrorType.OTAPI_FAILED_TO_INSTIGATE, strErrorMsg);
         }
 
         isInitialized = true;
@@ -265,10 +266,10 @@ public class Load {
     public boolean SetupPasswordImage(IPasswordImage passwordImage) throws LoadingOpenTransactionsFailure {
 
         if (!isInitialized) {
-            throw new LoadingOpenTransactionsFailure("Is Not Initialized");
+            throw new LoadingOpenTransactionsFailure(LoadErrorType.OTAPI_NOT_INSTIGATED, "Is Not Initialized");
         }
         if (isPasswordImageSet) {
-            throw new LoadingOpenTransactionsFailure("Password Image Already Set!");
+            throw new LoadingOpenTransactionsFailure(LoadErrorType.PASSWORD_IMAGE_ALREADY_SET, "Password Image Already Set!");
         }
 
         String imagePath = "";
@@ -337,7 +338,7 @@ public class Load {
         if (bHaveImage) {
             passwordImage.SetPasswordImage(imagePath);
         } else {
-            throw new LoadingOpenTransactionsFailure("Password image not Set!");
+            throw new LoadingOpenTransactionsFailure(LoadErrorType.PASSWORD_IMAGE_FAILED_TO_SET, "Password image not Set!");
         }
         isPasswordImageSet = true;
         return true;
@@ -346,10 +347,10 @@ public class Load {
     public boolean SetupPasswordCallback(OTCaller passwordCaller, OTCallback passwordCallback) throws LoadingOpenTransactionsFailure {
 
         if (!isPasswordImageSet) {
-            throw new LoadingOpenTransactionsFailure("Must Set Password Image First!");
+            throw new LoadingOpenTransactionsFailure(LoadErrorType.PASSWORD_IMAGE_NOT_SET, "Must Set Password Image First!");
         }
         if (isPasswordCallbackSet) {
-            throw new LoadingOpenTransactionsFailure("Already Have Set Password Callback!");
+            throw new LoadingOpenTransactionsFailure(LoadErrorType.PASSWORD_CALLBACK_ALREADY_SET, "Already Have Set Password Callback!");
         }
 
         if (null == passwordCallback) {
@@ -360,7 +361,7 @@ public class Load {
             passwordCaller.setCallback(passwordCallback);
         } catch (Exception ex) {
             ex.printStackTrace();
-            throw new LoadingOpenTransactionsFailure("Unable to Set Password Callback");
+            throw new LoadingOpenTransactionsFailure(LoadErrorType.PASSWORD_CALLBACK_FAILED_TO_SET, "Unable to Set Password Callback");
         }
         
         Boolean bSuccess = otapi.OT_API_Set_PasswordCallback(passwordCaller);
@@ -368,7 +369,7 @@ public class Load {
         {
             passwordCaller = null;
             passwordCallback = null;
-            throw new LoadingOpenTransactionsFailure("Unable to Set Password Callback");
+            throw new LoadingOpenTransactionsFailure(LoadErrorType.PASSWORD_CALLBACK_FAILED_TO_SET, "Unable to Set Password Callback");
         }
         
         isPasswordCallbackSet = true;
@@ -378,14 +379,14 @@ public class Load {
     public boolean LoadWallet() throws LoadingOpenTransactionsFailure {
 
         if (!isPasswordCallbackSet) {
-            throw new LoadingOpenTransactionsFailure("Must Set Password Callback First!");
+            throw new LoadingOpenTransactionsFailure(LoadErrorType.PASSWORD_CALLBACK_NOT_SET, "Must Set Password Callback First!");
         }
         if (isWalletLoaded) {
-            throw new LoadingOpenTransactionsFailure("Already Loaded!");
+            throw new LoadingOpenTransactionsFailure(LoadErrorType.WALLET_ALREADY_LOADED, "Already Loaded!");
         }
 
         if (!OTAPI_Basic.LoadWallet()) {
-            throw new LoadingOpenTransactionsFailure("Unable to Load Wallet");
+            throw new LoadingOpenTransactionsFailure(LoadErrorType.WALLET_UNABLE_TO_LOAD, "Unable to Load Wallet");
         }
 
         isWalletLoaded = true;
@@ -395,13 +396,36 @@ public class Load {
     static public class LoadingOpenTransactionsFailure extends Exception {
 
         private final String _message;
+        private final LoadErrorType _errorType;
 
-        public LoadingOpenTransactionsFailure(final String message) {
-            _message = message;
+        public LoadingOpenTransactionsFailure(final LoadErrorType errorType, final String message) {
+            this._errorType = errorType;
+            this._message = message;
         }
 
+        public final LoadErrorType getErrorType() {
+            return this._errorType;
+        }
+        
         public final String getError() {
-            return _message;
+            return this._message;
+        }
+        
+        public enum LoadErrorType {
+            NATIVE_ALREADY_LOADED,
+            NATIVE_NOT_LOADED,
+            OTAPI_ALREADY_INSTIGATED,
+            OTAPI_NOT_INSTIGATED,
+            OTAPI_FAILED_TO_INSTIGATE,
+            PASSWORD_IMAGE_ALREADY_SET,
+            PASSWORD_IMAGE_NOT_SET,
+            PASSWORD_IMAGE_FAILED_TO_SET,
+            PASSWORD_CALLBACK_ALREADY_SET,
+            PASSWORD_CALLBACK_NOT_SET,
+            PASSWORD_CALLBACK_FAILED_TO_SET,
+            WALLET_ALREADY_LOADED,
+            WALLET_UNABLE_TO_LOAD,
+            OTHER
         }
     }
 }
