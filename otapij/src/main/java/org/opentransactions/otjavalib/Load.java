@@ -142,8 +142,6 @@ public class Load {
         boolean SetPasswordImage(String path);
     }
     
-    
-    
 
     // The code here will only ever happen once per instance
     private Load() {
