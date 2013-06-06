@@ -4,6 +4,5 @@
 /target/
 /project/*.exe
 *.log
-/moneychanger/target/
-/otapi/target/
+/otapij-test-gui/target/
 /otapij/target/

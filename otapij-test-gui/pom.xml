@@ -9,11 +9,11 @@
     </parent>
 
     <groupId>com.moneychanger</groupId>
-    <artifactId>moneychanger</artifactId>
+    <artifactId>otapij-test-gui</artifactId>
     <version>0.14.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>Moneychanger</name>
+    <name>otapiJ test gui</name>
     <url>http://maven.apache.org</url>
 
     <properties>
