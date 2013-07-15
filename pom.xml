@@ -7,7 +7,7 @@
   <packaging>pom</packaging>
 
   <modules>
-      <module>moneychanger</module>
+      <module>otapij-test-gui</module>
       <module>otapij</module>
   </modules>
  
