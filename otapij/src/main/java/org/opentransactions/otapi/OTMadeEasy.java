@@ -39,6 +39,10 @@ public class OTMadeEasy {
     this(otapiJNI.new_OTMadeEasy(), true);
   }
 
+  public boolean make_sure_enough_trans_nums(int nNumberNeeded, String SERVER_ID, String NYM_ID) {
+    return otapiJNI.OTMadeEasy_make_sure_enough_trans_nums(swigCPtr, this, nNumberNeeded, SERVER_ID, NYM_ID);
+  }
+
   public String register_nym(String SERVER_ID, String NYM_ID) {
     return otapiJNI.OTMadeEasy_register_nym(swigCPtr, this, SERVER_ID, NYM_ID);
   }
@@ -53,6 +57,14 @@ public class OTMadeEasy {
 
   public String issue_asset_type(String SERVER_ID, String NYM_ID, String THE_CONTRACT) {
     return otapiJNI.OTMadeEasy_issue_asset_type(swigCPtr, this, SERVER_ID, NYM_ID, THE_CONTRACT);
+  }
+
+  public String issue_basket_currency(String SERVER_ID, String NYM_ID, String THE_BASKET) {
+    return otapiJNI.OTMadeEasy_issue_basket_currency(swigCPtr, this, SERVER_ID, NYM_ID, THE_BASKET);
+  }
+
+  public String exchange_basket_currency(String SERVER_ID, String NYM_ID, String ASSET_TYPE_ID, String THE_BASKET, String ACCOUNT_ID, boolean IN_OR_OUT) {
+    return otapiJNI.OTMadeEasy_exchange_basket_currency(swigCPtr, this, SERVER_ID, NYM_ID, ASSET_TYPE_ID, THE_BASKET, ACCOUNT_ID, IN_OR_OUT);
   }
 
   public String retrieve_contract(String SERVER_ID, String NYM_ID, String CONTRACT_ID) {
@@ -163,12 +175,16 @@ public class OTMadeEasy {
     return otapiJNI.OTMadeEasy_create_market_offer(swigCPtr, this, SERVER_ID, NYM_ID, ASSET_ACCT_ID, CURRENCY_ACCT_ID, scale, minIncrement, quantity, price, bSelling, LIFESPAN_IN_SECONDS);
   }
 
-  public String cancel_market_offer(String SERVER_ID, String NYM_ID, String ASSET_ACCT_ID, String TRANS_NUM) {
-    return otapiJNI.OTMadeEasy_cancel_market_offer(swigCPtr, this, SERVER_ID, NYM_ID, ASSET_ACCT_ID, TRANS_NUM);
+  public String kill_market_offer(String SERVER_ID, String NYM_ID, String ASSET_ACCT_ID, String TRANS_NUM) {
+    return otapiJNI.OTMadeEasy_kill_market_offer(swigCPtr, this, SERVER_ID, NYM_ID, ASSET_ACCT_ID, TRANS_NUM);
   }
 
-  public String cancel_payment_plan(String SERVER_ID, String NYM_ID, String ACCT_ID, String TRANS_NUM) {
-    return otapiJNI.OTMadeEasy_cancel_payment_plan(swigCPtr, this, SERVER_ID, NYM_ID, ACCT_ID, TRANS_NUM);
+  public String kill_payment_plan(String SERVER_ID, String NYM_ID, String ACCT_ID, String TRANS_NUM) {
+    return otapiJNI.OTMadeEasy_kill_payment_plan(swigCPtr, this, SERVER_ID, NYM_ID, ACCT_ID, TRANS_NUM);
+  }
+
+  public String cancel_payment_plan(String SERVER_ID, String NYM_ID, String THE_PAYMENT_PLAN) {
+    return otapiJNI.OTMadeEasy_cancel_payment_plan(swigCPtr, this, SERVER_ID, NYM_ID, THE_PAYMENT_PLAN);
   }
 
   public String activate_smart_contract(String SERVER_ID, String NYM_ID, String ACCT_ID, String AGENT_NAME, String THE_SMART_CONTRACT) {
