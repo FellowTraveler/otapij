@@ -527,10 +527,10 @@ public class OTAPI_Func {
                 nRetVal = otapiJNI.OTAPI_Basic_exchangePurse(this.serverID, this.assetID, this.nymID, this.strData);
                 break;
             case CANCEL_MARKET_OFFER:
-                nRetVal = otapiJNI.OTAPI_Basic_cancelMarketOffer(this.serverID, this.nymID, this.accountID, this.strData);
+                nRetVal = otapiJNI.OTAPI_Basic_killMarketOffer(this.serverID, this.nymID, this.accountID, this.strData);
                 break;
             case CANCEL_PAYMENT_PLAN:
-                nRetVal = otapiJNI.OTAPI_Basic_cancelPaymentPlan(this.serverID, this.nymID, this.accountID, this.strData);
+                nRetVal = otapiJNI.OTAPI_Basic_killPaymentPlan(this.serverID, this.nymID, this.accountID, this.strData);
                 break;
             case GET_BOX_RECEIPT:
                 nRetVal = otapiJNI.OTAPI_Basic_getBoxReceipt(this.serverID, this.nymID, this.accountID, this.nData, this.strData);
